@@ -20,6 +20,7 @@ static struct xterm256init { xterm256init() {
 
 static unsigned Translate16Color(unsigned c)
 {
+    fprintf(stderr, "16-color for %u is 0x%06X\n", c, xterm256table[c]);
     return xterm256table[c];
 }
 static unsigned Translate256Color(unsigned c)
@@ -30,8 +31,8 @@ static unsigned Translate256Color(unsigned c)
 void termwindow::ResetAttr()
 {
     intensity = underline = blink = reverse = 0;
-    bgc = 0;
-    fgc = 7;
+    bgc = Translate16Color(0);
+    fgc = Translate16Color(7);
 }
 void termwindow::Reset()
 {
@@ -75,7 +76,7 @@ void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
 {
     unsigned hei = y2-y1+1;
     if(amount > hei) amount = hei;
-    wnd.copytext(0,y1, 0,y1+amount, wnd.xsize,(y2-amount-y1)+1);
+    wnd.copytext(0,y1+amount, 0,y1, wnd.xsize,(y2-(y1+amount))+1);
     wnd.fillbox(0,y1, wnd.xsize,amount);
 }
 
@@ -83,7 +84,7 @@ void termwindow::yscroll_up(unsigned y1, unsigned y2, int amount) const
 {
     unsigned hei = y2-y1+1;
     if(amount > hei) amount = hei;
-    wnd.copytext(0,y1+amount, 0,y1, wnd.xsize,(y2-(y1+amount))+1);
+    wnd.copytext(0,y1, 0,y1+amount, wnd.xsize,(y2-amount-y1)+1);
     wnd.fillbox(0,y2-amount+1, wnd.xsize,amount);
 }
 
@@ -179,17 +180,17 @@ void termwindow::Write(std::u32string_view s)
                         {
                             // If it's a color escape, ok; otherwise break
                             if(++c >= b) break;
-                            if(s[c] == 'D' || s[c] == 'E') goto CalcLF;
-                            if(s[c++] != '[') break;
-                            if(c < b && s[c] == '?') ++c;
-                            while(c < b && ((s[c]>='0' && s[c]<='9') || s[c]==';')) ++c;
+                            if(s[c] == U'D' || s[c] == U'E') goto CalcLF;
+                            if(s[c++] != U'[') break;
+                            if(c < b && s[c] == U'?') ++c;
+                            while(c < b && ((s[c]>=U'0' && s[c]<=U'9') || s[c]==U';')) ++c;
                             if(c >= b) break;
 
-                            if(s[c] != 'm' // color setting
-                            && s[c] != 'C' // horizontal cursor positioning
-                            && s[c] != 'D' // horizontal cursor positioning
-                            && s[c] != 'K' // horizontal line clearing
-                            && s[c] != 'G' // horizontal cursor positioning
+                            if(s[c] != U'm' // color setting
+                            && s[c] != U'C' // horizontal cursor positioning
+                            && s[c] != U'D' // horizontal cursor positioning
+                            && s[c] != U'K' // horizontal line clearing
+                            && s[c] != U'G' // horizontal cursor positioning
                               ) break;
                         }
                         else {}
@@ -222,6 +223,7 @@ void termwindow::Write(std::u32string_view s)
                 break;
             case ESnormal:
                 // TODO: process utfmode
+                ScrollFix();
                 wnd.PutCh(cx,cy, c, translate);
                 ++cx;
                 break;
@@ -229,32 +231,32 @@ void termwindow::Write(std::u32string_view s)
                 state = ESnormal;
                 switch(c)
                 {
-                    case '[': state = ESsquare; break;
-                    //case ']': state = ESnonstd; break;
-                    case '%': state = ESpercent; break;
-                    case 'E': cx = 0; goto Linefeed;
-                    case 'M': Ri(); break;
-                    case 'D': goto Linefeed;
-                    case 'Z': EchoBack(U"\33[?6c"); break;
-                    case '(': state = ESsetG0; break;
-                    case ')': state = ESsetG1; break;
-                    case '#': state = EShash; break;
-                    case '7': save_cur(); break;
-                    case '8': restore_cur(); break;
-                    case 'c': Reset(); break;
+                    case U'[': state = ESsquare; break;
+                    //case U']': state = ESnonstd; break;
+                    case U'%': state = ESpercent; break;
+                    case U'E': cx = 0; goto Linefeed;
+                    case U'M': Ri(); break;
+                    case U'D': goto Linefeed;
+                    case U'Z': EchoBack(U"\33[?6c"); break;
+                    case U'(': state = ESsetG0; break;
+                    case U')': state = ESsetG1; break;
+                    case U'#': state = EShash; break;
+                    case U'7': save_cur(); break;
+                    case U'8': restore_cur(); break;
+                    case U'c': Reset(); break;
                 }
                 break;
             case ESsquare:
                 par.clear(); par.push_back(0);
                 state = ESgetpars;
-                if(c=='[') { state = ESignore; break; }
-                if(c=='?') { ques=1; break; }
+                if(c==U'[') { state = ESignore; break; }
+                if(c==U'?') { ques=1; break; }
                 ques = 0;
                 /* fallthru */
             case ESgetpars:
-                if(c==';') { par.push_back(0); break; }
-                // TODO: Support ':' as separator
-                if(c>='0' && c<='9') { par.back() = par.back()*10 + c-'0'; break; }
+                if(c==U';') { par.push_back(0); break; }
+                // TODO: Support U':' as separator
+                if(c>=U'0' && c<=U'9') { par.back() = par.back()*10 + c-U'0'; break; }
                 state = ESgotpars;
                 [[fallthrough]];
             case ESgotpars:
@@ -356,9 +358,9 @@ void termwindow::Write(std::u32string_view s)
                                 case 25: blink = 0; break;
                                 case 27: reverse = 0; break;
                                 case 38: mode256 = 1; break;
-                                case 39: underline = 0; fgc = 7; break;
+                                case 39: underline = 0; fgc = Translate16Color(7); break;
                                 case 48: mode256 = 2; break;
-                                case 49: bgc = 0; break;
+                                case 49: bgc = Translate16Color(0); break;
                                 default:
                                     /**/ if(par[a]>=30 && par[a]<=37)  fgc = Translate16Color(  (par[a]-30));
                                     else if(par[a]>=40 && par[a]<=47)  bgc = Translate16Color(  (par[a]-40));
