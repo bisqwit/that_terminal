@@ -15,8 +15,8 @@ void ForkPTY_Init()
 void ForkPTY::Open(std::size_t width, std::size_t height)
 {
     struct winsize ws = {};
-    ws.ws_row = width;
-    ws.ws_col = height;
+    ws.ws_col = width;
+    ws.ws_row = height;
     pid = forkpty(&fd, NULL, NULL, &ws);
     if(!pid)
     {
