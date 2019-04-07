@@ -54,10 +54,12 @@ private:
     {
         // scroll the rest of window c lines down,
         // including where cursor is. Don't move cursor.
+        if(c == 0) c = 1;
         yscroll_down(cy, bottom, c);
     }
     inline void csi_M(int c) const
     {
+        if(c == 0) c = 1;
         yscroll_up(cy, bottom, c);
     }
     void Lf();
