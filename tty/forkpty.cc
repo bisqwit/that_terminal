@@ -45,3 +45,14 @@ std::pair<std::string,int> ForkPTY::Recv()
         result.first.assign(buffer, buffer+result.second);
     return result;
 }
+void ForkPTY::Kill(int signal)
+{
+    kill(pid, signal);
+}
+void ForkPTY::Resize(unsigned xsize, unsigned ysize)
+{
+    struct winsize ws = {};
+    ws.ws_col = xsize;
+    ws.ws_row = ysize;
+    ioctl(fd, TIOCSWINSZ, &ws);
+}

@@ -47,7 +47,7 @@ namespace
         }
         else
         {
-            SDL_SetWindowSize(window, pixels_width, pixels_height);
+            SDL_SetWindowSize(window, pixels_width*4, pixels_height*4);
         }
         if(!renderer)
         {
@@ -202,7 +202,35 @@ int main()
                         bool shift = keys[SDLK_LSHIFT] || keys[SDLK_RSHIFT];
                         bool alt   = keys[SDLK_LALT]   || keys[SDLK_RALT];
                         bool ctrl  = keys[SDLK_LCTRL]  || keys[SDLK_RCTRL];
-                        if(auto i = lore.find(ev.key.keysym.sym); i != lore.end())
+                        /*
+                        F1 decrease rows
+                        F2 increase rows
+                        F3 decrease columns
+                        F4 increase columns
+                        */
+                        bool processed = false;
+                        bool resized   = false;
+                        switch(ev.key.keysym.sym)
+                        {
+                            case SDLK_F1: wnd.Resize(wnd.xsize, wnd.ysize-1); resized = true; break;
+                            case SDLK_F2: wnd.Resize(wnd.xsize, wnd.ysize+1); resized = true; break;
+                            case SDLK_F3: wnd.Resize(wnd.xsize-1, wnd.ysize); resized = true; break;
+                            case SDLK_F4: wnd.Resize(wnd.xsize+1, wnd.ysize); resized = true; break;
+                            case SDLK_F5: if(VidCellHeight > 6) --VidCellHeight; resized = true; break;
+                            case SDLK_F6: if(VidCellHeight < 32) ++VidCellHeight; resized = true; break;
+                            case SDLK_F7: if(VidCellWidth > 8) VidCellWidth /= 2; resized = true; break;
+                            case SDLK_F8: if(VidCellWidth <= 8) VidCellWidth *= 2; resized = true; break;
+                        }
+                        if(resized)
+                        {
+                            SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                            //tty.Kill(SIGWINCH);
+                            tty.Resize(wnd.xsize, wnd.ysize);
+                            processed = true;
+                        }
+                        if(processed)
+                        {}
+                        else if(auto i = lore.find(ev.key.keysym.sym); i != lore.end())
                         {
                             const auto& d = i->second;
                             unsigned delta = 1 + shift*1 + alt*2 + ctrl*4, len;
@@ -221,14 +249,10 @@ int main()
                             char c = ev.key.keysym.sym - SDLK_a + 1;
                             tty.Send(std::string_view(&c,1));
                         }
-                        else if(ctrl && ev.key.keysym.sym == SDLK_2)
-                        {
-                            char c = 0;
-                            tty.Send(std::string_view(&c,1));
-                        }
-                        else if(ctrl && ev.key.keysym.sym >= SDLK_3 && ev.key.keysym.sym <= SDLK_9)
+                        else if(ctrl && ev.key.keysym.sym >= SDLK_2 && ev.key.keysym.sym <= SDLK_9)
                         {
                             char c = ev.key.keysym.sym - SDLK_3 + 27;
+                            if(c == 26) c = 0;
                             tty.Send(std::string_view(&c,1));
                         }
                         else switch(ev.key.keysym.sym)

@@ -99,3 +99,15 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
         }
     }
 }
+
+void Window::Resize(std::size_t newsx, std::size_t newsy)
+{
+    std::vector<Cell> newcells(newsx*newsy, blank);
+    for(std::size_t my=std::min(ysize, newsy), y=0; y<my; ++y)
+        for(std::size_t mx=std::min(xsize, newsx), x=0; x<mx; ++x)
+            newcells[x + y*newsx] = cells[x + y*xsize];
+
+    cells = std::move(newcells);
+    xsize = newsx;
+    ysize = newsy;
+}

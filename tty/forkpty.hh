@@ -1,4 +1,5 @@
 #include <string>
+#include <signal.h>
 
 class ForkPTY
 {
@@ -11,6 +12,8 @@ public:
     int Send(std::string_view buffer);
     std::pair<std::string,int> Recv();
     int getfd() const { return fd; }
+    void Kill(int signal);
+    void Resize(unsigned xsize, unsigned ysize);
 private:
     int fd, pid;
 };
