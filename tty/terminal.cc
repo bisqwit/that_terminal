@@ -28,11 +28,20 @@ static unsigned Translate256Color(unsigned c)
     return xterm256table[c];
 }
 
+void termwindow::ResetFG()
+{
+    fgc = Translate16Color(7);
+}
+void termwindow::ResetBG()
+{
+    bgc = Translate16Color(0);
+}
 void termwindow::ResetAttr()
 {
-    intensity = italic = underline = blink = reverse = bold = 0;
-    bgc = Translate16Color(0);
-    fgc = Translate16Color(7);
+    intensity = underline = 0;
+    italic = blink = reverse = bold = overstrike = false;
+    ResetFG();
+    ResetBG();
 }
 void termwindow::Reset()
 {
@@ -42,8 +51,8 @@ void termwindow::Reset()
     g0set = 0; g1set = 1; activeset = 0; translate = g0set;
     utfmode = 0; utflength = 0; utfvalue = 0;
     state = ESnormal;
-    ques = 0;
-    csi_J(2);
+    extramark = 0;
+    csi_J(2); // Clears screen
 }
 
 void termwindow::Lf()
@@ -75,7 +84,7 @@ void termwindow::Ri()
 void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
 {
     unsigned hei = y2-y1+1;
-    if(amount > hei) amount = hei;
+    if(unsigned(amount) > hei) amount = hei;
     wnd.copytext(0,y1+amount, 0,y1, wnd.xsize,(y2-(y1+amount))+1);
     wnd.fillbox(0,y1, wnd.xsize,amount);
 }
@@ -83,7 +92,7 @@ void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
 void termwindow::yscroll_up(unsigned y1, unsigned y2, int amount) const
 {
     unsigned hei = y2-y1+1;
-    if(amount > hei) amount = hei;
+    if(unsigned(amount) > hei) amount = hei;
     wnd.copytext(0,y1, 0,y1+amount, wnd.xsize,(y2-amount-y1)+1);
     wnd.fillbox(0,y2-amount+1, wnd.xsize,amount);
 }
@@ -121,7 +130,7 @@ void termwindow::csi_J(unsigned c) const
     {
         case 0: // erase from cursor to end of display
             csi_K(0);
-            if(cy < wnd.ysize-1)
+            if(unsigned(cy) < wnd.ysize-1)
                 wnd.fillbox(0,cy+1, wnd.xsize, wnd.ysize-cy-1);
             break;
         case 1: // erase from start to cursor
@@ -160,7 +169,7 @@ void termwindow::Write(std::u32string_view s)
         {
             case 7: BeepOn(); goto handled;
             case 8: ScrollFix(); if(cx>0) { --cx; } goto handled;
-            case 9: ScrollFix(); cx += 8 - (cx & 7); FixCoord(); goto handled;
+            case 9: ScrollFix(); cx += 8 - (cx & 7); cmov: FixCoord(); goto handled;
             case 10: case 11: case 12: Linefeed: ScrollFix();
             {
                 if(cy == bottom)
@@ -237,7 +246,7 @@ void termwindow::Write(std::u32string_view s)
                     case U'E': cx = 0; goto Linefeed;
                     case U'M': Ri(); break;
                     case U'D': goto Linefeed;
-                    case U'Z': EchoBack(U"\33[?6c"); break;
+                    case U'Z': goto DevParms; break;
                     case U'(': state = ESsetG0; break;
                     case U')': state = ESsetG1; break;
                     case U'#': state = EShash; break;
@@ -249,20 +258,20 @@ void termwindow::Write(std::u32string_view s)
             case ESsquare:
                 par.clear(); par.push_back(0);
                 state = ESgetpars;
+                extramark = 0;
                 if(c==U'[') { state = ESignore; break; }
-                if(c==U'?') { ques=1; break; }
-                ques = 0;
+                if(c == U'?' || c == U'=' || c == U'>') { extramark = c; break; }
                 /* fallthru */
             case ESgetpars:
                 if(c==U';') { par.push_back(0); break; }
-                // TODO: Support U':' as separator
+                if(c==U':') { par.push_back(0); break; } // Also support ':' as separator
                 if(c>=U'0' && c<=U'9') { par.back() = par.back()*10 + c-U'0'; break; }
                 state = ESgotpars;
                 [[fallthrough]];
             case ESgotpars:
                 state = ESnormal;
-                if(ques && (c==U'c' /* cursor type */
-                         || c==U'm' /* complement mask */))
+                if(extramark == '?' && (c==U'c' /* cursor type */
+                                     || c==U'm' /* complement mask */))
                 {
                     /* UNIMPLEMENTED */
                     break;
@@ -280,7 +289,7 @@ void termwindow::Write(std::u32string_view s)
                         /* UNIMPLEMENTED */
                         break;
                     case U'n':
-                        if(ques) break;
+                        if(extramark) break;
                         if(par[0]==5) EchoBack(U"\033[0n");
                         else if(par[0]==6)
                         {
@@ -290,27 +299,54 @@ void termwindow::Write(std::u32string_view s)
                         }
                         break;
                     case U'G': case U'`': if(par[0]) --par[0]; cx=par[0]; goto cmov;
-                    case U'd':           if(par[0]) --par[0]; cy=par[0]; goto cmov;
+                    case U'd':            if(par[0]) --par[0]; cy=par[0]; goto cmov;
                     case U'F': cx=0; [[fallthrough]];
                     case U'A': if(!par[0]) par[0]=1; cy-=par[0]; goto cmov;
                     case U'E': cx=0; [[fallthrough]];
                     case U'B': if(!par[0]) par[0]=1; cy+=par[0]; goto cmov;
                     case U'C': if(!par[0]) par[0]=1; cx+=par[0]; goto cmov;
-                    case U'D': if(!par[0]) par[0]=1; cx-=par[0];
-                              cmov: FixCoord(); break;
+                    case U'D': if(!par[0]) par[0]=1; cx-=par[0]; goto cmov;
                     case U'H': case U'f': par.resize(2);
                         if(par[0]) --par[0];
                         if(par[1]) --par[1];
                         cx=par[1]; cy=par[0];
+                        goto cmov;
+                    case U'J': if(!par[0]) par[0]=1; csi_J(par[0]); break;
+                    case U'K': if(!par[0]) par[0]=1; csi_K(par[0]); break;
+                    case U'L': if(!par[0]) par[0]=1; csi_L(par[0]); break;
+                    case U'M': if(!par[0]) par[0]=1; csi_M(par[0]); break;
+                    case U'P': if(!par[0]) par[0]=1; csi_P(par[0]); break;
+                    case U'X': if(!par[0]) par[0]=1; csi_X(par[0]); break;
+                    case U'@': if(!par[0]) par[0]=1; csi_at(par[0]); break;
+                    case U'c':
+                        if(par[0]) break;
+                        switch(extramark)
+                        {
+                            case '=': // Tertiary device attributes (printer?)
+                                // Example response: ^[P!|0^[ (backslash) 
+                                EchoBack(U"\33P!|00000000\x9C");
+                                break;
+                            case '>': // Secondary device attributes (terminal)
+                                // Example response: ^[[>41;330;0c
+                                // middle attr=firmware version
+                                EchoBack(U"\33[>1;1;0c");
+                                break;
+                            case 0: // Primary device attributes (host computer)
+                            DevParms:
+                                EchoBack(U"\33[?65;1;6;8;15;22c");
+                                // Example response: ^[[?64;1;2;6;9;15;18;21;22c
+                                //  1=132 columns, 2=printer port, 4=sixel extension
+                                //  6=selective erase, 7=DRCS, 8=user-defines keys
+                                //  9=national replacement charsets, 12=SCS extension
+                                // 15=technical charset, 18=windowing capability, 21=horiz scrolling,
+                                // 22=ansi color/vt525, 29=ansi text locator
+                                // 23=greek ext, 24=turkish ext, 42=latin2 cset, 44=pcterm,
+                                // 45=softkeymap, 46=ascii emulation
+                                // 62..69 = VT level (62=VT200, 63=VT300, 64=VT400)
+                                break;
+                        }
                         break;
-                    case U'J': csi_J(par[0]); break;
-                    case U'K': csi_K(par[0]); break;
-                    case U'L': csi_L(par[0]); break;
-                    case U'M': csi_M(par[0]); break;
-                    case U'P': csi_P(par[0]); break;
-                    case U'X': csi_X(par[0]); break;
-                    case U'@': csi_at(par[0]); break;
-                    case U'c': if(!par[0]) EchoBack(U"\33[?6c"); break;
+
                     case U'g': /* set tab stops UNIMPLEMENTED */ break;
                     case U'q': /* set leds UNIMPLEMENTED */ break;
                     case U'm':
@@ -320,51 +356,52 @@ void termwindow::Write(std::u32string_view s)
                             switch(par[a])
                             {
                                 case 0: mode256 = 0; ResetAttr(); break;
-                                case 1: bold = 1; break;
+                                case 1: bold = true; break;
                                 case 2:
-                                    if(!mode256) intensity = -1;
-                                    // Note: 24-bit color support.
-                                    else if(mode256==1)
+                                    switch(mode256) // Parse RGB24
                                     {
-                                        //TODO: Range checking
-                                        fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3;
-                                    }
-                                    else if(mode256==2)
-                                    {
-                                        //TODO: Range checking
-                                        bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3;
+                                        case 0: intensity = -1; break;
+                                        case 1: fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
+                                        case 2: bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
                                     }
                                     break;
-                                case 3: italic = 1;
-                                    // TODO: In mode256, parse CMY color
+                                case 3:
+                                    switch(mode256) // Parse CMY (FIXME)
+                                    {
+                                        case 0: italic = true; break;
+                                        case 1: fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
+                                        case 2: bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
+                                    }
                                     break;
-                                case 4: underline = 1;
-                                    // TODO: In mode256, parse CMYK color
+                                case 4:
+                                    switch(mode256) // Parse CMYK (FIXME)
+                                    {
+                                        case 0: underline = 1; break;
+                                        case 1: fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
+                                        case 2: bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
+                                    }
                                     break;
                                 case 5:
-                                    if(!mode256) blink=1;
-                                    else if(mode256==1)
+                                    switch(mode256)
                                     {
-                                        fgc = Translate256Color(par[++a]);
-                                    }
-                                    else if(mode256==2)
-                                    {
-                                        bgc = Translate256Color(par[++a]);
+                                        case 0: blink=true; break;
+                                        case 1: fgc = Translate256Color(par[++a]); break;
+                                        case 2: bgc = Translate256Color(par[++a]); break;
                                     }
                                     break;
-                                case 7: reverse = 1; break;
-                                case 9: overstrike = 1; break;
+                                case 7: reverse = true; break;
+                                case 9: overstrike = true; break;
                                 case 21: underline = 2; break;
-                                case 22: intensity = 0; bold = 0; break;
-                                case 23: italic = 0; break;
+                                case 22: intensity = 0; bold = false; break;
+                                case 23: italic = false; break;
                                 case 24: underline = 0; break;
-                                case 25: blink = 0; break;
-                                case 27: reverse = 0; break;
-                                case 29: overstrike = 0; break;
+                                case 25: blink = false; break;
+                                case 27: reverse = false; break;
+                                case 29: overstrike = false; break;
                                 case 38: mode256 = 1; break;
-                                case 39: underline = 0; fgc = Translate16Color(7); break;
+                                case 39: underline = 0; ResetFG(); break; // Set default foreground color
                                 case 48: mode256 = 2; break;
-                                case 49: bgc = Translate16Color(0); break;
+                                case 49: ResetBG(); break; // Set default background color
                                 default:
                                     /**/ if(par[a]>=30 && par[a]<=37)  fgc = Translate16Color(  (par[a]-30));
                                     else if(par[a]>=40 && par[a]<=47)  bgc = Translate16Color(  (par[a]-40));
@@ -377,7 +414,7 @@ void termwindow::Write(std::u32string_view s)
                     case U'r': par.resize(2);
                         if(!par[0]) par[0]=1;
                         if(!par[1]) par[1]=wnd.ysize;
-                        if(par[0] < par[1] && par[1] <= wnd.ysize)
+                        if(par[0] < par[1] && par[1] <= int(wnd.ysize))
                         {
                             top=par[0]-1, bottom=par[1]-1;
                             cx=0; cy=top;
@@ -419,8 +456,8 @@ void termwindow::Write(std::u32string_view s)
      handled:;
     }
 
-    if((cx+1 != wnd.xsize
-     || cy+1 != wnd.ysize)
+    if((cx+1 != int(wnd.xsize)
+     || cy+1 != int(wnd.ysize))
     )
     {
         wnd.cursx = cx;
@@ -470,18 +507,18 @@ void termwindow::restore_cur()
 
 void termwindow::FixCoord()
 {
-    if(bottom>=wnd.ysize)bottom=wnd.ysize-1;
+    if(bottom>=int(wnd.ysize))bottom=wnd.ysize-1;
     if(top>bottom-2)top=bottom-2;
     if(top<0)top=0;
     if(bottom<top+2)bottom=top+2;
     if(cx<0)cx=0;
     if(cy<0)cy=0;
-    if(cx>=wnd.xsize)cx=wnd.xsize-1;
+    if(cx>=int(wnd.xsize))cx=wnd.xsize-1;
     if(cy>=bottom)cy=bottom;
 }
 void termwindow::ScrollFix()
 {
-    if(cx >= wnd.xsize) { cx = 0; Lf(); }
+    if(cx >= int(wnd.xsize)) { cx = 0; Lf(); }
 }
 
 void termwindow::BuildAttr()

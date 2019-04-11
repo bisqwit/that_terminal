@@ -58,12 +58,12 @@ static unsigned Repack(std::array<unsigned,3> rgb)
     {
         // Clamp with desaturation:
         float l = (rgb[0]*299u + rgb[1]*587u + rgb[2]*114u)*1e-3f, s = 1.f;
-        for(unsigned n=0; n<3; ++n)
-            if(rgb[n] > 255)
-                s = std::min(s, (l-255.f) / (l-rgb[n]));
-        if(s != 1.f)
-            for(unsigned n=0; n<3; ++n)
-                rgb[n] = (rgb[n] - l) * s + l + 0.5f;
+        if(rgb[0] > 255) s = std::min(s, (l-255.f) / (l-rgb[0]));
+        if(rgb[1] > 255) s = std::min(s, (l-255.f) / (l-rgb[1]));
+        if(rgb[2] > 255) s = std::min(s, (l-255.f) / (l-rgb[2]));
+        rgb[0] = (rgb[0] - l) * s + l + 0.5f;
+        rgb[1] = (rgb[1] - l) * s + l + 0.5f;
+        rgb[2] = (rgb[2] - l) * s + l + 0.5f;
     }
     return (std::min(rgb[0],255u)<<16)
          + (std::min(rgb[1],255u)<<8)
