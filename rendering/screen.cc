@@ -59,28 +59,46 @@ static unsigned Repack(const std::array<unsigned,3>& rgb)
          + (std::min(rgb[2],255u)<<0);
 }
 
-static unsigned MakeDim(unsigned rgb)
-{
-    auto a = Unpack(rgb);
-    for(auto& e: a) e = e*2/3u;
-    return Repack(a);
-}
-static unsigned MakeIntense(unsigned rgb)
-{
-    auto a = Unpack(rgb);
-    for(auto& e: a) e = e*3/2u;
-    return Repack(a);
-}
-static unsigned Mix13(unsigned color1,unsigned color2)
+static unsigned Mix(unsigned color1,unsigned color2, unsigned fac1,unsigned fac2,unsigned sum)
 {
     auto a = Unpack(color1), b = Unpack(color2);
-    for(unsigned n=0; n<3; ++n) a[n] = (b[n]*1 + a[n]*2)/3u;
+    for(unsigned n=0; n<3; ++n) a[n] = (a[n]*fac1 + b[n]*fac2)/(sum);
     return Repack(a);
 }
-static unsigned Mix23(unsigned color1,unsigned color2)
+
+static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,bool intense,float italic)
 {
-    return Mix13(color2,color1);
+    std::array<unsigned char,16> result={};
+    auto calc = [=](bool prev,bool cur,bool next) constexpr
+    {
+        float result = cur;
+        if(dim)
+        {
+            if(cur && !next)
+            {
+                if(prev) result *= float(1.f/3.f); // diminish rightmost pixel
+                else     result *= float(2.f/3.f); // diminish all pixels
+            }
+        }
+        if(bold)
+        {
+            if(!cur && prev) result += float(1.f/3.f); // add dim extra pixel
+        }
+        if(intense) result *= float(3.f/2.f); // brighten all pixels
+        return result;
+    };
+    for(unsigned value=0; value<16; ++value)
+    {
+        bool values[4] = { value&8, value&4, value&2, value&1 }; // before,current,after,next
+        float thisresult = calc(values[0], values[1], values[2]);
+        float nextresult = calc(values[1], values[2], values[3]);
+        float factor = thisresult + (nextresult-thisresult)*italic;
+        // possible values of factor: 0, 1, 1.5,  0.333, 0.5
+        result[value] = int(factor*127 + 0.5f);
+    }
+    return result;
 }
+
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
@@ -91,24 +109,13 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
     std::size_t character_size_in_bytes = (fx*fy+7)/8;
     std::size_t font_row_size_in_bytes = (fx+7)/8;
 
-    std::size_t row_for_underline1 = fy-1;
-    std::size_t row_for_underline2a = fy-3;
-    std::size_t row_for_underline2b = fy-1;
-
-    static const unsigned char taketables[12][16] =
+    static constexpr std::array<unsigned char,16> taketables[] =
     {
-        /*mode 0*/{0,0,0,0,3,3,3,3,0,0,0,0,3,3,3,3,},
-        /*mode 1*/{0,0,0,0,1,1,3,3,0,0,0,0,1,1,3,3,},
-        /*mode 2*/{0,0,0,0,3,3,3,3,1,1,1,1,3,3,3,3,},
-        /*mode 3*/{0,0,0,0,1,1,3,3,1,1,1,1,1,1,3,3,},
-        /*mode 4*/{0,0,1,1,2,2,3,3,0,0,1,1,2,2,3,3,},
-        /*mode 5*/{0,0,0,1,1,1,2,3,0,0,0,1,1,1,2,3,},
-        /*mode 6*/{0,0,1,1,2,2,3,3,1,1,2,2,2,2,3,3,},
-        /*mode 7*/{0,0,0,1,1,1,2,3,1,1,1,2,1,1,2,3,},
-        /*mode 8*/{0,0,2,2,1,1,3,3,0,0,2,2,1,1,3,3,},
-        /*mode 9*/{0,0,1,2,0,0,2,3,0,0,1,2,0,0,2,3,},
-        /*mode 10*/{0,0,2,2,2,2,3,3,0,0,2,2,2,2,3,3,},
-        /*mode 11*/{0,0,1,2,1,1,2,3,0,0,1,2,1,1,2,3,},
+        #define i(n,i) CalculateIntensityTable(n&4,n&2,n&1,i),
+        #define j(n) i(n,0/8.f)i(n,1/8.f)i(n,2/8.f)i(n,3/8.f)i(n,4/8.f)i(n,5/8.f)i(n,6/8.f)i(n,7/8.f)
+        j(0) j(1) j(2) j(3) j(4) j(5) j(6) j(7)
+        #undef j
+        #undef i
     };
 
     std::size_t screen_width  = fx*xsize;
@@ -128,11 +135,18 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     font + translated_ch * character_size_in_bytes
                          + fr * font_row_size_in_bytes;
 
-                const unsigned mode = cell.dim + cell.bold*2 + cell.italic*4*((fr*4/fy)%3);
+                const unsigned mode = cell.italic*(fr*8/fy)
+                                    + 8*cell.intense
+                                    + 16*cell.bold
+                                    + 32*cell.dim;
 
                 unsigned widefont = fontptr[0];
-                widefont <<= 1;
-                if(cell.italic && fr < fy*3/4) widefont >>= 1;
+                // TODO: 16-pix wide font support
+                if(!cell.italic) widefont <<= 1;
+
+                bool line = (cell.underline && (fr == (fy-1)))
+                         || (cell.underline2 && (fr == (fy-1) || fr == (fy-3)))
+                         || (cell.overstrike && (fr == (fy/2)));
 
                 for(std::size_t fc=0; fc<fx; ++fc, ++pix)
                 {
@@ -155,28 +169,11 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     //         - underline
                     //         - underline2
                     //         - overstrike
-		    if(cell.intense)
-                        fg = MakeIntense(fg);
+                    if(line) bg ^= 0x606060;
 
-                    if(cell.underline/* && !bit*/)
-                    {
-                        if(fr == row_for_underline1)
-                            bg = 0x606060;
-                    }
-                    else if(cell.underline2/* && !bit*/)
-                    {
-                        if(fr == row_for_underline2a || fr == row_for_underline2b)
-                            bg = 0x606060;
-                    }
-                    else if(cell.bold)
-                    {
-                    }
-
-                    //bool bit   = (fontptr[fc/8] >> (7-fc%8)) & 1;
-
-                    unsigned colors[4]  = { bg, Mix13(bg,fg), Mix23(bg,fg), fg };
-                    unsigned mask = ((widefont << 2) >> (8-fc)) & 0xF;
-                    *pix = colors[taketables[mode][mask]];
+                    unsigned mask = ((widefont << 2) >> (fx-fc)) & 0xF;
+                    int take = taketables[mode][mask];
+                    *pix = Mix(bg,fg, std::max(0,127-take), take, 128);
                 }
             }
         }
