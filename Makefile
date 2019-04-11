@@ -12,7 +12,7 @@ CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts
 CXXFLAGS += $(shell pkg-config sdl2 --cflags)
 LDLIBS   += $(shell pkg-config sdl2 --libs)
 
-CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$@))
+CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
 
 
 # for forkpty:
@@ -29,5 +29,4 @@ OBJS=\
 all: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)
 	
--include $(addprefix .deps/,$(OBJS:.o=.d))
-
+-include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))
