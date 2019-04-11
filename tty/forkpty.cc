@@ -20,7 +20,7 @@ void ForkPTY::Open(std::size_t width, std::size_t height)
     pid = forkpty(&fd, NULL, NULL, &ws);
     if(!pid)
     {
-        static char termstr[] = "TERM=linux"; // TODO: Figure out a better replacement for this
+        static char termstr[] = "TERM=xterm";
         putenv(termstr);
         execl(getenv("SHELL"), getenv("SHELL"), "-i", "-l", nullptr); // TODO: check return values
     }
