@@ -42,12 +42,12 @@ namespace
         {
             window = SDL_CreateWindow("terminal",
                 SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                pixels_width*4, pixels_height*4,
+                pixels_width*2, pixels_height*2,
                 SDL_WINDOW_RESIZABLE);
         }
         else
         {
-            SDL_SetWindowSize(window, pixels_width*4, pixels_height*4);
+            SDL_SetWindowSize(window, pixels_width*2, pixels_height*2);
         }
         if(!renderer)
         {
