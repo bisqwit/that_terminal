@@ -30,7 +30,7 @@ static unsigned Translate256Color(unsigned c)
 
 void termwindow::ResetAttr()
 {
-    intensity = underline = blink = reverse = 0;
+    intensity = italic = underline = blink = reverse = bold = 0;
     bgc = Translate16Color(0);
     fgc = Translate16Color(7);
 }
@@ -320,7 +320,7 @@ void termwindow::Write(std::u32string_view s)
                             switch(par[a])
                             {
                                 case 0: mode256 = 0; ResetAttr(); break;
-                                case 1: intensity = 1; break;
+                                case 1: bold = 1; break;
                                 case 2:
                                     if(!mode256) intensity = -1;
                                     // Note: 24-bit color support.
@@ -335,7 +335,7 @@ void termwindow::Write(std::u32string_view s)
                                         bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3;
                                     }
                                     break;
-                                case 3:
+                                case 3: italic = 1;
                                     // TODO: In mode256, parse CMY color
                                     break;
                                 case 4: underline = 1;
@@ -353,7 +353,9 @@ void termwindow::Write(std::u32string_view s)
                                     }
                                     break;
                                 case 7: reverse = 1; break;
-                                case 21: case 22: intensity = 0; break;
+                                case 21: underline = 2; break;
+                                case 22: intensity = 0; bold = 0; break;
+                                case 23: italic = 0; break;
                                 case 24: underline = 0; break;
                                 case 25: blink = 0; break;
                                 case 27: reverse = 0; break;
@@ -435,9 +437,11 @@ void termwindow::save_cur()
     backup.cx = cx;
     backup.cy = cy;
     backup.i = intensity;
+    backup.I = italic;
     backup.u = underline;
     backup.b = blink;
     backup.r = reverse;
+    backup.B = bold;
     backup.f = fgc;
     backup.g = bgc;
     backup.top = top;
@@ -449,9 +453,11 @@ void termwindow::restore_cur()
     cx = backup.cx;
     cy = backup.cy;
     intensity = backup.i;
+    italic    = backup.I;
     underline = backup.u;
     blink = backup.b;
     reverse = backup.r;
+    bold = backup.B;
     fgc = backup.f;
     bgc = backup.g;
     top = backup.top;
@@ -478,9 +484,10 @@ void termwindow::BuildAttr()
 {
     wnd.blank.fgcolor = fgc;
     wnd.blank.bgcolor = bgc;
-    wnd.blank.bold    = intensity > 0;
+    wnd.blank.intense = intensity > 0;
+    wnd.blank.bold    = bold;
     wnd.blank.dim     = intensity < 0;
-    wnd.blank.italic  = 0;//FIXME
+    wnd.blank.italic  = italic;
     wnd.blank.underline  = underline==1;
     wnd.blank.underline2 = underline==2;
     wnd.blank.overstrike = 0;// FIXME

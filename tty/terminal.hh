@@ -17,8 +17,13 @@ public:
 
 private:
     int top, bottom;
-    signed char intensity, underline, blink, reverse;
+    signed char intensity,italic, underline, blink, reverse, bold;
     unsigned fgc, bgc;
+
+    struct backup
+    {
+        int cx,cy, i,I,u,b,r,B, f,g, top,bottom;
+    } backup;
 
     char g0set, g1set, activeset, utfmode, translate;
     unsigned utflength;
@@ -29,11 +34,6 @@ private:
            ESsetG1, ESpercent } state;
     std::vector<int> par;
     int ques;
-
-    struct backup
-    {
-        int cx,cy, i,u,b,r,f,g, top,bottom;
-    } backup;
 
 private:
     void ResetAttr();

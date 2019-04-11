@@ -22,6 +22,7 @@ struct Cell
     char32_t            ch = U' ';
     bool                bold = false;
     bool                dim = false;
+    bool                intense = false;
     bool                italic = false;
     bool                underline = false;
     bool                underline2 = false;
