@@ -17,12 +17,12 @@ public:
 
 private:
     int top, bottom;
-    signed char intensity,italic, underline, blink, reverse, bold;
+    signed char intensity,italic, underline, blink, reverse, bold, overstrike;
     unsigned fgc, bgc;
 
     struct backup
     {
-        int cx,cy, i,I,u,b,r,B, f,g, top,bottom;
+        int cx,cy, i,I,u,b,r,B, f,g,o, top,bottom;
     } backup;
 
     char g0set, g1set, activeset, utfmode, translate;

@@ -7,10 +7,10 @@
                      | ((((unsigned(g)<<1)&0x3F)*255/63)<<8) \
                      | ((((unsigned(r))&0x1F)*255/31)<<16))
 static unsigned xterm256table[256] =
-    { Make16(0,0,0), Make16(21,0,0), Make16(0,21,0), Make16(21,5,0),
+    { Make16(0,0,0), Make16(21,0,0), Make16(0,21,0), Make16(21,10,0),
       Make16(0,0,21), Make16(21,0,21), Make16(0,21,21), Make16(21,21,21),
-      Make16(7,7,7), Make16(31,5,5), Make16(5,31,5), Make16(31,31,5),
-      Make16(5,5,31), Make16(31,5,31), Make16(5,31,31), Make16(31,31,31) };
+      Make16(15,15,15), Make16(31,10,10), Make16(5,31,10), Make16(31,31,10),
+      Make16(10,10,31), Make16(31,10,31), Make16(5,31,31), Make16(31,31,31) };
 static struct xterm256init { xterm256init() {
     static const unsigned char grayramp[24] = { 1,2,3,5,6,7,8,9,11,12,13,14,16,17,18,19,20,22,23,24,25,27,28,29 };
     static const unsigned char colorramp[6] = { 0,12,16,21,26,31 };
@@ -353,12 +353,14 @@ void termwindow::Write(std::u32string_view s)
                                     }
                                     break;
                                 case 7: reverse = 1; break;
+                                case 9: overstrike = 1; break;
                                 case 21: underline = 2; break;
                                 case 22: intensity = 0; bold = 0; break;
                                 case 23: italic = 0; break;
                                 case 24: underline = 0; break;
                                 case 25: blink = 0; break;
                                 case 27: reverse = 0; break;
+                                case 29: overstrike = 0; break;
                                 case 38: mode256 = 1; break;
                                 case 39: underline = 0; fgc = Translate16Color(7); break;
                                 case 48: mode256 = 2; break;
@@ -442,6 +444,7 @@ void termwindow::save_cur()
     backup.b = blink;
     backup.r = reverse;
     backup.B = bold;
+    backup.o = overstrike;
     backup.f = fgc;
     backup.g = bgc;
     backup.top = top;
@@ -458,6 +461,7 @@ void termwindow::restore_cur()
     blink = backup.b;
     reverse = backup.r;
     bold = backup.B;
+    overstrike = backup.o;
     fgc = backup.f;
     bgc = backup.g;
     top = backup.top;
@@ -490,6 +494,6 @@ void termwindow::BuildAttr()
     wnd.blank.italic  = italic;
     wnd.blank.underline  = underline==1;
     wnd.blank.underline2 = underline==2;
-    wnd.blank.overstrike = 0;// FIXME
+    wnd.blank.overstrike = overstrike;
     wnd.blank.reverse = reverse;
 }

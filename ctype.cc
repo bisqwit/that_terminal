@@ -421,7 +421,7 @@ std::string ToUTF8(std::u32string_view s)
 
 template<typename C>
 alignas(32) static const C spaces[32]={' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
-                                           ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '};    
+                                           ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '};
 template<std::size_t N, typename C, typename T = unsigned>
 static inline bool compa(const void* a)
 {
