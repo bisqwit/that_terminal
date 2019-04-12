@@ -159,6 +159,7 @@ int main()
                 outbuffer.erase(0, r);
         }
 
+        std::string pending_input;
         for(SDL_Event ev; SDL_PollEvent(&ev); )
             switch(ev.type)
             {
@@ -176,6 +177,7 @@ int main()
                 case SDL_QUIT:
                     break;
                 case SDL_TEXTINPUT:
+                    pending_input.clear();
                     tty.Send(ev.text.text);
                     break;
                 case SDL_KEYDOWN:
@@ -198,6 +200,20 @@ int main()
                             { SDLK_F10,      {21,'~'} }, { SDLK_PAGEDOWN, {6,'~'} },
                             { SDLK_F11,      {23,'~'} },
                             { SDLK_F12,      {24,'~'} },
+                        };
+                        static const std::unordered_map<int, char> lore2
+                        {
+                            { SDLK_a, 'a' }, { SDLK_b, 'b' }, { SDLK_c, 'c' }, { SDLK_d, 'd' },
+                            { SDLK_e, 'e' }, { SDLK_f, 'f' }, { SDLK_g, 'g' }, { SDLK_h, 'h' },
+                            { SDLK_i, 'i' }, { SDLK_j, 'j' }, { SDLK_k, 'k' }, { SDLK_l, 'l' },
+                            { SDLK_m, 'm' }, { SDLK_n, 'n' }, { SDLK_o, 'o' }, { SDLK_p, 'p' },
+                            { SDLK_q, 'q' }, { SDLK_r, 'r' }, { SDLK_s, 's' }, { SDLK_t, 't' },
+                            { SDLK_u, 'u' }, { SDLK_v, 'v' }, { SDLK_w, 'w' }, { SDLK_x, 'x' },
+                            { SDLK_y, 'y' }, { SDLK_z, 'z' }, { SDLK_ESCAPE, '\33' },
+                            { SDLK_0, '0' }, { SDLK_1, '1' }, { SDLK_2, '2' }, { SDLK_3, '3' },
+                            { SDLK_4, '4' }, { SDLK_5, '5' }, { SDLK_6, '6' }, { SDLK_7, '7' },
+                            { SDLK_8, '8' }, { SDLK_9, '9' }, { SDLK_PERIOD, '.' }, { SDLK_COMMA, '-' },
+                            { SDLK_RETURN, '\r' }, { SDLK_BACKSPACE, '\177' }, { SDLK_TAB, '\t' },
                         };
                         bool shift = keys[SDLK_LSHIFT] || keys[SDLK_RSHIFT];
                         bool alt   = keys[SDLK_LALT]   || keys[SDLK_RALT];
@@ -243,37 +259,41 @@ int main()
                                 len = std::sprintf(Buf, "\33%c%c", bracket, d.second);
                             else
                                 len = std::sprintf(Buf, "\33%c%d%c", bracket, d.first, d.second);
-                            tty.Send(std::string_view(Buf, len));
+                            pending_input.append(Buf,len);
                         }
-                        else if(ctrl && (ev.key.keysym.sym >= SDLK_a && ev.key.keysym.sym <= SDLK_z))
+                        else if(auto i = lore2.find(ev.key.keysym.sym); i != lore2.end())
                         {
-                            char c = ev.key.keysym.sym - SDLK_a + 1;
-                            tty.Send(std::string_view(&c,1));
+                            char32_t cval = i->second;
+                            bool digit = cval >= '0' && cval <= '9', alpha = cval >= 'a' && cval <= 'z';
+                            if(shift && alpha) cval &= ~0x20; // Turn uppercase
+                            if(ctrl && digit) cval = "01\0\33\34\35\36\37\1779"[cval-'0'];
+                            if(ctrl && i->second=='\177') cval = '\b';
+                            else if(ctrl && !digit) cval &= 0x1F; // Turn into a control character
+                            // CTRL a..z becomes 01..1A
+                            // CTRL 0..9 becomes 10..19, should become xx,xx,00,1B-1F,7F,xx
+                            if(alt) cval |= 0x80;  // Add ALT
+                            if((!alpha && !digit) || ctrl||alt)
+                            {
+                                if(shift && cval == '\t') pending_input += "\33[Z";
+                                else pending_input += ToUTF8(std::u32string_view(&cval,1));
+                            }
+                            // Put the input in "pending_input", so that it gets automatically
+                            // cancelled if a textinput event is generated.
                         }
-                        else if(ctrl && ev.key.keysym.sym >= SDLK_2 && ev.key.keysym.sym <= SDLK_9)
+                    }
+                    else
+                    {
+                        if(!pending_input.empty())
                         {
-                            char c = ev.key.keysym.sym - SDLK_3 + 27;
-                            if(c == 26) c = 0;
-                            tty.Send(std::string_view(&c,1));
-                        }
-                        else switch(ev.key.keysym.sym)
-                        {
-                            case SDLK_RETURN:
-                                tty.Send("\r");
-                                break;
-                            case SDLK_BACKSPACE:
-                                if(ctrl) tty.Send("\10");
-                                else     tty.Send("\b");
-                                break;
-                            case SDLK_TAB:
-                                if(shift) tty.Send("\33[[Z");
-                                else      tty.Send("\t");
-                                break;
+                            tty.Send(std::move(pending_input));
+                            pending_input.clear();
                         }
                     }
                     break;
                 }
             }
+        if(!pending_input.empty())
+            tty.Send(std::move(pending_input));
 
         SDL_ReDraw(wnd);
     }
