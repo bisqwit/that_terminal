@@ -25,6 +25,7 @@ private:
     } backup;
 
     char g0set, g1set, activeset, utfmode, translate;
+    char32_t lastch = U' ';
     unsigned utflength;
     unsigned long utfvalue;
 
