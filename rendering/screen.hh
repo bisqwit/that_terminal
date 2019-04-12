@@ -22,20 +22,27 @@ struct Cell
     char32_t            ch = U' ';
     bool                bold = false;
     bool                dim = false;
-    bool                intense = false;
     bool                italic = false;
     bool                underline = false;
     bool                underline2 = false;
     bool                overstrike = false;
     bool                reverse = false;
+    bool                blink = false;
+    bool                framed = false;
+    bool                encircled = false;
+    bool                overlined = false;
+    bool                fraktur = false;
+    bool                conceal = false;
     bool                dirty = true;
 
     bool operator== (const Cell& b) const
     {
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,
-                          underline,underline2,overstrike,reverse)
+                          underline,underline2,overstrike,reverse,blink,
+                          framed,encircled,fraktur,conceal,overlined)
             == std::tuple(b.fgcolor,b.bgcolor,b.ch,b.bold,b.dim,b.italic,
-                          b.underline,b.underline2,b.overstrike,b.reverse);
+                          b.underline,b.underline2,b.overstrike,b.reverse,b.blink,
+                          b.framed,b.encircled,b.fraktur,b.conceal,b.overlined);
     }
     bool operator!= (const Cell& b) const { return !operator==(b); }
 };

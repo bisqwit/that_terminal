@@ -1,45 +1,42 @@
-#include <sstream>
+#include <array>
+#include <cstdio> // sprintf
 
 #include "terminal.hh"
 #include "beeper.hh"
+#include "ctype.hh"
 
-#define Make16(r,g,b) (((((unsigned(b))&0x1F)*255/31)) \
-                     | ((((unsigned(g)<<1)&0x3F)*255/63)<<8) \
-                     | ((((unsigned(r))&0x1F)*255/31)<<16))
-static unsigned xterm256table[256] =
+static constexpr unsigned Make16(unsigned r,unsigned g,unsigned b)
+{
+    return (((((unsigned(b))&0x1F)*255/31))
+         | ((((unsigned(g)<<1)&0x3F)*255/63)<<8)
+         | ((((unsigned(r))&0x1F)*255/31)<<16));
+}
+static constexpr unsigned char grayramp[24] = { 1,2,3,5,6,7,8,9,11,12,13,14,16,17,18,19,20,22,23,24,25,27,28,29 };
+static constexpr unsigned char colorramp[6] = { 0,12,16,21,26,31 };
+static constexpr std::array<unsigned,256> xterm256init()
+{
+    std::array<unsigned,256> result =
     { Make16(0,0,0), Make16(21,0,0), Make16(0,21,0), Make16(21,10,0),
       Make16(0,0,21), Make16(21,0,21), Make16(0,21,21), Make16(21,21,21),
       Make16(15,15,15), Make16(31,10,10), Make16(5,31,10), Make16(31,31,10),
       Make16(10,10,31), Make16(31,10,31), Make16(5,31,31), Make16(31,31,31) };
-static struct xterm256init { xterm256init() {
-    static const unsigned char grayramp[24] = { 1,2,3,5,6,7,8,9,11,12,13,14,16,17,18,19,20,22,23,24,25,27,28,29 };
-    static const unsigned char colorramp[6] = { 0,12,16,21,26,31 };
-    for(unsigned n=0; n<216; ++n) { xterm256table[16+n] = Make16(colorramp[(n/36)%6], colorramp[(n/6)%6], colorramp[(n)%6]); }
-    for(unsigned n=0; n<24; ++n)  { xterm256table[232 + n] = Make16(grayramp[n],grayramp[n],grayramp[n]); }
-} } xterm256initializer;
-
-static unsigned Translate16Color(unsigned c)
-{
-    fprintf(stderr, "16-color for %u is 0x%06X\n", c, xterm256table[c]);
-    return xterm256table[c];
+    for(unsigned n=0; n<216; ++n) { result[16+n] = Make16(colorramp[(n/36)%6], colorramp[(n/6)%6], colorramp[(n)%6]); }
+    for(unsigned n=0; n<24; ++n)  { result[232 + n] = Make16(grayramp[n],grayramp[n],grayramp[n]); }
+    return result;
 }
-static unsigned Translate256Color(unsigned c)
-{
-    return xterm256table[c];
-}
+static constexpr std::array<unsigned,256> xterm256table = xterm256init();
 
 void termwindow::ResetFG()
 {
-    fgc = Translate16Color(7);
+    wnd.blank.fgcolor = xterm256table[7];
 }
 void termwindow::ResetBG()
 {
-    bgc = Translate16Color(0);
+    wnd.blank.bgcolor = xterm256table[0];
 }
 void termwindow::ResetAttr()
 {
-    intensity = underline = 0;
-    italic = blink = reverse = bold = overstrike = false;
+    wnd.blank = Cell{};
     ResetFG();
     ResetBG();
 }
@@ -49,10 +46,10 @@ void termwindow::Reset()
     bottom = wnd.ysize-1;
 
     g0set = 0; g1set = 1; activeset = 0; translate = g0set;
-    utfmode = 0; utflength = 0; utfvalue = 0;
-    state = ESnormal;
-    extramark = 0;
-    csi_J(2); // Clears screen
+    utfmode = 0;
+    wnd.fillbox(0,0, wnd.xsize,wnd.ysize); // Clear screen
+    state = 0;
+    p.clear();
 }
 
 void termwindow::Lf()
@@ -65,19 +62,6 @@ void termwindow::Lf()
     else
     {
         ++cy;
-    }
-}
-
-void termwindow::Ri()
-{
-    if(cy <= top)
-    {
-        /* scroll the window down */
-        yscroll_down(top, bottom, 1);
-    }
-    else
-    {
-        --cy;
     }
 }
 
@@ -97,364 +81,349 @@ void termwindow::yscroll_up(unsigned y1, unsigned y2, int amount) const
     wnd.fillbox(0,y2-amount+1, wnd.xsize,amount);
 }
 
-void termwindow::csi_at(unsigned c) const
-{
-    // insert c spaces at cursor
-    if(cx + c > wnd.xsize) c = wnd.xsize-cx;
-    if(c == 0) return;
-    unsigned remain = wnd.xsize - (cx+c);
-    wnd.copytext(cx+c,cy, cx,cy, remain,1);
-    wnd.fillbox(cx,cy, c,1);
-}
-
-void termwindow::csi_X(unsigned c) const
-{
-    // write c spaces at cursor (overwrite)
-    wnd.fillbox(cx,cy+top, c,1);
-}
-
-void termwindow::csi_P(unsigned c) const
-{
-    // insert c black holes at cursor (eat c characters
-    // and scroll line horizontally to left)
-    if(cx + c > wnd.xsize) c = wnd.xsize-cx;
-    if(c == 0) return;
-    unsigned remain = wnd.xsize - (cx+c);
-    wnd.copytext(cx,cy, wnd.xsize-remain,cy, remain,1);
-    wnd.fillbox(wnd.xsize-c,cy, c,1);
-}
-
-void termwindow::csi_J(unsigned c) const
-{
-    switch(c)
-    {
-        case 0: // erase from cursor to end of display
-            csi_K(0);
-            if(unsigned(cy) < wnd.ysize-1)
-                wnd.fillbox(0,cy+1, wnd.xsize, wnd.ysize-cy-1);
-            break;
-        case 1: // erase from start to cursor
-            if(cy > 0) wnd.fillbox(0,0, wnd.xsize,cy);
-            csi_K(1);
-            break;
-        case 2: // erase whole display
-            wnd.fillbox(0,0, wnd.xsize,wnd.ysize);
-            break;
-    }
-}
-
-void termwindow::csi_K(unsigned c) const
-{
-    // 0: erase from cursor to end of line
-    // 1: erase from start of line to cursor
-    // 2: erase whole line
-    switch(c)
-    {
-        case 0: wnd.fillbox(cx,cy, wnd.xsize-cx, 1); break;
-        case 1: wnd.fillbox(0, cy, cx+1,       1); break;
-        case 2: wnd.fillbox(0, cy, wnd.xsize,    1); break;
-    }
-}
-
 
 void termwindow::Write(std::u32string_view s)
 {
-    // This is an indirect ripoff from
-    // /usr/src/linux/drivers/char/console.c
-    unsigned a, b=s.size();
-    for(a=0; a<b; ++a)
+    enum States: unsigned
     {
-        char32_t c = s[a];
-        switch(c)
-        {
-            case 7: BeepOn(); goto handled;
-            case 8: ScrollFix(); if(cx>0) { --cx; } goto handled;
-            case 9: ScrollFix(); cx += 8 - (cx & 7); cmov: FixCoord(); goto handled;
-            case 10: case 11: case 12: Linefeed: ScrollFix();
-            {
-                if(cy == bottom)
-                {
-                    /* If the pending buffer has a few more linefeeds, do them
-                     * at once to minimize the number of whole-screen scrolling
-                     * operations done
-                     */
-                    int pending_linefeeds = 1;
-                    for(unsigned c=a+1; c<b; ++c)
-                        if(s[c] == 10 || s[c] == 11 || s[c] == 12)
-                        { CalcLF:
-                            pending_linefeeds += 1;
-                            if(pending_linefeeds >= bottom-top+1) break;
-                        }
-                        else if(s[c] == U'\033' /*|| s[a] == U'\245'*/)
-                        {
-                            // If it's a color escape, ok; otherwise break
-                            if(++c >= b) break;
-                            if(s[c] == U'D' || s[c] == U'E') goto CalcLF;
-                            if(s[c++] != U'[') break;
-                            if(c < b && s[c] == U'?') ++c;
-                            while(c < b && ((s[c]>=U'0' && s[c]<=U'9') || s[c]==U';')) ++c;
-                            if(c >= b) break;
+        st_default,
+        st_esc,
+        st_scs0,        // esc (
+        st_scs1,        // esc )
+        st_scr,         // esc #
+        st_esc_percent, // esc %
+        st_csi,         // esc [
+        st_csi_dec,     // csi ?
+        st_csi_dec2,    // csi >
+        st_csi_dec3,    // csi =
+        //
+        st_num_states
+    };
 
-                            if(s[c] != U'm' // color setting
-                            && s[c] != U'C' // horizontal cursor positioning
-                            && s[c] != U'D' // horizontal cursor positioning
-                            && s[c] != U'K' // horizontal line clearing
-                            && s[c] != U'G' // horizontal cursor positioning
-                              ) break;
-                        }
-                        else {}
-                    /* Note: ircII or GNU screen seems to use
-                     * a \33[H\33[47B sequence to reposition
-                     * the cursor right before each linefeed.
-                     * Without changing the sequence, it cannot
-                     * be optimized like regular LFs.
-                     */
+    auto GetParams = [&](unsigned min_params, bool change_zero_to_one)
+    {
+        if(p.size() < min_params) { p.resize(min_params); }
+        if(change_zero_to_one) for(auto& v: p) if(!v) v = 1;
+        state = st_default;
+    };
+
+    for(char32_t c: s)
+        #define State(c,st) ((std::uint_fast32_t(c) * st_num_states) + unsigned(st))
+        switch(State(c,state))
+        {
+            #define AnyState(c)      State(c,st_default): case State(c,st_esc): \
+                                case State(c,st_scs0):    case State(c,st_scs1): \
+                                case State(c,st_scr):     case State(c,st_esc_percent): \
+                                case State(c,st_csi):     case State(c,st_csi_dec2): \
+                                case State(c,st_csi_dec): case State(c,st_csi_dec3)
+
+            case AnyState(U'\7'):  { BeepOn(); break; }
+            case AnyState(U'\b'):  { ScrollFix(); if(cx>0) { --cx; } break; }
+            case AnyState(U'\t'):  { ScrollFix(); cx += 8 - (cx & 7); cmov: FixCoord(); break; }
+            case AnyState(U'\r'):  { cx=0; break; }
+            case AnyState(U'\16'): { activeset = 1; translate = g1set; break; }
+            case AnyState(U'\17'): { activeset = 0; translate = g0set; break; }
+            case AnyState(U'\177'): { /* del - ignore */ break; }
+            case AnyState(U'\30'): [[fallthrough]];
+            case AnyState(U'\32'): { Ground: state=st_default; break; }
+            case State(U'\33', st_default): state = st_esc; p.clear(); break;
+            case State(U'c', st_esc): Reset(); break; // esc c
+            case State(U'(', st_esc): state = st_scs0; break; // esc (
+            case State(U')', st_esc): state = st_scs1; break; // esc )
+            case State(U'#', st_esc): state = st_scr; break; // esc #
+            case State(U'[', st_esc): state = st_csi; break; // esc [
+            case State(U'%', st_esc): state = st_esc_percent; break; // esc %
+
+            case State(U'0', st_csi): case State(U'1', st_csi):
+            case State(U'2', st_csi): case State(U'3', st_csi):
+            case State(U'4', st_csi): case State(U'5', st_csi):
+            case State(U'6', st_csi): case State(U'7', st_csi):
+            case State(U'8', st_csi): case State(U'9', st_csi):
+                if(p.empty()) p.emplace_back();
+                p.back() = p.back() * 10 + (c - U'0');
+                break;
+            case State(U':', st_csi): case State(U';', st_csi):
+                p.emplace_back();
+                break;
+
+            case State(U'E', st_esc): // esc E
+                cx = 0;
+                state = st_default;
+                [[fallthrough]];
+            case State(10, st_default):
+            case State(11, st_default):
+            case State(12, st_default):
+                ScrollFix();
+                if(cy != bottom)
+                    Lf();
+                else
+                {
+                    unsigned pending_linefeeds = 1;
                     yscroll_up(top, bottom, pending_linefeeds);
                     cy -= pending_linefeeds-1;
                     if(cy < top) cy = top;
-                    goto handled;
                 }
-                Lf();
-                goto handled;
-            }
-            case 13: cx=0; goto handled;
-            case 14: activeset = 1; translate = g1set; goto handled;
-            case 15: activeset = 0; translate = g0set; goto handled;
-            case 24: case 26: state = ESnormal; goto handled;
-            case 27: state = ESescnext; break;
-            case 127: /* del - ignore */ goto handled;
-            case 128+27: state = ESesc; break;
-        }
-        switch(state)
-        {
-            case ESescnext:
-                state = ESesc;
                 break;
-            case ESnormal:
-                // TODO: process utfmode
+
+            case State(U'M', st_esc): // esc M, Ri
+                if(cy <= top)
+                {
+                    /* scroll the window down */
+                    yscroll_down(top, bottom, 1);
+                }
+                else
+                {
+                    --cy;
+                }
+                goto Ground;
+            case State(U'Z', st_esc): [[fallthrough]]; // esc Z
+            case State(U'c', st_csi): // csi 0 c // Primary device wnd.blankibutes (host computer)
+                GetParams(1,false);
+                if(!p[0]) EchoBack(U"\33[?65;1;6;8;15;22c");
+                // Example response: ^[[?64;1;2;6;9;15;18;21;22c
+                //  1=132 columns, 2=printer port, 4=sixel extension
+                //  6=selective erase, 7=DRCS, 8=user-defines keys
+                //  9=national replacement charsets, 12=SCS extension
+                // 15=technical charset, 18=windowing capability, 21=horiz scrolling,
+                // 22=ansi color/vt525, 29=ansi text locator
+                // 23=greek ext, 24=turkish ext, 42=latin2 cset, 44=pcterm,
+                // 45=softkeymap, 46=ascii emulation
+                // 62..69 = VT level (62=VT200, 63=VT300, 64=VT400)
+                break;
+            case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
+            case State(U's', st_csi): save_cur(); goto Ground;
+            case State(U'8', st_esc): [[fallthrough]]; // esc 8, csi u
+            case State(U'u', st_csi): restore_cur(); goto Ground;
+            case State(U'B', st_scs0): // esc ( B
+                g0set = 0; ActG0: if(activeset==0) translate=g0set;
+                goto Ground;
+            case State(U'0', st_scs0): g0set = 1; goto ActG0; // esc ( 0
+            case State(U'U', st_scs0): g0set = 2; goto ActG0; // esc ( U
+            case State(U'K', st_scs0): g0set = 3; goto ActG0; // esc ( K
+            case State(U'B', st_scs1): // esc ) B
+                g1set = 0; ActG1: if(activeset==1) translate=g1set;
+                goto Ground;
+            case State(U'0', st_scs1): g1set = 1; goto ActG1; // esc ) 0
+            case State(U'U', st_scs1): g1set = 2; goto ActG1; // esc ) U
+            case State(U'K', st_scs1): g1set = 3; goto ActG1; // esc ) K
+            case State(U'8', st_scr): /* TODO: clear screen with 'E' */ goto Ground; // esc # 8
+            case State(U'@', st_esc_percent): utfmode = 0; goto Ground; // esc % @
+            case State(U'G', st_esc_percent): [[fallthrough]];  // esc % G
+            case State(U'8', st_esc_percent): utfmode = 1; goto Ground; // esc % 8
+            case State(U'g', st_csi): /* TODO: set tab stops */ goto Ground;
+            case State(U'q', st_csi): /* TODO: set leds */ goto Ground;
+            case State(U'G', st_csi): [[fallthrough]];
+            case State(U'`', st_csi): { GetParams(1,true); cx=p[0]-1; goto cmov; }
+            case State(U'd', st_csi): { GetParams(1,true); cy=p[0]-1; goto cmov; }
+            case State(U'F', st_csi): cx=0; [[fallthrough]];
+            case State(U'A', st_csi): { GetParams(1,true); cy-=p[0];  goto cmov; }
+            case State(U'E', st_csi): cx=0; [[fallthrough]];
+            case State(U'B', st_csi): { GetParams(1,true); cy+=p[0];  goto cmov; }
+            case State(U'C', st_csi): { GetParams(1,true); cx+=p[0];  goto cmov; }
+            case State(U'D', st_csi): { GetParams(1,true); cx-=p[0];  goto cmov; }
+            case State(U'H', st_csi): [[fallthrough]];
+            case State(U'f', st_csi): { GetParams(2,true); cx=p[1]-1; cy=p[0]-1; goto cmov; }
+            case State(U'J', st_csi):
+                GetParams(1,false);
+                switch(p[0])
+                {
+                    case 0: // erase from cursor to end of display
+                        if(unsigned(cy) < wnd.ysize-1)
+                            wnd.fillbox(0,cy+1, wnd.xsize, wnd.ysize-cy-1);
+                        goto clreol;
+                    case 1: // erase from start to cursor
+                        if(cy > 0) wnd.fillbox(0,0, wnd.xsize,cy);
+                        goto clrbol;
+                    case 2: // erase whole display
+                        wnd.fillbox(0,0, wnd.xsize,wnd.ysize);
+                        break;
+                }
+                break;
+            case State(U'K', st_csi):
+                GetParams(1,false);
+                // 0: erase from cursor to end of line
+                // 1: erase from start of line to cursor
+                // 2: erase whole line
+                switch(p[0])
+                {
+                    case 0: clreol: wnd.fillbox(cx,cy, wnd.xsize-cx, 1); break;
+                    case 1: clrbol: wnd.fillbox(0, cy, cx+1,         1); break;
+                    case 2: wnd.fillbox(0, cy, wnd.xsize,    1); break;
+                }
+                break;
+            case State(U'L', st_csi):
+                GetParams(1,true);
+                // scroll the rest of window c lines down,
+                // including where cursor is. Don't move cursor.
+                yscroll_down(cy, bottom, p[0]);
+                break;
+            case State(U'M', st_csi):
+                GetParams(1,true);
+                yscroll_up(cy, bottom, p[0]);
+                break;
+            case State(U'P', st_csi):
+                GetParams(1,true); c = p[0];
+                // insert c black holes at cursor (eat c characters
+                // and scroll line horizontally to left)
+                if(cx + c > wnd.xsize) c = wnd.xsize-cx;
+                if(c)
+                {
+                    unsigned remain = wnd.xsize - (cx+c);
+                    wnd.copytext(cx,cy, wnd.xsize-remain,cy, remain,1);
+                    wnd.fillbox(wnd.xsize-c,cy, c,1);
+                }
+                break;
+            case State(U'X', st_csi):
+                GetParams(1,true);
+                // write c spaces at cursor (overwrite)
+                wnd.fillbox(cx,cy+top, p[0],1);
+                break;
+            case State(U'@', st_csi):
+                GetParams(1,true); c = p[0];
+                // insert c spaces at cursor
+                if(cx + c > wnd.xsize) c = wnd.xsize-cx;
+                if(c)
+                {
+                    unsigned remain = wnd.xsize - (cx+c);
+                    wnd.copytext(cx+c,cy, cx,cy, remain,1);
+                    wnd.fillbox(cx,cy, c,1);
+                }
+                break;
+            case State(U'r', st_csi):
+                GetParams(2,false);
+                if(!p[0]) p[0]=1;
+                if(!p[1]) p[1]=wnd.ysize;
+                if(p[0] < p[1] && p[1] <= wnd.ysize)
+                {
+                    top = p[0]-1; bottom = p[1]-1;
+                    cx=0; cy=top;
+                    goto cmov;
+                }
+                break;
+            case State(U'n', st_csi):
+            {
+                GetParams(1,false);
+                char Buf[32];
+                switch(p[0])
+                {
+                    case 5: EchoBack(U"\33[0n"); break;
+                    case 6: EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)std::sprintf(Buf, "\33[%d;%dR", cy+1, cx+1)})); break;
+                }
+                break;
+            }
+            case State(U'c', st_csi_dec3): // csi = 0 c, Tertiary device wnd.blankibutes (printer?)
+                GetParams(1,false); // Tertiary device wnd.blankibutes (printer?)
+                // Example response: ^[P!|0^[ (backslash) 
+                if(!p[0]) EchoBack(U"\33P!|00000000\x9C");
+                break;
+            case State(U'c', st_csi_dec2): // csi > 0 c, Secondary device wnd.blankibutes (terminal)
+                GetParams(1,false);
+                // Example response: ^[[>41;330;0c  (middle=firmware version)
+                if(!p[0]) EchoBack(U"\33[>1;1;0c");
+                break;
+            case State(U'h', st_csi_dec): // csi ? h, misc modes on
+                goto Ground;
+            case State(U'l', st_csi_dec): // csi ? l, misc modes off
+                /* esc[?3;4l = monitor off, insert mode off */
+                /* esc>      = numeric keypad off */
+                goto Ground;
+            case State(U'b', st_csi):
+                GetParams(1,true);
+                // TODO: Repeat last printed character n times
+                break;
+            case State(U'm', st_csi): // csi m
+                GetParams(1, false); // Make sure there is at least 1 param
+                c=0;
+                for(auto a: p)
+                    switch(c*256 + (a & 0xFFu))
+                    {
+                        #define case4(n) case n:case n+1:case n+2:case n+3
+                        #define case16(n) case4(n):case4(n+4):case4(n+8):case4(n+12)
+                        #define case64(n) case16(n):case16(n+16):case16(n+32):case16(n+48)
+                        #define casen_256(m) case64(m*256+0):case64(m*256+64):case64(m*256+128):case64(m*256+192)
+                        #define case012(n) case n: case 1*256+n: case 2*256+n
+                        #define case012_7(n) case012(n+0):case012(n+1):case012(n+2):case012(n+3):\
+                                             case012(n+4):case012(n+5):case012(n+6):case012(n+7)
+                        case012(0): ResetAttr(); break;
+                        case012(1): wnd.blank.bold = true; break;
+                        case (2): wnd.blank.dim = true; break;
+                        case (3): wnd.blank.italic = true; break;
+                        case (4): wnd.blank.underline = true; break;
+                        case (5): wnd.blank.blink = true; break;
+                        case012(7): wnd.blank.reverse = true; break;
+                        case012(8): wnd.blank.conceal = true; break;
+                        case012(9): wnd.blank.overstrike = true; break;
+                        case012(20): wnd.blank.fraktur = true; break;
+                        case012(21): wnd.blank.underline2 = true; break;
+                        case012(22): wnd.blank.dim = false; wnd.blank.bold = false; break;
+                        case012(23): wnd.blank.italic = false; wnd.blank.fraktur = false; break;
+                        case012(24): wnd.blank.underline = false; wnd.blank.underline2 = false; break;
+                        case012(25): wnd.blank.blink = false; break;
+                        case012(27): wnd.blank.reverse = false; break;
+                        case012(28): wnd.blank.conceal = false; break;
+                        case012(29): wnd.blank.overstrike = false; break;
+                        case012_7(30): wnd.blank.fgcolor = xterm256table[a-30]; break;
+                        case012(38): c = 1; break;
+                        case012(39): wnd.blank.underline = false; wnd.blank.underline2 = false; ResetFG(); break; // Set default foreground color
+                        case012_7(40): wnd.blank.bgcolor = xterm256table[a-40]; break;
+                        case012(48): c = 2; break;
+                        case012(49): ResetBG(); break; // Set default background color
+                        case012(51): wnd.blank.framed = true; break;
+                        case012(52): wnd.blank.encircled = true; break;
+                        case012(53): wnd.blank.overlined = true; break;
+                        case012(54): wnd.blank.framed = false; wnd.blank.encircled = false; break;
+                        case012(55): wnd.blank.overlined = false; break;
+                        case012_7(90): wnd.blank.fgcolor = xterm256table[a-90 + 8]; break;
+                        case012_7(100): wnd.blank.bgcolor = xterm256table[a-100 + 8]; break;
+                        case 1*256+5: c=3; break; // 38;5
+                            casen_256(3): wnd.blank.fgcolor = xterm256table[a&0xFF]; c = 0; break; // 38;5;n
+                        case 1*256+2: c=4; break; // 38;2
+                        case 1*256+3: c=5; break; // 38;3
+                        case 1*256+4: c=6; break; // 38;4
+                            casen_256(4): //fgc = a << 16; c+=3; break; // 38;2;n
+                            casen_256(5): //fgc = a << 16; c+=3; break; // 38;3;n
+                            casen_256(6): wnd.blank.fgcolor = a << 16; c+=3; break; // 38;4;n
+                            casen_256(7): //fgc += a << 8; c+=3; break; // 38;2;#;n
+                            casen_256(8): //fgc += a << 8; c+=3; break; // 38;3;#;n
+                            casen_256(9): wnd.blank.fgcolor += a << 8; c+=3; break; // 38;4;#;n
+                            casen_256(10): //fgc += a << 0; c = 0; break; // 38;2;#;#;n (RGB24)
+                            casen_256(11): wnd.blank.fgcolor += a << 0; c = 0; break; // 38;3;#;#;n (TODO CMY->RGB)
+                            casen_256(12): wnd.blank.fgcolor += a << 0; ++c; break;   // 38;4;#;#;n
+                            casen_256(13): c = 0; break;                // 38;4;#;#;#;n  (TODO CMYK->RGB)
+                        case 2*256+5: c=14; break; // 48;5
+                            casen_256(14): wnd.blank.bgcolor = xterm256table[a&0xFF]; c = 0; break; // 48;5;n
+                        case 2*256+2: c=15; break; // 48;2
+                        case 2*256+3: c=16; break; // 48;3
+                        case 2*256+4: c=17; break; // 48;4
+                            casen_256(15): //bgc = a << 16; c+=3; break; // 48;2;n
+                            casen_256(16): //bgc = a << 16; c+=3; break; // 48;3;n
+                            casen_256(17): wnd.blank.bgcolor = a << 16; c+=3; break; // 48;4;n
+                            casen_256(18): //bgc += a << 8; c+=3; break; // 48;2;#;n
+                            casen_256(19): //bgc += a << 8; c+=3; break; // 48;3;#;n
+                            casen_256(20): wnd.blank.bgcolor += a << 8; c+=3; break; // 48;4;#;n
+                            casen_256(21):// bgc += a << 0; c = 0; break; // 48;2;#;#;n (RGB24)
+                            casen_256(22): wnd.blank.bgcolor += a << 0; c = 0; break; // 48;3;#;#;n (TODO CMY->RGB)
+                            casen_256(23): wnd.blank.bgcolor += a << 0; ++c; break;   // 48;4;#;#;n
+                            casen_256(24): c = 0; break;                // 48;4;#;#;#;n  (TODO CMYK->RGB)
+                        default: c = 0; break;
+                        #undef case4
+                        #undef case16
+                        #undef case64
+                        #undef casen_256
+                        #undef case012
+                        #undef case012_7
+                    }
+                break;
+
+            default:
+                if(state != st_default) goto Ground;
                 ScrollFix();
                 wnd.PutCh(cx,cy, c, translate);
                 ++cx;
                 break;
-            case ESesc:
-                state = ESnormal;
-                switch(c)
-                {
-                    case U'[': state = ESsquare; break;
-                    //case U']': state = ESnonstd; break;
-                    case U'%': state = ESpercent; break;
-                    case U'E': cx = 0; goto Linefeed;
-                    case U'M': Ri(); break;
-                    case U'D': goto Linefeed;
-                    case U'Z': goto DevParms; break;
-                    case U'(': state = ESsetG0; break;
-                    case U')': state = ESsetG1; break;
-                    case U'#': state = EShash; break;
-                    case U'7': save_cur(); break;
-                    case U'8': restore_cur(); break;
-                    case U'c': Reset(); break;
-                }
-                break;
-            case ESsquare:
-                par.clear(); par.push_back(0);
-                state = ESgetpars;
-                extramark = 0;
-                if(c==U'[') { state = ESignore; break; }
-                if(c == U'?' || c == U'=' || c == U'>') { extramark = c; break; }
-                /* fallthru */
-            case ESgetpars:
-                if(c==U';') { par.push_back(0); break; }
-                if(c==U':') { par.push_back(0); break; } // Also support ':' as separator
-                if(c>=U'0' && c<=U'9') { par.back() = par.back()*10 + c-U'0'; break; }
-                state = ESgotpars;
-                [[fallthrough]];
-            case ESgotpars:
-                state = ESnormal;
-                if(extramark == '?' && (c==U'c' /* cursor type */
-                                     || c==U'm' /* complement mask */))
-                {
-                    /* UNIMPLEMENTED */
-                    break;
-                }
-
-                switch(c)
-                {
-                    case U'h':
-                        /* misc modes on */
-                        break;
-                    case U'l':
-                        /* misc modes off */
-                        /* esc[?3;4l = monitor off, insert mode off */
-                        /* esc>      = numeric keypad off */
-                        /* UNIMPLEMENTED */
-                        break;
-                    case U'n':
-                        if(extramark) break;
-                        if(par[0]==5) EchoBack(U"\033[0n");
-                        else if(par[0]==6)
-                        {
-                            std::basic_ostringstream<char32_t> esc;
-                            esc << U"\33[" << (cy+1) << U';' << (cx+1) << U'R';
-                            EchoBack(std::move(esc.str()));
-                        }
-                        break;
-                    case U'G': case U'`': if(par[0]) --par[0]; cx=par[0]; goto cmov;
-                    case U'd':            if(par[0]) --par[0]; cy=par[0]; goto cmov;
-                    case U'F': cx=0; [[fallthrough]];
-                    case U'A': if(!par[0]) par[0]=1; cy-=par[0]; goto cmov;
-                    case U'E': cx=0; [[fallthrough]];
-                    case U'B': if(!par[0]) par[0]=1; cy+=par[0]; goto cmov;
-                    case U'C': if(!par[0]) par[0]=1; cx+=par[0]; goto cmov;
-                    case U'D': if(!par[0]) par[0]=1; cx-=par[0]; goto cmov;
-                    case U'H': case U'f': par.resize(2);
-                        if(par[0]) --par[0];
-                        if(par[1]) --par[1];
-                        cx=par[1]; cy=par[0];
-                        goto cmov;
-                    case U'J': if(!par[0]) par[0]=1; csi_J(par[0]); break;
-                    case U'K': if(!par[0]) par[0]=1; csi_K(par[0]); break;
-                    case U'L': if(!par[0]) par[0]=1; csi_L(par[0]); break;
-                    case U'M': if(!par[0]) par[0]=1; csi_M(par[0]); break;
-                    case U'P': if(!par[0]) par[0]=1; csi_P(par[0]); break;
-                    case U'X': if(!par[0]) par[0]=1; csi_X(par[0]); break;
-                    case U'@': if(!par[0]) par[0]=1; csi_at(par[0]); break;
-                    case U'c':
-                        if(par[0]) break;
-                        switch(extramark)
-                        {
-                            case '=': // Tertiary device attributes (printer?)
-                                // Example response: ^[P!|0^[ (backslash) 
-                                EchoBack(U"\33P!|00000000\x9C");
-                                break;
-                            case '>': // Secondary device attributes (terminal)
-                                // Example response: ^[[>41;330;0c
-                                // middle attr=firmware version
-                                EchoBack(U"\33[>1;1;0c");
-                                break;
-                            case 0: // Primary device attributes (host computer)
-                            DevParms:
-                                EchoBack(U"\33[?65;1;6;8;15;22c");
-                                // Example response: ^[[?64;1;2;6;9;15;18;21;22c
-                                //  1=132 columns, 2=printer port, 4=sixel extension
-                                //  6=selective erase, 7=DRCS, 8=user-defines keys
-                                //  9=national replacement charsets, 12=SCS extension
-                                // 15=technical charset, 18=windowing capability, 21=horiz scrolling,
-                                // 22=ansi color/vt525, 29=ansi text locator
-                                // 23=greek ext, 24=turkish ext, 42=latin2 cset, 44=pcterm,
-                                // 45=softkeymap, 46=ascii emulation
-                                // 62..69 = VT level (62=VT200, 63=VT300, 64=VT400)
-                                break;
-                        }
-                        break;
-
-                    case U'g': /* set tab stops UNIMPLEMENTED */ break;
-                    case U'q': /* set leds UNIMPLEMENTED */ break;
-                    case U'm':
-                    {
-                        int mode256 = 0;
-                        for(unsigned a=0; a<par.size(); ++a)
-                            switch(par[a])
-                            {
-                                case 0: mode256 = 0; ResetAttr(); break;
-                                case 1: bold = true; break;
-                                case 2:
-                                    switch(mode256) // Parse RGB24
-                                    {
-                                        case 0: intensity = -1; break;
-                                        case 1: fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
-                                        case 2: bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
-                                    }
-                                    break;
-                                case 3:
-                                    switch(mode256) // Parse CMY (FIXME)
-                                    {
-                                        case 0: italic = true; break;
-                                        case 1: fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
-                                        case 2: bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
-                                    }
-                                    break;
-                                case 4:
-                                    switch(mode256) // Parse CMYK (FIXME)
-                                    {
-                                        case 0: underline = 1; break;
-                                        case 1: fgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
-                                        case 2: bgc = (par[a+1]<<16)+(par[a+2]<<8)+par[a+3]; a+=3; break;
-                                    }
-                                    break;
-                                case 5:
-                                    switch(mode256)
-                                    {
-                                        case 0: blink=true; break;
-                                        case 1: fgc = Translate256Color(par[++a]); break;
-                                        case 2: bgc = Translate256Color(par[++a]); break;
-                                    }
-                                    break;
-                                case 7: reverse = true; break;
-                                case 9: overstrike = true; break;
-                                case 21: underline = 2; break;
-                                case 22: intensity = 0; bold = false; break;
-                                case 23: italic = false; break;
-                                case 24: underline = 0; break;
-                                case 25: blink = false; break;
-                                case 27: reverse = false; break;
-                                case 29: overstrike = false; break;
-                                case 38: mode256 = 1; break;
-                                case 39: underline = 0; ResetFG(); break; // Set default foreground color
-                                case 48: mode256 = 2; break;
-                                case 49: ResetBG(); break; // Set default background color
-                                default:
-                                    /**/ if(par[a]>=30 && par[a]<=37)  fgc = Translate16Color(  (par[a]-30));
-                                    else if(par[a]>=40 && par[a]<=47)  bgc = Translate16Color(  (par[a]-40));
-                                    /**/ if(par[a]>=90 && par[a]<=97)  fgc = Translate16Color(8|(par[a]-90));
-                                    else if(par[a]>=100&& par[a]<=107) bgc = Translate16Color(8|(par[a]-100));
-                            }
-                        BuildAttr();
-                        break;
-                    }
-                    case U'r': par.resize(2);
-                        if(!par[0]) par[0]=1;
-                        if(!par[1]) par[1]=wnd.ysize;
-                        if(par[0] < par[1] && par[1] <= int(wnd.ysize))
-                        {
-                            top=par[0]-1, bottom=par[1]-1;
-                            cx=0; cy=top;
-                        }
-                        break;
-                    case U's': save_cur(); break;
-                    case U'u': restore_cur(); break;
-                }
-                break;
-            case EShash:
-                state = ESnormal;
-                if(c == U'8') { /* clear screen with 'E' */ break; }
-                break;
-            case ESignore:
-                state = ESnormal;
-                break;
-            case ESsetG0:
-                if(c == U'0') g0set = 1;
-                else if(c == U'B') g0set = 0;
-                else if(c == U'U') g0set = 2;
-                else if(c == U'K') g0set = 3;
-                if(activeset == 0) translate = g0set;
-                state = ESnormal;
-                break;
-            case ESsetG1:
-                if(c == U'0') g1set = 1;
-                else if(c == U'B') g1set = 0;
-                else if(c == U'U') g1set = 2;
-                else if(c == U'K') g1set = 3;
-                if(activeset == 1) translate = g1set;
-                state = ESnormal;
-                break;
-            case ESpercent:
-                state = ESnormal;
-                if(c == U'@') utfmode = 0;
-                else if(c == U'G' || c == U'8') utfmode = 1;
-                break;
         }
-     handled:;
-    }
+        #undef AnyState
+        #undef State
 
     if((cx+1 != int(wnd.xsize)
      || cy+1 != int(wnd.ysize))
@@ -475,34 +444,18 @@ void termwindow::save_cur()
 {
     backup.cx = cx;
     backup.cy = cy;
-    backup.i = intensity;
-    backup.I = italic;
-    backup.u = underline;
-    backup.b = blink;
-    backup.r = reverse;
-    backup.B = bold;
-    backup.o = overstrike;
-    backup.f = fgc;
-    backup.g = bgc;
     backup.top = top;
     backup.bottom = bottom;
+    backup.attr = wnd.blank;
 }
 
 void termwindow::restore_cur()
 {
     cx = backup.cx;
     cy = backup.cy;
-    intensity = backup.i;
-    italic    = backup.I;
-    underline = backup.u;
-    blink = backup.b;
-    reverse = backup.r;
-    bold = backup.B;
-    overstrike = backup.o;
-    fgc = backup.f;
-    bgc = backup.g;
     top = backup.top;
     bottom = backup.bottom;
+    wnd.blank = backup.attr;
 }
 
 void termwindow::FixCoord()
@@ -519,18 +472,4 @@ void termwindow::FixCoord()
 void termwindow::ScrollFix()
 {
     if(cx >= int(wnd.xsize)) { cx = 0; Lf(); }
-}
-
-void termwindow::BuildAttr()
-{
-    wnd.blank.fgcolor = fgc;
-    wnd.blank.bgcolor = bgc;
-    wnd.blank.intense = intensity > 0;
-    wnd.blank.bold    = bold;
-    wnd.blank.dim     = intensity < 0;
-    wnd.blank.italic  = italic;
-    wnd.blank.underline  = underline==1;
-    wnd.blank.underline2 = underline==2;
-    wnd.blank.overstrike = overstrike;
-    wnd.blank.reverse = reverse;
 }

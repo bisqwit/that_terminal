@@ -17,32 +17,28 @@ public:
 
 private:
     int top, bottom;
-    signed char intensity, underline;
-    bool italic, blink, reverse, bold, overstrike;
-    unsigned fgc, bgc;
 
     struct backup
     {
-        signed char cx,cy, i,u;
-        int top,bottom, f,g;
-        bool I,b,r,B,o;
+        int cx,cy, top,bottom;
+        Cell attr;
     } backup;
 
     char g0set, g1set, activeset, utfmode, translate;
     unsigned utflength;
     unsigned long utfvalue;
 
-    enum { ESnormal, ESesc, ESsquare, ESgetpars, ESgotpars,
-           EShash, ESignore, ESescnext, ESnonstd, ESsetG0,
-           ESsetG1, ESpercent } state;
-    std::vector<int> par;
-    char extramark;
+    std::vector<unsigned> p;
+    unsigned              state=0;
+
+private:
+    std::u32string buf{};
+    std::size_t    fill_req=0;
 
 private:
     void ResetFG();
     void ResetBG();
     void ResetAttr();
-    void BuildAttr();
     void Reset();
 
     void FixCoord();
@@ -50,23 +46,7 @@ private:
     void yscroll_down(unsigned y1, unsigned y2, int amount) const;
     void yscroll_up(unsigned y1, unsigned y2, int amount) const;
 
-    void csi_at(unsigned c) const;
-    inline void csi_X(unsigned c) const;
-    inline void csi_P(unsigned c) const;
-    inline void csi_J(unsigned c) const;
-    void csi_K(unsigned c) const;
-    void csi_L(int c) const
-    {
-        // scroll the rest of window c lines down,
-        // including where cursor is. Don't move cursor.
-        yscroll_down(cy, bottom, c);
-    }
-    inline void csi_M(int c) const
-    {
-        yscroll_up(cy, bottom, c);
-    }
     void Lf();
-    void Ri();
     void save_cur();
     void restore_cur();
 public:

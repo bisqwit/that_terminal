@@ -77,7 +77,7 @@ static unsigned Mix(unsigned color1,unsigned color2, unsigned fac1,unsigned fac2
     return Repack(a);
 }
 
-static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,bool intense,float italic)
+static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
     std::array<unsigned char,16> result={};
     auto calc = [=](bool prev,bool cur,bool next) constexpr
@@ -95,7 +95,6 @@ static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,b
         {
             if(cur || prev) result += float(1.f/4.f); // add dim extra pixel, slightly brighten existing pixels
         }
-        if(intense) result *= float(3.f/2.f); // brighten all pixels
         return result;
     };
     for(unsigned value=0; value<16; ++value)
@@ -122,7 +121,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
     static constexpr std::array<unsigned char,16> taketables[] =
     {
-        #define i(n,i) CalculateIntensityTable(n&4,n&2,n&1,i),
+        #define i(n,i) CalculateIntensityTable(n&2,n&1,i),
         #define j(n) i(n,0/8.f)i(n,1/8.f)i(n,2/8.f)i(n,3/8.f)i(n,4/8.f)i(n,5/8.f)i(n,6/8.f)i(n,7/8.f)
         j(0) j(1) j(2) j(3) j(4) j(5) j(6) j(7)
         #undef j
@@ -147,9 +146,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                          + fr * font_row_size_in_bytes;
 
                 const unsigned mode = cell.italic*(fr*8/fy)
-                                    + 8*cell.intense
-                                    + 16*cell.bold
-                                    + 32*cell.dim;
+                                    + 8*cell.bold
+                                    + 16*cell.dim;
 
                 unsigned widefont = fontptr[0];
                 // TODO: 16-pix wide font support
@@ -172,14 +170,6 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         std::swap(fg, bg);
                     }
 
-                    // TODO: deal with
-                    //         - bold
-                    //         - dim
-                    //         - intense
-                    //         - italic
-                    //         - underline
-                    //         - underline2
-                    //         - overstrike
                     if(line) bg ^= 0x606060;
 
                     unsigned mask = ((widefont << 2) >> (fx-fc)) & 0xF;
