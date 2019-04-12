@@ -52,6 +52,8 @@ struct Window
     std::vector<Cell> cells;
     std::size_t       xsize, ysize;
     std::size_t       cursx=0, cursy=0;
+    bool              reverse   = false;
+    bool              cursorvis = true;
     Cell blank {};
 public:
     Window(std::size_t xs, std::size_t ys) : cells(xs*ys), xsize(xs), ysize(ys)

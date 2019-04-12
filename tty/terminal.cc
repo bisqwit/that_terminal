@@ -51,6 +51,8 @@ void termwindow::Reset()
     state = 0;
     p.clear();
     lastch = U' ';
+    wnd.reverse   = false;
+    wnd.cursorvis = true;
 }
 
 void termwindow::Lf()
@@ -97,6 +99,7 @@ void termwindow::Write(std::u32string_view s)
         st_csi_dec,     // csi ?
         st_csi_dec2,    // csi >
         st_csi_dec3,    // csi =
+        st_csi_ex,      // csi !
         //
         st_num_states
     };
@@ -108,16 +111,23 @@ void termwindow::Write(std::u32string_view s)
         state = st_default;
     };
 
+    unsigned color = 0;
+    auto State = [](char32_t c, unsigned st) constexpr
+    {
+        return c*st_num_states + st;
+    };
     for(char32_t c: s)
-        #define State(c,st) ((std::uint_fast32_t(c) * st_num_states) + unsigned(st))
         switch(State(c,state))
         {
+            #define CsiState(c)      State(c,st_csi):     case State(c,st_csi_dec2): \
+                                case State(c,st_csi_dec): case State(c,st_csi_dec3): \
+                                case State(c,st_csi_ex)
             #define AnyState(c)      State(c,st_default): case State(c,st_esc): \
                                 case State(c,st_scs0):    case State(c,st_scs1): \
                                 case State(c,st_scr):     case State(c,st_esc_percent): \
-                                case State(c,st_csi):     case State(c,st_csi_dec2): \
-                                case State(c,st_csi_dec): case State(c,st_csi_dec3)
+                                case CsiState(c)
 
+            // Note: These escapes are recognized even in the middle of an ANSI/VT code.
             case AnyState(U'\7'):  { lastch=c; BeepOn(); break; }
             case AnyState(U'\b'):  { lastch=c; ScrollFix(); if(cx>0) { --cx; } break; }
             case AnyState(U'\t'):  { lastch=c; ScrollFix(); cx += 8 - (cx & 7); cmov: FixCoord(); break; }
@@ -128,32 +138,35 @@ void termwindow::Write(std::u32string_view s)
             case AnyState(U'\30'): [[fallthrough]];
             case AnyState(U'\32'): { Ground: state=st_default; break; }
             case State(U'\33', st_default): state = st_esc; p.clear(); break;
-            case State(U'c', st_esc): Reset(); break; // esc c
             case State(U'(', st_esc): state = st_scs0; break; // esc (
             case State(U')', st_esc): state = st_scs1; break; // esc )
-            case State(U'#', st_esc): state = st_scr; break; // esc #
-            case State(U'[', st_esc): state = st_csi; break; // esc [
+            case State(U'#', st_esc): state = st_scr; break;  // esc #
+            case State(U'[', st_esc): state = st_csi; break;  // esc [
             case State(U'%', st_esc): state = st_esc_percent; break; // esc %
+            case State(U'?', st_csi): state = st_csi_dec; break;  // csi ?
+            case State(U'>', st_csi): state = st_csi_dec2; break; // csi >
+            case State(U'=', st_csi): state = st_csi_dec3; break; // csi =
+            case State(U'!', st_csi): state = st_csi_ex; break; // csi !
 
-            case State(U'0', st_csi): case State(U'1', st_csi):
-            case State(U'2', st_csi): case State(U'3', st_csi):
-            case State(U'4', st_csi): case State(U'5', st_csi):
-            case State(U'6', st_csi): case State(U'7', st_csi):
-            case State(U'8', st_csi): case State(U'9', st_csi):
+            case CsiState(U'0'): case CsiState(U'1'):
+            case CsiState(U'2'): case CsiState(U'3'):
+            case CsiState(U'4'): case CsiState(U'5'):
+            case CsiState(U'6'): case CsiState(U'7'):
+            case CsiState(U'8'): case CsiState(U'9'):
                 if(p.empty()) p.emplace_back();
                 p.back() = p.back() * 10u + (c - U'0');
                 break;
-            case State(U':', st_csi): case State(U';', st_csi):
+            case CsiState(U':'): case CsiState(U';'):
                 p.emplace_back();
                 break;
 
-            case State(U'E', st_esc): // esc E
+            case State(U'E', st_esc): // esc E = CR+LF
                 cx = 0;
                 state = st_default;
                 [[fallthrough]];
-            case State(10, st_default):
-            case State(11, st_default):
-            case State(12, st_default):
+            case AnyState(10):
+            case AnyState(11):
+            case AnyState(12):
                 lastch = c;
                 ScrollFix();
                 if(cy != bottom)
@@ -178,20 +191,7 @@ void termwindow::Write(std::u32string_view s)
                     --cy;
                 }
                 goto Ground;
-            case State(U'Z', st_esc): [[fallthrough]]; // esc Z
-            case State(U'c', st_csi): // csi 0 c // Primary device attributes (host computer)
-                GetParams(1,false);
-                if(!p[0]) EchoBack(U"\33[?65;1;6;8;15;22c");
-                // Example response: ^[[?64;1;2;6;9;15;18;21;22c
-                //  1=132 columns, 2=printer port, 4=sixel extension
-                //  6=selective erase, 7=DRCS, 8=user-defines keys
-                //  9=national replacement charsets, 12=SCS extension
-                // 15=technical charset, 18=windowing capability, 21=horiz scrolling,
-                // 22=ansi color/vt525, 29=ansi text locator
-                // 23=greek ext, 24=turkish ext, 42=latin2 cset, 44=pcterm,
-                // 45=softkeymap, 46=ascii emulation
-                // 62..69 = VT level (62=VT200, 63=VT300, 64=VT400)
-                break;
+            case State(U'c', st_esc): Reset(); break; // esc c
             case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
             case State(U's', st_csi): save_cur(); goto Ground;
             case State(U'8', st_esc): [[fallthrough]]; // esc 8, csi u
@@ -214,7 +214,7 @@ void termwindow::Write(std::u32string_view s)
                 wnd.blank.ch = U' ';
                 goto Ground;
             case State(U'@', st_esc_percent): utfmode = 0; goto Ground; // esc % @
-            case State(U'G', st_esc_percent): [[fallthrough]];  // esc % G
+            case State(U'G', st_esc_percent): [[fallthrough]];          // esc % G
             case State(U'8', st_esc_percent): utfmode = 1; goto Ground; // esc % 8
             case State(U'g', st_csi): /* TODO: set tab stops */ goto Ground;
             case State(U'q', st_csi): /* TODO: set leds */ goto Ground;
@@ -224,7 +224,9 @@ void termwindow::Write(std::u32string_view s)
             case State(U'F', st_csi): cx=0; [[fallthrough]];
             case State(U'A', st_csi): { GetParams(1,true); cy-=p[0];  goto cmov; }
             case State(U'E', st_csi): cx=0; [[fallthrough]];
+            case State(U'e', st_csi): [[fallthrough]];
             case State(U'B', st_csi): { GetParams(1,true); cy+=p[0];  goto cmov; }
+            case State(U'a', st_csi): [[fallthrough]];
             case State(U'C', st_csi): { GetParams(1,true); cx+=p[0];  goto cmov; }
             case State(U'D', st_csi): { GetParams(1,true); cx-=p[0];  goto cmov; }
             case State(U'H', st_csi): [[fallthrough]];
@@ -267,6 +269,19 @@ void termwindow::Write(std::u32string_view s)
                 GetParams(1,true);
                 yscroll_up(cy, bottom, p[0]);
                 break;
+            case State(U'T', st_csi): // csi T, track mouse
+                if(p.size() > 1 || p.empty() || p[0]==0)
+                {
+                    // mouse track
+                    goto Ground;
+                }
+                [[fallthrough]];
+            case State(U'^', st_csi): // csi ^ , scroll down
+                GetParams(1,true);
+                // Reverse scrolling by N lines
+                // scroll the entire of window c lines down. Don't move cursor.
+                yscroll_down(top, bottom, p[0]);
+                break;
             case State(U'P', st_csi):
                 GetParams(1,true); c = p[0];
                 // insert c black holes at cursor (eat c characters
@@ -295,7 +310,8 @@ void termwindow::Write(std::u32string_view s)
                     wnd.fillbox(cx,cy, c,1);
                 }
                 break;
-            case State(U'r', st_csi):
+            case State(U'r', st_csi): [[fallthrough]]; // CSI r
+            case State(U'p', st_csi_ex):               // CSI ! p
                 GetParams(2,false);
                 if(!p[0]) p[0]=1;
                 if(!p[1]) p[1]=wnd.ysize;
@@ -307,16 +323,14 @@ void termwindow::Write(std::u32string_view s)
                 }
                 break;
             case State(U'n', st_csi):
-            {
                 GetParams(1,false);
-                char Buf[32];
                 switch(p[0])
                 {
+                    char Buf[32];
                     case 5: EchoBack(U"\33[0n"); break;
                     case 6: EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)std::sprintf(Buf, "\33[%d;%dR", cy+1, cx+1)})); break;
                 }
                 break;
-            }
             case State(U'c', st_csi_dec3): // csi = 0 c, Tertiary device attributes (printer?)
                 GetParams(1,false); // Tertiary device attributes (printer?)
                 // Example response: ^[P!|0^[ (backslash) 
@@ -327,12 +341,52 @@ void termwindow::Write(std::u32string_view s)
                 // Example response: ^[[>41;330;0c  (middle=firmware version)
                 if(!p[0]) EchoBack(U"\33[>1;1;0c");
                 break;
+            case State(U'Z', st_esc): [[fallthrough]]; // esc Z
+            case State(U'c', st_csi): // csi 0 c // Primary device attributes (host computer)
+                GetParams(1,false);
+                if(!p[0]) EchoBack(U"\33[?65;1;6;8;15;22c");
+                // Example response: ^[[?64;1;2;6;9;15;18;21;22c
+                //  1=132 columns, 2=printer port, 4=sixel extension
+                //  6=selective erase, 7=DRCS, 8=user-defines keys
+                //  9=national replacement charsets, 12=SCS extension
+                // 15=technical charset, 18=windowing capability, 21=horiz scrolling,
+                // 22=ansi color/vt525, 29=ansi text locator
+                // 23=greek ext, 24=turkish ext, 42=latin2 cset, 44=pcterm,
+                // 45=softkeymap, 46=ascii emulation
+                // 62..69 = VT level (62=VT200, 63=VT300, 64=VT400)
+                break;
             case State(U'h', st_csi_dec): // csi ? h, misc modes on
-                goto Ground;
             case State(U'l', st_csi_dec): // csi ? l, misc modes off
-                /* esc[?3;4l = monitor off, insert mode off */
-                /* esc>      = numeric keypad off */
+            {
+                bool set = c == U'h';
+                // 1=CKM, 2=ANM, 3=COLM, 4=SCLM, 5=SCNM, 6=OM, 7=AWM, 8=ARM,
+                // 18=PFF, 19=PEX, 25=TCEM, 40=132COLS, 42=NRCM,
+                // 44=MARGINBELL, ...
+                //   6 puts cursor at (0,0) both set,clear
+                //  25 enables/disables cursor visibility
+                //  40 enables/disables 80/132 mode (note: if enabled, RESET changes to one of these)
+                //   3 sets width at 132(enable), 80(disable) if "40" is enabled
+                //   5 = screenwide reverse color
+                GetParams(0, false);
+                for(auto a: p)
+                    switch(a)
+                    {
+                        case 6:  cx=cy=0; FixCoord(); break;
+                        case 25: wnd.cursorvis = set; break;
+                        case 3:  wnd.reverse   = set; break;
+                    }
+                break;
+            }
+            case State(U'h', st_csi): // csi h, ansi modes on
+            case State(U'l', st_csi): // csi l, ansi modes off
+            {
+                //bool set = c == U'h';
+                // 2 = keyboard locked
+                // 4 = insert mode
+                // 12 = local echo
+                // 20 = auto linefeed
                 goto Ground;
+            }
             case State(U'b', st_csi):
                 GetParams(1,true);
                 // Repeat last printed character n times
@@ -343,89 +397,87 @@ void termwindow::Write(std::u32string_view s)
                     ++cx;
                 }
                 break;
-            case State(U'm', st_csi): // csi m
+            case State(U'm', st_csi): // csi m (SGR)
+            {
                 GetParams(1, false); // Make sure there is at least 1 param
                 c=0;
+                auto mode = [](unsigned n)            constexpr { return 68 + n - 3; };           // room for 22
+                auto flag = [](unsigned c,unsigned n) constexpr { return 10 + (n-2) + (c-1)*4; }; // room for 8
                 for(auto a: p)
-                    switch(c*256 + (a & 0xFFu))
+                    switch(c<3 ? ((c && (a>=2 && a<=5)) ? flag(c,a) : a) : mode(c))
                     {
-                        #define case4(n) case n:case n+1:case n+2:case n+3
-                        #define case16(n) case4(n):case4(n+4):case4(n+8):case4(n+12)
-                        #define case64(n) case16(n):case16(n+16):case16(n+32):case16(n+48)
-                        #define casen_256(m) case64(m*256+0):case64(m*256+64):case64(m*256+128):case64(m*256+192)
-                        #define case012(n) case n: case 1*256+n: case 2*256+n
-                        #define case012_7(n) case012(n+0):case012(n+1):case012(n+2):case012(n+3):\
-                                             case012(n+4):case012(n+5):case012(n+6):case012(n+7)
-                        case012(0): ResetAttr(); break;
-                        case012(1): wnd.blank.bold = true; break;
-                        case (2): wnd.blank.dim = true; break;
-                        case (3): wnd.blank.italic = true; break;
-                        case (4): wnd.blank.underline = true; break;
-                        case (5): wnd.blank.blink = true; break;
-                        case012(7): wnd.blank.reverse = true; break;
-                        case012(8): wnd.blank.conceal = true; break;
-                        case012(9): wnd.blank.overstrike = true; break;
-                        case012(20): wnd.blank.fraktur = true; break;
-                        case012(21): wnd.blank.underline2 = true; break;
-                        case012(22): wnd.blank.dim = false; wnd.blank.bold = false; break;
-                        case012(23): wnd.blank.italic = false; wnd.blank.fraktur = false; break;
-                        case012(24): wnd.blank.underline = false; wnd.blank.underline2 = false; break;
-                        case012(25): wnd.blank.blink = false; break;
-                        case012(27): wnd.blank.reverse = false; break;
-                        case012(28): wnd.blank.conceal = false; break;
-                        case012(29): wnd.blank.overstrike = false; break;
-                        case012_7(30): wnd.blank.fgcolor = xterm256table[a-30]; break;
-                        case012(38): c = 1; break;
-                        case012(39): wnd.blank.underline = false; wnd.blank.underline2 = false; ResetFG(); break; // Set default foreground color
-                        case012_7(40): wnd.blank.bgcolor = xterm256table[a-40]; break;
-                        case012(48): c = 2; break;
-                        case012(49): ResetBG(); break; // Set default background color
-                        case012(51): wnd.blank.framed = true; break;
-                        case012(52): wnd.blank.encircled = true; break;
-                        case012(53): wnd.blank.overlined = true; break;
-                        case012(54): wnd.blank.framed = false; wnd.blank.encircled = false; break;
-                        case012(55): wnd.blank.overlined = false; break;
-                        case012_7(90): wnd.blank.fgcolor = xterm256table[a-90 + 8]; break;
-                        case012_7(100): wnd.blank.bgcolor = xterm256table[a-100 + 8]; break;
-                        case 1*256+5: c=3; break; // 38;5
-                            casen_256(3): wnd.blank.fgcolor = xterm256table[a&0xFF]; c = 0; break; // 38;5;n
-                        case 1*256+2: c=4; break; // 38;2
-                        case 1*256+3: c=5; break; // 38;3
-                        case 1*256+4: c=6; break; // 38;4
-                            casen_256(4): //fgc = a << 16; c+=3; break; // 38;2;n
-                            casen_256(5): //fgc = a << 16; c+=3; break; // 38;3;n
-                            casen_256(6): wnd.blank.fgcolor = a << 16; c+=3; break; // 38;4;n
-                            casen_256(7): //fgc += a << 8; c+=3; break; // 38;2;#;n
-                            casen_256(8): //fgc += a << 8; c+=3; break; // 38;3;#;n
-                            casen_256(9): wnd.blank.fgcolor += a << 8; c+=3; break; // 38;4;#;n
-                            casen_256(10): //fgc += a << 0; c = 0; break; // 38;2;#;#;n (RGB24)
-                            casen_256(11): wnd.blank.fgcolor += a << 0; c = 0; break; // 38;3;#;#;n (TODO CMY->RGB)
-                            casen_256(12): wnd.blank.fgcolor += a << 0; ++c; break;   // 38;4;#;#;n
-                            casen_256(13): c = 0; break;                // 38;4;#;#;#;n  (TODO CMYK->RGB)
-                        case 2*256+5: c=14; break; // 48;5
-                            casen_256(14): wnd.blank.bgcolor = xterm256table[a&0xFF]; c = 0; break; // 48;5;n
-                        case 2*256+2: c=15; break; // 48;2
-                        case 2*256+3: c=16; break; // 48;3
-                        case 2*256+4: c=17; break; // 48;4
-                            casen_256(15): //bgc = a << 16; c+=3; break; // 48;2;n
-                            casen_256(16): //bgc = a << 16; c+=3; break; // 48;3;n
-                            casen_256(17): wnd.blank.bgcolor = a << 16; c+=3; break; // 48;4;n
-                            casen_256(18): //bgc += a << 8; c+=3; break; // 48;2;#;n
-                            casen_256(19): //bgc += a << 8; c+=3; break; // 48;3;#;n
-                            casen_256(20): wnd.blank.bgcolor += a << 8; c+=3; break; // 48;4;#;n
-                            casen_256(21):// bgc += a << 0; c = 0; break; // 48;2;#;#;n (RGB24)
-                            casen_256(22): wnd.blank.bgcolor += a << 0; c = 0; break; // 48;3;#;#;n (TODO CMY->RGB)
-                            casen_256(23): wnd.blank.bgcolor += a << 0; ++c; break;   // 48;4;#;#;n
-                            casen_256(24): c = 0; break;                // 48;4;#;#;#;n  (TODO CMYK->RGB)
+                        case 0: ResetAttr(); c = 0; break;
+                        case 1: wnd.blank.bold = true; c = 0; break;
+                        case 2: wnd.blank.dim = true; c = 0; break;
+                        case 3: wnd.blank.italic = true; c = 0; break;
+                        case 4: wnd.blank.underline = true; c = 0; break;
+                        case 5: wnd.blank.blink = true; c = 0; break;
+                        case 7: wnd.blank.reverse = true; c = 0; break;
+                        case 8: wnd.blank.conceal = true; c = 0; break;
+                        case 9: wnd.blank.overstrike = true; c = 0; break;
+                        case 20: wnd.blank.fraktur = true; c = 0; break;
+                        case 21: wnd.blank.underline2 = true; c = 0; break;
+                        case 22: wnd.blank.dim = false; wnd.blank.bold = false; c = 0; break;
+                        case 23: wnd.blank.italic = false; wnd.blank.fraktur = false; c = 0; break;
+                        case 24: wnd.blank.underline = false; wnd.blank.underline2 = false; c = 0; break;
+                        case 25: wnd.blank.blink = false; c = 0; break;
+                        case 27: wnd.blank.reverse = false; c = 0; break;
+                        case 28: wnd.blank.conceal = false; c = 0; break;
+                        case 29: wnd.blank.overstrike = false; c = 0; break;
+                        case 39: wnd.blank.underline = false; wnd.blank.underline2 = false; ResetFG(); c = 0; break; // Set default foreground color
+                        case 49: ResetBG(); c = 0; break; // Set default background color
+                        case 51: wnd.blank.framed = true; c = 0; break;
+                        case 52: wnd.blank.encircled = true; c = 0; break;
+                        case 53: wnd.blank.overlined = true; c = 0; break;
+                        case 54: wnd.blank.framed = false; wnd.blank.encircled = false; c = 0; break;
+                        case 55: wnd.blank.overlined = false; c = 0; break;
+                        case 38: c = 1; break;
+                        case 48: c = 2; break;
+                        case flag(1,4): c=3; color=0; break; // 38;4
+                        case flag(1,3): c=4; color=0; break; // 38;3
+                        case flag(1,2): c=5; color=0; break; // 38;2
+                        case flag(2,4): c=6; color=0; break; // 48;4
+                        case flag(2,3): c=7; color=0; break; // 48;3
+                        case flag(2,2): c=8; color=0; break; // 48;2
+                        case flag(1,5): c=22; break;         // 38;5
+                        case flag(2,5): c=23; break;         // 48;5
+                        case mode(3): //color = (color << 8) + a; c+=6; break; // 38;4;n
+                        case mode(4): //color = (color << 8) + a; c+=6; break; // 38;3;n
+                        case mode(5): //color = (color << 8) + a; c+=6; break; // 38;2;n
+                        case mode(6): //color = (color << 8) + a; c+=6; break; // 48;4;n
+                        case mode(7): //color = (color << 8) + a; c+=6; break; // 48;3;n
+                        case mode(8): //color = (color << 8) + a; c+=6; break; // 48;2;n
+                        case mode(9): //color = (color << 8) + a; c+=6; break; // 38;4;#;n
+                        case mode(10)://color = (color << 8) + a; c+=6; break; // 38;3;#;n
+                        case mode(11)://color = (color << 8) + a; c+=6; break; // 38;2;#;n
+                        case mode(12)://color = (color << 8) + a; c+=6; break; // 48;4;#;n
+                        case mode(13)://color = (color << 8) + a; c+=6; break; // 48;3;#;n
+                        case mode(14)://color = (color << 8) + a; c+=6; break; // 48;2;#;n
+                        case mode(15)://color = (color << 8) + a; c+=6; break; // 38;4;#;#;n
+                        case mode(18):  color = (color << 8) + a; c+=6; break; // 48;4;#;#;n
+
+                        case 30:case 31:case 32:case 33:case 34:case 35:
+                        case 36:case 37:    a -= 30; a += 90-8;                 [[fallthrough]];
+                        case 90:case 91:case 92:case 93:case 94:case 95:
+                        case 96:case 97:    a -= 90-8;                          [[fallthrough]];
+                        case mode(22):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 38;5;n
+                        case mode(21)://color = (color << 8) + a; wnd.blank.fgcolor = color; c = 0; break; // 38;4;#;#;#;n (TODO CMYK->RGB)
+                        case mode(16)://color = (color << 8) + a; wnd.blank.fgcolor = color; c = 0; break; // 38;3;#;#;n   (TODO CMY->RGB)
+                        case mode(17):  color = (color << 8) + a; wnd.blank.fgcolor = color; c = 0; break; // 38;2;#;#;n   (RGB24)
+
+                        case 40:case 41:case 42:case 43:case 44:case 45:
+                        case 46:case 47:    a -= 40; a += 100-8;                [[fallthrough]];
+                        case 100:case 101:case 102:case 103:case 104:case 105:
+                        case 106:case 107:  a -= 100-8;                         [[fallthrough]];
+                        case mode(23):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 48;5;n
+                        case mode(24)://color = (color << 8) + a; wnd.blank.bgcolor = color; c = 0; break; // 48;4;#;#;#;n (TODO CMYK->RGB)
+                        case mode(19)://color = (color << 8) + a; wnd.blank.bgcolor = color; c = 0; break; // 48;3;#;#;n   (TODO CMY->RGB)
+                        case mode(20):  color = (color << 8) + a; wnd.blank.bgcolor = color; c = 0; break; // 48;2;#;#;n   (RGB24)
+
                         default: c = 0; break;
-                        #undef case4
-                        #undef case16
-                        #undef case64
-                        #undef casen_256
-                        #undef case012
-                        #undef case012_7
                     }
                 break;
+            }
 
             default:
                 if(state != st_default) goto Ground;
@@ -436,7 +488,6 @@ void termwindow::Write(std::u32string_view s)
                 break;
         }
         #undef AnyState
-        #undef State
 
     if((cx+1 != int(wnd.xsize)
      || cy+1 != int(wnd.ysize))

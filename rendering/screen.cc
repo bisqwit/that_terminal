@@ -165,7 +165,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     //fg = 0xAAAAAA;
                     //bg = 0x000055;
 
-                    if(cell.reverse ^ (x == cursx && y == cursy))
+                    if(cell.reverse ^ (x == cursx && y == cursy && cursorvis) ^ reverse)
                     {
                         std::swap(fg, bg);
                     }
