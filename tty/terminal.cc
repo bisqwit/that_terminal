@@ -531,4 +531,5 @@ void termwindow::FixCoord()
 void termwindow::ScrollFix()
 {
     if(cx >= int(wnd.xsize)) { cx = 0; Lf(); }
+    if(cy >= int(wnd.ysize)) cy = wnd.ysize-1;
 }
