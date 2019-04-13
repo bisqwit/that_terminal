@@ -368,7 +368,7 @@ void termwindow::Write(std::u32string_view s)
                 {
                     char Buf[32];
                     case 5: EchoBack(U"\33[0n"); break;
-                    case 6: EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)std::sprintf(Buf, "\33[%zu;%zuR", wnd.cursx+1, wnd.cursy+1)})); break;
+                    case 6: EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)std::sprintf(Buf, "\33[%zu;%zuR", wnd.cursy+1, wnd.cursx+1)})); break;
                 }
                 break;
             case State(U'c', st_csi_dec3): // csi = 0 c, Tertiary device attributes (printer?)

@@ -20,6 +20,8 @@ If the cursor is at the bottom of the screen
 but the window bottom is somewhere above,
 no scrolling or cursor movement happens.
 
+Any other character is printed, unless an escape code is being parsed.
+
 ## Esc codes:
 
 Note: Table includes also a few items marked “unsupported”.
@@ -28,18 +30,8 @@ and are not supported by this terminal emulator.
 
 * `<1B>`      ESC.
 * `<ESC> [`   CSI. An optional number of integer parameters may follow, separated by either `:` or `;`.
-* `<ESC> ( <char>`    Set G0 to character set <char>.
-* `<ESC> ) <char>`    Set G1 to character set <char>.
-* `<ESC> * <char>`    Set G2 to character set <char>.
-* `<ESC> + <char>`    Set G3 to character set <char>.
-* `<ESC> - <char>`    Set G1 to type 2 character set <char>.
-* `<ESC> . <char>`    Set G2 to type 2 character set <char>.
-* `<ESC> / <char>`    Set G3 to type 2 character set <char>.
-* `<ESC> <7C>` Select G3 character set for GR (unsupported)
-* `<ESC> <7D>` Select G2 character set for GR (unsupported)
-* `<ESC> <7E>` Select G1 character set for GR (unsupported)
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
-  * `<SCS0> B` `<SCS1> B <11>` Resets G0 and G1 to default and selects G0
+  * `<ESC> ( B` `<ESC> ) B` `<ESC> * B` `<ESC> + B` `<0F>` Resets G0,G1,G2,G3 to default and selects G0
   * `<CSI> m` Sets attributes to default
   * `<CSI> r` Sets window to default (entire screen)
   * `<CSI> H` Puts cursor at top-left corner
@@ -67,8 +59,8 @@ no scrolling or cursor movement happens.
 * `<CSI> B`, `<CSI> e` ¹⁴Move the cursor down by the specified number of rows.
 * `<CSI> C`, `<CSI> a` ¹Move the cursor right by the specified number of columns.
 * `<CSI> D` ¹Move the cursor left by the specified number of columns.
-* `<CSI> E` Same as `<0D>` followed by `<CSI B>`.
-* `<CSI> F` Same as `<0D>` followed by `<CSI A>`.
+* `<CSI> E` Same as `<0D>` followed by `<CSI> B`.
+* `<CSI> F` Same as `<0D>` followed by `<CSI> A`.
 * `<CSI> G`, `<CSI> <60>` ¹²Absolute horizontal cursor positioning: Set cursor to specified column (X coordinate).
 * `<CSI> d` ¹²Absolute vertical cursor positioning: Set cursor to specified row (Y coordinate).
 * `<CSI> H`, `<CSI> f` ¹²Absolute cursor positioning: Row and column, in that order.
@@ -91,7 +83,7 @@ no scrolling or cursor movement happens.
 * `<CSI> r`, `<CSI> ! p` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively.
 * `<CSI> n` Reports depending on the first parameter. Unrecognized values are ignored.
   * Value 5: Reports `<CSI> 0 n`.
-  * Value 6: Reports `<CSI> <x> ; <y> R` with the current cursor coordinates.
+  * Value 6: Reports `<CSI> <row> ; <column> R` with the current cursor coordinates.
 * `<CSI> = c` Reports tertiary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> > c` Reports secondary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> c`, `<ESC> Z` Reports primary device attributes. Ignored if nonzero parameters were found.
@@ -123,10 +115,10 @@ no scrolling or cursor movement happens.
   * 24 = Clears underline and double underline.
   * 25 = Clears blink.
   * 27 = Clears reverse.
-  * 28 = Clears concecal.
+  * 28 = Clears conceal.
   * 29 = Clears overstrike.
-  * 39 = Clears underline and double underline and resets foreground color.
-  * 49 = Resets background color.
+  * 39 = Sets default foreground color, and clears underline and double underline attributes.
+  * 49 = Sets default background color.
   * 51 = Sets framed. (unsupported)
   * 52 = Sets encircled. (unsupported)
   * 53 = Sets overlined. (unsupported)
@@ -144,6 +136,16 @@ no scrolling or cursor movement happens.
   * 40…47 = Sets background color \<n−40> using the 256-color lookup table.
   * 90…97 = Sets foreground color \<n+8−90> using the 256-color lookup table.
   * 100…107 = Sets background color \<n+8−100> using the 256-color lookup table.
+* `<ESC> ( <char>`    Set G0 to character set <char>.
+* `<ESC> ) <char>`    Set G1 to character set <char>.
+* `<ESC> * <char>`    Set G2 to character set <char>.
+* `<ESC> + <char>`    Set G3 to character set <char>.
+* `<ESC> - <char>`    Set G1 to type 2 character set <char>.
+* `<ESC> . <char>`    Set G2 to type 2 character set <char>.
+* `<ESC> / <char>`    Set G3 to type 2 character set <char>.
+* `<ESC> <7C>` Select G3 character set for GR (unsupported)
+* `<ESC> <7D>` Select G2 character set for GR (unsupported)
+* `<ESC> <7E>` Select G1 character set for GR (unsupported)
 
 Blank = space character with current attributes.  
 ¹ = Missing or zero parameter is interpreted as 1.  
@@ -165,6 +167,13 @@ the cursor is still inside the visible area.
 None of the commands move the cursor unless explicitly specified.
 This is important to note especially with the scrolling,
 clearing/erasing, and writing commands.
+
+When any invalid escape code is encountered,
+the escape code until the invalid character is silently ignored,
+and the next character is processed as if no escape code was actived.
+
+None of these escape codes are custom-made for this terminal emulator.
+All of these are supported by e.g. Xterm (although Xterm does not render italic).
 
 ## Character sets
 
