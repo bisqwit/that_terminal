@@ -305,4 +305,5 @@ int main()
     }
     tty.Kill(SIGHUP);
     tty.Close();
+    SDL_Quit();
 }

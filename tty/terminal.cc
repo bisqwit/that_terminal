@@ -102,7 +102,7 @@ void termwindow::Write(std::u32string_view s)
         if(wnd.cursy >= top && wnd.cursy <= bottom && strict)
         {
             // Only permit moving inside window
-            wnd.cursy = std::min(std::max(int(top), tgty), int(bottom));
+            wnd.cursy = std::min(std::size_t(std::max(int(top), tgty)), bottom);
         }
         else
         {
@@ -137,6 +137,10 @@ void termwindow::Write(std::u32string_view s)
         if(wnd.cursx == wnd.xsize-1) edgeflag = true;
         else                         ++wnd.cursx;
     };
+
+    if(bottom >= wnd.ysize) bottom = wnd.ysize-1;
+    if(top    > bottom)     top = bottom;
+
     for(char32_t c: s)
     {
         switch(State(c,state))
