@@ -54,15 +54,15 @@ If the cursor is at the topmost line of the screen,
 but the top edge of the window is somewhere below,
 no scrolling or cursor movement happens.
 * `<ESC> E`   Acts like `<0D>` followed by `<0A>`.
-* `<ESC> # 3`   Change current line to be rendered using top half of double-height letters (unsupported).
-* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters (unsupported).
-* `<ESC> # 5`   Change current line to be rendered using double-width letters. This halves the line length. (unsupported)
-* `<ESC> # 6`   Change current line to be rendered using double-width letters. This halves the line length. (unsupported)
-* `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute. This is for testing the double-width / double-height character modes.
-* `<ESC> % @`   Unsets UTF8 mode. (Ignored)
-* `<ESC> % G`, `<ESC> % 8`   Sets UTF8 mode. (Ignored)
-* `<CSI> g`    Set tab stops (UNIMPLEMENTED)
-* `<CSI> q`    Set LED states (UNIMPLEMENTED)
+* `<ESC> # 3`   Change current line to be rendered using top half of double-height letters.
+* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters.
+* `<ESC> # 5`   Change current line to be rendered using single-width (regular) letters.
+* `<ESC> # 6`   Change current line to be rendered using double-width letters. This halves the line length.
+* `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute. This is for testing the double-width / double-height character modes. Cursor is moved to the top-left corner of the screen.
+* `<ESC> % @`   Unsets UTF8 mode. (unsupported)
+* `<ESC> % G`, `<ESC> % 8`   Sets UTF8 mode. (unsupported)
+* `<CSI> g`    Set tab stops (unsupported)
+* `<CSI> q`    Set LED states (unsupported)
 * `<CSI> A` ¹⁴Move the cursor up by the specified number of rows.
 * `<CSI> B`, `<CSI> e` ¹⁴Move the cursor down by the specified number of rows.
 * `<CSI> C`, `<CSI> a` ¹Move the cursor right by the specified number of columns.
@@ -102,10 +102,10 @@ no scrolling or cursor movement happens.
   * Mode 25: Shows/hides cursor.
 * `<CSI> h` ³Set ANSI modes.
 * `<CSI> l` ³Unset ANSI modes.
-  * Mode 2: Keyboard locked. (Ignored)
-  * Mode 4: Insert mode. (Ignored)
-  * Mode 12: Local echo. (Ignored)
-  * Mode 20: Auto linefeed. (Ignored)
+  * Mode 2: Keyboard locked. (unsupported)
+  * Mode 4: Insert mode. (unsupported)
+  * Mode 12: Local echo. (unsupported)
+  * Mode 20: Auto linefeed. (unsupported)
 * `<CSI> m` ³SGR attributes. If no parameters are given, a single zero-parameter is implied.
   * 0 = Sets default attributes (clears all modes listed below, and sets default foreground and default background color).
   * 1 = Sets bold.
@@ -114,9 +114,9 @@ no scrolling or cursor movement happens.
   * 4 = Sets underline.
   * 5 = Sets blink.
   * 7 = Sets reverse.
-  * 8 = Sets conceal. (Ignored)
+  * 8 = Sets conceal. (unsupported)
   * 9 = Sets overstrike.
-  * 20 = Sets fraktur. (Ignored)
+  * 20 = Sets fraktur. (unsupported)
   * 21 = Sets double underline.
   * 22 = Clears dim and bold.
   * 23 = Clears italic and fraktur.
@@ -127,9 +127,9 @@ no scrolling or cursor movement happens.
   * 29 = Clears overstrike.
   * 39 = Clears underline and double underline and resets foreground color.
   * 49 = Resets background color.
-  * 51 = Sets framed. (Ignored)
-  * 52 = Sets encircled. (Ignored)
-  * 53 = Sets overlined. (Ignored)
+  * 51 = Sets framed. (unsupported)
+  * 52 = Sets encircled. (unsupported)
+  * 53 = Sets overlined. (unsupported)
   * 54 = Clears framed and encircled.
   * 55 = Clears overlined.
   * 38 2 \<r> \<g> \<b> = Sets RGB24 foreground color.

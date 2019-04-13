@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <vector>
 #include <tuple>
+#include <cstring>
 
 struct Cell
 {
@@ -17,32 +18,45 @@ struct Cell
     //    dim
     //    overstrike
     //    reverse
-    std::uint_least32_t fgcolor=0xAAAAAA;
-    std::uint_least32_t bgcolor=0x000000;
-    char32_t            ch = U' ';
-    bool                bold = false;
-    bool                dim = false;
-    bool                italic = false;
-    bool                underline = false;
-    bool                underline2 = false;
-    bool                overstrike = false;
-    bool                reverse = false;
-    bool                blink = false;
-    bool                framed = false;
-    bool                encircled = false;
-    bool                overlined = false;
-    bool                fraktur = false;
-    bool                conceal = false;
-    bool                dirty = true;
+    std::uint_least32_t fgcolor;
+    std::uint_least32_t bgcolor;
+    char32_t            ch;
+    bool                bold: 1;
+    bool                dim: 1;
+    bool                italic: 1;
+    bool                underline: 1;
+    bool                underline2: 1;
+    bool                overstrike: 1;
+    bool                reverse: 1;
+    bool                blink: 1;
+    bool                framed: 1;
+    bool                encircled: 1;
+    bool                overlined: 1;
+    bool                fraktur: 1;
+    bool                conceal: 1;
+    bool                dirty: 1;
+    bool                double_width;
+    unsigned char       double_height;
+
+    Cell()
+    {
+        std::memset(this, 0, sizeof(Cell));
+        fgcolor = 0xAAAAAA;
+        bgcolor = 0x000000;
+        ch      = U' ';
+        dirty   = true;
+    }
 
     bool operator== (const Cell& b) const
     {
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,
                           underline,underline2,overstrike,reverse,blink,
-                          framed,encircled,fraktur,conceal,overlined)
+                          framed,encircled,fraktur,conceal,overlined,
+                          double_width,double_height)
             == std::tuple(b.fgcolor,b.bgcolor,b.ch,b.bold,b.dim,b.italic,
                           b.underline,b.underline2,b.overstrike,b.reverse,b.blink,
-                          b.framed,b.encircled,b.fraktur,b.conceal,b.overlined);
+                          b.framed,b.encircled,b.fraktur,b.conceal,b.overlined,
+                          b.double_width,b.double_height);
     }
     bool operator!= (const Cell& b) const { return !operator==(b); }
 };
@@ -65,10 +79,11 @@ public:
 
     void fillbox(std::size_t x, std::size_t y, std::size_t width, std::size_t height)
     {
-        fillbox(x,y,width,height, blank);
+        fillbox(x,y,width,height, blank.ch);
     }
+    template<typename T>
     void fillbox(std::size_t x, std::size_t y, std::size_t width, std::size_t height,
-                 Cell with)
+                 T with)
     {
         for(std::size_t h=0; h<height; ++h)
             for(std::size_t w=0; w<width; ++w)
@@ -107,6 +122,8 @@ public:
         Cell ch = blank;
         // TODO: Deal with cset
         ch.ch = c;
+        ch.double_width = cells[y*xsize+x].double_width;
+        ch.double_height = cells[y*xsize+x].double_height;
         /*if(c != U' ')
         {
             fprintf(stderr, "Ch at (%zu,%zu): <%c>\n", x,y, int(c));
@@ -116,6 +133,9 @@ public:
     void Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels);
     void Resize(std::size_t newsx, std::size_t newsy);
     void Dirtify();
+
+    void LineSetHeightAttr(unsigned);
+    void LineSetWidthAttr(bool);
 };
 
 #endif

@@ -108,24 +108,38 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
         for(std::size_t fr=0; fr<fy; ++fr) // font-row
         {
             std::uint32_t* pix = pixels + (y*fy+fr)*screen_width;
-            for(std::size_t x=0; x<xsize; ++x) // cell-column
+            std::size_t xroom = xsize;
+            for(std::size_t x=0; x<xroom; ++x) // cell-column
             {
                 auto& cell = cells[y * xsize + x];
+
+                unsigned xscale = 1;
+                if(cell.double_width && (x+1) < xroom) { xscale = 2; --xroom; }
+                unsigned width = fx * xscale;
+
                 if(!cell.dirty
                 && y > 0 /* always render line 0 because of person */
                 && (x != cursx || y != cursy)
                 && (x != lastcursx || y != lastcursy)
                   )
                 {
-                    pix += fx;
+                    pix += width;
                     continue;
                 }
                 unsigned translated_ch = cell.ch; // TODO: Character-set translation
                 if(translated_ch >= 256) translated_ch = '?';
 
+                unsigned fr_actual = fr;
+                switch(cell.double_height)
+                {
+                    default: break;
+                    case 1: fr_actual /= 2; break;
+                    case 2: fr_actual /= 2; fr_actual += fy/2; break;
+                }
+
                 const unsigned char* fontptr =
                     font + translated_ch * character_size_in_bytes
-                         + fr * font_row_size_in_bytes;
+                         + fr_actual * font_row_size_in_bytes;
 
                 const unsigned mode = cell.italic*(fr*8/fy)
                                     + 8*cell.bold
@@ -139,7 +153,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                          || (cell.underline2 && (fr == (fy-1) || fr == (fy-3)))
                          || (cell.overstrike && (fr == (fy/2)));
 
-                for(std::size_t fc=0; fc<fx; ++fc, ++pix)
+                for(std::size_t fc=0; fc<width; ++fc, ++pix)
                 {
                     auto fg    = cell.fgcolor;
                     auto bg    = cell.bgcolor;
@@ -152,7 +166,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         std::swap(fg, bg);
                     }
 
-                    unsigned mask = ((widefont << 2) >> (fx-fc)) & 0xF;
+                    unsigned mask = ((widefont << 2) >> (fx-fc/xscale)) & 0xF;
                     int take = taketables[mode][mask];
                     unsigned untake = std::max(0,128-take);
                     if(cell.reverse)
@@ -208,4 +222,16 @@ void Window::Dirtify()
 {
     lastcursx = lastcursy = ~std::size_t();
     for(auto& c: cells) c.dirty = true;
+}
+
+void Window::LineSetHeightAttr(unsigned val)
+{
+    for(std::size_t x=0; x<xsize; ++x)
+        cells[cursy*xsize+x].double_height = val;
+}
+
+void Window::LineSetWidthAttr(bool val)
+{
+    for(std::size_t x=0; x<xsize; ++x)
+        cells[cursy*xsize+x].double_width = val;
 }
