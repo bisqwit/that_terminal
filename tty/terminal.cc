@@ -72,7 +72,8 @@ void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
 {
     unsigned hei = y2-y1+1;
     if(unsigned(amount) > hei) amount = hei;
-    wnd.copytext(0,y1+amount, 0,y1, wnd.xsize,(y2-(y1+amount))+1);
+    fprintf(stderr, "Height=%d, amount=%d, scrolling DOWN by %d lines\n", hei,amount, hei-amount);
+    wnd.copytext(0,y1+amount, 0,y1, wnd.xsize,hei-amount);
     wnd.fillbox(0,y1, wnd.xsize,amount);
 }
 
@@ -80,7 +81,8 @@ void termwindow::yscroll_up(unsigned y1, unsigned y2, int amount) const
 {
     unsigned hei = y2-y1+1;
     if(unsigned(amount) > hei) amount = hei;
-    wnd.copytext(0,y1, 0,y1+amount, wnd.xsize,(y2-amount-y1)+1);
+    fprintf(stderr, "Height=%d, amount=%d, scrolling UP by %d lines\n", hei,amount, hei-amount);
+    wnd.copytext(0,y1, 0,y1+amount, wnd.xsize,hei-amount);
     wnd.fillbox(0,y2-amount+1, wnd.xsize,amount);
 }
 
@@ -169,27 +171,15 @@ void termwindow::Write(std::u32string_view s)
             case AnyState(12):
                 lastch = c;
                 ScrollFix();
-                if(cy != bottom)
-                    Lf();
-                else
-                {
-                    unsigned pending_linefeeds = 1;
-                    yscroll_up(top, bottom, pending_linefeeds);
-                    cy -= pending_linefeeds-1;
-                    if(cy < top) cy = top;
-                }
+                Lf();
                 break;
 
-            case State(U'M', st_esc): // esc M, Ri
-                if(cy <= top)
-                {
-                    /* scroll the window down */
-                    yscroll_down(top, bottom, 1);
-                }
-                else
-                {
+            case State(U'M', st_esc): // esc M, Ri (FIXME verify that this is right?)
+                /* Within window: move cursor up; scroll the window down if at top */
+                if(cy > top)
                     --cy;
-                }
+                else
+                    yscroll_down(top, bottom, 1);
                 goto Ground;
             case State(U'c', st_esc): Reset(); break; // esc c
             case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
@@ -219,8 +209,8 @@ void termwindow::Write(std::u32string_view s)
             case State(U'g', st_csi): /* TODO: set tab stops */ goto Ground;
             case State(U'q', st_csi): /* TODO: set leds */ goto Ground;
             case State(U'G', st_csi): [[fallthrough]];
-            case State(U'`', st_csi): { GetParams(1,true); cx=p[0]-1; goto cmov; }
-            case State(U'd', st_csi): { GetParams(1,true); cy=p[0]-1; goto cmov; }
+            case State(U'`', st_csi): { GetParams(1,true); cx=p[0]-1; goto cmov; } // absolute hpos
+            case State(U'd', st_csi): { GetParams(1,true); cy=p[0]-1; goto cmov; } // absolute vpos
             case State(U'F', st_csi): cx=0; [[fallthrough]];
             case State(U'A', st_csi): { GetParams(1,true); cy-=p[0];  goto cmov; }
             case State(U'E', st_csi): cx=0; [[fallthrough]];
@@ -268,6 +258,10 @@ void termwindow::Write(std::u32string_view s)
             case State(U'M', st_csi):
                 GetParams(1,true);
                 yscroll_up(cy, bottom, p[0]);
+                break;
+            case State(U'S', st_csi): // xterm version?
+                GetParams(1,true);
+                yscroll_up(top, bottom, p[0]);
                 break;
             case State(U'T', st_csi): // csi T, track mouse
                 if(p.size() > 1 || p.empty() || p[0]==0)
@@ -318,6 +312,7 @@ void termwindow::Write(std::u32string_view s)
                 if(p[0] < p[1] && p[1] <= wnd.ysize)
                 {
                     top = p[0]-1; bottom = p[1]-1;
+                    fprintf(stderr, "Creating a window with top=%d, bottom=%d\n", top,bottom);
                     cx=0; cy=top;
                     goto cmov;
                 }
@@ -525,9 +520,9 @@ void termwindow::restore_cur()
 void termwindow::FixCoord()
 {
     if(bottom>=int(wnd.ysize))bottom=wnd.ysize-1;
-    if(top>bottom-2)top=bottom-2;
+    if(top>bottom-1)top=bottom-1;
     if(top<0)top=0;
-    if(bottom<top+2)bottom=top+2;
+    if(bottom<top+1)bottom=top+1;
     if(cx<0)cx=0;
     if(cy<0)cy=0;
     if(cx>=int(wnd.xsize))cx=wnd.xsize-1;

@@ -2,6 +2,8 @@
 #include <array>
 
 #include "screen.hh"
+#include "color.hh"
+#include "person.hh"
 
 static const unsigned char p32font[32*256] = {
 #include "8x32.inc"
@@ -48,34 +50,6 @@ static std::unordered_map<unsigned, const unsigned char*> fonts
     { 8*256 + 32, p32font },
 };
 
-static std::array<unsigned,3> Unpack(unsigned rgb)
-{
-    return { rgb>>16, (rgb>>8)&0xFF, rgb&0xFF };
-}
-static unsigned Repack(std::array<unsigned,3> rgb)
-{
-    if(rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
-    {
-        // Clamp with desaturation:
-        float l = (rgb[0]*299u + rgb[1]*587u + rgb[2]*114u)*1e-3f, s = 1.f;
-        if(rgb[0] > 255) s = std::min(s, (l-255.f) / (l-rgb[0]));
-        if(rgb[1] > 255) s = std::min(s, (l-255.f) / (l-rgb[1]));
-        if(rgb[2] > 255) s = std::min(s, (l-255.f) / (l-rgb[2]));
-        rgb[0] = (rgb[0] - l) * s + l + 0.5f;
-        rgb[1] = (rgb[1] - l) * s + l + 0.5f;
-        rgb[2] = (rgb[2] - l) * s + l + 0.5f;
-    }
-    return (std::min(rgb[0],255u)<<16)
-         + (std::min(rgb[1],255u)<<8)
-         + (std::min(rgb[2],255u)<<0);
-}
-
-static unsigned Mix(unsigned color1,unsigned color2, unsigned fac1,unsigned fac2,unsigned sum)
-{
-    auto a = Unpack(color1), b = Unpack(color2);
-    for(unsigned n=0; n<3; ++n) a[n] = (a[n]*fac1 + b[n]*fac2)/(sum);
-    return Repack(a);
-}
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
@@ -109,6 +83,14 @@ static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,b
     return result;
 }
 
+static constexpr std::array<unsigned char,16> taketables[] =
+{
+    #define i(n,i) CalculateIntensityTable(n&2,n&1,i),
+    #define j(n) i(n,0/8.f)i(n,1/8.f)i(n,2/8.f)i(n,3/8.f)i(n,4/8.f)i(n,5/8.f)i(n,6/8.f)i(n,7/8.f)
+    j(0) j(1) j(2) j(3) j(4) j(5) j(6) j(7)
+    #undef j
+    #undef i
+};
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
@@ -119,15 +101,6 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
     std::size_t character_size_in_bytes = (fx*fy+7)/8;
     std::size_t font_row_size_in_bytes = (fx+7)/8;
 
-    static constexpr std::array<unsigned char,16> taketables[] =
-    {
-        #define i(n,i) CalculateIntensityTable(n&2,n&1,i),
-        #define j(n) i(n,0/8.f)i(n,1/8.f)i(n,2/8.f)i(n,3/8.f)i(n,4/8.f)i(n,5/8.f)i(n,6/8.f)i(n,7/8.f)
-        j(0) j(1) j(2) j(3) j(4) j(5) j(6) j(7)
-        #undef j
-        #undef i
-    };
-
     std::size_t screen_width  = fx*xsize;
     //std::size_t screen_height = fy*ysize;
     for(std::size_t y=0; y<ysize; ++y) // cell-row
@@ -137,7 +110,16 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
             std::uint32_t* pix = pixels + (y*fy+fr)*screen_width;
             for(std::size_t x=0; x<xsize; ++x) // cell-column
             {
-                const auto& cell = cells[y * xsize + x];
+                auto& cell = cells[y * xsize + x];
+                if(!cell.dirty
+                && y > 0 /* always render line 0 because of person */
+                && (x != cursx || y != cursy)
+                && (x != lastcursx || y != lastcursy)
+                  )
+                {
+                    pix += fx;
+                    continue;
+                }
                 unsigned translated_ch = cell.ch; // TODO: Character-set translation
                 if(translated_ch >= 256) translated_ch = '?';
 
@@ -174,11 +156,22 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
                     unsigned mask = ((widefont << 2) >> (fx-fc)) & 0xF;
                     int take = taketables[mode][mask];
-                    *pix = Mix(bg,fg, std::max(0,127-take), take, 128);
+                    unsigned color = Mix(bg,fg, std::max(0,127-take), take, 128);
+                    if(y == 0)
+                    {
+                        color = PersonTransform(bg,color, xsize, x*fx+fc,y*fy+fr);
+                    }
+                    *pix = color;
+                }
+                if(fr == (fy-1))
+                {
+                    cell.dirty = false;
                 }
             }
         }
     }
+    lastcursx = cursx;
+    lastcursy = cursy;
 }
 
 void Window::Resize(std::size_t newsx, std::size_t newsy)
@@ -191,4 +184,11 @@ void Window::Resize(std::size_t newsx, std::size_t newsy)
     cells = std::move(newcells);
     xsize = newsx;
     ysize = newsy;
+    Dirtify();
+}
+
+void Window::Dirtify()
+{
+    lastcursx = lastcursy = ~std::size_t();
+    for(auto& c: cells) c.dirty = true;
 }

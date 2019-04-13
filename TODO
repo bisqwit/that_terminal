@@ -1,9 +1,9 @@
 
-	MISSING style renderings (blink? framed?)
+	MISSING style renderings (blink? framed?) [very low priority]
 	Do character sets properly
 	Support line-drawing characters (those G0, G1 things)
-	Optimizations
-	Maybe also some decorations
+->>	Screen recording
+	
 	
 	
 	

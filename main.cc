@@ -10,8 +10,13 @@
 #include <poll.h>
 #include <unistd.h>
 
-unsigned VidCellWidth = 8, VidCellHeight = 16;
-unsigned WindowWidth  = 80, WindowHeight = 25;
+unsigned VidCellWidth = 8, VidCellHeight = 12;
+unsigned WindowWidth  =129, WindowHeight = 40;
+//unsigned WindowWidth  = 80, WindowHeight = 25;
+//float DefaultWindowScaleX = 3.f;
+//float DefaultWindowScaleY = 3.5f;
+float DefaultWindowScaleX = 3.f;
+float DefaultWindowScaleY = 4.f;
 
 namespace
 {
@@ -42,12 +47,12 @@ namespace
         {
             window = SDL_CreateWindow("terminal",
                 SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                pixels_width*2, pixels_height*2,
+                pixels_width*DefaultWindowScaleX, pixels_height*DefaultWindowScaleY,
                 SDL_WINDOW_RESIZABLE);
         }
         else
         {
-            SDL_SetWindowSize(window, pixels_width*2, pixels_height*2);
+            SDL_SetWindowSize(window, pixels_width*DefaultWindowScaleX, pixels_height*DefaultWindowScaleY);
         }
         if(!renderer)
         {
@@ -124,7 +129,8 @@ int main()
     SDL_StartTextInput();
 
     std::unordered_map<int, bool> keys;
-    for(;;)
+    bool quit = false;
+    while(!quit)
     {
         struct pollfd p[2] = { { tty.getfd(), POLLIN, 0 },
                                { 0, POLLIN, 0 } };
@@ -169,12 +175,14 @@ int main()
                         case SDL_WINDOWEVENT_EXPOSED:
                         case SDL_WINDOWEVENT_RESIZED:
                         case SDL_WINDOWEVENT_SIZE_CHANGED:
+                            wnd.Dirtify();
                             break;
                         default:
                             break;
                     }
                     break;
                 case SDL_QUIT:
+                    quit = true;
                     break;
                 case SDL_TEXTINPUT:
                     pending_input.clear();
@@ -243,6 +251,7 @@ int main()
                             SDL_ReInitialize(wnd.xsize, wnd.ysize);
                             //tty.Kill(SIGWINCH);
                             tty.Resize(wnd.xsize, wnd.ysize);
+                            wnd.Dirtify();
                             processed = true;
                         }
                         if(processed)
@@ -297,4 +306,6 @@ int main()
 
         SDL_ReDraw(wnd);
     }
+    tty.Kill(SIGHUP);
+    tty.Close();
 }

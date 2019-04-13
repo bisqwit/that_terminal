@@ -14,6 +14,7 @@ LDLIBS   += $(shell pkg-config sdl2 --libs)
 
 CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
 
+#CXXFLAGS += -pg
 
 # for forkpty:
 LDLIBS   += -lutil
@@ -22,6 +23,7 @@ OBJS=\
 	tty/terminal.o \
 	tty/forkpty.o \
 	rendering/screen.o \
+	rendering/person.o \
 	beeper.o \
 	main.o \
 	ctype.o
