@@ -70,9 +70,6 @@ that have been created specifically for terminal emulators,
 such as the 256-color and 16777216-color SGR parameters,
 which are supported by my program as well.
 
-You can find the list of escapes supported by this emulator
-in [a separate document](doc/escapes.md).
-
 ## What is *this* terminal emulator used for?
 
 It is a tool I use for creating videos.
@@ -89,6 +86,11 @@ obsolete, replacing it with [Joe](https://joe-editor.sourceforge.io).
 * I need something that I can customize for artistic reasons, even if that breaks compatibility with other programs.
 * I also need to be able to change fonts and terminal sizes at whim with simple keyboard inputs (mouse input is too precise and difficult to script).
 * And I need to record video while doing that. This is a video production tool after all.
+
+### Supported escape codes
+
+You can find the list of escapes supported by this emulator
+in [a separate document](doc/escapes.md).
 
 ## Author
 

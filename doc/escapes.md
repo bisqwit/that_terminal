@@ -14,7 +14,11 @@ E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with
 * `<7F>`  Del (ignored)
 * `<18>`  Ignored, terminates and cancels an ESC code
 * `<1A>`  Ignored, terminates and cancels an ESC code
-* `<0A>`, `<0B>`, `<0C>` ⁴Line feed: Moves cursor down within window; if at bottom, scrolls window up and inserts a blank line at bottom.
+* `<0A>`, `<0B>`, `<0C>` ⁴Line feed: Moves cursor down within window; if at bottom
+of the window, scrolls window up and inserts a blank line at bottom.
+If the cursor is at the bottom of the screen
+but the window bottom is somewhere above,
+no scrolling or cursor movement happens.
 
 ## Esc codes:
 
@@ -40,7 +44,11 @@ E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with
   * `<CSI> ? 25 h` Shows cursor
 * `<ESC> 7` , `<CSI> s` Saves current console state (cursor position, window boundaries, character attributes)
 * `<ESC> 8` , `<CSI> u` Restores console state (cursor position, window boundaries, character attributes)
-* `<ESC> M`   ⁴Reverse linefeed: Moves cursor up within window; if at top, scrolls window down and inserts a blank line at top.
+* `<ESC> M`   ⁴Reverse linefeed: Moves cursor up within window; if at top of
+the window, scrolls window down and inserts a blank line at top.
+If the cursor is at the topmost line of the screen,
+but the top edge of the window is somewhere below,
+no scrolling or cursor movement happens.
 * `<ESC> E`   Acts like `<0D>` followed by `<0A>`.
 * `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute.
 * `<ESC> % @`   Unsets UTF8 mode. (Ignored)
@@ -136,6 +144,11 @@ Blank = space character with current attributes.
 ⁴ = Does not allow the cursor to escape the window; however, if the cursor
   is already outside the window, allows moving to another row
   even if the target row is even farther outside the window.
+
+No cursor movement command allows the cursor to leave the *screen*.
+However, as an exception, the cursor is allowed to sit on the rightmost edge of the screen,
+outside the visible area.
+Printing anything there will invoke an automatic linefeed.
 
 None of the commands move the cursor unless explicitly specified.
 This is important to note especially with the scrolling,
