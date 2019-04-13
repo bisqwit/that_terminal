@@ -271,7 +271,7 @@ void termwindow::Write(std::u32string_view s)
             case State(U'X', st_csi):
                 GetParams(1,true);
                 // write c spaces at cursor (overwrite)
-                wnd.fillbox(cx,cy+top, p[0],1);
+                wnd.fillbox(cx,cy, p[0],1);
                 break;
             case State(U'@', st_csi):
                 GetParams(1,true); c = p[0];
@@ -348,7 +348,7 @@ void termwindow::Write(std::u32string_view s)
                     {
                         case 6:  cx=cy=0; FixCoord(); break;
                         case 25: wnd.cursorvis = set; break;
-                        case 3:  wnd.reverse   = set; break;
+                        case 5:  wnd.reverse   = set; break;
                     }
                 break;
             }

@@ -30,6 +30,49 @@ It does not *understand* anything you type. It just converts those keys
 into a character stream and passes them to another program that hopefully
 does understand them.
 
+### Why is it called an “emulator”?
+
+Back in the early ages of computing, computers were extremely expensive.
+The typical architecture was such that you had one central computer,
+and a number of [*dummy terminals*](https://en.wikipedia.org/wiki/Computer_terminal).
+
+These dummy terminals were devices
+that… «drum roll»… translated between the user-interface
+and the input & output of the central computer.
+They had no computing capabilities of their own.
+
+Over time as computers became cheaper, it became possible to run
+these text-based systems locally. The local computer then ran
+a terminal *emulator* to interface with these local systems,
+that still communicated using text streams.
+
+The emulator *emulates* the terminal such as the
+[VT100](https://en.wikipedia.org/wiki/VT100).
+The VT100 itself was a giant’s leap of improvement
+over using a *line printer* for the display device.
+
+Even in today’s time, many many decades later, the system of combining
+a text-based stream and a terminal emulator remains a useful and efficient
+paradigm, and really, the *de-facto* way to maintain UNIX-style systems.
+Some people, such as yours truly, even use it as their *primary* user-interface
+for most tasks on the computer.
+
+Even the Microsoft Windows Command Prompt utilizes a terminal emulator
+([Win32 Console](https://en.wikipedia.org/wiki/Win32_console)),
+even though the division between console programs and the terminal emulator
+is not as obvious in Windows
+as it is in UNIX-style systems like Linux.
+
+Modern terminal emulators not only emulate historic terminals
+like the VT100, VT220, VT240, VT340, VT420, and VT525,
+but also support other [ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code)
+that have been created specifically for terminal emulators,
+such as the 256-color and 16777216-color SGR parameters,
+which are supported by my program as well.
+
+You can find the list of escapes supported by this emulator
+in [a separate document](doc/escapes.md).
+
 ## What is *this* terminal emulator used for?
 
 It is a tool I use for creating videos.
