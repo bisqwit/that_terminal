@@ -152,14 +152,29 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         std::swap(fg, bg);
                     }
 
-                    if(line) bg ^= 0x606060;
-
                     unsigned mask = ((widefont << 2) >> (fx-fc)) & 0xF;
                     int take = taketables[mode][mask];
-                    unsigned color = Mix(bg,fg, std::max(0,127-take), take, 128);
-                    if(y == 0)
+                    unsigned untake = std::max(0,128-take);
+                    if(cell.reverse)
                     {
-                        color = PersonTransform(bg,color, xsize, x*fx+fc,y*fy+fr);
+                        PersonTransform(bg,fg, xsize*fx, x*fx+fc,y*fy+fr,
+                                        y == 0 ? 1
+                                      : y == (ysize-1) ? 2
+                                      : 0);
+                    }
+                    unsigned color  = Mix(bg,fg, untake, take, 128);
+
+                    if(line && take == 0 && (!cell.reverse || color != 0x000000))
+                    {
+                        auto brightness = [](unsigned rgb)
+                        {
+                            auto p = Unpack(rgb);
+                            return p[0]*299 + p[1]*587 + p[2]*114;
+                        };
+                        if(brightness(fg) > brightness(bg))
+                            color = Mix(0x000000, color, 1,1,2);
+                        else
+                            color = Mix(0xFFFFFF, color, 1,1,2);
                     }
                     *pix = color;
                 }

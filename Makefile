@@ -22,6 +22,7 @@ LDLIBS   += -lutil
 OBJS=\
 	tty/terminal.o \
 	tty/forkpty.o \
+	tty/256color.o \
 	rendering/screen.o \
 	rendering/person.o \
 	beeper.o \
