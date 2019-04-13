@@ -37,7 +37,7 @@ void termwindow::Reset()
     wnd.cursy = 0;
     wnd.reverse   = false;
     wnd.cursorvis = true;
-    wnd.fillbox(0,0, wnd.xsize,wnd.ysize); // Clear screen
+    wnd.fillbox(0,0, wnd.xsize,wnd.ysize, wnd.blank); // Clear screen
 }
 
 void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
@@ -209,7 +209,7 @@ void termwindow::Write(std::u32string_view s)
                 else
                     ClampedMoveY(wnd.cursy-1);
                 goto Ground;
-            case State(U'c', st_esc): Reset(); goto Ground; // esc c
+            case State(U'c', st_esc): ResetAttr(); Reset(); goto Ground; // esc c
             case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
             case State(U's', st_csi): save_cur(); goto Ground;
             case State(U'8', st_esc): [[fallthrough]]; // esc 8, csi u
@@ -275,13 +275,13 @@ void termwindow::Write(std::u32string_view s)
                 {
                     case 0: // erase from cursor to end of display
                         if(wnd.cursy < wnd.ysize-1)
-                            wnd.fillbox(0,wnd.cursy+1, wnd.xsize, wnd.ysize-wnd.cursy-1);
+                            wnd.fillbox(0,wnd.cursy+1, wnd.xsize, wnd.ysize-wnd.cursy-1, wnd.blank);
                         goto clreol;
                     case 1: // erase from start to cursor
-                        if(wnd.cursy > 0) wnd.fillbox(0,0, wnd.xsize,wnd.cursy);
+                        if(wnd.cursy > 0) wnd.fillbox(0,0, wnd.xsize,wnd.cursy, wnd.blank);
                         goto clrbol;
                     case 2: // erase whole display
-                        wnd.fillbox(0,0, wnd.xsize,wnd.ysize);
+                        wnd.fillbox(0,0, wnd.xsize,wnd.ysize, wnd.blank);
                         break;
                 }
                 break;

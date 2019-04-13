@@ -57,8 +57,8 @@ public:
 
     termwindow(Window& w): wnd(w)
     {
-        Reset();
         ResetAttr();
+        Reset();
         save_cur();
     }
     void EchoBack(std::u32string_view buffer);
