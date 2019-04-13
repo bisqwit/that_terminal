@@ -9,8 +9,8 @@ E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with
 * `<08>`  Backspace (move cursor left by one column, no erase)
 * `<09>`  Tab (moves cursor right to the next tab column)
 * `<0D>`  Carriage return: Moves cursor to column 1
-* `<10>`  Select G1 character set
-* `<11>`  Select G0 character set
+* `<0E>`  Select G1 character set for GL
+* `<0F>`  Select G0 character set for GL
 * `<7F>`  Del (ignored)
 * `<18>`  Ignored, terminates and cancels an ESC code
 * `<1A>`  Ignored, terminates and cancels an ESC code
@@ -22,18 +22,22 @@ no scrolling or cursor movement happens.
 
 ## Esc codes:
 
+Note: Table includes also a few items marked “unsupported”.
+These are documented for possible future use,
+and are not supported by this terminal emulator.
+
 * `<1B>`      ESC.
-* `<ESC> (`    SCS0.
-* `<ESC> )`    SCS1.
-* `<ESC> [`    CSI. An optional number of integer parameters may follow, separated by either `:` or `;`.
-* `<SCS0> B ` Changes G0 set to 0
-* `<SCS0> 0 ` Changes G0 set to 1
-* `<SCS0> U ` Changes G0 set to 2
-* `<SCS0> K ` Changes G0 set to 3
-* `<SCS1> B ` Changes G1 set to 0
-* `<SCS1> 0 ` Changes G1 set to 1
-* `<SCS1> U ` Changes G1 set to 2
-* `<SCS1> K ` Changes G1 set to 3
+* `<ESC> [`   CSI. An optional number of integer parameters may follow, separated by either `:` or `;`.
+* `<ESC> ( <char>`    Set G0 to character set <char>.
+* `<ESC> ) <char>`    Set G1 to character set <char>.
+* `<ESC> * <char>`    Set G2 to character set <char>.
+* `<ESC> + <char>`    Set G3 to character set <char>.
+* `<ESC> - <char>`    Set G1 to type 2 character set <char>.
+* `<ESC> . <char>`    Set G2 to type 2 character set <char>.
+* `<ESC> / <char>`    Set G3 to type 2 character set <char>.
+* `<ESC> <7C>` Select G3 character set for GR (unsupported)
+* `<ESC> <7D>` Select G2 character set for GR (unsupported)
+* `<ESC> <7E>` Select G1 character set for GR (unsupported)
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
   * `<SCS0> B` `<SCS1> B <11>` Resets G0 and G1 to default and selects G0
   * `<CSI> m` Sets attributes to default
@@ -50,7 +54,11 @@ If the cursor is at the topmost line of the screen,
 but the top edge of the window is somewhere below,
 no scrolling or cursor movement happens.
 * `<ESC> E`   Acts like `<0D>` followed by `<0A>`.
-* `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute.
+* `<ESC> # 3`   Change current line to be rendered using top half of double-height letters (unsupported).
+* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters (unsupported).
+* `<ESC> # 5`   Change current line to be rendered using double-width letters. This halves the line length. (unsupported)
+* `<ESC> # 6`   Change current line to be rendered using double-width letters. This halves the line length. (unsupported)
+* `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute. This is for testing the double-width / double-height character modes.
 * `<ESC> % @`   Unsets UTF8 mode. (Ignored)
 * `<ESC> % G`, `<ESC> % 8`   Sets UTF8 mode. (Ignored)
 * `<CSI> g`    Set tab stops (UNIMPLEMENTED)
@@ -157,3 +165,37 @@ the cursor is still inside the visible area.
 None of the commands move the cursor unless explicitly specified.
 This is important to note especially with the scrolling,
 clearing/erasing, and writing commands.
+
+## Character sets
+
+  * `<` DEC supplementary (unsupported)
+  * `=` Swiss (unsupported)
+  * `>` DEC Technical (unsupported)
+  * `0` DEC graphics (VT100 line-drawing) (unsupported)
+  * `1` DEC alt characters (unsupported)
+  * `2` DEC alt graphics (unsupported)
+  * `<60>` Norwegian/Danish (unsupported)
+  * `4` Dutch (unsupported)
+  * `5` Finnish (unsupported)
+  * `6` Norwegian/Danish3 (unsupported)
+  * `7` Swedish (unsupported)
+  * `9` French/Canadian2 (unsupported)
+  * `A` British (unsupported) (in xterm, chooses U+0080..U+00FF)
+  * `B` ASCII (default character set) (unsupported)
+  * `C` Finnish2 (unsupported)
+  * `E` Norwegian/Danish2 (unsupported)
+  * `f` French2 (unsupported)
+  * `H` Swedish2 or ISO Hebrew Supplemental (unsupported)
+  * `K` Linux user map / German (unsupported)
+  * `Q` French/Canadian (unsupported)
+  * `R` French (unsupported)
+  * `U` Linux IBM PC map (unsupported)
+  * `Y` Italian (unsupported)
+  * `Z` Spanish (unsupported)
+
+Type 2 character sets:
+
+  * `A`, `H` (same meanings as above)
+  * `F` ISO Greek Supplemental (unsupported)
+  * `L` ISO Latin Cyrillic (unsupported)
+  * `M` ISO Latin5 Supplemental (unsupported)

@@ -4,6 +4,7 @@
 #include <deque>
 #include <string>
 #include <vector>
+#include <array>
 
 #include "screen.hh"
 
@@ -24,7 +25,9 @@ private:
         Cell attr;
     } backup;
 
-    char g0set, g1set, activeset, utfmode, translate;
+    std::array<unsigned char,4> gset;
+    unsigned char activeset, utfmode, scs;
+
     char32_t lastch = U' ';
     unsigned utflength;
     unsigned long utfvalue;
