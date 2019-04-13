@@ -31,6 +31,7 @@ private:
 
     std::vector<unsigned> p;
     unsigned              state=0;
+    bool                  edgeflag=false;
 
 private:
     std::u32string buf{};

@@ -146,9 +146,13 @@ Blank = space character with current attributes.
   even if the target row is even farther outside the window.
 
 No cursor movement command allows the cursor to leave the *screen*.
-However, as an exception, the cursor is allowed to sit on the rightmost edge of the screen,
+However, as an exception, after printing,
+the cursor is allowed to temporarily sit
+on the rightmost edge of the screen,
 outside the visible area.
 Printing anything there will invoke an automatic linefeed.
+For the purposes of cursor movement commands,
+the cursor is still inside the visible area.
 
 None of the commands move the cursor unless explicitly specified.
 This is important to note especially with the scrolling,

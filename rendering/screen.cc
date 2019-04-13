@@ -200,6 +200,8 @@ void Window::Resize(std::size_t newsx, std::size_t newsy)
     xsize = newsx;
     ysize = newsy;
     Dirtify();
+    if(cursy >= ysize) cursy = ysize-1;
+    if(cursx >= xsize) cursx = xsize-1;
 }
 
 void Window::Dirtify()
