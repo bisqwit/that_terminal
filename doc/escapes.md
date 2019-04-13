@@ -80,7 +80,7 @@ no scrolling or cursor movement happens.
 * `<CSI> P` ¹²Writes (delete) the specified number of black holes at the cursor. The rest of the line is moved towards the left.
 * `<CSI> X` ¹²Writes (overwrite) the specified number of blanks at the cursor.
 * `<CSI> @` ¹²Writes (insert) the specified number of blanks at the cursor, moving the rest of the line towards the right.
-* `<CSI> r`, `<CSI> ! p` ¹Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively.
+* `<CSI> r`, `<CSI> ! p` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively.
 * `<CSI> n` Reports depending on the first parameter. Unrecognized values are ignored.
   * Value 5: Reports `<CSI> 0 n`.
   * Value 6: Reports `<CSI> <x> ; <y> R` with the current cursor coordinates.
@@ -132,11 +132,11 @@ no scrolling or cursor movement happens.
   * 48 3 \<c> \<m> \<y> = Sets CMY background color (interpreted as RGB24 for now).
   * 48 4 \<c> \<m> \<y> \<k> = Sets CMYK background color (interpreted as RGB24 for now).
   * 48 5 \<n> = Sets background color \<n> using the 256-color lookup table.
-  * 30…37 = Sets foreground color \<n-30> using the 256-color lookup table.
-  * 40…47 = Sets background color \<n-40> using the 256-color lookup table.
-  * 90…97 = Sets foreground color \<n+8-90> using the 256-color lookup table.
-  * 100…107 = Sets background color \<n+8-100> using the 256-color lookup table.
-  
+  * 30…37 = Sets foreground color \<n−30> using the 256-color lookup table.
+  * 40…47 = Sets background color \<n−40> using the 256-color lookup table.
+  * 90…97 = Sets foreground color \<n+8−90> using the 256-color lookup table.
+  * 100…107 = Sets background color \<n+8−100> using the 256-color lookup table.
+
 Blank = space character with current attributes.  
 ¹ = Missing or zero parameter is interpreted as 1.  
 ² = Ignores window boundaries.  
