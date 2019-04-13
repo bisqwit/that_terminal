@@ -262,6 +262,7 @@ int main()
                             unsigned delta = 1 + shift*1 + alt*2 + ctrl*4, len;
                             char bracket = '[', Buf[16];
                             if(d.second >= 'P' && d.second <= 'S') bracket = 'O';
+                            if(d.second >= 'A' && d.second <= 'B' && delta == 1) bracket = 'O';
                             if(delta != 1)
                                 len = std::sprintf(Buf, "\33%c%d;%d%c", bracket, d.first, delta, d.second);
                             else if(d.first == 1)
