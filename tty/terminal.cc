@@ -22,34 +22,26 @@ void termwindow::ResetAttr()
 }
 void termwindow::Reset()
 {
-    cx = cy = top = 0;
+    top    = 0;
     bottom = wnd.ysize-1;
 
     g0set = 0; g1set = 1; activeset = 0; translate = g0set;
     utfmode = 0;
-    wnd.fillbox(0,0, wnd.xsize,wnd.ysize); // Clear screen
+    lastch = U' ';
+
     state = 0;
     p.clear();
-    lastch = U' ';
+
+    wnd.cursx = 0;
+    wnd.cursy = 0;
     wnd.reverse   = false;
     wnd.cursorvis = true;
-}
-
-void termwindow::Lf()
-{
-    if(cy >= bottom)
-    {
-        /* scroll the window up */
-        yscroll_up(top, bottom, 1);
-    }
-    else
-    {
-        ++cy;
-    }
+    wnd.fillbox(0,0, wnd.xsize,wnd.ysize); // Clear screen
 }
 
 void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
 {
+    if(amount <= 0) return;
     unsigned hei = y2-y1+1;
     if(unsigned(amount) > hei) amount = hei;
     fprintf(stderr, "Height=%d, amount=%d, scrolling DOWN by %d lines\n", hei,amount, hei-amount);
@@ -59,6 +51,7 @@ void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
 
 void termwindow::yscroll_up(unsigned y1, unsigned y2, int amount) const
 {
+    if(amount <= 0) return;
     unsigned hei = y2-y1+1;
     if(unsigned(amount) > hei) amount = hei;
     fprintf(stderr, "Height=%d, amount=%d, scrolling UP by %d lines\n", hei,amount, hei-amount);
@@ -98,7 +91,34 @@ void termwindow::Write(std::u32string_view s)
     {
         return c*st_num_states + st;
     };
+    auto ClampedMoveX = [&](int tgtx)
+    {
+        wnd.cursx = std::min(std::size_t(std::max(0,tgtx)), wnd.xsize);
+        // Note: cursor is permitted to be _at_ the right edge of the screen
+        //       (technically outside!)
+        // If something is printed at that location, then a cursor move occurs.
+    };
+    auto ClampedMoveY = [&](int tgty, bool strict = true)
+    {
+        if(wnd.cursy >= top && wnd.cursy <= bottom && strict)
+        {
+            // Only permit moving inside window
+            wnd.cursy = std::min(std::max(int(top), tgty), int(bottom));
+        }
+        else
+        {
+            // Permit moving anywhere
+            wnd.cursy = std::min(std::size_t(std::max(0,tgty)), wnd.ysize-1);
+        }
+    };
+    auto ClampedMove = [&](int tgtx, int tgty, bool strict = true)
+    {
+        ClampedMoveX(tgtx);
+        ClampedMoveY(tgty, strict);
+    };
+    ClampedMove(wnd.cursx, wnd.cursy);
     for(char32_t c: s)
+    {
         switch(State(c,state))
         {
             #define CsiState(c)      State(c,st_csi):     case State(c,st_csi_dec2): \
@@ -111,9 +131,9 @@ void termwindow::Write(std::u32string_view s)
 
             // Note: These escapes are recognized even in the middle of an ANSI/VT code.
             case AnyState(U'\7'):  { lastch=c; BeepOn(); break; }
-            case AnyState(U'\b'):  { lastch=c; ScrollFix(); if(cx>0) { --cx; } break; }
-            case AnyState(U'\t'):  { lastch=c; ScrollFix(); cx += 8 - (cx & 7); cmov: FixCoord(); break; }
-            case AnyState(U'\r'):  { lastch=c; cx=0; break; }
+            case AnyState(U'\b'):  { lastch=c; ClampedMoveX(wnd.cursx-1); break; }
+            case AnyState(U'\t'):  { lastch=c; ClampedMoveX(wnd.cursx + 8 - (wnd.cursx & 7)); break; }
+            case AnyState(U'\r'):  { lastch=c; wnd.cursx=0; break; }
             case AnyState(U'\16'): { activeset = 1; translate = g1set; break; }
             case AnyState(U'\17'): { activeset = 0; translate = g0set; break; }
             case AnyState(U'\177'): { /* del - ignore */ break; }
@@ -143,23 +163,26 @@ void termwindow::Write(std::u32string_view s)
                 break;
 
             case State(U'E', st_esc): // esc E = CR+LF
-                cx = 0;
+                wnd.cursx = 0;
                 state = st_default;
                 [[fallthrough]];
             case AnyState(10):
             case AnyState(11):
             case AnyState(12):
                 lastch = c;
-                ScrollFix();
-                Lf();
+                /* Within window: move cursor down; scroll the window up if at bottom */
+                if(wnd.cursy == bottom)
+                    yscroll_up(top, bottom, 1);
+                else
+                    ClampedMoveY(wnd.cursy+1);
                 break;
 
             case State(U'M', st_esc): // esc M, Ri (FIXME verify that this is right?)
                 /* Within window: move cursor up; scroll the window down if at top */
-                if(cy > top)
-                    --cy;
-                else
+                if(wnd.cursy == top)
                     yscroll_down(top, bottom, 1);
+                else
+                    ClampedMoveY(wnd.cursy-1);
                 goto Ground;
             case State(U'c', st_esc): Reset(); break; // esc c
             case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
@@ -189,28 +212,28 @@ void termwindow::Write(std::u32string_view s)
             case State(U'g', st_csi): /* TODO: set tab stops */ goto Ground;
             case State(U'q', st_csi): /* TODO: set leds */ goto Ground;
             case State(U'G', st_csi): [[fallthrough]];
-            case State(U'`', st_csi): { GetParams(1,true); cx=p[0]-1; goto cmov; } // absolute hpos
-            case State(U'd', st_csi): { GetParams(1,true); cy=p[0]-1; goto cmov; } // absolute vpos
-            case State(U'F', st_csi): cx=0; [[fallthrough]];
-            case State(U'A', st_csi): { GetParams(1,true); cy-=p[0];  goto cmov; }
-            case State(U'E', st_csi): cx=0; [[fallthrough]];
+            case State(U'`', st_csi): { GetParams(1,true); ClampedMoveX(p[0]-1);        break; } // absolute hpos
+            case State(U'd', st_csi): { GetParams(1,true); ClampedMoveY(p[0]-1, false); break; } // absolute vpos
+            case State(U'F', st_csi): wnd.cursx=0; [[fallthrough]];
+            case State(U'A', st_csi): { GetParams(1,true); ClampedMoveY(wnd.cursy-p[0]); break; }
+            case State(U'E', st_csi): wnd.cursx=0; [[fallthrough]];
             case State(U'e', st_csi): [[fallthrough]];
-            case State(U'B', st_csi): { GetParams(1,true); cy+=p[0];  goto cmov; }
+            case State(U'B', st_csi): { GetParams(1,true); ClampedMoveY(wnd.cursy+p[0]); break; }
             case State(U'a', st_csi): [[fallthrough]];
-            case State(U'C', st_csi): { GetParams(1,true); cx+=p[0];  goto cmov; }
-            case State(U'D', st_csi): { GetParams(1,true); cx-=p[0];  goto cmov; }
+            case State(U'C', st_csi): { GetParams(1,true); ClampedMoveX(wnd.cursx+p[0]); break; }
+            case State(U'D', st_csi): { GetParams(1,true); ClampedMoveX(wnd.cursx-p[0]); break; }
             case State(U'H', st_csi): [[fallthrough]];
-            case State(U'f', st_csi): { GetParams(2,true); cx=p[1]-1; cy=p[0]-1; goto cmov; }
+            case State(U'f', st_csi): { GetParams(2,true); ClampedMove(p[1]-1, p[0]-1, false); break; }
             case State(U'J', st_csi):
                 GetParams(1,false);
                 switch(p[0])
                 {
                     case 0: // erase from cursor to end of display
-                        if(unsigned(cy) < wnd.ysize-1)
-                            wnd.fillbox(0,cy+1, wnd.xsize, wnd.ysize-cy-1);
+                        if(wnd.cursy < wnd.ysize-1)
+                            wnd.fillbox(0,wnd.cursy+1, wnd.xsize, wnd.ysize-wnd.cursy-1);
                         goto clreol;
                     case 1: // erase from start to cursor
-                        if(cy > 0) wnd.fillbox(0,0, wnd.xsize,cy);
+                        if(wnd.cursy > 0) wnd.fillbox(0,0, wnd.xsize,wnd.cursy);
                         goto clrbol;
                     case 2: // erase whole display
                         wnd.fillbox(0,0, wnd.xsize,wnd.ysize);
@@ -224,20 +247,20 @@ void termwindow::Write(std::u32string_view s)
                 // 2: erase whole line
                 switch(p[0])
                 {
-                    case 0: clreol: wnd.fillbox(cx,cy, wnd.xsize-cx, 1); break;
-                    case 1: clrbol: wnd.fillbox(0, cy, cx+1,         1); break;
-                    case 2: wnd.fillbox(0, cy, wnd.xsize,    1); break;
+                    case 0: clreol: wnd.fillbox(wnd.cursx,wnd.cursy, wnd.xsize-wnd.cursx, 1); break;
+                    case 1: clrbol: wnd.fillbox(0,        wnd.cursy, wnd.cursx+1,  1); break;
+                    case 2: wnd.fillbox(0, wnd.cursy, wnd.xsize,    1); break;
                 }
+                break;
+            case State(U'M', st_csi):
+                GetParams(1,true);
+                yscroll_up(wnd.cursy, bottom, p[0]);
                 break;
             case State(U'L', st_csi):
                 GetParams(1,true);
                 // scroll the rest of window c lines down,
                 // including where cursor is. Don't move cursor.
-                yscroll_down(cy, bottom, p[0]);
-                break;
-            case State(U'M', st_csi):
-                GetParams(1,true);
-                yscroll_up(cy, bottom, p[0]);
+                yscroll_down(wnd.cursy, bottom, p[0]);
                 break;
             case State(U'S', st_csi): // xterm version?
                 GetParams(1,true);
@@ -257,31 +280,29 @@ void termwindow::Write(std::u32string_view s)
                 yscroll_down(top, bottom, p[0]);
                 break;
             case State(U'P', st_csi):
-                GetParams(1,true); c = p[0];
+                GetParams(1,true); c = std::min(p[0], unsigned(wnd.xsize-wnd.cursx));
                 // insert c black holes at cursor (eat c characters
                 // and scroll line horizontally to left)
-                if(cx + c > wnd.xsize) c = wnd.xsize-cx;
                 if(c)
                 {
-                    unsigned remain = wnd.xsize - (cx+c);
-                    wnd.copytext(cx,cy, wnd.xsize-remain,cy, remain,1);
-                    wnd.fillbox(wnd.xsize-c,cy, c,1);
+                    unsigned remain = wnd.xsize - (wnd.cursx+c);
+                    wnd.copytext(wnd.cursx,wnd.cursy, wnd.xsize-remain,wnd.cursy, remain,1);
+                    wnd.fillbox(wnd.xsize-c,wnd.cursy, c,1);
                 }
                 break;
             case State(U'X', st_csi):
                 GetParams(1,true);
                 // write c spaces at cursor (overwrite)
-                wnd.fillbox(cx,cy, p[0],1);
+                wnd.fillbox(wnd.cursx,wnd.cursy, p[0],1);
                 break;
             case State(U'@', st_csi):
-                GetParams(1,true); c = p[0];
+                GetParams(1,true); c = std::min(p[0], unsigned(wnd.xsize-wnd.cursx));
                 // insert c spaces at cursor
-                if(cx + c > wnd.xsize) c = wnd.xsize-cx;
                 if(c)
                 {
-                    unsigned remain = wnd.xsize - (cx+c);
-                    wnd.copytext(cx+c,cy, cx,cy, remain,1);
-                    wnd.fillbox(cx,cy, c,1);
+                    unsigned remain = wnd.xsize - (wnd.cursx+c);
+                    wnd.copytext(wnd.cursx+c,wnd.cursy, wnd.cursx,wnd.cursy, remain,1);
+                    wnd.fillbox(wnd.cursx,wnd.cursy, c,1);
                 }
                 break;
             case State(U'r', st_csi): [[fallthrough]]; // CSI r
@@ -292,9 +313,9 @@ void termwindow::Write(std::u32string_view s)
                 if(p[0] < p[1] && p[1] <= wnd.ysize)
                 {
                     top = p[0]-1; bottom = p[1]-1;
-                    fprintf(stderr, "Creating a window with top=%d, bottom=%d\n", top,bottom);
-                    cx=0; cy=top;
-                    goto cmov;
+                    fprintf(stderr, "Creating a window with top=%zu, bottom=%zu\n", top,bottom);
+                    wnd.cursx = 0;
+                    wnd.cursy = top;
                 }
                 break;
             case State(U'n', st_csi):
@@ -303,7 +324,7 @@ void termwindow::Write(std::u32string_view s)
                 {
                     char Buf[32];
                     case 5: EchoBack(U"\33[0n"); break;
-                    case 6: EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)std::sprintf(Buf, "\33[%d;%dR", cy+1, cx+1)})); break;
+                    case 6: EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)std::sprintf(Buf, "\33[%zu;%zuR", wnd.cursx+1, wnd.cursy+1)})); break;
                 }
                 break;
             case State(U'c', st_csi_dec3): // csi = 0 c, Tertiary device attributes (printer?)
@@ -346,7 +367,7 @@ void termwindow::Write(std::u32string_view s)
                 for(auto a: p)
                     switch(a)
                     {
-                        case 6:  cx=cy=0; FixCoord(); break;
+                        case 6:  wnd.cursx = 0; wnd.cursy = top; break;
                         case 25: wnd.cursorvis = set; break;
                         case 5:  wnd.reverse   = set; break;
                     }
@@ -367,9 +388,16 @@ void termwindow::Write(std::u32string_view s)
                 // Repeat last printed character n times
                 for(unsigned m = std::min(p[0], unsigned(wnd.xsize*wnd.ysize)), c=0; c<m; ++c)
                 {
-                    ScrollFix();
-                    wnd.PutCh(cx,cy, lastch, translate);
-                    ++cx;
+                    if(wnd.cursx >= wnd.xsize)
+                    {
+                        if(wnd.cursy == bottom)
+                            yscroll_up(top, bottom, 1);
+                        else
+                            ClampedMoveY(wnd.cursy+1);
+                        wnd.cursx = 0;
+                    }
+                    wnd.PutCh(wnd.cursx,wnd.cursy, lastch, translate);
+                    ++wnd.cursx;
                 }
                 break;
             case State(U'm', st_csi): // csi m (SGR)
@@ -456,21 +484,21 @@ void termwindow::Write(std::u32string_view s)
 
             default:
                 if(state != st_default) goto Ground;
-                ScrollFix();
                 lastch = c;
-                wnd.PutCh(cx,cy, c, translate);
-                ++cx;
+                if(wnd.cursx >= wnd.xsize)
+                {
+                    if(wnd.cursy == bottom)
+                        yscroll_up(top, bottom, 1);
+                    else
+                        ClampedMoveY(wnd.cursy+1);
+                    wnd.cursx = 0;
+                }
+                wnd.PutCh(wnd.cursx,wnd.cursy, c, translate);
+                ++wnd.cursx;
                 break;
         }
-        #undef AnyState
-
-    if((cx+1 != int(wnd.xsize)
-     || cy+1 != int(wnd.ysize))
-    )
-    {
-        wnd.cursx = cx;
-        wnd.cursy = cy;
     }
+    #undef AnyState
 }
 
 void termwindow::EchoBack(std::u32string_view buffer)
@@ -481,35 +509,18 @@ void termwindow::EchoBack(std::u32string_view buffer)
 
 void termwindow::save_cur()
 {
-    backup.cx = cx;
-    backup.cy = cy;
     backup.top = top;
     backup.bottom = bottom;
+    backup.cx = wnd.cursx;
+    backup.cy = wnd.cursy;
     backup.attr = wnd.blank;
 }
 
 void termwindow::restore_cur()
 {
-    cx = backup.cx;
-    cy = backup.cy;
     top = backup.top;
     bottom = backup.bottom;
+    wnd.cursx = backup.cx;
+    wnd.cursy = backup.cy;
     wnd.blank = backup.attr;
-}
-
-void termwindow::FixCoord()
-{
-    if(bottom>=int(wnd.ysize))bottom=wnd.ysize-1;
-    if(top>bottom-1)top=bottom-1;
-    if(top<0)top=0;
-    if(bottom<top+1)bottom=top+1;
-    if(cx<0)cx=0;
-    if(cy<0)cy=0;
-    if(cx>=int(wnd.xsize))cx=wnd.xsize-1;
-    if(cy>=bottom)cy=bottom;
-}
-void termwindow::ScrollFix()
-{
-    if(cx >= int(wnd.xsize)) { cx = 0; Lf(); }
-    if(cy >= int(wnd.ysize)) cy = wnd.ysize-1;
 }

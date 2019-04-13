@@ -81,7 +81,7 @@ E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with
 * `<CSI> c`, `<ESC> Z` Reports primary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> ? h` ³Set MISC modes.
 * `<CSI> ? l` ³Unset MISC modes.
-  * Mode 6: ²Puts cursor to top-left corner of screen. (Both set & clear)
+  * Mode 6: Puts cursor to top-left corner of the window. (Both set & clear)
   * Mode 5: Sets or clears screen-wide reverse flag.
   * Mode 25: Shows/hides cursor.
 * `<CSI> h` ³Set ANSI modes.

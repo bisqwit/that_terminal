@@ -13,14 +13,14 @@ private:
     Window& wnd;
 public:
     std::deque<char32_t> OutBuffer;
-    int cx, cy;
 
 private:
-    int top, bottom;
+    std::size_t top, bottom;
 
     struct backup
     {
-        int cx,cy, top,bottom;
+        std::size_t top,bottom;
+        std::size_t cx,cy;
         Cell attr;
     } backup;
 
@@ -43,11 +43,9 @@ private:
     void Reset();
 
     void FixCoord();
-    void ScrollFix();
     void yscroll_down(unsigned y1, unsigned y2, int amount) const;
     void yscroll_up(unsigned y1, unsigned y2, int amount) const;
 
-    void Lf();
     void save_cur();
     void restore_cur();
 public:
@@ -56,6 +54,7 @@ public:
     termwindow(Window& w): wnd(w)
     {
         Reset();
+        ResetAttr();
         save_cur();
     }
     void EchoBack(std::u32string_view buffer);
