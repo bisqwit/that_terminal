@@ -132,26 +132,18 @@ int main()
     bool quit = false;
     while(!quit)
     {
-        struct pollfd p[2] = { { tty.getfd(), POLLIN, 0 },
-                               { 0, POLLIN, 0 } };
+        struct pollfd p[2] = { { tty.getfd(), POLLIN, 0 } };
         if(!term.OutBuffer.empty() || !outbuffer.empty())
         {
             p[0].events |= POLLOUT;
         }
-        int pollres = poll(p, 2, 30);
+        int pollres = poll(p, 1, 30);
         if(pollres < 0) break;
         if(p[0].revents & POLLIN)
         {
             auto input = tty.Recv();
             auto& str = input.first;
             term.Write(FromUTF8(str));
-        }
-        if(p[1].revents & POLLIN)
-        {
-            char Buf[4096];
-            int r = read(0, Buf, sizeof(Buf));
-            if(r > 0)
-                tty.Send(std::string_view(Buf, r));
         }
         if(!term.OutBuffer.empty())
         {
