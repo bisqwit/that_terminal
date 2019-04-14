@@ -2,18 +2,21 @@
 
 ## Non-esc codes:
 
+Note: Tables include also a few items marked “unsupported”.
+These are documented for possible future use,
+and are not supported by this terminal emulator.
+
 All of these are recognized even in the middle of an escape code.
 E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with the current attribute and “DEF” on the next line with blue color (SGR 34).
 
-* `<07>`  Beep (currently ignored)
-* `<08>`  Backspace (move cursor left by one column, no erase)
-* `<09>`  Tab (moves cursor right to the next tab column)
-* `<0D>`  Carriage return: Moves cursor to column 1
-* `<0E>`  Select G1 character set for GL
-* `<0F>`  Select G0 character set for GL
+* `<07>`  Beep (unsupported)
+* `<08>`  Backspace: Moves cursor left by one column, no erase. Does nothing if cursor is already in the leftmost column.
+* `<09>`  Tab: Moves cursor right to the next tab column.
+* `<0D>`  Carriage return: Moves cursor to the leftmost column.
+* `<0E>`  Selects G1 character set for GL
+* `<0F>`  Selects G0 character set for GL
 * `<7F>`  Del (ignored)
-* `<18>`  Ignored, terminates and cancels an ESC code
-* `<1A>`  Ignored, terminates and cancels an ESC code
+* `<18>`, `<1A>`  Ignored, terminates and cancels an ESC code
 * `<0A>`, `<0B>`, `<0C>` ⁴Line feed: Moves cursor down within window; if at bottom
 of the window, scrolls window up and inserts a blank line at bottom.
 If the cursor is at the bottom of the screen
@@ -21,12 +24,13 @@ but the window bottom is somewhere above,
 no scrolling or cursor movement happens.
 
 Any other character is printed, unless an escape code is being parsed.
+The cursor is moved to the next column after printing.
+If the last character was printed to the last column of the screen,
+the next character is printed to the first column of the next row
+as if a linefeed was performed in the between. An automatic linefeed
+does not happen until the new character is printed.
 
 ## Esc codes:
-
-Note: Table includes also a few items marked “unsupported”.
-These are documented for possible future use,
-and are not supported by this terminal emulator.
 
 * `<1B>`      ESC.
 * `<ESC> [`   CSI. An optional number of integer parameters may follow, separated by either `:` or `;`.
@@ -46,24 +50,15 @@ If the cursor is at the topmost line of the screen,
 but the top edge of the window is somewhere below,
 no scrolling or cursor movement happens.
 * `<ESC> E`   Acts like `<0D>` followed by `<0A>`.
-* `<ESC> # 3`   Change current line to be rendered using top half of double-height letters.
-* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters.
-* `<ESC> # 5`   Change current line to be rendered using single-width (regular) letters.
-* `<ESC> # 6`   Change current line to be rendered using double-width letters. This halves the line length.
-* `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute. This is for testing the double-width / double-height character modes. Cursor is moved to the top-left corner of the screen.
-* `<ESC> % @`   Unsets UTF8 mode. (unsupported)
-* `<ESC> % G`, `<ESC> % 8`   Sets UTF8 mode. (unsupported)
-* `<CSI> g`    Set tab stops (unsupported)
-* `<CSI> q`    Set LED states (unsupported)
-* `<CSI> A` ¹⁴Move the cursor up by the specified number of rows.
-* `<CSI> B`, `<CSI> e` ¹⁴Move the cursor down by the specified number of rows.
-* `<CSI> C`, `<CSI> a` ¹Move the cursor right by the specified number of columns.
-* `<CSI> D` ¹Move the cursor left by the specified number of columns.
+* `<CSI> A` ¹⁴Moves the cursor up by the specified number of rows.
+* `<CSI> B`, `<CSI> e` ¹⁴Moves the cursor down by the specified number of rows.
+* `<CSI> C`, `<CSI> a` ¹Moves the cursor right by the specified number of columns.
+* `<CSI> D` ¹Moves the cursor left by the specified number of columns.
 * `<CSI> E` Same as `<0D>` followed by `<CSI> B`.
 * `<CSI> F` Same as `<0D>` followed by `<CSI> A`.
-* `<CSI> G`, `<CSI> <60>` ¹²Absolute horizontal cursor positioning: Set cursor to specified column (X coordinate).
-* `<CSI> d` ¹²Absolute vertical cursor positioning: Set cursor to specified row (Y coordinate).
-* `<CSI> H`, `<CSI> f` ¹²Absolute cursor positioning: Row and column, in that order.
+* `<CSI> G`, `<CSI> <60>` ¹²Absolute horizontal cursor positioning: Sets cursor to the specified column (X coordinate). Counting begins from 1.
+* `<CSI> d` ¹²Absolute vertical cursor positioning: Sets cursor to the specified row (Y coordinate). Counting begins from 1.
+* `<CSI> H`, `<CSI> f` ¹²Absolute cursor positioning: Row and column, in that order. Counting begins from 1.
 * `<CSI> K` ²Clears on the current line depending on parameter.
   * 0 = Erase from cursor to end of line
   * 1 = Erase from start of line to cursor
@@ -77,13 +72,14 @@ no scrolling or cursor movement happens.
 * `<CSI> S` ¹Scrolls the region between top of window and bottom of window (inclusive) up by specified number of lines.
 * `<CSI> ^` ¹Scrolls the region between top of window and bottom of window (inclusive) down by specified number of lines.
 * `<CSI> T` Interpreted as `<CSI> ^` if there is one nonzero parameter. Ignored otherwise.
-* `<CSI> P` ¹²Writes (delete) the specified number of black holes at the cursor. The rest of the line is moved towards the left.
-* `<CSI> X` ¹²Writes (overwrite) the specified number of blanks at the cursor.
-* `<CSI> @` ¹²Writes (insert) the specified number of blanks at the cursor, moving the rest of the line towards the right.
-* `<CSI> r`, `<CSI> ! p` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively.
+* `<CSI> P` ¹²On the current line, scrolls the region between the current column and the right edge of screen left by the specified number of positions.
+* `<CSI> @` ¹²On the current line, scrolls the region between the current column and the right edge of screen right by the specified number of positions.
+* `<CSI> X` ¹²On the current line and current column, writes the specified number of blanks. The write will not wrap to the next line.
+* `<CSI> b` ¹²At the current position, writes the specified number of duplicates of the last printed character. The cursor *is* moved, and the write may wrap to the next line.
+* `<CSI> r`, `<CSI> ! p` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively. Counting begins from 1.
 * `<CSI> n` Reports depending on the first parameter. Unrecognized values are ignored.
   * Value 5: Reports `<CSI> 0 n`.
-  * Value 6: Reports `<CSI> <row> ; <column> R` with the current cursor coordinates.
+  * Value 6: Reports `<CSI> <row> ; <column> R` with the current cursor coordinates. Counting begins from 1.
 * `<CSI> = c` Reports tertiary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> > c` Reports secondary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> c`, `<ESC> Z` Reports primary device attributes. Ignored if nonzero parameters were found.
@@ -136,6 +132,18 @@ no scrolling or cursor movement happens.
   * 40…47 = Sets background color \<n−40> using the 256-color lookup table.
   * 90…97 = Sets foreground color \<n+8−90> using the 256-color lookup table.
   * 100…107 = Sets background color \<n+8−100> using the 256-color lookup table.
+* `<CSI> g`    Set tab stops (unsupported)
+* `<CSI> q`    Set LED states (unsupported)
+* `<ESC> # 3`   Change current line to be rendered using top half of double-height letters.
+* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters.
+* `<ESC> # 5`   Change current line to be rendered using single-width (regular) letters.
+* `<ESC> # 6`   Change current line to be rendered using double-width letters. This halves the
+rendered row length, but logically the row is still same length as every
+other row. The second half of the line is simply not displayed at all.
+* `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute. This is
+intended for testing the double-width / double-height character modes. Cursor is moved to the top-left corner of the screen.
+* `<ESC> % @`   Unsets UTF8 mode. (unsupported)
+* `<ESC> % G`, `<ESC> % 8`   Sets UTF8 mode. (unsupported)
 * `<ESC> ( <char>`    Set G0 to character set <char>.
 * `<ESC> ) <char>`    Set G1 to character set <char>.
 * `<ESC> * <char>`    Set G2 to character set <char>.
