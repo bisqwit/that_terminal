@@ -1,10 +1,10 @@
 #include <array>
 
-inline std::array<unsigned,3> Unpack(unsigned rgb)
+inline constexpr std::array<unsigned,3> Unpack(unsigned rgb)
 {
     return { rgb>>16, (rgb>>8)&0xFF, rgb&0xFF };
 }
-inline unsigned Repack(std::array<unsigned,3> rgb)
+inline constexpr unsigned Repack(std::array<unsigned,3> rgb)
 {
     if(rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
     {
@@ -22,7 +22,7 @@ inline unsigned Repack(std::array<unsigned,3> rgb)
          + (std::min(rgb[2],255u)<<0);
 }
 
-inline unsigned Mix(unsigned color1,unsigned color2, unsigned fac1,unsigned fac2,unsigned sum)
+inline constexpr unsigned Mix(unsigned color1,unsigned color2, unsigned fac1,unsigned fac2,unsigned sum)
 {
     auto a = Unpack(color1), b = Unpack(color2);
     for(unsigned n=0; n<3; ++n) a[n] = (a[n]*fac1 + b[n]*fac2)/(sum);

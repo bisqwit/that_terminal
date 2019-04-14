@@ -338,7 +338,7 @@ void termwindow::Write(std::u32string_view s)
             case State(U'X', st_csi):
                 GetParams(1,true);
                 // write c spaces at cursor (overwrite)
-                wnd.fillbox(wnd.cursx,wnd.cursy, std::min(p[0], wnd.xsize-wnd.cursx), 1);
+                wnd.fillbox(wnd.cursx,wnd.cursy, std::min(std::size_t(p[0]), wnd.xsize-wnd.cursx), 1);
                 break;
             case State(U'@', st_csi):
                 GetParams(1,true); c = std::min(p[0], unsigned(wnd.xsize-wnd.cursx));
