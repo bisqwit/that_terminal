@@ -1,6 +1,7 @@
 #include <chrono>
 #include <cstring>
 #include "color.hh"
+#include "screen.hh" // for Cell
 #include "256color.hh"
 
 static constexpr char persondata[] =
@@ -114,7 +115,7 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
                      unsigned width, unsigned x, unsigned y,
                      unsigned action_type)
 {
-    if(bgcolor != 0xACAAAC)
+    if(bgcolor != Cell{}.fgcolor)
     {
         // Only transform lines with white (ansi 7) background
         return;
