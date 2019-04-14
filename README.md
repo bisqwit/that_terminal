@@ -84,7 +84,7 @@ obsolete, replacing it with [Joe](https://joe-editor.sourceforge.io).
 ### Why do you need a custom terminal? Why not Xterm?
 
 * I need something that I can customize for artistic reasons, even if that breaks compatibility with other programs.
-* I also need to be able to change fonts and terminal sizes at whim with simple keyboard inputs (mouse input is too precise and difficult to script).
+* I also need to be able to change fonts and terminal sizes at whim with simple keyboard inputs (mouse input is too delicate to script).
 * And I need to record video while doing that. This is a video production tool after all.
 
 ### Supported escape codes
