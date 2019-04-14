@@ -16,7 +16,9 @@ E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with
 * `<0E>`  Selects G1 character set for GL
 * `<0F>`  Selects G0 character set for GL
 * `<7F>`  Del (ignored)
-* `<18>`, `<1A>`  Ignored, terminates and cancels an ESC code
+* `<18>`, `<1A>`, `<80>`, `<81>`, `<82>`, `<83>`, `<86>`, `<87>`, `<89>`,
+`<8A>`, `<8B>`, `<8C>`, `<91>`, `<92>`, `<93>`, `<94>`, `<95>`, `<99>`
+Ignored, terminates and cancels any ESC code (including an OSC/DCS string)
 * `<0A>`, `<0B>`, `<0C>` ⁴Line feed: Moves cursor down within window; if at bottom
 of the window, scrolls window up and inserts a blank line at bottom.
 If the cursor is at the bottom of the screen
@@ -34,6 +36,7 @@ does not happen until the new character is printed.
 
 * `<1B>`      ESC.
 * `<ESC> [`   CSI. An optional number of integer parameters may follow, separated by either `:` or `;`.
+* `<CSI> "`   CSI". (unsupported)
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
   * `<ESC> ( B` `<ESC> ) B` `<ESC> * B` `<ESC> + B` `<0F>` Resets G0,G1,G2,G3 to default and selects G0
   * `<CSI> m` Sets attributes to default
@@ -50,6 +53,12 @@ If the cursor is at the topmost line of the screen,
 but the top edge of the window is somewhere below,
 no scrolling or cursor movement happens.
 * `<ESC> E`   Acts like `<0D>` followed by `<0A>`.
+* `<ESC> D`   Acts like `<0A>`. Can be used to produce LF behavior
+without CR even when the TTY is automatically translating linefeeds into LF+CR.
+* `<ESC> V`, `<CSI"> q` (If param is 1) Start protected writes (unsupported)
+* `<ESC> W`, `<CSI"> q` (If param is 2, 0, or missing) End protected writes. Any characters written in “protected” mode
+will be immune of erase operations. They can still be overwritten by
+printing anything (including spaces) over them.
 * `<CSI> A` ¹⁴Moves the cursor up by the specified number of rows.
 * `<CSI> B`, `<CSI> e` ¹⁴Moves the cursor down by the specified number of rows.
 * `<CSI> C`, `<CSI> a` ¹Moves the cursor right by the specified number of columns.
@@ -63,10 +72,12 @@ no scrolling or cursor movement happens.
   * 0 = Erase from cursor to end of line
   * 1 = Erase from start of line to cursor
   * 2 = Erase entire line
-* `CSI> J` ²Combines `<CSI> K` with the following behavior depending on parameter.
+* `<CSI> J` ²Combines `<CSI> K` with the following behavior depending on parameter.
   * 0 = Erase from cursor to end of screen
   * 1 = Erase from start of screen to cursor
   * 2 = Erase entire screen
+* `<CSI> ? J` (???) Seems to do the same as `<CSI> J`, expect changes all remaining characters to protected. (unsupported)
+* `<CSI> ? K` (???) Seems to do the same as `<CSI> K`, expect changes all remaining characters to protected. (unsupported)
 * `<CSI> M` ¹Scrolls the region between top of window and current line (inclusive) up by specified number of lines.
 * `<CSI> L` ¹Scrolls the region between current line and end of window (inclusive) down by specified number of lines.
 * `<CSI> S` ¹Scrolls the region between top of window and bottom of window (inclusive) up by specified number of lines.
@@ -154,6 +165,27 @@ intended for testing the double-width / double-height character modes. Cursor is
 * `<ESC> <7C>` Select G3 character set for GR (unsupported)
 * `<ESC> <7D>` Select G2 character set for GR (unsupported)
 * `<ESC> <7E>` Select G1 character set for GR (unsupported)
+* `<ESC> N <char>`, `<8E> <char>`  Temporarily selects G2, and prints `<char>` (unsupported)
+* `<ESC> O <char>`, `<8F> <char>`  Temporarily selects G3, and prints `<char>` (unsupported)
+* `<9C>`, `<ESC> <5C>`, `<07>` ST.
+* `<ESC> ^ <string> <ST>`, `<9E> <string> <ST>` PM, Privacy Message (unsupported) (ignored by Xterm; Screen uses this to display messages in status line. Screen also supports `ESC ! <string> <ST>` as an alias.)
+* `<ESC> _ <string> <ST>`, `<9F> <string> <ST>` APC, Application Program Command (unsupported) (ignored by Xterm; Screen uses this for changing the window title)
+* `<ESC> X <string> <ST>`, `<98> <string> <ST>` SOS, Start of String (unsupported) (ignored by Xterm)
+* `<ESC> P <string> <ST>`, `<90> <string> <ST>` DCS, Device Control String (unsupported)
+* `<ESC> ] <string> <ST>`, `<9D> <string> <ST>` OSC, Operating System Call (unsupported)
+  * Depending on the value of `<string>`:
+    * `0 ; <label>` Changes icon name and window title to `<label>`
+    * `1 ; <label>` Changes icon name to `<label>`
+    * `2 ; <label>` Changes window title to `<label>`
+    * `3 ; <prop> = <value>` Sets X property.
+    * `3 ; <prop>` Deletes X property.
+    * `4 ; <integer> ; <color>` Changes color number `<integer>` to `<color>`, which is a string that is parsed by `XParseColor`. If the color is `?`, the terminal reports the current color instead.
+    * `11 ; <color>` Changes the text background color to `<color>`.
+    * `12 ; <color>` Changes the text *cursor* color to `<color>`.
+    * `13 ; <color>` Changes the mouse foreground color (interior of the T-cursor) to `<color>`.
+    * `14 ; <color>` Changes the mouse background color (edges of the T-cursor) to `<color>`.
+    * `17 ; <color>` Changes the mouse select-text background color to `<color>`.
+* `<CSI"> p` If param1 >= 62, param2=1 disables 8-bit controls (default) and value 0 or 2 enables them. (unsupported)
 
 Blank = space character with current attributes.  
 ¹ = Missing or zero parameter is interpreted as 1.  

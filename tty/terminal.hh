@@ -37,10 +37,6 @@ private:
     bool                  edgeflag=false;
 
 private:
-    std::u32string buf{};
-    std::size_t    fill_req=0;
-
-private:
     void ResetFG();
     void ResetBG();
     void ResetAttr();

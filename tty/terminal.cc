@@ -75,6 +75,8 @@ void termwindow::Write(std::u32string_view s)
         st_csi_dec2,    // csi >
         st_csi_dec3,    // csi =
         st_csi_ex,      // csi !
+        st_csi_quo,     // csi "
+        st_string,
         //
         st_num_states
     };
@@ -149,11 +151,11 @@ void termwindow::Write(std::u32string_view s)
                                 case State(c,st_csi_ex)
             #define AnyState(c)      State(c,st_default): case State(c,st_esc): \
                                 case State(c,st_scs): \
+                                case State(c,st_string):  case State(c,st_csi_quo): \
                                 case State(c,st_scr):     case State(c,st_esc_percent): \
                                 case CsiState(c)
 
             // Note: These escapes are recognized even in the middle of an ANSI/VT code.
-            case AnyState(U'\7'):  { lastch=c; BeepOn(); break; }
             case AnyState(U'\b'):  { lastch=c; ClampedMoveX(wnd.cursx-1); break; }
             case AnyState(U'\t'):  { lastch=c; ClampedMoveX(wnd.cursx + 8 - (wnd.cursx & 7)); break; }
             case AnyState(U'\r'):  { lastch=c; ClampedMoveX(0); break; }
@@ -161,7 +163,23 @@ void termwindow::Write(std::u32string_view s)
             case AnyState(U'\17'): { activeset = 0; break; }
             case AnyState(U'\177'): { /* del - ignore */ break; }
             case AnyState(U'\30'): [[fallthrough]];
-            case AnyState(U'\32'): { Ground: state=st_default; break; }
+            case AnyState(U'\32'): [[fallthrough]];
+            case AnyState(U'\u0080'): [[fallthrough]];
+            case AnyState(U'\u0081'): [[fallthrough]];
+            case AnyState(U'\u0082'): [[fallthrough]];
+            case AnyState(U'\u0083'): [[fallthrough]];
+            case AnyState(U'\u0086'): [[fallthrough]];
+            case AnyState(U'\u0087'): [[fallthrough]];
+            case AnyState(U'\u0089'): [[fallthrough]];
+            case AnyState(U'\u008A'): [[fallthrough]];
+            case AnyState(U'\u008B'): [[fallthrough]];
+            case AnyState(U'\u008C'): [[fallthrough]];
+            case AnyState(U'\u0091'): [[fallthrough]];
+            case AnyState(U'\u0092'): [[fallthrough]];
+            case AnyState(U'\u0093'): [[fallthrough]];
+            case AnyState(U'\u0094'): [[fallthrough]];
+            case AnyState(U'\u0095'): [[fallthrough]];
+            case AnyState(U'\u0099'): { Ground: state=st_default; break; }
             case State(U'\33', st_default): state = st_esc; p.clear(); break;
             case State(U'(', st_esc): scs = 0; state = st_scs; break; // esc (
             case State(U')', st_esc): scs = 1; state = st_scs; break; // esc )
@@ -176,7 +194,36 @@ void termwindow::Write(std::u32string_view s)
             case State(U'?', st_csi): state = st_csi_dec; break;  // csi ?
             case State(U'>', st_csi): state = st_csi_dec2; break; // csi >
             case State(U'=', st_csi): state = st_csi_dec3; break; // csi =
-            case State(U'!', st_csi): state = st_csi_ex; break; // csi !
+            case State(U'!', st_csi): state = st_csi_ex; break;  // csi !
+            case State(U'"', st_csi): state = st_csi_quo; break; // csi " (note: after numbers)
+            case AnyState(U'\7'):
+            {
+                if(state == st_string) // Treat as ST (string termination)
+                {
+            case AnyState(U'\u009C'): [[fallthrough]];
+            case State(U'\\', st_esc): // String termination
+                    switch(scs)
+                    {
+                        case 4: // TODO: parse DCS
+                        case 5: // TODO: parse OSC
+                        default:
+                            break;
+                    }
+                    // TODO: clear accumulated string
+                    goto Ground;
+                }
+                lastch=c; BeepOn(); break;
+            }
+            case AnyState(U'\u0090'): [[fallthrough]];
+            case State(U'P', st_esc): state = st_string; scs = 4; break; // DCS
+            case AnyState(U'\u009D'): [[fallthrough]];
+            case State(U']', st_esc): state = st_string; scs = 5; break; // OSC
+            case AnyState(U'\u009E'): [[fallthrough]];
+            case State(U'^', st_esc): state = st_string; scs = 6; break; // PM
+            case AnyState(U'\u009F'): [[fallthrough]];
+            case State(U'_', st_esc): state = st_string; scs = 7; break; // APC
+            case AnyState(U'\u0098'): [[fallthrough]];
+            case State(U'X', st_esc): state = st_string; scs = 8; break; // SOS
 
             case CsiState(U'0'): case CsiState(U'1'):
             case CsiState(U'2'): case CsiState(U'3'):
@@ -190,6 +237,7 @@ void termwindow::Write(std::u32string_view s)
                 p.emplace_back();
                 break;
 
+            //case AnyState(U'\u0085'): // CASE_NEL
             case State(U'E', st_esc): // esc E = CR+LF
                 ClampedMoveX(0);
                 state = st_default;
@@ -197,50 +245,92 @@ void termwindow::Write(std::u32string_view s)
             case AnyState(10):
             case AnyState(11):
             case AnyState(12):
-                lastch = c;
+            //case AnyState(U'\u0084'):
+            case State(U'D', st_esc): // esc D = CASE_IND
+                lastch = U'\n';
                 /* Within window: move cursor down; scroll the window up if at bottom */
                 Lf();
                 break;
 
-            case State(U'M', st_esc): // esc M, Ri (FIXME verify that this is right?)
+            //case AnyState(U'\u008D'):
+            case State(U'M', st_esc): // esc M = CASE_RI
                 /* Within window: move cursor up; scroll the window down if at top */
                 if(wnd.cursy == top)
                     yscroll_down(top, bottom, 1);
                 else
                     ClampedMoveY(wnd.cursy-1);
                 goto Ground;
+            case State(U'q', st_csi_quo): // TODO: if param0=1, do CASE_SPA; if 0 or 2, do CASE_EPA. Otherwise ignore.
+            {
+                GetParams(1,false);
+                if(p[0]==1)
+                {
+            //case AnyState(U'\u0096'):
+            case State(U'V', st_esc): // esc V = CASE_SPA: start protected area
+                        ;
+                }
+                else if(p[0]==0 || p[0]==2)
+                {
+            //case AnyState(U'\u0097'):
+            case State(U'W', st_esc): // esc W = CASE_EPA: end protected area
+                        ;
+                }
+                goto Ground;
+            }
+            /*//case AnyState(U'\u0088'): [[fallthrough]];
+            case State(U'H', st_esc): // esc H = CASE_HTS: horizontal tab set
+                goto Ground;
+            //case AnyState(U'\u0090'): [[fallthrough]];
+            case State(U'P', st_esc): // esc P = CASE_DCS (starts string)
+                goto Ground;
+            //case AnyState(U'\u009D'): [[fallthrough]];
+            case State(U']', st_esc): // esc ] = CASE_OSC (starts string)
+                goto Ground;
+            //case AnyState(U'\u009E'): [[fallthrough]];
+            case State(U'^', st_esc): // esc ^ = CASE_PM (starts string)
+                goto Ground;
+            //case AnyState(U'\u009F'): [[fallthrough]];
+            case State(U'_', st_esc): // esc _ = CASE_APC (starts string)
+                goto Ground;
+            //case AnyState(U'\u0098'): [[fallthrough]];
+            case State(U'X', st_esc): // esc X = CASE_SOS: start of string
+                goto Ground;
+            //case AnyState(U'\u009C'): [[fallthrough]];
+            case State(U'\\', st_esc):// esc \\ = CASE_ST: end of string
+                goto Ground;*/
+
             case State(U'c', st_esc): ResetAttr(); Reset(); goto Ground; // esc c
             case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
             case State(U's', st_csi): save_cur(); goto Ground;
             case State(U'8', st_esc): [[fallthrough]]; // esc 8, csi u
             case State(U'u', st_csi): restore_cur(); goto Ground;
-            case State(U'0', st_scs): gset[scs] = 1; goto Ground; // DEC graphics (TODO)
-            case State(U'1', st_scs): gset[scs] = 0; goto Ground; // DEC alt chars?
-            case State(U'2', st_scs): gset[scs] = 0; goto Ground; // DEC alt gfx?
-            case State(U'`', st_scs): gset[scs] = 0; goto Ground; // nor/dan?
-            case State(U'4', st_scs): gset[scs] = 0; goto Ground; // dut?
-            case State(U'5', st_scs): gset[scs] = 0; goto Ground; // fin?
-            case State(U'6', st_scs): gset[scs] = 0; goto Ground; // nor/dan3?
-            case State(U'7', st_scs): gset[scs] = 0; goto Ground; // swe?
-            case State(U'9', st_scs): gset[scs] = 0; goto Ground; // fre/can2?
-            case State(U'A', st_scs): gset[scs] = 0; goto Ground; // british?
-            case State(U'B', st_scs): gset[scs] = 0; goto Ground; // ASCII (TODO)
-            case State(U'C', st_scs): gset[scs] = 0; goto Ground; // fin2?
-            case State(U'E', st_scs): gset[scs] = 0; goto Ground; // nor/dan2?
-            case State(U'f', st_scs): gset[scs] = 0; goto Ground; // fre2?
-            case State(U'F', st_scs): gset[scs] = 0; goto Ground; // iso greek supp?
-            case State(U'H', st_scs): gset[scs] = 0; goto Ground; // swe2? iso hebrew supp?
-            case State(U'K', st_scs): gset[scs] = 0; goto Ground; // ger?
-            case State(U'L', st_scs): gset[scs] = 0; goto Ground; // iso cyr?
-            case State(U'M', st_scs): gset[scs] = 0; goto Ground; // iso5 supp?
-            case State(U'Q', st_scs): gset[scs] = 0; goto Ground; // fre/can?
-            case State(U'R', st_scs): gset[scs] = 0; goto Ground; // fre?
-            case State(U'<', st_scs): gset[scs] = 0; goto Ground; // DEC supp?
-            case State(U'=', st_scs): gset[scs] = 0; goto Ground; // swiss?
-            case State(U'>', st_scs): gset[scs] = 0; goto Ground; // DEC technical
-            case State(U'U', st_scs): gset[scs] = 0; goto Ground; // linux pc?
-            case State(U'Y', st_scs): gset[scs] = 0; goto Ground; // ita?
-            case State(U'Z', st_scs): gset[scs] = 0; goto Ground; // spa?
+            case State(U'0', st_scs): gset[scs&3] = 1; goto Ground; // DEC graphics (TODO)
+            case State(U'1', st_scs): gset[scs&3] = 0; goto Ground; // DEC alt chars?
+            case State(U'2', st_scs): gset[scs&3] = 0; goto Ground; // DEC alt gfx?
+            case State(U'`', st_scs): gset[scs&3] = 0; goto Ground; // nor/dan?
+            case State(U'4', st_scs): gset[scs&3] = 0; goto Ground; // dut?
+            case State(U'5', st_scs): gset[scs&3] = 0; goto Ground; // fin?
+            case State(U'6', st_scs): gset[scs&3] = 0; goto Ground; // nor/dan3?
+            case State(U'7', st_scs): gset[scs&3] = 0; goto Ground; // swe?
+            case State(U'9', st_scs): gset[scs&3] = 0; goto Ground; // fre/can2?
+            case State(U'A', st_scs): gset[scs&3] = 0; goto Ground; // british?
+            case State(U'B', st_scs): gset[scs&3] = 0; goto Ground; // ASCII (TODO)
+            case State(U'C', st_scs): gset[scs&3] = 0; goto Ground; // fin2?
+            case State(U'E', st_scs): gset[scs&3] = 0; goto Ground; // nor/dan2?
+            case State(U'f', st_scs): gset[scs&3] = 0; goto Ground; // fre2?
+            case State(U'F', st_scs): gset[scs&3] = 0; goto Ground; // iso greek supp?
+            case State(U'H', st_scs): gset[scs&3] = 0; goto Ground; // swe2? iso hebrew supp?
+            case State(U'K', st_scs): gset[scs&3] = 0; goto Ground; // ger?
+            case State(U'L', st_scs): gset[scs&3] = 0; goto Ground; // iso cyr?
+            case State(U'M', st_scs): gset[scs&3] = 0; goto Ground; // iso5 supp?
+            case State(U'Q', st_scs): gset[scs&3] = 0; goto Ground; // fre/can?
+            case State(U'R', st_scs): gset[scs&3] = 0; goto Ground; // fre?
+            case State(U'<', st_scs): gset[scs&3] = 0; goto Ground; // DEC supp?
+            case State(U'=', st_scs): gset[scs&3] = 0; goto Ground; // swiss?
+            case State(U'>', st_scs): gset[scs&3] = 0; goto Ground; // DEC technical
+            case State(U'U', st_scs): gset[scs&3] = 0; goto Ground; // linux pc?
+            case State(U'Y', st_scs): gset[scs&3] = 0; goto Ground; // ita?
+            case State(U'Z', st_scs): gset[scs&3] = 0; goto Ground; // spa?
             case State(U'3', st_scr): wnd.LineSetHeightAttr(1); goto Ground; // DECDHL top
             case State(U'4', st_scr): wnd.LineSetHeightAttr(2); goto Ground; // DECDHL bottom
             case State(U'5', st_scr): wnd.LineSetWidthAttr(false); goto Ground; // DECSWL
@@ -381,10 +471,14 @@ void termwindow::Write(std::u32string_view s)
                 // Example response: ^[[>41;330;0c  (middle=firmware version)
                 if(!p[0]) EchoBack(U"\33[>1;1;0c");
                 break;
-            case State(U'Z', st_esc): [[fallthrough]]; // esc Z
             case State(U'c', st_csi): // csi 0 c // Primary device attributes (host computer)
                 GetParams(1,false);
-                if(!p[0]) EchoBack(U"\33[?65;1;6;8;15;22c");
+                if(!p[0])
+                {
+            //case AnyState(U'\u009A'): [[fallthrough]];
+            case State(U'Z', st_esc): // esc Z = CASE_DECID
+                    EchoBack(U"\33[?65;1;6;8;15;22c");
+                }
                 // Example response: ^[[?64;1;2;6;9;15;18;21;22c
                 //  1=132 columns, 2=printer port, 4=sixel extension
                 //  6=selective erase, 7=DRCS, 8=user-defines keys
@@ -519,6 +613,11 @@ void termwindow::Write(std::u32string_view s)
             }
 
             default:
+                if(state == st_string)
+                {
+                    // TODO: accumulate string
+                    break;
+                }
                 if(state != st_default) goto Ground;
                 PutC(lastch = c);
                 break;
