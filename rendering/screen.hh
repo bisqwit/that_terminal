@@ -28,15 +28,15 @@ struct Cell
     bool                underline2: 1;
     bool                overstrike: 1;
     bool                reverse: 1;
-    bool                blink: 1;
     bool                framed: 1;
     bool                encircled: 1;
     bool                overlined: 1;
     bool                fraktur: 1;
     bool                conceal: 1;
     bool                dirty: 1;
-    bool                double_width;
-    unsigned char       double_height;
+    bool                double_width: 1;
+    unsigned char       double_height:2;
+    unsigned char       blink: 2;
 
     Cell()
     {
@@ -71,6 +71,7 @@ struct Window
     Cell blank {};
 private:
     std::size_t lastcursx, lastcursy;
+    unsigned    lasttimer=0;
 public:
     Window(std::size_t xs, std::size_t ys) : cells(xs*ys), xsize(xs), ysize(ys)
     {
@@ -130,7 +131,7 @@ public:
         }*/
         PutCh(x, y, ch);
     }
-    void Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels);
+    void Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer);
     void Resize(std::size_t newsx, std::size_t newsy);
     void Dirtify();
 

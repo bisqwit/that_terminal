@@ -92,7 +92,7 @@ static constexpr std::array<unsigned char,16> taketables[] =
     #undef i
 };
 
-void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
+void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer)
 {
     auto i = fonts.find(fx*256+fy);
     if(i == fonts.end()) return; // TODO: Do something better when a font is not found
@@ -100,6 +100,9 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
     std::size_t character_size_in_bytes = (fx*fy+7)/8;
     std::size_t font_row_size_in_bytes = (fx+7)/8;
+
+    bool old_blink1 = (lasttimer/10)&1, cur_blink1 = (timer/10)&1;
+    bool old_blink2 = (lasttimer/ 3)&1, cur_blink2 = (timer/ 3)&1;
 
     std::size_t screen_width  = fx*xsize;
     //std::size_t screen_height = fy*ysize;
@@ -121,6 +124,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 && y > 0 /* always render line 0 because of person */
                 && (x != cursx || y != cursy)
                 && (x != lastcursx || y != lastcursy)
+                && (cell.blink!=1 || old_blink1 == cur_blink1)
+                && (cell.blink!=2 || old_blink2 == cur_blink2)
                   )
                 {
                     pix += width;
@@ -146,8 +151,12 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                                     + 16*cell.dim;
 
                 unsigned widefont = fontptr[0];
+
                 // TODO: 16-pix wide font support
                 if(!cell.italic) widefont <<= 1;
+
+                if(cell.blink == 1 && !cur_blink1) widefont = 0;
+                if(cell.blink == 2 && !cur_blink2) widefont = 0;
 
                 bool line = (cell.underline && (fr == (fy-1)))
                          || (cell.underline2 && (fr == (fy-1) || fr == (fy-3)))
@@ -201,6 +210,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
     }
     lastcursx = cursx;
     lastcursy = cursy;
+    lasttimer = timer;
 }
 
 void Window::Resize(std::size_t newsx, std::size_t newsy)

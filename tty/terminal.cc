@@ -449,7 +449,8 @@ void termwindow::Write(std::u32string_view s)
                         case 2: wnd.blank.dim = true; c = 0; break;
                         case 3: wnd.blank.italic = true; c = 0; break;
                         case 4: wnd.blank.underline = true; c = 0; break;
-                        case 5: wnd.blank.blink = true; c = 0; break;
+                        case 5: wnd.blank.blink = 1; c = 0; break;
+                        case 6: wnd.blank.blink = 2; c = 0; break;
                         case 7: wnd.blank.reverse = true; c = 0; break;
                         case 8: wnd.blank.conceal = true; c = 0; break;
                         case 9: wnd.blank.overstrike = true; c = 0; break;
@@ -458,7 +459,7 @@ void termwindow::Write(std::u32string_view s)
                         case 22: wnd.blank.dim = false; wnd.blank.bold = false; c = 0; break;
                         case 23: wnd.blank.italic = false; wnd.blank.fraktur = false; c = 0; break;
                         case 24: wnd.blank.underline = false; wnd.blank.underline2 = false; c = 0; break;
-                        case 25: wnd.blank.blink = false; c = 0; break;
+                        case 25: wnd.blank.blink = 0; c = 0; break;
                         case 27: wnd.blank.reverse = false; c = 0; break;
                         case 28: wnd.blank.conceal = false; c = 0; break;
                         case 29: wnd.blank.overstrike = false; c = 0; break;

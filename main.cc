@@ -74,7 +74,7 @@ namespace
 
         pixbuf.resize(bufpixels_width*bufpixels_height);
     }
-    void SDL_ReDraw(Window& wnd)
+    void SDL_ReDraw(Window& wnd, unsigned timer)
     {
         SDL_Rect rect;
         rect.x=0; rect.w=bufpixels_width;
@@ -109,7 +109,7 @@ namespace
             else rect.h = line+1-rect.y;
         };
 
-        wnd.Render(VidCellWidth,VidCellHeight, &pixbuf[0]);
+        wnd.Render(VidCellWidth,VidCellHeight, &pixbuf[0], timer);
         for(unsigned y=0; y<cells_vert*VidCellHeight; ++y)
             RenderAddLine(y);
 
@@ -130,6 +130,7 @@ int main()
 
     std::unordered_map<int, bool> keys;
     bool quit = false;
+    unsigned timer = 0;
     while(!quit)
     {
         struct pollfd p[2] = { { tty.getfd(), POLLIN, 0 } };
@@ -301,7 +302,8 @@ int main()
         if(!pending_input.empty())
             tty.Send(std::move(pending_input));
 
-        SDL_ReDraw(wnd);
+        SDL_ReDraw(wnd, timer);
+        ++timer;
     }
     tty.Kill(SIGHUP);
     tty.Close();
