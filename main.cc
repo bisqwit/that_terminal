@@ -154,6 +154,7 @@ int main()
         {
             std::u32string str(term.OutBuffer.begin(), term.OutBuffer.end());
             outbuffer += ToUTF8(str);
+            term.OutBuffer.clear();
         }
         if(!outbuffer.empty())
         {
