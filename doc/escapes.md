@@ -99,6 +99,8 @@ printing anything (including spaces) over them.
   * Mode 6: Puts cursor to top-left corner of the window. (Both set & clear)
   * Mode 5: Sets or clears screen-wide reverse flag.
   * Mode 25: Shows/hides cursor.
+  * Mode 3: Set width to 132 (enable) or 80 (disable) (only if mode 40 is enabled). (unsupported)
+  * Mode 40: Enable/disable 80/132 mode.
 * `<CSI> h` ³Set ANSI modes.
 * `<CSI> l` ³Unset ANSI modes.
   * Mode 2: Keyboard locked. (unsupported)
@@ -175,17 +177,39 @@ intended for testing the double-width / double-height character modes. Cursor is
   * Depending on the value of `<string>`:
     * `$ q r` Responds with `<ESC> P 1 $ r <top> ; <bottom> q <ST>` where `<top>` and `<bottom>` are the scrolling region boundaries
     * `$ q m` Responds with `<ESC> P 1 $ r <sgr> q <ST>` where `<sgr>` expresses the SGR sequence representing the current foreground and background colors
-    * `$ q t` Responds with `<ESC> P 1 $ r <n> t <ST>` where `<n>` is the screen height in rows, or 24, whichever is greater
+    * `$ q t` Responds with `<ESC> P 1 $ r <n> t <ST>` where `<n>` is the screen height in rows minus 1, or 24, whichever is greater
     * `$ q <20> q` Responds with `<ESC> P 1 $ <c> <20> q <ST>` where `<c>` is 1 for a blocky cursor, 3 for an underline cursor, and 5 for a bar cursor, +1 if the cursor is not blinking
-    * `$ q " q` Responds with `<ESC> P 1 $ r <p> " q <ST>` where `<p>` indicates whether protected mode is active(see `<ESC> V`)
+    * `$ q " q` Responds with `<ESC> P 1 $ r <p> " q <ST>` where `<p>` indicates whether protected mode is active (see `<ESC> V`)
     * `$ q " p` Responds with `<ESC> P 1 $ r <l> ; <p> " q <ST>` where `<l>` is vtXX_level + 60, `<p>` indicates whether 8-bit controls are *disabled* (see `<CSI"> p`)
-    * `$ q $ |` Responds with `<ESC> P 1 $ r <n> $ | <ST>` where `<n>` is the screen width in columns (either 80 or 132)
-    * `$ q * |` Responds with `<ESC> P 1 $ r <n> * | <ST>` where `<n>` is the screen height in rows + 1
+    * `$ q $ |` Responds with `<ESC> P 1 $ r <n> $ | <ST>` where `<n>` is the screen width in columns (either 80 or 132). Not the actual width, but the state of the `<CSI> ? h` mode 3.
+    * `$ q * |` Responds with `<ESC> P 1 $ r <n> * | <ST>` where `<n>` is the screen height in rows
     * `$ q <...>` Responds with `<ESC> P 0 <ST>`
     * `$ <...>` Responds with `<18>`
-    * `<params> q <string>` Sixel graphics
+    * `<params> q <string>` Sixel graphics.
+      * Parameters:
+        * Parameter 0 (libsixel): Sets pad: 9 = 1; 0/1/7/8/≥10 = 2; 5/6 = 3; 3/4 = 4; 2 = 5. Default: pad=1, pan=2.
+        * Parameter 0 (xterm): Sets pan=1, and pad: 7/8/9 = 1; 1/5/6 = 2; 3/4 = 3; 2 = 5
+        * Parameter 1 (xterm only): Sets background pixels transparent (1) or 0 (0).
+        * Parameter 2 (libsixel only): Multiplies both pan and pad by (param/10), but sets them always to at least 1.
+        * Parameter 3—7 (xterm only): pad, pan, ph, pv (as in `<34>` below).
+      * String contents:
+        * `<34> <pad> ; <pan> ; <ph> ; <pv>` Change raster attributes. Zero pad and pan are treated as 1. Zero ph and pv are ignored.
+        * `<35> <color>` Selects color to be used for drawing the 1-bits
+        * `<35> <color> ; 1 ; <h> ; <l> ; <s>` Assigns palette color (HLS, 0—360 for hue, 0—100 l & s)
+        * `<35> <color> ; 2 ; <r> ; <g> ; <b>` Assigns palette color (RGB, 0—100 range)
+        * `<36>` x ← 0              (Carriage return)
+        * `<2D>` x ← 0, y ← y + 6   (Carriage return and line feed)
+        * `<3F>`…`<7E>` SIXEL. Subtract `<3F>` from the byte, and you get 6
+        vertical 1-bit pixels. 0 = don’t draw, 1 = draw using selected color.
+        Increment x coordinate after the Sixel.
+        * `<33> <count> <SIXEL>` A form of run length encoding.
+        Draws the Sixel `<count>` times using the algorithm described above.
+        * `<20>`, `<0D>`, `<0A>` ignored
     * `<params> p <string>` ReGIS graphics
-      * Parameter 0 is the mode (defaults to 0). Mode 0 was the default and picked up drawing where it left off, 1 reset the system to a blank slate, and 2 and 3 were the same as 0 and 1, but left a single line of text at the bottom of the screen for entering commands.
+      * Parameter 0 is the mode (defaults to 0). Mode 0 was the default and picked up
+      drawing where it left off, 1 reset the system to a blank slate, and 2 and 3 were
+      the same as 0 and 1, but left a single line of text at the bottom of the screen
+      for entering commands.
 * `<ESC> ] <string> <ST>`, `<9D> <string> <ST>` OSC, Operating System Call (unsupported)
   * Depending on the value of `<string>`:
     * `0 ; <label>`, `L <label>` Changes icon name and window title to `<label>`

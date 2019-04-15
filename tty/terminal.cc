@@ -463,12 +463,12 @@ void termwindow::Write(std::u32string_view s)
                 break;
             case State(U'c', st_csi_dec3): // csi = 0 c, Tertiary device attributes (printer?)
                 GetParams(1,false); // Tertiary device attributes (printer?)
-                // Example response: ^[P!|0^[ (backslash) 
-                if(!p[0]) EchoBack(U"\33P!|00000000\x9C");
+                // Example response: <ESC> P ! | 0 <ST>
+                if(!p[0]) EchoBack(U"\33P!|00000000\x9C"); // Note: DCS response
                 break;
             case State(U'c', st_csi_dec2): // csi > 0 c, Secondary device attributes (terminal)
                 GetParams(1,false);
-                // Example response: ^[[>41;330;0c  (middle=firmware version)
+                // Example response: ^[[>41;344;0c  (middle=firmware version)
                 if(!p[0]) EchoBack(U"\33[>1;1;0c");
                 break;
             case State(U'c', st_csi): // csi 0 c // Primary device attributes (host computer)
