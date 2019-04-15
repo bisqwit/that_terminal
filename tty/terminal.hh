@@ -20,7 +20,6 @@ private:
 
     struct backup
     {
-        std::size_t top,bottom;
         std::size_t cx,cy;
         Cell attr;
     } backup;

@@ -300,9 +300,9 @@ void termwindow::Write(std::u32string_view s)
                 goto Ground;*/
 
             case State(U'c', st_esc): ResetAttr(); Reset(); goto Ground; // esc c
-            case State(U'7', st_esc): [[fallthrough]]; // esc 7, csi s
+            case State(U'7', st_esc): [[fallthrough]]; // esc 7 (DECSC), csi s (ANSI_SC)
             case State(U's', st_csi): save_cur(); goto Ground;
-            case State(U'8', st_esc): [[fallthrough]]; // esc 8, csi u
+            case State(U'8', st_esc): [[fallthrough]]; // esc 8 (DECRC), csi u (ANSI_RC)
             case State(U'u', st_csi): restore_cur(); goto Ground;
             case State(U'0', st_scs): gset[scs&3] = 1; goto Ground; // DEC graphics (TODO)
             case State(U'1', st_scs): gset[scs&3] = 0; goto Ground; // DEC alt chars?
@@ -634,8 +634,6 @@ void termwindow::EchoBack(std::u32string_view buffer)
 
 void termwindow::save_cur()
 {
-    backup.top = top;
-    backup.bottom = bottom;
     backup.cx = wnd.cursx;
     backup.cy = wnd.cursy;
     backup.attr = wnd.blank;
@@ -643,8 +641,6 @@ void termwindow::save_cur()
 
 void termwindow::restore_cur()
 {
-    top = backup.top;
-    bottom = backup.bottom;
     wnd.cursx = backup.cx;
     wnd.cursy = backup.cy;
     wnd.blank = backup.attr;

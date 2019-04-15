@@ -45,8 +45,8 @@ does not happen until the new character is printed.
   * `<CSI> 2 J` Clears screen
   * `<CSI> ? 5 l` Clears screen-reverse flag
   * `<CSI> ? 25 h` Shows cursor
-* `<ESC> 7` , `<CSI> s` Saves current console state (cursor position, window boundaries, character attributes)
-* `<ESC> 8` , `<CSI> u` Restores console state (cursor position, window boundaries, character attributes)
+* `<ESC> 7` , `<CSI> s` Saves current console state (cursor position, character attributes)
+* `<ESC> 8` , `<CSI> u` Restores console state (cursor position, character attributes)
 * `<ESC> M`   ⁴Reverse linefeed: Moves cursor up within window; if at top of
 the window, scrolls window down and inserts a blank line at top.
 If the cursor is at the topmost line of the screen,
