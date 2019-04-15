@@ -172,19 +172,40 @@ intended for testing the double-width / double-height character modes. Cursor is
 * `<ESC> _ <string> <ST>`, `<9F> <string> <ST>` APC, Application Program Command (unsupported) (ignored by Xterm; Screen uses this for changing the window title)
 * `<ESC> X <string> <ST>`, `<98> <string> <ST>` SOS, Start of String (unsupported) (ignored by Xterm)
 * `<ESC> P <string> <ST>`, `<90> <string> <ST>` DCS, Device Control String (unsupported)
+  * Depending on the value of `<string>`:
+    * `$ q r` Responds with `<ESC> P 1 $ r <top> ; <bottom> q <ST>` where `<top>` and `<bottom>` are the scrolling region boundaries
+    * `$ q m` Responds with `<ESC> P 1 $ r <sgr> q <ST>` where `<sgr>` expresses the SGR sequence representing the current foreground and background colors
+    * `$ q t` Responds with `<ESC> P 1 $ r <n> t <ST>` where `<n>` is the screen height in rows, or 24, whichever is greater
+    * `$ q <20> q` Responds with `<ESC> P 1 $ <c> <20> q <ST>` where `<c>` is 1 for a blocky cursor, 3 for an underline cursor, and 5 for a bar cursor, +1 if the cursor is not blinking
+    * `$ q " q` Responds with `<ESC> P 1 $ r <p> " q <ST>` where `<p>` indicates whether protected mode is active(see `<ESC> V`)
+    * `$ q " p` Responds with `<ESC> P 1 $ r <l> ; <p> " q <ST>` where `<l>` is vtXX_level + 60, `<p>` indicates whether 8-bit controls are *disabled* (see `<CSI"> p`)
+    * `$ q $ |` Responds with `<ESC> P 1 $ r <n> $ | <ST>` where `<n>` is the screen width in columns (either 80 or 132)
+    * `$ q * |` Responds with `<ESC> P 1 $ r <n> * | <ST>` where `<n>` is the screen height in rows + 1
+    * `$ q <...>` Responds with `<ESC> P 0 <ST>`
+    * `$ <...>` Responds with `<18>`
+    * `<params> q <string>` Sixel graphics
+    * `<params> p <string>` ReGIS graphics
+      * Parameter 0 is the mode (defaults to 0). Mode 0 was the default and picked up drawing where it left off, 1 reset the system to a blank slate, and 2 and 3 were the same as 0 and 1, but left a single line of text at the bottom of the screen for entering commands.
 * `<ESC> ] <string> <ST>`, `<9D> <string> <ST>` OSC, Operating System Call (unsupported)
   * Depending on the value of `<string>`:
-    * `0 ; <label>` Changes icon name and window title to `<label>`
-    * `1 ; <label>` Changes icon name to `<label>`
-    * `2 ; <label>` Changes window title to `<label>`
-    * `3 ; <prop> = <value>` Sets X property.
-    * `3 ; <prop>` Deletes X property.
+    * `0 ; <label>`, `L <label>` Changes icon name and window title to `<label>`
+    * `1 ; <label>`, `l <label>` Changes icon name to `<label>`
     * `4 ; <integer> ; <color>` Changes color number `<integer>` to `<color>`, which is a string that is parsed by `XParseColor`. If the color is `?`, the terminal reports the current color instead.
+    * `5 ; <integer> ; <color>` Same as above, except 256 is added to `<integer>` first.
+    * `6` followed by any number of `; <set> ; <value>` Set depending on `<set>` off(0) or on(1):
+      * 0 colorBDmode
+      * 1 colorULmode
+      * 2 colorBLmode
+      * 3 colorRVmode
+      * 4 colorITmode
+    * `10 ; <color>` Changes the text foreground color to `<color>`.
     * `11 ; <color>` Changes the text background color to `<color>`.
     * `12 ; <color>` Changes the text *cursor* color to `<color>`.
     * `13 ; <color>` Changes the mouse foreground color (interior of the T-cursor) to `<color>`.
     * `14 ; <color>` Changes the mouse background color (edges of the T-cursor) to `<color>`.
     * `17 ; <color>` Changes the mouse select-text background color to `<color>`.
+    * `50 ; <label>` Changes font to `<label>`
+    * 100+n = reset color setting *n* to default
 * `<CSI"> p` If param1 >= 62, param2=1 disables 8-bit controls (default) and value 0 or 2 enables them. (unsupported)
 
 Blank = space character with current attributes.  
