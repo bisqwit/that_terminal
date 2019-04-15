@@ -68,6 +68,8 @@ struct Window
     std::size_t       cursx=0, cursy=0;
     bool              reverse   = false;
     bool              cursorvis = true;
+    unsigned          cursorcolor = 0xFFFFFF;
+    unsigned          mousecolor1 = 0xFFFFFF, mousecolor2 = 0xFFFFFF, mouseselectcolor = 0xFFFFFF;
     Cell blank {};
 private:
     std::size_t lastcursx, lastcursy;

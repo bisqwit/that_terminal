@@ -173,7 +173,7 @@ intended for testing the double-width / double-height character modes. Cursor is
 * `<ESC> ^ <string> <ST>`, `<9E> <string> <ST>` PM, Privacy Message (unsupported) (ignored by Xterm; Screen uses this to display messages in status line. Screen also supports `ESC ! <string> <ST>` as an alias.)
 * `<ESC> _ <string> <ST>`, `<9F> <string> <ST>` APC, Application Program Command (unsupported) (ignored by Xterm; Screen uses this for changing the window title)
 * `<ESC> X <string> <ST>`, `<98> <string> <ST>` SOS, Start of String (unsupported) (ignored by Xterm)
-* `<ESC> P <string> <ST>`, `<90> <string> <ST>` DCS, Device Control String (unsupported)
+* `<ESC> P <string> <ST>`, `<90> <string> <ST>` DCS, Device Control String
   * Depending on the value of `<string>`:
     * `$ q r` Responds with `<ESC> P 1 $ r <top> ; <bottom> q <ST>` where `<top>` and `<bottom>` are the scrolling region boundaries
     * `$ q m` Responds with `<ESC> P 1 $ r <sgr> q <ST>` where `<sgr>` expresses the SGR sequence representing the current foreground and background colors
@@ -185,7 +185,7 @@ intended for testing the double-width / double-height character modes. Cursor is
     * `$ q * |` Responds with `<ESC> P 1 $ r <n> * | <ST>` where `<n>` is the screen height in rows
     * `$ q <...>` Responds with `<ESC> P 0 <ST>`
     * `$ <...>` Responds with `<18>`
-    * `<params> q <string>` Sixel graphics.
+    * `<params> q <string>` Sixel graphics. (unsupported)
       * Parameters:
         * Parameter 0 (libsixel): Sets pad: 9 = 1; 0/1/7/8/≥10 = 2; 5/6 = 3; 3/4 = 4; 2 = 5. Default: pad=1, pan=2.
         * Parameter 0 (xterm): Sets pan=1, and pad: 7/8/9 = 1; 1/5/6 = 2; 3/4 = 3; 2 = 5
@@ -205,30 +205,31 @@ intended for testing the double-width / double-height character modes. Cursor is
         * `<33> <count> <SIXEL>` A form of run length encoding.
         Draws the Sixel `<count>` times using the algorithm described above.
         * `<20>`, `<0D>`, `<0A>` ignored
-    * `<params> p <string>` ReGIS graphics
+    * `<params> p <string>` ReGIS graphics (unsupported)
       * Parameter 0 is the mode (defaults to 0). Mode 0 was the default and picked up
       drawing where it left off, 1 reset the system to a blank slate, and 2 and 3 were
       the same as 0 and 1, but left a single line of text at the bottom of the screen
       for entering commands.
-* `<ESC> ] <string> <ST>`, `<9D> <string> <ST>` OSC, Operating System Call (unsupported)
+* `<ESC> ] <string> <ST>`, `<9D> <string> <ST>` OSC, Operating System Call
   * Depending on the value of `<string>`:
-    * `0 ; <label>`, `L <label>` Changes icon name and window title to `<label>`
-    * `1 ; <label>`, `l <label>` Changes icon name to `<label>`
+    * `0 ; <label>`, `L <label>` Changes icon name and window title to `<label>` (unsupported)
+    * `1 ; <label>`, `l <label>` Changes icon name to `<label>` (unsupported)
+    * `2 ; <label>`, `I <label>` Changes window title to `<label>` (unsupported)
     * `4 ; <integer> ; <color>` Changes color number `<integer>` to `<color>`, which is a string that is parsed by `XParseColor`. If the color is `?`, the terminal reports the current color instead.
     * `5 ; <integer> ; <color>` Same as above, except 256 is added to `<integer>` first.
     * `6` followed by any number of `; <set> ; <value>` Set depending on `<set>` off(0) or on(1):
-      * 0 colorBDmode
-      * 1 colorULmode
-      * 2 colorBLmode
-      * 3 colorRVmode
-      * 4 colorITmode
+      * 0 colorBDmode (unsupported)
+      * 1 colorULmode (unsupported)
+      * 2 colorBLmode (unsupported)
+      * 3 colorRVmode (unsupported)
+      * 4 colorITmode (unsupported)
     * `10 ; <color>` Changes the text foreground color to `<color>`.
     * `11 ; <color>` Changes the text background color to `<color>`.
     * `12 ; <color>` Changes the text *cursor* color to `<color>`.
-    * `13 ; <color>` Changes the mouse foreground color (interior of the T-cursor) to `<color>`.
-    * `14 ; <color>` Changes the mouse background color (edges of the T-cursor) to `<color>`.
-    * `17 ; <color>` Changes the mouse select-text background color to `<color>`.
-    * `50 ; <label>` Changes font to `<label>`
+    * `13 ; <color>` Changes the mouse foreground color (interior of the T-cursor) to `<color>`. (unsupported)
+    * `14 ; <color>` Changes the mouse background color (edges of the T-cursor) to `<color>`. (unsupported)
+    * `17 ; <color>` Changes the mouse select-text background color to `<color>`. (unsupported)
+    * `50 ; <label>` Changes font to `<label>` (unsupported)
     * 100+n = reset color setting *n* to default
 * `<CSI"> p` If param1 >= 62, param2=1 disables 8-bit controls (default) and value 0 or 2 enables them. (unsupported)
 

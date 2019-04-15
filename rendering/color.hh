@@ -1,4 +1,5 @@
 #include <array>
+#include <string>
 
 inline constexpr std::array<unsigned,3> Unpack(unsigned rgb)
 {
@@ -28,3 +29,6 @@ inline constexpr unsigned Mix(unsigned color1,unsigned color2, unsigned fac1,uns
     for(unsigned n=0; n<3; ++n) a[n] = (a[n]*fac1 + b[n]*fac2)/(sum);
     return Repack(a);
 }
+
+unsigned ParseColorName(std::string_view s);
+unsigned ParseColorName(std::u32string_view s);

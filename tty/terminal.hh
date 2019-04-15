@@ -34,6 +34,7 @@ private:
     std::vector<unsigned> p;
     unsigned              state=0;
     bool                  edgeflag=false;
+    std::u32string        string;
 
 private:
     void ResetFG();

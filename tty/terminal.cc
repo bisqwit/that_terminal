@@ -5,6 +5,7 @@
 #include "beeper.hh"
 #include "ctype.hh"
 #include "256color.hh"
+#include "color.hh"
 
 void termwindow::ResetFG()
 {
@@ -77,6 +78,7 @@ void termwindow::Write(std::u32string_view s)
         st_csi_ex,      // csi !
         st_csi_quo,     // csi "
         st_string,
+        st_string_str,
         //
         st_num_states
     };
@@ -148,11 +150,11 @@ void termwindow::Write(std::u32string_view s)
         {
             #define CsiState(c)      State(c,st_csi):     case State(c,st_csi_dec2): \
                                 case State(c,st_csi_dec): case State(c,st_csi_dec3): \
-                                case State(c,st_csi_ex)
+                                case State(c,st_csi_ex):  case State(c,st_string)
             #define AnyState(c)      State(c,st_default): case State(c,st_esc): \
                                 case State(c,st_scs): \
-                                case State(c,st_string):  case State(c,st_csi_quo): \
-                                case State(c,st_scr):     case State(c,st_esc_percent): \
+                                case State(c,st_string_str): case State(c,st_csi_quo): \
+                                case State(c,st_scr):        case State(c,st_esc_percent): \
                                 case CsiState(c)
 
             // Note: These escapes are recognized even in the middle of an ANSI/VT code.
@@ -179,7 +181,9 @@ void termwindow::Write(std::u32string_view s)
             case AnyState(U'\u0093'): [[fallthrough]];
             case AnyState(U'\u0094'): [[fallthrough]];
             case AnyState(U'\u0095'): [[fallthrough]];
-            case AnyState(U'\u0099'): { Ground: state=st_default; break; }
+            case AnyState(U'\u0099'): { Ground: scs=0; state=st_default; break; }
+            case State(U'\33', st_string): [[fallthrough]];
+            case State(U'\33', st_string_str): state = st_esc; break; // don't clear params
             case State(U'\33', st_default): state = st_esc; p.clear(); break;
             case State(U'(', st_esc): scs = 0; state = st_scs; break; // esc (
             case State(U')', st_esc): scs = 1; state = st_scs; break; // esc )
@@ -198,32 +202,149 @@ void termwindow::Write(std::u32string_view s)
             case State(U'"', st_csi): state = st_csi_quo; break; // csi " (note: after numbers)
             case AnyState(U'\7'):
             {
-                if(state == st_string) // Treat as ST (string termination)
+                if(state == st_string || state == st_string_str) // Treat as ST (string termination)
                 {
             case AnyState(U'\u009C'): [[fallthrough]];
             case State(U'\\', st_esc): // String termination
                     switch(scs)
                     {
-                        case 4: // TODO: parse DCS
-                        case 5: // TODO: parse OSC
+                        case 4: // Parse DCS
+                            GetParams(1, false);
+                            if(string.empty()) break;
+                            switch(string[0])
+                            {
+                                case U'$':
+                                    if(string.size() <= 1 || string[1] != 'q')
+                                        EchoBack(U"\u0018");
+                                    else
+                                    {
+                                        string.erase(0,2);
+                                        std::string response;
+                                        char Buf[40];
+                                        if(string == U"r") response.assign(Buf, std::sprintf(Buf, "%zu;%zu", top,bottom));
+                                        else if(string == U"m") response.assign(Buf, std::sprintf(Buf, "38;2;%u;%u;%u;48;2;%u;%u;%u",
+                                                                    (wnd.blank.fgcolor >> 16)&0xFF,
+                                                                    (wnd.blank.fgcolor >> 8)&0xFF,
+                                                                    (wnd.blank.fgcolor >> 0)&0xFF,
+                                                                    (wnd.blank.bgcolor >> 16)&0xFF,
+                                                                    (wnd.blank.bgcolor >> 8)&0xFF,
+                                                                    (wnd.blank.bgcolor >> 0)&0xFF));
+                                        else if(string == U"t") response = std::to_string(std::max(25u, unsigned(wnd.ysize))-1);
+                                        else if(string == U" q") response = "1"; //cursor type
+                                        else if(string == U"\"q") response = "0"; //protected mode
+                                        else if(string == U"\"p") response = "64;1"; //vt index, 8-bit controls disabled
+                                        else if(string == U"$|") response = std::to_string(wnd.xsize); //window width
+                                        else if(string == U"*|") response.assign(Buf, std::sprintf(Buf, "%zu", wnd.ysize));
+                                        else {fprintf(stderr, "Unrecognized DCS<%s>\n", ToUTF8(string).c_str());
+                                            EchoBack(U"\033$P0\033\\");}
+                                        if(!response.empty())
+                                            EchoBack(U"\033$P1$r" + FromUTF8(response) + string + U"\033\\");
+                                    }
+                                    break;
+                                case U'q': /* Sixel graphics */
+                                {
+                                    [[maybe_unused]] unsigned pad=1, pan=2, ph=1, pv=1, rep=1, x=0, y=0, color=3;
+                                    bool     trans=false;
+                                    // Parse pre-q parameters
+                                    if(p.size()>=1) pad = std::array<int,10>{2,2,5,4,4,3,3,2,2,1}[std::min(9u,p[0])];
+                                    if(p.size()>=2) { trans=p[1]; }
+                                    if(p.size()>=2) { pad = std::max(1u,pad*p[2]/10); pan = std::max(1u,pan*p[2]/10); }
+                                    if(p.size()>=7) { pad=p[3]; pan=p[4]; ph=p[5]; pv=p[6]; }
+                                    for(std::size_t b=0,a=0; a<string.size(); a = ++b)
+                                    {
+                                        // Parse parameters that follow the command
+                                        for(p.clear(); (b+1) < string.size(); ++b)
+                                            if(string[b+1] >= U';') p.emplace_back();
+                                            else if(string[b+1] >= U'0' && string[b+1] <= U'9')
+                                            {
+                                                if(p.empty()) p.emplace_back();
+                                                p.back() = p.back() * 10u + (string[b+1]-U'0');
+                                            }
+                                            else break;
+                                        switch(string[a])
+                                        {
+                                            case '\u0034': GetParams(4,false);
+                                                           pad = std::max(1u,p[0]);
+                                                           pan = std::max(1u,p[1]);
+                                                           if(p[2]) ph = p[2];
+                                                           if(p[3]) pv = p[3];
+                                                           break;
+                                            case '\u0035': switch(GetParams(5,false); p[1])
+                                                           {
+                                                               case 0: color=p[0]; break; // choose color p[0]
+                                                               case 1: break; // change color p[0] into hls: p[2..4]
+                                                               case 2: break; // change color p[0] into rgb: p[2..4]
+                                                           }
+                                                           break;
+                                            case '\u002D': y+=6; [[fallthrough]]; // TODO: scroll if necessary
+                                            case '\u0036': x=0; break;
+                                            case '\u0033': GetParams(1,false); rep = std::max(1u, p[0]); break;
+                                            default:
+                                                if(string[a] >= '\u003F' && string[a] <= '\u007E')
+                                                {
+                                                    unsigned bitmask = string[a] - '\u003F';
+                                                    for(; rep-- > 0; ++x)
+                                                        for(unsigned py=0; py<6; ++py)
+                                                            if(bitmask & (1u << py))
+                                                            {
+                                                            }
+                                                    rep = 1;
+                                                }
+                                        }
+                                    }
+                                    break;
+                                }
+                                case U'p': /* ReGIS graphics */ break;
+                            }
+                            break;
+                        case 5: // Parse OSC
+                        {
+                            GetParams(2,false);
+                            bool dfl = p[0] >= 100;
+                            auto DoColor = [&](unsigned& color, unsigned dflcolor)
+                            {
+                                char Buf[32];
+                                if(string == U"?") EchoBack(FromUTF8({Buf, 0u+std::sprintf(Buf, "#%06X", color)}));
+                                else if(dfl) color = dflcolor;
+                                else color = ParseColorName(string);
+                            };
+                            switch(p[0] % 100)
+                            {
+                                case 0: break; // set icon name and window title
+                                case 1: break; // set icon name
+                                case 2: break; // set window title
+                                case 6: break; // set or clear color{BD,UL,BL,RV,IT} mode
+                                case 5:  p[1] += 256; [[fallthrough]];
+                                case 4: {unsigned v = xterm256table[p[1]&0xFF];
+                                         DoColor(v, v);
+                                         break;} // change color [p[1]] to string, or if ?, report the string
+                                case 10: DoColor(wnd.blank.fgcolor, Cell{}.fgcolor); break; // Change text foreground color
+                                case 11: DoColor(wnd.blank.bgcolor, Cell{}.bgcolor); break; // Change text background color
+                                case 12: DoColor(wnd.cursorcolor, 0xFFFFFF); break; // Change text cursor color
+                                case 13: DoColor(wnd.mousecolor1, 0xFFFFFF); break; // Change mouse foreground color
+                                case 14: DoColor(wnd.mousecolor2, 0xFFFFFF); break; // Change mouse background color
+                                case 17: DoColor(wnd.mouseselectcolor, 0xFFFFFF); break; // Change mouse select-text background color
+                                case 50: break; // set font
+                            }
+                            break;
+                        }
                         default:
                             break;
                     }
-                    // TODO: clear accumulated string
                     goto Ground;
                 }
                 lastch=c; BeepOn(); break;
             }
-            case AnyState(U'\u0090'): [[fallthrough]];
-            case State(U'P', st_esc): state = st_string; scs = 4; break; // DCS
-            case AnyState(U'\u009D'): [[fallthrough]];
-            case State(U']', st_esc): state = st_string; scs = 5; break; // OSC
-            case AnyState(U'\u009E'): [[fallthrough]];
-            case State(U'^', st_esc): state = st_string; scs = 6; break; // PM
-            case AnyState(U'\u009F'): [[fallthrough]];
-            case State(U'_', st_esc): state = st_string; scs = 7; break; // APC
-            case AnyState(U'\u0098'): [[fallthrough]];
-            case State(U'X', st_esc): state = st_string; scs = 8; break; // SOS
+            case AnyState(U'\u0090'): p.clear(); [[fallthrough]];
+            case State(U'P', st_esc): state = st_string; scs = 4; string.clear(); break; // DCS
+            case AnyState(U'\u009D'): p.clear(); [[fallthrough]];
+            case State(U']', st_esc): state = st_string; scs = 5; string.clear(); break; // OSC
+            case AnyState(U'\u009E'): p.clear(); [[fallthrough]];
+            case State(U'^', st_esc): state = st_string; scs = 6; string.clear(); break; // PM
+            case AnyState(U'\u009F'): p.clear(); [[fallthrough]];
+            case State(U'_', st_esc): state = st_string; scs = 7; string.clear(); break; // APC
+            case AnyState(U'\u0098'): p.clear(); [[fallthrough]];
+            case State(U'X', st_esc): state = st_string; scs = 8; string.clear(); break; // SOS
 
             case CsiState(U'0'): case CsiState(U'1'):
             case CsiState(U'2'): case CsiState(U'3'):
@@ -613,9 +734,10 @@ void termwindow::Write(std::u32string_view s)
             }
 
             default:
-                if(state == st_string)
+                if(state == st_string) state = st_string_str;
+                if(state == st_string_str)
                 {
-                    // TODO: accumulate string
+                    string += c;
                     break;
                 }
                 if(state != st_default) goto Ground;

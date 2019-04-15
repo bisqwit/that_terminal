@@ -25,6 +25,7 @@ OBJS=\
 	tty/256color.o \
 	rendering/screen.o \
 	rendering/person.o \
+	rendering/color.o \
 	beeper.o \
 	main.o \
 	ctype.o
@@ -32,4 +33,7 @@ OBJS=\
 all: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)
 	
+#rendering/color.cc: rendering/color.cc.re
+#	re2c -P $< -o$@
+
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))
