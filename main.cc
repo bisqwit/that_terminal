@@ -13,10 +13,10 @@
 unsigned VidCellWidth = 8, VidCellHeight = 12;
 unsigned WindowWidth  =129, WindowHeight = 40;
 //unsigned WindowWidth  = 80, WindowHeight = 25;
-//float DefaultWindowScaleX = 3.f;
-//float DefaultWindowScaleY = 3.5f;
-float DefaultWindowScaleX = 3.f;
-float DefaultWindowScaleY = 4.f;
+//float ScaleX = 3.f;
+//float ScaleY = 3.5f;
+float ScaleX = 1.f;
+float ScaleY = 1.f;
 
 namespace
 {
@@ -37,22 +37,17 @@ namespace
         pixels_height = cells_vertical   * cell_height_pixels;
         bufpixels_width = cells_horizontal * VidCellWidth;
         bufpixels_height = cells_vertical  * VidCellHeight;
-        fprintf(stderr, "Cells: %ux%u, pix sizes: %ux%u (%u), pixels: %ux%u, buf: %ux%u\n",
-            cells_horiz,cells_vert,
-            cell_width_pixels,cell_height_pixels, VidCellHeight,
-            pixels_width,pixels_height,
-            bufpixels_width,bufpixels_height);
 
         if(!window)
         {
             window = SDL_CreateWindow("terminal",
                 SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                pixels_width*DefaultWindowScaleX, pixels_height*DefaultWindowScaleY,
+                pixels_width*ScaleX, pixels_height*ScaleY,
                 SDL_WINDOW_RESIZABLE);
         }
         else
         {
-            SDL_SetWindowSize(window, pixels_width*DefaultWindowScaleX, pixels_height*DefaultWindowScaleY);
+            SDL_SetWindowSize(window, pixels_width*ScaleX, pixels_height*ScaleY);
         }
         if(!renderer)
         {
@@ -73,6 +68,18 @@ namespace
         }
 
         pixbuf.resize(bufpixels_width*bufpixels_height);
+
+        int w,h;
+        SDL_GetWindowSize(window, &w,&h);
+        ScaleX = w/(float)pixels_width;
+        ScaleY = h/(float)pixels_height;
+
+        fprintf(stderr, "Cells: %ux%u, pix sizes: %ux%u (%u), pixels: %ux%u, buf: %ux%u scale:%gx%g\n",
+            cells_horiz,cells_vert,
+            cell_width_pixels,cell_height_pixels, VidCellHeight,
+            pixels_width,pixels_height,
+            bufpixels_width,bufpixels_height,
+            ScaleX, ScaleY);
     }
     void SDL_ReDraw(Window& wnd, unsigned timer)
     {
@@ -173,8 +180,21 @@ int main()
                         case SDL_WINDOWEVENT_EXPOSED:
                         case SDL_WINDOWEVENT_RESIZED:
                         case SDL_WINDOWEVENT_SIZE_CHANGED:
+                        {
+                            int w,h;
+                            SDL_GetWindowSize(window, &w,&h);
+                            if(w != pixels_width*ScaleX
+                            || h != pixels_height*ScaleY)
+                            {
+                                unsigned newxsize = (w/ScaleX) / VidCellWidth;
+                                unsigned newysize = (h/ScaleY) / VidCellHeight;
+                                wnd.Resize(newxsize, newysize);
+                                SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                                tty.Resize(wnd.xsize, wnd.ysize);
+                            }
                             wnd.Dirtify();
                             break;
+                        }
                         default:
                             break;
                     }
@@ -243,6 +263,30 @@ int main()
                                 case SDLK_F6: if(VidCellHeight < 32) ++VidCellHeight; resized = true; break;
                                 case SDLK_F7: if(VidCellWidth > 8) VidCellWidth /= 2; resized = true; break;
                                 case SDLK_F8: if(VidCellWidth <= 8) VidCellWidth *= 2; resized = true; break;
+                                case SDLK_F9:
+                                    if(ScaleY >= 2) --ScaleY;
+                                    else             ScaleY = ScaleY/std::sqrt(2.f);
+                                    if(ScaleY < 1.5) ScaleY = 1;
+                                    resized = true;
+                                    break;
+                                case SDLK_F10:
+                                    if(ScaleY < 2) ScaleY = ScaleY*std::sqrt(2.f);
+                                    else           ++ScaleY;
+                                    if(ScaleY >= 1.9) ScaleY = int(ScaleY+0.1);
+                                    resized = true;
+                                    break;
+                                case SDLK_F11:
+                                    if(ScaleX >= 2) --ScaleX;
+                                    else            ScaleX = ScaleX/std::sqrt(2.f);
+                                    if(ScaleX < 1.5) ScaleX = 1;
+                                    resized = true;
+                                    break;
+                                case SDLK_F12:
+                                    if(ScaleX < 2) ScaleX = ScaleX*std::sqrt(2.f);
+                                    else           ++ScaleX;
+                                    if(ScaleX >= 1.9) ScaleX = int(ScaleY+0.1);
+                                    resized = true;
+                                    break;
                             }
                         if(resized)
                         {
