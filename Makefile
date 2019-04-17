@@ -30,7 +30,7 @@ OBJS=\
 	main.o \
 	ctype.o
 
-all: $(OBJS)
+term: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)
 	
 #rendering/color.cc: rendering/color.cc.re
