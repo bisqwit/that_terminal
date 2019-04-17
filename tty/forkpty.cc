@@ -1,10 +1,12 @@
 #include <cstdlib>
 #include <sys/fcntl.h>
 #include <unistd.h>
-#include <pty.h>
+#include <curses.h>
+#include <util.h>
 #include <signal.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <sys/ioctl.h>
 
 #include "forkpty.hh"
 

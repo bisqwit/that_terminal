@@ -1,4 +1,4 @@
-CXX=g++
+CXX=gcc-8
 CPPFLAGS=-Wall -Wextra
 CXXFLAGS=-std=c++17
 
@@ -17,7 +17,7 @@ CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
 #CXXFLAGS += -pg
 
 # for forkpty:
-LDLIBS   += -lutil
+LDLIBS   += -lutil -lc++ -lncurses -lstdc++
 
 OBJS=\
 	tty/terminal.o \
