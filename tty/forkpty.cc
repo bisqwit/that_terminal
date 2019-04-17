@@ -1,10 +1,16 @@
 #include <cstdlib>
 #include <sys/fcntl.h>
 #include <unistd.h>
-#include <pty.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/ioctl.h>
 #include <errno.h>
+
+#ifdef MACOSX
+# include <util.h>
+#else
+# include <pty.h>
+#endif
 
 #include "forkpty.hh"
 
