@@ -6,7 +6,7 @@
 #include <sys/ioctl.h>
 #include <errno.h>
 
-#ifdef MACOSX
+#ifdef __APPLE__
 # include <util.h>
 #else
 # include <pty.h>
