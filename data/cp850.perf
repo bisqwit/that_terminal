@@ -1,0 +1,173 @@
+/* Unicode to Codepage 850 ($80-$FF) perfect hash */
+/* See ftp://ftp.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/PC/CP850.TXT */
+
+%language=C++
+%struct-type
+%compare-lengths
+%global-table
+%readonly-tables
+
+%define slot-name sequence
+
+%{
+#include <cstring>
+#include <cstddef>
+
+struct CP850_character
+{
+    const char *sequence = "";
+    unsigned code = 0;
+};
+%}
+
+struct CP850_character
+
+%%
+"\x00\xc7", 128
+"\x00\xfc", 129
+"\x00\xe9", 130
+"\x00\xe2", 131
+"\x00\xe4", 132
+"\x00\xe0", 133
+"\x00\xe5", 134
+"\x00\xe7", 135
+"\x00\xea", 136
+"\x00\xeb", 137
+"\x00\xe8", 138
+"\x00\xef", 139
+"\x00\xee", 140
+"\x00\xec", 141
+"\x00\xc4", 142
+"\x00\xc5", 143
+"\x00\xc9", 144
+"\x00\xe6", 145
+"\x00\xc6", 146
+"\x00\xf4", 147
+"\x00\xf6", 148
+"\x00\xf2", 149
+"\x00\xfb", 150
+"\x00\xf9", 151
+"\x00\xff", 152
+"\x00\xd6", 153
+"\x00\xdc", 154
+"\x00\xf8", 155
+"\x00\xa3", 156
+"\x00\xd8", 157
+"\x00\xd7", 158
+"\x01\x92", 159
+"\x00\xe1", 160
+"\x00\xed", 161
+"\x00\xf3", 162
+"\x00\xfa", 163
+"\x00\xf1", 164
+"\x00\xd1", 165
+"\x00\xaa", 166
+"\x00\xba", 167
+"\x00\xbf", 168
+"\x00\xae", 169
+"\x00\xac", 170
+"\x00\xbd", 171
+"\x00\xbc", 172
+"\x00\xa1", 173
+"\x00\xab", 174
+"\x00\xbb", 175
+"\x25\x91", 176
+"\x25\x92", 177
+"\x25\x93", 178
+"\x25\x02", 179
+"\x25\x24", 180
+"\x00\xc1", 181
+"\x00\xc2", 182
+"\x00\xc0", 183
+"\x00\xa9", 184
+"\x25\x63", 185
+"\x25\x51", 186
+"\x25\x57", 187
+"\x25\x5d", 188
+"\x00\xa2", 189
+"\x00\xa5", 190
+"\x25\x10", 191
+"\x25\x14", 192
+"\x25\x34", 193
+"\x25\x2c", 194
+"\x25\x1c", 195
+"\x25\x00", 196
+"\x25\x3c", 197
+"\x00\xe3", 198
+"\x00\xc3", 199
+"\x25\x5a", 200
+"\x25\x54", 201
+"\x25\x69", 202
+"\x25\x66", 203
+"\x25\x60", 204
+"\x25\x50", 205
+"\x25\x6c", 206
+"\x00\xa4", 207
+"\x00\xf0", 208
+"\x00\xd0", 209
+"\x00\xca", 210
+"\x00\xcb", 211
+"\x00\xc8", 212
+"\x01\x31", 213
+"\x00\xcd", 214
+"\x00\xce", 215
+"\x00\xcf", 216
+"\x25\x18", 217
+"\x25\x0c", 218
+"\x25\x88", 219
+"\x25\x84", 220
+"\x00\xa6", 221
+"\x00\xcc", 222
+"\x25\x80", 223
+"\x00\xd3", 224
+"\x00\xdf", 225
+"\x00\xd4", 226
+"\x00\xd2", 227
+"\x00\xf5", 228
+"\x00\xd5", 229
+"\x00\xb5", 230
+"\x00\xfe", 231
+"\x00\xde", 232
+"\x00\xda", 233
+"\x00\xdb", 234
+"\x00\xd9", 235
+"\x00\xfd", 236
+"\x00\xdd", 237
+"\x00\xaf", 238
+"\x00\xb4", 239
+"\x00\xad", 240
+"\x00\xb1", 241
+"\x20\x17", 242
+"\x00\xbe", 243
+"\x00\xb6", 244
+"\x00\xa7", 245
+"\x00\xf7", 246
+"\x00\xb8", 247
+"\x00\xb0", 248
+"\x00\xa8", 249
+"\x00\xb7", 250
+"\x00\xb9", 251
+"\x00\xb3", 252
+"\x00\xb2", 253
+"\x25\xa0", 254
+"\x00\xa0", 255
+%%
+
+unsigned uni_to_cp850(unsigned character)
+{
+    if(character < 128)
+        return character;
+
+    if(character > 0xffff)
+        return 0;
+
+    char source[2];
+    source[0] = char(character >> 8);
+    source[1] = char(character & 255);
+
+    const CP850_character *cp = Perfect_Hash::in_word_set(source, 2);
+    if (!cp)
+        return 0;
+
+    return cp->code;
+}

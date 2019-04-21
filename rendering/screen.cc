@@ -36,6 +36,9 @@ static const unsigned char p8font[8*256] = {
 #include "8x8.inc"
 };
 
+#include "data/cp850.cc"
+extern unsigned uni_to_cp850(unsigned character);
+
 static std::unordered_map<unsigned, const unsigned char*> fonts
 {
     { 16*256 + 32, p32wfont },
@@ -152,8 +155,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     pix += width;
                     continue;
                 }
-                unsigned translated_ch = cell.ch; // TODO: Character-set translation
-                if(translated_ch >= 256) translated_ch = '?';
+                unsigned translated_ch = uni_to_cp850(cell.ch); // Character-set translation
 
                 unsigned fr_actual = fr;
                 switch(cell.double_height)
