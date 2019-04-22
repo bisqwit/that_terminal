@@ -49,9 +49,12 @@ class Font
 
     printf("static const %s trans[%u] = { %s };\n",
       $type, $max-$min+1, join(', ', $values));
+
+    $condition = ($min > 0) ? "c >= $min && c <= $max" : "c <= $max";
+
     printf("unsigned unicode_to_bitmap_index(char32_t c)\n".
            "{\n".
-           "    return (c >= $min && c <= $max) ? trans[c-$min] : 0;\n".
+           "    return ($condition) ? trans[c-$min] : 0;\n".
            "}\n");
     /*
     $p = proc_open('./constablecom',

@@ -69,9 +69,9 @@ static constexpr std::array<unsigned char,16> taketables[] =
 static unsigned CursorColorTransform(unsigned color, unsigned cursorcolor)
 {
     auto orig = Unpack(color), curs = Unpack(cursorcolor);
-    std::array<unsigned,3> diff{ std::abs(int(orig[0]-curs[0])),
-                                 std::abs(int(orig[1]-curs[1])),
-                                 std::abs(int(orig[2]-curs[2])) };
+    std::array<unsigned,3> diff{ (unsigned)std::abs(int(orig[0]-curs[0])),
+                                 (unsigned)std::abs(int(orig[1]-curs[1])),
+                                 (unsigned)std::abs(int(orig[2]-curs[2])) };
     if(diff[0] <= 128
     || diff[1] <= 128
     || diff[2] <= 128)
@@ -94,8 +94,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
     const UIfontBase* fn = i->second();
     const unsigned char* font = fn->GetBitmap();
 
-    std::size_t character_size_in_bytes = (fx*fy+7)/8;
     std::size_t font_row_size_in_bytes = (fx+7)/8;
+    std::size_t character_size_in_bytes = font_row_size_in_bytes*fy;
 
     bool old_blink1 = (lasttimer/10)&1, cur_blink1 = (timer/10)&1;
     bool old_blink2 = (lasttimer/ 3)&1, cur_blink2 = (timer/ 3)&1;

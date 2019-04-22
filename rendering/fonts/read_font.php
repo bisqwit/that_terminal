@@ -76,8 +76,11 @@ function Read_PSFgz($filename, $height)
   }*/
   $result = Array();
   for($n=0; $n<$fontlen; ++$n)
-    for($m=0; $m<$charsize; ++$m)
-      $result[$n][$m] = ord($data[$offset++]);
+  {
+    $pos = $offset + $n*$charsize;
+    for($m=0; $m<$height; ++$m)
+      $result[$n][$m] = ord($data[$pos+$m]);
+  }
   return $result;
 }
 function Read_BDF($filename, $height)
@@ -162,7 +165,7 @@ function Read_BDF($filename, $height)
           }
           else
           {
-            $bitmap[$chno][$y] = $m;
+            $bitmap[$chno][$y] = $m >> (8-$fontwidth);
           }
         }
 
@@ -203,9 +206,9 @@ function Read_ASM($filename, $height)
   $data = Array();
   $n=0;
   foreach(file($filename) as $line)
-    if(preg_match('/db\s+([0-9A-Fh,]+)/i', $line, $mat))
+    if(preg_match('/db\s+([^;]+)/i', $line, $mat))
     {
-      preg_match_all('/[0-9A-F]+/', $mat[1], $mat);
+      preg_match_all('/[0-9A-F]+/i', $mat[1], $mat);
       foreach($mat[0] as $hex)
       {
         $data[(int)($n/$height)][] = hexdec($hex);
@@ -216,11 +219,11 @@ function Read_ASM($filename, $height)
   return $data;
 }
 
-function Read_Font($filename)
+function Read_Font($filename, $height)
 {
   #print "$filename\n";
   preg_match('/(?:.*x|\.f|-)0*([0-9]+).(.*)/', $filename, $mat);
-  $height = (int)($mat[1]);
+  #$height = (int)($mat[1]);
   $ext    = $mat[2];
   switch($ext)
   {

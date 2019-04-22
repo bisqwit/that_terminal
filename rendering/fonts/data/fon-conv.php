@@ -6,7 +6,7 @@ foreach(Array(8,14,16) as $size)
 {
   $asm = "{$enc}-8x{$size}.asm";
   $inc = "{$enc}-8x{$size}.inc";
-  $data = Read_Font($asm);
+  $data = Read_Font($asm, $size);
   $s   = "// Converted from $asm (or from EGA.CPI)\n";
   foreach($data as $line)
   {

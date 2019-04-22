@@ -88,7 +88,8 @@ $specs = Array
             'latin2' => 'lat2-08.psf.gz',
             'latin4' => 'lat4-08.psf.gz',
             'latin9' => 'lat9-08.psf.gz',
-            'koi8r'=>'koi8-8x8.psf.gz'],
+            'koi8r'=>'koi8-8x8.psf.gz'
+            ],
   '8x10' => ['cp437'=>'8x10.inc',
             'latin1' => 'lat1-10.psf.gz',
             'latin2' => 'lat2-10.psf.gz',
@@ -157,8 +158,9 @@ foreach($specs as $size => $selections)
   $fontdata = Array();
   foreach($selections as $encoding => $filename)
   {
-    $filename = str_replace('.asm', '.inc', $filename);
-    $fontdata[$encoding] = Read_Font("data/$filename");
+    if(!file_exists("data/$filename"))
+      $filename = str_replace('.asm', '.inc', $filename);
+    $fontdata[$encoding] = Read_Font("data/$filename", $fontheight);
   }
   #print_r($fontdata);
   
@@ -175,7 +177,7 @@ foreach($specs as $size => $selections)
     if(!isset($done[$key]))
     {
       $done[$key] = $n;
-      for($y=0; $y<$fontheight; ++$y) $bitmap[] = $cell[$y];
+      for($y=0; $y<$fontheight; ++$y) $bitmap[] = (int)$cell[$y];
       ++$n;
     }
     $revmap[$unicodevalue] = $done[$key];
