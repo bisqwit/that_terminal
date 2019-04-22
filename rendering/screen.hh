@@ -6,6 +6,8 @@
 #include <tuple>
 #include <cstring>
 
+#include "cset.hh"
+
 struct Cell
 {
     // 24-bit color foreground,background = 48 bits total
@@ -122,8 +124,16 @@ public:
     }
     void PutCh(std::size_t x, std::size_t y, char32_t c, int cset = 0)
     {
+        /*
+        cset options:
+        0 = ascii
+        1 = dec graphics
+        */
         Cell ch = blank;
-        // TODO: Deal with cset
+        if(cset)
+        {
+            c = TranslateCSet(c, cset);
+        }
         ch.ch = c;
         ch.double_width = cells[y*xsize+x].double_width;
         ch.double_height = cells[y*xsize+x].double_height;

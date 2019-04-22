@@ -26,6 +26,7 @@ OBJS=\
 	rendering/screen.o \
 	rendering/person.o \
 	rendering/color.o \
+	rendering/cset.o \
 	beeper.o \
 	main.o \
 	ctype.o

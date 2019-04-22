@@ -5,51 +5,25 @@
 #include "color.hh"
 #include "person.hh"
 
-static const unsigned char p32font[32*256] = {
-#include "8x32.inc"
-};
-static const unsigned char p19font[19*256] = {
-#include "8x19.inc"
-};
-static const unsigned char p12font[12*256] = {
-#include "8x12.inc"
-};
-static const unsigned char p10font[10*256] = {
-#include "8x10.inc"
-};
-static const unsigned char p15font[15*256] = {
-#include "8x15.inc"
-};
-static const unsigned char p32wfont[32*256] = {
-#include "16x32.inc"
-};
-static const unsigned char dcpu16font[8*256] = {
-#include "4x8.inc"
-};
-static const unsigned char p16font[16*256] = {
-#include "8x16.inc"
-};
-static const unsigned char p14font[14*256] = {
-#include "8x14.inc"
-};
-static const unsigned char p8font[8*256] = {
-#include "8x8.inc"
-};
-
-static std::unordered_map<unsigned, const unsigned char*> fonts
+//static unsigned UnicodeToASCIIapproximation(unsigned n){return n;}
+struct UIfontBase
 {
-    { 16*256 + 32, p32wfont },
-    { 4*256 + 8, dcpu16font },
-    { 8*256 + 8, p8font },
-    { 8*256 + 10, p10font },
-    { 8*256 + 12, p12font },
-    { 8*256 + 14, p14font },
-    { 8*256 + 15, p15font },
-    { 8*256 + 16, p16font },
-    { 8*256 + 19, p19font },
-    { 8*256 + 32, p32font },
+    virtual const unsigned char* GetBitmap() const = 0;
+    virtual unsigned GetIndex(char32_t c) const = 0;
 };
+#include "fonts.inc"
 
+static std::unordered_map<unsigned, UIfontBase*(*)()> fonts
+{
+    { 6*256 + 9,  Getf6x9 },
+    { 8*256 + 8,  Getf8x8 },
+    { 8*256 + 10, Getf8x10 },
+    { 8*256 + 12, Getf8x12 },
+    { 8*256 + 14, Getf8x14 },
+    { 8*256 + 15, Getf8x15 },
+    { 8*256 + 16, Getf8x16 },
+    { 8*256 + 19, Getf8x19 },
+};
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
@@ -117,7 +91,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
 {
     auto i = fonts.find(fx*256+fy);
     if(i == fonts.end()) return; // TODO: Do something better when a font is not found
-    const unsigned char* font = i->second;
+    const UIfontBase* fn = i->second();
+    const unsigned char* font = fn->GetBitmap();
 
     std::size_t character_size_in_bytes = (fx*fy+7)/8;
     std::size_t font_row_size_in_bytes = (fx+7)/8;
@@ -152,8 +127,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     pix += width;
                     continue;
                 }
-                unsigned translated_ch = cell.ch; // TODO: Character-set translation
-                if(translated_ch >= 256) translated_ch = '?';
+                unsigned translated_ch = fn->GetIndex(cell.ch); // Character-set translation
 
                 unsigned fr_actual = fr;
                 switch(cell.double_height)
