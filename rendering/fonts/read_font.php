@@ -27,14 +27,17 @@ function Read_PSFgz($filename, $height)
     $width    = $header2['width'];
     $height   = $header2['height'];
   }
-  /*if($hastable)
+  //print_r($header1);
+  //print_r($header2);
+  if(false && $hastable)
   {
     $pos = $offset + $fontlen * $charsize;
+    $list  = Array();
     for($n=0; $n<$fontlen; ++$n)
     {
       $inseq = 0;
-      $list  = Array( Array() );
-      $list_last = &$list[0];
+      $list[$n] = Array();
+      $list_last = &$list[$n][0];
       while($pos < strlen($data))
       {
         if($utf8)
@@ -59,11 +62,11 @@ function Read_PSFgz($filename, $height)
           if($unichar == 0xFFFF) break;
           if($unichar == 0xFFFE) { $inseq = 1; continue; }
         }
-        #print "$n: inseq=$inseq unichar=$unichar\n";
+        print "$n: inseq=$inseq unichar=$unichar\n";
         if($inseq < 2)
         {
-          $list[] = Array($unichar);
-          $list_last = &$list[count($list)-1];
+          $list[$n][] = Array($unichar);
+          $list_last = &$list[count($list[$n])-1];
         }
         else
         {
@@ -72,8 +75,8 @@ function Read_PSFgz($filename, $height)
         if($inseq) ++$inseq;
       }
     }
-    #print_r($list);
-  }*/
+    print_r($list);
+  }
   $result = Array();
   for($n=0; $n<$fontlen; ++$n)
   {
@@ -237,3 +240,5 @@ function Read_Font($filename, $height)
 
 #foreach(glob('data/*') as $fn)
 #  Read_Font($fn);
+
+#Read_Font('data/UbuntuMono-R-8x16.psf.gz', 16);

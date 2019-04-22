@@ -60,6 +60,7 @@ function CreateTranslation($sets)
       #  $characters[$n] = Array($dfl_setname, ord('?'));
     }
   ksort($characters);
+  
   #print_r($characters);
   return $characters;
 }
@@ -70,25 +71,25 @@ $specs = Array
   '8x8' => ['cp437'=>'8x8.inc',
             'cp850'=>'850-8x8.asm',
             'cp852'=>'852-8x8.asm',
-            'cp860'=>'860-8x8.asm',
-            'cp863'=>'863-8x8.asm',
-            'cp865'=>'865-8x8.asm',
+            //'cp860'=>'860-8x8.asm',
+            //'cp863'=>'863-8x8.asm',
+            //'cp865'=>'865-8x8.asm',
             'cp857'=>'cp857-8x8.psf.gz',
-            'iso-8859-1'=>'iso01.f08.psf.gz',
-            'iso-8859-2'=>'iso02.f08.psf.gz',
+            //'iso-8859-1'=>'iso01.f08.psf.gz',
+            //'iso-8859-2'=>'iso02.f08.psf.gz',
             'iso-8859-3'=>'iso03.f08.psf.gz',
             'iso-8859-4'=>'iso04.f08.psf.gz',
             'iso-8859-5'=>'iso05.f08.psf.gz',
             'iso-8859-6'=>'iso06.f08.psf.gz',
             'iso-8859-7'=>'iso07.f08.psf.gz',
             'iso-8859-8'=>'iso08.f08.psf.gz',
-            'iso-8859-9'=>'iso09.f08.psf.gz',
-            'iso-8859-10'=>'iso10.f08.psf.gz',
-            'latin1' => 'lat1-08.psf.gz',
-            'latin2' => 'lat2-08.psf.gz',
-            'latin4' => 'lat4-08.psf.gz',
+            //'iso-8859-9'=>'iso09.f08.psf.gz',
+            //'iso-8859-10'=>'iso10.f08.psf.gz',
+            //'latin1' => 'lat1-08.psf.gz',
+            //'latin2' => 'lat2-08.psf.gz',
+            //'latin4' => 'lat4-08.psf.gz',
             'latin9' => 'lat9-08.psf.gz',
-            'koi8r'=>'koi8-8x8.psf.gz'
+            //'koi8r'=>'koi8-8x8.psf.gz'
             ],
   '8x10' => ['cp437'=>'8x10.inc',
             'latin1' => 'lat1-10.psf.gz',
@@ -103,48 +104,50 @@ $specs = Array
   '8x14'=> ['cp437'=>'8x14.inc',
             'cp850'=>'850-8x14.asm',
             'cp852'=>'852-8x14.asm',
-            'cp860'=>'860-8x14.asm',
-            'cp863'=>'863-8x14.asm',
-            'cp865'=>'865-8x14.asm',
+            //'cp860'=>'860-8x14.asm',
+            //'cp863'=>'863-8x14.asm',
+            //'cp865'=>'865-8x14.asm',
             'cp857'=>'cp857-8x14.psf.gz',
-            'iso-8859-1'=>'iso01.f14.psf.gz',
-            'iso-8859-2'=>'iso02.f14.psf.gz',
+            //'iso-8859-1'=>'iso01.f14.psf.gz',
+            //'iso-8859-2'=>'iso02.f14.psf.gz',
             'iso-8859-3'=>'iso03.f14.psf.gz',
             'iso-8859-4'=>'iso04.f14.psf.gz',
             'iso-8859-5'=>'iso05.f14.psf.gz',
             'iso-8859-6'=>'iso06.f14.psf.gz',
             'iso-8859-7'=>'iso07.f14.psf.gz',
             'iso-8859-8'=>'iso08.f14.psf.gz',
-            'iso-8859-9'=>'iso09.f14.psf.gz',
-            'iso-8859-10'=>'iso10.f14.psf.gz',
-            'latin1' => 'lat1-14.psf.gz',
-            'latin2' => 'lat2-14.psf.gz',
-            'latin4' => 'lat4-14.psf.gz',
+            //'iso-8859-9'=>'iso09.f14.psf.gz',
+            //'iso-8859-10'=>'iso10.f14.psf.gz',
+            //'latin1' => 'lat1-14.psf.gz',
+            //'latin2' => 'lat2-14.psf.gz',
+            //'latin4' => 'lat4-14.psf.gz',
             'latin9' => 'lat9-14.psf.gz',
-            'koi8r'=>'koi8-8x14.psf.gz'],
+            //'koi8r'=>'koi8-8x14.psf.gz'
+           ],
   '8x15'=> ['cp437'=>'8x15.inc'],
   '8x16'=> ['cp437'=>'8x16.inc',
             'cp850'=>'850-8x16.asm',
             'cp852'=>'852-8x16.asm',
-            'cp860'=>'860-8x16.asm',
-            'cp863'=>'863-8x16.asm',
-            'cp865'=>'865-8x16.asm',
+            //'cp860'=>'860-8x16.asm',
+            //'cp863'=>'863-8x16.asm',
+            //'cp865'=>'865-8x16.asm',
             'cp857'=>'cp857-8x16.psf.gz',
-            'iso-8859-1'=>'iso01.f16.psf.gz',
-            'iso-8859-2'=>'iso02.f16.psf.gz',
+            //'iso-8859-1'=>'iso01.f16.psf.gz',
+            //'iso-8859-2'=>'iso02.f16.psf.gz',
             'iso-8859-3'=>'iso03.f16.psf.gz',
             'iso-8859-4'=>'iso04.f16.psf.gz',
             'iso-8859-5'=>'iso05.f16.psf.gz',
             'iso-8859-6'=>'iso06.f16.psf.gz',
             'iso-8859-7'=>'iso07.f16.psf.gz',
             'iso-8859-8'=>'iso08.f16.psf.gz',
-            'iso-8859-9'=>'iso09.f16.psf.gz',
-            'iso-8859-10'=>'iso10.f16.psf.gz',
-            'latin1' => 'lat1-16.psf.gz',
-            'latin2' => 'lat2-16.psf.gz',
-            'latin4' => 'lat4-16.psf.gz',
+            //'iso-8859-9'=>'iso09.f16.psf.gz',
+            //'iso-8859-10'=>'iso10.f16.psf.gz',
+            //'latin1' => 'lat1-16.psf.gz',
+            //'latin2' => 'lat2-16.psf.gz',
+            //'latin4' => 'lat4-16.psf.gz',
             'latin9' => 'lat9-16.psf.gz',
-            'koi8r'=>'koi8-8x16.psf.gz'],
+            //'koi8r'=>'koi8-8x16.psf.gz'
+           ],
   '8x19'=> ['cp437'=>'vga8x19.bdf']
 );
 
@@ -155,6 +158,13 @@ foreach($specs as $size => $selections)
   $fontheight = $mat[2];
 
   $map      = CreateTranslation(array_keys($selections));
+
+  $used = Array();
+  foreach($map as $specs) $used[$specs[0]] = true;
+  foreach($selections as $setname=>$dummy)
+    if(!isset($used[$setname]))
+      print "// $size: $setname is unused\n";
+
   $fontdata = Array();
   foreach($selections as $encoding => $filename)
   {
