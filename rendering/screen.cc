@@ -66,27 +66,6 @@ static constexpr std::array<unsigned char,16> taketables[] =
     #undef i
 };
 
-static unsigned CursorColorTransform(unsigned color, unsigned cursorcolor)
-{
-    auto orig = Unpack(color), curs = Unpack(cursorcolor);
-    std::array<unsigned,3> diff{ (unsigned)std::abs(int(orig[0]-curs[0])),
-                                 (unsigned)std::abs(int(orig[1]-curs[1])),
-                                 (unsigned)std::abs(int(orig[2]-curs[2])) };
-    if(diff[0] <= 128
-    || diff[1] <= 128
-    || diff[2] <= 128)
-    {
-        // Choose black or white, whichever is farther from orig
-        unsigned sum = orig[0]+orig[1]+orig[2];
-        if(sum > 255*3-sum)
-            return 0x000000;
-        else
-            return 0xFFFFFF;
-    }
-
-    return cursorcolor;
-}
-
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer)
 {
     auto i = fonts.find(fx*256+fy);
