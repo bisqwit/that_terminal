@@ -200,6 +200,7 @@ foreach($specs as $size => $selections)
   $font->GenerateOutput($bitmap, $fontwidth, $fontheight, $revmap);
 
   print "}\n";
+  /*
   print "struct $globalname: public UIfontBase\n";
   print "{\n";
   print "    virtual const unsigned char* GetBitmap() const { return ns_$globalname::bitmap; }\n";
@@ -210,6 +211,5 @@ foreach($specs as $size => $selections)
   print "    static $globalname f;\n";
   print "    return &f;\n";
   print "}\n";
-
-  
+  */
 }

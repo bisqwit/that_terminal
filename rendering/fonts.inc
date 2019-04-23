@@ -1199,16 +1199,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
     return (c <= 65533) ? trans[c-0] : 0;
 }
 }
-struct f6x9: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f6x9::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f6x9::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf6x9()
-{
-    static f6x9 f;
-    return &f;
-}
 namespace ns_f8x8 {
 static const unsigned char bitmap[5064] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, /* 00 (U+0000, U+0020, U+0080, U+0081, U+0082, U+0083, U+0084, U+0085, U+0086, U+0087, U+0088, U+0089, U+008A, U+008B, U+008C, U+008D, U+008E, U+008F, U+0090, U+0091, U+0092, U+0093, U+0094, U+0095, U+0096, U+0097, U+0098, U+0099, U+009A, U+009B, U+009C, U+009D, U+009E, U+009F, U+00A0, U+037A, U+2000, U+2001, U+2002, U+2003, U+2004, U+2005, U+2006, U+2008, U+2009, U+200A, U+200E, U+200F, U+202F, U+205F, U+20AC, U+20AF, U+3000) */
@@ -1851,16 +1841,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
     return (c <= 65517) ? trans[c-0] : 0;
 }
 }
-struct f8x8: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x8::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x8::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x8()
-{
-    static f8x8 f;
-    return &f;
-}
 namespace ns_f8x10 {
 static const unsigned char bitmap[4100] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF, /* 00 (U+0000, U+005F, U+02CD, U+2423, U+FE33, U+FE34, U+FE4D, U+FE4E, U+FE4F, U+FF3F) */
@@ -2280,16 +2260,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
     return (c <= 65517) ? trans[c-0] : 0;
 }
 }
-struct f8x10: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x10::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x10::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x10()
-{
-    static f8x10 f;
-    return &f;
-}
 namespace ns_f8x12 {
 static const unsigned char bitmap[4800] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, /* 00 (U+0000, U+0020, U+00A0, U+2000, U+2001, U+2002, U+2003, U+2004, U+2005, U+2006, U+2008, U+2009, U+200A, U+202F, U+205F, U+3000) */
@@ -2698,16 +2668,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
 {
     return (c <= 65517) ? trans[c-0] : 0;
 }
-}
-struct f8x12: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x12::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x12::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x12()
-{
-    static f8x12 f;
-    return &f;
 }
 namespace ns_f8x14 {
 static const unsigned char bitmap[8974] = {
@@ -3359,16 +3319,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
     return (c <= 65517) ? trans[c-0] : 0;
 }
 }
-struct f8x14: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x14::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x14::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x14()
-{
-    static f8x14 f;
-    return &f;
-}
 namespace ns_f8x15 {
 static const unsigned char bitmap[3825] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF,0x00, /* 00 (U+0000) */
@@ -3632,16 +3582,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
 {
     return (c <= 65517) ? trans[c-0] : 0;
 }
-}
-struct f8x15: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x15::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x15::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x15()
-{
-    static f8x15 f;
-    return &f;
 }
 namespace ns_f8x16 {
 static const unsigned char bitmap[10016] = {
@@ -4278,16 +4218,6 @@ unsigned unicode_to_bitmap_index(char32_t c)
     return (c <= 65517) ? trans[c-0] : 0;
 }
 }
-struct f8x16: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x16::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x16::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x16()
-{
-    static f8x16 f;
-    return &f;
-}
 namespace ns_f8x19 {
 static const unsigned char bitmap[4826] = {
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, /* 00 (U+0000, U+0020, U+00A0, U+2000, U+2001, U+2002, U+2003, U+2004, U+2005, U+2006, U+2008, U+2009, U+200A, U+202F, U+205F, U+3000) */
@@ -4550,14 +4480,4 @@ unsigned unicode_to_bitmap_index(char32_t c)
 {
     return (c <= 65517) ? trans[c-0] : 0;
 }
-}
-struct f8x19: public UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const { return ns_f8x19::bitmap; }
-    virtual unsigned GetIndex(char32_t c) const { return ns_f8x19::unicode_to_bitmap_index(c); }
-};
-static UIfontBase* Getf8x19()
-{
-    static f8x19 f;
-    return &f;
 }

@@ -1,10 +1,5 @@
 
 	MISSING style renderings (framed?) [very low priority]
-*	Do character sets properly
 	Support line-drawing characters (those G0, G1 things)
 ->>	Screen recording
-	
-	
-	
-	
-	
+	Bell support

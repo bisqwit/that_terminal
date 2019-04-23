@@ -880,9 +880,12 @@ unsigned ParseColorName(std::string_view s)
     switch(h) { docolors(o) }
     #undef o
 #else
-    auto i = std::lower_bound(std::begin(colorkeys), std::end(colorkeys), h);
-    if(i != std::end(colorkeys) && *i == h)
-        return colorvalues[ i-std::begin(colorkeys) ];
+    if(h < mod) 
+    {
+        auto i = std::lower_bound(std::begin(colorkeys), std::end(colorkeys), h);
+        if(i != std::end(colorkeys) && *i == h)
+            return colorvalues[ i-std::begin(colorkeys) ];
+    }
 #endif
     return 0;
 }

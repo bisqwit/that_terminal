@@ -49,6 +49,7 @@ struct Cell
         dirty   = true;
     }
 
+    // operator== compares everything except the dirty-flag.
     bool operator== (const Cell& b) const
     {
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,

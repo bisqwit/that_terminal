@@ -5,24 +5,18 @@
 #include "color.hh"
 #include "person.hh"
 
-//static unsigned UnicodeToASCIIapproximation(unsigned n){return n;}
-struct UIfontBase
-{
-    virtual const unsigned char* GetBitmap() const = 0;
-    virtual unsigned GetIndex(char32_t c) const = 0;
-};
 #include "fonts.inc"
 
-static std::unordered_map<unsigned, UIfontBase*(*)()> fonts
+static std::unordered_map<unsigned, std::pair<const unsigned char*, unsigned(*)(char32_t)>> fonts
 {
-    { 6*256 + 9,  Getf6x9 },
-    { 8*256 + 8,  Getf8x8 },
-    { 8*256 + 10, Getf8x10 },
-    { 8*256 + 12, Getf8x12 },
-    { 8*256 + 14, Getf8x14 },
-    { 8*256 + 15, Getf8x15 },
-    { 8*256 + 16, Getf8x16 },
-    { 8*256 + 19, Getf8x19 },
+    { 6*256 + 9,  {ns_f6x9::bitmap, ns_f6x9::unicode_to_bitmap_index} },
+    { 8*256 + 8,  {ns_f8x8::bitmap, ns_f8x8::unicode_to_bitmap_index} },
+    { 8*256 + 10, {ns_f8x10::bitmap, ns_f8x10::unicode_to_bitmap_index} },
+    { 8*256 + 12, {ns_f8x12::bitmap, ns_f8x12::unicode_to_bitmap_index} },
+    { 8*256 + 14, {ns_f8x14::bitmap, ns_f8x14::unicode_to_bitmap_index} },
+    { 8*256 + 15, {ns_f8x15::bitmap, ns_f8x15::unicode_to_bitmap_index} },
+    { 8*256 + 16, {ns_f8x16::bitmap, ns_f8x16::unicode_to_bitmap_index} },
+    { 8*256 + 19, {ns_f8x19::bitmap, ns_f8x19::unicode_to_bitmap_index} },
 };
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
@@ -70,8 +64,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
 {
     auto i = fonts.find(fx*256+fy);
     if(i == fonts.end()) return; // TODO: Do something better when a font is not found
-    const UIfontBase* fn = i->second();
-    const unsigned char* font = fn->GetBitmap();
+    const unsigned char* font = i->second.first;
+    const auto            map = i->second.second;
 
     std::size_t font_row_size_in_bytes = (fx+7)/8;
     std::size_t character_size_in_bytes = font_row_size_in_bytes*fy;
@@ -106,7 +100,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     pix += width;
                     continue;
                 }
-                unsigned translated_ch = fn->GetIndex(cell.ch); // Character-set translation
+                unsigned translated_ch = map(cell.ch); // Character-set translation
 
                 unsigned fr_actual = fr;
                 switch(cell.double_height)

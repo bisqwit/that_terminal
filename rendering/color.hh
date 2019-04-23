@@ -1,5 +1,6 @@
 #include <array>
 #include <string>
+#include <algorithm>
 
 inline constexpr std::array<unsigned,3> Unpack(unsigned rgb)
 {
