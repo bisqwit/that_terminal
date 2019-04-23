@@ -240,6 +240,7 @@ int main()
                             { SDLK_4, '4' }, { SDLK_5, '5' }, { SDLK_6, '6' }, { SDLK_7, '7' },
                             { SDLK_8, '8' }, { SDLK_9, '9' }, { SDLK_PERIOD, '.' }, { SDLK_COMMA, '-' },
                             { SDLK_RETURN, '\r' }, { SDLK_BACKSPACE, '\177' }, { SDLK_TAB, '\t' },
+                            { SDLK_SPACE, ' ' },
                         };
                         bool shift = keys[SDLK_LSHIFT] || keys[SDLK_RSHIFT];
                         bool alt   = keys[SDLK_LALT]   || keys[SDLK_RALT];
