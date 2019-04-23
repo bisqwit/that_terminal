@@ -19,7 +19,7 @@ struct Cell
     //    double underline
     //    dim
     //    overstrike
-    //    reverse
+    //    inverse
     std::uint_least32_t fgcolor;
     std::uint_least32_t bgcolor;
     char32_t            ch;
@@ -29,7 +29,7 @@ struct Cell
     bool                underline: 1;
     bool                underline2: 1;
     bool                overstrike: 1;
-    bool                reverse: 1;
+    bool                inverse: 1;
     bool                framed: 1;
     bool                encircled: 1;
     bool                overlined: 1;
@@ -52,11 +52,11 @@ struct Cell
     bool operator== (const Cell& b) const
     {
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,
-                          underline,underline2,overstrike,reverse,blink,
+                          underline,underline2,overstrike,inverse,blink,
                           framed,encircled,fraktur,conceal,overlined,
                           double_width,double_height)
             == std::tuple(b.fgcolor,b.bgcolor,b.ch,b.bold,b.dim,b.italic,
-                          b.underline,b.underline2,b.overstrike,b.reverse,b.blink,
+                          b.underline,b.underline2,b.overstrike,b.inverse,b.blink,
                           b.framed,b.encircled,b.fraktur,b.conceal,b.overlined,
                           b.double_width,b.double_height);
     }
@@ -68,7 +68,7 @@ struct Window
     std::vector<Cell> cells;
     std::size_t       xsize, ysize;
     std::size_t       cursx=0, cursy=0;
-    bool              reverse   = false;
+    bool              inverse   = false;
     bool              cursorvis = true;
     unsigned          cursorcolor = 0xFFFFFF;
     unsigned          mousecolor1 = 0xFFFFFF, mousecolor2 = 0xFFFFFF, mouseselectcolor = 0xFFFFFF;

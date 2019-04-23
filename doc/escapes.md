@@ -35,7 +35,7 @@ does not happen until the new character is printed.
 ## Esc codes:
 
 * `<1B>`      ESC.
-* `<ESC> [`   CSI. An optional number of integer parameters may follow, separated by either `:` or `;`.
+* `<ESC> [`   CSI. An optional number of non-negative integer parameters may follow, separated by either `:` or `;`.
 * `<CSI> "`   CSI". (unsupported)
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
   * `<ESC> ( B` `<ESC> ) B` `<ESC> * B` `<ESC> + B` `<0F>` Resets G0,G1,G2,G3 to default and selects G0
@@ -43,7 +43,7 @@ does not happen until the new character is printed.
   * `<CSI> r` Sets window to default (entire screen)
   * `<CSI> H` Puts cursor at top-left corner
   * `<CSI> 2 J` Clears screen
-  * `<CSI> ? 5 l` Clears screen-reverse flag
+  * `<CSI> ? 5 l` Clears screen-inverse flag
   * `<CSI> ? 25 h` Shows cursor
 * `<ESC> 7` , `<CSI> s` Saves current console state (cursor position, character attributes)
 * `<ESC> 8` , `<CSI> u` Restores console state (cursor position, character attributes)
@@ -97,7 +97,7 @@ printing anything (including spaces) over them.
 * `<CSI> ? h` ³Set MISC modes.
 * `<CSI> ? l` ³Unset MISC modes.
   * Mode 6: Puts cursor to top-left corner of the window. (Both set & clear)
-  * Mode 5: Sets or clears screen-wide reverse flag.
+  * Mode 5: Sets or clears screen-wide inverse flag.
   * Mode 25: Shows/hides cursor.
   * Mode 3: Set width to 132 (enable) or 80 (disable) (only if mode 40 is enabled). (unsupported)
   * Mode 40: Enable/disable 80/132 mode.
@@ -114,7 +114,7 @@ printing anything (including spaces) over them.
   * 3 = Sets italic.
   * 4 = Sets underline.
   * 5 = Sets blink.
-  * 7 = Sets reverse.
+  * 7 = Sets inverse. (swaps foreground and background color while in effect)
   * 8 = Sets conceal. (unsupported)
   * 9 = Sets overstrike.
   * 20 = Sets fraktur. (unsupported)
@@ -123,7 +123,7 @@ printing anything (including spaces) over them.
   * 23 = Clears italic and fraktur.
   * 24 = Clears underline and double underline.
   * 25 = Clears blink.
-  * 27 = Clears reverse.
+  * 27 = Clears inverse.
   * 28 = Clears conceal.
   * 29 = Clears overstrike.
   * 39 = Sets default foreground color, and clears underline and double underline attributes.

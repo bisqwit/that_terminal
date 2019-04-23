@@ -144,7 +144,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     //fg = 0xAAAAAA;
                     //bg = 0x000055;
 
-                    if(cell.reverse ^ reverse)
+                    if(cell.inverse ^ inverse)
                     {
                         std::swap(fg, bg);
                     }
@@ -152,7 +152,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     unsigned mask = ((widefont << 2) >> (fx-fc/xscale)) & 0xF;
                     int take = taketables[mode][mask];
                     unsigned untake = std::max(0,128-take);
-                    if(cell.reverse)
+                    if(cell.inverse)
                     {
                         PersonTransform(bg,fg, xsize*fx, x*fx+fc,y*fy+fr,
                                         y == 0 ? 1
@@ -168,7 +168,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     }
                     unsigned color  = Mix(bg,fg, untake, take, 128);
 
-                    if(line && take == 0 && (!cell.reverse || color != 0x000000))
+                    if(line && take == 0 && (!cell.inverse || color != 0x000000))
                     {
                         auto brightness = [](unsigned rgb)
                         {

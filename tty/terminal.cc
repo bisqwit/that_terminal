@@ -36,7 +36,7 @@ void termwindow::Reset()
 
     wnd.cursx = 0;
     wnd.cursy = 0;
-    wnd.reverse   = false;
+    wnd.inverse   = false;
     wnd.cursorvis = true;
     wnd.fillbox(0,0, wnd.xsize,wnd.ysize, wnd.blank); // Clear screen
 }
@@ -621,14 +621,14 @@ void termwindow::Write(std::u32string_view s)
                 //  25 enables/disables cursor visibility
                 //  40 enables/disables 80/132 mode (note: if enabled, RESET changes to one of these)
                 //   3 sets width at 132(enable), 80(disable) if "40" is enabled
-                //   5 = screenwide reverse color
+                //   5 = screenwide inverse color
                 GetParams(0, false);
                 for(auto a: p)
                     switch(a)
                     {
                         case 6:  ClampedMove(0, top, false); break;
                         case 25: wnd.cursorvis = set; break;
-                        case 5:  wnd.reverse   = set; break;
+                        case 5:  wnd.inverse   = set; break;
                     }
                 break;
             }
@@ -666,7 +666,7 @@ void termwindow::Write(std::u32string_view s)
                         case 4: wnd.blank.underline = true; c = 0; break;
                         case 5: wnd.blank.blink = 1; c = 0; break;
                         case 6: wnd.blank.blink = 2; c = 0; break;
-                        case 7: wnd.blank.reverse = true; c = 0; break;
+                        case 7: wnd.blank.inverse = true; c = 0; break;
                         case 8: wnd.blank.conceal = true; c = 0; break;
                         case 9: wnd.blank.overstrike = true; c = 0; break;
                         case 20: wnd.blank.fraktur = true; c = 0; break;
@@ -675,7 +675,7 @@ void termwindow::Write(std::u32string_view s)
                         case 23: wnd.blank.italic = false; wnd.blank.fraktur = false; c = 0; break;
                         case 24: wnd.blank.underline = false; wnd.blank.underline2 = false; c = 0; break;
                         case 25: wnd.blank.blink = 0; c = 0; break;
-                        case 27: wnd.blank.reverse = false; c = 0; break;
+                        case 27: wnd.blank.inverse = false; c = 0; break;
                         case 28: wnd.blank.conceal = false; c = 0; break;
                         case 29: wnd.blank.overstrike = false; c = 0; break;
                         case 39: wnd.blank.underline = false; wnd.blank.underline2 = false; ResetFG(); c = 0; break; // Set default foreground color
