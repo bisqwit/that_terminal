@@ -15,9 +15,10 @@ A terminal emulator is a program that emulates a *terminal*.
 or a [BBS](https://en.wikipedia.org/wiki/Bulletin_board_system)) that reads input and writes output
 ([standard input and standard output](https://en.wikipedia.org/wiki/Standard_streams) respectively).
 
-This communication is entirely text-based, through protocols like VT100.
-Many people know of *ANSI escape codes*. That’s another version of that
-protocol.
+This communication is entirely text-based,
+and includes
+[in-band signaling](https://en.wikipedia.org/wiki/In-band_signaling)
+like the *[ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code)*.
 
 A terminal emulator converts keyboard input (including arrow keys)
 into a character stream, and reads character stream from the application
