@@ -41,7 +41,7 @@ static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,b
     };
     for(unsigned value=0; value<16; ++value)
     {
-        bool values[4] = { value&8, value&4, value&2, value&1 }; // before,current,after,next
+        bool values[4] = { bool(value&8), bool(value&4), bool(value&2), bool(value&1) }; // before,current,after,next
         float thisresult = calc(values[0], values[1], values[2]);
         float nextresult = calc(values[1], values[2], values[3]);
         float factor = thisresult + (nextresult-thisresult)*italic;
