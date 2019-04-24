@@ -193,16 +193,16 @@ intended for testing the double-width / double-height character modes. Cursor is
         * Parameter 2 (libsixel only): Multiplies both pan and pad by (param/10), but sets them always to at least 1.
         * Parameter 3—7 (xterm only): pad, pan, ph, pv (as in `<34>` below).
       * String contents:
-        * `<34> <pad> ; <pan> ; <ph> ; <pv>` Change raster attributes. Zero pad and pan are treated as 1. Zero ph and pv are ignored.
-        * `<35> <color>` Selects color to be used for drawing the 1-bits
-        * `<35> <color> ; 1 ; <h> ; <l> ; <s>` Assigns palette color (HLS, 0—360 for hue, 0—100 l & s)
-        * `<35> <color> ; 2 ; <r> ; <g> ; <b>` Assigns palette color (RGB, 0—100 range)
-        * `<36>` x ← 0              (Carriage return)
+        * `<22> <pad> ; <pan> ; <ph> ; <pv>` Change raster attributes. Zero pad and pan are treated as 1. Zero ph and pv are ignored.
+        * `<23> <color>` Selects color to be used for drawing the 1-bits
+        * `<23> <color> ; 1 ; <h> ; <l> ; <s>` Assigns palette color (HLS, 0—360 for hue, 0—100 l & s)
+        * `<23> <color> ; 2 ; <r> ; <g> ; <b>` Assigns palette color (RGB, 0—100 range)
+        * `<24>` x ← 0              (Carriage return)
         * `<2D>` x ← 0, y ← y + 6   (Carriage return and line feed)
         * `<3F>`…`<7E>` SIXEL. Subtract `<3F>` from the byte, and you get 6
         vertical 1-bit pixels. 0 = don’t draw, 1 = draw using selected color.
         Increment x coordinate after the Sixel.
-        * `<33> <count> <SIXEL>` A form of run length encoding.
+        * `<21> <count> <SIXEL>` A form of run length encoding.
         Draws the Sixel `<count>` times using the algorithm described above.
         * `<20>`, `<0D>`, `<0A>` ignored
     * `<params> p <string>` ReGIS graphics (unsupported)
