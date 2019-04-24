@@ -301,10 +301,16 @@ void termwindow::Write(std::u32string_view s)
                         {
                             GetParams(2,false);
                             bool dfl = p[0] >= 100;
-                            auto DoColor = [&](unsigned& color, unsigned dflcolor)
+                            auto DoColor = [&](const char* params,unsigned idx, unsigned& color, unsigned dflcolor)
                             {
                                 char Buf[32];
-                                if(string == U"?") EchoBack(FromUTF8({Buf, 0u+std::sprintf(Buf, "#%06X", color)}));
+                                if(string == U"?")
+                                {
+                                    char st[3] = {'\33', char(c), '\0'};
+                                    if(c != '\\') { st[0] = char(c); st[1] = '\0'; }
+                                    // ^ Echo back using the same ST code
+                                    EchoBack(FromUTF8({Buf, 0u+std::sprintf(Buf, "\33]%s%u;#%06X%s", params,idx, color, st)}));
+                                }
                                 else if(dfl) color = dflcolor;
                                 else color = ParseColorName(string);
                             };
@@ -316,14 +322,14 @@ void termwindow::Write(std::u32string_view s)
                                 case 6: break; // set or clear color{BD,UL,BL,RV,IT} mode
                                 case 5:  p[1] += 256; [[fallthrough]];
                                 case 4: {unsigned v = xterm256table[p[1]&0xFF];
-                                         DoColor(v, v);
+                                         DoColor("4;",p[1]&0xFF, v, v);
                                          break;} // change color [p[1]] to string, or if ?, report the string
-                                case 10: DoColor(wnd.blank.fgcolor, Cell{}.fgcolor); break; // Change text foreground color
-                                case 11: DoColor(wnd.blank.bgcolor, Cell{}.bgcolor); break; // Change text background color
-                                case 12: DoColor(wnd.cursorcolor, 0xFFFFFF); break; // Change text cursor color
-                                case 13: DoColor(wnd.mousecolor1, 0xFFFFFF); break; // Change mouse foreground color
-                                case 14: DoColor(wnd.mousecolor2, 0xFFFFFF); break; // Change mouse background color
-                                case 17: DoColor(wnd.mouseselectcolor, 0xFFFFFF); break; // Change mouse select-text background color
+                                case 10: DoColor("",p[0], wnd.blank.fgcolor, Cell{}.fgcolor); break; // Change text foreground color
+                                case 11: DoColor("",p[0], wnd.blank.bgcolor, Cell{}.bgcolor); break; // Change text background color
+                                case 12: DoColor("",p[0], wnd.cursorcolor, 0xFFFFFF); break; // Change text cursor color
+                                case 13: DoColor("",p[0], wnd.mousecolor1, 0xFFFFFF); break; // Change mouse foreground color
+                                case 14: DoColor("",p[0], wnd.mousecolor2, 0xFFFFFF); break; // Change mouse background color
+                                case 17: DoColor("",p[0], wnd.mouseselectcolor, 0xFFFFFF); break; // Change mouse select-text background color
                                 case 50: break; // set font
                             }
                             break;
