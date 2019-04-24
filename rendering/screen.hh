@@ -43,7 +43,7 @@ struct Cell
     Cell()
     {
         std::memset(this, 0, sizeof(Cell));
-        fgcolor = 0xAAAAAA;
+        fgcolor = 0xCCCCCC;
         bgcolor = 0x000000;
         ch      = U' ';
         dirty   = true;
