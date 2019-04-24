@@ -131,7 +131,7 @@ printing anything (including spaces) over them.
   * 49 = Sets default background color.
   * 51 = Sets framed. (unsupported)
   * 52 = Sets encircled. (unsupported)
-  * 53 = Sets overlined. (unsupported)
+  * 53 = Sets overlined.
   * 54 = Clears framed and encircled.
   * 55 = Clears overlined.
   * 38 2 \<r> \<g> \<b> = Sets RGB24 foreground color.

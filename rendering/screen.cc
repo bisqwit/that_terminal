@@ -128,7 +128,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
 
                 bool line = (cell.underline && (fr == (fy-1)))
                          || (cell.underline2 && (fr == (fy-1) || fr == (fy-3)))
-                         || (cell.overstrike && (fr == (fy/2)));
+                         || (cell.overstrike && (fr == (fy/2)))
+                         || (cell.overlined && (fr == 0));
 
                 for(std::size_t fc=0; fc<width; ++fc, ++pix)
                 {
@@ -169,7 +170,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                             auto p = Unpack(rgb);
                             return p[0]*299 + p[1]*587 + p[2]*114;
                         };
-                        if(brightness(fg) > brightness(bg))
+                        if(brightness(fg) < brightness(bg))
                             color = Mix(0x000000, color, 1,1,2);
                         else
                             color = Mix(0xFFFFFF, color, 1,1,2);
