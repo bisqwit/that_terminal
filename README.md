@@ -4,6 +4,8 @@ It’s the terminal that was featured in a programming livestream series
 on Bisqwit’s YouTube channel, at:
 https://www.youtube.com/watch?v=9e38ORrkbtc&list=PLzLzYGEbdY5nKCfUgfk8tCO9veao_P1fV
 
+![Screenshot showcasing the character set support](doc/snap.png)
+
 ## What is a terminal emulator?
 
 A terminal emulator is a program that emulates a *terminal*.
