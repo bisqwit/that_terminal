@@ -114,6 +114,7 @@ printing anything (including spaces) over them.
   * 3 = Sets italic.
   * 4 = Sets underline.
   * 5 = Sets blink.
+  * 6 = Sets rapid blink.
   * 7 = Sets inverse. (swaps foreground and background color while in effect)
   * 8 = Sets conceal. (unsupported)
   * 9 = Sets overstrike.
@@ -122,7 +123,7 @@ printing anything (including spaces) over them.
   * 22 = Clears dim and bold.
   * 23 = Clears italic and fraktur.
   * 24 = Clears underline and double underline.
-  * 25 = Clears blink.
+  * 25 = Clears blink and rapid blink.
   * 27 = Clears inverse.
   * 28 = Clears conceal.
   * 29 = Clears overstrike.
