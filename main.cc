@@ -123,6 +123,14 @@ namespace
 
         RenderFlushLines();
         if(rect.y) { SDL_RenderPresent(renderer); }
+
+        /*std::string cmd = "mencoder -demuxer rawvideo -rawvideo w="+std::to_string(bufpixels_width)
+                                                     +":h="+std::to_string(bufpixels_height)
+                                                     +":format=bgra:fps=30 "
+                          " - -ovc x264 -x264encopts crf=10 -o frames.avi";
+        static FILE* fp = popen(cmd.c_str(), "w");
+        std::fwrite(&pixbuf[0], sizeof(std::uint32_t), pixbuf.size(), fp);
+        std::fflush(fp);*/
     }
 }
 

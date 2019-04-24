@@ -12,13 +12,19 @@ CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts
 CXXFLAGS += $(shell pkg-config sdl2 --cflags)
 LDLIBS   += $(shell pkg-config sdl2 --libs)
 
+# For beep:
+LDLIBS   += $(shell pkg-config x11 --libs)
+
+# For video recording:
+#CXXFLAGS += $(shell pkg-config libavcodec libavformat libavutil --cflags)
+#LDLIBS   += $(shell pkg-config libavcodec libavformat libavutil --libs)
+
 CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
 
 #CXXFLAGS += -pg
 
 # for forkpty:
 LDLIBS   += -lutil
-LDLIBS   += -lX11
 
 OBJS=\
 	tty/terminal.o \
