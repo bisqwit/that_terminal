@@ -36,13 +36,18 @@ class Font
     $max = max(array_keys($revmap));
     $values = Array();
     $maxval = max(array_values($revmap));
+    $qmark = $revmap[ord('?')];
     for($n=$min; $n<=$max; ++$n)
     {
       if(isset($revmap[$n]))
         $values[$n-$min] = $revmap[$n];
       else
-        $values[$n-$min] = $revmap[ord('?')];
+        $values[$n-$min] = $qmark;
     }
+
+    $condition = ($min > 0) ? "c >= $min && c <= $max" : "c <= $max";
+
+    /*
     $type = 'unsigned';
     if($maxval < 65536) $type = 'std::uint_least16_t';
     if($maxval < 256)   $type = 'std::uint_least8_t';
@@ -50,12 +55,11 @@ class Font
     printf("static const %s trans[%u] = { %s };\n",
       $type, $max-$min+1, join(', ', $values));
 
-    $condition = ($min > 0) ? "c >= $min && c <= $max" : "c <= $max";
-
     printf("unsigned unicode_to_bitmap_index(char32_t c)\n".
            "{\n".
            "    return ($condition) ? trans[c-$min] : 0;\n".
            "}\n");
+    */
     /*
     $p = proc_open('./constablecom',
                    [0=>['pipe','r'], 1=>['pipe','w'], 2=>['file', 'php://stderr', 'w']],
@@ -66,5 +70,17 @@ class Font
     fclose($pipes[1]);
     proc_close($p);
     */
+    $p = proc_open("./table-packer lookup",
+                   [0=>['pipe','r'], 1=>['pipe','w'], 2=>['file', 'php://stderr', 'w']],
+                   $pipes);
+    foreach($values as $v) fwrite($pipes[0], "$v\n");
+    fclose($pipes[0]);
+    print stream_get_contents($pipes[1]);
+    fclose($pipes[1]);
+    proc_close($p);
+    printf("unsigned unicode_to_bitmap_index(char32_t c)\n".
+           "{\n".
+           "    return ($condition) ? lookup(c-$min) : $qmark;\n".
+           "}\n");
   }
 };

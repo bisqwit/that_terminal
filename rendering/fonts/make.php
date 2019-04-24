@@ -34,7 +34,7 @@ function CreateTranslation($sets)
           }
         }
     }
-  for($n=0; $n<0x10000; ++$n)
+  for($n=0; $n<=0x10FFFF; ++$n)
     if(!isset($characters[$n]))
     {
       $trans = Array();
@@ -42,6 +42,26 @@ function CreateTranslation($sets)
         switch($setname)
         {
           case 'chars_6x9':
+            foreach(Array('iso-8859-1','iso-8859-2','iso-8859-15','iso-8859-4','cp857','cp850') as $test_set)
+            {
+              $s = @iconv('utf-32', $test_set.'//TRANSLIT', pack('V', $n));
+              if($s !== false)
+              {
+                $score = 2;
+                if($s == '?')       $score = 0;
+                if(strlen($s) != 1) $score = 0;
+                else
+                {
+                  if(ord($s) >= 128) $score = 3;
+                  if(!isset($characters[ord($s)])) $score = 0;
+                }
+                if(empty($trans) || $score > $trans[0])
+                {
+                  $trans = [$score, $s, $setname];
+                  if($score == 3) break;
+                }
+              }
+            }
             break;
           default:
             $s = @iconv('utf-32', $setname.'//TRANSLIT', pack('V', $n));
@@ -151,12 +171,22 @@ $specs = Array
   '8x19'=> ['cp437'=>'vga8x19.bdf']
 );
 
+$t = Array();
 foreach($specs as $size => $selections)
 {
   preg_match('/(\d+)x(\d+)/', $size, $mat);
+  if($argc == 1)
+  {
+    $p = proc_open("php {$argv[0]} {$size}", [0=>['file','php://stdin','r'],
+                                              1=>['pipe','w'],
+                                              2=>['file','php://stderr','w']], $pipes);
+    $t[] = Array($p,$pipes);
+    continue;
+  }
+  if($size != $argv[1]) continue;
+
   $fontwidth  = $mat[1];
   $fontheight = $mat[2];
-
   $map      = CreateTranslation(array_keys($selections));
 
   $used = Array();
@@ -212,4 +242,27 @@ foreach($specs as $size => $selections)
   print "    return &f;\n";
   print "}\n";
   */
+}
+
+/*
+$remaining = count($t);
+while($remaining)
+{
+  $r = Array(); $w = null; $e = null;
+
+  foreach($t as $tt) $r[] = $tt[1][1];
+
+  stream_select($r, $w,$e, null,null);
+
+  foreach($r as $s)
+  {
+    print stream_get_contents($s);
+    --$remaining;
+  }
+}
+*/
+foreach($t as $process)
+{
+  print stream_get_contents($process[1][1]);
+  proc_close($process[0]);
 }

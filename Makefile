@@ -37,7 +37,11 @@ term: $(OBJS)
 #rendering/color.cc: rendering/color.cc.re
 #	re2c -P $< -o$@
 
+rendering/fonts/table-packer: rendering/fonts/table-packer.cc rendering/fonts/dijkstra.hh
+	$(CXX) -std=c++17 -o "$@" "$<" -Ofast $(CPPFLAGS) -march=native -fopenmp
+
 rendering/fonts.inc: rendering/fonts/make.php \
+		rendering/fonts/table-packer \
 		rendering/fonts/read_font.php \
 		rendering/fonts/font_gen2.php \
 		rendering/fonts/data/cp857-8x14.psf.gz \
