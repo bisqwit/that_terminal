@@ -767,3 +767,13 @@ void termwindow::restore_cur()
     wnd.cursy = backup.cy;
     wnd.blank = backup.attr;
 }
+
+void termwindow::Resize(std::size_t newsx, std::size_t newsy)
+{
+    if(bottom == wnd.ysize-1)
+    {
+        bottom = newsy-1;
+        fprintf(stderr, "Creating a window with top=%zu, bottom=%zu\n", top,bottom);
+    }
+    wnd.Resize(newsx, newsy);
+}

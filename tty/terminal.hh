@@ -58,6 +58,7 @@ public:
         save_cur();
     }
     void EchoBack(std::u32string_view buffer);
+    void Resize(std::size_t newsx, std::size_t newsy);
 };
 
 #endif
