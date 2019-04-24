@@ -18,6 +18,7 @@ CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
 
 # for forkpty:
 LDLIBS   += -lutil
+LDLIBS   += -lX11
 
 OBJS=\
 	tty/terminal.o \

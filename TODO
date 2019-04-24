@@ -1,5 +1,5 @@
 
 	MISSING style renderings (framed?) [very low priority]
-	Support line-drawing characters (those G0, G1 things)
 ->>	Screen recording
 	Bell support
+	Remove forced X11 dependency for beeps

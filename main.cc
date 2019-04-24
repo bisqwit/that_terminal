@@ -18,9 +18,10 @@ unsigned WindowWidth  =129, WindowHeight = 40;
 float ScaleX = 1.f;
 float ScaleY = 1.f;
 
+SDL_Window*   window   = nullptr;
+
 namespace
 {
-    SDL_Window*   window   = nullptr;
     SDL_Renderer* renderer = nullptr;
     SDL_Texture*  texture  = nullptr;
     unsigned cells_horiz, cell_width_pixels,  pixels_width,  bufpixels_width, texturewidth;
@@ -127,6 +128,8 @@ namespace
 
 int main()
 {
+    //SDL_Init(SDL_INIT_EVERYTHING);
+
     Window wnd(WindowWidth, WindowHeight);
     termwindow term(wnd);
     ForkPTY tty(wnd.xsize, wnd.ysize);
