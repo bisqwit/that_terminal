@@ -1,10 +1,10 @@
 #include <cstdlib>
-#include <sys/fcntl.h>
+#include <cerrno>
+
 #include <unistd.h>
-#include <signal.h>
 #include <sys/wait.h>
+#include <sys/fcntl.h>
 #include <sys/ioctl.h>
-#include <errno.h>
 
 #ifdef __APPLE__
 # include <util.h>
@@ -23,13 +23,17 @@ void ForkPTY::Open(std::size_t width, std::size_t height)
     struct winsize ws = {};
     ws.ws_col = width;
     ws.ws_row = height;
-    pid = forkpty(&fd, NULL, NULL, &ws);
+    pid = forkpty(&fd, nullptr, nullptr, &ws);
     if(!pid)
     {
         static char termstr[] = "TERM=xterm";
         putenv(termstr);
-        execl(getenv("SHELL"), getenv("SHELL"), "-i", "-l", nullptr); // TODO: check return values
+        execl(std::getenv("SHELL"), std::getenv("SHELL"), "-i", "-l", nullptr); // TODO: check return values
+        // Note: getenv() is in C++ standard, but putenv() is not.
     }
+
+    // Change the virtual terminal handle (file descriptor)
+    // into non-blocking mode.
     fcntl(fd, F_SETFL, fcntl(fd, F_GETFL) | O_NONBLOCK);
 }
 void ForkPTY::Close()
