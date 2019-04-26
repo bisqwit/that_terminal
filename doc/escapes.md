@@ -9,7 +9,7 @@ and are not supported by this terminal emulator.
 All of these are recognized even in the middle of an escape code.
 E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with the current attribute and “DEF” on the next line with blue color (SGR 34).
 
-* `<07>`  Beep (unsupported)
+* `<07>`  Beep
 * `<08>`  Backspace: Moves cursor left by one column, no erase. Does nothing if cursor is already in the leftmost column.
 * `<09>`  Tab: Moves cursor right to the next tab column.
 * `<0D>`  Carriage return: Moves cursor to the leftmost column.
