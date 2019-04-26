@@ -1,6 +1,8 @@
 #include <array>
 #include <cstdio> // sprintf
 
+#include <SDL.h> // for window title
+
 #include "terminal.hh"
 #include "beeper.hh"
 #include "ctype.hh"
@@ -317,11 +319,20 @@ void termwindow::Write(std::u32string_view s)
                                 else if(dfl) color = dflcolor;
                                 else color = ParseColorName(string);
                             };
+                            extern SDL_Window* window;
                             switch(p[0] % 100)
                             {
-                                case 0: break; // set icon name and window title
+                                case 0:
+                                {
+                                    SDL_SetWindowTitle(window, ToUTF8(string).c_str());
+                                    break; // set icon name and window title
+                                }
                                 case 1: break; // set icon name
-                                case 2: break; // set window title
+                                case 2:
+                                {
+                                    SDL_SetWindowTitle(window, ToUTF8(string).c_str());
+                                    break; // set window title
+                                }
                                 case 6: break; // set or clear color{BD,UL,BL,RV,IT} mode
                                 case 5:  p[1] += 256; [[fallthrough]];
                                 case 4: {unsigned v = xterm256table[p[1]&0xFF];

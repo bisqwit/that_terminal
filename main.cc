@@ -41,7 +41,7 @@ namespace
 
         if(!window)
         {
-            window = SDL_CreateWindow("terminal",
+            window = SDL_CreateWindow("that terminal",
                 SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
                 pixels_width*ScaleX, pixels_height*ScaleY,
                 SDL_WINDOW_RESIZABLE);

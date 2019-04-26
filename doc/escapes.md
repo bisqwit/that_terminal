@@ -213,9 +213,9 @@ intended for testing the double-width / double-height character modes. Cursor is
       for entering commands.
 * `<ESC> ] <string> <ST>`, `<9D> <string> <ST>` OSC, Operating System Call
   * Depending on the value of `<string>`:
-    * `0 ; <label>`, `L <label>` Changes icon name and window title to `<label>` (unsupported)
+    * `0 ; <label>`, `L <label>` Changes icon name and window title to `<label>` (partially supported)
     * `1 ; <label>`, `l <label>` Changes icon name to `<label>` (unsupported)
-    * `2 ; <label>`, `I <label>` Changes window title to `<label>` (unsupported)
+    * `2 ; <label>`, `I <label>` Changes window title to `<label>`
     * `4 ; <integer> ; <color>` Changes color number `<integer>` to `<color>`, which is a string that is parsed by `XParseColor`. If the color is `?`, the terminal reports the current color instead.
     * `5 ; <integer> ; <color>` Same as above, except 256 is added to `<integer>` first.
     * `6` followed by any number of `; <set> ; <value>` Set depending on `<set>` off(0) or on(1):
