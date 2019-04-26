@@ -17,7 +17,10 @@ void termwindow::ResetBG()
 }
 void termwindow::ResetAttr()
 {
+    bool prot = wnd.blank.protect;
     wnd.blank = Cell{};
+    wnd.blank.protect = prot;
+
     ResetFG();
     ResetBG();
 }
@@ -231,7 +234,7 @@ void termwindow::Write(std::u32string_view s)
                                                                     (wnd.blank.bgcolor >> 0)&0xFF));
                                         else if(string == U"t") response = std::to_string(std::max(25u, unsigned(wnd.ysize))-1);
                                         else if(string == U" q") response = "1"; //cursor type
-                                        else if(string == U"\"q") response = "0"; //protected mode
+                                        else if(string == U"\"q") response = wnd.blank.protect ? "1" : "0"; //protected mode
                                         else if(string == U"\"p") response = "64;1"; //vt index, 8-bit controls disabled
                                         else if(string == U"$|") response = std::to_string(wnd.xsize); //window width
                                         else if(string == U"*|") response.assign(Buf, std::sprintf(Buf, "%zu", wnd.ysize));
@@ -387,20 +390,20 @@ void termwindow::Write(std::u32string_view s)
                 else
                     ClampedMoveY(wnd.cursy-1);
                 goto Ground;
-            case State(U'q', st_csi_quo): // TODO: if param0=1, do CASE_SPA; if 0 or 2, do CASE_EPA. Otherwise ignore.
+            case State(U'q', st_csi_quo): // DECSCA: if param0=1, do CASE_SPA; if 0 or 2, do CASE_EPA. Otherwise ignore.
             {
                 GetParams(1,false);
                 if(p[0]==1)
                 {
             //case AnyState(U'\u0096'):
-            case State(U'V', st_esc): // esc V = CASE_SPA: start protected area
-                        ;
+            case State(U'V', st_esc): // esc V = SPA: start protected area
+                    wnd.blank.protect = true;
                 }
                 else if(p[0]==0 || p[0]==2)
                 {
             //case AnyState(U'\u0097'):
-            case State(U'W', st_esc): // esc W = CASE_EPA: end protected area
-                        ;
+            case State(U'W', st_esc): // esc W = EPA: end protected area
+                    wnd.blank.protect = false;
                 }
                 goto Ground;
             }
@@ -487,6 +490,7 @@ void termwindow::Write(std::u32string_view s)
             case State(U'H', st_csi): [[fallthrough]];
             case State(U'f', st_csi): { GetParams(2,true); ClampedMove(p[1]-1, p[0]-1, false); break; }
             case State(U'J', st_csi):
+            case State(U'J', st_csi_quo):
                 GetParams(1,false);
                 switch(p[0])
                 {
@@ -503,15 +507,16 @@ void termwindow::Write(std::u32string_view s)
                 }
                 break;
             case State(U'K', st_csi):
+            case State(U'K', st_csi_quo):
                 GetParams(1,false);
                 // 0: erase from cursor to end of line
                 // 1: erase from start of line to cursor
                 // 2: erase whole line
                 switch(p[0])
                 {
-                    case 0: clreol: wnd.fillbox(wnd.cursx,wnd.cursy, wnd.xsize-wnd.cursx, 1); break;
-                    case 1: clrbol: wnd.fillbox(0,        wnd.cursy, wnd.cursx+1,  1); break;
-                    case 2: wnd.fillbox(0, wnd.cursy, wnd.xsize,    1); break;
+                    case 0: clreol: wnd.fillbox(wnd.cursx,wnd.cursy, wnd.xsize-wnd.cursx, 1, wnd.blank); break;
+                    case 1: clrbol: wnd.fillbox(0,        wnd.cursy, wnd.cursx+1,  1, wnd.blank); break;
+                    case 2: wnd.fillbox(0, wnd.cursy, wnd.xsize,    1, wnd.blank); break;
                 }
                 break;
             case State(U'M', st_csi):

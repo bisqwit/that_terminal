@@ -36,7 +36,7 @@ does not happen until the new character is printed.
 
 * `<1B>`      ESC.
 * `<ESC> [`   CSI. An optional number of non-negative integer parameters may follow, separated by either `:` or `;`.
-* `<CSI> "`   CSI". (unsupported)
+* `<CSI> "`   CSI".
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
   * `<ESC> ( B` `<ESC> ) B` `<ESC> * B` `<ESC> + B` `<0F>` Resets G0,G1,G2,G3 to default and selects G0
   * `<CSI> m` Sets attributes to default
@@ -55,7 +55,7 @@ no scrolling or cursor movement happens.
 * `<ESC> E`   Acts like `<0D>` followed by `<0A>`.
 * `<ESC> D`   Acts like `<0A>`. Can be used to produce LF behavior
 without CR even when the TTY is automatically translating linefeeds into LF+CR.
-* `<ESC> V`, `<CSI"> q` (If param is 1) Start protected writes (unsupported)
+* `<ESC> V`, `<CSI"> q` (If param is 1) Start protected writes
 * `<ESC> W`, `<CSI"> q` (If param is 2, 0, or missing) End protected writes. Any characters written in “protected” mode
 will be immune of erase operations. They can still be overwritten by
 printing anything (including spaces) over them.
@@ -76,8 +76,8 @@ printing anything (including spaces) over them.
   * 0 = Erase from cursor to end of screen
   * 1 = Erase from start of screen to cursor
   * 2 = Erase entire screen
-* `<CSI> ? J` (???) Seems to do the same as `<CSI> J`, expect changes all remaining characters to protected. (unsupported)
-* `<CSI> ? K` (???) Seems to do the same as `<CSI> K`, expect changes all remaining characters to protected. (unsupported)
+* `<CSI> ? J` (???) Seems to do the same as `<CSI> J`, expect changes all remaining characters to protected. (possibly wrong)
+* `<CSI> ? K` (???) Seems to do the same as `<CSI> K`, expect changes all remaining characters to protected. (possibly wrong)
 * `<CSI> M` ¹Scrolls the region between top of window and current line (inclusive) up by specified number of lines.
 * `<CSI> L` ¹Scrolls the region between current line and end of window (inclusive) down by specified number of lines.
 * `<CSI> S` ¹Scrolls the region between top of window and bottom of window (inclusive) up by specified number of lines.

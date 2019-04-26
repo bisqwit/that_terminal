@@ -35,10 +35,12 @@ struct Cell
     bool                overlined: 1;
     bool                fraktur: 1;
     bool                conceal: 1;
-    bool                dirty: 1;
     bool                double_width: 1;
     unsigned char       double_height:2;
     unsigned char       blink: 2;
+
+    bool                dirty: 1;
+    bool                protect: 1;
 
     Cell()
     {
@@ -49,7 +51,7 @@ struct Cell
         dirty   = true;
     }
 
-    // operator== compares everything except the dirty-flag.
+    // operator== compares everything except dirty and protect.
     bool operator== (const Cell& b) const
     {
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,
@@ -83,17 +85,26 @@ public:
         Dirtify();
     }
 
+    // fillbox used in scrolling:
     void fillbox(std::size_t x, std::size_t y, std::size_t width, std::size_t height)
-    {
-        fillbox(x,y,width,height, blank.ch);
-    }
-    template<typename T>
-    void fillbox(std::size_t x, std::size_t y, std::size_t width, std::size_t height,
-                 T with)
     {
         for(std::size_t h=0; h<height; ++h)
             for(std::size_t w=0; w<width; ++w)
-                PutCh(x+w, y+h, with);
+            {
+                auto tx = x+w, ty = y+h;
+                PutCh(tx, ty, blank);
+            }
+    }
+    // fillbox used in erasing:
+    void fillbox(std::size_t x, std::size_t y, std::size_t width, std::size_t height, Cell with)
+    {
+        for(std::size_t h=0; h<height; ++h)
+            for(std::size_t w=0; w<width; ++w)
+            {
+                auto tx = x+w, ty = y+h;
+                if(with.ch != blank.ch || !cells[ty*xsize+tx].protect)
+                    PutCh(tx, ty, with);
+            }
     }
     void copytext(std::size_t tgtx,std::size_t tgty, std::size_t srcx,std::size_t srcy,
                                                      std::size_t width,std::size_t height)
