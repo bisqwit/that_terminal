@@ -40,7 +40,7 @@ private:
     void ResetFG();
     void ResetBG();
     void ResetAttr();
-    void Reset();
+    void Reset(bool full = true);
 
     void FixCoord();
     void yscroll_down(unsigned y1, unsigned y2, int amount) const;

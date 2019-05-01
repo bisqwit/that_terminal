@@ -26,7 +26,7 @@ void termwindow::ResetAttr()
     ResetFG();
     ResetBG();
 }
-void termwindow::Reset()
+void termwindow::Reset(bool full)
 {
     top    = 0;
     bottom = wnd.ysize-1;
@@ -37,13 +37,16 @@ void termwindow::Reset()
 
     state = 0;
     p.clear();
-    edgeflag = false;
 
-    wnd.cursx = 0;
-    wnd.cursy = 0;
     wnd.inverse   = false;
     wnd.cursorvis = true;
-    wnd.fillbox(0,0, wnd.xsize,wnd.ysize, wnd.blank); // Clear screen
+    if(full)
+    {
+        edgeflag = false;
+        wnd.cursx = 0;
+        wnd.cursy = 0;
+        wnd.fillbox(0,0, wnd.xsize,wnd.ysize, wnd.blank); // Clear screen
+    }
 }
 
 void termwindow::yscroll_down(unsigned y1, unsigned y2, int amount) const
@@ -82,6 +85,9 @@ void termwindow::Write(std::u32string_view s)
         st_csi_dec3,    // csi =
         st_csi_ex,      // csi !
         st_csi_quo,     // csi "
+        st_csi_dol,     // csi $
+        st_csi_star,    // csi *
+        st_csi_dec_dol, // csi ? $
         st_string,
         st_string_str,
         //
@@ -155,11 +161,16 @@ void termwindow::Write(std::u32string_view s)
         {
             #define CsiState(c)      State(c,st_csi):     case State(c,st_csi_dec2): \
                                 case State(c,st_csi_dec): case State(c,st_csi_dec3): \
-                                case State(c,st_csi_ex):  case State(c,st_string)
+                                case State(c,st_string)
+                                /* csi_quo, csi_dol, csi_dec_dol, csi_ex are excluded
+                                 * from csistate because you can't have parameters
+                                 * after this particular symbol.
+                                 */
             #define AnyState(c)      State(c,st_default): case State(c,st_esc): \
-                                case State(c,st_scs): \
+                                case State(c,st_scs):        case State(c,st_csi_ex): \
                                 case State(c,st_string_str): case State(c,st_csi_quo): \
                                 case State(c,st_scr):        case State(c,st_esc_percent): \
+                                case State(c,st_csi_dol):    case State(c,st_csi_dec_dol): \
                                 case CsiState(c)
 
             // Note: These escapes are recognized even in the middle of an ANSI/VT code.
@@ -203,8 +214,11 @@ void termwindow::Write(std::u32string_view s)
             case State(U'?', st_csi): state = st_csi_dec; break;  // csi ?
             case State(U'>', st_csi): state = st_csi_dec2; break; // csi >
             case State(U'=', st_csi): state = st_csi_dec3; break; // csi =
-            case State(U'!', st_csi): state = st_csi_ex; break;  // csi !
+            case State(U'!', st_csi): state = st_csi_ex; break;  // csi ! (note: after numbers)
             case State(U'"', st_csi): state = st_csi_quo; break; // csi " (note: after numbers)
+            case State(U'$', st_csi): state = st_csi_dol; break; // csi $ (note: after numbers)
+            case State(U'*', st_csi): state = st_csi_star; break; // csi * (note: after numbers)
+            case State(U'$', st_csi_dec): state = st_csi_dec_dol; break; // csi ? $ (note: after numbers)
             case AnyState(U'\7'):
             {
                 if(state == st_string || state == st_string_str) // Treat as ST (string termination)
@@ -440,7 +454,9 @@ void termwindow::Write(std::u32string_view s)
             case State(U'\\', st_esc):// esc \\ = CASE_ST: end of string
                 goto Ground;*/
 
-            case State(U'c', st_esc): ResetAttr(); Reset(); goto Ground; // esc c
+            case State(U'c', st_esc): ResetAttr(); Reset(); goto Ground;         // esc c   (RI - full reset)
+            case State(U'p', st_csi_ex): ResetAttr(); Reset(false); goto Ground; // CSI ! p (DECSTR - CSI reset)
+
             case State(U'7', st_esc): [[fallthrough]]; // esc 7 (DECSC), csi s (ANSI_SC)
             case State(U's', st_csi): save_cur(); goto Ground;
             case State(U'8', st_esc): [[fallthrough]]; // esc 8 (DECRC), csi u (ANSI_RC)
@@ -583,8 +599,7 @@ void termwindow::Write(std::u32string_view s)
                     wnd.fillbox(wnd.cursx,wnd.cursy, c,1);
                 }
                 break;
-            case State(U'r', st_csi): [[fallthrough]]; // CSI r
-            case State(U'p', st_csi_ex):               // CSI ! p
+            case State(U'r', st_csi): // CSI r
                 GetParams(2,false);
                 if(!p[0]) p[0]=1;
                 if(!p[1]) p[1]=wnd.ysize;
@@ -634,8 +649,10 @@ void termwindow::Write(std::u32string_view s)
                 break;
             case State(U'h', st_csi_dec): // csi ? h, misc modes on
             case State(U'l', st_csi_dec): // csi ? l, misc modes off
+            case State(U'p', st_csi_dec_dol): // csi ? $p, query
             {
-                bool set = c == U'h';
+                bool set = c == U'h', query = c == U'p';
+                char Buf[32];
                 // 1=CKM, 2=ANM, 3=COLM, 4=SCLM, 5=SCNM, 6=OM, 7=AWM, 8=ARM,
                 // 18=PFF, 19=PEX, 25=TCEM, 40=132COLS, 42=NRCM,
                 // 44=MARGINBELL, ...
@@ -646,23 +663,46 @@ void termwindow::Write(std::u32string_view s)
                 //   5 = screenwide inverse color
                 GetParams(0, false);
                 for(auto a: p)
+                {
+                    unsigned value = 0; // unsupported
                     switch(a)
                     {
-                        case 6:  ClampedMove(0, top, false); break;
-                        case 25: wnd.cursorvis = set; break;
-                        case 5:  wnd.inverse   = set; break;
+                        case 6:  if(query) value = 2; else ClampedMove(0, top, false); break;
+                        case 25: if(query) value = wnd.cursorvis?1:2; else wnd.cursorvis = set; break;
+                        case 5:  if(query) value = wnd.inverse?1:2;   else wnd.inverse   = set; break;
                     }
+                    if(query)
+                        EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)
+                            std::sprintf(Buf, "\33[?%u;%u$y", a, value)}));
+                }
                 break;
             }
             case State(U'h', st_csi): // csi h, ansi modes on
             case State(U'l', st_csi): // csi l, ansi modes off
+            case State(U'p', st_csi_dol): // csi $p, query
             {
-                //bool set = c == U'h';
+                bool /*set = c == U'h',*/ query = c == U'p';
+                char Buf[32];
                 // 2 = keyboard locked
                 // 4 = insert mode
-                // 12 = local echo
+                // 12 = no local echo
                 // 20 = auto linefeed
-                goto Ground;
+                GetParams(0, false);
+                for(auto a: p)
+                {
+                    unsigned value = 0; // unsupported
+                    switch(a)
+                    {
+                        case 2: value = 4; break; // permanently unset
+                        case 4: value = 4; break; // permanently unset
+                        case 12: value = 4; break; // permanently unset
+                        case 20: value = 4; break; // permanently unset
+                    }
+                    if(query)
+                        EchoBack(FromUTF8(std::string_view{Buf, (std::size_t)
+                            std::sprintf(Buf, "\33[%u;%u$y", a, value)}));
+                }
+                break;
             }
             case State(U'b', st_csi):
                 GetParams(1,true);

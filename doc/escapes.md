@@ -37,8 +37,10 @@ does not happen until the new character is printed.
 * `<1B>`      ESC.
 * `<ESC> [`   CSI. An optional number of non-negative integer parameters may follow, separated by either `:` or `;`.
 * `<CSI> "`   CSI".
+* `<CSI> ?`   CSI?.
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
   * `<ESC> ( B` `<ESC> ) B` `<ESC> * B` `<ESC> + B` `<0F>` Resets G0,G1,G2,G3 to default and selects G0
+  * `<CSI> * x` Resets the character attribute change extent
   * `<CSI> m` Sets attributes to default
   * `<CSI> r` Sets window to default (entire screen)
   * `<CSI> H` Puts cursor at top-left corner
@@ -59,6 +61,7 @@ without CR even when the TTY is automatically translating linefeeds into LF+CR.
 * `<ESC> W`, `<CSI"> q` (If param is 2, 0, or missing) End protected writes. Any characters written in “protected” mode
 will be immune of erase operations. They can still be overwritten by
 printing anything (including spaces) over them.
+* `<CSI> ! p` Same as `<ESC> c`, except leaves cursor and screen contents untouched.
 * `<CSI> A` ¹⁴Moves the cursor up by the specified number of rows.
 * `<CSI> B`, `<CSI> e` ¹⁴Moves the cursor down by the specified number of rows.
 * `<CSI> C`, `<CSI> a` ¹Moves the cursor right by the specified number of columns.
@@ -87,25 +90,38 @@ printing anything (including spaces) over them.
 * `<CSI> @` ¹²On the current line, scrolls the region between the current column and the right edge of screen right by the specified number of positions.
 * `<CSI> X` ¹²On the current line and current column, writes the specified number of blanks. The write will not wrap to the next line.
 * `<CSI> b` ¹²At the current position, writes the specified number of duplicates of the last printed character. The cursor *is* moved, and the write may wrap to the next line.
-* `<CSI> r`, `<CSI> ! p` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively. Counting begins from 1.
+* `<CSI> r` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively. Counting begins from 1.
 * `<CSI> n` Reports depending on the first parameter. Unrecognized values are ignored.
-  * Value 5: Reports `<CSI> 0 n`.
-  * Value 6: Reports `<CSI> <row> ; <column> R` with the current cursor coordinates. Counting begins from 1.
-* `<CSI> = c` Reports tertiary device attributes. Ignored if nonzero parameters were found.
-* `<CSI> > c` Reports secondary device attributes. Ignored if nonzero parameters were found.
-* `<CSI> c`, `<ESC> Z` Reports primary device attributes. Ignored if nonzero parameters were found.
-* `<CSI> ? h` ³Set MISC modes.
-* `<CSI> ? l` ³Unset MISC modes.
+  * Value 5: Responds with `<ESC> [ 0 n`.
+  * Value 6: Responds with `<ESC> [ <row> ; <column> R` with the current cursor coordinates. Counting begins from 1.
+* `<CSI> = c` Responds with tertiary device attributes. Ignored if nonzero parameters were found.
+* `<CSI> > c` Responds with secondary device attributes. Ignored if nonzero parameters were found.
+* `<CSI> c`, `<ESC> Z` Responds with primary device attributes. Ignored if nonzero parameters were found.
+* `<CSI?> h` ³Set MISC modes.
+* `<CSI?> l` ³Unset MISC modes.
+* `<CSI?> s` ³Save MISC modes (xterm extension) (unsupported)
+* `<CSI?> r` ³Restore MISC modes (xterm extension) (unsupported)
+* `<CSI?> $ p` Responds with `<ESC> [ ? <modenumber> ; <value> $ y` with the current value of the MISC mode. Values: 0=unrecognized, 1=set, 2=unset, 3=permanently set, 4=permanently unset
   * Mode 6: Puts cursor to top-left corner of the window. (Both set & clear)
   * Mode 5: Sets or clears screen-wide inverse flag.
   * Mode 25: Shows/hides cursor.
   * Mode 3: Set width to 132 (enable) or 80 (disable) (only if mode 40 is enabled). (unsupported)
   * Mode 40: Enable/disable 80/132 mode.
+  * Mode 1000: VT200 mouse mode (unsupported)
+  * Mode 1001: VT200 mouse highlight mode (unsupported)
+  * Mode 1002: Button events (unsupported)
+  * Mode 1003: Any events (unsupported)
+  * Mode 1004: Focus events (unsupported)
+  * Mode 1005: Mouse support for wider terminals (unsupported)
+  * Mode 1006: SGR ext mouse support (unsupported)
+  * Mode 1015: URXVT ext mouse support (unsupported)
+  * Mode 1007: Enable/disable mousewheel sending up/down key inputs (unsupported)
 * `<CSI> h` ³Set ANSI modes.
 * `<CSI> l` ³Unset ANSI modes.
+* `<CSI> $ p` Responds with `<ESC> [ <modenumber> ; <value> $ y` with the current value of the ANSI mode. Values: 0=unrecognized, 1=set, 2=unset, 3=permanently set, 4=permanently unset
   * Mode 2: Keyboard locked. (unsupported)
   * Mode 4: Insert mode. (unsupported)
-  * Mode 12: Local echo. (unsupported)
+  * Mode 12: No local echo. (unsupported)
   * Mode 20: Auto linefeed. (unsupported)
 * `<CSI> m` ³SGR attributes. If no parameters are given, a single zero-parameter is implied.
   * 0 = Sets default attributes (clears all modes listed below, and sets default foreground and default background color).
@@ -148,6 +164,19 @@ printing anything (including spaces) over them.
   * 100…107 = Sets background color \<n+8−100> using the 256-color lookup table.
 * `<CSI> g`    Set tab stops (unsupported)
 * `<CSI> q`    Set LED states (unsupported)
+* `<CSI> $ r`  Change character attributes in rectangular area (unsupported).
+First 4 params define the rectangle (top line,left column,bottom line,right column), the rest are the SGR sequence. Xterm only supports attributes 0/1/4/5/7/8 and 22/24/25/27/28.
+* `<CSI> $ t`  Toggle character attributes in rectangular area (unsupported)
+* `<CSI> $ v`  Copy rectangular area (unsupported). First 4 params define
+the rectangle, next is page number, next two are the target coordinates, and
+the final is the target page number. Xterm ignores the page numbers.
+* `<CSI> $ z`  Fill rectangular area with space (unsupported). First 4 params define the rectangle. Attributes are not touched.
+* `<CSI> $ {`  Fill rectangular area with space *selectively* (unsupported). Same as `<CSI> $ z` except leaves protected characters untouched.
+* `<CSI> $ x`  Fill rectangular area with given character and current attribute (unsupported). First parameter is the character number code, next four define the rectangle.
+* `<CSI> $ |`  Set screen width to the given value (only widths 80 or 132 allowed; default=80) (unsupported)
+* `<CSI> * |`  Set screen height to the given value (valid range between 1 and 255, inclusive) (unsupported)
+* `<CSI> * x`  Set character attribute change extent (unsupported). Value 2 means that attribute-changing rectangular operations will perform rectangularly. Any other value (mainly 0 or 1) means that attribute-changing rectangular operations will perform on a text stream delimited by the first and last character position indicated. This flag will not affect the other rectangular operations, such as fills.
+* `<CSI> * y`  Request checksum of rectangular area (unsupported)
 * `<ESC> # 3`   Change current line to be rendered using top half of double-height letters.
 * `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters.
 * `<ESC> # 5`   Change current line to be rendered using single-width (regular) letters.
@@ -182,7 +211,7 @@ intended for testing the double-width / double-height character modes. Cursor is
     * `$ q <20> q` Responds with `<ESC> P 1 $ <c> <20> q <ST>` where `<c>` is 1 for a blocky cursor, 3 for an underline cursor, and 5 for a bar cursor, +1 if the cursor is not blinking
     * `$ q " q` Responds with `<ESC> P 1 $ r <p> " q <ST>` where `<p>` indicates whether protected mode is active (see `<ESC> V`)
     * `$ q " p` Responds with `<ESC> P 1 $ r <l> ; <p> " q <ST>` where `<l>` is vtXX_level + 60, `<p>` indicates whether 8-bit controls are *disabled* (see `<CSI"> p`)
-    * `$ q $ |` Responds with `<ESC> P 1 $ r <n> $ | <ST>` where `<n>` is the screen width in columns (either 80 or 132). Not the actual width, but the state of the `<CSI> ? h` mode 3.
+    * `$ q $ |` Responds with `<ESC> P 1 $ r <n> $ | <ST>` where `<n>` is the screen width in columns (either 80 or 132). Not the actual width, but the state of the `<CSI?> h` mode 3.
     * `$ q * |` Responds with `<ESC> P 1 $ r <n> * | <ST>` where `<n>` is the screen height in rows
     * `$ q <...>` Responds with `<ESC> P 0 <ST>`
     * `$ <...>` Responds with `<18>`
