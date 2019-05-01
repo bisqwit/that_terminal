@@ -137,7 +137,6 @@ namespace
 int main()
 {
     //SDL_Init(SDL_INIT_EVERYTHING);
-
     Window wnd(WindowWidth, WindowHeight);
     termwindow term(wnd);
     ForkPTY tty(wnd.xsize, wnd.ysize);

@@ -102,6 +102,10 @@ obsolete, replacing it with [Joe](https://joe-editor.sourceforge.io).
 You can find the list of escapes supported by this emulator
 in [a separate document](doc/escapes.md).
 
+### Supported keyboard inputs and font sizes
+
+In [a separate document](doc/inputs.md).
+
 ## Author
 
 *That terminal* is written by Joel Yliluoma.

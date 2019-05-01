@@ -28,7 +28,7 @@ static constexpr std::uint_least64_t d = 0xD43C17959D1B8457;
 static constexpr unsigned mod          = 7709;
 static constexpr unsigned shift        = 0x37;
 
-static constexpr unsigned hash(const char* s, std::size_t length)
+static constexpr unsigned hash(const char* s, unsigned length)
 {
     std::uint_least64_t result = a;
     unsigned s1 = 1 + 16 * ((shift>>0)&3);
@@ -800,6 +800,7 @@ static constexpr unsigned hash(const char* s, std::size_t length)
         o(7669, 0x473C8B, "slateblue4") \
 
 #define v(a,b,s) static_assert(hash(s, sizeof(s)-1) == a);
+// ^ Verify that the hashes in o() match the implementation in hash()
 #define o(a,b,s) a,
 #define q(a,b,s) b,
 static const unsigned short colorkeys[] { docolors(o) };
@@ -880,7 +881,7 @@ unsigned ParseColorName(std::string_view s)
     switch(h) { docolors(o) }
     #undef o
 #else
-    if(h < mod) 
+    if(h < mod)
     {
         auto i = std::lower_bound(std::begin(colorkeys), std::end(colorkeys), h);
         if(i != std::end(colorkeys) && *i == h)
