@@ -45,8 +45,8 @@ does not happen until the new character is printed.
   * `<CSI> r` Sets window to default (entire screen)
   * `<CSI> H` Puts cursor at top-left corner
   * `<CSI> 2 J` Clears screen
-  * `<CSI> ? 5 l` Clears screen-inverse flag
-  * `<CSI> ? 25 h` Shows cursor
+  * `<CSI?> 5 l` Clears screen-inverse flag
+  * `<CSI?> 25 h` Shows cursor
 * `<ESC> 7` , `<CSI> s` Saves current console state (cursor position, character attributes)
 * `<ESC> 8` , `<CSI> u` Restores console state (cursor position, character attributes)
 * `<ESC> M`   ⁴Reverse linefeed: Moves cursor up within window; if at top of
