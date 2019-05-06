@@ -73,6 +73,53 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
     bool old_blink1 = (lasttimer/10)&1, cur_blink1 = (timer/10)&1;
     bool old_blink2 = (lasttimer/ 3)&1, cur_blink2 = (timer/ 3)&1;
 
+    std::size_t bar_column = ~std::size_t();
+    std::pair<std::size_t, std::size_t> bar_ranges[3]={ {0,0}, {0,0}, {0,0} };
+    auto FindScrollBarInfo = [&]()
+    {
+        std::size_t cur_row=0, num_rows=0, cur_top=0;
+        // If on row 0 there is a "<digits>" followed by dim "/<digits>",
+        // parse these two numbers (current row, number of rows).
+        // If on row 1, column 0 there is a dim "<digits>", parse that
+        // as the current scrolling position, and save the next column
+        // as the scrollbar position.
+        // Note: This is designed for use with Joe.
+        // It only works if your .joerc contains this text:
+        //    "Row %r\d/%l\d"
+        // on the line with -rmsg. And you have linenumbers enabled (^Tn)
+
+        if(ysize < 2) return;
+        for(std::size_t x=0; x<xsize; ++x)
+            if(cells[x].ch == U'/' && cells[x].dim && cells[x].inverse)
+            {
+                for(std::size_t n=1; x+n<xsize && cells[x+n].ch >= U'0' && cells[x+n].ch <= U'9'; ++n)
+                    num_rows = num_rows*10 + cells[x+n].ch-U'0';
+                for(std::size_t mul=1, n=x; n-- > 0 && cells[n].ch >= U'0' && cells[n].ch <= U'9'; mul*=10)
+                    cur_row += (cells[n].ch-U'0')*mul;
+                break;
+            }
+        if(!(num_rows && cur_row)) return;
+        for(std::size_t x=0; x<xsize; ++x)
+        {
+            if(cells[1*xsize + x].ch == U' ') { if(cur_top) { bar_column=x; break; } else continue; }
+            if(cells[1*xsize + x].ch < U'0' || cells[1*xsize + x].ch > U'9') break;
+            cur_top = cur_top*10 + cells[1*xsize + x].ch-U'0';
+        }
+        if(!(cur_top && bar_column)) { bar_column = ~std::size_t(); return; }
+        // Find how many rows of room there is for scrollbar
+        std::size_t firstrow = 1*fy, height = 0;
+        for(std::size_t y=1; y<ysize; ++y, ++height)
+            if(!(cells[y*xsize + bar_column].dim && cells[y*xsize + bar_column].ch == U' '))
+                { break; }
+        std::size_t heightp = height * fy;
+        bar_ranges[0]        = std::pair(firstrow, firstrow+heightp);
+        bar_ranges[1].first  = (cur_top-1)        * heightp / num_rows;
+        bar_ranges[1].second = (cur_top+height-1) * heightp / num_rows;
+        bar_ranges[2].first  = (cur_row-1)        * heightp / num_rows;
+        bar_ranges[2].second = (cur_row+1-1)      * heightp / num_rows;
+    };
+    FindScrollBarInfo();
+
     std::size_t screen_width  = fx*xsize;
     //std::size_t screen_height = fy*ysize;
     for(std::size_t y=0; y<ysize; ++y) // cell-row
@@ -95,6 +142,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                 && (x != lastcursx || y != lastcursy)
                 && (cell.blink!=1 || old_blink1 == cur_blink1)
                 && (cell.blink!=2 || old_blink2 == cur_blink2)
+                && x != bar_column
                   )
                 {
                     pix += width;
@@ -130,6 +178,30 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                          || (cell.underline2 && (fr == (fy-1) || fr == (fy-3)))
                          || (cell.overstrike && (fr == (fy/2)))
                          || (cell.overlined && (fr == 0));
+
+                std::size_t sb_begin=0, sb_end=0;
+                unsigned sb_xormask = 0;
+                if(x == bar_column) // scrollbar displayed in this column?
+                {
+                    sb_begin = width/8;
+                    sb_end   = width - sb_begin;
+                    std::size_t row = y*fy+fr;
+                    if(row >= bar_ranges[2].first && row < bar_ranges[2].second)
+                    {
+                        // cursor
+                        sb_xormask = 0xFFFFBF;
+                    }
+                    else if(row >= bar_ranges[1].first && row < bar_ranges[1].second)
+                    {
+                        // window
+                        sb_xormask = 0x7F7FAF;
+                    }
+                    else if(row >= bar_ranges[0].first && row < bar_ranges[0].second)
+                    {
+                        // bar
+                        sb_xormask = 0x3F3F6F;
+                    }
+                }
 
                 for(std::size_t fc=0; fc<width; ++fc, ++pix)
                 {
@@ -175,6 +247,10 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                         else
                             color = Mix(0xFFFFFF, color, 1,1,2);
                     }
+
+                    if(fc >= sb_begin && fc < sb_end && (((x*width+fc)^(y*fy+fr))&1))
+                        color ^= sb_xormask;
+
                     *pix = color;
                 }
                 if(fr == (fy-1))
