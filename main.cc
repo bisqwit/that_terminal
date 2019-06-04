@@ -1,5 +1,7 @@
 #include <map>
 #include <unordered_map>
+#include <chrono>
+
 #include <SDL.h>
 
 #include "terminal.hh"
@@ -124,13 +126,51 @@ namespace
         RenderFlushLines();
         if(rect.y) { SDL_RenderPresent(renderer); }
 
-        /*std::string cmd = "mencoder -demuxer rawvideo -rawvideo w="+std::to_string(bufpixels_width)
-                                                     +":h="+std::to_string(bufpixels_height)
-                                                     +":format=bgra:fps=30 "
-                          " - -ovc x264 -x264encopts crf=10 -o frames.avi";
-        static FILE* fp = popen(cmd.c_str(), "w");
-        std::fwrite(&pixbuf[0], sizeof(std::uint32_t), pixbuf.size(), fp);
-        std::fflush(fp);*/
+        /*constexpr unsigned fps = 30;
+        static FILE* fp = nullptr;
+        static unsigned pwidth=0, pheight=0;
+        static auto begin = std::chrono::system_clock::now();
+        static unsigned long frames_done = 0;
+        if(!fp || pwidth != bufpixels_width || pheight != bufpixels_height)
+        {
+            pwidth  = bufpixels_width;
+            pheight = bufpixels_height;
+
+            char fnbuf[256];
+            static unsigned counter = 0;
+            std::sprintf(fnbuf, "frames%04d.mp4", counter++);
+
+            //unsigned swidth  = pwidth  * std::max(1u, (3840+pwidth-1)/pwidth);
+            //unsigned sheight = pheight * std::max(1u, (2160+pheight-1)/pheight);
+            unsigned swidth  = pwidth  * std::max(1u, (1920+pwidth-1)/pwidth);
+            unsigned sheight = pheight * std::max(1u, (1080+pheight-1)/pheight);
+
+            if(fp) pclose(fp);
+            std::string cmd = "ffmpeg -y -f rawvideo -pix_fmt bgra"
+                " -s:v "+std::to_string(pwidth)+"x"+std::to_string(pheight)+
+                " -r "+std::to_string(fps)+
+                " -i -"
+                " -loglevel error"
+            //    " -sws_flags neighbor"
+            //    " -vf scale="+std::to_string(swidth)+":"+std::to_string(sheight)+
+                " -c:v libx264 -crf 0 -preset veryfast"
+                " " + (fnbuf);
+            fp = popen(cmd.c_str(), "w");
+            begin       = std::chrono::system_clock::now();
+            frames_done = 0;
+        }
+        if(fp)
+        {
+            auto end = std::chrono::system_clock::now();
+            double d = std::chrono::duration<double>(end-begin).count();
+            unsigned long frames_should = d * fps;
+
+            do {
+                std::fwrite(&pixbuf[0], sizeof(std::uint32_t), pixbuf.size(), fp);
+                ++frames_done;
+            } while(frames_done < frames_should);
+            std::fflush(fp);
+        }*/
     }
 }
 
