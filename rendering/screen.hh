@@ -35,8 +35,7 @@ struct Cell
     bool                overlined: 1;
     bool                fraktur: 1;
     bool                conceal: 1;
-    bool                double_width: 1;
-    unsigned char       double_height:2;
+    unsigned char       render_size: 2; // 0=normal,1=doublewidth,2=doublewidth+topline,3=doublewidth+bottomline
     unsigned char       blink: 2;
 
     bool                dirty: 1;
@@ -57,11 +56,11 @@ struct Cell
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,
                           underline,underline2,overstrike,inverse,blink,
                           framed,encircled,fraktur,conceal,overlined,
-                          double_width,double_height)
+                          render_size)
             == std::tuple(b.fgcolor,b.bgcolor,b.ch,b.bold,b.dim,b.italic,
                           b.underline,b.underline2,b.overstrike,b.inverse,b.blink,
                           b.framed,b.encircled,b.fraktur,b.conceal,b.overlined,
-                          b.double_width,b.double_height);
+                          b.render_size);
     }
     bool operator!= (const Cell& b) const { return !operator==(b); }
 };
@@ -147,8 +146,7 @@ public:
             c = TranslateCSet(c, cset);
         }
         ch.ch = c;
-        ch.double_width = cells[y*xsize+x].double_width;
-        ch.double_height = cells[y*xsize+x].double_height;
+        ch.render_size = cells[y*xsize+x].render_size;
         /*if(c != U' ')
         {
             fprintf(stderr, "Ch at (%zu,%zu): <%c>\n", x,y, int(c));
@@ -159,8 +157,7 @@ public:
     void Resize(std::size_t newsx, std::size_t newsy);
     void Dirtify();
 
-    void LineSetHeightAttr(unsigned);
-    void LineSetWidthAttr(bool);
+    void LineSetRenderSize(unsigned);
 };
 
 #endif

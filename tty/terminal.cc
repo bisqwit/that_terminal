@@ -488,10 +488,10 @@ void termwindow::Write(std::u32string_view s)
             case State(U'U', st_scs): gset[scs&3] = 0; goto Ground; // linux pc?
             case State(U'Y', st_scs): gset[scs&3] = 0; goto Ground; // ita?
             case State(U'Z', st_scs): gset[scs&3] = 0; goto Ground; // spa?
-            case State(U'3', st_scr): wnd.LineSetHeightAttr(1); goto Ground; // DECDHL top
-            case State(U'4', st_scr): wnd.LineSetHeightAttr(2); goto Ground; // DECDHL bottom
-            case State(U'5', st_scr): wnd.LineSetWidthAttr(false); goto Ground; // DECSWL
-            case State(U'6', st_scr): wnd.LineSetWidthAttr(true); goto Ground; // DECDWL
+            case State(U'3', st_scr): wnd.LineSetRenderSize(2); goto Ground; // DECDHL top
+            case State(U'4', st_scr): wnd.LineSetRenderSize(3); goto Ground; // DECDHL bottom
+            case State(U'5', st_scr): wnd.LineSetRenderSize(0); goto Ground; // DECSWL
+            case State(U'6', st_scr): wnd.LineSetRenderSize(1); goto Ground; // DECDWL
             case State(U'8', st_scr): // clear screen with 'E' // esc # 8
                 wnd.blank.ch = U'E';
                 wnd.fillbox(0,0, wnd.xsize,wnd.ysize);

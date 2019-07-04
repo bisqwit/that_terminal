@@ -177,10 +177,14 @@ the final is the target page number. Xterm ignores the page numbers.
 * `<CSI> * |`  Set screen height to the given value (valid range between 1 and 255, inclusive) (unsupported)
 * `<CSI> * x`  Set character attribute change extent (unsupported). Value 2 means that attribute-changing rectangular operations will perform rectangularly. Any other value (mainly 0 or 1) means that attribute-changing rectangular operations will perform on a text stream delimited by the first and last character position indicated. This flag will not affect the other rectangular operations, such as fills.
 * `<CSI> * y`  Request checksum of rectangular area (unsupported)
-* `<ESC> # 3`   Change current line to be rendered using top half of double-height letters.
-* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height letters.
-* `<ESC> # 5`   Change current line to be rendered using single-width (regular) letters.
-* `<ESC> # 6`   Change current line to be rendered using double-width letters. This halves the
+* `<ESC> # 3`   Change current line to be rendered using top half of double-height & double-width letters. This halves the
+rendered row length, but logically the row is still same length as every
+other row. The second half of the line is simply not displayed at all.
+* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height & double-width letters. This halves the
+rendered row length, but logically the row is still same length as every
+other row. The second half of the line is simply not displayed at all.
+* `<ESC> # 5`   Change current line to be rendered using single-height & single-width (regular) letters. This is the default.
+* `<ESC> # 6`   Change current line to be rendered using single-height & double-width letters. This halves the
 rendered row length, but logically the row is still same length as every
 other row. The second half of the line is simply not displayed at all.
 * `<ESC> # 8`   ²Clears screen with the letter “E” using the current attribute. This is

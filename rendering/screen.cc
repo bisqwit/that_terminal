@@ -133,7 +133,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                 auto& cell = cells[y * xsize + x];
 
                 unsigned xscale = 1;
-                if(cell.double_width && (x+1) < xroom) { xscale = 2; --xroom; }
+                if(cell.render_size && (x+1) < xroom) { xscale = 2; --xroom; }
                 unsigned width = fx * xscale;
 
                 if(!cell.dirty
@@ -151,11 +151,11 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                 unsigned translated_ch = map(cell.ch); // Character-set translation
 
                 unsigned fr_actual = fr;
-                switch(cell.double_height)
+                switch(cell.render_size)
                 {
                     default: break;
-                    case 1: fr_actual /= 2; break;
-                    case 2: fr_actual /= 2; fr_actual += fy/2; break;
+                    case 2: fr_actual /= 2; break;
+                    case 3: fr_actual /= 2; fr_actual += fy/2; break;
                 }
 
                 const unsigned char* fontptr =
@@ -286,14 +286,8 @@ void Window::Dirtify()
     for(auto& c: cells) c.dirty = true;
 }
 
-void Window::LineSetHeightAttr(unsigned val)
+void Window::LineSetRenderSize(unsigned val)
 {
     for(std::size_t x=0; x<xsize; ++x)
-        cells[cursy*xsize+x].double_height = val;
-}
-
-void Window::LineSetWidthAttr(bool val)
-{
-    for(std::size_t x=0; x<xsize; ++x)
-        cells[cursy*xsize+x].double_width = val;
+        cells[cursy*xsize+x].render_size = val;
 }
