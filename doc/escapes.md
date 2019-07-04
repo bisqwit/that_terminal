@@ -171,7 +171,7 @@ First 4 params define the rectangle (top line,left column,bottom line,right colu
 First 4 params define the rectangle, next is page number,
 next two are the target coordinates, and the final is the target page number.
 Xterm ignores the page numbers.
-This code (DECCRA), together with `<CSI> X`, can be used to implement vertical windows that can scroll independently very efficiently.
+This code (DECCRA), together with `<CSI> X`, can be used very efficiently to implement vertical windows that can scroll independently.
 * `<CSI> $ z`  Fill rectangular area with space. First 4 params define the rectangle. Attributes are not touched.
 * `<CSI> $ {`  Fill rectangular area with space *selectively* (unsupported). Same as `<CSI> $ z` except leaves protected characters untouched.
 * `<CSI> $ x`  Fill rectangular area with given character and current attribute. First parameter is the character number code, next four define the rectangle.
@@ -179,12 +179,8 @@ This code (DECCRA), together with `<CSI> X`, can be used to implement vertical w
 * `<CSI> * |`  Set screen height to the given value (valid range between 1 and 255, inclusive) (unsupported)
 * `<CSI> * x`  Set character attribute change extent (unsupported). Value 2 means that attribute-changing rectangular operations will perform rectangularly. Any other value (mainly 0 or 1) means that attribute-changing rectangular operations will perform on a text stream delimited by the first and last character position indicated. This flag will not affect the other rectangular operations, such as fills.
 * `<CSI> * y`  Request checksum of rectangular area (unsupported)
-* `<ESC> # 3`   Change current line to be rendered using top half of double-height & double-width letters. This halves the
-rendered row length, but logically the row is still same length as every
-other row. The second half of the line is simply not displayed at all.
-* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height & double-width letters. This halves the
-rendered row length, but logically the row is still same length as every
-other row. The second half of the line is simply not displayed at all.
+* `<ESC> # 3`   Change current line to be rendered using top half of double-height & double-width letters. See comment in `<ESC> # 6`.
+* `<ESC> # 4`   Change current line to be rendered using bottom half of double-height & double-width letters. See comment in `<ESC> # 6`.
 * `<ESC> # 5`   Change current line to be rendered using single-height & single-width (regular) letters. This is the default.
 * `<ESC> # 6`   Change current line to be rendered using single-height & double-width letters. This halves the
 rendered row length, but logically the row is still same length as every
