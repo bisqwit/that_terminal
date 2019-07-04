@@ -22,9 +22,8 @@ void termwindow::ResetAttr()
     bool prot = wnd.blank.protect;
     wnd.blank = Cell{};
     wnd.blank.protect = prot;
-
-    ResetFG();
-    ResetBG();
+    //ResetFG();
+    //ResetBG();
 }
 void termwindow::Reset(bool full)
 {
@@ -150,6 +149,91 @@ void termwindow::Write(std::u32string_view s)
         wnd.PutCh(wnd.cursx,wnd.cursy, c, gset[activeset]);
         if(wnd.cursx == wnd.xsize-1) edgeflag = true;
         else                         ++wnd.cursx;
+    };
+    auto ProcessSGR = [&](char32_t& c, unsigned a,
+                          auto&& reset_attr,
+                          auto&& change_attr)
+    {
+        auto mode = [](unsigned n)            constexpr { return 68 + n - 3; };           // room for 22
+        auto flag = [](unsigned c,unsigned n) constexpr { return 10 + (n-2) + (c-1)*4; }; // room for 8
+        switch(c<3 ? ((c && (a>=2 && a<=5)) ? flag(c,a) : a) : mode(c))
+        {
+            #define set(what, v) change_attr([&](Cell& c, auto x){c.what = x;}, \
+                                             [&](const Cell& c) { return c.what; }, \
+                                             v)
+            case 0: reset_attr(); c = 0; break;
+            case 1: set(bold, true); c = 0; break;
+            case 2: set(dim, true); c = 0; break;
+            case 3: set(italic, true); c = 0; break;
+            case 4: set(underline, true); c = 0; break;
+            case 5: set(blink, 1); c = 0; break;
+            case 6: set(blink, 2); c = 0; break;
+            case 7: set(inverse, true); c = 0; break;
+            case 8: set(conceal, true); c = 0; break;
+            case 9: set(overstrike, true); c = 0; break;
+            case 20: set(fraktur, true); c = 0; break;
+            case 21: set(underline2, true); c = 0; break;
+            case 22: set(dim, false); set(bold, false); c = 0; break;
+            case 23: set(italic, false); set(fraktur, false); c = 0; break;
+            case 24: set(underline, false); set(underline2, false); c = 0; break;
+            case 25: set(blink, 0); c = 0; break;
+            case 27: set(inverse, false); c = 0; break;
+            case 28: set(conceal, false); c = 0; break;
+            case 29: set(overstrike, false); c = 0; break;
+            case 39: set(underline, false); set(underline2, false);
+                     set(fgcolor, Cell{}.fgcolor); c = 0; break; // Set default foreground color
+            case 49: set(bgcolor, Cell{}.bgcolor); c = 0; break; // Set default background color
+            case 51: set(framed, true); c = 0; break;
+            case 52: set(encircled, true); c = 0; break;
+            case 53: set(overlined, true); c = 0; break;
+            case 54: set(framed, false); set(encircled, false); c = 0; break;
+            case 55: set(overlined, false); c = 0; break;
+            case 38: c = 1; break;
+            case 48: c = 2; break;
+            case flag(1,4): c=3; color=0; break; // 38;4
+            case flag(1,3): c=4; color=0; break; // 38;3
+            case flag(1,2): c=5; color=0; break; // 38;2
+            case flag(2,4): c=6; color=0; break; // 48;4
+            case flag(2,3): c=7; color=0; break; // 48;3
+            case flag(2,2): c=8; color=0; break; // 48;2
+            case flag(1,5): c=22; break;         // 38;5
+            case flag(2,5): c=23; break;         // 48;5
+            case mode(3): //color = (color << 8) + a; c+=6; break; // 38;4;n
+            case mode(4): //color = (color << 8) + a; c+=6; break; // 38;3;n
+            case mode(5): //color = (color << 8) + a; c+=6; break; // 38;2;n
+            case mode(6): //color = (color << 8) + a; c+=6; break; // 48;4;n
+            case mode(7): //color = (color << 8) + a; c+=6; break; // 48;3;n
+            case mode(8): //color = (color << 8) + a; c+=6; break; // 48;2;n
+            case mode(9): //color = (color << 8) + a; c+=6; break; // 38;4;#;n
+            case mode(10)://color = (color << 8) + a; c+=6; break; // 38;3;#;n
+            case mode(11)://color = (color << 8) + a; c+=6; break; // 38;2;#;n
+            case mode(12)://color = (color << 8) + a; c+=6; break; // 48;4;#;n
+            case mode(13)://color = (color << 8) + a; c+=6; break; // 48;3;#;n
+            case mode(14)://color = (color << 8) + a; c+=6; break; // 48;2;#;n
+            case mode(15)://color = (color << 8) + a; c+=6; break; // 38;4;#;#;n
+            case mode(18):  color = (color << 8) + a; c+=6; break; // 48;4;#;#;n
+
+            case 30:case 31:case 32:case 33:case 34:case 35:
+            case 36:case 37:    a -= 30; a += 90-8;                 [[fallthrough]];
+            case 90:case 91:case 92:case 93:case 94:case 95:
+            case 96:case 97:    a -= 90-8;                          [[fallthrough]];
+            case mode(22):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 38;5;n
+            case mode(21)://color = (color << 8) + a; set(fgcolor, color); c = 0; break; // 38;4;#;#;#;n (TODO CMYK->RGB)
+            case mode(16)://color = (color << 8) + a; set(fgcolor, color); c = 0; break; // 38;3;#;#;n   (TODO CMY->RGB)
+            case mode(17):  color = (color << 8) + a; set(fgcolor, color); c = 0; break; // 38;2;#;#;n   (RGB24)
+
+            case 40:case 41:case 42:case 43:case 44:case 45:
+            case 46:case 47:    a -= 40; a += 100-8;                [[fallthrough]];
+            case 100:case 101:case 102:case 103:case 104:case 105:
+            case 106:case 107:  a -= 100-8;                         [[fallthrough]];
+            case mode(23):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 48;5;n
+            case mode(24)://color = (color << 8) + a; set(bgcolor, color); c = 0; break; // 48;4;#;#;#;n (TODO CMYK->RGB)
+            case mode(19)://color = (color << 8) + a; set(bgcolor, color); c = 0; break; // 48;3;#;#;n   (TODO CMY->RGB)
+            case mode(20):  color = (color << 8) + a; set(bgcolor, color); c = 0; break; // 48;2;#;#;n   (RGB24)
+
+            default: c = 0; break;
+            #undef set
+        }
     };
 
     if(bottom >= wnd.ysize) bottom = wnd.ysize-1;
@@ -584,7 +668,7 @@ void termwindow::Write(std::u32string_view s)
                     wnd.fillbox(wnd.xsize-c,wnd.cursy, c,1);
                 }
                 break;
-            case State(U'X', st_csi):
+            case State(U'X', st_csi): // (ECH)
                 GetParams(1,true);
                 // write c spaces at cursor (overwrite)
                 wnd.fillbox(wnd.cursx,wnd.cursy, std::min(std::size_t(p[0]), wnd.xsize-wnd.cursx), 1);
@@ -704,6 +788,90 @@ void termwindow::Write(std::u32string_view s)
                 }
                 break;
             }
+            case State(U'v', st_csi_dol): // csi $v (DECCRA): copy rectangular area
+            {
+                GetParams(7,true);
+                unsigned pts=p[0], pls=p[1], pbs=p[2], prs=p[3], ptd=p[5], pld=p[6];
+                // Ignores [4] = source page number, [7] = target page number.
+                // Note: Xterm parses params from right to left, meaning that
+                //       for xterm, our [3] is actually [n-5]
+                if(pbs > wnd.ysize) pbs = wnd.ysize;
+                if(prs > wnd.xsize) prs = wnd.xsize;
+                if(ptd > wnd.ysize) ptd = wnd.ysize;
+                if(pld > wnd.xsize) pld = wnd.ysize;
+                if(pts <= pbs && pls <= prs)
+                {
+                    unsigned width = prs-pls+1, height = pbs-pts+1;
+                    --pld;--ptd;--pls;--pts;
+                    if(pld+width > wnd.xsize) width = wnd.xsize-pld;
+                    if(ptd+height > wnd.ysize) height = wnd.ysize-ptd;
+                    if(width && height)
+                        wnd.copytext(pld,ptd, pls,pts, width,height);
+                }
+                break;
+            }
+            case State(U'z', st_csi_dol): // csi $z: fill rectangular area with space
+            {                             //         but don't touch attributes.
+                GetParams(4,true);
+                unsigned pts=p[0], pls=p[1], pbs=p[2], prs=p[3];
+                if(pbs > wnd.ysize) pbs = wnd.ysize;
+                if(prs > wnd.xsize) prs = wnd.xsize;
+                for(unsigned y=pts; y<=pbs; ++y)
+                    for(unsigned x=pls; x<=prs; ++x)
+                        wnd.PutCh_KeepAttr(x-1, y-1, U' ');
+                break;
+            }
+            case State(U'x', st_csi_dol): // csi $x: fill rectangular area with given char
+            {
+                GetParams(5,true);
+                unsigned ch=p[0], pts=p[1], pls=p[2], pbs=p[3], prs=p[4];
+                if(pbs > wnd.ysize) pbs = wnd.ysize;
+                if(prs > wnd.xsize) prs = wnd.xsize;
+                for(unsigned y=pts; y<=pbs; ++y)
+                    for(unsigned x=pls; x<=prs; ++x)
+                        wnd.PutCh(x-1, y-1, ch);
+                break;
+            }
+            case State(U'r', st_csi_dol): // csi $r: DECCARA: change attributes in rectangular area
+            case State(U't', st_csi_dol): // csi $t: DECRARA: toggle attributes in rectangular area
+            {
+                bool toggle = (c == U't');
+                GetParams(5, true); // Make sure there is at least 1 SGR param
+                unsigned pts=p[0], pls=p[1], pbs=p[2], prs=p[3];
+                if(pbs > wnd.ysize) pbs = wnd.ysize;
+                if(prs > wnd.xsize) prs = wnd.xsize;
+                --pts;--pbs;--pls;--prs;
+                for(unsigned y=pts; y<=pbs; ++y)
+                    for(unsigned x=pls; x<=prs; ++x)
+                    {
+                        auto& cell = wnd.cells[y*wnd.xsize+x];
+                        auto temp = cell;
+                        c=0;
+                        for(auto ai = std::next(p.cbegin(), 4); ai != p.end(); ++ai)
+                            ProcessSGR(c, *ai,
+                                [&]() { if(!toggle) temp = Cell{}; },
+                                [&](auto&& setter, auto&& getter, auto newvalue)
+                                {
+                                    if(toggle)
+                                    {
+                                        // Note: toggling using a SGR command
+                                        //       that clears the attribute does nothing,
+                                        //       because value XOR 0 is value.
+                                        //       This matches what XTerm does.
+                                        newvalue ^= getter(temp);
+                                    }
+                                    setter(temp, newvalue);
+                                }
+                                      );
+                        temp.ch = cell.ch;
+                        if(temp != cell)
+                        {
+                            cell       = temp;
+                            cell.dirty = true;
+                        }
+                    }
+                break;
+            }
             case State(U'b', st_csi):
                 GetParams(1,true);
                 // Repeat last printed character n times
@@ -716,82 +884,12 @@ void termwindow::Write(std::u32string_view s)
             {
                 GetParams(1, false); // Make sure there is at least 1 param
                 c=0;
-                auto mode = [](unsigned n)            constexpr { return 68 + n - 3; };           // room for 22
-                auto flag = [](unsigned c,unsigned n) constexpr { return 10 + (n-2) + (c-1)*4; }; // room for 8
                 for(auto a: p)
-                    switch(c<3 ? ((c && (a>=2 && a<=5)) ? flag(c,a) : a) : mode(c))
-                    {
-                        case 0: ResetAttr(); c = 0; break;
-                        case 1: wnd.blank.bold = true; c = 0; break;
-                        case 2: wnd.blank.dim = true; c = 0; break;
-                        case 3: wnd.blank.italic = true; c = 0; break;
-                        case 4: wnd.blank.underline = true; c = 0; break;
-                        case 5: wnd.blank.blink = 1; c = 0; break;
-                        case 6: wnd.blank.blink = 2; c = 0; break;
-                        case 7: wnd.blank.inverse = true; c = 0; break;
-                        case 8: wnd.blank.conceal = true; c = 0; break;
-                        case 9: wnd.blank.overstrike = true; c = 0; break;
-                        case 20: wnd.blank.fraktur = true; c = 0; break;
-                        case 21: wnd.blank.underline2 = true; c = 0; break;
-                        case 22: wnd.blank.dim = false; wnd.blank.bold = false; c = 0; break;
-                        case 23: wnd.blank.italic = false; wnd.blank.fraktur = false; c = 0; break;
-                        case 24: wnd.blank.underline = false; wnd.blank.underline2 = false; c = 0; break;
-                        case 25: wnd.blank.blink = 0; c = 0; break;
-                        case 27: wnd.blank.inverse = false; c = 0; break;
-                        case 28: wnd.blank.conceal = false; c = 0; break;
-                        case 29: wnd.blank.overstrike = false; c = 0; break;
-                        case 39: wnd.blank.underline = false; wnd.blank.underline2 = false; ResetFG(); c = 0; break; // Set default foreground color
-                        case 49: ResetBG(); c = 0; break; // Set default background color
-                        case 51: wnd.blank.framed = true; c = 0; break;
-                        case 52: wnd.blank.encircled = true; c = 0; break;
-                        case 53: wnd.blank.overlined = true; c = 0; break;
-                        case 54: wnd.blank.framed = false; wnd.blank.encircled = false; c = 0; break;
-                        case 55: wnd.blank.overlined = false; c = 0; break;
-                        case 38: c = 1; break;
-                        case 48: c = 2; break;
-                        case flag(1,4): c=3; color=0; break; // 38;4
-                        case flag(1,3): c=4; color=0; break; // 38;3
-                        case flag(1,2): c=5; color=0; break; // 38;2
-                        case flag(2,4): c=6; color=0; break; // 48;4
-                        case flag(2,3): c=7; color=0; break; // 48;3
-                        case flag(2,2): c=8; color=0; break; // 48;2
-                        case flag(1,5): c=22; break;         // 38;5
-                        case flag(2,5): c=23; break;         // 48;5
-                        case mode(3): //color = (color << 8) + a; c+=6; break; // 38;4;n
-                        case mode(4): //color = (color << 8) + a; c+=6; break; // 38;3;n
-                        case mode(5): //color = (color << 8) + a; c+=6; break; // 38;2;n
-                        case mode(6): //color = (color << 8) + a; c+=6; break; // 48;4;n
-                        case mode(7): //color = (color << 8) + a; c+=6; break; // 48;3;n
-                        case mode(8): //color = (color << 8) + a; c+=6; break; // 48;2;n
-                        case mode(9): //color = (color << 8) + a; c+=6; break; // 38;4;#;n
-                        case mode(10)://color = (color << 8) + a; c+=6; break; // 38;3;#;n
-                        case mode(11)://color = (color << 8) + a; c+=6; break; // 38;2;#;n
-                        case mode(12)://color = (color << 8) + a; c+=6; break; // 48;4;#;n
-                        case mode(13)://color = (color << 8) + a; c+=6; break; // 48;3;#;n
-                        case mode(14)://color = (color << 8) + a; c+=6; break; // 48;2;#;n
-                        case mode(15)://color = (color << 8) + a; c+=6; break; // 38;4;#;#;n
-                        case mode(18):  color = (color << 8) + a; c+=6; break; // 48;4;#;#;n
-
-                        case 30:case 31:case 32:case 33:case 34:case 35:
-                        case 36:case 37:    a -= 30; a += 90-8;                 [[fallthrough]];
-                        case 90:case 91:case 92:case 93:case 94:case 95:
-                        case 96:case 97:    a -= 90-8;                          [[fallthrough]];
-                        case mode(22):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 38;5;n
-                        case mode(21)://color = (color << 8) + a; wnd.blank.fgcolor = color; c = 0; break; // 38;4;#;#;#;n (TODO CMYK->RGB)
-                        case mode(16)://color = (color << 8) + a; wnd.blank.fgcolor = color; c = 0; break; // 38;3;#;#;n   (TODO CMY->RGB)
-                        case mode(17):  color = (color << 8) + a; wnd.blank.fgcolor = color; c = 0; break; // 38;2;#;#;n   (RGB24)
-
-                        case 40:case 41:case 42:case 43:case 44:case 45:
-                        case 46:case 47:    a -= 40; a += 100-8;                [[fallthrough]];
-                        case 100:case 101:case 102:case 103:case 104:case 105:
-                        case 106:case 107:  a -= 100-8;                         [[fallthrough]];
-                        case mode(23):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 48;5;n
-                        case mode(24)://color = (color << 8) + a; wnd.blank.bgcolor = color; c = 0; break; // 48;4;#;#;#;n (TODO CMYK->RGB)
-                        case mode(19)://color = (color << 8) + a; wnd.blank.bgcolor = color; c = 0; break; // 48;3;#;#;n   (TODO CMY->RGB)
-                        case mode(20):  color = (color << 8) + a; wnd.blank.bgcolor = color; c = 0; break; // 48;2;#;#;n   (RGB24)
-
-                        default: c = 0; break;
-                    }
+                    ProcessSGR(c,a,
+                        [&]() { ResetAttr(); },
+                        [&](auto&& setter, auto&& /*getter*/, auto newvalue)
+                            { setter(wnd.blank, newvalue); }
+                              );
                 break;
             }
 

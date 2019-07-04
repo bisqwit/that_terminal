@@ -88,7 +88,7 @@ printing anything (including spaces) over them.
 * `<CSI> T` Interpreted as `<CSI> ^` if there is one nonzero parameter. Ignored otherwise.
 * `<CSI> P` ¹²On the current line, scrolls the region between the current column and the right edge of screen left by the specified number of positions.
 * `<CSI> @` ¹²On the current line, scrolls the region between the current column and the right edge of screen right by the specified number of positions.
-* `<CSI> X` ¹²On the current line and current column, writes the specified number of blanks. The write will not wrap to the next line.
+* `<CSI> X` ¹²On the current line and current column, writes the specified number of blanks. The write will not wrap to the next line. (ECH)
 * `<CSI> b` ¹²At the current position, writes the specified number of duplicates of the last printed character. The cursor *is* moved, and the write may wrap to the next line.
 * `<CSI> r` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively. Counting begins from 1.
 * `<CSI> n` Reports depending on the first parameter. Unrecognized values are ignored.
@@ -164,15 +164,17 @@ printing anything (including spaces) over them.
   * 100…107 = Sets background color \<n+8−100> using the 256-color lookup table.
 * `<CSI> g`    Set tab stops (unsupported)
 * `<CSI> q`    Set LED states (unsupported)
-* `<CSI> $ r`  Change character attributes in rectangular area (unsupported).
-First 4 params define the rectangle (top line,left column,bottom line,right column), the rest are the SGR sequence. Xterm only supports attributes 0/1/4/5/7/8 and 22/24/25/27/28.
-* `<CSI> $ t`  Toggle character attributes in rectangular area (unsupported)
-* `<CSI> $ v`  Copy rectangular area (unsupported). First 4 params define
-the rectangle, next is page number, next two are the target coordinates, and
-the final is the target page number. Xterm ignores the page numbers.
-* `<CSI> $ z`  Fill rectangular area with space (unsupported). First 4 params define the rectangle. Attributes are not touched.
+* `<CSI> $ r`  Change character attributes in rectangular area.
+First 4 params define the rectangle (top line,left column,bottom line,right column), the rest are the SGR sequence. Xterm only supports attributes 0/1/4/5/7/8 and 22/24/25/27/28, but *That terminal* supports all the same attributes that `<CSI> m` does.
+* `<CSI> $ t`  Toggle character attributes in rectangular area
+* `<CSI> $ v`  Copy rectangular area. Takes eight parameters:
+First 4 params define the rectangle, next is page number,
+next two are the target coordinates, and the final is the target page number.
+Xterm ignores the page numbers.
+This code (DECCRA), together with `<CSI> X`, can be used to implement vertical windows that can scroll independently very efficiently.
+* `<CSI> $ z`  Fill rectangular area with space. First 4 params define the rectangle. Attributes are not touched.
 * `<CSI> $ {`  Fill rectangular area with space *selectively* (unsupported). Same as `<CSI> $ z` except leaves protected characters untouched.
-* `<CSI> $ x`  Fill rectangular area with given character and current attribute (unsupported). First parameter is the character number code, next four define the rectangle.
+* `<CSI> $ x`  Fill rectangular area with given character and current attribute. First parameter is the character number code, next four define the rectangle.
 * `<CSI> $ |`  Set screen width to the given value (only widths 80 or 132 allowed; default=80) (unsupported)
 * `<CSI> * |`  Set screen height to the given value (valid range between 1 and 255, inclusive) (unsupported)
 * `<CSI> * x`  Set character attribute change extent (unsupported). Value 2 means that attribute-changing rectangular operations will perform rectangularly. Any other value (mainly 0 or 1) means that attribute-changing rectangular operations will perform on a text stream delimited by the first and last character position indicated. This flag will not affect the other rectangular operations, such as fills.

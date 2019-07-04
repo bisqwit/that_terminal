@@ -153,6 +153,29 @@ public:
         }*/
         PutCh(x, y, ch);
     }
+    void PutCh_KeepAttr(std::size_t x, std::size_t y, char32_t c, int cset = 0)
+    {
+        auto& cell = cells[y*xsize+x];
+        Cell temp = cell;
+        if(cset)
+            c = TranslateCSet(c, cset);
+        if(temp != cell)
+        {
+            cell = temp;
+            cell.dirty = true;
+        }
+    }
+    void PutCh_KeepChar(std::size_t x, std::size_t y, const Cell& c)
+    {
+        auto& cell = cells[y*xsize+x];
+        Cell temp = c;
+        temp.ch = cell.ch;
+        if(temp != cell)
+        {
+            cell = temp;
+            cell.dirty = true;
+        }
+    }
     void Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer);
     void Resize(std::size_t newsx, std::size_t newsy);
     void Dirtify();
