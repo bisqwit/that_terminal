@@ -22,6 +22,11 @@ float ScaleY = 1.f;
 
 SDL_Window*   window   = nullptr;
 
+// Allow windows bigger than desktop? Setting this "true"
+// also disables reacting to window resizes.
+constexpr bool Allow_Windows_Bigger_Than_Desktop = false;
+
+
 namespace
 {
     SDL_Renderer* renderer = nullptr;
@@ -231,18 +236,21 @@ int main()
                         case SDL_WINDOWEVENT_RESIZED:
                         case SDL_WINDOWEVENT_SIZE_CHANGED:
                         {
-                            int w,h;
-                            SDL_GetWindowSize(window, &w,&h);
-                            if(w != pixels_width*ScaleX
-                            || h != pixels_height*ScaleY)
+                            if(!Allow_Windows_Bigger_Than_Desktop)
                             {
-                                unsigned newxsize = (w/ScaleX) / VidCellWidth;
-                                unsigned newysize = (h/ScaleY) / VidCellHeight;
-                                term.Resize(newxsize, newysize);
-                                SDL_ReInitialize(wnd.xsize, wnd.ysize);
-                                tty.Resize(wnd.xsize, wnd.ysize);
+                                int w,h;
+                                SDL_GetWindowSize(window, &w,&h);
+                                if(w != pixels_width*ScaleX
+                                || h != pixels_height*ScaleY)
+                                {
+                                    unsigned newxsize = (w/ScaleX) / VidCellWidth;
+                                    unsigned newysize = (h/ScaleY) / VidCellHeight;
+                                    term.Resize(newxsize, newysize);
+                                    SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                                    tty.Resize(wnd.xsize, wnd.ysize);
+                                }
+                                wnd.Dirtify();
                             }
-                            wnd.Dirtify();
                             break;
                         }
                         default:
