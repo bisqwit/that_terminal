@@ -26,7 +26,8 @@ static constexpr unsigned person_width    = 16;
 static constexpr unsigned data_width      = 32, data_lines = 16;
 
 static auto start_time   = std::chrono::system_clock::now();
-static double walk_speed = 64.0; // pixels per second
+static double walk_speed = 64.0; // pixels per second (64 is normal)
+static double frame_rate = 6.0;  // (6 is normal)
 
 static int PersonBaseX(unsigned window_width)
 {
@@ -41,7 +42,7 @@ static int PersonFrame()
 {
     auto now_time = std::chrono::system_clock::now();
     std::chrono::duration<double> time_elapsed = (now_time - start_time);
-    return unsigned(time_elapsed.count() * 6) % 2;
+    return unsigned(time_elapsed.count() * frame_rate) % 2;
 }
 
 struct ColorSlideCache
