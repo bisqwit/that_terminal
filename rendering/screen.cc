@@ -114,16 +114,20 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
         // on the line with -rmsg. And you have linenumbers enabled (^Tn)
 
         if(ysize < 2) return;
+        // Parse the status line at top of screen
         for(std::size_t x=0; x<xsize; ++x)
             if(cells[x].ch == U'/' && cells[x].dim && cells[x].inverse)
             {
+                // Parse the number of rows in the file (follows that '/')
                 for(std::size_t n=1; x+n<xsize && cells[x+n].ch >= U'0' && cells[x+n].ch <= U'9'; ++n)
                     num_rows = num_rows*10 + cells[x+n].ch-U'0';
+                // Parse the current row in file (right before the '/')
                 for(std::size_t mul=1, n=x; n-- > 0 && cells[n].ch >= U'0' && cells[n].ch <= U'9'; mul*=10)
                     cur_row += (cells[n].ch-U'0')*mul;
                 break;
             }
         if(!(num_rows && cur_row)) return;
+        // Identify the line number of file that is at the top of the window currently
         for(std::size_t x=0; x<xsize; ++x)
         {
             if(cells[1*xsize + x].ch == U' ') { if(cur_top) { bar_column=x; break; } else continue; }
@@ -136,12 +140,15 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
         for(std::size_t y=1; y<ysize; ++y, ++height)
             if(!(cells[y*xsize + bar_column].dim && cells[y*xsize + bar_column].ch == U' '))
                 { break; }
-        std::size_t heightp = height * fy;
-        bar_ranges[0]        = std::pair(firstrow, firstrow+heightp);
-        bar_ranges[1].first  = (cur_top-1)        * heightp / num_rows;
-        bar_ranges[1].second = (cur_top+height-1) * heightp / num_rows;
-        bar_ranges[2].first  = (cur_row-1)        * heightp / num_rows;
-        bar_ranges[2].second = (cur_row+1-1)      * heightp / num_rows;
+        std::size_t heightp = height * fy; // scrollbar height in pixels
+        // cursor position
+        bar_ranges[0]        = std::pair(firstrow, firstrow+std::max<std::size_t>(1,heightp));
+        // visible region
+        bar_ranges[1].first  = firstrow + (cur_top-1)        * heightp / num_rows;
+        bar_ranges[1].second = firstrow + (cur_top+height-1) * heightp / num_rows;
+        // entire bar
+        bar_ranges[2].first  = firstrow + (cur_row-1)        * heightp / num_rows;
+        bar_ranges[2].second = firstrow + (cur_row+1-1)      * heightp / num_rows;
     };
     FindScrollBarInfo();
 
