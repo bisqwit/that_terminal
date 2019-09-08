@@ -312,8 +312,9 @@ int main()
                                 case SDLK_F4: term.Resize(wnd.xsize+1, wnd.ysize); resized = true; break;
                                 case SDLK_F5: if(VidCellHeight > 6) --VidCellHeight; resized = true; break;
                                 case SDLK_F6: if(VidCellHeight < 32) ++VidCellHeight; resized = true; break;
-                                case SDLK_F7: if(VidCellWidth == 8) VidCellWidth = 6; resized = true; break;
-                                case SDLK_F8: if(VidCellWidth == 6) VidCellWidth = 8; resized = true; break;
+                                // Allow widths 6, 8 and 9
+                                case SDLK_F7: if(VidCellWidth > 6) --VidCellWidth; resized = true; break;
+                                case SDLK_F8: if(VidCellWidth < 16) ++VidCellWidth; resized = true; break;
                                 case SDLK_F9:
                                     if(ScaleY >= 2) --ScaleY;
                                     else             ScaleY = ScaleY/std::sqrt(2.f);

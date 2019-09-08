@@ -62,13 +62,38 @@ static constexpr std::array<unsigned char,16> taketables[] =
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer)
 {
-    auto i = fonts.find(fx*256+fy);
-    if(i == fonts.end()) return; // TODO: Do something better when a font is not found
+    std::size_t actual_fx = fx, actual_fy = fy;
+
+    auto i = fonts.find(actual_fx*256 + actual_fy);
+    if(i == fonts.end())
+    {
+        int worst = 0;
+        for(auto j = fonts.begin(); j != fonts.end(); ++j)
+        {
+            std::size_t jx = j->first / 256, jy = j->first % 256;
+            int wdiff = std::abs(int(jx - fx));
+            int hdiff = std::abs(int(jy - fy));
+            int diff = wdiff*wdiff + hdiff*hdiff;
+            bool good = diff < worst;
+            if(diff == worst)
+            {
+                if(jx <= fx && jy <= fy) good = true;
+            }
+            if(!worst || good)
+            {
+                i     = j;
+                worst = diff;
+            }
+        }
+        actual_fx = i->first / 256;
+        actual_fy = i->first % 256;
+    }
+
     const unsigned char* font = i->second.first;
     const auto            map = i->second.second;
 
-    std::size_t font_row_size_in_bytes = (fx+7)/8;
-    std::size_t character_size_in_bytes = font_row_size_in_bytes*fy;
+    std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
+    std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
 
     bool old_blink1 = (lasttimer/10)&1, cur_blink1 = (timer/10)&1;
     bool old_blink2 = (lasttimer/ 3)&1, cur_blink2 = (timer/ 3)&1;
@@ -150,7 +175,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                 }
                 unsigned translated_ch = map(cell.ch); // Character-set translation
 
-                unsigned fr_actual = fr;
+                unsigned fr_actual = fr * actual_fy / fy;
                 switch(cell.render_size)
                 {
                     default: break;
@@ -216,7 +241,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                         std::swap(fg, bg);
                     }
 
-                    unsigned mask = ((widefont << 2) >> (fx-fc/xscale)) & 0xF;
+                    unsigned mask = ((widefont << 2) >> (actual_fx-fc/xscale)) & 0xF;
                     int take = taketables[mode][mask];
                     unsigned untake = std::max(0,128-take);
                     if(cell.inverse)
@@ -246,6 +271,12 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                             color = Mix(0x000000, color, 1,1,2);
                         else
                             color = Mix(0xFFFFFF, color, 1,1,2);
+                    }
+
+                    if(color && actual_fx < fx)
+                    {
+                        // Make brighter to compensate for black 9th column
+                        color = Mix(0xFFFFFF, color, fx-actual_fx,actual_fx, fx);
                     }
 
                     if(fc >= sb_begin && fc < sb_end && (((x*width+fc)^(y*fy+fr))&1))
