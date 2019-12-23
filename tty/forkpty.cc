@@ -28,7 +28,7 @@ void ForkPTY::Open(std::size_t width, std::size_t height)
     {
         static char termstr[] = "TERM=xterm";
         putenv(termstr);
-        execl(std::getenv("SHELL"), std::getenv("SHELL"), "-i", "-l", nullptr); // TODO: check return values
+        execl(std::getenv("SHELL"), std::getenv("SHELL"), "-l", "-i", nullptr); // TODO: check return values
         // Note: getenv() is in C++ standard, but putenv() is not.
     }
 

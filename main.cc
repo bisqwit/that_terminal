@@ -11,12 +11,21 @@
 
 #include <poll.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
-unsigned VidCellWidth = 8, VidCellHeight = 12;
-unsigned WindowWidth  =129, WindowHeight = 40;
+unsigned VidCellWidth = 8, VidCellHeight = 12, WindowWidth  =129, WindowHeight = 40;
+//unsigned VidCellWidth = 9, VidCellHeight = 8, WindowWidth  =126, WindowHeight = 60;
+//unsigned VidCellWidth = 9, VidCellHeight = 14, WindowWidth  =126, WindowHeight = 35;
+//unsigned VidCellWidth = 9, VidCellHeight = 12, WindowWidth  =109, WindowHeight = 46;
+//unsigned VidCellWidth = 9, VidCellHeight = 10, WindowWidth  =126, WindowHeight = 48;
+//unsigned VidCellWidth = 8, VidCellHeight = 8, WindowWidth  =126, WindowHeight = 292;
+//unsigned VidCellWidth = 8, VidCellHeight = 16, WindowWidth  = 106, WindowHeight = 30;
+//unsigned VidCellWidth = 8, VidCellHeight = 14, WindowWidth  = 106, WindowHeight = 34;
 //unsigned WindowWidth  = 80, WindowHeight = 25;
 //float ScaleX = 3.f;
 //float ScaleY = 3.5f;
+//float ScaleX = 2.f;
+//float ScaleY = 2.f;
 float ScaleX = 1.f;
 float ScaleY = 1.f;
 
@@ -49,7 +58,9 @@ namespace
         if(!window)
         {
             window = SDL_CreateWindow("that terminal",
+                //0,0,
                 SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                
                 pixels_width*ScaleX, pixels_height*ScaleY,
                 SDL_WINDOW_RESIZABLE);
         }
@@ -131,7 +142,7 @@ namespace
         RenderFlushLines();
         if(rect.y) { SDL_RenderPresent(renderer); }
 
-        /*constexpr unsigned fps = 30;
+        /*constexpr unsigned fps = 60;
         static FILE* fp = nullptr;
         static unsigned pwidth=0, pheight=0;
         static auto begin = std::chrono::system_clock::now();
@@ -143,7 +154,8 @@ namespace
 
             char fnbuf[256];
             static unsigned counter = 0;
-            std::sprintf(fnbuf, "frames%04d.mp4", counter++);
+            mkdir(".term_videos", 0755);
+            std::sprintf(fnbuf, ".term_videos/frames%04d.mp4", counter++);
 
             //unsigned swidth  = pwidth  * std::max(1u, (3840+pwidth-1)/pwidth);
             //unsigned sheight = pheight * std::max(1u, (2160+pheight-1)/pheight);
@@ -155,6 +167,7 @@ namespace
                 " -s:v "+std::to_string(pwidth)+"x"+std::to_string(pheight)+
                 " -r "+std::to_string(fps)+
                 " -i -"
+                " -aspect 16/9"// -sws_flags neighbor -vf scale=3840:2160"
                 " -loglevel error"
             //    " -sws_flags neighbor"
             //    " -vf scale="+std::to_string(swidth)+":"+std::to_string(sheight)+
@@ -171,6 +184,12 @@ namespace
             unsigned long frames_should = d * fps;
 
             do {
+                unsigned clock = 10 * (
+                    19*60+30+
+                    frames_done / (double)fps);
+
+                std::fprintf(stderr, "%02d:%04.1f\r", clock/600, (clock%600)*0.1);
+
                 std::fwrite(&pixbuf[0], sizeof(std::uint32_t), pixbuf.size(), fp);
                 ++frames_done;
             } while(frames_done < frames_should);
@@ -298,7 +317,7 @@ int main()
                             { SDLK_4, '4' }, { SDLK_5, '5' }, { SDLK_6, '6' }, { SDLK_7, '7' },
                             { SDLK_8, '8' }, { SDLK_9, '9' }, { SDLK_PERIOD, '.' }, { SDLK_COMMA, '-' },
                             { SDLK_RETURN, '\r' }, { SDLK_BACKSPACE, '\177' }, { SDLK_TAB, '\t' },
-                            { SDLK_SPACE, ' ' },
+                            { SDLK_SPACE, ' ' }, { SDLK_KP_ENTER, '\r' },
                         };
                         bool shift = keys[SDLK_LSHIFT] || keys[SDLK_RSHIFT];
                         bool alt   = keys[SDLK_LALT]   || keys[SDLK_RALT];
