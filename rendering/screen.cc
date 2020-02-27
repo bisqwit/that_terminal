@@ -95,8 +95,9 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
     std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
     std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
 
-    bool old_blink1 = (lasttimer/10)&1, cur_blink1 = (timer/10)&1;
-    bool old_blink2 = (lasttimer/ 3)&1, cur_blink2 = (timer/ 3)&1;
+    bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
+    bool old_blink2 = (lasttimer/ 6)&1, cur_blink2 = (timer/ 6)&1;
+    bool old_blink3 = lasttimer%10<5, cur_blink3 = timer%10<5;
 
     std::size_t bar_column = ~std::size_t();
     std::pair<std::size_t, std::size_t> bar_ranges[3]={ {0,0}, {0,0}, {0,0} };
@@ -235,6 +236,15 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     }
                 }
 
+                bool do_cursor = x == cursx && y == cursy && cursorvis;
+                if(do_cursor)
+                {
+                    if(fr >= fy*7/8 && cur_blink3)
+                        {}
+                    else
+                        do_cursor = false;
+                }
+
                 for(std::size_t fc=0; fc<width; ++fc, ++pix)
                 {
                     auto fg    = cell.fgcolor;
@@ -251,6 +261,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     unsigned mask = ((widefont << 2) >> (actual_fx-fc/xscale)) & 0xF;
                     int take = taketables[mode][mask];
                     unsigned untake = std::max(0,128-take);
+                    unsigned pre_bg = bg, pre_fg = fg;
                     if(cell.inverse)
                     {
                         PersonTransform(bg,fg, xsize*fx, x*fx+fc,y*fy+fr,
@@ -258,7 +269,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                                       : y == (ysize-1) ? 2
                                       : 0);
                     }
-                    if(x == cursx && y == cursy && cursorvis)
+                    if(do_cursor)
                     {
                         unsigned curs = cursorcolor;
                         if(curs == bg) curs = fg;
@@ -274,7 +285,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                             auto p = Unpack(rgb);
                             return p[0]*299 + p[1]*587 + p[2]*114;
                         };
-                        if(brightness(fg) < brightness(bg))
+                        if(brightness(pre_fg) < brightness(pre_bg))
                             color = Mix(0x000000, color, 1,1,2);
                         else
                             color = Mix(0xFFFFFF, color, 1,1,2);

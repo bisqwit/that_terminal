@@ -116,6 +116,10 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
                      unsigned width, unsigned x, unsigned y,
                      unsigned action_type)
 {
+    // Action_type:
+    //  1 = top of screen (Person, green slide)
+    //  2 = bottom of screen (Status, yellow slide)
+    //  0 = anything else
     if(bgcolor != Cell{}.fgcolor)
     {
         // Only transform lines with white (ansi 7) background
@@ -134,12 +138,11 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
         }
         return xterm256table[result];
     };
-    if(action_type <= 1) bgcolor = GetSlide(slide1);
-    if(action_type == 2) bgcolor = GetSlide(slide2);
+    if(action_type <= 1) bgcolor = GetSlide(slide1); // Not bottom of screen
+    if(action_type == 2) bgcolor = GetSlide(slide2); // Is bottom of screen
 
-    if(y >= data_lines || action_type != 1)
+    if(y >= data_lines || action_type != 1) // Stop here if not to render person
     {
-        // Don't change mario unless requested
         return;
     }
 
@@ -157,7 +160,8 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
     char c = persondata[y*data_width + frame_start + x];
     switch(c)
     {
-        case ' ': bgcolor=fgcolor = Mix(bgcolor, fgcolor, 15,1,16); break;
+        case ' ': //bgcolor=fgcolor = Mix(bgcolor, fgcolor, 15,1,16); break;
+                  fgcolor         = Mix(bgcolor, fgcolor, 1,15,16); break;
         case '.': bgcolor=fgcolor = Mix(bgcolor, 0x000000, 7,1,8); break;
         case '\'':bgcolor=fgcolor = Mix(bgcolor, 0x000000, 6,2,8); break;
         case '#': bgcolor=fgcolor = 0x000000; break;
