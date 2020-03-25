@@ -176,7 +176,7 @@ public:
             cell.dirty = true;
         }
     }
-    void Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer);
+    void Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels);
     void Resize(std::size_t newsx, std::size_t newsy);
     void Dirtify();
 

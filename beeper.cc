@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstdio>
 
+#include "settings.hh"
 #include "beeper.hh"
 
 #include <SDL.h>
@@ -17,6 +18,8 @@ extern SDL_Window* window;
 
 void BeepOn()
 {
+    if(Headless) return;
+
     SDL_SysWMinfo info = {};
     SDL_VERSION(&info.version);
     if(!SDL_GetWindowWMInfo(window,&info))

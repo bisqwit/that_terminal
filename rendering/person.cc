@@ -1,8 +1,9 @@
-#include <chrono>
 #include <cstring>
+#include "clock.hh"
 #include "color.hh"
 #include "screen.hh" // for Cell
 #include "256color.hh"
+#include "settings.hh"
 
 static constexpr char persondata[] =
 "                      #####     "
@@ -25,24 +26,28 @@ static constexpr unsigned xcoordinates[2] = { 0, 16 };
 static constexpr unsigned person_width    = 16;
 static constexpr unsigned data_width      = 32, data_lines = 16;
 
-static auto start_time   = std::chrono::system_clock::now();
 static double walk_speed = 64.0; // pixels per second (64 is normal)
 static double frame_rate = 6.0;  // (6 is normal)
 
+static double GetStartTime()
+{
+    static double value = GetTime();
+    return value;
+}
+
 static int PersonBaseX(unsigned window_width)
 {
-    auto now_time = std::chrono::system_clock::now();
-
     // X coordinate where The Person is
-    std::chrono::duration<double> time_elapsed = (now_time - start_time);
+    double start = GetStartTime();
+    double time_elapsed = GetTime() - start;
     unsigned walkway_width = window_width + std::max(person_width, window_width/5) + person_width;
-    return unsigned(time_elapsed.count() * walk_speed) % walkway_width - person_width;
+    return unsigned(time_elapsed * walk_speed) % walkway_width - person_width;
 }
 static int PersonFrame()
 {
-    auto now_time = std::chrono::system_clock::now();
-    std::chrono::duration<double> time_elapsed = (now_time - start_time);
-    return unsigned(time_elapsed.count() * frame_rate) % 2;
+    double start = GetStartTime();
+    double time_elapsed = GetTime() - start;
+    return unsigned(time_elapsed * frame_rate) % 2;
 }
 
 struct ColorSlideCache

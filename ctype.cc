@@ -315,7 +315,7 @@ std::u32string FromUTF8(std::string_view s)
     constexpr unsigned con = 0b00000000000000000101010101011011u;
     for(unsigned char c: s)
     {
-        /*
+    #if 0
         if(bytesleft > 0)           { cache = cache * 0x40 + (c & 0x3F); --bytesleft; }
         else if((c & 0xE0) == 0xC0) { cache = c & 0x1F; bytesleft=1; }
         else if((c & 0xF0) == 0xE0) { cache = c & 0x0F; bytesleft=2; }
@@ -325,8 +325,7 @@ std::u32string FromUTF8(std::string_view s)
         {
             result += char32_t(cache);
         }
-        */
-        /**/
+    #else
         unsigned c0 = (cache & bytesleftmask);
         unsigned c1 = (((cache >> bytesleftshift) * 0x40u + (c & 0x3F)) << bytesleftshift) + (c0-1);
         unsigned c2 = ((con << ((c >> 4)*2)) & 0xFFFFFFFFu) >> 30; // number of trailing bytes (0-3) given this first byte
@@ -343,7 +342,7 @@ std::u32string FromUTF8(std::string_view s)
             else
                 result.back() = (result.back() - 0xD800u)*0x400u + (c - 0xDC00u) + 0x10000u;
         }
-        /**/
+    #endif
     }
     return result;
 }
@@ -422,34 +421,41 @@ std::string ToUTF8(std::u32string_view s)
 template<typename C>
 alignas(32) static const C spaces[32]={' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
                                            ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '};
-template<std::size_t N, typename C, typename T = unsigned>
+template<std::size_t Nbytes, typename C, typename T = unsigned>
 static inline bool compa(const void* a)
 {
     const T* aa = (const T*)a;
     const T* bb = (const T*)spaces<C>;
     T result = ~T();
     #pragma omp simd reduction(&:result)
-    for(unsigned n=0; n<N/sizeof(T); ++n) 
+    for(unsigned n=0; n<Nbytes / sizeof(T); ++n)
         result &= (aa[n] == bb[n]);
+    // If result==0, then a mismatch was found
     return result;
 }
 
+//#include <iostream>
 std::size_t CountIndent(std::u32string_view text, std::size_t begin)
 {
-    typedef std::decay_t<decltype(text[0])> C;
+    typedef std::remove_const_t<std::remove_reference_t<decltype(text[0])>> C;
     std::size_t oldbegin = begin, size = text.size();
     const auto data = text.data();
+
+/**/
 #if defined(__clang__) || defined(__ICC)
-    while(begin+32u <= size && !compa<32u,C,unsigned long>(data+begin)) { begin += 32u; }
-    while(begin+8u <= size && std::memcmp(data+begin, spaces<C>, 8u)==0) { begin += 8u; }
+    while(begin+32u/sizeof(C) <= size && compa<32u,C,unsigned long>(data+begin)) { begin += 32u/sizeof(C); }
+    while(begin+8u/sizeof(C) <= size && std::memcmp(data+begin, spaces<C>, 8u)==0) { begin += 8u/sizeof(C); }
 #else
-    while(begin+16u <= size && !compa<16u,C,unsigned long>(data+begin)) { begin += 16u; }
-    if(begin+8u <= size && std::memcmp(data+begin, spaces<C>, 8u)==0) { begin += 8u; }
+    while(begin+16u/sizeof(C) <= size && compa<16u,C,unsigned long>(data+begin)) { begin += 16u/sizeof(C); }
+    if(begin+8u/sizeof(C) <= size && std::memcmp(data+begin, spaces<C>, 8u)==0) { begin += 8u/sizeof(C); }
 #endif
+/**/
+
     //if(begin+16u <= size && !compa<16u,C,unsigned int>(data+begin)) { begin += 16u; }
     //if(begin+8u <= size && !compa<8u,unsigned long>(data+begin, spaces<C>)) { begin += 8u;  }
     //while(begin < size && data[begin]==' ') { begin += 1u; }
-    std::size_t pos = text.find_first_not_of(U' ', begin);
+    std::size_t pos = text.find_first_not_of(C(' '), begin);
     if(pos == text.npos) pos = text.size();
+    //std::cerr << "Indent in <" << ToUTF8(text.substr(oldbegin)) << "> (oldbegin="<<oldbegin<<",begin="<<begin<<",pos="<<pos<<" is " << (pos-oldbegin) << "\n";
     return pos - oldbegin;
 }

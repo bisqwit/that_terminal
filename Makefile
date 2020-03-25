@@ -36,7 +36,9 @@ OBJS=\
 	rendering/cset.o \
 	beeper.o \
 	main.o \
-	ctype.o
+	ctype.o \
+	autoinput.o \
+	clock.o
 
 term: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)

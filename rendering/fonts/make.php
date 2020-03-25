@@ -13,6 +13,7 @@ function CreateTranslation($sets)
   $characters = Array();
   $dfl_setname = 'cp437';
   foreach($sets as $setname) { $dfl_setname = $setname; break; }
+  // Check which characters we have
   foreach($sets as $setname)
     switch($setname)
     {
@@ -29,15 +30,18 @@ function CreateTranslation($sets)
           {
             $cno = unpack('V/V', $s);
             $utfchar = $cno[1];
+            // This $utfchar is found in $setname at index $n
             if(!isset($characters[$utfchar]))
               $characters[$utfchar] = Array($setname, $n);
           }
         }
     }
+  // Check which characters are missing
   for($n=0; $n<=0x10FFFF; ++$n)
     if(!isset($characters[$n]))
     {
       $trans = Array();
+      // Check if some $setname has a good approximation for it
       foreach($sets as $setname)
         switch($setname)
         {

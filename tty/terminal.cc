@@ -690,7 +690,7 @@ void termwindow::Write(std::u32string_view s)
                 if(p[0] < p[1] && p[1] <= wnd.ysize)
                 {
                     top = p[0]-1; bottom = p[1]-1;
-                    fprintf(stderr, "Creating a window with top=%zu, bottom=%zu\n", top,bottom);
+                    //fprintf(stderr, "Creating a window with top=%zu, bottom=%zu\n", top,bottom);
                     ClampedMove(0, top, false);
                 }
                 break;
@@ -933,7 +933,7 @@ void termwindow::Resize(std::size_t newsx, std::size_t newsy)
     if(bottom == wnd.ysize-1)
     {
         bottom = newsy-1;
-        fprintf(stderr, "Creating a window with top=%zu, bottom=%zu\n", top,bottom);
+        //fprintf(stderr, "Creating a window with top=%zu, bottom=%zu\n", top,bottom);
     }
     wnd.Resize(newsx, newsy);
 }

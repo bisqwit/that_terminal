@@ -4,6 +4,8 @@
 #include "screen.hh"
 #include "color.hh"
 #include "person.hh"
+#include "clock.hh"
+#include "settings.hh"
 
 #include "fonts.inc"
 
@@ -60,7 +62,7 @@ static constexpr std::array<unsigned char,16> taketables[] =
     #undef i
 };
 
-void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsigned timer)
+void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
     std::size_t actual_fx = fx, actual_fy = fy;
 
@@ -95,15 +97,19 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
     std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
     std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
 
+    unsigned timer = unsigned(GetTime() * 60.0);
     bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
     bool old_blink2 = (lasttimer/ 6)&1, cur_blink2 = (timer/ 6)&1;
     bool old_blink3 = lasttimer%10<5, cur_blink3 = timer%10<5;
 
-    std::size_t bar_column = ~std::size_t();
-    std::pair<std::size_t, std::size_t> bar_ranges[3]={ {0,0}, {0,0}, {0,0} };
+    std::vector<std::pair<std::size_t, std::array<std::pair<std::size_t, std::size_t>, 3>>> bar_ranges;
+    /* Bar_ranges: [2] = cursor position
+                   [1] = visible region
+                   [0] = entire bar
+                   (first,second) = first row (incl) and last row (excl)
+     */
     auto FindScrollBarInfo = [&]()
     {
-        std::size_t cur_row=0, num_rows=0, cur_top=0;
         // If on row 0 there is a "<digits>" followed by dim "/<digits>",
         // parse these two numbers (current row, number of rows).
         // If on row 1, column 0 there is a dim "<digits>", parse that
@@ -113,52 +119,105 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
         // It only works if your .joerc contains this text:
         //    "Row %r\d/%l\d"
         // on the line with -rmsg. And you have linenumbers enabled (^Tn)
-
-        if(ysize < 2) return;
-        // Parse the status line at top of screen
-        for(std::size_t x=0; x<xsize; ++x)
-            if(cells[x].ch == U'/' && cells[x].dim && cells[x].inverse)
-            {
-                // Parse the number of rows in the file (follows that '/')
-                for(std::size_t n=1; x+n<xsize && cells[x+n].ch >= U'0' && cells[x+n].ch <= U'9'; ++n)
-                    num_rows = num_rows*10 + cells[x+n].ch-U'0';
-                // Parse the current row in file (right before the '/')
-                for(std::size_t mul=1, n=x; n-- > 0 && cells[n].ch >= U'0' && cells[n].ch <= U'9'; mul*=10)
-                    cur_row += (cells[n].ch-U'0')*mul;
-                break;
-            }
-        if(!(num_rows && cur_row)) return;
-        // Identify the line number of file that is at the top of the window currently
-        for(std::size_t x=0; x<xsize; ++x)
+        for(std::size_t row=0; row+1<ysize; ++row)
         {
-            if(cells[1*xsize + x].ch == U' ') { if(cur_top) { bar_column=x; break; } else continue; }
-            if(cells[1*xsize + x].ch < U'0' || cells[1*xsize + x].ch > U'9') break;
-            cur_top = cur_top*10 + cells[1*xsize + x].ch-U'0';
+            std::size_t cur_row=0, num_rows=0, cur_top=0, bar_column=0;
+            // Parse the status line at top of screen
+            for(std::size_t x=0; x<xsize; ++x)
+                if(cells[row*xsize + x].ch == U'/' && cells[row*xsize + x].dim && cells[row*xsize + x].inverse)
+                {
+                    // Parse the number of rows in the file (follows that '/')
+                    for(std::size_t n=1; x+n<xsize && cells[row*xsize + x+n].ch >= U'0' && cells[row*xsize + x+n].ch <= U'9'; ++n)
+                        num_rows = num_rows*10 + cells[row*xsize + x+n].ch-U'0';
+                    // Parse the current row in file (right before the '/')
+                    for(std::size_t mul=1, n=x; n-- > 0 && cells[row*xsize + n].ch >= U'0' && cells[row*xsize + n].ch <= U'9'; mul*=10)
+                        cur_row += (cells[row*xsize + n].ch-U'0')*mul;
+                    break;
+                }
+            if(!(num_rows && cur_row)) continue;
+            // Identify the line number of file that is at the top of the window currently
+            for(std::size_t x=0; x<xsize; ++x)
+            {
+                if(cells[row*xsize + 1*xsize + x].ch == U' ') { if(cur_top) { bar_column=x; break; } else continue; }
+                if(cells[row*xsize + 1*xsize + x].ch < U'0' || cells[row*xsize + 1*xsize + x].ch > U'9') break;
+                cur_top = cur_top*10 + cells[row*xsize + 1*xsize + x].ch-U'0';
+            }
+            if(!(cur_top && bar_column)) continue;
+
+            // Find how many rows of room there is for scrollbar
+            std::size_t firstrow = row + 1, height = 0;
+            for(std::size_t y=firstrow; y<ysize; ++y, ++height)
+            {
+                if(cells[y*xsize + bar_column].inverse) break;
+                if(cells[y*xsize + bar_column].ch != U' ') break;
+                if(y != firstrow && !cells[y*xsize + bar_column].dim) break;
+                /*
+                if(cells[y*xsize + bar_column - 1].ch < U'0'
+                || cells[y*xsize + bar_column - 1].ch > U'9') break;
+                */
+            }
+            if(!height) continue;
+
+            std::array<std::pair<std::size_t, std::size_t>, 3> bar =
+            {
+                // entire bar
+                std::pair{ firstrow*fy,
+                           firstrow*fy + height*fy },
+                // visible region
+                std::pair{ firstrow*fy + height*fy * (cur_top-1)        / num_rows,
+                           firstrow*fy + height*fy * std::min(num_rows, cur_top+height-1) / num_rows },
+                // cursor position
+                std::pair{ firstrow*fy + height*fy * (cur_row-1)        / num_rows,
+                           firstrow*fy + height*fy * (cur_row+1-1)      / num_rows }
+            };
+            bar_ranges.emplace_back(bar_column, bar);
         }
-        if(!(cur_top && bar_column)) { bar_column = ~std::size_t(); return; }
-        // Find how many rows of room there is for scrollbar
-        std::size_t firstrow = 1*fy, height = 0;
-        for(std::size_t y=1; y<ysize; ++y, ++height)
-            if(!(cells[y*xsize + bar_column].dim && cells[y*xsize + bar_column].ch == U' '))
-                { break; }
-        std::size_t heightp = height * fy; // scrollbar height in pixels
-        // cursor position
-        bar_ranges[0]        = std::pair(firstrow, firstrow+std::max<std::size_t>(1,heightp));
-        // visible region
-        bar_ranges[1].first  = firstrow + (cur_top-1)        * heightp / num_rows;
-        bar_ranges[1].second = firstrow + (cur_top+height-1) * heightp / num_rows;
-        // entire bar
-        bar_ranges[2].first  = firstrow + (cur_row-1)        * heightp / num_rows;
-        bar_ranges[2].second = firstrow + (cur_row+1-1)      * heightp / num_rows;
     };
     FindScrollBarInfo();
 
+    auto substitutions = [&]
+    {
+        // Replace $H:$M:$S with time, $TEMP with temperature if found on inverse background
+        std::unordered_map<std::size_t/*position*/, char32_t> substitutions;
+        auto compare = [&](std::size_t x, std::size_t y, std::u32string_view str)
+        {
+            for(auto c: str)
+            {
+                if(!cells[y*xsize + x].inverse) return false;
+                if(cells[y*xsize + x].ch != c) return false;
+                ++x;
+            }
+            return true;
+        };
+
+        if(EnableTimeTemp)
+        {
+            char time[16], temp[16], temp1[]="+5.5";
+            unsigned t = GetTime() + 14*3600;
+            std::sprintf(time, "%02d:%02d:%02d", t/3600, (t/60)%60, t%60);
+            std::sprintf(temp, "%5s", temp1);
+            for(std::size_t y=0; y<ysize; ++y) // cell-row
+                for(std::size_t x=0; x<xsize; ++x) // cell-column
+                {
+                    if(x+8 < xsize && compare(x,y,U"$H:$M:$S"))
+                        for(std::size_t p=0; time[p]; ++p)
+                            substitutions.emplace(y*xsize+x+p, time[p]);
+                    if(x+5 < xsize && compare(x,y,U"$TEMP"))
+                        for(std::size_t p=0; temp[p]; ++p)
+                            substitutions.emplace(y*xsize+x+p, temp[p]);
+                }
+        }
+        return substitutions;
+    }();
+
     std::size_t screen_width  = fx*xsize;
     //std::size_t screen_height = fy*ysize;
+    #pragma omp parallel for schedule(static) collapse(2) num_threads(4)
     for(std::size_t y=0; y<ysize; ++y) // cell-row
-    {
         for(std::size_t fr=0; fr<fy; ++fr) // font-row
         {
+            bool is_person_row = cells[y*xsize+0].inverse && cells[y*xsize+xsize-1].inverse;
+
             std::uint32_t* pix = pixels + (y*fy+fr)*screen_width;
             std::size_t xroom = xsize;
             for(std::size_t x=0; x<xroom; ++x) // cell-column
@@ -170,18 +229,29 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                 unsigned width = fx * xscale;
 
                 if(!cell.dirty
-                && y > 0 /* always render line 0 because of person */
+                && !is_person_row
                 && (x != cursx || y != cursy)
                 && (x != lastcursx || y != lastcursy)
                 && (cell.blink!=1 || old_blink1 == cur_blink1)
                 && (cell.blink!=2 || old_blink2 == cur_blink2)
-                && x != bar_column
                   )
                 {
-                    pix += width;
-                    continue;
+                    bool has_bar = false;
+                    for(auto& bar: bar_ranges)
+                        if(x == bar.first)
+                            { has_bar = true; break; }
+                    if(!has_bar)
+                    {
+                        pix += width;
+                        continue;
+                    }
                 }
                 unsigned translated_ch = map(cell.ch); // Character-set translation
+
+                if(auto i = substitutions.find(y * xsize + x); i != substitutions.end())
+                {
+                    translated_ch = map(i->second);
+                }
 
                 unsigned fr_actual = fr * actual_fy / fy;
                 switch(cell.render_size)
@@ -214,32 +284,38 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
 
                 std::size_t sb_begin=0, sb_end=0;
                 unsigned sb_xormask = 0;
-                if(x == bar_column) // scrollbar displayed in this column?
-                {
-                    sb_begin = width/8;
-                    sb_end   = width - sb_begin;
-                    std::size_t row = y*fy+fr;
-                    if(row >= bar_ranges[2].first && row < bar_ranges[2].second)
+                for(const auto& [bar_column,bar]: bar_ranges)
+                    if(x == bar_column)
                     {
-                        // cursor
-                        sb_xormask = 0xFFFFBF;
+                        std::size_t row = y*fy+fr;
+                        if(row >= bar[2].first && row < bar[2].second)
+                        {
+                            // cursor
+                            sb_xormask = 0xFFFFBF;
+                        }
+                        else if(row >= bar[1].first && row < bar[1].second)
+                        {
+                            // window
+                            sb_xormask = 0x7F7FAF;
+                        }
+                        else if(row >= bar[0].first && row < bar[0].second)
+                        {
+                            // bar
+                            sb_xormask = 0x3F3F6F;
+                        }
+                        else
+                            continue;
+                        sb_begin = width/8;
+                        sb_end   = width - sb_begin;
+                        break;
                     }
-                    else if(row >= bar_ranges[1].first && row < bar_ranges[1].second)
-                    {
-                        // window
-                        sb_xormask = 0x7F7FAF;
-                    }
-                    else if(row >= bar_ranges[0].first && row < bar_ranges[0].second)
-                    {
-                        // bar
-                        sb_xormask = 0x3F3F6F;
-                    }
-                }
 
                 bool do_cursor = x == cursx && y == cursy && cursorvis;
                 if(do_cursor)
                 {
-                    if(fr >= fy*7/8 && cur_blink3)
+                    unsigned lim = 7;
+                    if(cells[4].ch == U'O') lim = 3;
+                    if(fr >= fy*lim/8 && cur_blink3)
                         {}
                     else
                         do_cursor = false;
@@ -264,8 +340,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
                     unsigned pre_bg = bg, pre_fg = fg;
                     if(cell.inverse)
                     {
-                        PersonTransform(bg,fg, xsize*fx, x*fx+fc,y*fy+fr,
-                                        y == 0 ? 1
+                        PersonTransform(bg,fg, xsize*fx, x*fx+fc, y*fy+fr,
+                                        (is_person_row && y==0) ? 1
                                       : y == (ysize-1) ? 2
                                       : 0);
                     }
@@ -302,13 +378,17 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels, unsig
 
                     *pix = color;
                 }
-                if(fr == (fy-1))
+                /*if(fr == (fy-1))
                 {
                     cell.dirty = false;
-                }
+                }*/
             }
         }
-    }
+
+    for(std::size_t y=0; y<ysize; ++y) // cell-row
+        for(std::size_t x=0; x<xsize; ++x) // cell-column
+            cells[y * xsize + x].dirty = false;
+
     lastcursx = cursx;
     lastcursy = cursy;
     lasttimer = timer;
