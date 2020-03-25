@@ -25,6 +25,7 @@ bool Headless       = false; // Disables window creation (useless without autoin
 bool EnableTimeTemp = false; // Enables substitution of $H:$M:$S and $TEMP in rendering
 bool AllowAutoInput = false; // If enabled, reads inputter.dat and streams that into console
 bool DoVideoRecording = false; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
+bool IgnoreScale    = false;
 static double AimedFrameRate = 30; // Defines also video recording framerate
 static unsigned PollInterval = 64;
 
@@ -45,10 +46,10 @@ unsigned VidCellWidth = 8, VidCellHeight = 12, WindowWidth  =129, WindowHeight =
 //static unsigned WindowWidth  = 80, WindowHeight = 25;
 //static float ScaleX = 3.f;
 //static float ScaleY = 3.5f;
-//static float ScaleX = 2.f;
-//static float ScaleY = 2.f;
-static float ScaleX = 1.0f;
-static float ScaleY = 1.0f;
+static float ScaleX = 2.f;
+static float ScaleY = 2.f;
+//static float ScaleX = 1.0f;
+//static float ScaleY = 1.0f;
 
 /* End settings */
 
@@ -74,8 +75,11 @@ namespace
         pixels_height = cells_vertical   * cell_height_pixels;
         bufpixels_width = cells_horizontal * VidCellWidth;
         bufpixels_height = cells_vertical  * VidCellHeight;
-        ScaleX = 1;
-        ScaleY = 1;
+        if(IgnoreScale)
+        {
+            ScaleX = 1;
+            ScaleY = 1;
+        }
 
         if(!Headless)
         {
