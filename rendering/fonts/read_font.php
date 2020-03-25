@@ -1,5 +1,102 @@
 <?php
 
+function Read_PSFgzEncoding($filename)
+{
+  $data = file_get_contents('compress.zlib://'.$filename);
+  $header1 = unpack('nmagic/Cmode/Ccsize', $data);
+  $header2 = unpack('Nmagic/Vvers/Vhdrsize/Vflags/Vlength/Vcharsize/Vheight/Vwidth', $data);
+  if($header1['magic'] == 0x3604)
+  {
+    // PSF ver1
+    $fontlen  = ($header1['mode'] & 1) ? 512 : 256;
+    $hastable = ($header1['mode'] & 6);
+    $offset   = 4;
+    $utf8     = false;
+    $charsize = $header1['csize'];
+    $width    = 8;
+    $height   = $header1['csize'];
+  }
+  elseif($header2['magic'] == 0x72B54A86)
+  {
+    // PSF ver2
+    $fontlen  = $header2['length'];
+    $hastable = $header2['flags'] & 1;
+    $utf8     = true;
+    $offset   = $header2['hdrsize'];
+    $charsize = $header2['charsize'];
+    $width    = $header2['width'];
+    $height   = $header2['height'];
+  }
+  #print "utf8? $utf8 table? $hastable\n";
+  $table = Array();
+  if($hastable)
+  {
+    $pos = $offset + $fontlen * $charsize;
+    $ReadUC = $utf8
+      ? function()use(&$pos,&$data)
+        {
+          $unichar = ord($data[$pos++]);
+          #printf("%02X ", $unichar);
+          if($unichar == 0xFE) return 'ss';
+          if($unichar == 0xFF) return 'term';
+          if($unichar >= 0x80)
+          {
+            if(($unichar & 0xF8) == 0xF0) $unichar &= 0x07;
+            elseif(($unichar & 0xF0) == 0xE0) $unichar &= 0x0F;
+            elseif(($unichar & 0xE0) == 0xC0) $unichar &= 0x1F;
+            else $unichar &= 0x7F;
+            while($pos < strlen($data) && (ord($data[$pos]) & 0xC0) == 0x80)
+            {
+              #printf("%02X ", ord($data[$pos]));
+              $unichar = ($unichar << 6) | (ord($data[$pos++]) & 0x3F);
+            }
+          }
+          #print "\n";
+          return $unichar;
+        }
+      : function()use(&$pos,&$data)
+        {
+          $unichar = ord($data[$pos++]);
+          $unichar |= ord($data[$pos++]) << 8;
+          if($unichar == 0xFFFE) return 'ss';
+          if($unichar == 0xFFFF) return 'term';
+          return $unichar;
+        };
+    for($n=0; $n<$fontlen; ++$n)
+    {
+      // Grammar:
+      //   UC* (SS UC+)* TERM
+      $list = Array();
+      // Single-codepoint alternatives for this glyph
+      for(;;)
+      {
+        $code = $ReadUC();
+        if($code === 'term') break;
+        if($code === 'ss') break;
+        $list[] = $code;
+      }
+      // Multi-codepoint alternatives for this glyph (for e.g. combining diacritics)
+      while($code === 'ss')
+      {
+        $seq = Array();
+        for(;;)
+        {
+          $code = $ReadUC();
+          if($code === 'ss' || $code === 'term') break;
+          $seq[] = $code;
+        }
+        // We ignore all of them if they have more than 1 codepoint.
+        if(count($seq) == 1) $list[] = $seq[0]; //else { print 'seq'; print_r($seq); }
+      }
+      foreach($list as $u)
+        $table[$u] = $n;
+    }
+    return $table;
+  }
+  #print "no table\n";
+  return false;
+}
+
 function Read_PSFgz($filename, $height)
 {
   $data = file_get_contents('compress.zlib://'.$filename);
@@ -29,60 +126,23 @@ function Read_PSFgz($filename, $height)
   }
   //print_r($header1);
   //print_r($header2);
-  if(false && $hastable)
-  {
-    $pos = $offset + $fontlen * $charsize;
-    $list  = Array();
-    for($n=0; $n<$fontlen; ++$n)
-    {
-      $inseq = 0;
-      $list[$n] = Array();
-      $list_last = &$list[$n][0];
-      while($pos < strlen($data))
-      {
-        if($utf8)
-        {
-          if($data[$pos] == "\xFF") { ++$pos; break; }
-          if($data[$pos] == "\xFE") { ++$pos; $inseq = 1; continue; }
-          $unichar = ord($data[$pos++]);
-          if($unichar >= 128)
-          {
-            if(($unichar & 0xF8) == 0xF0) $unichar &= 0x07;
-            elseif(($unichar & 0xF0) == 0xE0) $unichar &= 0x0F;
-            elseif(($unichar & 0xE0) == 0xC0) $unichar &= 0x1F;
-            else $unichar &= 0x7F;
-            while((ord($data[$pos]) & 0xC0) == 0xC0)
-              $unichar = ($unichar << 6) | (ord($data[$pos++]) & 0x3F);
-          }
-        }
-        else
-        {
-          $unichar = ord($data[$pos++]);
-          $unichar |= ord($data[$pos++]) << 8;
-          if($unichar == 0xFFFF) break;
-          if($unichar == 0xFFFE) { $inseq = 1; continue; }
-        }
-        print "$n: inseq=$inseq unichar=$unichar\n";
-        if($inseq < 2)
-        {
-          $list[$n][] = Array($unichar);
-          $list_last = &$list[count($list[$n])-1];
-        }
-        else
-        {
-          $list_last[] = $unichar;
-        }
-        if($inseq) ++$inseq;
-      }
-    }
-    print_r($list);
-  }
+  $table = Read_PSFgzEncoding($filename);
+
   $result = Array();
   for($n=0; $n<$fontlen; ++$n)
   {
-    $pos = $offset + $n*$charsize;
-    for($m=0; $m<$height; ++$m)
-      $result[$n][$m] = ord($data[$pos+$m]);
+    $index = Array($n);
+    if($table !== false)
+    {
+      $index = Array();
+      foreach($table as $u=>$c) if($c==$n) $index[] = $u;
+    }
+    foreach($index as $ch)
+    {
+      $pos = $offset + $n*$charsize;
+      for($m=0; $m<$height; ++$m)
+        $result[$ch][$m] = ord($data[$pos+$m]);
+    }
   }
   return $result;
 }
@@ -163,8 +223,8 @@ function Read_BDF($filename, $height)
           $m = (int)@$map[$y];
           if($fontwidth > 8)
           {
-            $bitmap[$chno][$y + 0          ] = $m & 0xFF;
-            $bitmap[$chno][$y + $fontheight] = $m >> 8;
+            $bitmap[$chno][$y*2 + 0] = ($m >> (16-$fontwidth)) & 0xFF;
+            $bitmap[$chno][$y*2 + 1] = ($m >> (16-$fontwidth)) >> 8;
           }
           else
           {
