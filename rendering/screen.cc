@@ -334,9 +334,13 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     use_font + translated_ch * use_charsize
                              + fr_actual * use_fontsize;
 
+                bool dim = cell.dim && (use_fx >= 7);
+                // Disable dim on fonts narrower than 7,
+                // because it makes them look bad.
+
                 const unsigned mode = cell.italic*(fr*8/fy)
                                     + 8*cell.bold
-                                    + 16*cell.dim;
+                                    + 16*dim;
 
                 unsigned widefont = fontptr[0];
                 if(use_fx >= 8)  {widefont |= (fontptr[1] << 8);
