@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <tuple>
 #include <array>
 
 #include "screen.hh"
@@ -6,11 +7,14 @@
 #include "person.hh"
 #include "clock.hh"
 #include "settings.hh"
+#include "ctype.hh"
 
 #include "fonts.inc"
 
-static std::unordered_map<unsigned, std::pair<const unsigned char*, unsigned(*)(char32_t)>> fonts
+static std::unordered_map<unsigned, std::pair<const unsigned char*, std::pair<unsigned,bool>(*)(char32_t)>> fonts
 {
+    { 4*256 + 5,  {ns_f4x5::bitmap, ns_f4x5::unicode_to_bitmap_index} },
+    { 4*256 + 6,  {ns_f4x6::bitmap, ns_f4x6::unicode_to_bitmap_index} },
     { 5*256 + 7,  {ns_f5x7::bitmap, ns_f5x7::unicode_to_bitmap_index} },
     { 5*256 + 8,  {ns_f5x8::bitmap, ns_f5x8::unicode_to_bitmap_index} },
     { 6*256 + 9,  {ns_f6x9::bitmap, ns_f6x9::unicode_to_bitmap_index} },
@@ -29,6 +33,8 @@ static std::unordered_map<unsigned, std::pair<const unsigned char*, unsigned(*)(
     { 9*256 + 15, {ns_f9x15::bitmap, ns_f9x15::unicode_to_bitmap_index} },
     { 9*256 + 18, {ns_f9x18::bitmap, ns_f9x18::unicode_to_bitmap_index} },
     { 10*256+ 20, {ns_f10x20::bitmap, ns_f10x20::unicode_to_bitmap_index} },
+    { 12*256+ 13, {ns_f12x13::bitmap, ns_f12x13::unicode_to_bitmap_index} },
+    { 18*256+ 18, {ns_f18x18::bitmap, ns_f18x18::unicode_to_bitmap_index} },
 };
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
@@ -41,6 +47,8 @@ static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,b
         {
             if(cur && !next)
             {
+// abcdefg
+// 乍 ながら
                 if(prev) result *= float(1.f/3.f); // diminish rightmost pixel
                 else     result *= float(2.f/3.f); // diminish all pixels
             }
@@ -74,38 +82,53 @@ static constexpr std::array<unsigned char,16> taketables[] =
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
-    std::size_t actual_fx = fx, actual_fy = fy;
-
-    auto i = fonts.find(actual_fx*256 + actual_fy);
-    if(i == fonts.end())
+    auto FindFont = [](std::size_t fx, std::size_t fy)
     {
-        int worst = 0;
-        for(auto j = fonts.begin(); j != fonts.end(); ++j)
+        std::size_t actual_fx = fx, actual_fy = fy;
+
+        auto i = fonts.find(actual_fx*256 + actual_fy);
+        if(i == fonts.end())
         {
-            std::size_t jx = j->first / 256, jy = j->first % 256;
-            int wdiff = std::abs(int(jx - fx));
-            int hdiff = std::abs(int(jy - fy));
-            int diff = wdiff*wdiff + hdiff*hdiff;
-            bool good = diff < worst;
-            if(diff == worst)
+            int worst = 0;
+            for(auto j = fonts.begin(); j != fonts.end(); ++j)
             {
-                if(jx <= fx && jy <= fy) good = true;
+                std::size_t jx = j->first / 256, jy = j->first % 256;
+                int wdiff = std::abs(int(jx - fx));
+                int hdiff = std::abs(int(jy - fy));
+                int diff = wdiff*wdiff + hdiff*hdiff;
+                if(jy == 18 && fy <= 16) continue;
+                bool good = diff < worst;
+                if(diff == worst)
+                {
+                    if(jx <= fx && jy <= fy) good = true;
+                }
+                if(!worst || good)
+                {
+                    i     = j;
+                    worst = diff;
+                }
             }
-            if(!worst || good)
-            {
-                i     = j;
-                worst = diff;
-            }
+            actual_fx = i->first / 256;
+            actual_fy = i->first % 256;
         }
-        actual_fx = i->first / 256;
-        actual_fy = i->first % 256;
-    }
 
-    const unsigned char* font = i->second.first;
-    const auto            map = i->second.second;
+        const unsigned char* font = i->second.first;
+        const auto            map = i->second.second;
 
-    std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
-    std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
+        std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
+        std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
+
+        return std::tuple{actual_fx,actual_fy, font,map,
+                          font_row_size_in_bytes,
+                          character_size_in_bytes};
+    };
+    auto [actual_fx, actual_fy, font, map,
+          font_row_size_in_bytes, character_size_in_bytes]
+            = FindFont(fx, fy);
+    auto [actual_fx2,actual_fy2,font2,map2,
+          font_row_size_in_bytes2,character_size_in_bytes2]
+            = FindFont(std::max<unsigned>(12,fx*2),
+                       std::max<unsigned>(13,fy));
 
     unsigned timer = unsigned(GetTime() * 60.0);
     bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
@@ -230,6 +253,9 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
             std::uint32_t* pix = pixels + (y*fy+fr)*screen_width;
             std::size_t xroom = xsize;
+            std::size_t visualcolumn = 0;
+            bool cursor_seen = !cursorvis;
+            if(y != cursy && y != lastcursy) cursor_seen = true;
             for(std::size_t x=0; x<xroom; ++x) // cell-column
             {
                 auto& cell = cells[y * xsize + x];
@@ -238,10 +264,48 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 if(cell.render_size && (x+1) < xroom) { xscale = 2; --xroom; }
                 unsigned width = fx * xscale;
 
+                auto char_to_render = cell.ch;
+                if(auto i = substitutions.find(y * xsize + x); i != substitutions.end())
+                    char_to_render = i->second;
+
+                // Character-set translation
+                auto use_fx = actual_fx;
+                auto use_fy = actual_fy;
+                auto use_charsize = character_size_in_bytes;
+                auto use_fontsize = font_row_size_in_bytes;
+                auto [translated_ch, avail] = map(char_to_render);
+                auto use_font = font;
+
+                bool was_double = isdouble(char_to_render);
+                if(was_double)
+                {
+                    xscale *= 2;
+                    width *= 2;
+                }
+                if(!avail && font2 != font)// && was_double)
+                {
+                    auto [translated_ch2, avail2] = map2(char_to_render);
+                    if(avail2)
+                    {
+                        translated_ch = translated_ch2;
+                        // Look up double-width symbols in alternative font,
+                        // if the primary font does not have it
+                        use_fx = actual_fx2;
+                        use_fy = actual_fy2;
+                        use_charsize = character_size_in_bytes2;
+                        use_fontsize = font_row_size_in_bytes2;
+                        use_font = font2;
+                        if(was_double)
+                        {
+                            xscale /= 2;
+                        }
+                    }
+                }
+
                 if(!cell.dirty
                 && !is_person_row
-                && (x != cursx || y != cursy)
-                && (x != lastcursx || y != lastcursy)
+                && (visualcolumn != cursx     || y != cursy)
+                && (visualcolumn != lastcursx || y != lastcursy)
                 && (cell.blink!=1 || old_blink1 == cur_blink1)
                 && (cell.blink!=2 || old_blink2 == cur_blink2)
                   )
@@ -252,18 +316,13 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                             { has_bar = true; break; }
                     if(!has_bar)
                     {
-                        pix += width;
+                        pix          += width;
+                        visualcolumn += 1 + was_double;
                         continue;
                     }
                 }
-                unsigned translated_ch = map(cell.ch); // Character-set translation
 
-                if(auto i = substitutions.find(y * xsize + x); i != substitutions.end())
-                {
-                    translated_ch = map(i->second);
-                }
-
-                unsigned fr_actual = fr * actual_fy / fy;
+                unsigned fr_actual = fr * use_fy / fy;
                 switch(cell.render_size)
                 {
                     default: break;
@@ -272,17 +331,18 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 }
 
                 const unsigned char* fontptr =
-                    font + translated_ch * character_size_in_bytes
-                         + fr_actual * font_row_size_in_bytes;
+                    use_font + translated_ch * use_charsize
+                             + fr_actual * use_fontsize;
 
                 const unsigned mode = cell.italic*(fr*8/fy)
                                     + 8*cell.bold
                                     + 16*cell.dim;
 
                 unsigned widefont = fontptr[0];
-                if(actual_fx >= 8) widefont |= (fontptr[1] << 8);
+                if(use_fx >= 8)  {widefont |= (fontptr[1] << 8);
+                if(use_fx >= 16) {widefont |= (fontptr[2] << 16);
+                if(use_fx >= 24) {widefont |= (fontptr[3] << 24);}}}
 
-                // TODO: 16-pix wide font support
                 if(!cell.italic) widefont <<= 1;
 
                 if(cell.blink == 1 && !cur_blink1) widefont = 0;
@@ -321,7 +381,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         break;
                     }
 
-                bool do_cursor = x == cursx && y == cursy && cursorvis;
+                bool do_cursor = !cursor_seen && visualcolumn >= cursx && y == cursy;
                 if(do_cursor)
                 {
                     unsigned lim = 7;
@@ -330,22 +390,26 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         {}
                     else
                         do_cursor = false;
+                    cursor_seen = true;
                 }
 
-                for(std::size_t fc=0; fc<width; ++fc, ++pix)
+                for(std::size_t fc=0; fc<width; ++fc)
                 {
                     auto fg    = cell.fgcolor;
                     auto bg    = cell.bgcolor;
-
-                    //fg = 0xAAAAAA;
-                    //bg = 0x000055;
 
                     if(cell.inverse ^ inverse)
                     {
                         std::swap(fg, bg);
                     }
 
-                    unsigned mask = ((widefont << 2) >> (actual_fx-fc/xscale)) & 0xF;
+                    std::size_t fontcolumn = fc/xscale;
+                    if(use_font == font2 && font != font2)
+                    {
+                        fontcolumn = fontcolumn * use_fx / width;
+                    }
+
+                    unsigned mask = ((widefont << 2) >> (use_fx - fontcolumn)) & 0xF;
                     int take = taketables[mode][mask];
                     unsigned untake = std::max(0,128-take);
                     unsigned pre_bg = bg, pre_fg = fg;
@@ -378,17 +442,19 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                             color = Mix(0xFFFFFF, color, 1,1,2);
                     }
 
-                    if(color && actual_fx < fx)
+                    if(color && use_fx < fx)
                     {
                         // Make brighter to compensate for black 9th column
-                        color = Mix(0xFFFFFF, color, fx-actual_fx,actual_fx, fx);
+                        color = Mix(0xFFFFFF, color, fx-use_fx,use_fx, fx);
                     }
 
                     if(fc >= sb_begin && fc < sb_end && (((x*width+fc)^(y*fy+fr))&1))
                         color ^= sb_xormask;
 
-                    *pix = color;
+                    pix[fc] = color;
                 }
+                pix += width;
+                visualcolumn += 1 + was_double;
                 /*if(fr == (fy-1))
                 {
                     cell.dirty = false;

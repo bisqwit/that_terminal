@@ -96,6 +96,6 @@ rendering/fonts.inc: rendering/fonts/make.php \
 		rendering/fonts/data/8x8.inc \
 		rendering/fonts/data/6x9.bdf \
 		rendering/fonts/data/vga8x19.bdf
-	(cd rendering/fonts; php make.php > ../fonts.inc)
+	(cd rendering/fonts; php make.php | sed 's@//.*@@' |grep . > ../fonts.inc)
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))

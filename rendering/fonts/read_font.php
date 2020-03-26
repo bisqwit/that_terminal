@@ -127,6 +127,7 @@ function Read_PSFgz($filename, $height)
   //print_r($header1);
   //print_r($header2);
   $table = Read_PSFgzEncoding($filename);
+  #print_r($table);
 
   $result = Array();
   for($n=0; $n<$fontlen; ++$n)
@@ -217,20 +218,15 @@ function Read_BDF($filename, $height)
       while($afterbox > 0)
         { $map[] = 0; --$afterbox; }
 
-      #if($fontwidth <= 8 || $chno < 0x80)
-        for($y=0; $y<$fontheight; ++$y)
+      $bytes = ($fontwidth + 7) >> 3;
+      for($y=0; $y<$fontheight; ++$y)
+      {
+        $m = (int)@$map[$y];
+        for($b=0; $b<$bytes; ++$b)
         {
-          $m = (int)@$map[$y];
-          if($fontwidth > 8)
-          {
-            $bitmap[$chno][$y*2 + 0] = ($m >> (16-$fontwidth)) & 0xFF;
-            $bitmap[$chno][$y*2 + 1] = ($m >> (16-$fontwidth)) >> 8;
-          }
-          else
-          {
-            $bitmap[$chno][$y] = $m >> (8-$fontwidth);
-          }
+          $bitmap[$chno][$y*$bytes + $b] = (($m >> (($bytes*8)-$fontwidth)) >> ($b*8)) & 0xFF;
         }
+      }
 
       $data = Array();
       ++$chno;
@@ -285,7 +281,7 @@ function Read_ASM($filename, $height)
 function Read_Font($filename, $height)
 {
   #print "$filename\n";
-  preg_match('/(?:.*x|\.f|-)0*([0-9]+).(.*)/', $filename, $mat);
+  preg_match('/(?:.*x|\.f|-)0*([0-9]+(?:ja|ko)?).(.*)/', $filename, $mat);
   #$height = (int)($mat[1]);
   $ext    = $mat[2];
   switch($ext)
