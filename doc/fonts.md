@@ -4,7 +4,6 @@
 Most of these fonts are Public Domain, and come from X11. Exceptions are
 listed.
 
-
 ## Font 4x5
 
 X11 font “micro”.
@@ -287,6 +286,7 @@ X11 misc-fixed font (Japanese).
 ![Font 12x13 coverage](coverage-12x13-17.png)
 ![Font 12x13 coverage](coverage-12x13-18.png)
 ![Font 12x13 coverage](coverage-12x13-19.png)
+![Font 12x13 coverage](coverage-12x13-20.png)
 
 ## Font 18x18
 
@@ -320,6 +320,7 @@ X11 misc-fixed fonts (Japanese and Korean).
 ![Font 18x18 coverage](coverage-18x18-25.png)
 ![Font 18x18 coverage](coverage-18x18-26.png)
 ![Font 18x18 coverage](coverage-18x18-27.png)
+![Font 18x18 coverage](coverage-18x18-28.png)
 
 
 
