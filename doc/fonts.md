@@ -331,8 +331,6 @@ X11 misc-fixed fonts (Japanese and Korean).
 ![Font 18x18 coverage](coverage-18x18-28.png)
 
 
-
-
 ## Font 4x5
 
 X11 font “micro”.
