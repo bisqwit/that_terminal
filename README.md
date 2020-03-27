@@ -102,6 +102,11 @@ obsolete, replacing it with [Joe](https://joe-editor.sourceforge.io).
 You can find the list of escapes supported by this emulator
 in [a separate document](doc/escapes.md).
 
+### Supported fonts
+
+You can find the list of fonts supported by this emulator
+in [a separate document](doc/fonts.md).
+
 ### Supported keyboard inputs and font sizes
 
 In [a separate document](doc/inputs.md).
