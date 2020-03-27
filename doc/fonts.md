@@ -1,8 +1,16 @@
 
 # Fonts supported by *that terminal*
 
-Most of these fonts are Public Domain, and come from X11. Exceptions are
-listed.
+Most of these fonts are Public Domain, and come from X11.
+Exceptions are listed.
+
+This lists the coverage of each font.
+
+The first half of the page has the information embedded in images,
+rendered using each font. In those images, white denotes glyphs
+that are supported fully. Brown (darker color) denotes
+glyphs that are supported only through approximation,
+such as by removing accents.
 
 ## Font 4x5
 
