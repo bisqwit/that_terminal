@@ -6,6 +6,7 @@ static std::unordered_map<unsigned, std::pair<const unsigned char*, std::pair<un
     { 5*256 + 8,  {ns_f5x8::bitmap, ns_f5x8::unicode_to_bitmap_index} },
     { 6*256 + 9,  {ns_f6x9::bitmap, ns_f6x9::unicode_to_bitmap_index} },
     { 6*256 + 10, {ns_f6x10::bitmap, ns_f6x10::unicode_to_bitmap_index} },
+    { 6*256 + 12, {ns_f6x12::bitmap, ns_f6x12::unicode_to_bitmap_index} },
     { 6*256 + 13, {ns_f6x13::bitmap, ns_f6x13::unicode_to_bitmap_index} },
     { 7*256 + 13, {ns_f7x13::bitmap, ns_f7x13::unicode_to_bitmap_index} },
     { 7*256 + 14, {ns_f7x14::bitmap, ns_f7x14::unicode_to_bitmap_index} },

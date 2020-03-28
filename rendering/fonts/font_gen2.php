@@ -76,6 +76,7 @@ class Font
     $cache_fn = "data/.lookup-".md5(serialize($values));
     if(file_exists($cache_fn) && filesize($cache_fn) > 0)
     {
+      file_put_contents("php://stderr", "Cache hit: $cache_fn for {$width}x{$height}\n");
       print file_get_contents('compress.zlib://'.$cache_fn);
     }
     else
