@@ -345,7 +345,6 @@ X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso106
 ![Font 18x18 coverage](coverage-18x18-28.png)
 
 
-
 ## Font 4x5
 
 X11 font “micro”.

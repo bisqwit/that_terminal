@@ -3,6 +3,8 @@
 require 'read_font.php';
 require 'font_gen2.php';
 
+$authentic_only = ($argc == 1) ? 0 : (int)$argv[1];
+
 // grep ^ENCODING data/6x9.bdf|sed 's/ENCODING //'|tr '\012' ,
 $tmp = Array(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,);
 $chars_4x5 = array_combine($tmp, $tmp);
@@ -108,9 +110,13 @@ function TransLow($index, $size)
   return $translation[$index];
 }
 
-function CreateTranslation($size, $sets)
+function CreateTranslation($size, $sets, $authentic_only = false)
 {
   $cache_fn = "data/.translations-".join('_', $sets);
+  if($authentic_only)
+  {
+    $cache_fn = "data/.1translations-".join('_', $sets);
+  }
   if(file_exists($cache_fn) && filesize($cache_fn) > 0)
   {
     file_put_contents("php://stderr", "Cache hit: $cache_fn for {$size}\n");
@@ -227,7 +233,7 @@ function CreateTranslation($size, $sets)
 
   // Check which characters are missing
   $approximations = Array();
-  for($n=0; $n<=0x10FFFF; ++$n)
+  if(!$authentic_only)for($n=0; $n<=0x10FFFF; ++$n)
     if(!isset($characters[$n]))
     {
       $trans = Array();
@@ -461,21 +467,21 @@ foreach($specs as $size => $selections)
 {
   preg_match('/(\d+)x(\d+)/', $size, $mat);
   /**/
-  if($argc == 1)
+  if($argc < 3)
   {
-    $p = proc_open("php {$argv[0]} {$size} | dd bs=16M iflag=fullblock 2>/dev/null",
+    $p = proc_open("php {$argv[0]} {$authentic_only} {$size} | dd bs=16M iflag=fullblock 2>/dev/null",
       [0=>['file','php://stdin','r'],
        1=>['pipe','w'],
        2=>['file','php://stderr','w']], $pipes);
     $t[] = Array($p,$pipes);
     continue;
   }
-  if($size != $argv[1]) continue;
+  if($size != $argv[2]) continue;
   /**/
 
   $fontwidth  = $mat[1];
   $fontheight = $mat[2];
-  $map      = CreateTranslation($size, array_keys($selections));
+  $map      = CreateTranslation($size, array_keys($selections), $authentic_only);
 
   $used = Array();
   foreach($map as $specs) $used[$specs[0]] = true;
