@@ -467,7 +467,16 @@ static void PrintRanges(
 
 static const std::map<unsigned,std::string> lore
 {
-    {4*256+5, "X11 font “micro”."},
+    {4*256+5, R"(
+X11 font “micro”. For clarity, this font is pictured as 4x6 on this page
+by inserting a blank pixel line below every character, but the font is
+really 4x5. This means that capital letters on adjacent lines are touching.
+
+Besides the full ASCII, this font includes an odd set of special characters,
+including ẍ, some Greek symbols, logical operators, and the APL asterisk
+with diearesis that I have never seen used anywhere, for a total of 128
+glyphs.
+)"},
     {4*256+6, "X11 misc-fixed font `-misc-fixed-medium-r-normal--6-60-75-75-c-40-iso10646-1`."},
     {5*256+7, "X11 misc-fixed font `-misc-fixed-medium-r-normal--7-70-75-75-c-50-iso10646-1`."},
     {5*256+8, "X11 misc-fixed font `-misc-fixed-medium-r-normal--8-80-75-75-c-50-iso10646-1`."},
@@ -531,3 +540,4 @@ int main()
                     entry2.first, entry2.second);
     }
 }
+ 

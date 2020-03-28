@@ -13,7 +13,16 @@ such as by removing accents.
 
 ## Font 4x5
 
-X11 font “micro”.
+
+X11 font “micro”. For clarity, this font is pictured as 4x6 on this page
+by inserting a blank pixel line below every character, but the font is
+really 4x5. This means that capital letters on adjacent lines are touching.
+
+Besides the full ASCII, this font includes an odd set of special characters,
+including ẍ, some Greek symbols, logical operators, and the APL asterisk
+with diearesis that I have never seen used anywhere, for a total of 128
+glyphs.
+
 
 ![Font 4x5 coverage](coverage-4x5-0.png)
 ![Font 4x5 coverage](coverage-4x5-1.png)
@@ -519,7 +528,7 @@ Supported only by approximation:
 #### Mathematical Operators
 
     U+2200..U+221F ∀ ∂∃                            
-    U+2220..U+223F         ∨∩∪                     
+    U+2220..U+223F         ∨∩∪∫                    
     U+2260..U+227F ≠≡  ≤≥                 ≷        
     U+2280..U+229F   ⊂⊃                            
     U+22C0..U+22DF     ⋄                           
@@ -528,7 +537,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2200..U+221F     ∄    ∉  ∌     −  ∕∖∗        
-    U+2220..U+223F    ∣∤∥∦               ∶     ∼   
+    U+2220..U+223F    ∣∤∥∦     ∬∭        ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
     U+2260..U+227F   ≢       ≪≫  ≮≯≰≱  ≴≵  ≸≹      
     U+2280..U+229F     ⊄⊅  ⊈⊉                      
@@ -600,6 +609,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A00..U+2A1F             ⨌                   
     U+2A60..U+2A7F                     ⩴⩵⩶         
 
 #### Latin Extended-C
@@ -5298,6 +5308,7 @@ Supported only by approximation:
 #### Miscellaneous Technical
 
     U+2300..U+231F   ⌂                      ⌙　　    
+    U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
 
@@ -5326,8 +5337,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
     U+2520..U+253F     ┤       ┬       ┴       ┼   
-    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝  
-    U+2560..U+257F ╠  ╣  ╦  ╩  ╬                   
+    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
+    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
 
 Supported only by approximation:
 
@@ -5339,7 +5350,7 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼   
+    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
     U+25C0..U+25DF ◀   ◄      ○            ◘◙      
 
 Supported only by approximation:
@@ -5660,12 +5671,12 @@ Supported only by approximation:
 #### General Punctuation
 
     U+2000..U+201F                 ‐‑ –—―  ‘’‚‛“”„‟
-    U+2020..U+203F                          ‹›     
+    U+2020..U+203F   •                      ‹› ‼   
 
 Supported only by approximation:
 
     U+2000..U+201F                   ‒             
-    U+2020..U+203F † • ․‥…           ′″‴‵‶‷    ‼   
+    U+2020..U+203F †   ․‥…           ′″‴‵‶‷        
     U+2040..U+205F     ⁄  ⁇⁈⁉⁊                     
 
 #### Superscripts and Subscripts
@@ -5704,7 +5715,7 @@ Supported only by approximation:
 
 #### Arrows
 
-    U+2190..U+21AF ←↑→↓↔↕                          
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
     U+21B0..U+21CF      ↵                          
 
 Supported only by approximation:
@@ -5715,7 +5726,7 @@ Supported only by approximation:
 
 #### Mathematical Operators
 
-    U+2200..U+221F                   −             
+    U+2200..U+221F                   −            ∟
     U+2240..U+225F         ≈                       
     U+2260..U+227F ≠   ≤≥                          
 
@@ -5731,6 +5742,8 @@ Supported only by approximation:
 
 #### Miscellaneous Technical
 
+    U+2300..U+231F   ⌂                       　　    
+    U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
 
@@ -5761,8 +5774,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─━│┃        ┌  ┏┐  ┓└  ┗┘  ┛├   
     U+2520..U+253F    ┣┤      ┫┬      ┳┴      ┻┼   
-    U+2540..U+255F            ╋    ═║  ╔  ╗  ╚  ╝  
-    U+2560..U+257F ╠  ╣  ╦  ╩  ╬       ╴╵╶╷╸╹╺╻    
+    U+2540..U+255F            ╋    ═║  ╔  ╗  ╚  ╝ ╟
+    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷╸╹╺╻    
 
 Supported only by approximation:
 
@@ -5774,8 +5787,8 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF                       ▶         
-    U+25C0..U+25DF ◀     ◆                         
+    U+25A0..U+25BF             ▬     ▲   ▶   ► ▼▽  
+    U+25C0..U+25DF ◀   ◄ ◆    ○            ◘◙      
 
 Supported only by approximation:
 
@@ -5783,10 +5796,9 @@ Supported only by approximation:
 
 #### Miscellaneous Symbols
 
-
-Supported only by approximation:
-
-    U+2620..U+263F                           ☺☻    
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥♦   ♪♫                   　
 
 #### Miscellaneous Mathematical Symbols-A
 
@@ -5896,7 +5908,7 @@ Supported only by approximation:
     U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
     U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
     U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
-    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬                   
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬ ￮                 
 
 #### Mathematical Alphanumeric Symbols
 
@@ -6077,12 +6089,12 @@ Supported only by approximation:
 #### General Punctuation
 
     U+2000..U+201F                 ‐‑ –—―  ‘’‚‛“”„‟
-    U+2020..U+203F                          ‹›     
+    U+2020..U+203F   •                      ‹› ‼   
 
 Supported only by approximation:
 
     U+2000..U+201F                   ‒             
-    U+2020..U+203F † • ․‥…           ′″‴‵‶‷    ‼   
+    U+2020..U+203F †   ․‥…           ′″‴‵‶‷        
     U+2040..U+205F     ⁄  ⁇⁈⁉⁊                     
 
 #### Superscripts and Subscripts
@@ -6121,7 +6133,7 @@ Supported only by approximation:
 
 #### Arrows
 
-    U+2190..U+21AF ←↑→↓↔↕                          
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
     U+21B0..U+21CF      ↵                          
 
 Supported only by approximation:
@@ -6132,7 +6144,7 @@ Supported only by approximation:
 
 #### Mathematical Operators
 
-    U+2200..U+221F                   −             
+    U+2200..U+221F                   −            ∟
     U+2240..U+225F         ≈                       
     U+2260..U+227F ≠   ≤≥                          
 
@@ -6148,6 +6160,8 @@ Supported only by approximation:
 
 #### Miscellaneous Technical
 
+    U+2300..U+231F   ⌂                       　　    
+    U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
 
@@ -6178,8 +6192,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─━│┃        ┌  ┏┐  ┓└  ┗┘  ┛├   
     U+2520..U+253F    ┣┤      ┫┬      ┳┴      ┻┼   
-    U+2540..U+255F            ╋    ═║  ╔  ╗  ╚  ╝  
-    U+2560..U+257F ╠  ╣  ╦  ╩  ╬       ╴╵╶╷╸╹╺╻    
+    U+2540..U+255F            ╋    ═║  ╔  ╗  ╚  ╝ ╟
+    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷╸╹╺╻    
 
 Supported only by approximation:
 
@@ -6191,8 +6205,8 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF                       ▶         
-    U+25C0..U+25DF ◀     ◆                         
+    U+25A0..U+25BF             ▬     ▲   ▶   ► ▼▽  
+    U+25C0..U+25DF ◀   ◄ ◆    ○            ◘◙      
 
 Supported only by approximation:
 
@@ -6200,10 +6214,9 @@ Supported only by approximation:
 
 #### Miscellaneous Symbols
 
-
-Supported only by approximation:
-
-    U+2620..U+263F                           ☺☻    
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥♦   ♪♫                   　
 
 #### Miscellaneous Mathematical Symbols-A
 
@@ -6313,7 +6326,7 @@ Supported only by approximation:
     U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
     U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
     U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
-    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬                   
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬ ￮                 
 
 #### Mathematical Alphanumeric Symbols
 
@@ -7061,6 +7074,7 @@ Supported only by approximation:
 #### Miscellaneous Technical
 
     U+2300..U+231F   ⌂                      ⌙　　    
+    U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
 
@@ -7089,8 +7103,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
     U+2520..U+253F     ┤       ┬       ┴       ┼   
-    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝  
-    U+2560..U+257F ╠  ╣  ╦  ╩  ╬                   
+    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
+    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
 
 Supported only by approximation:
 
@@ -7102,7 +7116,7 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼   
+    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
     U+25C0..U+25DF ◀   ◄      ○            ◘◙      
 
 Supported only by approximation:
@@ -7317,7 +7331,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+00A0..U+00BF       ¦  ©   ­®    ³´   ¸¹    ¾ 
+    U+00A0..U+00BF       ¦§ ©   ­®    ³´ ¶ ¸¹    ¾ 
     U+00C0..U+00DF ÀÁÂÃ    È ÊËÌÍÎÏÐ ÒÓÔÕ ×ØÙÚÛ ÝÞ 
     U+00E0..U+00FF    ã            ð    õ  ø    ýþ 
 
@@ -7473,7 +7487,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2190..U+21AF ← → ↔                         ↮ 
+    U+2190..U+21AF ←↑→↓↔↕                  ↨     ↮ 
     U+21B0..U+21CF                              ⇍⇎⇏
     U+21D0..U+21EF ⇐ ⇒ ⇔                           
 
@@ -7486,7 +7500,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2200..U+221F                   −  ∕∖∗        
+    U+2200..U+221F                   −  ∕∖∗       ∟
     U+2220..U+223F    ∣ ∥                ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
     U+2260..U+227F ≠ ≢       ≪≫  ≮≯≰≱  ≴≵  ≸≹      
@@ -7500,6 +7514,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2300..U+231F   ⌂                       　　    
     U+2320..U+233F          〈〉                     
 
 #### Control Pictures
@@ -7542,6 +7557,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF             ▬     ▲       ► ▼   
+    U+25C0..U+25DF     ◄      ○            ◘◙      
     U+25E0..U+25FF       ◦                      　　 
 
 #### Miscellaneous Symbols
@@ -7549,7 +7566,9 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2620..U+263F                           ☺☻    
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥♦   ♪♫                   　
 
 #### Miscellaneous Mathematical Symbols-A
 
@@ -7929,6 +7948,7 @@ Supported only by approximation:
 #### Miscellaneous Technical
 
     U+2300..U+231F   ⌂                      ⌙　　    
+    U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
 
@@ -7957,8 +7977,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
     U+2520..U+253F     ┤       ┬       ┴       ┼   
-    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝  
-    U+2560..U+257F ╠  ╣  ╦  ╩  ╬                   
+    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
+    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
 
 Supported only by approximation:
 
@@ -7970,7 +7990,7 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼   
+    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
     U+25C0..U+25DF ◀   ◄      ○            ◘◙      
 
 Supported only by approximation:
@@ -8183,7 +8203,7 @@ vga8x19.bdf by Martin Reuber, based on VGA ROM BIOS font
 
 Supported only by approximation:
 
-    U+00A0..U+00BF       ¦  ©   ­®    ³´   ¸¹    ¾ 
+    U+00A0..U+00BF       ¦§ ©   ­®    ³´ ¶ ¸¹    ¾ 
     U+00C0..U+00DF ÀÁÂÃ    È ÊËÌÍÎÏÐ ÒÓÔÕ ×ØÙÚÛ ÝÞ 
     U+00E0..U+00FF    ã            ð    õ  ø    ýþ 
 
@@ -8339,7 +8359,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2190..U+21AF ← → ↔                         ↮ 
+    U+2190..U+21AF ←↑→↓↔↕                  ↨     ↮ 
     U+21B0..U+21CF                              ⇍⇎⇏
     U+21D0..U+21EF ⇐ ⇒ ⇔                           
 
@@ -8352,7 +8372,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2200..U+221F                   −  ∕∖∗        
+    U+2200..U+221F                   −  ∕∖∗       ∟
     U+2220..U+223F    ∣ ∥                ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
     U+2260..U+227F ≠ ≢       ≪≫  ≮≯≰≱  ≴≵  ≸≹      
@@ -8366,6 +8386,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2300..U+231F   ⌂                       　　    
     U+2320..U+233F          〈〉                     
 
 #### Control Pictures
@@ -8408,6 +8429,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF             ▬     ▲       ► ▼   
+    U+25C0..U+25DF     ◄      ○            ◘◙      
     U+25E0..U+25FF       ◦                      　　 
 
 #### Miscellaneous Symbols
@@ -8415,7 +8438,9 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2620..U+263F                           ☺☻    
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥♦   ♪♫                   　
 
 #### Miscellaneous Mathematical Symbols-A
 

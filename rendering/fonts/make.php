@@ -52,8 +52,20 @@ function TransLow($index, $size)
     0x25BA,0x25C4,0x2195,0x203C,
     0x00B6,0x00A7,0x25AC,0x21A8,
     0x2191,0x2193,0x2192,0x2190,
-    0x221F,0x2194,0x25B2,0x25BC
+    0x221F,0x2194,0x25B2,0x25BC,
   );
+  foreach(Array(
+    0x2302, // 7F house
+    // 81..8F follows CP/M plus character set (Amstrad CPC e.g.) but shifted 91..9F
+    // ⎺ ╵ ╶ └ ╷ │ ┌ ├ ╴ ┘ ─ ┴ ┐ ┤ ┬ ┼
+    0x23BA,0x2575,0x2576,0x2514,0x2577,0x2502,0x250C,0x251C,
+    0x2574,0x2518,0x2500,0x2534,0x2510,0x2524,0x252C,0x253C,
+    // 95..9F follows CP/M plus character set (Amstrad CPC e.g.) but shifted 85..8F
+    // ⎽ ╧ ╟ ╚ ╤ ║ ╔ ╠ ╢ ╝ ═ ╩ ╗ ╣ ╦ ╬
+    // Note that 91,92,94,98 are truncated *double* lines, which are not supported by unicode
+    0x25BD,0x2567,0x255F,0x255A,0x2564,0x2551,0x2554,0x2560,
+    0x2562,0x255D,0x2550,0x2569,0x2557,0x2563,0x2566,0x256C
+  ) as $k=>$v) $translation[$k+127] = $v;
   switch($size)
   {
     case '4x5':
@@ -92,22 +104,219 @@ function TransLow($index, $size)
         0x2261, // 1E ≡ (three horizontal lines)
         0x2228, // 1F ∨ (logical v) 
       );
+      $translation[0x7F] = 0x222B; // ∫ integral
+      for($n=0x80; $n<0xA0; ++$n) unset($translation[$n]);
       break;
     case '8x10':
     case '8x12':
       // Different symbols, but does not matter, they are *also* mapped correctly
-      $translation = range(0,31);
       break;
     case '8x8':
     case '8x14':
     case '8x16':
       // Matches above, but also mapped correctly
-      $translation = range(0,31);
       break;
     default:
       break;
   }
   return $translation[$index];
+}
+
+function AddChar($utfchar, $n, $size, &$characters, $setname)
+{
+  if(!isset($characters[$utfchar]))
+  {
+    $characters[$utfchar] = Array($setname, $n);
+  }
+  if($utfchar < 32 || ($utfchar >= 127 && $utfchar < 160))
+  {
+    $utfchar = TransLow($utfchar, $size);
+    if(!isset($characters[$utfchar]))
+    {
+      $characters[$utfchar] = Array($setname, $n);
+    }
+  }
+}
+function AddApproximations(&$characters)
+{
+  // List of identical-looking characters that are not recognized by iconv as such
+  $identical = Array
+  (
+    Array(33 /* ! */, 451 /* ǃ */),
+    Array(35 /* # */,                               0x2d4c,0xa59b,0x2317,0x22d5),
+    Array(43 /* + */, 0x2795 /* ➕ */, 0x1690 /* ᚐ */),
+    Array(45 /* - */, 0x2212 /* − */, 0x2013 /* – */, 0x2796 /* ➖ */),
+    Array(47 /* / */,                                               0x27cb,0x338,0x2571,0x2044,0x1d23a),
+    Array(92 /* \ */,                                               0x20e5,0x27cd,0x2572,0x1d23b,0x29f9,0x29f5),
+    Array(51 /* 3 */,                0x417 /* З */, 0x1d7f9,0x10d5,0xc69,0x1d206),
+    Array(52 /* 4 */,                               0x13CE /* Ꮞ */),
+    Array(58 /* : */,                               0x5c3,0xa789,0x205a,0x2d0,0x2236,0x589,0x703,0x1d108),
+    Array(59 /* ; */, 0x37E /* ; */, ),
+    Array(61 /* = */,                                               0xa60c,0x268c,0x30a0,0x1400),
+    Array(65 /* A */, 0x391 /* Α */, 0x410 /* А */, 0x13AA /* Ꭺ */, 0x15c5, 0x15cb),
+    Array(66 /* B */, 0x392 /* Β */, 0x412 /* В */, 0x13F4 /* Ᏼ */, 0x2C82 /* Ⲃ */, 0xa557,0x10301),
+    Array(67 /* C */, 0x3F9 /* Ϲ */, 0x421 /* С */, 0x13DF /* Ꮯ */, 0x2CA4 /* Ⲥ */),
+    Array(68 /* D */,                               0x13A0 /* Ꭰ */, 0x10303,0x15de,0x216e),
+    Array(69 /* E */, 0x395 /* Ε */, 0x415 /* Е */, 0x13AC /* Ꭼ */, 0x2d39,0xa5cb,0x22ff),
+    Array(70 /* F */, 0x3DC /* Ϝ */,                                0x1d213,0x7d3,0x15b4,0x10305,),
+    Array(71 /* G */,                               0x13C0 /* Ꮐ */, 0x10ba,),
+    Array(72 /* H */, 0x397 /* Η */, 0x41D /* Н */, 0x13BB /* Ꮋ */, 0x2C8E /* Ⲏ */, 0x157c,0xa5be),
+    Array(73 /* I */, 0x399 /* Ι */, 0x406 /* І */, 0x4C0 /* Ӏ */, 0x13C6 /* Ꮖ */, 0x2C92 /* Ⲓ */),
+    Array(74 /* J */,                0x408 /* Ј */,                 0x148d,0x644,0xfedd,0x13ab),
+    Array(75 /* K */, 0x39A /* Κ */, 0x41A /* К */, 0x2C94 /* Ⲕ */, 0x13E6 /* Ꮶ */, 0x212A /* K */, 0x1030a,),
+    Array(76 /* L */,                               0x13DE /* Ꮮ */, 0x14aa,0x1d22a,0x216c,0x2ea,0x53c,),
+    Array(77 /* M */, 0x39C /* Μ */, 0x41C /* М */, 0x13B7 /* Ꮇ */, 0x2C98 /* Ⲙ */, 0x3fa,0x10311,),
+    Array(78 /* N */, 0x39D /* Ν */,                                0x2C9A /* Ⲛ */,),
+    Array(79 /* O */, 0x39F /* Ο */, 0x41E /* О */, 0x2C9E /* Ⲟ */,                 0x25ef,0x25cb,0x20dd,0x274d,0x1f315,0x2d54,0x555,0x26aa,0x2b55),
+    Array(80 /* P */, 0x3A1 /* Ρ */, 0x420 /* Р */, 0x13E2 /* Ꮲ */, 0x2CA2 /* Ⲣ */, 0x10313,0x146d,0x1031b),
+    Array(81 /* Q */,                                                               0x10ad,0x51a,0xa756,0x10b3,0x2d55,0x211a),
+    Array(82 /* R */,                               0x13A1 /* Ꭱ */, 0x1d216, 0x1587, 0x13d2),
+    Array(83 /* S */,                0x405 /* Ѕ */, 0x13DA /* Ꮪ */,                 0x54f,0x10bd,0xa682,0x93d,0x10496,0xa576),
+    Array(84 /* T */, 0x3A4 /* Τ */, 0x422 /* Т */, 0x13A2 /* Ꭲ */, 0x2CA6 /* Ⲧ */, 0x22a4,0x27d9,0xa50b,0x1d36e,0x1f768,0x23c9,0x7e0),
+    Array(85 /* U */,                                                               0x22c3,0x144c,0x222a,0x54d),
+    Array(86 /* V */,                               0x13D9 /* Ꮩ */,                 0x142f,0x2d38,0x22c1,0x1d20d,0x2164,),
+    Array(                           0x51C /* Ԝ */,                 0x2CB0 /* Ⲱ */, 0x460 /* Ѡ */),
+    Array(87 /* W */,                0x51C /* Ԝ */, 0x13B3 /* Ꮃ */),
+    Array(88 /* X */, 0x3A7 /* Χ */, 0x425 /* Х */,                 0x2CAC /* Ⲭ */, 0x2573,0x2d5d,0x10322,0x2169,0x10317,),
+    Array(89 /* Y */, 0x3A5 /* Υ */, 0x4AE /* Ү */,                 0x2CA8 /* Ⲩ */, ),
+    Array(90 /* Z */, 0x396 /* Ζ */,                0x13C3 /* Ꮓ */, 0x2C8C /* Ⲍ */, ),
+    Array(97  /* a */,                0x430 /* а */),
+    Array(99  /* c */, 0x3F2 /* ϲ */, 0x441 /* с */,                0x2CA5 /* ⲥ */),
+    Array(101 /* e */,                0x435 /* е */),
+    Array(105 /* i */,                0x456 /* і */),
+    Array(106 /* j */, 0x3F3 /* ϳ */, 0x458 /* ј */),
+    Array(111 /* o */, 0x3BF /* ο */, 0x43E /* о */, 0x5E1 /* ס */, 0x1D0F /* ᴏ */, 0x2C9F /* ⲟ */),
+    Array(112 /* p */, 0x3C1 /* ρ */, 0x440 /* р */,                                0x2CA3 /* ⲣ */),
+    Array(113 /* q */,                               0x51B /* ԛ */),
+    Array(115 /* s */,                0x455 /* ѕ */),
+    Array(118 /* v */,                                              0x1D20 /* ᴠ */),
+    Array(             0x3C9 /* ω */, 0x51D /* ԝ */,                0x2CB1 /* ⲱ */, 0x2375 /* ⍵ */, 0x461 /* ѡ */),
+    Array(119 /* w */, 0x3C9 /* ω */,                0x1D21 /* ᴡ */),
+    Array(120 /* x */,                0x445 /* х */,                0x2CAD /* ⲭ */),
+    Array(121 /* y */,                0x443 /* у */,                0x2CA9 /* ⲩ */),
+    Array(122 /* z */,                                              0x1D22 /* ᴢ */, 0x2C8D /* ⲍ */),
+    Array(126 /* ~ */,                                              0x1FC0 /* ῀ */),
+    Array(               0x26A /* ɪ */, 0x2C93 /* ⲓ */, 305 /* ı */),
+    Array(0x3BA /* κ */, 0x1D0B /* ᴋ */, 0x432 /* к */, 0x2C95 /* ⲕ */),
+    Array(               0x299  /* ʙ */, 0x432 /* в */, 0x2C83 /* ⲃ */),
+    Array(               0x29C  /* ʜ */, 0x43D /* н */, 0x2C8F /* ⲏ */),
+    Array(               0x1D0D /* ᴍ */, 0x43c /* м */, 0x2C99 /* ⲙ */),
+    Array(               0x274  /* ɴ */,                0x2C9B /* ⲛ */),
+    Array(               0x1D1B /* ᴛ */, 0x442 /* т */, 0x2CA7 /* ⲧ */),
+    Array(               239    /* ï */, 0x457 /* ї */),
+    Array(               0x1E30 /* Ḱ */, 0x40C /* Ќ */),
+    Array(               200    /* È */, 0x400 /* Ѐ */),
+    Array(               203    /* Ë */, 0x401 /* Ё */),
+    Array(0x3AA /* Ϊ */, 207    /* Ï */, 0x407 /* Ї */),
+    Array(0x3AB /* Ϋ */, 376    /* Ÿ */),
+    Array(0x3A8 /* Ψ */, 0x2CAE /* Ⲯ */),
+    Array(0x3C8 /* ψ */, 0x2CAF /* ⲯ */),
+    Array(),
+    Array(0x393 /* Γ */,                 0x413 /* Г */, 0x13B1 /* Ꮁ */, 0x2C84 /* Ⲅ */),
+    Array(0x3CC /* ό */, 243    /* ó */),
+    Array(0x3F4 /* ϴ */, 0x3B8  /* θ */, 0x472 /* Ѳ */, 0x4E8 /* Ө */, 415 /* Ɵ */, 0x13BE /* Ꮎ */, 0x2C90 /* Ⲑ */),
+    Array(               258    /* Ă */, 0x4D0 /* Ӑ */, 0x1fb8 /* Ᾰ */),
+    Array(               256    /* Ā */,                0x1fb9 /* Ᾱ */),
+    Array(               259    /* ă */, 0x4D1 /* ӑ */),
+    Array(               196    /* Ä */, 0x4D2 /* Ӓ */),
+    Array(               228    /* ä */, 0x4D3 /* ӓ */),
+    Array(               198    /* Æ */, 0x4D4 /* Ӕ */),
+    Array(               230    /* æ */, 0x4D5 /* ӕ */),
+    Array(               276    /* Ĕ */, 0x4D6 /* Ӗ */),
+    Array(               277    /* ĕ */, 0x4D7 /* ӗ */),
+    Array(               214    /* Ö */, 0x4E6 /* Ӧ */),
+    Array(               246    /* ö */, 0x4E7 /* ӧ */),
+    Array(0x3A6 /* Φ */,                 0x424 /* Ф */, 0x2CAA /* Ⲫ */),
+    Array(                               0x444 /* ф */, 0x2CAB /* ⲫ */),
+    Array(0x387 /* · */, 183    /* · */),
+    Array(0x3F5 /* ϵ */,                 0x454 /* є */),
+    Array(0x37B /* ͻ */, 0x254 /* ɔ */, 0x1D10 /* ᴐ */),
+    Array(               0x259 /* ə */,  0x4D9 /* ә */),
+    Array(               0x25c /* ɜ */,  0x437 /* з */, 0x1D08 /* ᴈ */),
+    Array(               0x275 /* ɵ */,  0x4E9 /* ө */, 0x2C91 /* ⲑ */),
+    Array(               339   /* œ */,  0x276 /* ɶ */),
+    Array(               0x292 /* ʒ */,  0x4E1 /* ӡ */),
+    Array(               386 /* Ƃ */,  0x411 /* Б */),
+    Array(0x3FD /* Ͻ */, 390 /* Ɔ */),
+    Array(0x3A3 /* Σ */, 425 /* Ʃ */,                   0x2211/*∑*/, 0x2140,0x1a9,0x2d49),
+    Array(0x3C5 /* υ */, 651 /* ʋ */),
+    Array(               439 /* Ʒ */, 0x4E0 /* Ӡ */),
+    Array(               362 /* Ū */, 649 /* Ǖ */),
+    Array(               363 /* ū */, 470 /* ǖ */),
+    Array(               218 /* Ú */, 471 /* Ǘ */),
+    Array(               250 /* ú */, 472 /* ǘ */),
+    Array(               467 /* Ǔ */, 473 /* Ǚ */),
+    Array(               468 /* ǔ */, 474 /* ǚ */),
+    Array(               217 /* Ù */, 475 /* Ǜ */),
+    Array(               249 /* ù */, 476 /* ǜ */),
+    Array(               256 /* Ā */, 478 /* Ǟ */),
+    Array(               257 /* ā */, 479 /* ǟ */),
+    Array(               332 /* Ō */, 554 /* Ȫ */),
+    Array(               333 /* ō */, 555 /* ȫ */),
+    Array(               332 /* Ō */, 556 /* Ȭ */),
+    Array(               333 /* ō */, 557 /* ȭ */),
+    Array(               332 /* Ō */, 560 /* Ȱ */),
+    Array(               333 /* ō */, 561 /* ȱ */),
+    Array(               256 /* Ā */, 480 /* Ǡ */),
+    Array(               257 /* ā */, 481 /* ǡ */),
+    Array(               220 /* Ü */, 649 /* Ǖ */),
+    Array(               252 /* ü */, 470 /* ǖ */),
+    Array(               220 /* Ü */, 471 /* Ǘ */),
+    Array(               252 /* ü */, 472 /* ǘ */),
+    Array(               220 /* Ü */, 473 /* Ǚ */),
+    Array(               252 /* ü */, 474 /* ǚ */),
+    Array(               220 /* Ü */, 475 /* Ǜ */),
+    Array(               252 /* ü */, 476 /* ǜ */),
+    Array(               196 /* Ä */, 478 /* Ǟ */),
+    Array(               228 /* ä */, 479 /* ǟ */),
+    Array(               214 /* Ö */, 554 /* Ȫ */),
+    Array(               246 /* ö */, 555 /* ȫ */),
+    Array(               213 /* Õ */, 556 /* Ȭ */),
+    Array(               245 /* õ */, 557 /* ȭ */),
+    Array(               558 /* Ȯ */, 560 /* Ȱ */),
+    Array(               559 /* ȯ */, 561 /* ȱ */),
+    Array(               550 /* Ȧ */, 480 /* Ǡ */),
+    Array(               551 /* ȧ */, 481 /* ǡ */),
+    Array(0x3ED /* ϭ */, 0x431 /* б */),
+    Array(0x3A0 /* Π */,                 0x41F /* П */, 0x2CA0 /* Ⲡ */),
+    Array(0x3C0 /* π */, 0x43F /* п */, 0x1D28 /* ᴨ */, 0x2CA1 /* ⲡ */),
+    Array(0x376 /* Ͷ */, 0x418 /* И */),
+    Array(0x377 /* ͷ */, 0x438 /* и */),
+    Array(0x3B9 /* ι */, 617 /* ɩ */),
+    Array(242 /* ò */, 0x1F78 /* ὸ */),
+    Array(243 /* ó */, 0x1F79 /* ό */),
+    Array(                           0x44F /* я */, 0x1D19 /* ᴙ */),
+    Array(                           0x433 /* г */, 0x1D26 /* ᴦ */, 0x2C85 /* ⲅ */),
+    Array(               652 /* ʌ */, 0x1D27 /* ᴧ */),
+    Array(               603 /* ɛ */, 0x511 /* ԑ */),
+    Array(               400 /* Ɛ */, 0x510 /* Ԑ */),
+    Array(               0x42C /* Ь */, 0x13CF /* Ꮟ */),
+    Array(               197 /* Å */, 0x212B /* Å */),
+    Array(0x278A /*➊*/, 0x2776/*❶*/, 0x24F5/*⓵*/, 0x2780/*➀*/, 0x2460/*①*/, 48/*0*/),
+    Array(0x278B /*➋*/, 0x2777/*❷*/, 0x24F6/*⓶*/, 0x2781/*➁*/, 0x2461/*②*/, 49/*1*/),
+    Array(0x278C /*➌*/, 0x2778/*❸*/, 0x24F7/*⓷*/, 0x2782/*➂*/, 0x2462/*③*/, 50/*2*/),
+    Array(0x278D /*➍*/, 0x2779/*❹*/, 0x24F8/*⓸*/, 0x2783/*➃*/, 0x2463/*④*/, 51/*3*/),
+    Array(0x278E /*➎*/, 0x277A/*❺*/, 0x24F9/*⓹*/, 0x2784/*➄*/, 0x2464/*⑤*/, 52/*4*/),
+    Array(0x278F /*➏*/, 0x277B/*❻*/, 0x24FA/*⓺*/, 0x2785/*➅*/, 0x2465/*⑥*/, 53/*5*/),
+    Array(0x2790 /*➐*/, 0x277C/*❼*/, 0x24FB/*⓻*/, 0x2786/*➆*/, 0x2466/*⑦*/, 54/*6*/),
+    Array(0x2791 /*➑*/, 0x277D/*❽*/, 0x24FC/*⓼*/, 0x2787/*➇*/, 0x2467/*⑧*/, 55/*7*/),
+    Array(0x2792 /*➒*/, 0x277E/*❾*/, 0x24FD/*⓽*/, 0x2788/*➈*/, 0x2468/*⑨*/, 56/*8*/),
+    Array(0x2793 /*➓*/, 0x277F/*❿*/, 0x24FE/*⓾*/, 0x2789/*➉*/, 0x2469/*⑩*/, 57/*9*/),   
+    Array(247 /* ÷ */, 0x2797 /* ➗ */),
+    Array(0x42F /* Я */, 0x1586),
+  );    
+  foreach($identical as $set)
+  {
+    $len = count($set);
+    for($a=0; $a<$len; ++$a)
+      for($b=0; $b<$len; ++$b)
+        if($a != $b)
+          if(isset($characters[$b]) && !isset($characters[$a]))
+          {
+            $characters[$a] = $characters[$b];
+            break;
+          }
+  }
 }
 
 function CreateTranslation($size, $sets, $authentic_only = false)
@@ -140,12 +349,7 @@ function CreateTranslation($size, $sets, $authentic_only = false)
       global $$setname;
       foreach($$setname as $n)
       {
-        $utfchar = $n;
-        if($utfchar < 32) $utfchar = TransLow($utfchar, $size);
-        if(!isset($characters[$utfchar]))
-        {
-          $characters[$utfchar] = Array($setname, $n);
-        }
+        AddChar($n, $n, $size, $characters, $setname);
       }
     }
     else
@@ -157,13 +361,15 @@ function CreateTranslation($size, $sets, $authentic_only = false)
         {
           $cno = unpack('V/V', $s);
           $utfchar = $cno[1];
-          if($utfchar < 32) $utfchar = TransLow($utfchar, $size);
           // This $utfchar is found in $setname at index $n
-          if(!isset($characters[$utfchar]))
-            $characters[$utfchar] = Array($setname, $n);
+          AddChar($utfchar, $n, $size, $characters, $setname);
         }
       }
     }
+  }
+  if(!$authentic_only)
+  {
+    AddApproximations($characters);
   }
 
   $sets_to_try = Array();

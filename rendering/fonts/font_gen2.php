@@ -77,7 +77,7 @@ class Font
     if(file_exists($cache_fn) && filesize($cache_fn) > 0)
     {
       file_put_contents("php://stderr", "Cache hit: $cache_fn for {$width}x{$height}\n");
-      print file_get_contents('compress.zlib://'.$cache_fn);
+      #print file_get_contents('compress.zlib://'.$cache_fn);
     }
     else
     {
@@ -87,11 +87,12 @@ class Font
       foreach($values as $v) fwrite($pipes[0], "$v\n");
       fclose($pipes[0]);
       $contents = stream_get_contents($pipes[1]);
-      print $contents;
-      file_put_contents($cache_fn, gzencode($contents));
       fclose($pipes[1]);
       proc_close($p);
+      #print $contents;
+      file_put_contents($cache_fn, $contents);
     }
+    printf("#include \"fonts/%s\"\n", $cache_fn);
     printf("std::pair<unsigned,bool> unicode_to_bitmap_index(char32_t c)\n".
            "{\n".
            "    if($condition) { unsigned r = lookup(c-$min); return {r, r != $qmark}; }\n".

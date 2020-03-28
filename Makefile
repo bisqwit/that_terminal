@@ -116,14 +116,16 @@ rendering/fonts.inc: rendering/fonts/make.php \
 		rendering/fonts/read_font.php \
 		rendering/fonts/font_gen2.php \
 		$(FONTS)
-	(cd rendering/fonts; php make.php | sed 's@//.*@@' |grep . > ../fonts.inc)
+	(cd rendering/fonts; php make.php    2>inc-files.dat \
+		| sed 's@//.*@@' |grep . > ../fonts.inc)
 
 rendering/fonts-authentic.inc: rendering/fonts/make.php \
 		rendering/fonts/table-packer \
 		rendering/fonts/read_font.php \
 		rendering/fonts/font_gen2.php \
 		$(FONTS)
-	(cd rendering/fonts; php make.php 1 | sed 's@//.*@@' |grep . > ../fonts-authentic.inc)
+	(cd rendering/fonts; php make.php 1  2>inc-files2.dat \
+		| sed 's@//.*@@' |grep . > ../fonts-authentic.inc)
 
 util/make-fonts-list: util/make-fonts-list.cc ctype.o \
 		rendering/fonts.inc rendering/fonts-authentic.inc \
