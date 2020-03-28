@@ -11,14 +11,9 @@
 
 ## Supported fonts
 
-* 6x9
-* 8x8
-* 8x10
-* 8x12
-* 8x14
-* 8x15
-* 8x16
-* 8x19
+Documented [separately](fonts.md).
 
 If you choose an unsupported font size,
-the rendering will be paused (screen will not update).
+the renderer will choose the closest supported font size
+and scale the font to the requested size.
+
