@@ -118,6 +118,7 @@ rendering/fonts.inc: rendering/fonts/make.php \
 		$(FONTS)
 	(cd rendering/fonts; php make.php    2>inc-files.dat \
 		| sed 's@//.*@@' |grep . > ../fonts.inc)
+	(cd rendering/fonts; php make.php    2>inc-files.dat >/dev/null )
 
 rendering/fonts-authentic.inc: rendering/fonts/make.php \
 		rendering/fonts/table-packer \
@@ -148,5 +149,13 @@ doc/fonts.md.tmp2: util/make-fonts-list-bitmap
 doc/fonts.md: doc/fonts.md.tmp doc/fonts.md.tmp2 doc/fonts.md.tmp3
 	cat "$@".tmp "$@".tmp2 "$@".tmp3 > "$@"
 	rm -f "$@".tmp "$@".tmp2 "$@".tmp3
+
+compress1: ;
+	#parallel -j40 advdef -z4 -i4096 -- rendering/fonts/data/.translations-*
+	#for s in rendering/fonts/data/.translations-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
+compress2: ;
+	parallel -j40 \
+		sh -c 'for s in 128 256 512 1024;do pngout -c3 -b$$s $$0;done ; advpng -z4 -i4096 $$0 ; DeflOpt $$0' \
+		-- doc/coverage-*.png
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))
