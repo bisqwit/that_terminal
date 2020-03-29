@@ -58,6 +58,13 @@ foreach($codes as $name=>$code)
     SubstFor($code,$name, $base);
   }
 
+// Create special matching recipe for ASCII from FULLWIDTH
+foreach($codes as $name=>$code)
+{
+  if(preg_match('/^(FULLWIDTH|HALFWIDTH) (.*)/', $name, $mat) && isset($codes[$mat[2]]))
+    SubstFor($codes[$mat[2]],$mat[2], $name);
+}
+
 $words = Array('PARENTHESIZED','CIRCLED','BLACK','WHITE','HEAVY','LIGHT','FULLWIDTH','HALFWIDTH','SMALL');
 foreach($codes as $name=>$code)
   if(preg_match('/^('.join('|',$words).') (.*)/', $name, $mat))

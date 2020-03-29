@@ -133,6 +133,15 @@ public:
             tgt.dirty = true;
         }
     }
+    void Dirtify(std::size_t x, std::size_t y)
+    {
+        auto& tgt = cells[y*xsize+x];
+        // Write an invalid character, to make sure it gets properly
+        // cleared when a valid character gets written instead.
+        // This glyph must _not_ register as doublewidth.
+        tgt.ch    = 0xFFFE;
+        tgt.dirty = true;
+    }
     void PutCh(std::size_t x, std::size_t y, char32_t c, int cset = 0)
     {
         /*

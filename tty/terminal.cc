@@ -135,7 +135,7 @@ void termwindow::Write(std::u32string_view s)
         else
             ClampedMoveY(wnd.cursy+1);
     };
-    auto PutC = [&](char32_t c)
+    auto PutC = [&](char32_t c, bool doublewidth)
     {
         if(edgeflag)
         {
@@ -149,6 +149,15 @@ void termwindow::Write(std::u32string_view s)
         wnd.PutCh(wnd.cursx,wnd.cursy, c, gset[activeset]);
         if(wnd.cursx == wnd.xsize-1) edgeflag = true;
         else                         ++wnd.cursx;
+
+        if(doublewidth)
+        {
+            // If this character was double-width,
+            // skip the next column but mark it also dirty.
+            wnd.Dirtify(wnd.cursx,wnd.cursy);
+            if(wnd.cursx == wnd.xsize-1) edgeflag = true;
+            else                         ++wnd.cursx;
+        }
     };
     auto ProcessSGR = [&](char32_t& c, unsigned a,
                           auto&& reset_attr,
@@ -818,7 +827,7 @@ void termwindow::Write(std::u32string_view s)
                 if(prs > wnd.xsize) prs = wnd.xsize;
                 for(unsigned y=pts; y<=pbs; ++y)
                     for(unsigned x=pls; x<=prs; ++x)
-                        wnd.PutCh_KeepAttr(x-1, y-1, U' ');
+                        wnd.PutCh_KeepAttr(x-1, y-1, U' ', false);
                 break;
             }
             case State(U'x', st_csi_dol): // csi $x: fill rectangular area with given char
@@ -827,9 +836,10 @@ void termwindow::Write(std::u32string_view s)
                 unsigned ch=p[0], pts=p[1], pls=p[2], pbs=p[3], prs=p[4];
                 if(pbs > wnd.ysize) pbs = wnd.ysize;
                 if(prs > wnd.xsize) prs = wnd.xsize;
+                bool dbl = isdouble(ch);
                 for(unsigned y=pts; y<=pbs; ++y)
                     for(unsigned x=pls; x<=prs; ++x)
-                        wnd.PutCh(x-1, y-1, ch);
+                        wnd.PutCh(x-1, y-1, ch, dbl);
                 break;
             }
             case State(U'r', st_csi_dol): // csi $r: DECCARA: change attributes in rectangular area
@@ -873,13 +883,16 @@ void termwindow::Write(std::u32string_view s)
                 break;
             }
             case State(U'b', st_csi):
+            {
                 GetParams(1,true);
                 // Repeat last printed character n times
+                bool dbl = isdouble(lastch);
                 for(unsigned m = std::min(p[0], unsigned(wnd.xsize*wnd.ysize)), c=0; c<m; ++c)
                 {
-                    PutC(lastch);
+                    PutC(lastch, dbl);
                 }
                 break;
+            }
             case State(U'm', st_csi): // csi m (SGR)
             {
                 GetParams(1, false); // Make sure there is at least 1 param
@@ -901,7 +914,7 @@ void termwindow::Write(std::u32string_view s)
                     break;
                 }
                 if(state != st_default) goto Ground;
-                PutC(lastch = c);
+                PutC(lastch = c, isdouble(c));
                 break;
         }
     }

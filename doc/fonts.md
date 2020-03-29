@@ -39,6 +39,22 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal--6-60-75-75-c-40-iso10646-1`.
 ![Font 4x6 coverage](coverage-4x6-3.png)
 ![Font 4x6 coverage](coverage-4x6-4.png)
 
+## Font 4x8
+
+
+The 4x8 glyphs from misaki_gothic_2nd.bdf (ASCII/JIS compatibility)
+`-Kadoma-MisakiGothic2nd-Regular-R-Normal--4-40-75-75-C-79-ISO10646-1`
+— free 8x8 kana/kanji font written by Num Kadoma)
+
+
+![Font 4x8 coverage](coverage-4x8-0.png)
+![Font 4x8 coverage](coverage-4x8-1.png)
+![Font 4x8 coverage](coverage-4x8-2.png)
+![Font 4x8 coverage](coverage-4x8-3.png)
+![Font 4x8 coverage](coverage-4x8-4.png)
+![Font 4x8 coverage](coverage-4x8-5.png)
+![Font 4x8 coverage](coverage-4x8-6.png)
+
 ## Font 5x7
 
 X11 misc-fixed font `-misc-fixed-medium-r-normal--7-70-75-75-c-50-iso10646-1`.
@@ -162,6 +178,7 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--14-130-75-75-c-70-iso10646-1`.
 * iso01.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
 * lat1-08.psf.gz, lat2-08.psf.gz (Linux consolefonts)
 * Uni1-VGA8.psf.gz, Uni2-VGA8.psf.gz (Linux consolefonts)
+* misaki_gothic_2nd.bdf `-Kadoma-MisakiGothic2nd-Regular-R-Normal--8-80-75-75-C-79-ISO10646-1` — free 8x8 kana/kanji font written by Num Kadoma
 
 
 ![Font 8x8 coverage](coverage-8x8-0.png)
@@ -171,6 +188,12 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--14-130-75-75-c-70-iso10646-1`.
 ![Font 8x8 coverage](coverage-8x8-4.png)
 ![Font 8x8 coverage](coverage-8x8-5.png)
 ![Font 8x8 coverage](coverage-8x8-6.png)
+![Font 8x8 coverage](coverage-8x8-7.png)
+![Font 8x8 coverage](coverage-8x8-8.png)
+![Font 8x8 coverage](coverage-8x8-9.png)
+![Font 8x8 coverage](coverage-8x8-10.png)
+![Font 8x8 coverage](coverage-8x8-11.png)
+![Font 8x8 coverage](coverage-8x8-12.png)
 
 ## Font 8x10
 
@@ -643,4 +666,5 @@ with identical dimensions into one.
 ![Font 18x18 coverage](coverage-18x18-32.png)
 ![Font 18x18 coverage](coverage-18x18-33.png)
 
+Solid dark blue indicates that this glyph is not supported.
 

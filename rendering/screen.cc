@@ -10,8 +10,19 @@
 #include "settings.hh"
 #include "ctype.hh"
 
-#include "fonts.inc"
+namespace realfonts
+{
+    #include "fonts-authentic.inc"
+}
+namespace fakefonts
+{
+    #include "fonts.inc"
+}
+#define NS1 fakefonts::
+#define NS2 realfonts::
 #include "fonts-list.inc"
+#undef NS1
+#undef NS2
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
@@ -88,23 +99,23 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
             actual_fy = i->first % 256;
         }
 
-        const unsigned char* font = i->second.first;
-        const auto            map = i->second.second;
+        auto [font,map,realmap] = i->second;
 
         std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
         std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
 
-        return std::tuple{actual_fx,actual_fy, font,map,
+        return std::tuple{actual_fx,actual_fy, font,map,realmap,
                           font_row_size_in_bytes,
                           character_size_in_bytes};
     };
-    auto [actual_fx, actual_fy, font, map,
+    auto [actual_fx, actual_fy, font, map,realmap,
           font_row_size_in_bytes, character_size_in_bytes]
             = FindFont(fx, fy);
-    auto [actual_fx2,actual_fy2,font2,map2,
+    auto [actual_fx2,actual_fy2,font2,map2,realmap2,
           font_row_size_in_bytes2,character_size_in_bytes2] // Choose either 12x13 or 18x18
             = std::apply(FindFont, (fy>16)           ? std::tuple<int,int>{18,18}
                                  : (fx>=8 && fy>=15) ? std::tuple<int,int>{16,16}
+                                 : (fx<7)            ? std::tuple<int,int>{8,8}
                                  :                     std::tuple<int,int>{12,13});
 
     unsigned timer = unsigned(GetTime() * 60.0);
@@ -230,7 +241,6 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
             std::uint32_t* pix = pixels + (y*fy+fr)*screen_width;
             std::size_t xroom = xsize;
-            std::size_t visualcolumn = 0;
             bool cursor_seen = !cursorvis;
             if(y != cursy && y != lastcursy) cursor_seen = true;
             for(std::size_t x=0; x<xroom; ++x) // cell-column
@@ -250,23 +260,30 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 auto use_fy = actual_fy;
                 auto use_charsize = character_size_in_bytes;
                 auto use_fontsize = font_row_size_in_bytes;
-                auto [translated_ch, avail] = map(char_to_render);
                 auto use_font = font;
 
                 bool was_double = isdouble(char_to_render);
                 if(was_double)
                 {
                     xscale *= 2;
-                    width *= 2;
+                    width  *= 2;
                 }
-                if(!avail && font2 != font)// && was_double)
+
+                auto [translated_ch, avail] = map(char_to_render);
+
+                // If there is no alt font, take everything from that font.
+                // For double-width characters, try real characters only from first font
+                //   If there is no real character in primary font, try approximation from second font
+                //   If not available there either, use approximation from first font.
+                // For single-width characters, try approximation from first font
+                //   And if not available, try the wide font next.
+                if(font2 != font
+                && (was_double ? !realmap(char_to_render).second : !avail))
                 {
-                    auto [translated_ch2, avail2] = map2(char_to_render);
-                    if(avail2)
+                    if(auto [t2, avail2] = map2(char_to_render); avail2)
                     {
-                        translated_ch = translated_ch2;
-                        // Look up double-width symbols in alternative font,
-                        // if the primary font does not have it
+                        translated_ch = t2;
+                        avail = avail2;
                         use_fx = actual_fx2;
                         use_fy = actual_fy2;
                         use_charsize = character_size_in_bytes2;
@@ -279,10 +296,13 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     }
                 }
 
+                bool cursorloc      = y == cursy     && (x == cursx     || (was_double && cursx     == x+1));
+                bool prev_cursorloc = y == lastcursy && (x == lastcursx || (was_double && lastcursx == x+1));
+
                 if(!cell.dirty
                 && !is_person_row
-                && (visualcolumn != cursx     || y != cursy)
-                && (visualcolumn != lastcursx || y != lastcursy)
+                && !cursorloc
+                && !prev_cursorloc
                 && (cell.blink!=1 || old_blink1 == cur_blink1)
                 && (cell.blink!=2 || old_blink2 == cur_blink2)
                   )
@@ -294,7 +314,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     if(!has_bar)
                     {
                         pix          += width;
-                        visualcolumn += 1 + was_double;
+                        x            += was_double;
                         continue;
                     }
                 }
@@ -362,7 +382,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         break;
                     }
 
-                bool do_cursor = !cursor_seen && visualcolumn >= cursx && y == cursy;
+                bool do_cursor = !cursor_seen && cursorloc;
                 if(do_cursor)
                 {
                     unsigned lim = 7;
@@ -435,7 +455,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     pix[fc] = color;
                 }
                 pix += width;
-                visualcolumn += 1 + was_double;
+                x   += was_double;
                 /*if(fr == (fy-1))
                 {
                     cell.dirty = false;

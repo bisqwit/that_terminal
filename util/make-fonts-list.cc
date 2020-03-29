@@ -7,6 +7,8 @@
 #include <string_view>
 #include <cstdio>
 
+#define NS1
+#define NS2
 namespace authentic
 {
 #include "fonts-authentic.inc"
@@ -17,6 +19,8 @@ namespace pseudo
 #include "fonts.inc"
 #include "fonts-list.inc"
 }
+#undef NS1
+#undef NS2
 #include "../ctype.hh"
 
 static const std::tuple<unsigned,unsigned,std::string_view> blocks[]
@@ -24,6 +28,7 @@ static const std::tuple<unsigned,unsigned,std::string_view> blocks[]
 #include "unicode-sections.inc"
 };
 
+/*
 static void PrintRanges(const std::vector<bool>& real, const std::vector<bool>& fake)
 {
     for(auto [begin,end,name]: blocks)
@@ -72,6 +77,7 @@ static void PrintRanges(const std::vector<bool>& real, const std::vector<bool>& 
         Process(fake, 2);
     }
 }
+*/
 
 static const std::map<unsigned,std::string> lore
 {
@@ -79,6 +85,7 @@ static const std::map<unsigned,std::string> lore
 };
 int main()
 {
+/*
     std::map<unsigned, std::pair<std::vector<bool>,std::vector<bool>>> supports;
     for(auto p: authentic::fonts)
     {
@@ -97,6 +104,7 @@ int main()
             if(p.second.second(index).second && !pair.first[index])
                 supported[index] = true;
     }
+*/
     std::cout <<
 R"(# Fonts supported by *that terminal*
 
@@ -110,6 +118,8 @@ rendered using each font. In those images, white denotes glyphs
 that are supported fully. Brown (darker color) denotes
 glyphs that are supported only through approximation,
 such as by removing accents.
+
+Solid dark blue indicates that this glyph is not supported.
 
 )";
     /*for(auto p: supports)

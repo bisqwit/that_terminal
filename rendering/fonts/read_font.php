@@ -306,6 +306,8 @@ function Read_Font($filename, $width, $height)
   #print "$filename\n";
   preg_match('/\.(psf\.gz|inc|asm|bdf|[^.*])$/', $filename, $mat);
   $ext    = $mat[1];
+  if(!file_exists($filename))
+    file_put_contents('php://stderr', "File not found: $filename\n");
   switch($ext)
   {
     case 'psf.gz': return Read_PSFgz($filename, $width, $height);

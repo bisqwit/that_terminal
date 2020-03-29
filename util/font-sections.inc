@@ -9,6 +9,11 @@ with diearesis that I have never seen used anywhere, for a total of 128
 glyphs.
 )"},
     {4*256+6, "X11 misc-fixed font `-misc-fixed-medium-r-normal--6-60-75-75-c-40-iso10646-1`."},
+    {4*256+8, R"(
+The 4x8 glyphs from misaki_gothic_2nd.bdf (ASCII/JIS compatibility)
+`-Kadoma-MisakiGothic2nd-Regular-R-Normal--4-40-75-75-C-79-ISO10646-1`
+— free 8x8 kana/kanji font written by Num Kadoma)
+)"},
     {5*256+7, "X11 misc-fixed font `-misc-fixed-medium-r-normal--7-70-75-75-c-50-iso10646-1`."},
     {5*256+8, "X11 misc-fixed font `-misc-fixed-medium-r-normal--8-80-75-75-c-50-iso10646-1`."},
     {6*256+9, "X11 misc-fixed font `-misc-fixed-medium-r-normal--9-90-75-75-c-60-iso10646-1`."},
@@ -46,6 +51,7 @@ with identical dimensions into one.
 * iso01.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
 * lat1-08.psf.gz, lat2-08.psf.gz (Linux consolefonts)
 * Uni1-VGA8.psf.gz, Uni2-VGA8.psf.gz (Linux consolefonts)
+* misaki_gothic_2nd.bdf `-Kadoma-MisakiGothic2nd-Regular-R-Normal--8-80-75-75-C-79-ISO10646-1` — free 8x8 kana/kanji font written by Num Kadoma
 )"},
     {8*256+10, R"(
 * 8x10 Source unknown (possibly created automatically by resizing 8x12)

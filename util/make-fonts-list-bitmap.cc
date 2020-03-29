@@ -3,12 +3,15 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
+#include <tuple>
 #include <algorithm>
 #include <string_view>
 #include <cstdio>
 
 #include <gd.h>
 
+#define NS1
+#define NS2
 namespace authentic
 {
 #include "fonts-authentic.inc"
@@ -19,6 +22,8 @@ namespace pseudo
 #include "fonts.inc"
 #include "fonts-list.inc"
 }
+#undef NS1
+#undef NS2
 #include "../ctype.hh"
 
 static const std::tuple<unsigned,unsigned,std::string_view> blocks[]
@@ -97,7 +102,7 @@ static void PrintRanges(
     {
         if(title_printed) { title_printed = false; BitmapEndl(); }
         unsigned span = 32;
-        if(begin == 0xAC00)
+        if(begin         == 0xAC00)
         {
             span = 28;
         }
@@ -147,9 +152,13 @@ static void PrintRanges(
                     if(p < color_start)
                         BitmapPrintCh(p, bitmap_fake, find_fake(str[p]).first, 0xFFFFFF);
                     else if(ok1 & (1u << (p-color_start)))
-                        BitmapPrintCh(p, bitmap_real, find_real(str[p]).first, 0xFFFAF2);
-                    else
+                        BitmapPrintCh(p, bitmap_real, find_real(str[p]).first, 0xFFFFFF);
+                    else if(ok2 & (1u << (p-color_start)))
                         BitmapPrintCh(p, bitmap_fake, find_fake(str[p]).first, 0xBB7733);
+                    else
+                        BitmapPrintCh(p, (const unsigned char*)"\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377",
+                                         0,
+                                         0x000022);
                 }
                 BitmapEndl();
             }
@@ -172,8 +181,8 @@ int main()
         const auto& entry1 = authentic::fonts.find(p.first)->second;
         const auto& entry2 = pseudo::fonts.find(p.first)->second;
         PrintRanges(x,y,
-                    entry1.first, entry1.second,
-                    entry2.first, entry2.second);
+                    std::get<0>(entry1), std::get<1>(entry1),
+                    std::get<0>(entry2), std::get<1>(entry2));
     }
 }
  

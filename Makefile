@@ -175,6 +175,7 @@ FONTS= \
 	rendering/fonts/data/lat9-12.psf.gz \
 	rendering/fonts/data/lat9-14.psf.gz \
 	rendering/fonts/data/lat9-16.psf.gz \
+	rendering/fonts/data/misakig2.bdf \
 	rendering/fonts/data/Uni1-VGA14.psf.gz \
 	rendering/fonts/data/Uni1-VGA16.psf.gz \
 	rendering/fonts/data/Uni1-VGA28x16.psf.gz \
