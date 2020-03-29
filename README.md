@@ -6,6 +6,28 @@ https://www.youtube.com/watch?v=9e38ORrkbtc&list=PLzLzYGEbdY5nKCfUgfk8tCO9veao_P
 
 ![Screenshot showcasing the character set support](doc/snap.png)
 
+## Features
+
+Supported:
+
+* Dozens of built-in fonts (covering the entire basic multilingual plane of Unicode and then some)
+* Single-width and double-width characters (such as CJK + English text)
+* Video recording at any frame rate, including at rates faster than your OS can handle
+* Automated input
+* Resizing of terminal dimensions / font size at any time
+* Way more terminal escape codes than a typical user will ever depend on
+
+Not supported (yet!)
+
+* Copy and paste
+* User-supplied fonts
+* Configuration of key features without recompiling source code
+* Bidirectional rendering (such as Arabic and Hebrew)
+* Combining diacritics
+* Letters that change shape depending on position in word (such as word-final glyphs in Hebrew)
+
+This video is designed for programming video production purposes.
+
 ## What is a terminal emulator?
 
 A terminal emulator is a program that emulates a *terminal*.
