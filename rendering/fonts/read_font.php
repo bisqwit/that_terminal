@@ -97,7 +97,7 @@ function Read_PSFgzEncoding($filename)
   return false;
 }
 
-function Read_PSFgz($filename, $height)
+function Read_PSFgz($filename, $width, $height)
 {
   $data = file_get_contents('compress.zlib://'.$filename);
   $header1 = unpack('nmagic/Cmode/Ccsize', $data);
@@ -141,13 +141,27 @@ function Read_PSFgz($filename, $height)
     foreach($index as $ch)
     {
       $pos = $offset + $n*$charsize;
-      for($m=0; $m<$height; ++$m)
-        $result[$ch][$m] = ord($data[$pos+$m]);
+      $bytesperchar = $charsize/$height;
+      for($m=0; $m<$charsize; $m+=$bytesperchar)
+      {
+        $w = 0;
+        # Read big-endian
+        for($a=0; $a<$bytesperchar; ++$a) $w |= ord($data[$pos + $m+$bytesperchar-$a-1]) << ($a*8);
+        if($width%8)
+        {
+          #$w <<= ($width%8);
+          #$w <<= (8-$width%8);
+          $w >>= (8-$width%8);
+          #$w >>= ($width%8);
+        }
+        # Write little-endian
+        for($a=0; $a<$bytesperchar; ++$a) $result[$ch][$m+$a] = ($w >> ($a*8)) & 0xFF;
+      }
     }
   }
   return $result;
 }
-function Read_BDF($filename, $height)
+function Read_BDF($filename, $width, $height)
 {
   $chno = 0;
   $data = Array();
@@ -160,7 +174,7 @@ function Read_BDF($filename, $height)
   $registry = '';
   $encoding = '';
   $encodings = Array();
-  $fontwidth  = 8;
+  $fontwidth  = $width;
   $fontheight = 1;
 
   $bitmap = Array();
@@ -184,8 +198,13 @@ function Read_BDF($filename, $height)
       $encoding = $mat[1];
     elseif(preg_match('/^FONTBOUNDINGBOX ([0-9]*) ([0-9]*)/', $line, $mat))
     {
-      $fontwidth  = (int)$mat[1];
+      #$fontwidth  = (int)$mat[1];
       $fontheight = (int)$mat[2];
+      #$matrix_row_size = ($fontwidth + 7) >> 3; // 1 byte
+    }
+    elseif(preg_match('/^DWIDTH ([0-9]+) ([0-9]+)/', $line, $mat))
+    {
+      $fontwidth  = (int)$mat[1];
       $matrix_row_size = ($fontwidth + 7) >> 3; // 1 byte
     }
     elseif(preg_match('/^BBX (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)/', $line, $mat))
@@ -204,32 +223,36 @@ function Read_BDF($filename, $height)
     elseif($line == 'ENDCHAR')
     {
       $mode = 0;
-      $map = Array();
 
-      while($beforebox < 0)
-        { array_shift($data); ++$beforebox; }
-      while($afterbox < 0)
-        { array_pop($data); ++$afterbox; }
-
-      while($beforebox > 0)
-        { $map[] = 0; --$beforebox; }
-      foreach($data as $v)
-        $map[] = $v;
-      while($afterbox > 0)
-        { $map[] = 0; --$afterbox; }
-
-      $bytes = ($fontwidth + 7) >> 3;
-      for($y=0; $y<$fontheight; ++$y)
+      if($fontwidth == $width)
       {
-        $m = (int)@$map[$y];
-        for($b=0; $b<$bytes; ++$b)
+        $map = Array();
+
+        while($beforebox < 0)
+          { array_shift($data); ++$beforebox; }
+        while($afterbox < 0)
+          { array_pop($data); ++$afterbox; }
+
+        while($beforebox > 0)
+          { $map[] = 0; --$beforebox; }
+        foreach($data as $v)
+          $map[] = $v;
+        while($afterbox > 0)
+          { $map[] = 0; --$afterbox; }
+
+        $bytes = ($fontwidth + 7) >> 3;
+        for($y=0; $y<$fontheight; ++$y)
         {
-          $bitmap[$chno][$y*$bytes + $b] = (($m >> (($bytes*8)-$fontwidth)) >> ($b*8)) & 0xFF;
+          $m = (int)@$map[$y];
+          for($b=0; $b<$bytes; ++$b)
+          {
+            $bitmap[$chno][$y*$bytes + $b] = (($m >> (($bytes*8)-$fontwidth)) >> ($b*8)) & 0xFF;
+          }
         }
+        ++$chno;
       }
 
       $data = Array();
-      ++$chno;
     }
     elseif($mode)
     {
@@ -278,18 +301,17 @@ function Read_ASM($filename, $height)
   return $data;
 }
 
-function Read_Font($filename, $height)
+function Read_Font($filename, $width, $height)
 {
   #print "$filename\n";
-  preg_match('/(?:.*x|\.f|-)0*([0-9]+(?:ja|ko)?).(.*)/', $filename, $mat);
-  #$height = (int)($mat[1]);
-  $ext    = $mat[2];
+  preg_match('/\.(psf\.gz|inc|asm|bdf|[^.*])$/', $filename, $mat);
+  $ext    = $mat[1];
   switch($ext)
   {
-    case 'psf.gz': return Read_PSFgz($filename, $height);
+    case 'psf.gz': return Read_PSFgz($filename, $width, $height);
     case 'inc': return Read_Inc($filename, $height);
     case 'asm': return Read_ASM($filename, $height);
-    case 'bdf': return Read_BDF($filename, $height);
+    case 'bdf': return Read_BDF($filename, $width, $height);
     default: print "Unknown filename: $filename\n";
   }
 }

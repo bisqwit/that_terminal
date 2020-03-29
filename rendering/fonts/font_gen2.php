@@ -83,6 +83,7 @@ class Font
     }
     else
     {
+      file_put_contents("php://stderr", "Cache miss: $cache_fn for {$width}x{$height}\n");
       $p = proc_open("./table-packer lookup",
                      [0=>['pipe','r'], 1=>['pipe','w'], 2=>['file', 'php://stderr', 'w']],
                      $pipes);
@@ -92,7 +93,6 @@ class Font
       fclose($pipes[1]);
       proc_close($p);
       #print $contents;
-    }
       $contents = preg_replace('@//.*@',      '', $contents);
       $contents = preg_replace("@\s+\$@",   '', $contents);
       $contents = preg_replace("@^\s+@",   '', $contents);
@@ -102,7 +102,7 @@ class Font
       $contents = preg_replace("@#endif\s@", "#endif\n", $contents);
       $contents = preg_replace("@__ __@", "__\n__", $contents);
       file_put_contents($cache_fn, $contents);
-    //}
+    }
 
     printf("#include \"fonts/%s\"\n", $cache_fn);
     printf("std::pair<unsigned,bool> unicode_to_bitmap_index(char32_t c)\n".

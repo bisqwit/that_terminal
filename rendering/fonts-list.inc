@@ -21,6 +21,12 @@ static std::unordered_map<unsigned, std::pair<const unsigned char*, std::pair<un
     { 9*256 + 15, {ns_f9x15::bitmap, ns_f9x15::unicode_to_bitmap_index} },
     { 9*256 + 18, {ns_f9x18::bitmap, ns_f9x18::unicode_to_bitmap_index} },
     { 10*256+ 20, {ns_f10x20::bitmap, ns_f10x20::unicode_to_bitmap_index} },
+    { 11*256+ 22, {ns_f11x22::bitmap, ns_f11x22::unicode_to_bitmap_index} },
     { 12*256+ 13, {ns_f12x13::bitmap, ns_f12x13::unicode_to_bitmap_index} },
+    { 12*256+ 24, {ns_f12x24::bitmap, ns_f12x24::unicode_to_bitmap_index} },
+    { 14*256+ 28, {ns_f14x28::bitmap, ns_f14x28::unicode_to_bitmap_index} },
+    { 16*256+ 16, {ns_f16x16::bitmap, ns_f16x16::unicode_to_bitmap_index} },
+    { 16*256+ 28, {ns_f16x28::bitmap, ns_f16x28::unicode_to_bitmap_index} },
+    { 16*256+ 32, {ns_f16x32::bitmap, ns_f16x32::unicode_to_bitmap_index} },
     { 18*256+ 18, {ns_f18x18::bitmap, ns_f18x18::unicode_to_bitmap_index} },
 };

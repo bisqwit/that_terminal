@@ -118,7 +118,7 @@ rendering/fonts.inc: rendering/fonts/make.php \
 		$(FONTS)
 	(cd rendering/fonts; php make.php    2>inc-files.dat \
 		| sed 's@//.*@@' |grep . > ../fonts.inc)
-	(cd rendering/fonts; php make.php    2>inc-files.dat >/dev/null )
+	#(cd rendering/fonts; php make.php    2>inc-files.dat >/dev/null )
 
 rendering/fonts-authentic.inc: rendering/fonts/make.php \
 		rendering/fonts/table-packer \
@@ -151,11 +151,18 @@ doc/fonts.md: doc/fonts.md.tmp doc/fonts.md.tmp2 doc/fonts.md.tmp3
 	rm -f "$@".tmp "$@".tmp2 "$@".tmp3
 
 compress1: ;
-	#parallel -j40 advdef -z4 -i4096 -- rendering/fonts/data/.translations-*
-	#for s in rendering/fonts/data/.translations-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
+	parallel -j40 advdef -z4 -i16384 -- rendering/fonts/data/.translations-*
+	for s in rendering/fonts/data/.translations-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
 compress2: ;
-	parallel -j40 \
-		sh -c 'for s in 128 256 512 1024;do pngout -c3 -b$$s $$0;done ; advpng -z4 -i4096 $$0 ; DeflOpt $$0' \
+	parallel -j40 advdef -z4 -i16384 -- rendering/fonts/data/.1translations-*
+	for s in rendering/fonts/data/.1translations-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
+compress12: ;
+	parallel -j40 advdef -z4 -i16384 -- rendering/fonts/data/.translations-* rendering/fonts/data/.1translations-*
+	for s in rendering/fonts/data/.1translations-* rendering/fonts/data/.translations-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
+
+compress3: ;
+	parallel -j42 \
+		sh -c 'for s in 1 2 3 4 5 6 7 8 9 10 11 12 13;do optipng -o7 $$0 ; pngout -c3 -n$$s $$0;done ; advpng -z4 -i16 $$0 ; DeflOpt $$0' \
 		-- doc/coverage-*.png
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))

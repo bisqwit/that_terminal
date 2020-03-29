@@ -89,7 +89,10 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal--10-100-75-75-c-60-iso10646-1`.
 
 ## Font 6x12
 
-X11 misc-fixed font `-misc-fixed-medium-r-semicondensed--12-110-75-75-c-60-iso10646-1`.
+
+* X11 misc-fixed font `-misc-fixed-medium-r-semicondensed--12-110-75-75-c-60-iso10646-1`.
+* Uni2-Terminus12x6.psf.gz (Linux consolefonts)
+
 
 ![Font 6x12 coverage](coverage-6x12-0.png)
 ![Font 6x12 coverage](coverage-6x12-1.png)
@@ -156,8 +159,9 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--14-130-75-75-c-70-iso10646-1`.
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* cp857-8x8.psf.gz (Linux consolefonts)
-* iso03.f08.psf.gz, iso04.f08.psf.gz, iso05.f08.psf.gz, iso06.f08.psf.gz, iso07.f08.psf.gz, iso08.f08.psf.gz, lat9-08.psf.gz
+* iso01.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
+* lat1-08.psf.gz, lat2-08.psf.gz (Linux consolefonts)
+* Uni1-VGA8.psf.gz, Uni2-VGA8.psf.gz (Linux consolefonts)
 
 
 ![Font 8x8 coverage](coverage-8x8-0.png)
@@ -222,8 +226,9 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--13-120-75-75-c-80-iso10646-1`.
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* cp857-8x14.psf.gz (Linux consolefonts)
-* iso03.f14.psf.gz, iso04.f14.psf.gz, iso05.f14.psf.gz, iso06.f14.psf.gz, iso07.f14.psf.gz, iso08.f14.psf.gz, lat9-14.psf.gz
+* iso01.f14.psf.gz, is07.f14.psf.gz, iso14.f14.psf.gz (Linux consolefonts)
+* lat1-14.psf.gz, lat2-14.psf.gz (Linux consolefonts)
+* Uni1-VGA14.psf.gz, Uni2-VGA14.psf.gz, Uni3-TerminusBoldVGA14.psf.gz (Linux consolefonts)
 
 
 ![Font 8x14 coverage](coverage-8x14-0.png)
@@ -262,8 +267,13 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--13-120-75-75-c-80-iso10646-1`.
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* cp857-8x16.psf.gz (Linux consolefonts)
-* iso03.f16.psf.gz, iso04.f16.psf.gz, iso05.f16.psf.gz, iso06.f16.psf.gz, iso07.f16.psf.gz, iso08.f16.psf.gz, lat9-16.psf.gz
+* iso01.f16.psf.gz, is07.f16.psf.gz, iso16.f16.psf.gz (Linux consolefonts)
+* lat1-16.psf.gz, lat2-16.psf.gz (Linux consolefonts)
+* Uni1-VGA16.psf.gz, Uni2-VGA16.psf.gz, Uni3-TerminusBoldVGA16.psf.gz (Linux consolefonts)
+* Arabic-VGA16.psf.gz, Hebrew-VGA16.psf.gz, FullCyrSlav-VGA16.psf.gz (Linux consolefonts)
+* X11 Unifont `-gnu-unifont csur-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1`, 8-pixel wide glyphs only
+
+Pairs perfectly with 16x16.
 
 
 ![Font 8x16 coverage](coverage-8x16-0.png)
@@ -278,6 +288,13 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--13-120-75-75-c-80-iso10646-1`.
 ![Font 8x16 coverage](coverage-8x16-9.png)
 ![Font 8x16 coverage](coverage-8x16-10.png)
 ![Font 8x16 coverage](coverage-8x16-11.png)
+![Font 8x16 coverage](coverage-8x16-12.png)
+![Font 8x16 coverage](coverage-8x16-13.png)
+![Font 8x16 coverage](coverage-8x16-14.png)
+![Font 8x16 coverage](coverage-8x16-15.png)
+![Font 8x16 coverage](coverage-8x16-16.png)
+![Font 8x16 coverage](coverage-8x16-17.png)
+![Font 8x16 coverage](coverage-8x16-18.png)
 
 ## Font 8x19
 
@@ -334,7 +351,10 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--18-120-100-100-c-90-iso10646-1`.
 
 ## Font 10x20
 
-X11 misc-fixed font `-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1`.
+
+* X11 misc-fixed font `-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1`.
+* Uni2-TerminusBold20x10.psf.gz (Linux consolefonts)
+
 
 ![Font 10x20 coverage](coverage-10x20-0.png)
 ![Font 10x20 coverage](coverage-10x20-1.png)
@@ -354,6 +374,30 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1`
 ![Font 10x20 coverage](coverage-10x20-15.png)
 ![Font 10x20 coverage](coverage-10x20-16.png)
 ![Font 10x20 coverage](coverage-10x20-17.png)
+
+## Font 11x22
+
+
+* Uni2-TerminusBold22x11.psf.gz, Uni3-TerminusBold22x11.psf.gz (Linux consolefonts)
+* FullCyrSlav-TerminusBold22x11.psf.gz, FullCyrAsia-TerminusBold22x11.psf.gz (Linux consolefonts)
+* FullGreek-TerminusBold22x11.psf.gz (Linux consolefonts)
+
+
+![Font 11x22 coverage](coverage-11x22-0.png)
+![Font 11x22 coverage](coverage-11x22-1.png)
+![Font 11x22 coverage](coverage-11x22-2.png)
+![Font 11x22 coverage](coverage-11x22-3.png)
+![Font 11x22 coverage](coverage-11x22-4.png)
+![Font 11x22 coverage](coverage-11x22-5.png)
+![Font 11x22 coverage](coverage-11x22-6.png)
+![Font 11x22 coverage](coverage-11x22-7.png)
+![Font 11x22 coverage](coverage-11x22-8.png)
+![Font 11x22 coverage](coverage-11x22-9.png)
+![Font 11x22 coverage](coverage-11x22-10.png)
+![Font 11x22 coverage](coverage-11x22-11.png)
+![Font 11x22 coverage](coverage-11x22-12.png)
+![Font 11x22 coverage](coverage-11x22-13.png)
+![Font 11x22 coverage](coverage-11x22-14.png)
 
 ## Font 12x13
 
@@ -384,9 +428,185 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-
 ![Font 12x13 coverage](coverage-12x13-22.png)
 ![Font 12x13 coverage](coverage-12x13-23.png)
 
+## Font 12x24
+
+
+* Uni2-TerminusBold24x12.psf.gz, Uni3-TerminusBold24x12.psf.gz (Linux consolefonts)
+* FullCyrSlav-TerminusBold24x12.psf.gz, FullCyrAsia-TerminusBold24x12.psf.gz (Linux consolefonts)
+* FullGreek-TerminusBold24x12.psf.gz (Linux consolefonts)
+
+
+![Font 12x24 coverage](coverage-12x24-0.png)
+![Font 12x24 coverage](coverage-12x24-1.png)
+![Font 12x24 coverage](coverage-12x24-2.png)
+![Font 12x24 coverage](coverage-12x24-3.png)
+![Font 12x24 coverage](coverage-12x24-4.png)
+![Font 12x24 coverage](coverage-12x24-5.png)
+![Font 12x24 coverage](coverage-12x24-6.png)
+![Font 12x24 coverage](coverage-12x24-7.png)
+![Font 12x24 coverage](coverage-12x24-8.png)
+![Font 12x24 coverage](coverage-12x24-9.png)
+![Font 12x24 coverage](coverage-12x24-10.png)
+![Font 12x24 coverage](coverage-12x24-11.png)
+![Font 12x24 coverage](coverage-12x24-12.png)
+![Font 12x24 coverage](coverage-12x24-13.png)
+![Font 12x24 coverage](coverage-12x24-14.png)
+![Font 12x24 coverage](coverage-12x24-15.png)
+![Font 12x24 coverage](coverage-12x24-16.png)
+
+## Font 14x28
+
+
+* Uni2-TerminusBold28x14.psf.gz, Uni3-TerminusBold28x14.psf.gz (Linux consolefonts)
+* FullCyrSlav-TerminusBold28x14.psf.gz, FullCyrAsia-TerminusBold28x14.psf.gz (Linux consolefonts)
+* FullGreek-TerminusBold28x14.psf.gz (Linux consolefonts)
+
+
+![Font 14x28 coverage](coverage-14x28-0.png)
+![Font 14x28 coverage](coverage-14x28-1.png)
+![Font 14x28 coverage](coverage-14x28-2.png)
+![Font 14x28 coverage](coverage-14x28-3.png)
+![Font 14x28 coverage](coverage-14x28-4.png)
+![Font 14x28 coverage](coverage-14x28-5.png)
+![Font 14x28 coverage](coverage-14x28-6.png)
+![Font 14x28 coverage](coverage-14x28-7.png)
+![Font 14x28 coverage](coverage-14x28-8.png)
+![Font 14x28 coverage](coverage-14x28-9.png)
+![Font 14x28 coverage](coverage-14x28-10.png)
+![Font 14x28 coverage](coverage-14x28-11.png)
+![Font 14x28 coverage](coverage-14x28-12.png)
+![Font 14x28 coverage](coverage-14x28-13.png)
+![Font 14x28 coverage](coverage-14x28-14.png)
+![Font 14x28 coverage](coverage-14x28-15.png)
+![Font 14x28 coverage](coverage-14x28-16.png)
+![Font 14x28 coverage](coverage-14x28-17.png)
+![Font 14x28 coverage](coverage-14x28-18.png)
+
+## Font 16x16
+
+
+* X11 Unifont `-gnu-unifont csur-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1`, 16-pixel wide glyphs only
+
+
+![Font 16x16 coverage](coverage-16x16-0.png)
+![Font 16x16 coverage](coverage-16x16-1.png)
+![Font 16x16 coverage](coverage-16x16-2.png)
+![Font 16x16 coverage](coverage-16x16-3.png)
+![Font 16x16 coverage](coverage-16x16-4.png)
+![Font 16x16 coverage](coverage-16x16-5.png)
+![Font 16x16 coverage](coverage-16x16-6.png)
+![Font 16x16 coverage](coverage-16x16-7.png)
+![Font 16x16 coverage](coverage-16x16-8.png)
+![Font 16x16 coverage](coverage-16x16-9.png)
+![Font 16x16 coverage](coverage-16x16-10.png)
+![Font 16x16 coverage](coverage-16x16-11.png)
+![Font 16x16 coverage](coverage-16x16-12.png)
+![Font 16x16 coverage](coverage-16x16-13.png)
+![Font 16x16 coverage](coverage-16x16-14.png)
+![Font 16x16 coverage](coverage-16x16-15.png)
+![Font 16x16 coverage](coverage-16x16-16.png)
+![Font 16x16 coverage](coverage-16x16-17.png)
+![Font 16x16 coverage](coverage-16x16-18.png)
+![Font 16x16 coverage](coverage-16x16-19.png)
+![Font 16x16 coverage](coverage-16x16-20.png)
+![Font 16x16 coverage](coverage-16x16-21.png)
+![Font 16x16 coverage](coverage-16x16-22.png)
+![Font 16x16 coverage](coverage-16x16-23.png)
+![Font 16x16 coverage](coverage-16x16-24.png)
+![Font 16x16 coverage](coverage-16x16-25.png)
+![Font 16x16 coverage](coverage-16x16-26.png)
+![Font 16x16 coverage](coverage-16x16-27.png)
+![Font 16x16 coverage](coverage-16x16-28.png)
+![Font 16x16 coverage](coverage-16x16-29.png)
+![Font 16x16 coverage](coverage-16x16-30.png)
+![Font 16x16 coverage](coverage-16x16-31.png)
+![Font 16x16 coverage](coverage-16x16-32.png)
+![Font 16x16 coverage](coverage-16x16-33.png)
+![Font 16x16 coverage](coverage-16x16-34.png)
+![Font 16x16 coverage](coverage-16x16-35.png)
+![Font 16x16 coverage](coverage-16x16-36.png)
+![Font 16x16 coverage](coverage-16x16-37.png)
+![Font 16x16 coverage](coverage-16x16-38.png)
+![Font 16x16 coverage](coverage-16x16-39.png)
+![Font 16x16 coverage](coverage-16x16-40.png)
+![Font 16x16 coverage](coverage-16x16-41.png)
+![Font 16x16 coverage](coverage-16x16-42.png)
+![Font 16x16 coverage](coverage-16x16-43.png)
+![Font 16x16 coverage](coverage-16x16-44.png)
+![Font 16x16 coverage](coverage-16x16-45.png)
+![Font 16x16 coverage](coverage-16x16-46.png)
+![Font 16x16 coverage](coverage-16x16-47.png)
+
+## Font 16x28
+
+
+* Uni1-VGA28x16.psf.gz, Uni2-VGA28x16.psf.gz (Linux consolefonts)
+* FullCyrSlav-VGA28x16.psf.gz, FullGreek-VGA28x16.psf.gz (Linux consolefonts)
+
+
+![Font 16x28 coverage](coverage-16x28-0.png)
+![Font 16x28 coverage](coverage-16x28-1.png)
+![Font 16x28 coverage](coverage-16x28-2.png)
+![Font 16x28 coverage](coverage-16x28-3.png)
+![Font 16x28 coverage](coverage-16x28-4.png)
+![Font 16x28 coverage](coverage-16x28-5.png)
+![Font 16x28 coverage](coverage-16x28-6.png)
+![Font 16x28 coverage](coverage-16x28-7.png)
+![Font 16x28 coverage](coverage-16x28-8.png)
+![Font 16x28 coverage](coverage-16x28-9.png)
+![Font 16x28 coverage](coverage-16x28-10.png)
+![Font 16x28 coverage](coverage-16x28-11.png)
+![Font 16x28 coverage](coverage-16x28-12.png)
+![Font 16x28 coverage](coverage-16x28-13.png)
+![Font 16x28 coverage](coverage-16x28-14.png)
+![Font 16x28 coverage](coverage-16x28-15.png)
+![Font 16x28 coverage](coverage-16x28-16.png)
+![Font 16x28 coverage](coverage-16x28-17.png)
+![Font 16x28 coverage](coverage-16x28-18.png)
+![Font 16x28 coverage](coverage-16x28-19.png)
+
+## Font 16x32
+
+
+* Uni1-VGA32x16.psf.gz, Uni2-VGA32x16.psf.gz (Linux consolefonts)
+* FullCyrSlav-VGA32x16.psf.gz (Linux consolefonts)
+* Arabic-VGA32x16.psf.gz, Hebrew-VGA32x16.psf.gz (Linux consolefonts)
+
+
+![Font 16x32 coverage](coverage-16x32-0.png)
+![Font 16x32 coverage](coverage-16x32-1.png)
+![Font 16x32 coverage](coverage-16x32-2.png)
+![Font 16x32 coverage](coverage-16x32-3.png)
+![Font 16x32 coverage](coverage-16x32-4.png)
+![Font 16x32 coverage](coverage-16x32-5.png)
+![Font 16x32 coverage](coverage-16x32-6.png)
+![Font 16x32 coverage](coverage-16x32-7.png)
+![Font 16x32 coverage](coverage-16x32-8.png)
+![Font 16x32 coverage](coverage-16x32-9.png)
+![Font 16x32 coverage](coverage-16x32-10.png)
+![Font 16x32 coverage](coverage-16x32-11.png)
+![Font 16x32 coverage](coverage-16x32-12.png)
+![Font 16x32 coverage](coverage-16x32-13.png)
+![Font 16x32 coverage](coverage-16x32-14.png)
+![Font 16x32 coverage](coverage-16x32-15.png)
+![Font 16x32 coverage](coverage-16x32-16.png)
+![Font 16x32 coverage](coverage-16x32-17.png)
+![Font 16x32 coverage](coverage-16x32-18.png)
+![Font 16x32 coverage](coverage-16x32-19.png)
+![Font 16x32 coverage](coverage-16x32-20.png)
+![Font 16x32 coverage](coverage-16x32-21.png)
+![Font 16x32 coverage](coverage-16x32-22.png)
+
 ## Font 18x18
 
-X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso10646-1` (Japanese) and `-misc-fixed-medium-r-normal-ko-18-120-100-100-c-180-iso10646-1` (Korean).
+
+X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso10646-1` (Japanese)
+and `-misc-fixed-medium-r-normal-ko-18-120-100-100-c-180-iso10646-1` (Korean).
+
+Like many other fonts in this emulator,
+it merges two different source fonts
+with identical dimensions into one.
+
 
 ![Font 18x18 coverage](coverage-18x18-0.png)
 ![Font 18x18 coverage](coverage-18x18-1.png)
@@ -426,7 +646,16 @@ X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso106
 
 ## Font 4x5
 
-X11 font “micro”.
+
+X11 font “micro”. For clarity, this font is pictured as 4x6 on this page
+by inserting a blank pixel line below every character, but the font is
+really 4x5. This means that capital letters on adjacent lines are touching.
+
+Besides the full ASCII, this font includes an odd set of special characters,
+including ẍ, some Greek symbols, logical operators, and the APL asterisk
+with diearesis that I have never seen used anywhere, for a total of 128
+glyphs.
+
 
 #### Basic Latin
 
@@ -4819,7 +5048,10 @@ Supported only by approximation:
 
 ## Font 6x12
 
-X11 misc-fixed font `-misc-fixed-medium-r-semicondensed--12-110-75-75-c-60-iso10646-1`.
+
+* X11 misc-fixed font `-misc-fixed-medium-r-semicondensed--12-110-75-75-c-60-iso10646-1`.
+* Uni2-Terminus12x6.psf.gz (Linux consolefonts)
+
 
 #### Basic Latin
 
@@ -5040,14 +5272,12 @@ Supported only by approximation:
 
 #### General Punctuation
 
-    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚‛“”„‟
-    U+2020..U+203F †‡•‣․‥…‧        ‰‱′″‴‵‶‷‸‹›※‼‽‾‿
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚‛“”„‟
+    U+2020..U+203F †‡•‣․‥…‧        ‰‱′″‴‵‶‷‸‹›※‼‽‾‿
     U+2040..U+205F ⁀⁁⁂⁃⁄⁅⁆⁇⁈⁉⁊⁋⁌⁍⁎⁏⁐⁑⁒⁓⁔⁕⁖⁗⁘⁙⁚⁛⁜⁝⁞ 
 
 Supported only by approximation:
 
-    U+2000..U+201F                                 
-    U+2020..U+203F                                 
     U+2040..U+205F                                 
 
 #### Superscripts and Subscripts
@@ -7781,8 +8011,9 @@ Supported only by approximation:
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* cp857-8x8.psf.gz (Linux consolefonts)
-* iso03.f08.psf.gz, iso04.f08.psf.gz, iso05.f08.psf.gz, iso06.f08.psf.gz, iso07.f08.psf.gz, iso08.f08.psf.gz, lat9-08.psf.gz
+* iso01.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
+* lat1-08.psf.gz, lat2-08.psf.gz (Linux consolefonts)
+* Uni1-VGA8.psf.gz, Uni2-VGA8.psf.gz (Linux consolefonts)
 
 
 #### Basic Latin
@@ -7793,30 +8024,31 @@ Supported only by approximation:
 
 #### Latin-1 Supplement
 
-    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
     U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
     U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
 
 #### Latin Extended-A
 
-    U+0100..U+011F Āā  Ąą  ĈĉĊċČč  ĐđĒē  ĖėĘę  ĜĝĞğ
-    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸ  Ļļ   
-    U+0140..U+015F      Ņņ   ŊŋŌō    Œœ  Ŗŗ    ŜŝŞş
-    U+0160..U+017F Šš    ŦŧŨũŪūŬŭ    Ųų    Ÿ  ŻżŽž 
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň ŊŋŌō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲų    ŸŹźŻżŽž 
 
 Supported only by approximation:
 
-    U+0100..U+011F   Ăă  Ćć      Ďď    Ĕĕ    Ěě    
-    U+0120..U+013F             Ĭĭ    Ĳĳ     Ĺĺ  ĽľĿ
-    U+0140..U+015F ŀŁłŃń  Ňňŉ    ŎŏŐő  Ŕŕ  ŘřŚś    
-    U+0160..U+017F   ŢţŤť        ŮůŰű  ŴŵŶŷ Źź    ſ
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F             Ĭĭ    Ĳĳ           Ŀ
+    U+0140..U+015F ŀ        ŉ    Ŏŏ                
+    U+0160..U+017F                     ŴŵŶŷ       ſ
 
 #### Latin Extended-B
 
+    U+0180..U+019F                   ƒ             
 
 Supported only by approximation:
 
-    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑƒƓ ƕƖƗƘƙƚ  ƝƞƟ
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
     U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
     U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
     U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
@@ -7835,13 +8067,13 @@ Supported only by approximation:
 
 #### Spacing Modifier Letters
 
-    U+02B0..U+02CF                        ˇ        
-    U+02D0..U+02EF         ˘˙ ˛                    
+    U+02B0..U+02CF                        ˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
 
 Supported only by approximation:
 
-    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺ ʼ         ˆ ˈˉˊˋ ˍ  
-    U+02D0..U+02EF ː           ˜˝   ˡˢˣ      ˪     
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ         ˆ ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
 
 #### Combining Diacritical Marks
 
@@ -7852,7 +8084,7 @@ Supported only by approximation:
 
 #### Greek and Coptic
 
-    U+0370..U+038F  ͱͲ                   Ά ΈΉΊ Ό ΎΏ
+    U+0370..U+038F                       Ά ΈΉΊ Ό ΎΏ
     U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
     U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
     U+03F0..U+03FF    ϳϴ                           
@@ -7868,6 +8100,9 @@ Supported only by approximation:
     U+0400..U+041F  ЁЂЃЄЅІЇЈЉЊЋЌ ЎЏАБВГДЕЖЗИЙКЛМНОП
     U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
     U+0440..U+045F рстуфхцчшщъыьэюя ёђѓєѕіїјљњћќ ўџ
+    U+0480..U+049F                 Ґґ              
+    U+04A0..U+04BF               Ү                 
+    U+04C0..U+04DF                 Ӑӑ              
 
 Supported only by approximation:
 
@@ -7875,12 +8110,13 @@ Supported only by approximation:
     U+0440..U+045F                 ѐ            ѝ  
     U+0460..U+047F Ѡѡ                Ѳ             
     U+0480..U+049F                   Ғғ            
-    U+04A0..U+04BF     Ҥҥ        Ү     Ҵҵ          
-    U+04C0..U+04DF ӀӁӂ             ӐӑӒӓӔӕӖӗ    ӜӝӞӟ
+    U+04A0..U+04BF     Ҥҥ              Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ               ӒӓӔӕӖӗ    ӜӝӞӟ
     U+04E0..U+04FF   ӢӣӤӥӦӧӨ   ӬӭӮӯӰӱӲӳӴӵ  ӸӹӺӻ    
 
 #### Cyrillic Supplement
 
+    U+0500..U+051F                                ԟ
 
 Supported only by approximation:
 
@@ -8047,30 +8283,30 @@ Supported only by approximation:
 
 #### General Punctuation
 
-    U+2000..U+201F                      ― ‗        
-    U+2020..U+203F   •                         ‼ ‾ 
+    U+2000..U+201F                 ‐‑‒–—― ‗‘’‚‛“”„‟
+    U+2020..U+203F   •                      ‹› ‼ ‾ 
 
 Supported only by approximation:
 
-    U+2000..U+201F                 ‐‑‒–—   ‘’‚‛“”„‟
-    U+2020..U+203F †   ․‥…           ′″‴‵‶‷ ‹›     
-    U+2040..U+205F     ⁄  ⁇⁈⁉⁊               ⁚     
+    U+2020..U+203F †   ․‥…           ′″‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊               ⁚     
 
 #### Superscripts and Subscripts
 
+    U+2070..U+208F                ⁿ                
 
 Supported only by approximation:
 
-    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
     U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
 
 #### Currency Symbols
 
-    U+20A0..U+20BF             €                   
+    U+20A0..U+20BF        ₧    €                   
 
 Supported only by approximation:
 
-    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
 
 #### Combining Diacritical Marks for Symbols
 
@@ -8082,11 +8318,12 @@ Supported only by approximation:
 #### Letterlike Symbols
 
     U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
 
 Supported only by approximation:
 
     U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
-    U+2120..U+213F ℠℡™ ℤ Ω ℨ KÅℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
     U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
 
 #### Number Forms
@@ -8094,12 +8331,13 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2150..U+216F                 ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
-    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ                
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
 
 #### Arrows
 
     U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
 
 Supported only by approximation:
 
@@ -8109,14 +8347,18 @@ Supported only by approximation:
 
 #### Mathematical Operators
 
-    U+2200..U+221F                                ∟
+    U+2200..U+221F       ∆           −      ∙√   ∞∟
+    U+2220..U+223F          ∩                      
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠≡  ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
 
 Supported only by approximation:
 
-    U+2200..U+221F     ∄    ∉  ∌    ∑−  ∕∖∗ ∙      
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
     U+2220..U+223F    ∣∤∥∦   ∪           ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
-    U+2260..U+227F ≠ ≢ ≤≥    ≪≫  ≮≯≰≱  ≴≵  ≸≹      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
     U+2280..U+229F     ⊄⊅  ⊈⊉                      
     U+22A0..U+22BF     ⊤                           
     U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
@@ -8124,7 +8366,8 @@ Supported only by approximation:
 
 #### Miscellaneous Technical
 
-    U+2300..U+231F   ⌂                      ⌙　　    
+    U+2300..U+231F   ⌂             ⌐        ⌙　　    
+    U+2320..U+233F ⌠⌡       　　                     
     U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
@@ -8136,29 +8379,34 @@ Supported only by approximation:
 
 #### Control Pictures
 
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F    ␣␤                           
 
 Supported only by approximation:
 
-    U+2400..U+241F ␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
-    U+2420..U+243F ␠␡ ␣␤                           
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡                              
 
 #### Enclosed Alphanumerics
 
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
 
 Supported only by approximation:
 
-    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
     U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
-    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
-    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
-    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪          ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
 
 #### Box Drawing
 
-    U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
-    U+2520..U+253F     ┤       ┬       ┴       ┼   
-    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
-    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
 
 Supported only by approximation:
 
@@ -8166,29 +8414,29 @@ Supported only by approximation:
 
 #### Block Elements
 
-    U+2580..U+259F ▀   ▄   █        ░▒▓            
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
-    U+25C0..U+25DF ◀   ◄      ○            ◘◙      
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸ ► ▼▽▾ 
+    U+25C0..U+25DF ◀ ◂ ◄      ○   ●        ◘◙      
 
 Supported only by approximation:
 
-    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
-    U+25C0..U+25DF  ◁   ◅         ●                
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹ ▻   ▿
+    U+25C0..U+25DF  ◁ ◃ ◅                          
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
 
     U+2620..U+263F                           ☺☻☼   
     U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
-    U+2660..U+267F ♠  ♣ ♥♦   ♪♫♬                  　
+    U+2660..U+267F ♠  ♣ ♥    ♪♫♬                  　
 
 Supported only by approximation:
 
     U+2600..U+261F ☀                   　　          
-    U+2660..U+267F  ♡♢ ♤  ♧                       　
+    U+2660..U+267F  ♡  ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
@@ -8341,6 +8589,10 @@ Supported only by approximation:
 
     U+AB50..U+AB6F       ꭖꭗꭘ                       
 
+#### Private Use Area
+
+    U+F800..U+F81F                             
+
 #### Alphabetic Presentation Forms
 
 
@@ -8369,14 +8621,15 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗　﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
 
 #### Arabic Presentation Forms-B
 
-
-Supported only by approximation:
-
-    U+FED0..U+FEEF              ﻝ                  
+    U+FE70..U+FE8F                 ﺀ            ﺍﺎﺏ
+    U+FE90..U+FEAF ﺐﺑﺒ  ﺕﺖﺗﺘﺙﺚﺛﺜﺝﺞﺟﺠﺡﺢﺣﺤﺥﺦﺧﺨﺩﺪﺫﺬﺭﺮﺯ
+    U+FEB0..U+FECF ﺰﺱﺲﺳﺴﺵﺶﺷﺸﺹﺺﺻﺼﺽﺾﺿﻀﻁﻂﻃﻄﻅﻆﻇﻈﻉﻊﻋﻌﻍﻎﻏ
+    U+FED0..U+FEEF ﻐﻑﻒﻓﻔﻕﻖﻗﻘﻙﻚﻛﻜﻝﻞﻟﻠﻡﻢﻣﻤﻥﻦﻧﻨﻩﻪﻫﻬﻭﻮ 
+    U+FEF0..U+FEFF  ﻱﻲﻳﻴ            　　　　　　　　　　　　　　　
 
 #### Halfwidth and Fullwidth Forms
 
@@ -8556,7 +8809,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  Ɲƞ 
-    U+01A0..U+01BF ƠơƢƣƤƥ     ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
     U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
     U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
     U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚț  Ȟȟ
@@ -8591,28 +8844,30 @@ Supported only by approximation:
 
 #### Greek and Coptic
 
-    U+03B0..U+03CF                 π               
+    U+0390..U+03AF    Γ    Θ          Σ  Φ  Ω      
+    U+03B0..U+03CF  α  δε          π  στ φ         
 
 Supported only by approximation:
 
-    U+0370..U+038F               ;      ΅Ά·ΈΉΊ Ό Ύ 
-    U+0390..U+03AF  ΑΒ  ΕΖΗ ΙΚ ΜΝ Ο Ρ  ΤΥ Χ  ΪΫ    
+    U+0370..U+038F               ;      ΅Ά·ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF  ΑΒ  ΕΖΗ ΙΚ ΜΝ Ο Ρ  ΤΥ Χ  ΪΫάέ  
     U+03B0..U+03CF             μ  ο ρ       ω  ό ώ 
-    U+03D0..U+03EF   ϒ   ϖ     Ϝ                   
-    U+03F0..U+03FF  ϱϲϳ     ϹϺ                     
+    U+03D0..U+03EF   ϒ  ϕϖ     Ϝ                   
+    U+03F0..U+03FF  ϱϲϳϴϵ   ϹϺ                     
 
 #### Cyrillic
 
 
 Supported only by approximation:
 
-    U+0400..U+041F ЀЁ   ЅІЇЈ   Ќ   А В  Е З  К МНО 
-    U+0420..U+043F РСТ  Х          а    е        оп
+    U+0400..U+041F ЀЁ Ѓ ЅІЇЈ   Ќ   А ВГ Е З  К МНО 
+    U+0420..U+043F РСТ ФХ          а    е        оп
     U+0440..U+045F рс у х          ѐ    ѕіїј     ў 
     U+0460..U+047F Ѡѡ                              
+    U+0480..U+049F                   Ғ             
     U+04A0..U+04BF     Ҥ         Ү     Ҵ           
     U+04C0..U+04DF Ӏ               ӐӑӒӓӔӕӖӗ      Ӟ 
-    U+04E0..U+04FF       Ӧӧ       ӯ ӱ ӳ            
+    U+04E0..U+04FF       Ӧӧ       ӯ ӱ ӳ      Ӻ     
 
 #### Cyrillic Supplement
 
@@ -8687,7 +8942,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ      Ꮃ   Ꮇ   Ꮋ    
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ    
     U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       Ꮞ   Ꮢ      ᏙᏚ   ᏞᏟ
     U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
 
@@ -8721,8 +8976,8 @@ Supported only by approximation:
 
     U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇ  ᴊᴋᴌᴍ ᴏ        ᴘ  ᴛᴜ   
     U+1D20..U+1D3F ᴠᴡᴢ     ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
-    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ    
-    U+1D60..U+1D7F   ᵢᵣᵤᵥ  ᵨ  ᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ   ᵺᵻ ᵽᵾ 
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ   ᵟ
+    U+1D60..U+1D7F ᵠ ᵢᵣᵤᵥ  ᵨᵩ ᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ   ᵺᵻ ᵽᵾ 
 
 #### Phonetic Extensions Supplement
 
@@ -8751,14 +9006,14 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F00..U+1F1F         ἈἉἊἋἌἍἎἏ        ἘἙἚἛἜἝ  
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
     U+1F20..U+1F3F         ἨἩἪἫἬἭἮἯ        ἸἹἺἻἼἽἾἿ
     U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ           Ὑ Ὓ Ὕ Ὗ
-    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧ                ὸό  ὼώ  
-    U+1F80..U+1F9F         ᾈᾉᾊᾋᾌᾍᾎᾏ        ᾘᾙᾚᾛᾜᾝᾞᾟ
-    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧ                ᾸᾹᾺΆᾼ   
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέ    ὸό  ὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏ        ᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ   
     U+1FC0..U+1FDF ῀῁      ῈΈῊΉῌ           ῘῙῚΊ    
-    U+1FE0..U+1FFF     ῤῥ  ῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌ   ´  
+    U+1FE0..U+1FFF     ῤῥ  ῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
 
 #### General Punctuation
 
@@ -8773,19 +9028,20 @@ Supported only by approximation:
 
 #### Superscripts and Subscripts
 
+    U+2070..U+208F                ⁿ                
 
 Supported only by approximation:
 
-    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
     U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
 
 #### Currency Symbols
 
-    U+20A0..U+20BF             €                   
+    U+20A0..U+20BF        ₧    €                   
 
 Supported only by approximation:
 
-    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
 
 #### Combining Diacritical Marks for Symbols
 
@@ -8801,8 +9057,8 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎ ℐℑℒℓ ℕ№  ℙℚℛℜℝ℞ 
-    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼ   
-    U+2140..U+214F      ⅅⅆⅇⅈⅉ                      
+    U+2120..U+213F ℠℡  ℤ Ω ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼ ℾ 
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
 
 #### Number Forms
 
@@ -8825,13 +9081,14 @@ Supported only by approximation:
 
 #### Mathematical Operators
 
-    U+2200..U+221F                   −            ∟
+    U+2200..U+221F                   −      ∙√   ∞∟
+    U+2220..U+223F          ∩                      
     U+2240..U+225F         ≈                       
-    U+2260..U+227F ≠   ≤≥                          
+    U+2260..U+227F ≠≡  ≤≥                          
 
 Supported only by approximation:
 
-    U+2200..U+221F     ∄    ∉  ∌        ∕∖∗ ∙      
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
     U+2220..U+223F    ∣∤∥∦   ∪           ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
     U+2260..U+227F   ≢       ≪≫  ≮≯≰≱  ≴≵  ≸≹      
@@ -8842,7 +9099,8 @@ Supported only by approximation:
 
 #### Miscellaneous Technical
 
-    U+2300..U+231F   ⌂                       　　    
+    U+2300..U+231F   ⌂             ⌐         　　    
+    U+2320..U+233F ⌠⌡       　　                     
     U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
@@ -8877,8 +9135,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─━│┃        ┌  ┏┐  ┓└  ┗┘  ┛├   
     U+2520..U+253F    ┣┤      ┫┬      ┳┴      ┻┼   
-    U+2540..U+255F            ╋    ═║  ╔  ╗  ╚  ╝ ╟
-    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷╸╹╺╻    
+    U+2540..U+255F            ╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻    
 
 Supported only by approximation:
 
@@ -8890,12 +9148,12 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF             ▬     ▲   ▶   ► ▼▽  
+    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
     U+25C0..U+25DF ◀   ◄ ◆    ○            ◘◙      
 
 Supported only by approximation:
 
-    U+25A0..U+25BF              ▭     △   ▷   ▻    
+    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
     U+25C0..U+25DF  ◁   ◅ ◇       ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
@@ -8969,15 +9227,15 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2C80..U+2C9F   Ⲃ         ⲌⲍⲎ   Ⲓ Ⲕ   Ⲙ Ⲛ   Ⲟⲟ
-    U+2CA0..U+2CBF  ⲡⲢⲣⲤⲥⲦ Ⲩⲩ  Ⲭⲭ  Ⲱⲱ              
+    U+2C80..U+2C9F   Ⲃ Ⲅ       ⲌⲍⲎ   Ⲓ Ⲕ   Ⲙ Ⲛ   Ⲟⲟ
+    U+2CA0..U+2CBF  ⲡⲢⲣⲤⲥⲦ ⲨⲩⲪ Ⲭⲭ  Ⲱⲱ              
 
 #### Tifinagh
 
 
 Supported only by approximation:
 
-    U+2D30..U+2D4F         ⴸⴹ                  ⵌ   
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
     U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
 
 #### CJK Symbols and Punctuation
@@ -9110,7 +9368,7 @@ Supported only by approximation:
     U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
     U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
     U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
-    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬ ￮                 
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
 
 #### Old Italic
 
@@ -9175,15 +9433,15 @@ Supported only by approximation:
     U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
     U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
     U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
-    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣    𝚨𝚩  𝚬𝚭𝚮 𝚰𝚱 𝚳𝚴 𝚶 𝚸  𝚻𝚼 𝚾 
-    U+1D6C0..U+1D6DF                 𝛐𝛑𝛒       𝛚     
-    U+1D6E0..U+1D6FF   𝛢𝛣  𝛦𝛧𝛨 𝛪𝛫 𝛭𝛮 𝛰 𝛲  𝛵𝛶 𝛸       
-    U+1D700..U+1D71F           𝜊𝜋𝜌       𝜔       𝜜𝜝  
-    U+1D720..U+1D73F 𝜠𝜡𝜢 𝜤𝜥 𝜧𝜨 𝜪 𝜬  𝜯𝜰 𝜲             
-    U+1D740..U+1D75F     𝝄𝝅𝝆       𝝎       𝝖𝝗  𝝚𝝛𝝜 𝝞𝝟
-    U+1D760..U+1D77F  𝝡𝝢 𝝤 𝝦  𝝩𝝪 𝝬                 𝝾𝝿
-    U+1D780..U+1D79F 𝞀       𝞈       𝞐𝞑  𝞔𝞕𝞖 𝞘𝞙 𝞛𝞜 𝞞 
-    U+1D7A0..U+1D7BF 𝞠  𝞣𝞤 𝞦                 𝞸𝞹𝞺     
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣    𝚨𝚩𝚪 𝚬𝚭𝚮𝚯𝚰𝚱 𝚳𝚴 𝚶 𝚸 𝚺𝚻𝚼𝚽𝚾 
+    U+1D6C0..U+1D6DF 𝛀 𝛂  𝛅𝛆         𝛐𝛑𝛒 𝛔𝛕 𝛗  𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤 𝛦𝛧𝛨𝛩𝛪𝛫 𝛭𝛮 𝛰 𝛲 𝛴𝛵𝛶𝛷𝛸 𝛺 𝛼  𝛿
+    U+1D700..U+1D71F 𝜀         𝜊𝜋𝜌 𝜎𝜏 𝜑  𝜔       𝜜𝜝𝜞 
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥 𝜧𝜨 𝜪 𝜬 𝜮𝜯𝜰𝜱𝜲 𝜴 𝜶  𝜹𝜺     
+    U+1D740..U+1D75F     𝝄𝝅𝝆 𝝈𝝉 𝝋  𝝎       𝝖𝝗𝝘 𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F  𝝡𝝢 𝝤 𝝦 𝝨𝝩𝝪𝝫𝝬 𝝮 𝝰  𝝳𝝴         𝝾𝝿
+    U+1D780..U+1D79F 𝞀 𝞂𝞃 𝞅  𝞈       𝞐𝞑𝞒 𝞔𝞕𝞖𝞗𝞘𝞙 𝞛𝞜 𝞞 
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦 𝞨 𝞪  𝞭𝞮         𝞸𝞹𝞺 𝞼𝞽 𝞿
     U+1D7C0..U+1D7DF   𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
     U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
 
@@ -9236,7 +9494,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 8x12
 
@@ -9278,7 +9537,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  Ɲƞ 
-    U+01A0..U+01BF ƠơƢƣƤƥ     ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
     U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
     U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
     U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚț  Ȟȟ
@@ -9313,28 +9572,30 @@ Supported only by approximation:
 
 #### Greek and Coptic
 
-    U+03B0..U+03CF                 π               
+    U+0390..U+03AF    Γ    Θ          Σ  Φ  Ω      
+    U+03B0..U+03CF  α  δε          π  στ φ         
 
 Supported only by approximation:
 
-    U+0370..U+038F               ;      ΅Ά·ΈΉΊ Ό Ύ 
-    U+0390..U+03AF  ΑΒ  ΕΖΗ ΙΚ ΜΝ Ο Ρ  ΤΥ Χ  ΪΫ    
+    U+0370..U+038F               ;      ΅Ά·ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF  ΑΒ  ΕΖΗ ΙΚ ΜΝ Ο Ρ  ΤΥ Χ  ΪΫάέ  
     U+03B0..U+03CF             μ  ο ρ       ω  ό ώ 
-    U+03D0..U+03EF   ϒ   ϖ     Ϝ                   
-    U+03F0..U+03FF  ϱϲϳ     ϹϺ                     
+    U+03D0..U+03EF   ϒ  ϕϖ     Ϝ                   
+    U+03F0..U+03FF  ϱϲϳϴϵ   ϹϺ                     
 
 #### Cyrillic
 
 
 Supported only by approximation:
 
-    U+0400..U+041F ЀЁ   ЅІЇЈ   Ќ   А В  Е З  К МНО 
-    U+0420..U+043F РСТ  Х          а    е        оп
+    U+0400..U+041F ЀЁ Ѓ ЅІЇЈ   Ќ   А ВГ Е З  К МНО 
+    U+0420..U+043F РСТ ФХ          а    е        оп
     U+0440..U+045F рс у х          ѐ    ѕіїј     ў 
     U+0460..U+047F Ѡѡ                              
+    U+0480..U+049F                   Ғ             
     U+04A0..U+04BF     Ҥ         Ү     Ҵ           
     U+04C0..U+04DF Ӏ               ӐӑӒӓӔӕӖӗ      Ӟ 
-    U+04E0..U+04FF       Ӧӧ       ӯ ӱ ӳ            
+    U+04E0..U+04FF       Ӧӧ       ӯ ӱ ӳ      Ӻ     
 
 #### Cyrillic Supplement
 
@@ -9409,7 +9670,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ      Ꮃ   Ꮇ   Ꮋ    
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ    
     U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       Ꮞ   Ꮢ      ᏙᏚ   ᏞᏟ
     U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
 
@@ -9443,8 +9704,8 @@ Supported only by approximation:
 
     U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇ  ᴊᴋᴌᴍ ᴏ        ᴘ  ᴛᴜ   
     U+1D20..U+1D3F ᴠᴡᴢ     ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
-    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ    
-    U+1D60..U+1D7F   ᵢᵣᵤᵥ  ᵨ  ᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ   ᵺᵻ ᵽᵾ 
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ   ᵟ
+    U+1D60..U+1D7F ᵠ ᵢᵣᵤᵥ  ᵨᵩ ᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ   ᵺᵻ ᵽᵾ 
 
 #### Phonetic Extensions Supplement
 
@@ -9473,14 +9734,14 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F00..U+1F1F         ἈἉἊἋἌἍἎἏ        ἘἙἚἛἜἝ  
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
     U+1F20..U+1F3F         ἨἩἪἫἬἭἮἯ        ἸἹἺἻἼἽἾἿ
     U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ           Ὑ Ὓ Ὕ Ὗ
-    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧ                ὸό  ὼώ  
-    U+1F80..U+1F9F         ᾈᾉᾊᾋᾌᾍᾎᾏ        ᾘᾙᾚᾛᾜᾝᾞᾟ
-    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧ                ᾸᾹᾺΆᾼ   
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέ    ὸό  ὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏ        ᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ   
     U+1FC0..U+1FDF ῀῁      ῈΈῊΉῌ           ῘῙῚΊ    
-    U+1FE0..U+1FFF     ῤῥ  ῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌ   ´  
+    U+1FE0..U+1FFF     ῤῥ  ῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
 
 #### General Punctuation
 
@@ -9495,19 +9756,20 @@ Supported only by approximation:
 
 #### Superscripts and Subscripts
 
+    U+2070..U+208F                ⁿ                
 
 Supported only by approximation:
 
-    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
     U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
 
 #### Currency Symbols
 
-    U+20A0..U+20BF             €                   
+    U+20A0..U+20BF        ₧    €                   
 
 Supported only by approximation:
 
-    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
 
 #### Combining Diacritical Marks for Symbols
 
@@ -9523,8 +9785,8 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎ ℐℑℒℓ ℕ№  ℙℚℛℜℝ℞ 
-    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼ   
-    U+2140..U+214F      ⅅⅆⅇⅈⅉ                      
+    U+2120..U+213F ℠℡  ℤ Ω ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼ ℾ 
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
 
 #### Number Forms
 
@@ -9547,13 +9809,14 @@ Supported only by approximation:
 
 #### Mathematical Operators
 
-    U+2200..U+221F                   −            ∟
+    U+2200..U+221F                   −      ∙√   ∞∟
+    U+2220..U+223F          ∩                      
     U+2240..U+225F         ≈                       
-    U+2260..U+227F ≠   ≤≥                          
+    U+2260..U+227F ≠≡  ≤≥                          
 
 Supported only by approximation:
 
-    U+2200..U+221F     ∄    ∉  ∌        ∕∖∗ ∙      
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
     U+2220..U+223F    ∣∤∥∦   ∪           ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
     U+2260..U+227F   ≢       ≪≫  ≮≯≰≱  ≴≵  ≸≹      
@@ -9564,7 +9827,8 @@ Supported only by approximation:
 
 #### Miscellaneous Technical
 
-    U+2300..U+231F   ⌂                       　　    
+    U+2300..U+231F   ⌂             ⌐         　　    
+    U+2320..U+233F ⌠⌡       　　                     
     U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
@@ -9599,8 +9863,8 @@ Supported only by approximation:
 
     U+2500..U+251F ─━│┃        ┌  ┏┐  ┓└  ┗┘  ┛├   
     U+2520..U+253F    ┣┤      ┫┬      ┳┴      ┻┼   
-    U+2540..U+255F            ╋    ═║  ╔  ╗  ╚  ╝ ╟
-    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷╸╹╺╻    
+    U+2540..U+255F            ╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻    
 
 Supported only by approximation:
 
@@ -9612,12 +9876,12 @@ Supported only by approximation:
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF             ▬     ▲   ▶   ► ▼▽  
+    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
     U+25C0..U+25DF ◀   ◄ ◆    ○            ◘◙      
 
 Supported only by approximation:
 
-    U+25A0..U+25BF              ▭     △   ▷   ▻    
+    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
     U+25C0..U+25DF  ◁   ◅ ◇       ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
@@ -9691,15 +9955,15 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2C80..U+2C9F   Ⲃ         ⲌⲍⲎ   Ⲓ Ⲕ   Ⲙ Ⲛ   Ⲟⲟ
-    U+2CA0..U+2CBF  ⲡⲢⲣⲤⲥⲦ Ⲩⲩ  Ⲭⲭ  Ⲱⲱ              
+    U+2C80..U+2C9F   Ⲃ Ⲅ       ⲌⲍⲎ   Ⲓ Ⲕ   Ⲙ Ⲛ   Ⲟⲟ
+    U+2CA0..U+2CBF  ⲡⲢⲣⲤⲥⲦ ⲨⲩⲪ Ⲭⲭ  Ⲱⲱ              
 
 #### Tifinagh
 
 
 Supported only by approximation:
 
-    U+2D30..U+2D4F         ⴸⴹ                  ⵌ   
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
     U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
 
 #### CJK Symbols and Punctuation
@@ -9832,7 +10096,7 @@ Supported only by approximation:
     U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
     U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
     U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
-    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬ ￮                 
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
 
 #### Old Italic
 
@@ -9897,15 +10161,15 @@ Supported only by approximation:
     U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
     U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
     U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
-    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣    𝚨𝚩  𝚬𝚭𝚮 𝚰𝚱 𝚳𝚴 𝚶 𝚸  𝚻𝚼 𝚾 
-    U+1D6C0..U+1D6DF                 𝛐𝛑𝛒       𝛚     
-    U+1D6E0..U+1D6FF   𝛢𝛣  𝛦𝛧𝛨 𝛪𝛫 𝛭𝛮 𝛰 𝛲  𝛵𝛶 𝛸       
-    U+1D700..U+1D71F           𝜊𝜋𝜌       𝜔       𝜜𝜝  
-    U+1D720..U+1D73F 𝜠𝜡𝜢 𝜤𝜥 𝜧𝜨 𝜪 𝜬  𝜯𝜰 𝜲             
-    U+1D740..U+1D75F     𝝄𝝅𝝆       𝝎       𝝖𝝗  𝝚𝝛𝝜 𝝞𝝟
-    U+1D760..U+1D77F  𝝡𝝢 𝝤 𝝦  𝝩𝝪 𝝬                 𝝾𝝿
-    U+1D780..U+1D79F 𝞀       𝞈       𝞐𝞑  𝞔𝞕𝞖 𝞘𝞙 𝞛𝞜 𝞞 
-    U+1D7A0..U+1D7BF 𝞠  𝞣𝞤 𝞦                 𝞸𝞹𝞺     
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣    𝚨𝚩𝚪 𝚬𝚭𝚮𝚯𝚰𝚱 𝚳𝚴 𝚶 𝚸 𝚺𝚻𝚼𝚽𝚾 
+    U+1D6C0..U+1D6DF 𝛀 𝛂  𝛅𝛆         𝛐𝛑𝛒 𝛔𝛕 𝛗  𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤 𝛦𝛧𝛨𝛩𝛪𝛫 𝛭𝛮 𝛰 𝛲 𝛴𝛵𝛶𝛷𝛸 𝛺 𝛼  𝛿
+    U+1D700..U+1D71F 𝜀         𝜊𝜋𝜌 𝜎𝜏 𝜑  𝜔       𝜜𝜝𝜞 
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥 𝜧𝜨 𝜪 𝜬 𝜮𝜯𝜰𝜱𝜲 𝜴 𝜶  𝜹𝜺     
+    U+1D740..U+1D75F     𝝄𝝅𝝆 𝝈𝝉 𝝋  𝝎       𝝖𝝗𝝘 𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F  𝝡𝝢 𝝤 𝝦 𝝨𝝩𝝪𝝫𝝬 𝝮 𝝰  𝝳𝝴         𝝾𝝿
+    U+1D780..U+1D79F 𝞀 𝞂𝞃 𝞅  𝞈       𝞐𝞑𝞒 𝞔𝞕𝞖𝞗𝞘𝞙 𝞛𝞜 𝞞 
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦 𝞨 𝞪  𝞭𝞮         𝞸𝞹𝞺 𝞼𝞽 𝞿
     U+1D7C0..U+1D7DF   𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
     U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
 
@@ -9958,7 +10222,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 8x13
 
@@ -10685,8 +10950,9 @@ Supported only by approximation:
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* cp857-8x14.psf.gz (Linux consolefonts)
-* iso03.f14.psf.gz, iso04.f14.psf.gz, iso05.f14.psf.gz, iso06.f14.psf.gz, iso07.f14.psf.gz, iso08.f14.psf.gz, lat9-14.psf.gz
+* iso01.f14.psf.gz, is07.f14.psf.gz, iso14.f14.psf.gz (Linux consolefonts)
+* lat1-14.psf.gz, lat2-14.psf.gz (Linux consolefonts)
+* Uni1-VGA14.psf.gz, Uni2-VGA14.psf.gz, Uni3-TerminusBoldVGA14.psf.gz (Linux consolefonts)
 
 
 #### Basic Latin
@@ -10697,34 +10963,36 @@ Supported only by approximation:
 
 #### Latin-1 Supplement
 
-    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
     U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
     U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
 
 #### Latin Extended-A
 
-    U+0100..U+011F Āā  Ąą  ĈĉĊċČč  ĐđĒē  ĖėĘę  ĜĝĞğ
-    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸ  Ļļ   
-    U+0140..U+015F      Ņņ   ŊŋŌō    Œœ  Ŗŗ    ŜŝŞş
-    U+0160..U+017F Šš    ŦŧŨũŪūŬŭ    Ųų    Ÿ  ŻżŽž 
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň ŊŋŌō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵ  ŸŹźŻżŽž 
 
 Supported only by approximation:
 
-    U+0100..U+011F   Ăă  Ćć      Ďď    Ĕĕ    Ěě    
-    U+0120..U+013F             Ĭĭ    Ĳĳ     Ĺĺ  ĽľĿ
-    U+0140..U+015F ŀŁłŃń  Ňňŉ    ŎŏŐő  Ŕŕ  ŘřŚś    
-    U+0160..U+017F   ŢţŤť        ŮůŰű  ŴŵŶŷ Źź    ſ
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F             Ĭĭ    Ĳĳ           Ŀ
+    U+0140..U+015F ŀ        ŉ    Ŏŏ                
+    U+0160..U+017F                       Ŷŷ       ſ
 
 #### Latin Extended-B
 
+    U+0180..U+019F                   ƒ             
+    U+0200..U+021F                         ȘșȚț    
 
 Supported only by approximation:
 
-    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑƒƓ ƕƖƗƘƙƚ  ƝƞƟ
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
     U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
     U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
     U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
-    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚț  Ȟȟ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗ      Ȟȟ
     U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
     U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
 
@@ -10733,19 +11001,19 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+0250..U+026F    ɓ ɕɖɗ   ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
-    U+0270..U+028F  ɱɲɳɴ ɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0250..U+026F    ɓ ɕɖɗ ə ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴɵɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
     U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
 
 #### Spacing Modifier Letters
 
-    U+02B0..U+02CF                        ˇ        
-    U+02D0..U+02EF         ˘˙ ˛                    
+    U+02B0..U+02CF                       ˆˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
 
 Supported only by approximation:
 
-    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺ ʼ         ˆ ˈˉˊˋ ˍ  
-    U+02D0..U+02EF ː           ˜˝   ˡˢˣ      ˪     
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ           ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
 
 #### Combining Diacritical Marks
 
@@ -10769,22 +11037,24 @@ Supported only by approximation:
 
 #### Cyrillic
 
-    U+0400..U+041F  ЁЂЃЄЅІЇЈЉЊЋЌ ЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0400..U+041F ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОП
     U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
-    U+0440..U+045F рстуфхцчшщъыьэюя ёђѓєѕіїјљњћќ ўџ
+    U+0440..U+045F рстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџ
+    U+0480..U+049F                 ҐґҒғҔҕҖҗҘҙҚқҜҝ  
+    U+04A0..U+04BF ҠҡҢңҤҥ    Ҫҫ  Үү  Ҳҳ  ҶҷҸҹҺһ    
+    U+04C0..U+04DF                 ӐӑӒӓ  ӖӗӘә      
+    U+04E0..U+04FF   Ӣӣ  ӦӧӨө    ӮӯӰӱӲӳ    Ӹӹ      
 
 Supported only by approximation:
 
-    U+0400..U+041F Ѐ            Ѝ                  
-    U+0440..U+045F                 ѐ            ѝ  
     U+0460..U+047F Ѡѡ                Ѳ             
-    U+0480..U+049F                   Ғғ            
-    U+04A0..U+04BF     Ҥҥ        Ү     Ҵҵ          
-    U+04C0..U+04DF ӀӁӂ             ӐӑӒӓӔӕӖӗ    ӜӝӞӟ
-    U+04E0..U+04FF   ӢӣӤӥӦӧӨ   ӬӭӮӯӰӱӲӳӴӵ  ӸӹӺӻ    
+    U+04A0..U+04BF                     Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ                 Ӕӕ      ӜӝӞӟ
+    U+04E0..U+04FF     Ӥӥ      Ӭӭ      Ӵӵ    Ӻӻ    
 
 #### Cyrillic Supplement
 
+    U+0500..U+051F                                ԟ
 
 Supported only by approximation:
 
@@ -10951,30 +11221,30 @@ Supported only by approximation:
 
 #### General Punctuation
 
-    U+2000..U+201F                      ― ‗        
-    U+2020..U+203F   •                         ‼ ‾ 
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚‛“”„‟
+    U+2020..U+203F †‡•   …         ‰ ′″     ‹› ‼ ‾ 
 
 Supported only by approximation:
 
-    U+2000..U+201F                 ‐‑‒–—   ‘’‚‛“”„‟
-    U+2020..U+203F †   ․‥…           ′″‴‵‶‷ ‹›     
-    U+2040..U+205F     ⁄  ⁇⁈⁉⁊               ⁚     
+    U+2020..U+203F     ․‥              ‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊            ⁗  ⁚     
 
 #### Superscripts and Subscripts
 
+    U+2070..U+208F                ⁿ                
 
 Supported only by approximation:
 
-    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
     U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
 
 #### Currency Symbols
 
-    U+20A0..U+20BF             €                   
+    U+20A0..U+20BF        ₧    € ₮                 
 
 Supported only by approximation:
 
-    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
 
 #### Combining Diacritical Marks for Symbols
 
@@ -10986,11 +11256,12 @@ Supported only by approximation:
 #### Letterlike Symbols
 
     U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
 
 Supported only by approximation:
 
     U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
-    U+2120..U+213F ℠℡™ ℤ Ω ℨ KÅℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
     U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
 
 #### Number Forms
@@ -10998,29 +11269,34 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2150..U+216F                 ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
-    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ                
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
 
 #### Arrows
 
     U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
+    U+21D0..U+21EF ⇐⇑⇒⇓⇔⇕                          
 
 Supported only by approximation:
 
     U+2190..U+21AF           ↚↛                  ↮ 
     U+21B0..U+21CF                              ⇍⇎⇏
-    U+21D0..U+21EF ⇐ ⇒ ⇔                           
 
 #### Mathematical Operators
 
-    U+2200..U+221F                                ∟
+    U+2200..U+221F      ∅∆ ∈         −      ∙√   ∞∟
+    U+2220..U+223F        ∧∨∩∪                     
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠≡  ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
 
 Supported only by approximation:
 
-    U+2200..U+221F     ∄    ∉  ∌    ∑−  ∕∖∗ ∙      
-    U+2220..U+223F    ∣∤∥∦   ∪           ∶     ∼   
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
+    U+2220..U+223F    ∣∤∥∦               ∶     ∼   
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
-    U+2260..U+227F ≠ ≢ ≤≥    ≪≫  ≮≯≰≱  ≴≵  ≸≹      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
     U+2280..U+229F     ⊄⊅  ⊈⊉                      
     U+22A0..U+22BF     ⊤                           
     U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
@@ -11028,7 +11304,8 @@ Supported only by approximation:
 
 #### Miscellaneous Technical
 
-    U+2300..U+231F   ⌂                      ⌙　　    
+    U+2300..U+231F   ⌂             ⌐        ⌙　　    
+    U+2320..U+233F ⌠⌡       　　                     
     U+23A0..U+23BF                           ⎺     
 
 Supported only by approximation:
@@ -11040,29 +11317,34 @@ Supported only by approximation:
 
 #### Control Pictures
 
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F    ␣␤                           
 
 Supported only by approximation:
 
-    U+2400..U+241F ␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
-    U+2420..U+243F ␠␡ ␣␤                           
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡                              
 
 #### Enclosed Alphanumerics
 
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
 
 Supported only by approximation:
 
-    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
     U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
-    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
-    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
-    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪          ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
 
 #### Box Drawing
 
-    U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
-    U+2520..U+253F     ┤       ┬       ┴       ┼   
-    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
-    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
 
 Supported only by approximation:
 
@@ -11070,17 +11352,17 @@ Supported only by approximation:
 
 #### Block Elements
 
-    U+2580..U+259F ▀   ▄   █        ░▒▓            
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
-    U+25C0..U+25DF ◀   ◄      ○            ◘◙      
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸ ► ▼▽▾ 
+    U+25C0..U+25DF ◀ ◂ ◄      ○   ●        ◘◙      
 
 Supported only by approximation:
 
-    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
-    U+25C0..U+25DF  ◁   ◅         ●                
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹ ▻   ▿
+    U+25C0..U+25DF  ◁ ◃ ◅                          
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -11153,7 +11435,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐ ⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
+    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐⲑⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
     U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
 
 #### Tifinagh
@@ -11245,6 +11527,10 @@ Supported only by approximation:
 
     U+AB50..U+AB6F       ꭖꭗꭘ                       
 
+#### Private Use Area
+
+    U+F800..U+F81F                             
+
 #### Alphabetic Presentation Forms
 
 
@@ -11273,14 +11559,15 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗　﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
 
 #### Arabic Presentation Forms-B
 
-
-Supported only by approximation:
-
-    U+FED0..U+FEEF              ﻝ                  
+    U+FE70..U+FE8F                 ﺀ            ﺍﺎﺏ
+    U+FE90..U+FEAF ﺐﺑﺒ  ﺕﺖﺗﺘﺙﺚﺛﺜﺝﺞﺟﺠﺡﺢﺣﺤﺥﺦﺧﺨﺩﺪﺫﺬﺭﺮﺯ
+    U+FEB0..U+FECF ﺰﺱﺲﺳﺴﺵﺶﺷﺸﺹﺺﺻﺼﺽﺾﺿﻀﻁﻂﻃﻄﻅﻆﻇﻈﻉﻊﻋﻌﻍﻎﻏ
+    U+FED0..U+FEEF ﻐﻑﻒﻓﻔﻕﻖﻗﻘﻙﻚﻛﻜﻝﻞﻟﻠﻡﻢﻣﻤﻥﻦﻧﻨﻩﻪﻫﻬﻭﻮ 
+    U+FEF0..U+FEFF  ﻱﻲﻳﻴ            　　　　　　　　　　　　　　　
 
 #### Halfwidth and Fullwidth Forms
 
@@ -12118,8 +12405,13 @@ Supported only by approximation:
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* cp857-8x16.psf.gz (Linux consolefonts)
-* iso03.f16.psf.gz, iso04.f16.psf.gz, iso05.f16.psf.gz, iso06.f16.psf.gz, iso07.f16.psf.gz, iso08.f16.psf.gz, lat9-16.psf.gz
+* iso01.f16.psf.gz, is07.f16.psf.gz, iso16.f16.psf.gz (Linux consolefonts)
+* lat1-16.psf.gz, lat2-16.psf.gz (Linux consolefonts)
+* Uni1-VGA16.psf.gz, Uni2-VGA16.psf.gz, Uni3-TerminusBoldVGA16.psf.gz (Linux consolefonts)
+* Arabic-VGA16.psf.gz, Hebrew-VGA16.psf.gz, FullCyrSlav-VGA16.psf.gz (Linux consolefonts)
+* X11 Unifont `-gnu-unifont csur-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1`, 8-pixel wide glyphs only
+
+Pairs perfectly with 16x16.
 
 
 #### Basic Latin
@@ -12130,127 +12422,93 @@ Supported only by approximation:
 
 #### Latin-1 Supplement
 
-    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
     U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
     U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
 
 #### Latin Extended-A
 
-    U+0100..U+011F Āā  Ąą  ĈĉĊċČč  ĐđĒē  ĖėĘę  ĜĝĞğ
-    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸ  Ļļ   
-    U+0140..U+015F      Ņņ   ŊŋŌō    Œœ  Ŗŗ    ŜŝŞş
-    U+0160..U+017F Šš    ŦŧŨũŪūŬŭ    Ųų    Ÿ  ŻżŽž 
-
-Supported only by approximation:
-
-    U+0100..U+011F   Ăă  Ćć      Ďď    Ĕĕ    Ěě    
-    U+0120..U+013F             Ĭĭ    Ĳĳ     Ĺĺ  ĽľĿ
-    U+0140..U+015F ŀŁłŃń  Ňňŉ    ŎŏŐő  Ŕŕ  ŘřŚś    
-    U+0160..U+017F   ŢţŤť        ŮůŰű  ŴŵŶŷ Źź    ſ
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿ
+    U+0140..U+015F ŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſ
 
 #### Latin Extended-B
 
-
-Supported only by approximation:
-
-    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑƒƓ ƕƖƗƘƙƚ  ƝƞƟ
-    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
-    U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
-    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
-    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚț  Ȟȟ
-    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
-    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+    U+0180..U+019F ƀƁƂƃƄƅƆƇƈƉƊƋƌƍƎƏƐƑƒƓƔƕƖƗƘƙƚƛƜƝƞƟ
+    U+01A0..U+01BF ƠơƢƣƤƥƦƧƨƩƪƫƬƭƮƯưƱƲƳƴƵƶƷƸƹƺƻƼƽƾƿ
+    U+01C0..U+01DF ǀǁǂǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜǝǞǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭǮǯǰǱǲǳǴǵǶǷǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚțȜȝȞȟ
+    U+0220..U+023F ȠȡȢȣȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀɁɂɃɄɅɆɇɈɉɊɋɌɍɎɏ                
 
 #### IPA Extensions
 
-
-Supported only by approximation:
-
-    U+0250..U+026F    ɓ ɕɖɗ   ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
-    U+0270..U+028F  ɱɲɳɴ ɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
-    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+    U+0250..U+026F ɐɑɒɓɔɕɖɗɘəɚɛɜɝɞɟɠɡɢɣɤɥɦɧɨɩɪɫɬɭɮɯ
+    U+0270..U+028F ɰɱɲɳɴɵɶɷɸɹɺɻɼɽɾɿʀʁʂʃʄʅʆʇʈʉʊʋʌʍʎʏ
+    U+0290..U+02AF ʐʑʒʓʔʕʖʗʘʙʚʛʜʝʞʟʠʡʢʣʤʥʦʧʨʩʪʫʬʭʮʯ
 
 #### Spacing Modifier Letters
 
-    U+02B0..U+02CF                        ˇ        
-    U+02D0..U+02EF         ˘˙ ˛                    
-
-Supported only by approximation:
-
-    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺ ʼ         ˆ ˈˉˊˋ ˍ  
-    U+02D0..U+02EF ː           ˜˝   ˡˢˣ      ˪     
+    U+02B0..U+02CF ʰʱʲʳʴʵʶʷʸʹʺʻʼʽʾʿˀˁ˂˃˄˅ˆˇˈˉˊˋˌˍˎˏ
+    U+02D0..U+02EF ːˑ˒˓˔˕˖˗˘˙˚˛˜˝˞˟ˠˡˢˣˤ˥˦˧˨˩˪˫ˬ˭ˮ˯
+    U+02F0..U+02FF ˰˱˲˳˴˵˶˷˸˹˺˻˼˽˾˿                
 
 #### Combining Diacritical Marks
 
-
-Supported only by approximation:
-
-    U+0320..U+033F                         ̸       
+    U+0300..U+031F ̛̖̗̘̙̜̝̞̟̀́̂̃̄̅̆̇̈̉̊̋̌̍̎̏̐̑̒̓̔̕̚
+    U+0320..U+033F ̴̵̶̷̸̡̢̧̨̠̣̤̥̦̩̪̫̬̭̮̯̰̱̲̳̹̺̻̼̽̾̿
+    U+0340..U+035F ͇͈͉͍͎̀́͂̓̈́͆͊͋͌ͅ ͓͔͕͖͙͚͐͑͒͗͛͘    
+    U+0360..U+036F    ͣͤͥͦͧͨͩͪͫͬͭͮͯ                
 
 #### Greek and Coptic
 
-    U+0370..U+038F  ͱͲ                   Ά ΈΉΊ Ό ΎΏ
+    U+0370..U+038F ͰͱͲͳʹ͵Ͷͷ  ͺͻͼͽ;Ϳ    ΄΅Ά·ΈΉΊ Ό ΎΏ
     U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
-    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
-    U+03F0..U+03FF    ϳϴ                           
-
-Supported only by approximation:
-
-    U+0370..U+038F       Ͷͷ      ;      ΅ ·        
-    U+03D0..U+03EF ϐϑϒ  ϕϖ     Ϝ                ϭ  
-    U+03F0..U+03FF ϰϱϲ  ϵ   ϹϺ                     
+    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώϏ
+    U+03D0..U+03EF ϐϑϒϓϔϕϖϗϘϙϚϛϜϝϞϟϠϡϢϣϤϥϦϧϨϩϪϫϬϭϮϯ
+    U+03F0..U+03FF ϰϱϲϳϴϵ϶ϷϸϹϺϻϼϽϾϿ                
 
 #### Cyrillic
 
-    U+0400..U+041F  ЁЂЃЄЅІЇЈЉЊЋЌ ЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0400..U+041F ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОП
     U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
-    U+0440..U+045F рстуфхцчшщъыьэюя ёђѓєѕіїјљњћќ ўџ
-
-Supported only by approximation:
-
-    U+0400..U+041F Ѐ            Ѝ                  
-    U+0440..U+045F                 ѐ            ѝ  
-    U+0460..U+047F Ѡѡ                Ѳ             
-    U+0480..U+049F                   Ғғ            
-    U+04A0..U+04BF     Ҥҥ        Ү     Ҵҵ          
-    U+04C0..U+04DF ӀӁӂ             ӐӑӒӓӔӕӖӗ    ӜӝӞӟ
-    U+04E0..U+04FF   ӢӣӤӥӦӧӨ   ӬӭӮӯӰӱӲӳӴӵ  ӸӹӺӻ    
+    U+0440..U+045F рстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџ
+    U+0460..U+047F ѠѡѢѣѤѥѦѧѨѩѪѫѬѭѮѯѰѱѲѳѴѵѶѷѸѹѺѻѼѽѾѿ
+    U+0480..U+049F Ҁҁ҂҃҄҅҆҇  ҊҋҌҍҎҏҐґҒғҔҕҖҗҘҙҚқҜҝҞҟ
+    U+04A0..U+04BF ҠҡҢңҤҥҦҧҨҩҪҫҬҭҮүҰұҲҳҴҵҶҷҸҹҺһҼҽҾҿ
+    U+04C0..U+04DF ӀӁӂӃӄӅӆӇӈӉӊӋӌӍӎӏӐӑӒӓӔӕӖӗӘәӚӛӜӝӞӟ
+    U+04E0..U+04FF ӠӡӢӣӤӥӦӧӨөӪӫӬӭӮӯӰӱӲӳӴӵӶӷӸӹӺӻӼӽӾӿ
 
 #### Cyrillic Supplement
 
-
-Supported only by approximation:
-
-    U+0500..U+051F                           ԚԛԜԝ  
+    U+0500..U+051F ԀԁԂԃԄԅԆԇԈԉԊԋԌԍԎԏԐԑԒԓԔԕԖԗԘԙԚԛԜԝԞԟ
+    U+0520..U+052F ԠԡԢԣԤԥԦԧԨԩ  ԬԭԮԯ                
 
 #### Armenian
 
-
-Supported only by approximation:
-
-    U+0530..U+054F             Լ                Ս Տ
-    U+0550..U+056F      Օ                          
-    U+0570..U+058F                          ։     ֏
+    U+0530..U+054F  ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏ
+    U+0550..U+056F ՐՑՒՓՔՕՖ  ՙ՚՛՜՝՞՟ՠաբգդեզէըթժիլխծկ
+    U+0570..U+058F հձղճմյնշոչպջռսվտրցւփքօֆևֈ։֊    ֏
 
 #### Hebrew
 
-    U+05D0..U+05EF אבגדהוזחטיךכלםמןנסעףפץצקרשת     
-
-Supported only by approximation:
-
-    U+05B0..U+05CF                    ׃            
-    U+05F0..U+05FF װױײ                             
+    U+0590..U+05AF  ֑֖֛֢֣֤֥֦֧֪֚֭֮֒֓֔֕֗֘֙֜֝֞֟֠֡֨֩֫֬֯
+    U+05B0..U+05CF ְֱֲֳִֵֶַָֹֺֻּֽ־ֿ׀ׁׂ׃ׅׄ׆ׇ        
+    U+05D0..U+05EF אבגדהוזחטיךכלםמןנסעףפץצקרשת    ׯ
+    U+05F0..U+05FF װױײ׳״                           
 
 #### Arabic
 
-    U+0600..U+061F             ،              ؛   ؟
-    U+0620..U+063F  ءآأؤإئابةتثجحخدذرزسشصضطظعغ     
-    U+0640..U+065F ـفقكلمنهوىيًٌٍَُِّْ             
-
-Supported only by approximation:
-
-    U+0680..U+069F           ڊڋ        ڔ ږ   ښڛڜ   
-    U+06A0..U+06BF    ڣ                            
+    U+0600..U+061F          ؉؊ ،؍  ؐ       ؘؙؚ؛   ؟
+    U+0620..U+063F ؠءآأؤإئابةتثجحخدذرزسشصضطظعغػؼؽؾؿ
+    U+0640..U+065F ـفقكلمنهوىيًٌٍَُِّْٕٓٔ ٜٟٗ٘ٙٚٛٝٞ
+    U+0660..U+067F ٠١٢٣٤٥٦٧٨٩٪٫٬٭ٮٯٰٱٲٳٴٵٶٷٸٹٺٻټٽپٿ
+    U+0680..U+069F ڀځڂڃڄڅچڇڈډڊڋڌڍڎڏڐڑڒړڔڕږڗژڙښڛڜڝڞڟ
+    U+06A0..U+06BF ڠڡڢڣڤڥڦڧڨک ګڬڭڮگڰڱڲڳڴڵڶڷڸڹںڻڼڽھڿ
+    U+06C0..U+06DF ۀہۂۃۄۅۆۇۈۉۊۋیۍێۏېۑےۓ۔ە     ۛ   ۟
+    U+06E0..U+06FF ۠ۡ  ۤۥۦۧ      ۮۯ۰۱۲۳۴۵۶۷۸۹ۺۻۼ۽۾ۿ
 
 #### Syriac
 
@@ -12261,26 +12519,24 @@ Supported only by approximation:
 
 #### Arabic Supplement
 
+    U+0750..U+076F ݐݑݒݓݔݕݖݗݘݙݚݛݜݝݞݟݠݡݢݣݤݥݦݧݨݩݪݫݬݭݮݯ
+    U+0770..U+077F ݰݱݲݳݴݵݶݷݸݹݺݻݼݽݾݿ                
 
-Supported only by approximation:
+#### Thaana
 
-    U+0750..U+076F  ݑݒݓݔ    ݙ                     ݯ
-    U+0770..U+077F ݰݱ                              
+    U+0780..U+079F ހށނރބޅކއވމފދތލގޏ ޑޒޓޔޕޖޗޘޙޚޛޜ   
+    U+07A0..U+07BF ޠޡޢޣޤޥަާިީުޫެޭޮޯްޱ              
 
 #### NKo
 
-
-Supported only by approximation:
-
-    U+07C0..U+07DF                    ߓ            
-    U+07E0..U+07FF ߠ                               
+    U+07C0..U+07DF ߀߁߂߃߄߅߆߇߈߉ߊߋߌߍߎߏߐߑߒߓߔߕߖߗߘߙߚߛߜߝߞߟ
+    U+07E0..U+07FF ߠߡߢߣߤߥߦߧߨߩߪ߲߫߬߭߮߯߰߱߳ߴߵ߶߷߸߹ߺ  ߽߾߿
 
 #### Arabic Extended-A
 
-
-Supported only by approximation:
-
-    U+08A0..U+08BF     ࢤ   ࢨࢩ                ࢺ     
+    U+08A0..U+08BF ࢠࢡࢢࢣࢤࢥࢦࢧࢨࢩࢪࢫࢬࢭࢮࢯࢰࢱࢲࢳࢴ ࢶࢷࢸࢹࢺࢻࢼࢽ  
+    U+08C0..U+08DF                    ࣓ࣔࣕࣖࣗࣘࣙ      
+    U+08E0..U+08FF ࣠࣡࣢ࣰࣱࣲࣣࣦࣩ࣭࣮࣯ࣶࣹࣺࣤࣥࣧࣨ࣪࣫࣬ࣳࣴࣵࣷࣸࣻࣼࣽࣾࣿ
 
 #### Devanagari
 
@@ -12296,37 +12552,74 @@ Supported only by approximation:
 
     U+0C60..U+0C7F          ౩                      
 
+#### Thai
+
+    U+0E00..U+0E1F  กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟ
+    U+0E20..U+0E3F ภมยรฤลฦวศษสหฬอฮฯะัาำิีึืฺุู    ฿
+    U+0E40..U+0E5F เแโใไๅๆ็่้๊๋์ํ๎๏๐๑๒๓๔๕๖๗๘๙๚     
+
+#### Lao
+
+    U+0E80..U+0E9F  ກຂ ຄ ຆງຈຉຊ ຌຍຎຏຐຑຒຓດຕຖທຘນບປຜຝພຟ
+    U+0EA0..U+0EBF ຠມຢຣ ລ ວຨຩສຫຬອຮຯະັາຳິີຶື຺ຸູົຼຽ  
+    U+0EC0..U+0EDF ເແໂໃໄ ໆ ່້໊໋໌ໍ  ໐໑໒໓໔໕໖໗໘໙  ໜໝໞໟ
+
+#### Tibetan
+
+    U+0F00..U+0F1F ༀ༁  ༄༅༆༇༈༉༊་༌།༎༏༐༑༒༓༔༕   ༙༚༛༜༝༞༟
+    U+0F20..U+0F3F ༠༡༢༣༤༥༦༧༨༩༪༫༬༭༮༯༰༱༲༳༴༵༶༷༸༹  ༼༽༾༿
+    U+0F40..U+0F5F ཀཁགགྷངཅཆཇ ཉཊཋཌཌྷཎཏཐདདྷནཔཕབབྷམཙཚཛཛྷཝཞཟ
+    U+0F60..U+0F7F འཡརལཤཥསཧཨཀྵཪཫཬ    ཱཱཱིིུུྲྀཷླྀཹེཻོཽཾཿ
+    U+0F80..U+0F9F ྄ཱྀྀྂྃ྅྆྇ ྉྊྋྌྍྎྏྐྑྒྒྷྔྕྖྗ ྙྚྛྜྜྷྞྟ
+    U+0FA0..U+0FBF ྠྡྡྷྣྤྥྦྦྷྨྩྪྫྫྷྭྮྯྰྱྲླྴྵྶྷྸྐྵྺྻྼ ྾྿
+    U+0FC0..U+0FDF ࿀࿁࿂࿃࿄         ࿎࿏ ࿑࿒࿓࿔           
+
 #### Georgian
 
+    U+10A0..U+10BF ႠႡႢႣႤႥႦႧႨႩႪႫႬႭႮႯႰႱႲႳႴႵႶႷႸႹႺႻႼႽႾႿ
+    U+10C0..U+10DF ჀჁჂჃჄჅ Ⴧ     Ⴭ  აბგდევზთიკლმნოპჟ
+    U+10E0..U+10FF რსტუფქღყშჩცძწჭხჯჰჱჲჳჴჵჶჷჸჹჺ჻ჼჽჾჿ
 
-Supported only by approximation:
+#### Ethiopic
 
-    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
-    U+10C0..U+10DF                      ვ          
+    U+1340..U+135F    ፃ                            
+    U+1360..U+137F  ፡                              
+
+#### Ethiopic Supplement
+
+    U+1380..U+139F                 ᎐᎑᎒᎓᎔ ᎖  ᎙      
 
 #### Cherokee
 
-
-Supported only by approximation:
-
-    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ  Ꮎ 
-    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       ᏎᏏ  Ꮢ      ᏙᏚ   ᏞᏟ
-    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+    U+13A0..U+13BF ᎠᎡᎢᎣᎤᎥᎦᎧᎨᎩᎪᎫᎬᎭᎮᎯᎰᎱᎲᎳᎴᎵᎶᎷᎸᎹᎺᎻᎼᎽᎾᎿ
+    U+13C0..U+13DF ᏀᏁᏂᏃᏄᏅᏆᏇᏈᏉᏊᏋᏌᏍᏎᏏᏐᏑᏒᏓᏔᏕᏖᏗᏘᏙᏚᏛᏜᏝᏞᏟ
+    U+13E0..U+13FF ᏠᏡᏢᏣᏤᏥᏦᏧᏨᏩᏪᏫᏬᏭᏮᏯᏰᏱᏲᏳᏴᏵ  ᏸᏹᏺᏻᏼᏽ  
 
 #### Unified Canadian Aboriginal Syllabics
 
+    U+1400..U+141F ᐀                             ᐞᐟ
+    U+1420..U+143F ᐠᐡᐢᐣᐤᐥᐦᐧᐨᐩᐪ        ᐳᐴᐵᐶᐷᐸᐹ      
+    U+1440..U+145F          ᑉᑊᑋ                    
+    U+1460..U+147F       ᑦ    ᑫᑬᑭᑮᑯᑰᑱᑲᑳᑴᑵᑶᑷᑸᑹᑺᑻᑼᑽᑾᑿ
+    U+1480..U+149F ᒀᒁᒂᒃᒄᒅᒆᒇᒈᒉᒊᒋᒌᒍᒎᒏᒐᒑᒒᒓᒔᒕᒖᒗᒘᒙᒚᒛᒜᒝᒞᒟ
+    U+14A0..U+14BF ᒠᒡᒢᒣᒤᒥᒦᒧᒨᒩᒪᒫᒬᒭᒮᒯᒰᒱᒲᒳᒴᒵᒶᒷᒸᒹᒺᒻᒼᒽᒾᒿ
+    U+14C0..U+14DF                 ᓐᓑᓒ             
+    U+14E0..U+14FF           ᓪᓫᓬᓭᓮᓯᓰᓱᓲᓳᓴᓵᓶᓷᓸᓹᓺᓻᓼᓽᓾᓿ
+    U+1500..U+151F ᔀᔁᔂᔃᔄᔅᔆᔇᔈᔉᔊᔋ                    
+    U+1520..U+153F      ᔥᔦᔧᔨᔩᔪᔫᔬᔭᔮᔯᔰᔱᔲᔳᔴᔵᔶᔷᔸᔹᔺᔻᔼᔽᔾᔿ
+    U+1540..U+155F ᕀᕁ      ᕈᕉᕊᕋᕌᕍᕎᕏᕐᕑᕒ          ᕝ  
+    U+1560..U+157F           ᕪ                ᕻᕼᕽ  
+    U+1580..U+159F       ᖆᖇᖈᖉ             ᖗᖘᖙᖚ    ᖟ
+    U+15A0..U+15BF       ᖦᖧᖨᖩᖪᖫᖬᖭᖮᖯᖰᖱᖲᖳᖴᖵᖶᖷ        
+    U+15E0..U+15FF               ᗮ                 
+    U+1600..U+161F  ᘁᘂᘃ                            
+    U+1640..U+165F       ᙆᙇ                  ᙚ     
+    U+1660..U+167F              ᙭᙮        ᙷᙸᙹᙺᙻᙼᙽᙾᙿ
 
 Supported only by approximation:
 
-    U+1400..U+141F ᐀                               
-    U+1420..U+143F                ᐯ        ᐸ       
-    U+1440..U+145F          ᑉ  ᑌ                   
-    U+1460..U+147F              ᑭ                  
-    U+1480..U+149F              ᒍ                  
-    U+14A0..U+14BF           ᒪ                     
-    U+1560..U+157F                             ᕼ   
-    U+1580..U+159F       ᖆᖇ                        
-    U+15A0..U+15BF                     ᖴ           
+    U+1420..U+143F                ᐯ                
+    U+1440..U+145F             ᑌ                   
     U+15C0..U+15DF      ᗅ     ᗋ                  ᗞ 
 
 #### Ogham
@@ -12336,269 +12629,376 @@ Supported only by approximation:
 
     U+1680..U+169F                 ᚐ               
 
+#### Runic
+
+    U+16A0..U+16BF ᚠᚡᚢᚣᚤᚥᚦᚧᚨᚩᚪᚫᚬᚭᚮᚯᚰᚱᚲᚳᚴᚵᚶᚷᚸᚹᚺᚻᚼᚽᚾᚿ
+    U+16C0..U+16DF ᛀᛁᛂᛃᛄᛅᛆᛇᛈᛉᛊᛋᛌᛍᛎᛏᛐᛑᛒᛓᛔᛕᛖᛗᛘᛙᛚᛛᛜᛝᛞᛟ
+    U+16E0..U+16FF  ᛡ ᛣᛤᛥᛦᛧᛨᛩᛪ᛫᛬᛭ᛮᛯᛰᛱᛲᛳᛴᛵᛶᛷᛸ       
+
+#### Tagbanwa
+
+    U+1760..U+177F   ᝢ                             
+
+#### Khmer
+
+    U+17A0..U+17BF                            ុ    
+    U+17C0..U+17DF            ់          ៖     ៜ   
+    U+17E0..U+17FF                 ៰៱៲៳៴៵៶៷៸៹      
+
+#### Unified Canadian Aboriginal Syllabics Extended
+
+    U+18B0..U+18CF     ᢴᢵᢶ ᢸ ᢺ   ᢾᢿ   ᣃᣄᣅ          
+    U+18D0..U+18EF     ᣔᣕᣖᣗᣘᣙᣚᣛᣜᣝᣞᣟ         ᣩ ᣫ    
+    U+18F0..U+18FF    ᣳᣴᣵ                          
+
+#### Tai Le
+
+    U+1950..U+196F ᥐᥑᥒᥓᥔᥕᥖᥗᥘᥙᥚᥛᥜᥝᥞᥟᥠᥡᥢᥣᥤᥥᥦᥧᥨᥩᥪᥫᥬᥭ  
+    U+1970..U+197F ᥰᥱᥲᥳᥴ                           
+
+#### New Tai Lue
+
+    U+1980..U+199F    ᦃ           ᦏ ᦑ        ᦚ   ᦞ 
+    U+19A0..U+19BF  ᦡ ᦣᦤ  ᦧ        ᦰᦱᦲᦳ   ᦷᦸᦹᦺ     
+    U+19C0..U+19DF  ᧁ    ᧆ ᧈᧉ      ᧐᧑᧒᧓᧔ ᧖ ᧘᧙      
+
+#### Combining Diacritical Marks Extended
+
+    U+1AB0..U+1ACF ᪵᪶᪷᪸᪹᪺᪽᪰᪱᪲᪳᪴᪻᪼᪾                 
+
+#### Ol Chiki
+
+    U+1C50..U+1C6F ᱐᱑᱒᱓᱔᱕᱖᱗᱘᱙ᱚᱛᱜᱝᱞᱟᱠᱡᱢᱣᱤᱥᱦᱧᱨᱩᱪᱫᱬᱭᱮᱯ
+    U+1C70..U+1C7F ᱰᱱᱲᱳᱴᱵᱶᱷᱸᱹᱺᱻᱼᱽ᱾᱿                
+
+#### Cyrillic Extended-C
+
+    U+1C80..U+1C8F ᲀᲁᲂᲃᲄᲅᲆᲇᲈ                       
+
+#### Georgian Extended
+
+    U+1C90..U+1CAF ᲐᲑᲒᲓᲔᲕᲖᲗᲘᲙᲚᲛᲜᲝᲞᲟᲠᲡᲢᲣᲤᲥᲦᲧᲨᲩᲪᲫᲬᲭᲮᲯ
+    U+1CB0..U+1CBF ᲰᲱᲲᲳᲴᲵᲶᲷᲸᲹᲺ  ᲽᲾᲿ                
+
 #### Phonetic Extensions
 
+    U+1D00..U+1D1F ᴀᴁᴂᴃᴄᴅᴆᴇᴈᴉᴊᴋᴌᴍᴎᴏᴐᴑᴒᴓᴔᴕᴖᴗᴘᴙᴚᴛᴜᴝᴞᴟ
+    U+1D20..U+1D3F ᴠᴡᴢᴣᴤᴥᴦᴧᴨᴩᴪᴫᴬᴭᴮᴯᴰᴱᴲᴳᴴᴵᴶᴷᴸᴹᴺᴻᴼᴽᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃᵄᵅᵆᵇᵈᵉᵊᵋᵌᵍᵎᵏᵐᵑᵒᵓᵔᵕᵖᵗᵘᵙᵚᵛᵜᵝᵞᵟ
+    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶᵷᵸᵹ ᵻᵼᵽᵾᵿ
 
 Supported only by approximation:
 
-    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇᴈ ᴊᴋᴌᴍ ᴏ        ᴘᴙ ᴛᴜ   
-    U+1D20..U+1D3F ᴠᴡᴢ   ᴦ ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
-    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ ᵝᵞᵟ
-    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ ᵸ ᵺᵻ ᵽᵾ 
+    U+1D60..U+1D7F                           ᵺ     
 
 #### Phonetic Extensions Supplement
 
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊᶋᶌᶍᶎᶏᶐᶑᶒᶓᶔᶕᶖᶗᶘᶙᶚᶛᶜᶝᶞᶟ
+    U+1DA0..U+1DBF ᶠᶡᶢᶣᶤᶥᶦᶧᶨᶩᶪᶫᶬᶭᶮᶯᶰᶱᶲᶳᶴᶵᶶᶷᶸᶹᶺᶻᶼᶽᶾᶿ
 
-Supported only by approximation:
+#### Combining Diacritical Marks Supplement
 
-    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ ᶞ 
-    U+1DA0..U+1DBF ᶠ                          ᶻ   ᶿ
+    U+1DC0..U+1DDF ᷂᷊᷀᷁᷃᷄᷅᷆᷇᷈᷉᷋᷌ ᷐᷎᷏᷑᷒ᷓᷔᷕᷖᷗᷘᷙᷚᷛᷜᷝᷞᷟ
+    U+1DE0..U+1DFF ᷹᷷᷸ᷠᷡᷢᷣᷤᷥᷦᷧᷨᷩᷪᷫᷬᷭᷮᷯᷰᷱᷲᷳᷴ᷵᷶ ᷻ ᷽᷿᷾
 
 #### Latin Extended Additional
-
-
-Supported only by approximation:
 
     U+1E00..U+1E1F ḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟ
     U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
     U+1E40..U+1E5F ṀṁṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞṟ
     U+1E60..U+1E7F ṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
-    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚẛẜẝẞẟ
     U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
     U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
     U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹỺỻỼỽỾỿ
 
 #### Greek Extended
 
-
-Supported only by approximation:
-
     U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
     U+1F20..U+1F3F ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿ
     U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ  ὐὑὒὓὔὕὖὗ Ὑ Ὓ Ὕ Ὗ
     U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ  
     U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟ
-    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ ι 
-    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ   ῐῑῒΐ  ῖῗῘῙῚΊ    
-    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ᾽ι᾿
+    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ῍῎῏ῐῑῒΐ  ῖῗῘῙῚΊ ῝῞῟
+    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´῾ 
 
 #### General Punctuation
 
-    U+2000..U+201F                      ― ‗        
-    U+2020..U+203F   •                         ‼ ‾ 
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚‛“”„‟
+    U+2020..U+203F †‡•‣․‥…‧        ‰‱′″‴‵‶‷‸‹›※‼‽‾‿
+    U+2040..U+205F ⁀⁁⁂⁃⁄⁅⁆⁇⁈⁉⁊⁋⁌⁍⁎⁏⁐⁑⁒⁓⁔⁕⁖ ⁘⁙⁚⁛⁜⁝⁞ 
 
 Supported only by approximation:
 
-    U+2000..U+201F                 ‐‑‒–—   ‘’‚‛“”„‟
-    U+2020..U+203F †   ․‥…           ′″‴‵‶‷ ‹›     
-    U+2040..U+205F     ⁄  ⁇⁈⁉⁊               ⁚     
+    U+2040..U+205F                        ⁗        
 
 #### Superscripts and Subscripts
 
-
-Supported only by approximation:
-
     U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
-    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+    U+2090..U+209F ₐₑₒₓₔₕₖₗₘₙₚₛₜ                   
 
 #### Currency Symbols
 
-    U+20A0..U+20BF             €                   
+    U+20A0..U+20BF ₠₡₢₣₤₥₦₧₨₩₪₫€₭₮₯₰₱₲₳₴₵₶₷₸ ₺₻₼₽₾₿
 
 Supported only by approximation:
 
-    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+    U+20A0..U+20BF                          ₹      
 
 #### Combining Diacritical Marks for Symbols
 
+    U+20D0..U+20EF ⃒⃓⃘⃙⃚⃐⃑⃔⃕⃖⃗⃛⃜    ⃡   ⃥⃦ ⃨⃩ ⃫⃬⃭⃮⃯
+    U+20F0..U+20FF ⃰                               
 
 Supported only by approximation:
 
-    U+20D0..U+20EF              ⃝       ⃥          
+    U+20D0..U+20EF              ⃝                  
 
 #### Letterlike Symbols
 
-    U+2100..U+211F                       №         
+    U+2100..U+211F ℀℁ℂ℃℄℅℆ℇ℈℉ℊℋℌℍ  ℐℑℒℓ℔ℕ№℗℘ℙℚℛℜℝ℞℟
+    U+2120..U+213F ℠℡™℣ℤ℥Ω℧ℨ℩KÅℬℭ ℯℰℱℲℳℴℵℶℷℸℹ    ℾ 
+    U+2140..U+214F  ⅁⅂⅃⅄     ⅊⅋ ⅍ⅎ                 
 
 Supported only by approximation:
 
-    U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
-    U+2120..U+213F ℠℡™ ℤ Ω ℨ KÅℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
+    U+2100..U+211F               ℎℏ                
+    U+2120..U+213F               ℮            ℻ℼℽ ℿ
     U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
 
 #### Number Forms
 
-
-Supported only by approximation:
-
-    U+2150..U+216F                 ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
-    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ                
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿↀↁ Ↄↄↅↆↇ ↉↊↋    
 
 #### Arrows
 
-    U+2190..U+21AF ←↑→↓↔↕                  ↨       
-
-Supported only by approximation:
-
-    U+2190..U+21AF           ↚↛                  ↮ 
-    U+21B0..U+21CF                              ⇍⇎⇏
-    U+21D0..U+21EF ⇐ ⇒ ⇔                           
+    U+2190..U+21AF ←↑→↓↔↕↖↗↘↙↚↛  ↞↟↠↡↢↣↤↥↦↧↨↩↪↫↬↭↮↯
+    U+21B0..U+21CF ↰↱↲↳↴↵↶↷↸↹↺↻↼↽↾↿⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏
+    U+21D0..U+21EF ⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇚⇛⇜⇝⇞⇟⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪⇫⇬⇭⇮⇯
+    U+21F0..U+21FF ⇰⇱⇲⇳ ⇵⇶⇷⇸    ⇽⇾                 
 
 #### Mathematical Operators
 
-    U+2200..U+221F                                ∟
+    U+2200..U+221F ∀∁∂∃∄∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟
+    U+2220..U+223F ∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿
+    U+2240..U+225F ≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟
+    U+2260..U+227F ≠≡≢≣≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿
+    U+2280..U+229F ⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟
+    U+22A0..U+22BF ⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳⊴⊵   ⊹⊺⊻⊼⊽⊾⊿
+    U+22C0..U+22DF ⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗  ⋚⋛⋜⋝⋞⋟
+    U+22E0..U+22FF ⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱  ⋴  ⋷⋸   ⋼ ⋾ 
 
 Supported only by approximation:
 
-    U+2200..U+221F     ∄    ∉  ∌    ∑−  ∕∖∗ ∙      
-    U+2220..U+223F    ∣∤∥∦   ∪           ∶     ∼   
-    U+2240..U+225F  ≁  ≄  ≇ ≉                      
-    U+2260..U+227F ≠ ≢ ≤≥    ≪≫  ≮≯≰≱  ≴≵  ≸≹      
-    U+2280..U+229F     ⊄⊅  ⊈⊉                      
-    U+22A0..U+22BF     ⊤                           
-    U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
-    U+22E0..U+22FF                ⋯               ⋿
+    U+22C0..U+22DF                         ⋘⋙      
+    U+22E0..U+22FF                                ⋿
 
 #### Miscellaneous Technical
 
-    U+2300..U+231F   ⌂                      ⌙　　    
-    U+23A0..U+23BF                           ⎺     
+    U+2300..U+231F  ⌁⌂⌃⌄⌅⌆⌇⌈⌉⌊⌋⌌⌍⌎⌏⌐⌑⌒⌓⌔⌕ ⌗⌘⌙⌚⌛⌜⌝⌞⌟
+    U+2320..U+233F ⌠⌡⌢⌣⌤⌥⌦⌧⌨　　⌫          ⌶⌷⌸⌹⌺⌻⌼⌽⌾⌿
+    U+2340..U+235F ⍀⍁⍂⍃⍄⍅⍆⍇⍈⍉⍊⍋⍌⍍⍎⍏⍐⍑⍒⍓⍔⍕⍖⍗⍘⍙⍚⍛⍜⍝⍞⍟
+    U+2360..U+237F ⍠⍡⍢⍣⍤⍥⍦⍧⍨⍩⍪⍫⍬⍭⍮⍯⍰⍱⍲⍳⍴⍵⍶⍷⍸⍹⍺    ⍿
+    U+2380..U+239F ⎀                    ⎕⎖    ⎛⎜⎝⎞⎟
+    U+23A0..U+23BF ⎠⎡⎢⎣⎤⎥⎦⎧⎨⎩⎪⎫⎬⎭⎮⎯⎰⎱     ⎷⎸⎹⎺⎻⎼⎽⎾⎿
+    U+23C0..U+23DF            ⏋⏌  ⏏⏐⏑⏒⏓      ⏚     
+    U+23E0..U+23FF         ⏨　　　　   　  　            
 
 Supported only by approximation:
 
-    U+2300..U+231F                        ⌗  　　    
     U+2320..U+233F          〈〉                     
-    U+2360..U+237F                      ⍵          
     U+23C0..U+23DF          ⏉                      
 
 #### Control Pictures
 
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F   ␢␣␤␥␦                         
 
 Supported only by approximation:
 
-    U+2400..U+241F ␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
-    U+2420..U+243F ␠␡ ␣␤                           
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡                              
+
+#### Optical Character Recognition
+
+    U+2440..U+245F ⑀⑁⑂⑃⑄⑅⑆⑇⑈⑉⑊                     
 
 #### Enclosed Alphanumerics
 
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
 
 Supported only by approximation:
 
-    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
     U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
-    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
-    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
-    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪          ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
 
 #### Box Drawing
 
-    U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
-    U+2520..U+253F     ┤       ┬       ┴       ┼   
-    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
-    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
-
-Supported only by approximation:
-
-    U+2560..U+257F                  ╱╲╳            
+    U+2500..U+251F ─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿
 
 #### Block Elements
 
-    U+2580..U+259F ▀   ▄   █        ░▒▓            
+    U+2580..U+259F ▀▁▂▃▄▅▆▇█▉▊▋▌▍▎▏▐░▒▓▔▕▖▗▘▙▚▛▜▝▞▟
 
 #### Geometric Shapes
 
-    U+25A0..U+25BF ■           ▬     ▲   ▶   ► ▼▽  
-    U+25C0..U+25DF ◀   ◄      ○            ◘◙      
+    U+25A0..U+25BF ■□▢▣▤▥▦▧▨▩▪▫▬▭▮▯▰▱▲△▴▵▶▷▸▹►▻▼▽▾▿
+    U+25C0..U+25DF ◀◁◂◃◄◅◆◇ ◉◊○◌◍◎●◐◑◒◓◔◕◖◗◘◙◚◛◜◝◞◟
+    U+25E0..U+25FF ◠◡◢◣◤◥◦◧◨◩◪◫◬◭◮ ◰◱◲◳◴◵◶◷◸◹◺◻◼◽◾◿
 
 Supported only by approximation:
 
-    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
-    U+25C0..U+25DF  ◁   ◅         ●                
-    U+25E0..U+25FF       ◦        ◯             　　 
+    U+25E0..U+25FF                ◯             　　 
 
 #### Miscellaneous Symbols
 
-    U+2620..U+263F                           ☺☻☼   
-    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
-    U+2660..U+267F ♠  ♣ ♥♦   ♪♫♬                  　
+    U+2600..U+261F ☀☁☂ ☄★☆☇☈☉☊☋☌☍☎☏   ☓☔　    ☚☛☜☝☞☟
+    U+2620..U+263F ☠☡   ☥☦☧☨☩☪  ☭☮         ☸☹☺☻☼☽☾☿
+    U+2640..U+265F ♀♁♂♃♄♅♆♇♈♉♊♋♌♍♎♏♐♑♒♓♔♕♖♗♘♙♚♛♜♝♞♟
+    U+2660..U+267F ♠♡♢♣♤♥ ♧♨♩♪♫♬♭♮♯♰♱             　
+    U+2680..U+269F                 ⚐⚑ 　            
+    U+26A0..U+26BF  ⚡      ⚨ ⚪⚫⚬     ⚲⚳⚴⚵ ⚷⚸⚹⚺⚻⚼　　 
+    U+26E0..U+26FF   ⛢       　       　　 　    　  　  
 
 Supported only by approximation:
 
-    U+2600..U+261F ☀                   　　          
-    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
-    U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
     U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
+    U+2760..U+277F         ❨❩❪❫❬❭❮❯❰❱❲❳❴❵          
+    U+27A0..U+27BF                 ➰              　
 
 Supported only by approximation:
 
-    U+2720..U+273F         　        ✱              
-    U+2740..U+275F             　❍　    　　　 　        
+    U+2720..U+273F         　 ✪      ✱              
+    U+2740..U+275F             　❍　    　　　 　❘ ❚     
     U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
-    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗ ➙      
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗➘➙➚     
     U+27A0..U+27BF  ➡              　              　
 
 #### Miscellaneous Mathematical Symbols-A
 
+    U+27C0..U+27DF ⟀ ⟂  ⟅⟆⟇  ⟊      ⟑ ⟓⟔          ⟟
+    U+27E0..U+27EF ⟠     ⟦⟧⟨⟩⟪⟫⟬⟭⟮⟯                
 
 Supported only by approximation:
 
     U+27C0..U+27DF            ⟋ ⟍           ⟙      
-    U+27E0..U+27EF           ⟪⟫  ⟮⟯                
+
+#### Braille Patterns
+
+    U+2800..U+281F ⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟
+    U+2820..U+283F ⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿
+    U+2840..U+285F ⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
+    U+2860..U+287F ⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
+    U+2880..U+289F ⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
+    U+28A0..U+28BF ⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
+    U+28C0..U+28DF ⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
+    U+28E0..U+28FF ⣠⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
+
+#### Supplemental Arrows-B
+
+    U+2900..U+291F         ⤈⤉        ⤒⤓            
+    U+2920..U+293F                         ⤸⤹      
+    U+2940..U+295F          ⥉  ⥌⥍ ⥏ ⥑  ⥔⥕  ⥘⥙  ⥜⥝  
+    U+2960..U+297F ⥠⥡                          ⥼⥽  
 
 #### Miscellaneous Mathematical Symbols-B
 
+    U+2980..U+299F ⦀⦁⦂⦃⦄⦅⦆⦇⦈⦉⦊⦋⦌⦍⦎⦏⦐⦑⦒    ⦗⦘⦙⦚⦛⦜⦝ ⦟
+    U+29A0..U+29BF ⦠⦡⦢⦣⦤⦥⦦⦧                        
+    U+29C0..U+29DF                  ⧑⧒⧓⧔⧕⧖⧗⧘⧙  ⧜⧝⧞ 
+    U+29E0..U+29FF  ⧡         ⧫  ⧮⧯⧰⧱⧲⧳ ⧵⧶⧷⧸⧹⧺⧻⧼⧽  
 
 Supported only by approximation:
 
-    U+29A0..U+29BF                         ⦸     ⦾⦿
-    U+29E0..U+29FF                      ⧵   ⧹      
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯      ⦶ ⦸⦹    ⦾⦿
 
 #### Supplemental Mathematical Operators
 
+    U+2A00..U+2A1F            ⨋ ⨍⨎⨏⨐⨑⨒⨓⨔⨕⨖⨗⨘⨙⨚⨛⨜ ⨞⨟
+    U+2A20..U+2A3F  ⨡⨢⨣⨤⨥⨦⨧⨨⨩⨪⨫⨬  ⨯⨰⨱⨲         ⨼⨽⨾⨿
+    U+2A40..U+2A5F ⩀⩁⩂⩃⩄⩅⩆⩇⩈⩉⩊⩋⩌⩍                  
+    U+2A60..U+2A7F       ⩦⩧  ⩪⩫⩬⩭⩮⩯⩰⩱⩲⩳   ⩷        
+    U+2A80..U+2A9F            ⪋⪌  ⪏⪐⪑⪒⪓⪔           
+    U+2AA0..U+2ABF                                ⪿
+    U+2AC0..U+2ADF ⫀⫁⫂⫃⫄⫅⫆⫇⫈⫉⫊⫋⫌      ⫓⫔⫕⫖       ⫞ 
+    U+2AE0..U+2AFF               ⫮⫯⫰⫱⫲   ⫶       ⫾⫿
 
 Supported only by approximation:
 
+    U+2A00..U+2A1F             ⨌                   
     U+2A20..U+2A3F                         ⨸       
-    U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+    U+2A40..U+2A5F                 ⩐               
+    U+2A60..U+2A7F                     ⩴⩵⩶         
 
 #### Miscellaneous Symbols and Arrows
 
+    U+2B00..U+2B1F       ⬆⬇     ⬍             　　⬝⬞ 
+    U+2B20..U+2B3F      ⬥⬦⬧⬨⬩⬪⬫  ⬮⬯ ⬱              
+    U+2B40..U+2B5F               ⭎⭏　    　          
+    U+2BC0..U+2BDF          ⯉                      
+    U+2BE0..U+2BFF                                ⯿
 
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
     U+2B40..U+2B5F                 　    ⭕  ⭘       
 
+#### Glagolitic
+
+    U+2C00..U+2C1F ⰀⰁⰂⰃⰄⰅⰆⰇⰈⰉⰊⰋⰌⰍⰎ ⰐⰑⰒⰓⰔⰕⰖⰗⰘⰙⰚⰛⰜⰝⰞ 
+    U+2C20..U+2C3F ⰠⰡⰢⰣⰤⰥⰦ   ⰪⰫⰬⰭⰮ ⰰⰱⰲⰳⰴⰵⰶⰷⰸⰹⰺⰻⰼⰽⰾ 
+    U+2C40..U+2C5F ⱀⱁⱂⱃⱄⱅⱆⱇⱈⱉⱊⱋⱌⱍⱎ ⱐⱑⱒⱓⱔⱕⱖ   ⱚⱛⱜⱝⱞ 
+
 #### Latin Extended-C
 
-
-Supported only by approximation:
-
-    U+2C60..U+2C7F                             ⱼⱽ  
+    U+2C60..U+2C7F ⱠⱡⱢⱣⱤⱥⱦⱧⱨⱩⱪⱫⱬⱭⱮⱯⱰⱱⱲⱳⱴⱵⱶⱷⱸⱹⱺⱻⱼⱽⱾⱿ
 
 #### Coptic
 
+    U+2C80..U+2C9F ⲀⲁⲂⲃⲄⲅⲆⲇⲈⲉⲊⲋⲌⲍⲎⲏⲐⲑⲒⲓⲔⲕⲖⲗⲘⲙⲚⲛⲜⲝⲞⲟ
+    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱⲲⲳⲴⲵⲶⲷⲸⲹⲺⲻⲼⲽⲾⲿ
+    U+2CC0..U+2CDF ⳀⳁⳂⳃⳄⳅⳆⳇⳈⳉⳊⳋⳌⳍ  ⳐⳑⳒⳓⳔⳕⳖⳗⳘⳙⳚⳛⳜⳝⳞⳟ
+    U+2CE0..U+2CFF ⳠⳡⳢⳣⳤ⳥⳦ ⳨⳩ ⳫⳬⳭⳮ ⳰⳱Ⳳⳳ     ⳹⳺⳻⳼⳽⳾⳿
 
-Supported only by approximation:
+#### Georgian Supplement
 
-    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐ ⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
-    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
+    U+2D00..U+2D1F ⴀⴁⴂⴃⴄ ⴆ ⴈⴉ ⴋⴌ ⴎⴏ ⴑⴒ  ⴕⴖⴗⴘⴙⴚ  ⴝⴞⴟ
+    U+2D20..U+2D2F  ⴡⴢⴣⴤ  ⴧ     ⴭ                  
 
 #### Tifinagh
 
+    U+2D30..U+2D4F ⴰⴱⴲⴳⴴⴵⴶⴷⴸⴹⴺⴻⴼⴽⴾⴿⵀⵁⵂⵃⵄⵅⵆⵇ ⵉⵊⵋⵌⵍⵎⵏ
+    U+2D50..U+2D6F ⵐⵑⵒⵓⵔⵕⵖⵗⵘⵙⵚⵛⵜⵝⵞⵟⵠⵡⵢⵣⵤⵥⵦⵧ       ⵯ
+    U+2D70..U+2D7F ⵰              ⵿                
 
-Supported only by approximation:
+#### Cyrillic Extended-A
 
-    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
-    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+    U+2DE0..U+2DFF ⷠⷡⷢⷣⷤⷥⷦⷧⷨⷩⷪⷫⷬⷭⷮⷯⷰⷱⷲⷳⷴⷵⷶⷷⷸⷹⷺⷻⷼⷽⷾⷿ
+
+#### Supplemental Punctuation
+
+    U+2E00..U+2E1F ⸀⸁⸂⸃⸄⸅⸆⸇⸈⸉⸊⸋⸌⸍    ⸒   ⸖⸗⸘⸙⸚⸛⸜⸝⸞⸟
+    U+2E20..U+2E3F ⸠⸡⸢⸣⸤⸥⸦⸧⸨⸩⸪⸫⸬⸭⸮ⸯ⸰⸱⸲⸳⸴⸵⸶⸷⸸⸹  ⸼⸽⸾⸿
+    U+2E40..U+2E5F ⹀⹁⹂ ⹄⹅⹆⹇⹈⹉⹊⹋⹌⹍⹎⹏                
 
 #### CJK Symbols and Punctuation
 
+    U+3020..U+303F 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　〿
 
 Supported only by approximation:
 
@@ -12642,6 +13042,11 @@ Supported only by approximation:
     U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
     U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
 
+#### Lisu
+
+    U+A4D0..U+A4EF ꓐꓑꓒꓓꓔꓕꓖꓗꓘꓙꓚꓛꓜꓝꓞꓟꓠꓡꓢꓣꓤꓥꓦꓧꓨꓩꓪꓫꓬꓭꓮꓯ
+    U+A4F0..U+A4FF ꓰꓱꓲꓳꓴꓵꓶꓷꓸꓹꓺꓻꓼꓽ꓾꓿                
+
 #### Vai
 
 
@@ -12657,35 +13062,110 @@ Supported only by approximation:
 
 #### Cyrillic Extended-B
 
+    U+A640..U+A65F ꙀꙁꙂꙃꙄꙅꙆꙇꙈꙉꙊꙋ  Ꙏꙏ  ꙒꙓꙔꙕꙖꙗꙘꙙꙚꙛꙜꙝ ꙟ
+    U+A660..U+A67F Ꙡꙡ      ꙨꙩꙪꙫ   ꙯ ꙱ ꙳ꙴꙵꙶꙷꙸꙹꙺꙻ꙼꙽꙾ꙿ
+    U+A680..U+A69F ꚀꚁꚂꚃ  ꚆꚇꚈꚉꚊꚋꚌꚍꚎꚏꚐꚑꚒꚓꚔꚕꚖꚗ  Ꚛꚛꚜꚝꚞꚟ
 
-Supported only by approximation:
+#### Bamum
 
-    U+A680..U+A69F   Ꚃ                         ꚜꚝ  
+    U+A6A0..U+A6BF ꚠꚡꚢꚣꚤꚥꚦꚧꚨꚩꚪꚫꚬꚭꚮꚯꚰꚱꚲꚳꚴꚵꚶꚷꚸꚹꚺꚻꚼꚽꚾꚿ
+    U+A6C0..U+A6DF ꛀꛁꛂꛃꛄꛅꛆꛇꛈꛉꛊꛋꛌꛍꛎꛏꛐꛑꛒꛓꛔꛕꛖꛗꛘꛙꛚꛛꛜꛝꛞꛟ
+    U+A6E0..U+A6FF ꛠꛡꛢꛣꛤꛥꛦꛧꛨꛩꛪꛫꛬꛭꛮꛯ꛰꛱꛲꛳꛴꛵꛶꛷        
+
+#### Modifier Tone Letters
+
+    U+A700..U+A71F ꜀꜁꜂꜃꜄꜅꜆꜇꜈꜉꜊꜋꜌꜍꜎꜏꜐꜑꜒꜓꜔꜕꜖ꜗꜘꜙꜚꜛꜜꜝꜞꜟ
 
 #### Latin Extended-D
 
+    U+A720..U+A73F ꜠꜡ꜢꜣꜤꜥꜦꜧ  ꜪꜫꜬꜭꜮꜯꜰꜱ            Ꜿꜿ
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅꝆꝇꝈꝉꝊꝋꝌꝍ  ꝐꝑꝒꝓꝔꝕꝖꝗ  ꝚꝛꝜꝝꝞꝟ
+    U+A760..U+A77F ꝠꝡꝢꝣꝤꝥꝦꝧꝨꝩꝪꝫꝬꝭꝮꝯꝰ       ꝸꝹꝺꝻꝼꝽꝾꝿ
+    U+A780..U+A79F ꞀꞁꞂꞃꞄꞅꞆꞇꞈ꞉꞊ꞋꞌꞍꞎꞏꞐꞑꞒꞓꞔꞕꞖꞗꞘꞙꞚꞛꞜꞝꞞꞟ
+    U+A7A0..U+A7BF ꞠꞡꞢꞣꞤꞥꞦꞧꞨꞩꞪꞫꞬꞭꞮꞯꞰꞱꞲꞳꞴꞵꞶꞷꞸꞹꞺꞻꞼꞽꞾꞿ
+    U+A7C0..U+A7DF     ꟄꟅꟆ                         
+    U+A7E0..U+A7FF                        ꟷꟸꟹꟺꟻꟼꟽꟾ 
 
-Supported only by approximation:
+#### Syloti Nagri
 
-    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
-    U+A780..U+A79F          ꞉    ꞎ                 
-    U+A7E0..U+A7FF                         ꟸꟹ      
+    U+A820..U+A82F         ꠨꠩                      
 
 #### Latin Extended-E
 
+    U+AB30..U+AB4F ꬰꬱꬲꬳꬴꬵꬶꬷꬸꬹꬺꬻꬼꬽꬾꬿꭀꭁꭂꭃꭄꭅꭆꭇꭈꭉꭊꭋꭌꭍꭎꭏ
+    U+AB50..U+AB6F ꭐꭑꭒꭓꭔꭕꭖꭗꭘꭙꭚ꭛ꭜꭝꭞꭟꭠꭡꭢꭣꭤꭥ          
 
-Supported only by approximation:
+#### Cherokee Supplement
 
-    U+AB50..U+AB6F       ꭖꭗꭘ                       
+    U+AB70..U+AB8F ꭰꭱꭲꭳꭴꭵꭶꭷꭸꭹꭺꭻꭼꭽꭾꭿꮀꮁꮂꮃꮄꮅꮆꮇꮈꮉꮊꮋꮌꮍꮎꮏ
+    U+AB90..U+ABAF ꮐꮑꮒꮓꮔꮕꮖꮗꮘꮙꮚꮛꮜꮝꮞꮟꮠꮡꮢꮣꮤꮥꮦꮧꮨꮩꮪꮫꮬꮭꮮꮯ
+    U+ABB0..U+ABBF ꮰꮱꮲꮳꮴꮵꮶꮷꮸꮹꮺꮻꮼꮽꮾꮿ                
+
+#### Private Use Area
+
+    U+E000..U+E01F                 
+    U+E020..U+E03F      
+    U+E040..U+E05F      
+    U+E060..U+E07F           
+    U+E080..U+E09F 
+    U+E0A0..U+E0BF 
+    U+E0C0..U+E0DF 
+    U+E0E0..U+E0FF                    
+    U+E140..U+E15F                 
+    U+E160..U+E17F  
+    U+E180..U+E19F     
+    U+E1A0..U+E1BF           
+    U+E1C0..U+E1DF                   
+    U+E200..U+E21F                              
+    U+E220..U+E23F             
+    U+E240..U+E25F 
+    U+E260..U+E27F            
+    U+E280..U+E29F                        
+    U+E5C0..U+E5DF 
+    U+E680..U+E69F            
+    U+E6A0..U+E6BF    
+    U+E6C0..U+E6DF                 
+    U+E740..U+E75F 
+    U+E760..U+E77F                       
+    U+E7A0..U+E7BF                  
+    U+E7C0..U+E7DF 
+    U+E7E0..U+E7FF              
+    U+E800..U+E81F 
+    U+E820..U+E83F                       
+    U+E8E0..U+E8FF            
+    U+F800..U+F81F                             
+    U+F8A0..U+F8BF   
+    U+F8C0..U+F8DF                      
+    U+F8E0..U+F8FF                            
 
 #### Alphabetic Presentation Forms
 
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ            ﬓﬔﬕﬖﬗ     יִﬞײַ
+    U+FB20..U+FB3F ﬠ        ﬩שׁשׂשּׁשּׂאַאָאּבּגּדּהּוּזּ טּיּךּכּלּ מּ 
+    U+FB40..U+FB4F נּסּ ףּפּ צּקּרּשּתּוֹבֿכֿפֿﭏ                
 
 Supported only by approximation:
 
-    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                      יִ ײַ
-    U+FB20..U+FB3F ﬠﬡﬢﬣﬤﬥﬦﬧﬨ﬩שׁשׂשּׁשּׂאַאָאּבּגּדּהּוּזּ טּיּךּכּלּ מּ 
-    U+FB40..U+FB4F נּסּ ףּפּ צּקּרּשּתּוֹבֿכֿפֿﭏ                
+    U+FB20..U+FB3F  ﬡﬢﬣﬤﬥﬦﬧﬨ                       
+
+#### Arabic Presentation Forms-A
+
+    U+FB50..U+FB6F ﭐﭑﭒﭓﭔﭕﭖﭗﭘﭙﭚﭛﭜﭝﭞﭟﭠﭡﭢﭣﭤﭥﭦﭧﭨﭩﭪﭫﭬﭭﭮﭯ
+    U+FB70..U+FB8F ﭰﭱﭲﭳﭴﭵﭶﭷﭸﭹﭺﭻﭼﭽﭾﭿﮀﮁﮂﮃﮄﮅﮆﮇﮈﮉﮊﮋﮌﮍﮎﮏ
+    U+FB90..U+FBAF ﮐﮑﮒﮓﮔﮕﮖﮗﮘﮙﮚﮛﮜﮝﮞﮟﮠﮡﮢﮣﮤﮥﮦﮧﮨﮩﮪﮫﮬﮭﮮﮯ
+    U+FBB0..U+FBCF ﮰﮱ﮲﮳﮴﮵﮶﮷﮸﮹﮺﮻﮼﮽﮾﮿﯀﯁              
+    U+FBD0..U+FBEF    ﯓﯔﯕﯖﯗﯘﯙﯚﯛﯜﯝﯞﯟﯠﯡﯢﯣﯤﯥﯦﯧﯨﯩﯪﯫﯬﯭﯮﯯ
+    U+FBF0..U+FC0F ﯰﯱﯲﯳﯴﯵﯶﯷﯸﯹﯺﯻﯼﯽﯾﯿﰀﰁﰂﰃﰄﰅﰆﰇﰈﰉﰊﰋﰌﰍﰎﰏ
+    U+FC10..U+FC2F ﰐﰑﰒﰓﰔﰕﰖﰗﰘﰙﰚﰛﰜﰝﰞ ﰠ ﰢﰣﰤ ﰦﰧﰨﰩﰪﰫﰬﰭﰮﰯ
+    U+FC30..U+FC4F ﰰﰱﰲﰳﰴﰵﰶﰷﰸﰹﰺﰻﰼ  ﰿﱀﱁﱂﱃﱄﱅﱆﱇﱈﱉﱊﱋﱌﱍﱎﱏ
+    U+FC50..U+FC6F ﱐﱑﱒﱓﱔﱕﱖﱗﱘﱙﱚﱛﱜﱝﱞﱟﱠﱡﱢﱣﱤﱥﱦﱧﱨﱩﱪﱫﱬﱭﱮﱯ
+    U+FC70..U+FC8F ﱰﱱﱲﱳﱴﱵﱶﱷﱸﱹﱺﱻﱼﱽﱾﱿﲀﲁﲂﲃﲄﲅﲆﲇﲈﲉﲊﲋﲌﲍﲎﲏ
+    U+FC90..U+FCAF ﲐﲑﲒﲓﲔﲕﲖﲗﲘﲙﲚﲛﲜﲝﲞﲟﲠﲡﲢﲣﲤﲥﲦﲧﲨﲩﲪﲫﲬ   
+    U+FCB0..U+FCCF ﲰ       ﲸﲹﲺﲻﲼﲽﲾﲿﳀﳁﳂﳃﳄﳅﳆﳇﳈﳉﳊﳋﳌﳍﳎﳏ
+    U+FCD0..U+FCEF ﳐﳑﳒﳓﳔﳕﳖﳗﳘﳙﳚﳛﳜﳝﳞﳟﳠﳡﳢﳣﳤﳥﳦ    ﳫﳬﳭﳮﳯ
+    U+FCF0..U+FD0F ﳰﳱﳲﳳﳴﳵﳶﳷﳸﳹﳺ    ﳿﴀﴁﴂﴃﴄﴅﴆﴇﴈﴉﴊﴋﴌﴍﴎﴏ
+    U+FD10..U+FD2F ﴐﴑﴒﴓﴔﴕﴖ          ﴡﴢﴣﴤﴥﴦﴧﴨﴩﴪﴫﴬ   
+    U+FD30..U+FD4F    ﴳ      ﴺﴻﴼﴽ                  
 
 #### Vertical Forms
 
@@ -12693,6 +13173,10 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+FE10..U+FE1F ︐　　︓︔︕　　　︙                      
+
+#### Combining Half Marks
+
+    U+FE20..U+FE2F ︧︨︩︪︫︬︭︠︡︢︣︤︥︦︮︯　　　　　　　　　　　　　　　　
 
 #### CJK Compatibility Forms
 
@@ -12706,24 +13190,30 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗　﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
 
 #### Arabic Presentation Forms-B
 
-
-Supported only by approximation:
-
-    U+FED0..U+FEEF              ﻝ                  
+    U+FE70..U+FE8F ﹰﹱﹲﹳﹴ ﹶﹷﹸﹹﹺﹻﹼﹽﹾﹿﺀﺁﺂﺃﺄﺅﺆﺇﺈﺉﺊﺋﺌﺍﺎﺏ
+    U+FE90..U+FEAF ﺐﺑﺒﺓﺔﺕﺖﺗﺘﺙﺚﺛﺜﺝﺞﺟﺠﺡﺢﺣﺤﺥﺦﺧﺨﺩﺪﺫﺬﺭﺮﺯ
+    U+FEB0..U+FECF ﺰﺱﺲﺳﺴﺵﺶﺷﺸﺹﺺﺻﺼﺽﺾﺿﻀﻁﻂﻃﻄﻅﻆﻇﻈﻉﻊﻋﻌﻍﻎﻏ
+    U+FED0..U+FEEF ﻐﻑﻒﻓﻔﻕﻖﻗﻘﻙﻚﻛﻜﻝﻞﻟﻠﻡﻢﻣﻤﻥﻦﻧﻨﻩﻪﻫﻬﻭﻮﻯ
+    U+FEF0..U+FEFF ﻰﻱﻲﻳﻴﻵﻶﻷﻸﻹﻺﻻﻼ    　　　　　　　　　　　　　　　
 
 #### Halfwidth and Fullwidth Forms
 
+    U+FF60..U+FF7F 　｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿ
+    U+FF80..U+FF9F ﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ
+    U+FFA0..U+FFBF ﾠﾡﾢﾣﾤﾥﾦﾧﾨﾩﾪﾫﾬﾭﾮﾯﾰﾱﾲﾳﾴﾵﾶﾷﾸﾹﾺﾻﾼﾽﾾ 
+    U+FFC0..U+FFDF   ￂￃￄￅￆￇ  ￊￋￌￍￎￏ  ￒￓￔￕￖￗ  ￚￛￜ   
+    U+FFE0..U+FFEF 　　　　　　　 ￨￩￪￫￬￭￮                 
 
 Supported only by approximation:
 
     U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
     U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
     U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
-    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　                         
 
 #### Old Italic
 
@@ -12789,15 +13279,15 @@ Supported only by approximation:
     U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
     U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
     U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣𝚤   𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸 𝚺𝚻𝚼𝚽𝚾𝚿
-    U+1D6C0..U+1D6DF 𝛀 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚     
-    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿
-    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔       𝜜𝜝𝜞𝜟
-    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
-    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎       𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
-    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
-    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈       𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
-    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
-    U+1D7C0..U+1D7DF 𝟀𝟁𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D6C0..U+1D6DF 𝛀𝛁𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚𝛛    
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺𝛻𝛼𝛽𝛾𝛿
+    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔𝜕      𝜜𝜝𝜞𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴𝜵𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
+    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎𝝏      𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
+    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈𝞉      𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨𝞩𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
+    U+1D7C0..U+1D7DF 𝟀𝟁𝟂𝟃          𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
     U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
 
 #### Arabic Mathematical Alphabetic Symbols
@@ -12836,7 +13326,16 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F320..U+1F33F 　  🌣         　　　　　　　　　 　　　　　　　　　
     U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　　　　　💲　　　　　　　　　　　　　
+    U+1F560..U+1F57F 　　　　　　　　         🕱        　     
+
+#### Transport and Map Symbols
+
+
+Supported only by approximation:
+
+    U+1F6C0..U+1F6DF 　　　　　　  🛈   　   　　　             
 
 #### Alchemical Symbols
 
@@ -12851,7 +13350,15 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7A0..U+1F7BF          🞩  🞬                   
     U+1F7C0..U+1F7DF                        🟗        
+
+#### Chess Symbols
+
+
+Supported only by approximation:
+
+    U+1FA00..U+1FA1F 🨀🨁🨂🨃🨄🨅                          
 
 ## Font 8x19
 
@@ -15023,7 +15530,10 @@ Supported only by approximation:
 
 ## Font 10x20
 
-X11 misc-fixed font `-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1`.
+
+* X11 misc-fixed font `-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1`.
+* Uni2-TerminusBold20x10.psf.gz (Linux consolefonts)
+
 
 #### Basic Latin
 
@@ -15362,14 +15872,15 @@ Supported only by approximation:
 
     U+2460..U+247F ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
     U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇                        
-    U+24E0..U+24FF           ⓪⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴          ⓿
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴          ⓿
 
 Supported only by approximation:
 
     U+2480..U+249F         ⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
-    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
-    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
-    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ           ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
 
 #### Box Drawing
 
@@ -15803,6 +16314,740 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1FA00..U+1FA1F 🨀🨁🨂🨃🨄🨅                          
+
+## Font 11x22
+
+
+* Uni2-TerminusBold22x11.psf.gz, Uni3-TerminusBold22x11.psf.gz (Linux consolefonts)
+* FullCyrSlav-TerminusBold22x11.psf.gz, FullCyrAsia-TerminusBold22x11.psf.gz (Linux consolefonts)
+* FullGreek-TerminusBold22x11.psf.gz (Linux consolefonts)
+
+
+#### Basic Latin
+
+    U+0020..U+003F  !"#$%&'()*+,-./0123456789:;<=>?
+    U+0040..U+005F @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+    U+0060..U+007E `abcdefghijklmnopqrstuvwxyz{|}~ 
+
+#### Latin-1 Supplement
+
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
+    U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+
+#### Latin Extended-A
+
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħ  Īī  Įįİı  ĴĵĶķ ĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň   Ōō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤť    ŪūŬŭŮůŰűŲųŴŵ  ŸŹźŻżŽž 
+
+Supported only by approximation:
+
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F         Ĩĩ  Ĭĭ    Ĳĳ    ĸ      Ŀ
+    U+0140..U+015F ŀ        ŉŊŋ  Ŏŏ                
+    U+0160..U+017F       ŦŧŨũ            Ŷŷ       ſ
+
+#### Latin Extended-B
+
+    U+0180..U+019F                   ƒ             
+    U+0200..U+021F                         ȘșȚț    
+
+Supported only by approximation:
+
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗ      Ȟȟ
+    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+
+#### IPA Extensions
+
+
+Supported only by approximation:
+
+    U+0250..U+026F    ɓ ɕɖɗ ə ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴɵɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+
+#### Spacing Modifier Letters
+
+    U+02B0..U+02CF                       ˆˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
+
+Supported only by approximation:
+
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ           ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
+
+#### Combining Diacritical Marks
+
+
+Supported only by approximation:
+
+    U+0320..U+033F                         ̸       
+
+#### Greek and Coptic
+
+    U+0370..U+038F                     ΄΅Ά ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
+    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
+    U+03F0..U+03FF    ϳϴ                           
+
+Supported only by approximation:
+
+    U+0370..U+038F       Ͷͷ      ;        ·        
+    U+03D0..U+03EF ϐϑϒ  ϕϖ     Ϝ                ϭ  
+    U+03F0..U+03FF ϰϱϲ  ϵ   ϹϺ                     
+
+#### Cyrillic
+
+    U+0400..U+041F ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
+    U+0440..U+045F рстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџ
+    U+0480..U+049F                 ҐґҒғҔҕҖҗҘҙҚқҜҝ  
+    U+04A0..U+04BF ҠҡҢңҤҥ    Ҫҫ  ҮүҰұҲҳ  ҶҷҸҹҺһ    
+    U+04C0..U+04DF                 ӐӑӒӓ  ӖӗӘә      
+    U+04E0..U+04FF   Ӣӣ  ӦӧӨө    ӮӯӰӱӲӳ    Ӹӹ      
+
+Supported only by approximation:
+
+    U+0460..U+047F Ѡѡ                Ѳ             
+    U+04A0..U+04BF                     Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ                 Ӕӕ      ӜӝӞӟ
+    U+04E0..U+04FF     Ӥӥ      Ӭӭ      Ӵӵ    Ӻӻ    
+
+#### Cyrillic Supplement
+
+
+Supported only by approximation:
+
+    U+0500..U+051F                           ԚԛԜԝ  
+
+#### Armenian
+
+
+Supported only by approximation:
+
+    U+0530..U+054F             Լ                Ս Տ
+    U+0550..U+056F      Օ                          
+    U+0570..U+058F                          ։     ֏
+
+#### Hebrew
+
+
+Supported only by approximation:
+
+    U+05B0..U+05CF                    ׃            
+    U+05D0..U+05EF                  ס              
+
+#### Arabic
+
+
+Supported only by approximation:
+
+    U+0640..U+065F     ل                           
+
+#### Syriac
+
+
+Supported only by approximation:
+
+    U+0700..U+071F    ܃                            
+
+#### NKo
+
+
+Supported only by approximation:
+
+    U+07C0..U+07DF                    ߓ            
+    U+07E0..U+07FF ߠ                               
+
+#### Devanagari
+
+
+Supported only by approximation:
+
+    U+0920..U+093F                              ऽ  
+
+#### Telugu
+
+
+Supported only by approximation:
+
+    U+0C60..U+0C7F          ౩                      
+
+#### Georgian
+
+
+Supported only by approximation:
+
+    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
+    U+10C0..U+10DF                      ვ          
+
+#### Cherokee
+
+
+Supported only by approximation:
+
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ  Ꮎ 
+    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       ᏎᏏ  Ꮢ      ᏙᏚ   ᏞᏟ
+    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+
+#### Unified Canadian Aboriginal Syllabics
+
+
+Supported only by approximation:
+
+    U+1400..U+141F ᐀                               
+    U+1420..U+143F                ᐯ        ᐸ       
+    U+1440..U+145F          ᑉ  ᑌ                   
+    U+1460..U+147F              ᑭ                  
+    U+1480..U+149F              ᒍ                  
+    U+14A0..U+14BF           ᒪ                     
+    U+1560..U+157F                             ᕼ   
+    U+1580..U+159F       ᖆᖇ                        
+    U+15A0..U+15BF                     ᖴ           
+    U+15C0..U+15DF      ᗅ     ᗋ                  ᗞ 
+
+#### Ogham
+
+
+Supported only by approximation:
+
+    U+1680..U+169F                 ᚐ               
+
+#### Phonetic Extensions
+
+
+Supported only by approximation:
+
+    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇᴈ ᴊᴋᴌᴍ ᴏ        ᴘᴙ ᴛᴜ   
+    U+1D20..U+1D3F ᴠᴡᴢ   ᴦ ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐ ᵒ   ᵖᵗᵘ  ᵛ ᵝᵞᵟ
+    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ ᵸ ᵺᵻ ᵽᵾ 
+
+#### Phonetic Extensions Supplement
+
+
+Supported only by approximation:
+
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ ᶞ 
+    U+1DA0..U+1DBF ᶠ                          ᶻ   ᶿ
+
+#### Latin Extended Additional
+
+
+Supported only by approximation:
+
+    U+1E00..U+1E1F ḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟ
+    U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
+    U+1E40..U+1E5F ṀṁṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞṟ
+    U+1E60..U+1E7F ṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
+    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
+    U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
+    U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹỺỻỼỽỾỿ
+
+#### Greek Extended
+
+
+Supported only by approximation:
+
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
+    U+1F20..U+1F3F ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿ
+    U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ  ὐὑὒὓὔὕὖὗ Ὑ Ὓ Ὕ Ὗ
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ ι 
+    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ   ῐῑῒΐ  ῖῗῘῙῚΊ    
+    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
+
+#### General Punctuation
+
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚ “”„ 
+    U+2020..U+203F †‡•   …         ‰ ′″     ‹› ‼   
+
+Supported only by approximation:
+
+    U+2000..U+201F                            ‛   ‟
+    U+2020..U+203F     ․‥              ‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊            ⁗  ⁚     
+
+#### Superscripts and Subscripts
+
+    U+2070..U+208F                ⁿ                
+
+Supported only by approximation:
+
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+
+#### Currency Symbols
+
+    U+20A0..U+20BF        ₧    € ₮                 
+
+Supported only by approximation:
+
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+
+#### Combining Diacritical Marks for Symbols
+
+
+Supported only by approximation:
+
+    U+20D0..U+20EF              ⃝       ⃥          
+
+#### Letterlike Symbols
+
+    U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
+
+Supported only by approximation:
+
+    U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼℽℾℿ
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
+
+#### Number Forms
+
+
+Supported only by approximation:
+
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
+
+#### Arrows
+
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
+    U+21D0..U+21EF ⇐⇑⇒⇓⇔⇕                          
+
+Supported only by approximation:
+
+    U+2190..U+21AF           ↚↛                  ↮ 
+    U+21B0..U+21CF                              ⇍⇎⇏
+
+#### Mathematical Operators
+
+    U+2200..U+221F      ∅∆ ∈         −      ∙√   ∞∟
+    U+2220..U+223F        ∧∨∩∪                     
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠≡  ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
+
+Supported only by approximation:
+
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
+    U+2220..U+223F    ∣∤∥∦               ∶     ∼   
+    U+2240..U+225F  ≁  ≄  ≇ ≉                      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F     ⊄⊅  ⊈⊉                      
+    U+22A0..U+22BF     ⊤                           
+    U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
+    U+22E0..U+22FF                ⋯               ⋿
+
+#### Miscellaneous Technical
+
+    U+2300..U+231F   ⌂             ⌐         　　    
+    U+2320..U+233F ⌠⌡       　　                     
+    U+23A0..U+23BF                           ⎺⎻⎼⎽  
+
+Supported only by approximation:
+
+    U+2300..U+231F                        ⌗  　　    
+    U+2320..U+233F          〈〉                     
+    U+2360..U+237F                      ⍵          
+    U+23C0..U+23DF          ⏉                      
+
+#### Control Pictures
+
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F     ␤                           
+
+Supported only by approximation:
+
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡ ␣                            
+
+#### Enclosed Alphanumerics
+
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
+
+Supported only by approximation:
+
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+
+#### Box Drawing
+
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
+
+Supported only by approximation:
+
+    U+2560..U+257F                  ╱╲╳            
+
+#### Block Elements
+
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
+
+#### Geometric Shapes
+
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸   ▼ ▾ 
+    U+25C0..U+25DF ◀ ◂       ◊○   ●        ◘◙      
+
+Supported only by approximation:
+
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹   ▽ ▿
+    U+25C0..U+25DF  ◁ ◃                            
+    U+25E0..U+25FF       ◦        ◯             　　 
+
+#### Miscellaneous Symbols
+
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥    ♪♫                   　
+
+Supported only by approximation:
+
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡  ♤  ♧                       　
+    U+2680..U+269F             ⚌      　            
+    U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
+
+#### Dingbats
+
+
+Supported only by approximation:
+
+    U+2720..U+273F         　        ✱              
+    U+2740..U+275F             　❍　    　　　 　        
+    U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗ ➙      
+    U+27A0..U+27BF  ➡              　              　
+
+#### Miscellaneous Mathematical Symbols-A
+
+
+Supported only by approximation:
+
+    U+27C0..U+27DF            ⟋ ⟍           ⟙      
+    U+27E0..U+27EF           ⟪⟫  ⟮⟯                
+
+#### Miscellaneous Mathematical Symbols-B
+
+
+Supported only by approximation:
+
+    U+29A0..U+29BF                         ⦸     ⦾⦿
+    U+29E0..U+29FF            ⧫         ⧵   ⧹      
+
+#### Supplemental Mathematical Operators
+
+
+Supported only by approximation:
+
+    U+2A20..U+2A3F                         ⨸       
+    U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+
+#### Miscellaneous Symbols and Arrows
+
+
+Supported only by approximation:
+
+    U+2B20..U+2B3F     ⬤                           
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
+
+#### Latin Extended-C
+
+
+Supported only by approximation:
+
+    U+2C60..U+2C7F                             ⱼⱽ  
+
+#### Coptic
+
+
+Supported only by approximation:
+
+    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐⲑⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
+    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
+
+#### Tifinagh
+
+
+Supported only by approximation:
+
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
+    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+
+#### CJK Symbols and Punctuation
+
+
+Supported only by approximation:
+
+    U+3000..U+301F 　　　　　　　　〈〉　　　　　　　　　　　　　　　　　　　　　　
+
+#### Hiragana
+
+
+Supported only by approximation:
+
+    U+3040..U+305F  　　　　　　　　　　　　　　く　　　　　　　　　　　　　　　　
+
+#### Katakana
+
+
+Supported only by approximation:
+
+    U+30A0..U+30BF ゠　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+#### Enclosed CJK Letters and Months
+
+
+Supported only by approximation:
+
+    U+3220..U+323F ㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩㈪㈫㈬㈭㈮㈯㈰㈱㈲㈳㈴㈵㈶㈷㈸㈹㈺㈻㈼㈽㈾㈿
+    U+3240..U+325F ㉀㉁㉂㉃㉄㉅㉆㉇        ㉐㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟
+    U+3280..U+329F ㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟
+    U+32A0..U+32BF ㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
+    U+32C0..U+32DF ㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㋌㋍㋎㋏㋐㋑㋒㋓㋔㋕㋖㋗㋘㋙㋚㋛㋜㋝㋞㋟
+    U+32E0..U+32FF ㋠㋡㋢㋣㋤㋥㋦㋧㋨㋩㋪㋫㋬㋭㋮㋯㋰㋱㋲㋳㋴㋵㋶㋷㋸㋹㋺㋻㋼㋽㋾ 
+
+#### CJK Compatibility
+
+
+Supported only by approximation:
+
+    U+3340..U+335F 　　　　　　　　　　　　　　　　　　　　　　　　㍘㍙㍚㍛㍜㍝㍞㍟
+    U+3360..U+337F ㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍱㍲㍳㍴㍵㍶㍷㍸㍹㍺　　　　　
+    U+3380..U+339F ㎀㎁㎂㎃㎄㎅㎆㎇㎈㎉㎊㎋㎌㎍㎎㎏㎐㎑㎒㎓㎔㎕㎖㎗㎘㎙㎚㎛㎜㎝㎞㎟
+    U+33A0..U+33BF ㎠㎡㎢㎣㎤㎥㎦㎧㎨㎩㎪㎫㎬㎭㎮㎯㎰㎱㎲㎳㎴㎵㎶㎷㎸㎹㎺㎻㎼㎽㎾㎿
+    U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
+    U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
+
+#### Vai
+
+
+Supported only by approximation:
+
+    U+A500..U+A51F            ꔋ                    
+    U+A540..U+A55F                     ꕔ  ꕗ        
+    U+A560..U+A57F                       ꕶ         
+    U+A580..U+A59F                            ꖛ    
+    U+A5A0..U+A5BF                               ꖾ 
+    U+A5C0..U+A5DF            ꗋ                    
+    U+A600..U+A61F             ꘌ                   
+
+#### Cyrillic Extended-B
+
+
+Supported only by approximation:
+
+    U+A680..U+A69F   Ꚃ                         ꚜꚝ  
+
+#### Latin Extended-D
+
+
+Supported only by approximation:
+
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
+    U+A780..U+A79F          ꞉    ꞎ                 
+    U+A7E0..U+A7FF                         ꟸꟹ      
+
+#### Latin Extended-E
+
+
+Supported only by approximation:
+
+    U+AB50..U+AB6F       ꭖꭗꭘ                       
+
+#### Alphabetic Presentation Forms
+
+
+Supported only by approximation:
+
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                         
+    U+FB20..U+FB3F          ﬩                      
+    U+FB40..U+FB4F  סּ                              
+
+#### Vertical Forms
+
+
+Supported only by approximation:
+
+    U+FE10..U+FE1F ︐　　︓︔︕　　　︙                      
+
+#### CJK Compatibility Forms
+
+
+Supported only by approximation:
+
+    U+FE30..U+FE4F ︰　︲︳︴︵︶︷︸　　　　　　　　　　　　　　﹇﹈　　　　﹍﹎﹏
+
+#### Small Form Variants
+
+
+Supported only by approximation:
+
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+
+#### Arabic Presentation Forms-B
+
+
+Supported only by approximation:
+
+    U+FED0..U+FEEF              ﻝ                  
+
+#### Halfwidth and Fullwidth Forms
+
+
+Supported only by approximation:
+
+    U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
+    U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
+    U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
+
+#### Old Italic
+
+
+Supported only by approximation:
+
+    U+10300..U+1031F 𐌀𐌁𐌂𐌃 𐌅    𐌊      𐌑 𐌓   𐌗  𐌚𐌛    
+    U+10320..U+1032F   𐌢                             
+
+#### Osmanya
+
+
+Supported only by approximation:
+
+    U+10480..U+1049F                       𐒖         
+
+#### Musical Symbols
+
+
+Supported only by approximation:
+
+    U+1D100..U+1D11F         𝄈                       
+
+#### Ancient Greek Musical Notation
+
+
+Supported only by approximation:
+
+    U+1D200..U+1D21F       𝈆      𝈍     𝈓  𝈖         
+    U+1D220..U+1D23F           𝈪               𝈺𝈻    
+
+#### Counting Rod Numerals
+
+
+Supported only by approximation:
+
+    U+1D360..U+1D37F               𝍮                 
+
+#### Mathematical Alphanumeric Symbols
+
+
+Supported only by approximation:
+
+    U+1D400..U+1D41F 𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟
+    U+1D420..U+1D43F 𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿
+    U+1D440..U+1D45F 𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔 𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟
+    U+1D460..U+1D47F 𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿
+    U+1D480..U+1D49F 𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜 𝒞𝒟
+    U+1D4A0..U+1D4BF   𝒢  𝒥𝒦  𝒩𝒪𝒫𝒬 𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹 𝒻 𝒽𝒾𝒿
+    U+1D4C0..U+1D4DF 𝓀𝓁𝓂𝓃 𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟
+    U+1D4E0..U+1D4FF 𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿
+    U+1D500..U+1D51F 𝔀𝔁𝔂𝔃𝔄𝔅 𝔇𝔈𝔉𝔊  𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔 𝔖𝔗𝔘𝔙𝔚𝔛𝔜 𝔞𝔟
+    U+1D520..U+1D53F 𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹 𝔻𝔼𝔽𝔾 
+    U+1D540..U+1D55F 𝕀𝕁𝕂𝕃𝕄 𝕆   𝕊𝕋𝕌𝕍𝕎𝕏𝕐 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟
+    U+1D560..U+1D57F 𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿
+    U+1D580..U+1D59F 𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+    U+1D5A0..U+1D5BF 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿
+    U+1D5C0..U+1D5DF 𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟
+    U+1D5E0..U+1D5FF 𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿
+    U+1D600..U+1D61F 𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟
+    U+1D620..U+1D63F 𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿
+    U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
+    U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
+    U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣𝚤   𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸 𝚺𝚻𝚼𝚽𝚾𝚿
+    U+1D6C0..U+1D6DF 𝛀 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿
+    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔       𝜜𝜝𝜞𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
+    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎       𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
+    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈       𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
+    U+1D7C0..U+1D7DF 𝟀𝟁𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+
+#### Arabic Mathematical Alphabetic Symbols
+
+
+Supported only by approximation:
+
+    U+1EE00..U+1EE1F            𞸋                    
+    U+1EE20..U+1EE3F            𞸫                    
+    U+1EE40..U+1EE5F            𞹋                    
+    U+1EE80..U+1EE9F            𞺋                    
+    U+1EEA0..U+1EEBF            𞺫                    
+
+#### Enclosed Alphanumeric Supplement
+
+
+Supported only by approximation:
+
+    U+1F100..U+1F11F 🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉🄊     🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟
+    U+1F120..U+1F13F 🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩 🄫🄬🄭🄮 🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿
+    U+1F140..U+1F15F 🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🅊🅋🅌🅍🅎🅏                
+    U+1F160..U+1F17F           🅪🅫🅬                   
+    U+1F180..U+1F19F               　 🆐　　　　　　　　　　     
+
+#### Enclosed Ideographic Supplement
+
+
+Supported only by approximation:
+
+    U+1F240..U+1F25F 　　　　　　　　　       🉐🉑              
+
+#### Miscellaneous Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　　　　　💲　　　　　　　　　　　　　
+
+#### Alchemical Symbols
+
+
+Supported only by approximation:
+
+    U+1F760..U+1F77F         🝨                       
+
+#### Geometric Shapes Extended
+
+
+Supported only by approximation:
+
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 12x13
 
@@ -17677,9 +18922,5674 @@ Supported only by approximation:
     U+2F9E0..U+2F9FF 　　　　　　　　　　　　　　開　　　　　　　　　　　　　　　　　
     U+2FA00..U+2FA1F 　　飢　　　　　　　　　　　　　　　　　　麻　黹　　　　鼻　　　
 
+## Font 12x24
+
+
+* Uni2-TerminusBold24x12.psf.gz, Uni3-TerminusBold24x12.psf.gz (Linux consolefonts)
+* FullCyrSlav-TerminusBold24x12.psf.gz, FullCyrAsia-TerminusBold24x12.psf.gz (Linux consolefonts)
+* FullGreek-TerminusBold24x12.psf.gz (Linux consolefonts)
+
+
+#### Basic Latin
+
+    U+0020..U+003F  !"#$%&'()*+,-./0123456789:;<=>?
+    U+0040..U+005F @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+    U+0060..U+007E `abcdefghijklmnopqrstuvwxyz{|}~ 
+
+#### Latin-1 Supplement
+
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
+    U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+
+#### Latin Extended-A
+
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħ  Īī  Įįİı  ĴĵĶķ ĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň   Ōō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤť    ŪūŬŭŮůŰűŲųŴŵ  ŸŹźŻżŽž 
+
+Supported only by approximation:
+
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F         Ĩĩ  Ĭĭ    Ĳĳ    ĸ      Ŀ
+    U+0140..U+015F ŀ        ŉŊŋ  Ŏŏ                
+    U+0160..U+017F       ŦŧŨũ            Ŷŷ       ſ
+
+#### Latin Extended-B
+
+    U+0180..U+019F                   ƒ             
+    U+0200..U+021F                         ȘșȚț    
+
+Supported only by approximation:
+
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗ      Ȟȟ
+    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+
+#### IPA Extensions
+
+
+Supported only by approximation:
+
+    U+0250..U+026F    ɓ ɕɖɗ ə ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴɵɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+
+#### Spacing Modifier Letters
+
+    U+02B0..U+02CF                       ˆˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
+
+Supported only by approximation:
+
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ           ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
+
+#### Combining Diacritical Marks
+
+
+Supported only by approximation:
+
+    U+0320..U+033F                         ̸       
+
+#### Greek and Coptic
+
+    U+0370..U+038F                     ΄΅Ά ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
+    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
+    U+03F0..U+03FF    ϳϴ                           
+
+Supported only by approximation:
+
+    U+0370..U+038F       Ͷͷ      ;        ·        
+    U+03D0..U+03EF ϐϑϒ  ϕϖ     Ϝ                ϭ  
+    U+03F0..U+03FF ϰϱϲ  ϵ   ϹϺ                     
+
+#### Cyrillic
+
+    U+0400..U+041F ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
+    U+0440..U+045F рстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџ
+    U+0480..U+049F                 ҐґҒғҔҕҖҗҘҙҚқҜҝ  
+    U+04A0..U+04BF ҠҡҢңҤҥ    Ҫҫ  ҮүҰұҲҳ  ҶҷҸҹҺһ    
+    U+04C0..U+04DF                 ӐӑӒӓ  ӖӗӘә      
+    U+04E0..U+04FF   Ӣӣ  ӦӧӨө    ӮӯӰӱӲӳ    Ӹӹ      
+
+Supported only by approximation:
+
+    U+0460..U+047F Ѡѡ                Ѳ             
+    U+04A0..U+04BF                     Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ                 Ӕӕ      ӜӝӞӟ
+    U+04E0..U+04FF     Ӥӥ      Ӭӭ      Ӵӵ    Ӻӻ    
+
+#### Cyrillic Supplement
+
+
+Supported only by approximation:
+
+    U+0500..U+051F                           ԚԛԜԝ  
+
+#### Armenian
+
+
+Supported only by approximation:
+
+    U+0530..U+054F             Լ                Ս Տ
+    U+0550..U+056F      Օ                          
+    U+0570..U+058F                          ։     ֏
+
+#### Hebrew
+
+
+Supported only by approximation:
+
+    U+05B0..U+05CF                    ׃            
+    U+05D0..U+05EF                  ס              
+
+#### Arabic
+
+
+Supported only by approximation:
+
+    U+0640..U+065F     ل                           
+
+#### Syriac
+
+
+Supported only by approximation:
+
+    U+0700..U+071F    ܃                            
+
+#### NKo
+
+
+Supported only by approximation:
+
+    U+07C0..U+07DF                    ߓ            
+    U+07E0..U+07FF ߠ                               
+
+#### Devanagari
+
+
+Supported only by approximation:
+
+    U+0920..U+093F                              ऽ  
+
+#### Telugu
+
+
+Supported only by approximation:
+
+    U+0C60..U+0C7F          ౩                      
+
+#### Georgian
+
+
+Supported only by approximation:
+
+    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
+    U+10C0..U+10DF                      ვ          
+
+#### Cherokee
+
+
+Supported only by approximation:
+
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ  Ꮎ 
+    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       ᏎᏏ  Ꮢ      ᏙᏚ   ᏞᏟ
+    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+
+#### Unified Canadian Aboriginal Syllabics
+
+
+Supported only by approximation:
+
+    U+1400..U+141F ᐀                               
+    U+1420..U+143F                ᐯ        ᐸ       
+    U+1440..U+145F          ᑉ  ᑌ                   
+    U+1460..U+147F              ᑭ                  
+    U+1480..U+149F              ᒍ                  
+    U+14A0..U+14BF           ᒪ                     
+    U+1560..U+157F                             ᕼ   
+    U+1580..U+159F       ᖆᖇ                        
+    U+15A0..U+15BF                     ᖴ           
+    U+15C0..U+15DF      ᗅ     ᗋ                  ᗞ 
+
+#### Ogham
+
+
+Supported only by approximation:
+
+    U+1680..U+169F                 ᚐ               
+
+#### Phonetic Extensions
+
+
+Supported only by approximation:
+
+    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇᴈ ᴊᴋᴌᴍ ᴏ        ᴘᴙ ᴛᴜ   
+    U+1D20..U+1D3F ᴠᴡᴢ   ᴦ ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐ ᵒ   ᵖᵗᵘ  ᵛ ᵝᵞᵟ
+    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ ᵸ ᵺᵻ ᵽᵾ 
+
+#### Phonetic Extensions Supplement
+
+
+Supported only by approximation:
+
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ ᶞ 
+    U+1DA0..U+1DBF ᶠ                          ᶻ   ᶿ
+
+#### Latin Extended Additional
+
+
+Supported only by approximation:
+
+    U+1E00..U+1E1F ḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟ
+    U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
+    U+1E40..U+1E5F ṀṁṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞṟ
+    U+1E60..U+1E7F ṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
+    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
+    U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
+    U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹỺỻỼỽỾỿ
+
+#### Greek Extended
+
+
+Supported only by approximation:
+
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
+    U+1F20..U+1F3F ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿ
+    U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ  ὐὑὒὓὔὕὖὗ Ὑ Ὓ Ὕ Ὗ
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ ι 
+    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ   ῐῑῒΐ  ῖῗῘῙῚΊ    
+    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
+
+#### General Punctuation
+
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚ “”„ 
+    U+2020..U+203F †‡•   …         ‰ ′″     ‹› ‼   
+
+Supported only by approximation:
+
+    U+2000..U+201F                            ‛   ‟
+    U+2020..U+203F     ․‥              ‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊            ⁗  ⁚     
+
+#### Superscripts and Subscripts
+
+    U+2070..U+208F                ⁿ                
+
+Supported only by approximation:
+
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+
+#### Currency Symbols
+
+    U+20A0..U+20BF        ₧    € ₮                 
+
+Supported only by approximation:
+
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+
+#### Combining Diacritical Marks for Symbols
+
+
+Supported only by approximation:
+
+    U+20D0..U+20EF              ⃝       ⃥          
+
+#### Letterlike Symbols
+
+    U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
+
+Supported only by approximation:
+
+    U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼℽℾℿ
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
+
+#### Number Forms
+
+
+Supported only by approximation:
+
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
+
+#### Arrows
+
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
+    U+21D0..U+21EF ⇐⇑⇒⇓⇔⇕                          
+
+Supported only by approximation:
+
+    U+2190..U+21AF           ↚↛                  ↮ 
+    U+21B0..U+21CF                              ⇍⇎⇏
+
+#### Mathematical Operators
+
+    U+2200..U+221F      ∅∆ ∈         −      ∙√   ∞∟
+    U+2220..U+223F        ∧∨∩∪                     
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠≡  ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
+
+Supported only by approximation:
+
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
+    U+2220..U+223F    ∣∤∥∦               ∶     ∼   
+    U+2240..U+225F  ≁  ≄  ≇ ≉                      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F     ⊄⊅  ⊈⊉                      
+    U+22A0..U+22BF     ⊤                           
+    U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
+    U+22E0..U+22FF                ⋯               ⋿
+
+#### Miscellaneous Technical
+
+    U+2300..U+231F   ⌂             ⌐         　　    
+    U+2320..U+233F ⌠⌡       　　                     
+    U+23A0..U+23BF                           ⎺⎻⎼⎽  
+
+Supported only by approximation:
+
+    U+2300..U+231F                        ⌗  　　    
+    U+2320..U+233F          〈〉                     
+    U+2360..U+237F                      ⍵          
+    U+23C0..U+23DF          ⏉                      
+
+#### Control Pictures
+
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F     ␤                           
+
+Supported only by approximation:
+
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡ ␣                            
+
+#### Enclosed Alphanumerics
+
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
+
+Supported only by approximation:
+
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+
+#### Box Drawing
+
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
+
+Supported only by approximation:
+
+    U+2560..U+257F                  ╱╲╳            
+
+#### Block Elements
+
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
+
+#### Geometric Shapes
+
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸   ▼ ▾ 
+    U+25C0..U+25DF ◀ ◂       ◊○   ●        ◘◙      
+
+Supported only by approximation:
+
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹   ▽ ▿
+    U+25C0..U+25DF  ◁ ◃                            
+    U+25E0..U+25FF       ◦        ◯             　　 
+
+#### Miscellaneous Symbols
+
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥    ♪♫                   　
+
+Supported only by approximation:
+
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡  ♤  ♧                       　
+    U+2680..U+269F             ⚌      　            
+    U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
+
+#### Dingbats
+
+
+Supported only by approximation:
+
+    U+2720..U+273F         　        ✱              
+    U+2740..U+275F             　❍　    　　　 　        
+    U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗ ➙      
+    U+27A0..U+27BF  ➡              　              　
+
+#### Miscellaneous Mathematical Symbols-A
+
+
+Supported only by approximation:
+
+    U+27C0..U+27DF            ⟋ ⟍           ⟙      
+    U+27E0..U+27EF           ⟪⟫  ⟮⟯                
+
+#### Miscellaneous Mathematical Symbols-B
+
+
+Supported only by approximation:
+
+    U+29A0..U+29BF                         ⦸     ⦾⦿
+    U+29E0..U+29FF            ⧫         ⧵   ⧹      
+
+#### Supplemental Mathematical Operators
+
+
+Supported only by approximation:
+
+    U+2A20..U+2A3F                         ⨸       
+    U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+
+#### Miscellaneous Symbols and Arrows
+
+
+Supported only by approximation:
+
+    U+2B20..U+2B3F     ⬤                           
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
+
+#### Latin Extended-C
+
+
+Supported only by approximation:
+
+    U+2C60..U+2C7F                             ⱼⱽ  
+
+#### Coptic
+
+
+Supported only by approximation:
+
+    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐⲑⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
+    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
+
+#### Tifinagh
+
+
+Supported only by approximation:
+
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
+    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+
+#### CJK Symbols and Punctuation
+
+
+Supported only by approximation:
+
+    U+3000..U+301F 　　　　　　　　〈〉　　　　　　　　　　　　　　　　　　　　　　
+
+#### Hiragana
+
+
+Supported only by approximation:
+
+    U+3040..U+305F  　　　　　　　　　　　　　　く　　　　　　　　　　　　　　　　
+
+#### Katakana
+
+
+Supported only by approximation:
+
+    U+30A0..U+30BF ゠　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+#### Enclosed CJK Letters and Months
+
+
+Supported only by approximation:
+
+    U+3220..U+323F ㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩㈪㈫㈬㈭㈮㈯㈰㈱㈲㈳㈴㈵㈶㈷㈸㈹㈺㈻㈼㈽㈾㈿
+    U+3240..U+325F ㉀㉁㉂㉃㉄㉅㉆㉇        ㉐㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟
+    U+3280..U+329F ㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟
+    U+32A0..U+32BF ㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
+    U+32C0..U+32DF ㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㋌㋍㋎㋏㋐㋑㋒㋓㋔㋕㋖㋗㋘㋙㋚㋛㋜㋝㋞㋟
+    U+32E0..U+32FF ㋠㋡㋢㋣㋤㋥㋦㋧㋨㋩㋪㋫㋬㋭㋮㋯㋰㋱㋲㋳㋴㋵㋶㋷㋸㋹㋺㋻㋼㋽㋾ 
+
+#### CJK Compatibility
+
+
+Supported only by approximation:
+
+    U+3340..U+335F 　　　　　　　　　　　　　　　　　　　　　　　　㍘㍙㍚㍛㍜㍝㍞㍟
+    U+3360..U+337F ㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍱㍲㍳㍴㍵㍶㍷㍸㍹㍺　　　　　
+    U+3380..U+339F ㎀㎁㎂㎃㎄㎅㎆㎇㎈㎉㎊㎋㎌㎍㎎㎏㎐㎑㎒㎓㎔㎕㎖㎗㎘㎙㎚㎛㎜㎝㎞㎟
+    U+33A0..U+33BF ㎠㎡㎢㎣㎤㎥㎦㎧㎨㎩㎪㎫㎬㎭㎮㎯㎰㎱㎲㎳㎴㎵㎶㎷㎸㎹㎺㎻㎼㎽㎾㎿
+    U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
+    U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
+
+#### Vai
+
+
+Supported only by approximation:
+
+    U+A500..U+A51F            ꔋ                    
+    U+A540..U+A55F                     ꕔ  ꕗ        
+    U+A560..U+A57F                       ꕶ         
+    U+A580..U+A59F                            ꖛ    
+    U+A5A0..U+A5BF                               ꖾ 
+    U+A5C0..U+A5DF            ꗋ                    
+    U+A600..U+A61F             ꘌ                   
+
+#### Cyrillic Extended-B
+
+
+Supported only by approximation:
+
+    U+A680..U+A69F   Ꚃ                         ꚜꚝ  
+
+#### Latin Extended-D
+
+
+Supported only by approximation:
+
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
+    U+A780..U+A79F          ꞉    ꞎ                 
+    U+A7E0..U+A7FF                         ꟸꟹ      
+
+#### Latin Extended-E
+
+
+Supported only by approximation:
+
+    U+AB50..U+AB6F       ꭖꭗꭘ                       
+
+#### Alphabetic Presentation Forms
+
+
+Supported only by approximation:
+
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                         
+    U+FB20..U+FB3F          ﬩                      
+    U+FB40..U+FB4F  סּ                              
+
+#### Vertical Forms
+
+
+Supported only by approximation:
+
+    U+FE10..U+FE1F ︐　　︓︔︕　　　︙                      
+
+#### CJK Compatibility Forms
+
+
+Supported only by approximation:
+
+    U+FE30..U+FE4F ︰　︲︳︴︵︶︷︸　　　　　　　　　　　　　　﹇﹈　　　　﹍﹎﹏
+
+#### Small Form Variants
+
+
+Supported only by approximation:
+
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+
+#### Arabic Presentation Forms-B
+
+
+Supported only by approximation:
+
+    U+FED0..U+FEEF              ﻝ                  
+
+#### Halfwidth and Fullwidth Forms
+
+
+Supported only by approximation:
+
+    U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
+    U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
+    U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
+
+#### Old Italic
+
+
+Supported only by approximation:
+
+    U+10300..U+1031F 𐌀𐌁𐌂𐌃 𐌅    𐌊      𐌑 𐌓   𐌗  𐌚𐌛    
+    U+10320..U+1032F   𐌢                             
+
+#### Osmanya
+
+
+Supported only by approximation:
+
+    U+10480..U+1049F                       𐒖         
+
+#### Musical Symbols
+
+
+Supported only by approximation:
+
+    U+1D100..U+1D11F         𝄈                       
+
+#### Ancient Greek Musical Notation
+
+
+Supported only by approximation:
+
+    U+1D200..U+1D21F       𝈆      𝈍     𝈓  𝈖         
+    U+1D220..U+1D23F           𝈪               𝈺𝈻    
+
+#### Counting Rod Numerals
+
+
+Supported only by approximation:
+
+    U+1D360..U+1D37F               𝍮                 
+
+#### Mathematical Alphanumeric Symbols
+
+
+Supported only by approximation:
+
+    U+1D400..U+1D41F 𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟
+    U+1D420..U+1D43F 𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿
+    U+1D440..U+1D45F 𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔 𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟
+    U+1D460..U+1D47F 𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿
+    U+1D480..U+1D49F 𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜 𝒞𝒟
+    U+1D4A0..U+1D4BF   𝒢  𝒥𝒦  𝒩𝒪𝒫𝒬 𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹 𝒻 𝒽𝒾𝒿
+    U+1D4C0..U+1D4DF 𝓀𝓁𝓂𝓃 𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟
+    U+1D4E0..U+1D4FF 𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿
+    U+1D500..U+1D51F 𝔀𝔁𝔂𝔃𝔄𝔅 𝔇𝔈𝔉𝔊  𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔 𝔖𝔗𝔘𝔙𝔚𝔛𝔜 𝔞𝔟
+    U+1D520..U+1D53F 𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹 𝔻𝔼𝔽𝔾 
+    U+1D540..U+1D55F 𝕀𝕁𝕂𝕃𝕄 𝕆   𝕊𝕋𝕌𝕍𝕎𝕏𝕐 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟
+    U+1D560..U+1D57F 𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿
+    U+1D580..U+1D59F 𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+    U+1D5A0..U+1D5BF 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿
+    U+1D5C0..U+1D5DF 𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟
+    U+1D5E0..U+1D5FF 𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿
+    U+1D600..U+1D61F 𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟
+    U+1D620..U+1D63F 𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿
+    U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
+    U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
+    U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣𝚤   𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸 𝚺𝚻𝚼𝚽𝚾𝚿
+    U+1D6C0..U+1D6DF 𝛀 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿
+    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔       𝜜𝜝𝜞𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
+    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎       𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
+    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈       𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
+    U+1D7C0..U+1D7DF 𝟀𝟁𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+
+#### Arabic Mathematical Alphabetic Symbols
+
+
+Supported only by approximation:
+
+    U+1EE00..U+1EE1F            𞸋                    
+    U+1EE20..U+1EE3F            𞸫                    
+    U+1EE40..U+1EE5F            𞹋                    
+    U+1EE80..U+1EE9F            𞺋                    
+    U+1EEA0..U+1EEBF            𞺫                    
+
+#### Enclosed Alphanumeric Supplement
+
+
+Supported only by approximation:
+
+    U+1F100..U+1F11F 🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉🄊     🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟
+    U+1F120..U+1F13F 🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩 🄫🄬🄭🄮 🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿
+    U+1F140..U+1F15F 🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🅊🅋🅌🅍🅎🅏                
+    U+1F160..U+1F17F           🅪🅫🅬                   
+    U+1F180..U+1F19F               　 🆐　　　　　　　　　　     
+
+#### Enclosed Ideographic Supplement
+
+
+Supported only by approximation:
+
+    U+1F240..U+1F25F 　　　　　　　　　       🉐🉑              
+
+#### Miscellaneous Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　　　　　💲　　　　　　　　　　　　　
+
+#### Alchemical Symbols
+
+
+Supported only by approximation:
+
+    U+1F760..U+1F77F         🝨                       
+
+#### Geometric Shapes Extended
+
+
+Supported only by approximation:
+
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
+
+## Font 14x28
+
+
+* Uni2-TerminusBold28x14.psf.gz, Uni3-TerminusBold28x14.psf.gz (Linux consolefonts)
+* FullCyrSlav-TerminusBold28x14.psf.gz, FullCyrAsia-TerminusBold28x14.psf.gz (Linux consolefonts)
+* FullGreek-TerminusBold28x14.psf.gz (Linux consolefonts)
+
+
+#### Basic Latin
+
+    U+0020..U+003F  !"#$%&'()*+,-./0123456789:;<=>?
+    U+0040..U+005F @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+    U+0060..U+007E `abcdefghijklmnopqrstuvwxyz{|}~ 
+
+#### Latin-1 Supplement
+
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
+    U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+
+#### Latin Extended-A
+
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħ  Īī  Įįİı  ĴĵĶķ ĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň   Ōō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤť    ŪūŬŭŮůŰűŲųŴŵ  ŸŹźŻżŽž 
+
+Supported only by approximation:
+
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F         Ĩĩ  Ĭĭ    Ĳĳ    ĸ      Ŀ
+    U+0140..U+015F ŀ        ŉŊŋ  Ŏŏ                
+    U+0160..U+017F       ŦŧŨũ            Ŷŷ       ſ
+
+#### Latin Extended-B
+
+    U+0180..U+019F                   ƒ             
+    U+0200..U+021F                         ȘșȚț    
+
+Supported only by approximation:
+
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗ      Ȟȟ
+    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+
+#### IPA Extensions
+
+
+Supported only by approximation:
+
+    U+0250..U+026F    ɓ ɕɖɗ ə ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴɵɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+
+#### Spacing Modifier Letters
+
+    U+02B0..U+02CF                       ˆˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
+
+Supported only by approximation:
+
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ           ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
+
+#### Combining Diacritical Marks
+
+
+Supported only by approximation:
+
+    U+0320..U+033F                         ̸       
+
+#### Greek and Coptic
+
+    U+0370..U+038F                     ΄΅Ά ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
+    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
+    U+03F0..U+03FF    ϳϴ                           
+
+Supported only by approximation:
+
+    U+0370..U+038F       Ͷͷ      ;        ·        
+    U+03D0..U+03EF ϐϑϒ  ϕϖ     Ϝ                ϭ  
+    U+03F0..U+03FF ϰϱϲ  ϵ   ϹϺ                     
+
+#### Cyrillic
+
+    U+0400..U+041F ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
+    U+0440..U+045F рстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџ
+    U+0480..U+049F                 ҐґҒғҔҕҖҗҘҙҚқҜҝ  
+    U+04A0..U+04BF ҠҡҢңҤҥ    Ҫҫ  ҮүҰұҲҳ  ҶҷҸҹҺһ    
+    U+04C0..U+04DF                 ӐӑӒӓ  ӖӗӘә      
+    U+04E0..U+04FF   Ӣӣ  ӦӧӨө    ӮӯӰӱӲӳ    Ӹӹ      
+
+Supported only by approximation:
+
+    U+0460..U+047F Ѡѡ                Ѳ             
+    U+04A0..U+04BF                     Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ                 Ӕӕ      ӜӝӞӟ
+    U+04E0..U+04FF     Ӥӥ      Ӭӭ      Ӵӵ    Ӻӻ    
+
+#### Cyrillic Supplement
+
+
+Supported only by approximation:
+
+    U+0500..U+051F                           ԚԛԜԝ  
+
+#### Armenian
+
+
+Supported only by approximation:
+
+    U+0530..U+054F             Լ                Ս Տ
+    U+0550..U+056F      Օ                          
+    U+0570..U+058F                          ։     ֏
+
+#### Hebrew
+
+
+Supported only by approximation:
+
+    U+05B0..U+05CF                    ׃            
+    U+05D0..U+05EF                  ס              
+
+#### Arabic
+
+
+Supported only by approximation:
+
+    U+0640..U+065F     ل                           
+
+#### Syriac
+
+
+Supported only by approximation:
+
+    U+0700..U+071F    ܃                            
+
+#### NKo
+
+
+Supported only by approximation:
+
+    U+07C0..U+07DF                    ߓ            
+    U+07E0..U+07FF ߠ                               
+
+#### Devanagari
+
+
+Supported only by approximation:
+
+    U+0920..U+093F                              ऽ  
+
+#### Telugu
+
+
+Supported only by approximation:
+
+    U+0C60..U+0C7F          ౩                      
+
+#### Georgian
+
+
+Supported only by approximation:
+
+    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
+    U+10C0..U+10DF                      ვ          
+
+#### Cherokee
+
+
+Supported only by approximation:
+
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ  Ꮎ 
+    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       ᏎᏏ  Ꮢ      ᏙᏚ   ᏞᏟ
+    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+
+#### Unified Canadian Aboriginal Syllabics
+
+
+Supported only by approximation:
+
+    U+1400..U+141F ᐀                               
+    U+1420..U+143F                ᐯ        ᐸ       
+    U+1440..U+145F          ᑉ  ᑌ                   
+    U+1460..U+147F              ᑭ                  
+    U+1480..U+149F              ᒍ                  
+    U+14A0..U+14BF           ᒪ                     
+    U+1560..U+157F                             ᕼ   
+    U+1580..U+159F       ᖆᖇ                        
+    U+15A0..U+15BF                     ᖴ           
+    U+15C0..U+15DF      ᗅ     ᗋ                  ᗞ 
+
+#### Ogham
+
+
+Supported only by approximation:
+
+    U+1680..U+169F                 ᚐ               
+
+#### Phonetic Extensions
+
+
+Supported only by approximation:
+
+    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇᴈ ᴊᴋᴌᴍ ᴏ        ᴘᴙ ᴛᴜ   
+    U+1D20..U+1D3F ᴠᴡᴢ   ᴦ ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐ ᵒ   ᵖᵗᵘ  ᵛ ᵝᵞᵟ
+    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ ᵸ ᵺᵻ ᵽᵾ 
+
+#### Phonetic Extensions Supplement
+
+
+Supported only by approximation:
+
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ ᶞ 
+    U+1DA0..U+1DBF ᶠ                          ᶻ   ᶿ
+
+#### Latin Extended Additional
+
+
+Supported only by approximation:
+
+    U+1E00..U+1E1F ḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟ
+    U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
+    U+1E40..U+1E5F ṀṁṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞṟ
+    U+1E60..U+1E7F ṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
+    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
+    U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
+    U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹỺỻỼỽỾỿ
+
+#### Greek Extended
+
+
+Supported only by approximation:
+
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
+    U+1F20..U+1F3F ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿ
+    U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ  ὐὑὒὓὔὕὖὗ Ὑ Ὓ Ὕ Ὗ
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ ι 
+    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ   ῐῑῒΐ  ῖῗῘῙῚΊ    
+    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
+
+#### General Punctuation
+
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚ “”„ 
+    U+2020..U+203F †‡•   …         ‰ ′″     ‹› ‼   
+
+Supported only by approximation:
+
+    U+2000..U+201F                            ‛   ‟
+    U+2020..U+203F     ․‥              ‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊            ⁗  ⁚     
+
+#### Superscripts and Subscripts
+
+    U+2070..U+208F                ⁿ                
+
+Supported only by approximation:
+
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+
+#### Currency Symbols
+
+    U+20A0..U+20BF        ₧    € ₮                 
+
+Supported only by approximation:
+
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+
+#### Combining Diacritical Marks for Symbols
+
+
+Supported only by approximation:
+
+    U+20D0..U+20EF              ⃝       ⃥          
+
+#### Letterlike Symbols
+
+    U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
+
+Supported only by approximation:
+
+    U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴ    ℹ ℻ℼℽℾℿ
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
+
+#### Number Forms
+
+
+Supported only by approximation:
+
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
+
+#### Arrows
+
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
+    U+21D0..U+21EF ⇐⇑⇒⇓⇔⇕                          
+
+Supported only by approximation:
+
+    U+2190..U+21AF           ↚↛                  ↮ 
+    U+21B0..U+21CF                              ⇍⇎⇏
+
+#### Mathematical Operators
+
+    U+2200..U+221F      ∅∆ ∈         −      ∙√   ∞∟
+    U+2220..U+223F        ∧∨∩∪                     
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠≡  ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
+
+Supported only by approximation:
+
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
+    U+2220..U+223F    ∣∤∥∦               ∶     ∼   
+    U+2240..U+225F  ≁  ≄  ≇ ≉                      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F     ⊄⊅  ⊈⊉                      
+    U+22A0..U+22BF     ⊤                           
+    U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
+    U+22E0..U+22FF                ⋯               ⋿
+
+#### Miscellaneous Technical
+
+    U+2300..U+231F   ⌂             ⌐         　　    
+    U+2320..U+233F ⌠⌡       　　                     
+    U+23A0..U+23BF                           ⎺⎻⎼⎽  
+
+Supported only by approximation:
+
+    U+2300..U+231F                        ⌗  　　    
+    U+2320..U+233F          〈〉                     
+    U+2360..U+237F                      ⍵          
+    U+23C0..U+23DF          ⏉                      
+
+#### Control Pictures
+
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F     ␤                           
+
+Supported only by approximation:
+
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡ ␣                            
+
+#### Enclosed Alphanumerics
+
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
+
+Supported only by approximation:
+
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+
+#### Box Drawing
+
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
+
+Supported only by approximation:
+
+    U+2560..U+257F                  ╱╲╳            
+
+#### Block Elements
+
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
+
+#### Geometric Shapes
+
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸   ▼ ▾ 
+    U+25C0..U+25DF ◀ ◂       ◊○   ●        ◘◙      
+
+Supported only by approximation:
+
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹   ▽ ▿
+    U+25C0..U+25DF  ◁ ◃                            
+    U+25E0..U+25FF       ◦        ◯             　　 
+
+#### Miscellaneous Symbols
+
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥    ♪♫                   　
+
+Supported only by approximation:
+
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡  ♤  ♧                       　
+    U+2680..U+269F             ⚌      　            
+    U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
+
+#### Dingbats
+
+
+Supported only by approximation:
+
+    U+2720..U+273F         　        ✱              
+    U+2740..U+275F             　❍　    　　　 　        
+    U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗ ➙      
+    U+27A0..U+27BF  ➡              　              　
+
+#### Miscellaneous Mathematical Symbols-A
+
+
+Supported only by approximation:
+
+    U+27C0..U+27DF            ⟋ ⟍           ⟙      
+    U+27E0..U+27EF           ⟪⟫  ⟮⟯                
+
+#### Miscellaneous Mathematical Symbols-B
+
+
+Supported only by approximation:
+
+    U+29A0..U+29BF                         ⦸     ⦾⦿
+    U+29E0..U+29FF            ⧫         ⧵   ⧹      
+
+#### Supplemental Mathematical Operators
+
+
+Supported only by approximation:
+
+    U+2A20..U+2A3F                         ⨸       
+    U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+
+#### Miscellaneous Symbols and Arrows
+
+
+Supported only by approximation:
+
+    U+2B20..U+2B3F     ⬤                           
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
+
+#### Latin Extended-C
+
+
+Supported only by approximation:
+
+    U+2C60..U+2C7F                             ⱼⱽ  
+
+#### Coptic
+
+
+Supported only by approximation:
+
+    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐⲑⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
+    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
+
+#### Tifinagh
+
+
+Supported only by approximation:
+
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
+    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+
+#### CJK Symbols and Punctuation
+
+
+Supported only by approximation:
+
+    U+3000..U+301F 　　　　　　　　〈〉　　　　　　　　　　　　　　　　　　　　　　
+
+#### Hiragana
+
+
+Supported only by approximation:
+
+    U+3040..U+305F  　　　　　　　　　　　　　　く　　　　　　　　　　　　　　　　
+
+#### Katakana
+
+
+Supported only by approximation:
+
+    U+30A0..U+30BF ゠　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+#### Enclosed CJK Letters and Months
+
+
+Supported only by approximation:
+
+    U+3220..U+323F ㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩㈪㈫㈬㈭㈮㈯㈰㈱㈲㈳㈴㈵㈶㈷㈸㈹㈺㈻㈼㈽㈾㈿
+    U+3240..U+325F ㉀㉁㉂㉃㉄㉅㉆㉇        ㉐㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟
+    U+3280..U+329F ㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟
+    U+32A0..U+32BF ㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
+    U+32C0..U+32DF ㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㋌㋍㋎㋏㋐㋑㋒㋓㋔㋕㋖㋗㋘㋙㋚㋛㋜㋝㋞㋟
+    U+32E0..U+32FF ㋠㋡㋢㋣㋤㋥㋦㋧㋨㋩㋪㋫㋬㋭㋮㋯㋰㋱㋲㋳㋴㋵㋶㋷㋸㋹㋺㋻㋼㋽㋾ 
+
+#### CJK Compatibility
+
+
+Supported only by approximation:
+
+    U+3340..U+335F 　　　　　　　　　　　　　　　　　　　　　　　　㍘㍙㍚㍛㍜㍝㍞㍟
+    U+3360..U+337F ㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍱㍲㍳㍴㍵㍶㍷㍸㍹㍺　　　　　
+    U+3380..U+339F ㎀㎁㎂㎃㎄㎅㎆㎇㎈㎉㎊㎋㎌㎍㎎㎏㎐㎑㎒㎓㎔㎕㎖㎗㎘㎙㎚㎛㎜㎝㎞㎟
+    U+33A0..U+33BF ㎠㎡㎢㎣㎤㎥㎦㎧㎨㎩㎪㎫㎬㎭㎮㎯㎰㎱㎲㎳㎴㎵㎶㎷㎸㎹㎺㎻㎼㎽㎾㎿
+    U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
+    U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
+
+#### Vai
+
+
+Supported only by approximation:
+
+    U+A500..U+A51F            ꔋ                    
+    U+A540..U+A55F                     ꕔ  ꕗ        
+    U+A560..U+A57F                       ꕶ         
+    U+A580..U+A59F                            ꖛ    
+    U+A5A0..U+A5BF                               ꖾ 
+    U+A5C0..U+A5DF            ꗋ                    
+    U+A600..U+A61F             ꘌ                   
+
+#### Cyrillic Extended-B
+
+
+Supported only by approximation:
+
+    U+A680..U+A69F   Ꚃ                         ꚜꚝ  
+
+#### Latin Extended-D
+
+
+Supported only by approximation:
+
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
+    U+A780..U+A79F          ꞉    ꞎ                 
+    U+A7E0..U+A7FF                         ꟸꟹ      
+
+#### Latin Extended-E
+
+
+Supported only by approximation:
+
+    U+AB50..U+AB6F       ꭖꭗꭘ                       
+
+#### Alphabetic Presentation Forms
+
+
+Supported only by approximation:
+
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                         
+    U+FB20..U+FB3F          ﬩                      
+    U+FB40..U+FB4F  סּ                              
+
+#### Vertical Forms
+
+
+Supported only by approximation:
+
+    U+FE10..U+FE1F ︐　　︓︔︕　　　︙                      
+
+#### CJK Compatibility Forms
+
+
+Supported only by approximation:
+
+    U+FE30..U+FE4F ︰　︲︳︴︵︶︷︸　　　　　　　　　　　　　　﹇﹈　　　　﹍﹎﹏
+
+#### Small Form Variants
+
+
+Supported only by approximation:
+
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+
+#### Arabic Presentation Forms-B
+
+
+Supported only by approximation:
+
+    U+FED0..U+FEEF              ﻝ                  
+
+#### Halfwidth and Fullwidth Forms
+
+
+Supported only by approximation:
+
+    U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
+    U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
+    U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
+
+#### Old Italic
+
+
+Supported only by approximation:
+
+    U+10300..U+1031F 𐌀𐌁𐌂𐌃 𐌅    𐌊      𐌑 𐌓   𐌗  𐌚𐌛    
+    U+10320..U+1032F   𐌢                             
+
+#### Osmanya
+
+
+Supported only by approximation:
+
+    U+10480..U+1049F                       𐒖         
+
+#### Musical Symbols
+
+
+Supported only by approximation:
+
+    U+1D100..U+1D11F         𝄈                       
+
+#### Ancient Greek Musical Notation
+
+
+Supported only by approximation:
+
+    U+1D200..U+1D21F       𝈆      𝈍     𝈓  𝈖         
+    U+1D220..U+1D23F           𝈪               𝈺𝈻    
+
+#### Counting Rod Numerals
+
+
+Supported only by approximation:
+
+    U+1D360..U+1D37F               𝍮                 
+
+#### Mathematical Alphanumeric Symbols
+
+
+Supported only by approximation:
+
+    U+1D400..U+1D41F 𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟
+    U+1D420..U+1D43F 𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿
+    U+1D440..U+1D45F 𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔 𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟
+    U+1D460..U+1D47F 𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿
+    U+1D480..U+1D49F 𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜 𝒞𝒟
+    U+1D4A0..U+1D4BF   𝒢  𝒥𝒦  𝒩𝒪𝒫𝒬 𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹 𝒻 𝒽𝒾𝒿
+    U+1D4C0..U+1D4DF 𝓀𝓁𝓂𝓃 𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟
+    U+1D4E0..U+1D4FF 𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿
+    U+1D500..U+1D51F 𝔀𝔁𝔂𝔃𝔄𝔅 𝔇𝔈𝔉𝔊  𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔 𝔖𝔗𝔘𝔙𝔚𝔛𝔜 𝔞𝔟
+    U+1D520..U+1D53F 𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹 𝔻𝔼𝔽𝔾 
+    U+1D540..U+1D55F 𝕀𝕁𝕂𝕃𝕄 𝕆   𝕊𝕋𝕌𝕍𝕎𝕏𝕐 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟
+    U+1D560..U+1D57F 𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿
+    U+1D580..U+1D59F 𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+    U+1D5A0..U+1D5BF 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿
+    U+1D5C0..U+1D5DF 𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟
+    U+1D5E0..U+1D5FF 𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿
+    U+1D600..U+1D61F 𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟
+    U+1D620..U+1D63F 𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿
+    U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
+    U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
+    U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣𝚤   𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸 𝚺𝚻𝚼𝚽𝚾𝚿
+    U+1D6C0..U+1D6DF 𝛀 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿
+    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔       𝜜𝜝𝜞𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
+    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎       𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
+    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈       𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
+    U+1D7C0..U+1D7DF 𝟀𝟁𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+
+#### Arabic Mathematical Alphabetic Symbols
+
+
+Supported only by approximation:
+
+    U+1EE00..U+1EE1F            𞸋                    
+    U+1EE20..U+1EE3F            𞸫                    
+    U+1EE40..U+1EE5F            𞹋                    
+    U+1EE80..U+1EE9F            𞺋                    
+    U+1EEA0..U+1EEBF            𞺫                    
+
+#### Enclosed Alphanumeric Supplement
+
+
+Supported only by approximation:
+
+    U+1F100..U+1F11F 🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉🄊     🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟
+    U+1F120..U+1F13F 🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩 🄫🄬🄭🄮 🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿
+    U+1F140..U+1F15F 🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🅊🅋🅌🅍🅎🅏                
+    U+1F160..U+1F17F           🅪🅫🅬                   
+    U+1F180..U+1F19F               　 🆐　　　　　　　　　　     
+
+#### Enclosed Ideographic Supplement
+
+
+Supported only by approximation:
+
+    U+1F240..U+1F25F 　　　　　　　　　       🉐🉑              
+
+#### Miscellaneous Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　　　　　💲　　　　　　　　　　　　　
+
+#### Alchemical Symbols
+
+
+Supported only by approximation:
+
+    U+1F760..U+1F77F         🝨                       
+
+#### Geometric Shapes Extended
+
+
+Supported only by approximation:
+
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
+
+## Font 16x16
+
+
+* X11 Unifont `-gnu-unifont csur-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1`, 16-pixel wide glyphs only
+
+
+#### Basic Latin
+
+    U+0020..U+003F            +    0123456789      
+    U+0040..U+005F  ABCDEFGHIJKLMNOPQRSTUVWXYZ     
+    U+0060..U+007E  abcdefghijklmnopqrstuvwxyz     
+
+Supported only by approximation:
+
+    U+0020..U+003F    #      *  - /          : <=  
+    U+0040..U+005F                             \   
+
+#### Latin-1 Supplement
+
+    U+00A0..U+00BF        §     ­        ¶         
+
+Supported only by approximation:
+
+    U+00A0..U+00BF   ¢£ ¥    ª«     ±²³ µ   ¹º ¼½¾ 
+    U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
+    U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+
+#### Latin Extended-A
+
+
+Supported only by approximation:
+
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĲĳĴĵĶķĸĹĺĻļĽľĿ
+    U+0140..U+015F ŀŁłŃńŅņŇň ŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſ
+
+#### Latin Extended-B
+
+
+Supported only by approximation:
+
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑƒƓ ƕƖƗƘƙƚ  Ɲƞ 
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01C0..U+01DF     ǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚț  Ȟȟ
+    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+
+#### IPA Extensions
+
+
+Supported only by approximation:
+
+    U+0250..U+026F    ɓ ɕɖɗ   ɛ   ɟɠɡɢ   ɦɧɨ ɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴ ɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+
+#### Spacing Modifier Letters
+
+
+Supported only by approximation:
+
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸ                       
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
+
+#### Combining Diacritical Marks
+
+    U+0340..U+035F                ͏            ͜͟͝͞
+    U+0360..U+036F ͢͠͡                             
+
+Supported only by approximation:
+
+    U+0320..U+033F                         ̸       
+
+#### Greek and Coptic
+
+    U+0370..U+038F         ͸͹      ΀΁΂΃       ΋ ΍  
+    U+0390..U+03AF                   ΢             
+
+Supported only by approximation:
+
+    U+0370..U+038F                       Ά ΈΉΊ Ό Ύ 
+    U+0390..U+03AF  ΑΒ ΔΕΖΗ ΙΚ ΜΝ Ο Ρ ΣΤΥ Χ  ΪΫ    
+    U+03B0..U+03CF             μ  ο ρ       ω  ό ώ 
+    U+03D0..U+03EF   ϒ         Ϝ                   
+    U+03F0..U+03FF  ϱϲϳ     ϹϺ                     
+
+#### Cyrillic
+
+    U+0480..U+049F         ҈҉                      
+
+Supported only by approximation:
+
+    U+0400..U+041F Ѐ    ЅІЇЈ   Ќ   А В  Е З  К МНО 
+    U+0420..U+043F РСТ  Х          а    е        о 
+    U+0440..U+045F рс у х          ѐ    ѕіїј     ў 
+    U+0460..U+047F Ѡѡ                              
+    U+04A0..U+04BF     Ҥ         Ү     Ҵ           
+    U+04C0..U+04DF Ӏ               ӐӑӒӓӔӕӖӗ      Ӟ 
+    U+04E0..U+04FF       Ӧӧ       ӯ ӱ ӳ            
+
+#### Cyrillic Supplement
+
+    U+0520..U+052F           Ԫԫ                    
+
+Supported only by approximation:
+
+    U+0500..U+051F                           ԚԛԜԝ  
+
+#### Armenian
+
+    U+0530..U+054F ԰                               
+    U+0550..U+056F        ՗՘                       
+    U+0570..U+058F                            ֋֌֍֎ 
+
+Supported only by approximation:
+
+    U+0530..U+054F             Լ                Ս Տ
+    U+0550..U+056F      Օ                          
+    U+0570..U+058F                          ։     ֏
+
+#### Hebrew
+
+    U+0590..U+05AF ֐                               
+    U+05B0..U+05CF                         ׈׉׊׋׌׍׎׏
+    U+05D0..U+05EF                            ׫׬׭׮ 
+    U+05F0..U+05FF      ׵׶׷׸׹׺׻׼׽׾׿                
+
+Supported only by approximation:
+
+    U+05B0..U+05CF                    ׃            
+    U+05D0..U+05EF                  ס              
+
+#### Arabic
+
+    U+0600..U+061F ؀؁؂؃؄؅؆؇؈  ؋  ؎؏ ؑؒؓؔؕؖؗ    ؜؝؞ 
+    U+0640..U+065F                       ٖ         
+    U+06A0..U+06BF           ڪ                     
+    U+06C0..U+06DF                       ۖۗۘۙۚ ۜ۝۞ 
+    U+06E0..U+06FF   ۣۢ    ۨ۩۪ۭ۫۬                  
+
+Supported only by approximation:
+
+    U+0640..U+065F     ل                           
+
+#### Syriac
+
+    U+0700..U+071F ܀܁܂܃܄܅܆܇܈܉܊܋܌܍܎܏ܐܑܒܓܔܕܖܗܘܙܚܛܜܝܞܟ
+    U+0720..U+073F ܠܡܢܣܤܥܦܧܨܩܪܫܬܭܮܯܱܴܷܸܹܻܼܾܰܲܳܵܶܺܽܿ
+    U+0740..U+074F ݂݄݆݈݀݁݃݅݇݉݊݋݌ݍݎݏ                
+
+#### Thaana
+
+    U+0780..U+079F                 ސ            ޝޞޟ
+    U+07A0..U+07BF                   ޲޳޴޵޶޷޸޹޺޻޼޽޾޿
+
+#### NKo
+
+    U+07E0..U+07FF                            ߻߼   
+
+Supported only by approximation:
+
+    U+07C0..U+07DF                    ߓ            
+    U+07E0..U+07FF ߠ                               
+
+#### Samaritan
+
+    U+0800..U+081F ࠀࠁࠂࠃࠄࠅࠆࠇࠈࠉࠊࠋࠌࠍࠎࠏࠐࠑࠒࠓࠔࠕࠖࠗ࠘࠙ࠚࠛࠜࠝࠞࠟ
+    U+0820..U+083F ࠠࠡࠢࠣࠤࠥࠦࠧࠨࠩࠪࠫࠬ࠭࠮࠯࠰࠱࠲࠳࠴࠵࠶࠷࠸࠹࠺࠻࠼࠽࠾࠿
+
+#### Mandaic
+
+    U+0840..U+085F ࡀࡁࡂࡃࡄࡅࡆࡇࡈࡉࡊࡋࡌࡍࡎࡏࡐࡑࡒࡓࡔࡕࡖࡗࡘ࡙࡚࡛࡜࡝࡞࡟
+
+#### Syriac Supplement
+
+    U+0860..U+086F ࡠࡡࡢࡣࡤࡥࡦࡧࡨࡩࡪ࡫࡬࡭࡮࡯                
+
+#### Arabic Extended-A
+
+    U+08A0..U+08BF                      ࢵ        ࢾࢿ
+    U+08C0..U+08DF ࣀࣁࣂࣃࣄࣅࣆࣇࣈࣉ࣏࣐࣑࣒࣊࣋࣌࣍࣎       ࣚࣛࣜࣝࣞࣟ
+
+#### Devanagari
+
+    U+0900..U+091F ऀँंःऄअआइईउऊऋऌऍऎएऐऑऒओऔकखगघङचछजझञट
+    U+0920..U+093F ठडढणतथदधनऩपफबभमयरऱलळऴवशषसहऺऻ़ऽाि
+    U+0940..U+095F ीुूृॄॅॆेैॉॊोौ्ॎॏॐ॒॑॓॔ॕॖॗक़ख़ग़ज़ड़ढ़फ़य़
+    U+0960..U+097F ॠॡॢॣ।॥०१२३४५६७८९॰ॱॲॳॴॵॶॷॸॹॺॻॼॽॾॿ
+
+#### Bengali
+
+    U+0980..U+099F ঀঁংঃ঄অআইঈউঊঋঌ঍঎এঐ঑঒ওঔকখগঘঙচছজঝঞট
+    U+09A0..U+09BF ঠডঢণতথদধন঩পফবভমযর঱ল঳঴঵শষসহ঺঻়ঽাি
+    U+09C0..U+09DF ীুূৃৄ৅৆েৈ৉৊োৌ্ৎ৏৐৑৒৓৔৕৖ৗ৘৙৚৛ড়ঢ়৞য়
+    U+09E0..U+09FF ৠৡৢৣ৤৥০১২৩৪৫৬৭৮৯ৰৱ৲৳৴৵৶৷৸৹৺৻ৼ৽৾৿
+
+#### Gurmukhi
+
+    U+0A00..U+0A1F ਀ਁਂਃ਄ਅਆਇਈਉਊ਋਌਍਎ਏਐ਑਒ਓਔਕਖਗਘਙਚਛਜਝਞਟ
+    U+0A20..U+0A3F ਠਡਢਣਤਥਦਧਨ਩ਪਫਬਭਮਯਰ਱ਲਲ਼਴ਵਸ਼਷ਸਹ਺਻਼਽ਾਿ
+    U+0A40..U+0A5F ੀੁੂ੃੄੅੆ੇੈ੉੊ੋੌ੍੎੏੐ੑ੒੓੔੕੖੗੘ਖ਼ਗ਼ਜ਼ੜ੝ਫ਼੟
+    U+0A60..U+0A7F ੠੡੢੣੤੥੦੧੨੩੪੫੬੭੮੯ੰੱੲੳੴੵ੶੷੸੹੺੻੼੽੾੿
+
+#### Gujarati
+
+    U+0A80..U+0A9F ઀ઁંઃ઄અઆઇઈઉઊઋઌઍ઎એઐઑ઒ઓઔકખગઘઙચછજઝઞટ
+    U+0AA0..U+0ABF ઠડઢણતથદધન઩પફબભમયર઱લળ઴વશષસહ઺઻઼ઽાિ
+    U+0AC0..U+0ADF ીુૂૃૄૅ૆ેૈૉ૊ોૌ્૎૏ૐ૑૒૓૔૕૖૗૘૙૚૛૜૝૞૟
+    U+0AE0..U+0AFF ૠૡૢૣ૤૥૦૧૨૩૪૫૬૭૮૯૰૱૲૳૴૵૶૷૸ૹૺૻૼ૽૾૿
+
+#### Oriya
+
+    U+0B00..U+0B1F ଀ଁଂଃ଄ଅଆଇଈଉଊଋଌ଍଎ଏଐ଑଒ଓଔକଖଗଘଙଚଛଜଝଞଟ
+    U+0B20..U+0B3F ଠଡଢଣତଥଦଧନ଩ପଫବଭମଯର଱ଲଳ଴ଵଶଷସହ଺଻଼ଽାି
+    U+0B40..U+0B5F ୀୁୂୃୄ୅୆େୈ୉୊ୋୌ୍୎୏୐୑୒୓୔୕ୖୗ୘୙୚୛ଡ଼ଢ଼୞ୟ
+    U+0B60..U+0B7F ୠୡୢୣ୤୥୦୧୨୩୪୫୬୭୮୯୰ୱ୲୳୴୵୶୷୸୹୺୻୼୽୾୿
+
+#### Tamil
+
+    U+0B80..U+0B9F ஀஁ஂஃ஄அஆஇஈஉஊ஋஌஍எஏஐ஑ஒஓஔக஖஗஘ஙச஛ஜ஝ஞட
+    U+0BA0..U+0BBF ஠஡஢ணத஥஦஧நனப஫஬஭மயரறலளழவஶஷஸஹ஺஻஼஽ாி
+    U+0BC0..U+0BDF ீுூ௃௄௅ெேை௉ொோௌ்௎௏ௐ௑௒௓௔௕௖ௗ௘௙௚௛௜௝௞௟
+    U+0BE0..U+0BFF ௠௡௢௣௤௥௦௧௨௩௪௫௬௭௮௯௰௱௲௳௴௵௶௷௸௹௺௻௼௽௾௿
+
+#### Telugu
+
+    U+0C00..U+0C1F ఀఁంఃఄఅఆఇఈఉఊఋఌ఍ఎఏఐ఑ఒఓఔకఖగఘఙచఛజఝఞట
+    U+0C20..U+0C3F ఠడఢణతథదధన఩పఫబభమయరఱలళఴవశషసహ఺఻఼ఽాి
+    U+0C40..U+0C5F ీుూృౄ౅ెేై౉ొోౌ్౎౏౐౑౒౓౔ౕౖ౗ౘౙౚ౛౜ౝ౞౟
+    U+0C60..U+0C7F ౠౡౢౣ౤౥౦౧౨౩౪౫౬౭౮౯౰౱౲౳౴౵౶౷౸౹౺౻౼౽౾౿
+
+#### Kannada
+
+    U+0C80..U+0C9F ಀಁಂಃ಄ಅಆಇಈಉಊಋಌ಍ಎಏಐ಑ಒಓಔಕಖಗಘಙಚಛಜಝಞಟ
+    U+0CA0..U+0CBF ಠಡಢಣತಥದಧನ಩ಪಫಬಭಮಯರಱಲಳ಴ವಶಷಸಹ಺಻಼ಽಾಿ
+    U+0CC0..U+0CDF ೀುೂೃೄ೅ೆೇೈ೉ೊೋೌ್೎೏೐೑೒೓೔ೕೖ೗೘೙೚೛೜ೝೞ೟
+    U+0CE0..U+0CFF ೠೡೢೣ೤೥೦೧೨೩೪೫೬೭೮೯೰ೱೲೳ೴೵೶೷೸೹೺೻೼೽೾೿
+
+#### Malayalam
+
+    U+0D00..U+0D1F ഀഁംഃഄഅആഇഈഉഊഋഌ഍എഏഐ഑ഒഓഔകഖഗഘങചഛജഝഞട
+    U+0D20..U+0D3F ഠഡഢണതഥദധനഩപഫബഭമയരറലളഴവശഷസഹഺ഻഼ഽാി
+    U+0D40..U+0D5F ീുൂൃൄ൅െേൈ൉ൊോൌ്ൎ൏൐൑൒൓ൔൕൖൗ൘൙൚൛൜൝൞ൟ
+    U+0D60..U+0D7F ൠൡൢൣ൤൥൦൧൨൩൪൫൬൭൮൯൰൱൲൳൴൵൶൷൸൹ൺൻർൽൾൿ
+
+#### Sinhala
+
+    U+0D80..U+0D9F ඀ඁංඃ඄අආඇඈඉඊඋඌඍඎඏඐඑඒඓඔඕඖ඗඘඙කඛගඝඞඟ
+    U+0DA0..U+0DBF චඡජඣඤඥඦටඨඩඪණඬතථදධන඲ඳපඵබභමඹයර඼ල඾඿
+    U+0DC0..U+0DDF වශෂසහළෆ෇෈෉්෋෌෍෎ාැෑිීු෕ූ෗ෘෙේෛොෝෞෟ
+    U+0DE0..U+0DFF ෠෡෢෣෤෥෦෧෨෩෪෫෬෭෮෯෰෱ෲෳ෴෵෶෷෸෹෺෻෼෽෾෿
+
+#### Thai
+
+    U+0E00..U+0E1F ฀                               
+    U+0E20..U+0E3F                            ฻฼฽฾ 
+    U+0E40..U+0E5F                            ๛๜๝๞๟
+    U+0E60..U+0E7F ๠๡๢๣๤๥๦๧๨๩๪๫๬๭๮๯๰๱๲๳๴๵๶๷๸๹๺๻๼๽๾๿
+
+#### Lao
+
+    U+0E80..U+0E9F ຀  ຃ ຅     ຋                    
+    U+0EA0..U+0EBF     ຤ ຦                       ຾຿
+    U+0EC0..U+0EDF      ໅ ໇      ໎໏          ໚໛    
+    U+0EE0..U+0EFF ໠໡໢໣໤໥໦໧໨໩໪໫໬໭໮໯໰໱໲໳໴໵໶໷໸໹໺໻໼໽໾໿
+
+#### Tibetan
+
+    U+0F00..U+0F1F   ༂༃                  ༖༗༘       
+    U+0F20..U+0F3F                           ༺༻    
+    U+0F40..U+0F5F         ཈                       
+    U+0F60..U+0F7F              ཭཮཯཰               
+    U+0F80..U+0F9F         ྈ               ྘       
+    U+0FA0..U+0FBF                              ྽  
+    U+0FC0..U+0FDF      ࿅࿆࿇࿈࿉࿊࿋࿌࿍  ࿐    ࿕࿖࿗࿘࿙࿚࿛࿜࿝࿞࿟
+    U+0FE0..U+0FFF ࿠࿡࿢࿣࿤࿥࿦࿧࿨࿩࿪࿫࿬࿭࿮࿯࿰࿱࿲࿳࿴࿵࿶࿷࿸࿹࿺࿻࿼࿽࿾࿿
+
+#### Myanmar
+
+    U+1000..U+101F ကခဂဃငစဆဇဈဉညဋဌဍဎဏတထဒဓနပဖဗဘမယရလဝသဟ
+    U+1020..U+103F ဠအဢဣဤဥဦဧဨဩဪါာိီုူေဲဳဴဵံ့း္်ျြွှဿ
+    U+1040..U+105F ၀၁၂၃၄၅၆၇၈၉၊။၌၍၎၏ၐၑၒၓၔၕၖၗၘၙၚၛၜၝၞၟ
+    U+1060..U+107F ၠၡၢၣၤၥၦၧၨၩၪၫၬၭၮၯၰၱၲၳၴၵၶၷၸၹၺၻၼၽၾၿ
+    U+1080..U+109F ႀႁႂႃႄႅႆႇႈႉႊႋႌႍႎႏ႐႑႒႓႔႕႖႗႘႙ႚႛႜႝ႞႟
+
+#### Georgian
+
+    U+10C0..U+10DF       ჆ ჈჉჊჋჌ ჎჏                
+
+Supported only by approximation:
+
+    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
+    U+10C0..U+10DF                      ვ          
+
+#### Hangul Jamo
+
+    U+1100..U+111F ᄀᄁᄂᄃᄄᄅᄆᄇᄈᄉᄊᄋᄌᄍᄎᄏᄐᄑᄒᄓᄔᄕᄖᄗᄘᄙᄚᄛᄜᄝᄞᄟ
+    U+1120..U+113F ᄠᄡᄢᄣᄤᄥᄦᄧᄨᄩᄪᄫᄬᄭᄮᄯᄰᄱᄲᄳᄴᄵᄶᄷᄸᄹᄺᄻᄼᄽᄾᄿ
+    U+1140..U+115F ᅀᅁᅂᅃᅄᅅᅆᅇᅈᅉᅊᅋᅌᅍᅎᅏᅐᅑᅒᅓᅔᅕᅖᅗᅘᅙᅚᅛᅜᅝᅞᅟ
+    U+1160..U+117F ᅠᅡᅢᅣᅤᅥᅦᅧᅨᅩᅪᅫᅬᅭᅮᅯᅰᅱᅲᅳᅴᅵᅶᅷᅸᅹᅺᅻᅼᅽᅾᅿ
+    U+1180..U+119F ᆀᆁᆂᆃᆄᆅᆆᆇᆈᆉᆊᆋᆌᆍᆎᆏᆐᆑᆒᆓᆔᆕᆖᆗᆘᆙᆚᆛᆜᆝᆞᆟ
+    U+11A0..U+11BF ᆠᆡᆢᆣᆤᆥᆦᆧᆨᆩᆪᆫᆬᆭᆮᆯᆰᆱᆲᆳᆴᆵᆶᆷᆸᆹᆺᆻᆼᆽᆾᆿ
+    U+11C0..U+11DF ᇀᇁᇂᇃᇄᇅᇆᇇᇈᇉᇊᇋᇌᇍᇎᇏᇐᇑᇒᇓᇔᇕᇖᇗᇘᇙᇚᇛᇜᇝᇞᇟ
+    U+11E0..U+11FF ᇠᇡᇢᇣᇤᇥᇦᇧᇨᇩᇪᇫᇬᇭᇮᇯᇰᇱᇲᇳᇴᇵᇶᇷᇸᇹᇺᇻᇼᇽᇾᇿ
+
+#### Ethiopic
+
+    U+1200..U+121F ሀሁሂሃሄህሆሇለሉሊላሌልሎሏሐሑሒሓሔሕሖሗመሙሚማሜምሞሟ
+    U+1220..U+123F ሠሡሢሣሤሥሦሧረሩሪራሬርሮሯሰሱሲሳሴስሶሷሸሹሺሻሼሽሾሿ
+    U+1240..U+125F ቀቁቂቃቄቅቆቇቈ቉ቊቋቌቍ቎቏ቐቑቒቓቔቕቖ቗ቘ቙ቚቛቜቝ቞቟
+    U+1260..U+127F በቡቢባቤብቦቧቨቩቪቫቬቭቮቯተቱቲታቴትቶቷቸቹቺቻቼችቾቿ
+    U+1280..U+129F ኀኁኂኃኄኅኆኇኈ኉ኊኋኌኍ኎኏ነኑኒናኔንኖኗኘኙኚኛኜኝኞኟ
+    U+12A0..U+12BF አኡኢኣኤእኦኧከኩኪካኬክኮኯኰ኱ኲኳኴኵ኶኷ኸኹኺኻኼኽኾ኿
+    U+12C0..U+12DF ዀ዁ዂዃዄዅ዆዇ወዉዊዋዌውዎዏዐዑዒዓዔዕዖ዗ዘዙዚዛዜዝዞዟ
+    U+12E0..U+12FF ዠዡዢዣዤዥዦዧየዩዪያዬይዮዯደዱዲዳዴድዶዷዸዹዺዻዼዽዾዿ
+    U+1300..U+131F ጀጁጂጃጄጅጆጇገጉጊጋጌግጎጏጐ጑ጒጓጔጕ጖጗ጘጙጚጛጜጝጞጟ
+    U+1320..U+133F ጠጡጢጣጤጥጦጧጨጩጪጫጬጭጮጯጰጱጲጳጴጵጶጷጸጹጺጻጼጽጾጿ
+    U+1340..U+135F ፀፁፂ ፄፅፆፇፈፉፊፋፌፍፎፏፐፑፒፓፔፕፖፗፘፙፚ፛፜፝፞፟
+    U+1360..U+137F ፠ ።፣፤፥፦፧፨፩፪፫፬፭፮፯፰፱፲፳፴፵፶፷፸፹፺፻፼፽፾፿
+
+#### Ethiopic Supplement
+
+    U+1380..U+139F ᎀᎁᎂᎃᎄᎅᎆᎇᎈᎉᎊᎋᎌᎍᎎᎏ     ᎕ ᎗᎘ ᎚᎛᎜᎝᎞᎟
+
+#### Cherokee
+
+    U+13E0..U+13FF                       ᏶᏷      ᏾᏿
+
+Supported only by approximation:
+
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ      Ꮃ   Ꮇ   Ꮋ    
+    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       Ꮞ   Ꮢ      ᏙᏚ   ᏞᏟ
+    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+
+#### Unified Canadian Aboriginal Syllabics
+
+    U+1400..U+141F  ᐁᐂᐃᐄᐅᐆᐇᐈᐉᐊᐋᐌᐍᐎᐏᐐᐑᐒᐓᐔᐕᐖᐗᐘᐙᐚᐛᐜᐝ  
+    U+1420..U+143F            ᐫᐬᐭᐮᐯᐰᐱᐲ       ᐺᐻᐼᐽᐾᐿ
+    U+1440..U+145F ᑀᑁᑂᑃᑄᑅᑆᑇᑈ   ᑌᑍᑎᑏᑐᑑᑒᑓᑔᑕᑖᑗᑘᑙᑚᑛᑜᑝᑞᑟ
+    U+1460..U+147F ᑠᑡᑢᑣᑤᑥ ᑧᑨᑩᑪ                     
+    U+14C0..U+14DF ᓀᓁᓂᓃᓄᓅᓆᓇᓈᓉᓊᓋᓌᓍᓎᓏ   ᓓᓔᓕᓖᓗᓘᓙᓚᓛᓜᓝᓞᓟ
+    U+14E0..U+14FF ᓠᓡᓢᓣᓤᓥᓦᓧᓨᓩ                      
+    U+1500..U+151F             ᔌᔍᔎᔏᔐᔑᔒᔓᔔᔕᔖᔗᔘᔙᔚᔛᔜᔝᔞᔟ
+    U+1520..U+153F ᔠᔡᔢᔣᔤ                           
+    U+1540..U+155F   ᕂᕃᕄᕅᕆᕇ           ᕓᕔᕕᕖᕗᕘᕙᕚᕛᕜ ᕞᕟ
+    U+1560..U+157F ᕠᕡᕢᕣᕤᕥᕦᕧᕨᕩ ᕫᕬᕭᕮᕯᕰᕱᕲᕳᕴᕵᕶᕷᕸᕹᕺ   ᕾᕿ
+    U+1580..U+159F ᖀᖁᖂᖃᖄᖅ    ᖊᖋᖌᖍᖎᖏᖐᖑᖒᖓᖔᖕᖖ    ᖛᖜᖝᖞ 
+    U+15A0..U+15BF ᖠᖡᖢᖣᖤᖥ                  ᖸᖹᖺᖻᖼᖽᖾᖿ
+    U+15C0..U+15DF ᗀᗁᗂᗃᗄᗅᗆᗇᗈᗉᗊᗋᗌᗍᗎᗏᗐᗑᗒᗓᗔᗕᗖᗗᗘᗙᗚᗛᗜᗝᗞᗟ
+    U+15E0..U+15FF ᗠᗡᗢᗣᗤᗥᗦᗧᗨᗩᗪᗫᗬᗭ ᗯᗰᗱᗲᗳᗴᗵᗶᗷᗸᗹᗺᗻᗼᗽᗾᗿ
+    U+1600..U+161F ᘀ   ᘄᘅᘆᘇᘈᘉᘊᘋᘌᘍᘎᘏᘐᘑᘒᘓᘔᘕᘖᘗᘘᘙᘚᘛᘜᘝᘞᘟ
+    U+1620..U+163F ᘠᘡᘢᘣᘤᘥᘦᘧᘨᘩᘪᘫᘬᘭᘮᘯᘰᘱᘲᘳᘴᘵᘶᘷᘸᘹᘺᘻᘼᘽᘾᘿ
+    U+1640..U+165F ᙀᙁᙂᙃᙄᙅ  ᙈᙉᙊᙋᙌᙍᙎᙏᙐᙑᙒᙓᙔᙕᙖᙗᙘᙙ ᙛᙜᙝᙞᙟ
+    U+1660..U+167F ᙠᙡᙢᙣᙤᙥᙦᙧᙨᙩᙪᙫᙬ  ᙯᙰᙱᙲᙳᙴᙵᙶ         
+
+Supported only by approximation:
+
+    U+1400..U+141F ᐀                               
+    U+1420..U+143F                         ᐸ       
+    U+1440..U+145F          ᑉ                      
+    U+1460..U+147F              ᑭ                  
+    U+1480..U+149F              ᒍ                  
+    U+14A0..U+14BF           ᒪ                     
+    U+1560..U+157F                             ᕼ   
+    U+1580..U+159F        ᖇ                        
+    U+15A0..U+15BF                     ᖴ           
+
+#### Ogham
+
+    U+1680..U+169F  ᚁᚂᚃᚄᚅᚆᚇᚈᚉᚊᚋᚌᚍᚎᚏᚐᚑᚒᚓᚔᚕᚖᚗᚘᚙᚚ᚛᚜᚝᚞᚟
+
+#### Runic
+
+    U+16E0..U+16FF ᛠ ᛢ                      ᛹᛺᛻᛼᛽᛾᛿
+
+#### Tagalog
+
+    U+1700..U+171F ᜀᜁᜂᜃᜄᜅᜆᜇᜈᜉᜊᜋᜌᜍᜎᜏᜐᜑᜒᜓ᜔᜕᜖᜗᜘᜙᜚᜛᜜᜝᜞ᜟ
+
+#### Hanunoo
+
+    U+1720..U+173F ᜠᜡᜢᜣᜤᜥᜦᜧᜨᜩᜪᜫᜬᜭᜮᜯᜰᜱᜲᜳ᜴᜵᜶᜷᜸᜹᜺᜻᜼᜽᜾᜿
+
+#### Buhid
+
+    U+1740..U+175F ᝀᝁᝂᝃᝄᝅᝆᝇᝈᝉᝊᝋᝌᝍᝎᝏᝐᝑᝒᝓ᝔᝕᝖᝗᝘᝙᝚᝛᝜᝝᝞᝟
+
+#### Tagbanwa
+
+    U+1760..U+177F ᝠᝡ ᝣᝤᝥᝦᝧᝨᝩᝪᝫᝬ᝭ᝮᝯᝰ᝱ᝲᝳ᝴᝵᝶᝷᝸᝹᝺᝻᝼᝽᝾᝿
+
+#### Khmer
+
+    U+1780..U+179F កខគឃងចឆជឈញដឋឌឍណតថទធនបផពភមយរលវឝឞស
+    U+17A0..U+17BF ហឡអឣឤឥឦឧឨឩឪឫឬឭឮឯឰឱឲឳ឴឵ាិីឹឺ ូួើឿ
+    U+17C0..U+17DF ៀេែៃោៅំះៈ៉៊ ៌៍៎៏័៑្៓។៕ ៗ៘៙៚៛ ៝៞៟
+    U+17E0..U+17FF ០១២៣៤៥៦៧៨៩៪៫៬៭៮៯          ៺៻៼៽៾៿
+
+#### Mongolian
+
+    U+1800..U+181F ᠀᠁᠂᠃᠄᠅᠆᠇᠈᠉᠊᠋᠌᠍᠎᠏᠐᠑᠒᠓᠔᠕᠖᠗᠘᠙᠚᠛᠜᠝᠞᠟
+    U+1820..U+183F ᠠᠡᠢᠣᠤᠥᠦᠧᠨᠩᠪᠫᠬᠭᠮᠯᠰᠱᠲᠳᠴᠵᠶᠷᠸᠹᠺᠻᠼᠽᠾᠿ
+    U+1840..U+185F ᡀᡁᡂᡃᡄᡅᡆᡇᡈᡉᡊᡋᡌᡍᡎᡏᡐᡑᡒᡓᡔᡕᡖᡗᡘᡙᡚᡛᡜᡝᡞᡟ
+    U+1860..U+187F ᡠᡡᡢᡣᡤᡥᡦᡧᡨᡩᡪᡫᡬᡭᡮᡯᡰᡱᡲᡳᡴᡵᡶᡷᡸ᡹᡺᡻᡼᡽᡾᡿
+    U+1880..U+189F ᢀᢁᢂᢃᢄᢅᢆᢇᢈᢉᢊᢋᢌᢍᢎᢏᢐᢑᢒᢓᢔᢕᢖᢗᢘᢙᢚᢛᢜᢝᢞᢟ
+    U+18A0..U+18AF ᢠᢡᢢᢣᢤᢥᢦᢧᢨᢩᢪ᢫᢬᢭᢮᢯                
+
+#### Unified Canadian Aboriginal Syllabics Extended
+
+    U+18B0..U+18CF ᢰᢱᢲᢳ   ᢷ ᢹ ᢻᢼᢽ  ᣀᣁᣂ   ᣆᣇᣈᣉᣊᣋᣌᣍᣎᣏ
+    U+18D0..U+18EF ᣐᣑᣒᣓ            ᣠᣡᣢᣣᣤᣥᣦᣧᣨ ᣪ ᣬᣭᣮᣯ
+    U+18F0..U+18FF ᣰᣱᣲ   ᣶᣷᣸᣹᣺᣻᣼᣽᣾᣿                
+
+#### Limbu
+
+    U+1900..U+191F ᤀᤁᤂᤃᤄᤅᤆᤇᤈᤉᤊᤋᤌᤍᤎᤏᤐᤑᤒᤓᤔᤕᤖᤗᤘᤙᤚᤛᤜᤝᤞ᤟
+    U+1920..U+193F ᤠᤡᤢᤣᤤᤥᤦᤧᤨᤩᤪᤫ᤬᤭᤮᤯ᤰᤱᤲᤳᤴᤵᤶᤷᤸ᤻᤹᤺᤼᤽᤾᤿
+    U+1940..U+194F ᥀᥁᥂᥃᥄᥅᥆᥇᥈᥉᥊᥋᥌᥍᥎᥏                
+
+#### Tai Le
+
+    U+1950..U+196F                               ᥮᥯
+    U+1970..U+197F      ᥵᥶᥷᥸᥹᥺᥻᥼᥽᥾᥿                
+
+#### New Tai Lue
+
+    U+1980..U+199F ᦀᦁᦂ ᦄᦅᦆᦇᦈᦉᦊᦋᦌᦍᦎ ᦐ ᦒᦓᦔᦕᦖᦗᦘᦙ ᦛᦜᦝ ᦟ
+    U+19A0..U+19BF ᦠ ᦢ  ᦥᦦ ᦨᦩᦪᦫ᦬᦭᦮᦯    ᦴᦵᦶ    ᦻᦼᦽᦾᦿ
+    U+19C0..U+19DF ᧀ ᧂᧃᧄᧅ ᧇ  ᧊᧋᧌᧍᧎᧏     ᧕ ᧗  ᧚᧛᧜᧝᧞᧟
+
+#### Khmer Symbols
+
+    U+19E0..U+19FF ᧠᧡᧢᧣᧤᧥᧦᧧᧨᧩᧪᧫᧬᧭᧮᧯᧰᧱᧲᧳᧴᧵᧶᧷᧸᧹᧺᧻᧼᧽᧾᧿
+
+#### Buginese
+
+    U+1A00..U+1A1F ᨀᨁᨂᨃᨄᨅᨆᨇᨈᨉᨊᨋᨌᨍᨎᨏᨐᨑᨒᨓᨔᨕᨖᨘᨗᨙᨚᨛ᨜᨝᨞᨟
+
+#### Tai Tham
+
+    U+1A20..U+1A3F ᨠᨡᨢᨣᨤᨥᨦᨧᨨᨩᨪᨫᨬᨭᨮᨯᨰᨱᨲᨳᨴᨵᨶᨷᨸᨹᨺᨻᨼᨽᨾᨿ
+    U+1A40..U+1A5F ᩀᩁᩂᩃᩄᩅᩆᩇᩈᩉᩊᩋᩌᩍᩎᩏᩐᩑᩒᩓᩔᩕᩖᩗᩘᩙᩚᩛᩜᩝᩞ᩟
+    U+1A60..U+1A7F ᩠ᩡᩢᩣᩤᩥᩦᩧᩨᩩᩪᩫᩬᩭᩮᩯᩰᩱᩲᩳᩴ᩵᩶᩷᩸᩹᩺᩻᩼᩽᩾᩿
+    U+1A80..U+1A9F ᪀᪁᪂᪃᪄᪅᪆᪇᪈᪉᪊᪋᪌᪍᪎᪏᪐᪑᪒᪓᪔᪕᪖᪗᪘᪙᪚᪛᪜᪝᪞᪟
+    U+1AA0..U+1AAF ᪠᪡᪢᪣᪤᪥᪦ᪧ᪨᪩᪪᪫᪬᪭᪮᪯                
+
+#### Combining Diacritical Marks Extended
+
+    U+1AB0..U+1ACF                ᪿᫀ᫃᫄᫊᫁᫂᫅᫆᫇᫈᫉᫋ᫌᫍᫎ᫏
+    U+1AD0..U+1AEF ᫐᫑᫒᫓᫔᫕᫖᫗᫘᫙᫚᫛᫜᫝᫞᫟᫠᫡᫢᫣᫤᫥᫦᫧᫨᫩᫪᫫᫬᫭᫮᫯
+    U+1AF0..U+1AFF ᫰᫱᫲᫳᫴᫵᫶᫷᫸᫹᫺᫻᫼᫽᫾᫿                
+
+#### Balinese
+
+    U+1B00..U+1B1F ᬀᬁᬂᬃᬄᬅᬆᬇᬈᬉᬊᬋᬌᬍᬎᬏᬐᬑᬒᬓᬔᬕᬖᬗᬘᬙᬚᬛᬜᬝᬞᬟ
+    U+1B20..U+1B3F ᬠᬡᬢᬣᬤᬥᬦᬧᬨᬩᬪᬫᬬᬭᬮᬯᬰᬱᬲᬳ᬴ᬵᬶᬷᬸᬹᬺᬻᬼᬽᬾᬿ
+    U+1B40..U+1B5F ᭀᭁᭂᭃ᭄ᭅᭆᭇᭈᭉᭊᭋᭌ᭍᭎᭏᭐᭑᭒᭓᭔᭕᭖᭗᭘᭙᭚᭛᭜᭝᭞᭟
+    U+1B60..U+1B7F ᭠᭡᭢᭣᭤᭥᭦᭧᭨᭩᭪᭬᭫᭭᭮᭯᭰᭱᭲᭳᭴᭵᭶᭷᭸᭹᭺᭻᭼᭽᭾᭿
+
+#### Sundanese
+
+    U+1B80..U+1B9F ᮀᮁᮂᮃᮄᮅᮆᮇᮈᮉᮊᮋᮌᮍᮎᮏᮐᮑᮒᮓᮔᮕᮖᮗᮘᮙᮚᮛᮜᮝᮞᮟ
+    U+1BA0..U+1BBF ᮠᮡᮢᮣᮤᮥᮦᮧᮨᮩ᮪᮫ᮬᮭᮮᮯ᮰᮱᮲᮳᮴᮵᮶᮷᮸᮹ᮺᮻᮼᮽᮾᮿ
+
+#### Batak
+
+    U+1BC0..U+1BDF ᯀᯁᯂᯃᯄᯅᯆᯇᯈᯉᯊᯋᯌᯍᯎᯏᯐᯑᯒᯓᯔᯕᯖᯗᯘᯙᯚᯛᯜᯝᯞᯟ
+    U+1BE0..U+1BFF ᯠᯡᯢᯣᯤᯥ᯦ᯧᯨᯩᯪᯫᯬᯭᯮᯯᯰᯱ᯲᯳᯴᯵᯶᯷᯸᯹᯺᯻᯼᯽᯾᯿
+
+#### Lepcha
+
+    U+1C00..U+1C1F ᰀᰁᰂᰃᰄᰅᰆᰇᰈᰉᰊᰋᰌᰍᰎᰏᰐᰑᰒᰓᰔᰕᰖᰗᰘᰙᰚᰛᰜᰝᰞᰟ
+    U+1C20..U+1C3F ᰠᰡᰢᰣᰤᰥᰦᰧᰨᰩᰪᰫᰬᰭᰮᰯᰰᰱᰲᰳᰴᰵᰶ᰷᰸᰹᰺᰻᰼᰽᰾᰿
+    U+1C40..U+1C4F ᱀᱁᱂᱃᱄᱅᱆᱇᱈᱉᱊᱋᱌ᱍᱎᱏ                
+
+#### Cyrillic Extended-C
+
+    U+1C80..U+1C8F          Ᲊᲊ᲋᲌᲍᲎᲏                
+
+#### Georgian Extended
+
+    U+1CB0..U+1CBF            ᲻᲼                   
+
+#### Sundanese Supplement
+
+    U+1CC0..U+1CCF ᳀᳁᳂᳃᳄᳅᳆᳇᳈᳉᳊᳋᳌᳍᳎᳏                
+
+#### Vedic Extensions
+
+    U+1CD0..U+1CEF ᳐᳑᳒᳓᳔᳕᳖᳗᳘᳙᳜᳝᳞᳟᳚᳛᳠᳡᳢᳣᳤᳥᳦᳧᳨ᳩᳪᳫᳬ᳭ᳮᳯ
+    U+1CF0..U+1CFF ᳰᳱᳲᳳ᳴ᳵᳶ᳷᳸᳹ᳺ᳻᳼᳽᳾᳿                
+
+#### Phonetic Extensions
+
+    U+1D60..U+1D7F                           ᵺ     
+
+Supported only by approximation:
+
+    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇ  ᴊᴋᴌᴍ ᴏ        ᴘ  ᴛᴜ   
+    U+1D20..U+1D3F ᴠᴡᴢ         ᴬ ᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐ ᵒ   ᵖᵗᵘ  ᵛ    
+    U+1D60..U+1D7F   ᵢᵣᵤᵥ  ᵨ  ᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ    ᵻ ᵽᵾ 
+
+#### Phonetic Extensions Supplement
+
+
+Supported only by approximation:
+
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ   
+    U+1DA0..U+1DBF ᶠ                          ᶻ    
+
+#### Combining Diacritical Marks Supplement
+
+    U+1DC0..U+1DDF              ᷍                  
+    U+1DE0..U+1DFF                           ᷺ ᷼   
+
+#### Latin Extended Additional
+
+
+Supported only by approximation:
+
+    U+1E00..U+1E1F ḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟ
+    U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
+    U+1E40..U+1E5F ṀṁṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞṟ
+    U+1E60..U+1E7F ṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
+    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
+    U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
+    U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹỺỻỼỽỾỿ
+
+#### Greek Extended
+
+    U+1F00..U+1F1F                       ἖἗      ἞἟
+    U+1F40..U+1F5F       ὆὇      ὎὏        ὘ ὚ ὜ ὞ 
+    U+1F60..U+1F7F                               ὾὿
+    U+1FA0..U+1FBF                      ᾵          
+    U+1FC0..U+1FDF      ῅              ῔῕      ῜   
+    U+1FE0..U+1FFF                 ῰῱   ῵         ῿
+
+Supported only by approximation:
+
+    U+1F00..U+1F1F         ἈἉἊἋἌἍἎἏ        ἘἙἚἛἜἝ  
+    U+1F20..U+1F3F         ἨἩἪἫἬἭἮἯ        ἸἹἺἻἼἽἾἿ
+    U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ           Ὑ Ὓ Ὕ Ὗ
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧ                ὸό  ὼώ  
+    U+1F80..U+1F9F         ᾈᾉᾊᾋᾌᾍᾎᾏ        ᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧ                ᾸᾹᾺΆᾼ   
+    U+1FC0..U+1FDF         ῈΈῊΉῌ           ῘῙῚΊ    
+    U+1FE0..U+1FFF     ῤῥ  ῨῩῪΎῬ     ῲῳῴ ῶῷῸΌ      
+
+#### General Punctuation
+
+    U+2000..U+201F            ​‌‍‎‏                
+    U+2020..U+203F   •       ‪‫‬‭‮             ‼   
+    U+2040..U+205F                        ⁗        
+    U+2060..U+206F ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯                
+
+Supported only by approximation:
+
+    U+2000..U+201F                 ‐‑‒–—―          
+    U+2020..U+203F †                        ‹      
+    U+2040..U+205F     ⁄                     ⁚     
+
+#### Superscripts and Subscripts
+
+    U+2070..U+208F   ⁲⁳                           ₏
+    U+2090..U+209F              ₝₞₟                
+
+Supported only by approximation:
+
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼  ⁿ₀₁₂₃₄₅₆₇₈₉₊₋₌   
+    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+
+#### Currency Symbols
+
+    U+20A0..U+20BF                          ₹      
+    U+20C0..U+20CF ⃀⃁⃂⃃⃄⃅⃆⃇⃈⃉⃊⃋⃌⃍⃎⃏                
+
+Supported only by approximation:
+
+    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫€  ₯ ₱  ₴   ₸ ₺  ₽₾ 
+
+#### Combining Diacritical Marks for Symbols
+
+    U+20D0..U+20EF              ⃝⃞⃟⃠ ⃢⃣⃤  ⃧  ⃪     
+    U+20F0..U+20FF  ⃱⃲⃳⃴⃵⃶⃷⃸⃹⃺⃻⃼⃽⃾⃿                
+
+Supported only by approximation:
+
+    U+20D0..U+20EF                      ⃥          
+
+#### Letterlike Symbols
+
+    U+2100..U+211F               ℎℏ                
+    U+2120..U+213F               ℮           ℺℻ℼℽ ℿ
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ  ⅌  ⅏                
+
+Supported only by approximation:
+
+    U+2100..U+211F ℀℁ℂ  ℅℆   ℊℋℌℍ  ℐℑℒℓ ℕ№  ℙℚℛℜℝ℞ 
+    U+2120..U+213F ℠℡  ℤ   ℨ KÅℬℭ ℯℰℱ ℳℴ    ℹ      
+
+#### Number Forms
+
+    U+2170..U+218F                   ↂ     ↈ   ↌↍↎↏
+
+Supported only by approximation:
+
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
+
+#### Arrows
+
+    U+2190..U+21AF ←↑→↓↔↕      ↜↝          ↨       
+    U+21F0..U+21FF     ⇴    ⇹⇺⇻⇼  ⇿                
+
+Supported only by approximation:
+
+    U+2190..U+21AF        ↗↘ ↚↛                    
+    U+21D0..U+21EF ⇐ ⇒ ⇔                           
+
+#### Mathematical Operators
+
+    U+2200..U+221F                                ∟
+    U+22A0..U+22BF                       ⊶⊷⊸       
+    U+22C0..U+22DF                         ⋘⋙      
+    U+22E0..U+22FF                   ⋲⋳ ⋵⋶  ⋹⋺⋻ ⋽ ⋿
+
+Supported only by approximation:
+
+    U+2200..U+221F                  ∑−  ∕∖∗        
+    U+2220..U+223F  ∡        ∪           ∶         
+    U+2260..U+227F     ≤     ≪                     
+    U+22A0..U+22BF     ⊤                           
+    U+22C0..U+22DF  ⋁ ⋃                 ⋕          
+
+#### Miscellaneous Technical
+
+    U+2300..U+231F ⌀ ⌂                   ⌖   　　    
+    U+2320..U+233F          〈〉 ⌬⌭⌮⌯⌰⌱⌲⌳⌴⌵          
+    U+2360..U+237F                            ⍻⍼⍽⍾ 
+    U+2380..U+239F  ⎁⎂⎃⎄⎅⎆⎇⎈⎉⎊⎋⎌⎍⎎⎏⎐⎑⎒⎓⎔  ⎗⎘⎙⎚     
+    U+23A0..U+23BF                   ⎲⎳⎴⎵⎶   ⎺     
+    U+23C0..U+23DF ⏀⏁⏂⏃⏄⏅⏆⏇⏈⏉⏊  ⏍⏎     ⏔⏕⏖⏗⏘⏙ ⏛⏜⏝⏞⏟
+    U+23E0..U+23FF ⏠⏡⏢⏣⏤⏥⏦⏧ ⏩⏪⏫⏬⏭⏮⏯⏰⏱⏲⏳⏴⏵⏶⏷⏸⏹⏺⏻⏼⏽⏾⏿
+
+Supported only by approximation:
+
+    U+2300..U+231F                        ⌗  　　    
+    U+2360..U+237F                      ⍵          
+
+#### Control Pictures
+
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡     ␧␨␩␪␫␬␭␮␯␰␱␲␳␴␵␶␷␸␹␺␻␼␽␾␿
+
+Supported only by approximation:
+
+    U+2420..U+243F     ␤                           
+
+#### Optical Character Recognition
+
+    U+2440..U+245F            ⑋⑌⑍⑎⑏⑐⑑⑒⑓⑔⑕⑖⑗⑘⑙⑚⑛⑜⑝⑞⑟
+
+#### Enclosed Alphanumerics
+
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾⓿
+
+#### Box Drawing
+
+    U+2500..U+251F ─ │         ┌   ┐   └   ┘   ├   
+    U+2520..U+253F     ┤       ┬       ┴       ┼   
+    U+2540..U+255F                 ═║  ╔  ╗  ╚  ╝ ╟
+    U+2560..U+257F ╠ ╢╣╤ ╦╧ ╩  ╬       ╴╵╶╷        
+
+Supported only by approximation:
+
+    U+2560..U+257F                  ╱╲╳            
+
+#### Geometric Shapes
+
+    U+25A0..U+25BF             ▬     ▲       ► ▼▽  
+    U+25C0..U+25DF     ◄      ○            ◘◙      
+    U+25E0..U+25FF                ◯             　　 
+
+Supported only by approximation:
+
+    U+25A0..U+25BF              ▭     △       ▻    
+    U+25C0..U+25DF      ◅         ●                
+    U+25E0..U+25FF       ◦                      　　 
+
+#### Miscellaneous Symbols
+
+    U+2600..U+261F    ☃            ☐☑☒ 　☕☖☗☘☙      
+    U+2620..U+263F   ☢☣☤      ☫☬  ☯☰☱☲☳☴☵☶☷  ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥♦   ♪♫      ♲♳♴♵♶♷♸♹♺♻♼♽♾♿
+    U+2680..U+269F ⚀⚁⚂⚃⚄⚅⚆⚇⚈⚉⚊⚋⚌⚍⚎⚏  ⚒⚓⚔⚕⚖⚗⚘⚙⚚⚛⚜⚝⚞⚟
+    U+26A0..U+26BF ⚠　⚢⚣⚤⚥⚦⚧ ⚩　　 ⚭⚮⚯⚰⚱    ⚶      ⚽⚾⚿
+    U+26C0..U+26DF ⛀⛁⛂⛃⛄⛅⛆⛇⛈⛉⛊⛋⛌⛍⛎⛏⛐⛑⛒⛓⛔⛕⛖⛗⛘⛙⛚⛛⛜⛝⛞⛟
+    U+26E0..U+26FF ⛠⛡ ⛣⛤⛥⛦⛧⛨⛩⛪⛫⛬⛭⛮⛯⛰⛱⛲⛳⛴⛵⛶⛷⛸⛹⛺⛻⛼⛽⛾⛿
+
+Supported only by approximation:
+
+    U+2600..U+261F ☀    ★☆             　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
+    U+26A0..U+26BF  　        ⚪　                 　　 
+
+#### Dingbats
+
+    U+2700..U+271F ✀✁✂✃✄✅✆✇✈✉✊✋✌✍✎✏✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟
+    U+2720..U+273F ✠✡✢✣✤✥✦✧✨✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿
+    U+2740..U+275F ❀❁❂❃❄❅❆❇❈❉❊❋❌❍❎❏❐❑❒❓❔❕❖❗❘❙❚❛❜❝❞❟
+    U+2760..U+277F ❠❡❢❣❤❥❦❧              ❶❷❸❹❺❻❼❽❾❿
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓➔➕➖➗➘➙➚➛➜➝➞➟
+    U+27A0..U+27BF ➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯　➱➲➳➴➵➶➷➸➹➺➻➼➽➾➿
+
+#### Miscellaneous Mathematical Symbols-A
+
+    U+27C0..U+27DF  ⟁ ⟃⟄   ⟈⟉ ⟋⟌⟍⟎⟏⟐ ⟒  ⟕⟖⟗⟘⟙⟚⟛⟜⟝⟞ 
+    U+27E0..U+27EF  ⟡⟢⟣⟤⟥                          
+
+Supported only by approximation:
+
+    U+27C0..U+27DF   ⟂                             
+    U+27E0..U+27EF           ⟪                     
+
+#### Supplemental Arrows-A
+
+    U+27F0..U+27FF ⟰⟱⟲⟳⟴⟵⟶⟷⟸⟹⟺⟻⟼⟽⟾⟿                
+
+#### Supplemental Arrows-B
+
+    U+2900..U+291F ⤀⤁⤂⤃⤄⤅⤆⤇  ⤊⤋⤌⤍⤎⤏⤐⤑  ⤔⤕⤖⤗⤘⤙⤚⤛⤜⤝⤞⤟
+    U+2920..U+293F ⤠⤡⤢⤣⤤⤥⤦⤧⤨⤩⤪⤫⤬⤭⤮⤯⤰⤱⤲⤳⤴⤵⤶⤷  ⤺⤻⤼⤽⤾⤿
+    U+2940..U+295F ⥀⥁⥂⥃⥄⥅⥆⥇⥈ ⥊⥋  ⥎ ⥐ ⥒⥓  ⥖⥗  ⥚⥛  ⥞⥟
+    U+2960..U+297F   ⥢⥣⥤⥥⥦⥧⥨⥩⥪⥫⥬⥭⥮⥯⥰⥱⥲⥳⥴⥵⥶⥷⥸⥹⥺⥻  ⥾⥿
+
+#### Miscellaneous Mathematical Symbols-B
+
+    U+2980..U+299F                    ⦓⦔⦕⦖       ⦞ 
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯⦰⦱⦲⦳⦴⦵⦶⦷⦸⦹⦺⦻⦼⦽⦾⦿
+    U+29C0..U+29DF ⧀⧁⧂⧃⧄⧅⧆⧇⧈⧉⧊⧋⧌⧍⧎⧏⧐         ⧚⧛   ⧟
+    U+29E0..U+29FF ⧠ ⧢⧣⧤⧥⧦⧧⧨⧩⧪ ⧬⧭      ⧴         ⧾⧿
+
+Supported only by approximation:
+
+    U+29E0..U+29FF                      ⧵   ⧹      
+
+#### Supplemental Mathematical Operators
+
+    U+2A00..U+2A1F ⨀⨁⨂⨃⨄⨅⨆⨇⨈⨉⨊ ⨌                ⨝  
+    U+2A20..U+2A3F ⨠            ⨭⨮    ⨳⨴⨵⨶⨷⨸⨹⨺⨻    
+    U+2A40..U+2A5F               ⩎⩏⩐⩑⩒⩓⩔⩕⩖⩗⩘⩙⩚⩛⩜⩝⩞⩟
+    U+2A60..U+2A7F ⩠⩡⩢⩣⩤⩥  ⩨⩩          ⩴⩵⩶ ⩸⩹⩺⩻⩼⩽⩾⩿
+    U+2A80..U+2A9F ⪀⪁⪂⪃⪄⪅⪆⪇⪈⪉⪊  ⪍⪎      ⪕⪖⪗⪘⪙⪚⪛⪜⪝⪞⪟
+    U+2AA0..U+2ABF ⪠⪡⪢⪣⪤⪥⪦⪧⪨⪩⪪⪫⪬⪭⪮⪯⪰⪱⪲⪳⪴⪵⪶⪷⪸⪹⪺⪻⪼⪽⪾ 
+    U+2AC0..U+2ADF              ⫍⫎⫏⫐⫑⫒    ⫗⫘⫙⫚⫛⫝̸⫝ ⫟
+    U+2AE0..U+2AFF ⫠⫡⫢⫣⫤⫥⫦⫧⫨⫩⫪⫫⫬⫭     ⫳⫴⫵ ⫷⫸⫹⫺⫻⫼⫽  
+
+Supported only by approximation:
+
+    U+2A40..U+2A5F             ⩌                   
+    U+2A60..U+2A7F                        ⩷        
+    U+2AE0..U+2AFF                               ⫾ 
+
+#### Miscellaneous Symbols and Arrows
+
+    U+2B00..U+2B1F ⬀⬁⬂⬃⬄⬅  ⬈⬉⬊⬋⬌ ⬎⬏⬐⬑⬒⬓⬔⬕⬖⬗⬘⬙⬚⬛⬜  ⬟
+    U+2B20..U+2B3F ⬠⬡⬢⬣⬤       ⬬⬭  ⬰ ⬲⬳⬴⬵⬶⬷⬸⬹⬺⬻⬼⬽⬾⬿
+    U+2B40..U+2B5F ⭀⭁⭂⭃⭄⭅⭆⭇⭈⭉⭊⭋⭌⭍  ⭐⭑⭒⭓⭔⭕⭖⭗⭘⭙⭚⭛⭜⭝⭞⭟
+    U+2B60..U+2B7F ⭠⭡⭢⭣⭤⭥⭦⭧⭨⭩⭪⭫⭬⭭⭮⭯⭰⭱⭲⭳⭴⭵⭶⭷⭸⭹⭺⭻⭼⭽⭾⭿
+    U+2B80..U+2B9F ⮀⮁⮂⮃⮄⮅⮆⮇⮈⮉⮊⮋⮌⮍⮎⮏⮐⮑⮒⮓⮔⮕⮖⮗⮘⮙⮚⮛⮜⮝⮞⮟
+    U+2BA0..U+2BBF ⮠⮡⮢⮣⮤⮥⮦⮧⮨⮩⮪⮫⮬⮭⮮⮯⮰⮱⮲⮳⮴⮵⮶⮷⮸⮹⮺⮻⮼⮽⮾⮿
+    U+2BC0..U+2BDF ⯀⯁⯂⯃⯄⯅⯆⯇⯈ ⯊⯋⯌⯍⯎⯏⯐⯑⯒⯓⯔⯕⯖⯗⯘⯙⯚⯛⯜⯝⯞⯟
+    U+2BE0..U+2BFF ⯠⯡⯢⯣⯤⯥⯦⯧⯨⯩⯪⯫⯬⯭⯮⯯⯰⯱⯲⯳⯴⯵⯶⯷⯸⯹⯺⯻⯼⯽⯾ 
+
+#### Glagolitic
+
+    U+2C00..U+2C1F                Ⰿ               Ⱏ
+    U+2C20..U+2C3F        ⰧⰨⰩ     Ⱟ               ⰿ
+    U+2C40..U+2C5F                ⱏ       ⱗⱘⱙ     ⱟ
+
+#### Latin Extended-C
+
+
+Supported only by approximation:
+
+    U+2C60..U+2C7F                             ⱼⱽ  
+
+#### Coptic
+
+    U+2CC0..U+2CDF               Ⳏⳏ                
+    U+2CE0..U+2CFF        ⳧  ⳪    ⳯    ⳴⳵⳶⳷⳸       
+
+Supported only by approximation:
+
+    U+2C80..U+2C9F   Ⲃ         ⲌⲍⲎ   Ⲓ Ⲕ   Ⲙ Ⲛ   Ⲟⲟ
+    U+2CA0..U+2CBF   ⲢⲣⲤⲥⲦ Ⲩⲩ  Ⲭⲭ  Ⲱⲱ              
+
+#### Georgian Supplement
+
+    U+2D00..U+2D1F      ⴅ ⴇ  ⴊ  ⴍ  ⴐ  ⴓⴔ      ⴛⴜ   
+    U+2D20..U+2D2F ⴠ    ⴥ⴦ ⴨⴩⴪⴫⴬ ⴮⴯                
+
+#### Tifinagh
+
+    U+2D30..U+2D4F                         ⵈ       
+    U+2D50..U+2D6F                         ⵨⵩⵪⵫⵬⵭⵮ 
+    U+2D70..U+2D7F  ⵱⵲⵳⵴⵵⵶⵷⵸⵹⵺⵻⵼⵽⵾                 
+
+Supported only by approximation:
+
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
+    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+
+#### Ethiopic Extended
+
+    U+2D80..U+2D9F ⶀⶁⶂⶃⶄⶅⶆⶇⶈⶉⶊⶋⶌⶍⶎⶏⶐⶑⶒⶓⶔⶕⶖ⶗⶘⶙⶚⶛⶜⶝⶞⶟
+    U+2DA0..U+2DBF ⶠⶡⶢⶣⶤⶥⶦ⶧ⶨⶩⶪⶫⶬⶭⶮ⶯ⶰⶱⶲⶳⶴⶵⶶ⶷ⶸⶹⶺⶻⶼⶽⶾ⶿
+    U+2DC0..U+2DDF ⷀⷁⷂⷃⷄⷅⷆ⷇ⷈⷉⷊⷋⷌⷍⷎ⷏ⷐⷑⷒⷓⷔⷕⷖ⷗ⷘⷙⷚⷛⷜⷝⷞ⷟
+
+#### Supplemental Punctuation
+
+    U+2E00..U+2E1F               ⸎⸏⸐⸑ ⸓⸔⸕          
+    U+2E20..U+2E3F                           ⸺⸻    
+    U+2E40..U+2E5F    ⹃            ⹐⹑⹒⹓⹔⹕⹖⹗⹘⹙⹚⹛⹜⹝⹞⹟
+    U+2E60..U+2E7F ⹠⹡⹢⹣⹤⹥⹦⹧⹨⹩⹪⹫⹬⹭⹮⹯⹰⹱⹲⹳⹴⹵⹶⹷⹸⹹⹺⹻⹼⹽⹾⹿
+
+#### CJK Radicals Supplement
+
+    U+2E80..U+2E9F ⺀⺁⺂⺃⺄⺅⺆⺇⺈⺉⺊⺋⺌⺍⺎⺏⺐⺑⺒⺓⺔⺕⺖⺗⺘⺙⺚⺛⺜⺝⺞⺟
+    U+2EA0..U+2EBF ⺠⺡⺢⺣⺤⺥⺦⺧⺨⺩⺪⺫⺬⺭⺮⺯⺰⺱⺲⺳⺴⺵⺶⺷⺸⺹⺺⺻⺼⺽⺾⺿
+    U+2EC0..U+2EDF ⻀⻁⻂⻃⻄⻅⻆⻇⻈⻉⻊⻋⻌⻍⻎⻏⻐⻑⻒⻓⻔⻕⻖⻗⻘⻙⻚⻛⻜⻝⻞⻟
+    U+2EE0..U+2EFF ⻠⻡⻢⻣⻤⻥⻦⻧⻨⻩⻪⻫⻬⻭⻮⻯⻰⻱⻲⻳⻴⻵⻶⻷⻸⻹⻺⻻⻼⻽⻾⻿
+
+#### Kangxi Radicals
+
+    U+2F00..U+2F1F ⼀⼁⼂⼃⼄⼅⼆⼇⼈⼉⼊⼋⼌⼍⼎⼏⼐⼑⼒⼓⼔⼕⼖⼗⼘⼙⼚⼛⼜⼝⼞⼟
+    U+2F20..U+2F3F ⼠⼡⼢⼣⼤⼥⼦⼧⼨⼩⼪⼫⼬⼭⼮⼯⼰⼱⼲⼳⼴⼵⼶⼷⼸⼹⼺⼻⼼⼽⼾⼿
+    U+2F40..U+2F5F ⽀⽁⽂⽃⽄⽅⽆⽇⽈⽉⽊⽋⽌⽍⽎⽏⽐⽑⽒⽓⽔⽕⽖⽗⽘⽙⽚⽛⽜⽝⽞⽟
+    U+2F60..U+2F7F ⽠⽡⽢⽣⽤⽥⽦⽧⽨⽩⽪⽫⽬⽭⽮⽯⽰⽱⽲⽳⽴⽵⽶⽷⽸⽹⽺⽻⽼⽽⽾⽿
+    U+2F80..U+2F9F ⾀⾁⾂⾃⾄⾅⾆⾇⾈⾉⾊⾋⾌⾍⾎⾏⾐⾑⾒⾓⾔⾕⾖⾗⾘⾙⾚⾛⾜⾝⾞⾟
+    U+2FA0..U+2FBF ⾠⾡⾢⾣⾤⾥⾦⾧⾨⾩⾪⾫⾬⾭⾮⾯⾰⾱⾲⾳⾴⾵⾶⾷⾸⾹⾺⾻⾼⾽⾾⾿
+    U+2FC0..U+2FDF ⿀⿁⿂⿃⿄⿅⿆⿇⿈⿉⿊⿋⿌⿍⿎⿏⿐⿑⿒⿓⿔⿕⿖⿗⿘⿙⿚⿛⿜⿝⿞⿟
+
+#### Ideographic Description Characters
+
+    U+2FF0..U+2FFF ⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿻⿼⿽⿾⿿　　　　　　　　　　　　　　　　
+
+#### CJK Symbols and Punctuation
+
+    U+3000..U+301F 　、。〃〄々〆〇〈〉《》「」『』【】〒〓〔〕〖〗〘〙〚〛〜〝〞〟
+    U+3020..U+303F 〠〡〢〣〤〥〦〧〨〩〪〭〮〯〫〬〰〱〲〳〴〵〶〷〸〹〺〻〼〽〾 
+
+#### Hiragana
+
+    U+3040..U+305F ぀ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞた
+    U+3060..U+307F だちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみ
+    U+3080..U+309F むめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ゗゘゙゚゛゜ゝゞゟ
+
+#### Katakana
+
+    U+30A0..U+30BF ゠ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタ
+    U+30C0..U+30DF ダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミ
+    U+30E0..U+30FF ムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶヷヸヹヺ・ーヽヾヿ
+
+#### Bopomofo
+
+    U+3100..U+311F ㄀㄁㄂㄃㄄ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄚㄛㄜㄝㄞㄟ
+    U+3120..U+312F ㄠㄡㄢㄣㄤㄥㄦㄧㄨㄩㄪㄫㄬㄭㄮㄯ 　　　　　　　　　　　　　　　
+
+#### Hangul Compatibility Jamo
+
+    U+3130..U+314F ㄰ㄱㄲㄳㄴㄵㄶㄷㄸㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅃㅄㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎㅏ
+    U+3150..U+316F ㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣㅤㅥㅦㅧㅨㅩㅪㅫㅬㅭㅮㅯ
+    U+3170..U+318F ㅰㅱㅲㅳㅴㅵㅶㅷㅸㅹㅺㅻㅼㅽㅾㅿㆀㆁㆂㆃㆄㆅㆆㆇㆈㆉㆊㆋㆌㆍㆎ㆏
+
+#### Kanbun
+
+    U+3190..U+319F ㆐㆑㆒㆓㆔㆕㆖㆗㆘㆙㆚㆛㆜㆝㆞㆟　　　　　　　　　　　　　　　　
+
+#### Bopomofo Extended
+
+    U+31A0..U+31BF ㆠㆡㆢㆣㆤㆥㆦㆧㆨㆩㆪㆫㆬㆭㆮㆯㆰㆱㆲㆳㆴㆵㆶㆷㆸㆹㆺㆻㆼㆽㆾㆿ
+
+#### CJK Strokes
+
+    U+31C0..U+31DF ㇀㇁㇂㇃㇄㇅㇆㇇㇈㇉㇊㇋㇌㇍㇎㇏㇐㇑㇒㇓㇔㇕㇖㇗㇘㇙㇚㇛㇜㇝㇞㇟
+    U+31E0..U+31EF ㇠㇡㇢㇣㇤㇥㇦㇧㇨㇩㇪㇫㇬㇭㇮㇯　　　　　　　　　　　　　　　　
+
+#### Katakana Phonetic Extensions
+
+    U+31F0..U+31FF ㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇺㇻㇼㇽㇾㇿ　　　　　　　　　　　　　　　　
+
+#### Enclosed CJK Letters and Months
+
+    U+3200..U+321F ㈀㈁㈂㈃㈄㈅㈆㈇㈈㈉㈊㈋㈌㈍㈎㈏㈐㈑㈒㈓㈔㈕㈖㈗㈘㈙㈚㈛㈜㈝㈞㈟
+    U+3220..U+323F ㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩㈪㈫㈬㈭㈮㈯㈰㈱㈲㈳㈴㈵㈶㈷㈸㈹㈺㈻㈼㈽㈾㈿
+    U+3240..U+325F ㉀㉁㉂㉃㉄㉅㉆㉇㉈㉉㉊㉋㉌㉍㉎㉏㉐㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟
+    U+3260..U+327F ㉠㉡㉢㉣㉤㉥㉦㉧㉨㉩㉪㉫㉬㉭㉮㉯㉰㉱㉲㉳㉴㉵㉶㉷㉸㉹㉺㉻㉼㉽㉾㉿
+    U+3280..U+329F ㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟
+    U+32A0..U+32BF ㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
+    U+32C0..U+32DF ㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㋌㋍㋎㋏㋐㋑㋒㋓㋔㋕㋖㋗㋘㋙㋚㋛㋜㋝㋞㋟
+    U+32E0..U+32FF ㋠㋡㋢㋣㋤㋥㋦㋧㋨㋩㋪㋫㋬㋭㋮㋯㋰㋱㋲㋳㋴㋵㋶㋷㋸㋹㋺㋻㋼㋽㋾㋿
+
+#### CJK Compatibility
+
+    U+3300..U+331F ㌀㌁㌂㌃㌄㌅㌆㌇㌈㌉㌊㌋㌌㌍㌎㌏㌐㌑㌒㌓㌔㌕㌖㌗㌘㌙㌚㌛㌜㌝㌞㌟
+    U+3320..U+333F ㌠㌡㌢㌣㌤㌥㌦㌧㌨㌩㌪㌫㌬㌭㌮㌯㌰㌱㌲㌳㌴㌵㌶㌷㌸㌹㌺㌻㌼㌽㌾㌿
+    U+3340..U+335F ㍀㍁㍂㍃㍄㍅㍆㍇㍈㍉㍊㍋㍌㍍㍎㍏㍐㍑㍒㍓㍔㍕㍖㍗㍘㍙㍚㍛㍜㍝㍞㍟
+    U+3360..U+337F ㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍱㍲㍳㍴㍵㍶㍷㍸㍹㍺㍻㍼㍽㍾㍿
+    U+3380..U+339F ㎀㎁㎂㎃㎄㎅㎆㎇㎈㎉㎊㎋㎌㎍㎎㎏㎐㎑㎒㎓㎔㎕㎖㎗㎘㎙㎚㎛㎜㎝㎞㎟
+    U+33A0..U+33BF ㎠㎡㎢㎣㎤㎥㎦㎧㎨㎩㎪㎫㎬㎭㎮㎯㎰㎱㎲㎳㎴㎵㎶㎷㎸㎹㎺㎻㎼㎽㎾㎿
+    U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
+    U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
+
+#### CJK Unified Ideographs Extension A
+
+    U+3400..U+341F 㐀㐁㐂㐃㐄㐅㐆㐇㐈㐉㐊㐋㐌㐍㐎㐏㐐㐑㐒㐓㐔㐕㐖㐗㐘㐙㐚㐛㐜㐝㐞㐟
+    U+3420..U+343F 㐠㐡㐢㐣㐤㐥㐦㐧㐨㐩㐪㐫㐬㐭㐮㐯㐰㐱㐲㐳㐴㐵㐶㐷㐸㐹㐺㐻㐼㐽㐾㐿
+    U+3440..U+345F 㑀㑁㑂㑃㑄㑅㑆㑇㑈㑉㑊㑋㑌㑍㑎㑏㑐㑑㑒㑓㑔㑕㑖㑗㑘㑙㑚㑛㑜㑝㑞㑟
+    U+3460..U+347F 㑠㑡㑢㑣㑤㑥㑦㑧㑨㑩㑪㑫㑬㑭㑮㑯㑰㑱㑲㑳㑴㑵㑶㑷㑸㑹㑺㑻㑼㑽㑾㑿
+    U+3480..U+349F 㒀㒁㒂㒃㒄㒅㒆㒇㒈㒉㒊㒋㒌㒍㒎㒏㒐㒑㒒㒓㒔㒕㒖㒗㒘㒙㒚㒛㒜㒝㒞㒟
+    U+34A0..U+34BF 㒠㒡㒢㒣㒤㒥㒦㒧㒨㒩㒪㒫㒬㒭㒮㒯㒰㒱㒲㒳㒴㒵㒶㒷㒸㒹㒺㒻㒼㒽㒾㒿
+    U+34C0..U+34DF 㓀㓁㓂㓃㓄㓅㓆㓇㓈㓉㓊㓋㓌㓍㓎㓏㓐㓑㓒㓓㓔㓕㓖㓗㓘㓙㓚㓛㓜㓝㓞㓟
+    U+34E0..U+34FF 㓠㓡㓢㓣㓤㓥㓦㓧㓨㓩㓪㓫㓬㓭㓮㓯㓰㓱㓲㓳㓴㓵㓶㓷㓸㓹㓺㓻㓼㓽㓾㓿
+    U+3500..U+351F 㔀㔁㔂㔃㔄㔅㔆㔇㔈㔉㔊㔋㔌㔍㔎㔏㔐㔑㔒㔓㔔㔕㔖㔗㔘㔙㔚㔛㔜㔝㔞㔟
+    U+3520..U+353F 㔠㔡㔢㔣㔤㔥㔦㔧㔨㔩㔪㔫㔬㔭㔮㔯㔰㔱㔲㔳㔴㔵㔶㔷㔸㔹㔺㔻㔼㔽㔾㔿
+    U+3540..U+355F 㕀㕁㕂㕃㕄㕅㕆㕇㕈㕉㕊㕋㕌㕍㕎㕏㕐㕑㕒㕓㕔㕕㕖㕗㕘㕙㕚㕛㕜㕝㕞㕟
+    U+3560..U+357F 㕠㕡㕢㕣㕤㕥㕦㕧㕨㕩㕪㕫㕬㕭㕮㕯㕰㕱㕲㕳㕴㕵㕶㕷㕸㕹㕺㕻㕼㕽㕾㕿
+    U+3580..U+359F 㖀㖁㖂㖃㖄㖅㖆㖇㖈㖉㖊㖋㖌㖍㖎㖏㖐㖑㖒㖓㖔㖕㖖㖗㖘㖙㖚㖛㖜㖝㖞㖟
+    U+35A0..U+35BF 㖠㖡㖢㖣㖤㖥㖦㖧㖨㖩㖪㖫㖬㖭㖮㖯㖰㖱㖲㖳㖴㖵㖶㖷㖸㖹㖺㖻㖼㖽㖾㖿
+    U+35C0..U+35DF 㗀㗁㗂㗃㗄㗅㗆㗇㗈㗉㗊㗋㗌㗍㗎㗏㗐㗑㗒㗓㗔㗕㗖㗗㗘㗙㗚㗛㗜㗝㗞㗟
+    U+35E0..U+35FF 㗠㗡㗢㗣㗤㗥㗦㗧㗨㗩㗪㗫㗬㗭㗮㗯㗰㗱㗲㗳㗴㗵㗶㗷㗸㗹㗺㗻㗼㗽㗾㗿
+    U+3600..U+361F 㘀㘁㘂㘃㘄㘅㘆㘇㘈㘉㘊㘋㘌㘍㘎㘏㘐㘑㘒㘓㘔㘕㘖㘗㘘㘙㘚㘛㘜㘝㘞㘟
+    U+3620..U+363F 㘠㘡㘢㘣㘤㘥㘦㘧㘨㘩㘪㘫㘬㘭㘮㘯㘰㘱㘲㘳㘴㘵㘶㘷㘸㘹㘺㘻㘼㘽㘾㘿
+    U+3640..U+365F 㙀㙁㙂㙃㙄㙅㙆㙇㙈㙉㙊㙋㙌㙍㙎㙏㙐㙑㙒㙓㙔㙕㙖㙗㙘㙙㙚㙛㙜㙝㙞㙟
+    U+3660..U+367F 㙠㙡㙢㙣㙤㙥㙦㙧㙨㙩㙪㙫㙬㙭㙮㙯㙰㙱㙲㙳㙴㙵㙶㙷㙸㙹㙺㙻㙼㙽㙾㙿
+    U+3680..U+369F 㚀㚁㚂㚃㚄㚅㚆㚇㚈㚉㚊㚋㚌㚍㚎㚏㚐㚑㚒㚓㚔㚕㚖㚗㚘㚙㚚㚛㚜㚝㚞㚟
+    U+36A0..U+36BF 㚠㚡㚢㚣㚤㚥㚦㚧㚨㚩㚪㚫㚬㚭㚮㚯㚰㚱㚲㚳㚴㚵㚶㚷㚸㚹㚺㚻㚼㚽㚾㚿
+    U+36C0..U+36DF 㛀㛁㛂㛃㛄㛅㛆㛇㛈㛉㛊㛋㛌㛍㛎㛏㛐㛑㛒㛓㛔㛕㛖㛗㛘㛙㛚㛛㛜㛝㛞㛟
+    U+36E0..U+36FF 㛠㛡㛢㛣㛤㛥㛦㛧㛨㛩㛪㛫㛬㛭㛮㛯㛰㛱㛲㛳㛴㛵㛶㛷㛸㛹㛺㛻㛼㛽㛾㛿
+    U+3700..U+371F 㜀㜁㜂㜃㜄㜅㜆㜇㜈㜉㜊㜋㜌㜍㜎㜏㜐㜑㜒㜓㜔㜕㜖㜗㜘㜙㜚㜛㜜㜝㜞㜟
+    U+3720..U+373F 㜠㜡㜢㜣㜤㜥㜦㜧㜨㜩㜪㜫㜬㜭㜮㜯㜰㜱㜲㜳㜴㜵㜶㜷㜸㜹㜺㜻㜼㜽㜾㜿
+    U+3740..U+375F 㝀㝁㝂㝃㝄㝅㝆㝇㝈㝉㝊㝋㝌㝍㝎㝏㝐㝑㝒㝓㝔㝕㝖㝗㝘㝙㝚㝛㝜㝝㝞㝟
+    U+3760..U+377F 㝠㝡㝢㝣㝤㝥㝦㝧㝨㝩㝪㝫㝬㝭㝮㝯㝰㝱㝲㝳㝴㝵㝶㝷㝸㝹㝺㝻㝼㝽㝾㝿
+    U+3780..U+379F 㞀㞁㞂㞃㞄㞅㞆㞇㞈㞉㞊㞋㞌㞍㞎㞏㞐㞑㞒㞓㞔㞕㞖㞗㞘㞙㞚㞛㞜㞝㞞㞟
+    U+37A0..U+37BF 㞠㞡㞢㞣㞤㞥㞦㞧㞨㞩㞪㞫㞬㞭㞮㞯㞰㞱㞲㞳㞴㞵㞶㞷㞸㞹㞺㞻㞼㞽㞾㞿
+    U+37C0..U+37DF 㟀㟁㟂㟃㟄㟅㟆㟇㟈㟉㟊㟋㟌㟍㟎㟏㟐㟑㟒㟓㟔㟕㟖㟗㟘㟙㟚㟛㟜㟝㟞㟟
+    U+37E0..U+37FF 㟠㟡㟢㟣㟤㟥㟦㟧㟨㟩㟪㟫㟬㟭㟮㟯㟰㟱㟲㟳㟴㟵㟶㟷㟸㟹㟺㟻㟼㟽㟾㟿
+    U+3800..U+381F 㠀㠁㠂㠃㠄㠅㠆㠇㠈㠉㠊㠋㠌㠍㠎㠏㠐㠑㠒㠓㠔㠕㠖㠗㠘㠙㠚㠛㠜㠝㠞㠟
+    U+3820..U+383F 㠠㠡㠢㠣㠤㠥㠦㠧㠨㠩㠪㠫㠬㠭㠮㠯㠰㠱㠲㠳㠴㠵㠶㠷㠸㠹㠺㠻㠼㠽㠾㠿
+    U+3840..U+385F 㡀㡁㡂㡃㡄㡅㡆㡇㡈㡉㡊㡋㡌㡍㡎㡏㡐㡑㡒㡓㡔㡕㡖㡗㡘㡙㡚㡛㡜㡝㡞㡟
+    U+3860..U+387F 㡠㡡㡢㡣㡤㡥㡦㡧㡨㡩㡪㡫㡬㡭㡮㡯㡰㡱㡲㡳㡴㡵㡶㡷㡸㡹㡺㡻㡼㡽㡾㡿
+    U+3880..U+389F 㢀㢁㢂㢃㢄㢅㢆㢇㢈㢉㢊㢋㢌㢍㢎㢏㢐㢑㢒㢓㢔㢕㢖㢗㢘㢙㢚㢛㢜㢝㢞㢟
+    U+38A0..U+38BF 㢠㢡㢢㢣㢤㢥㢦㢧㢨㢩㢪㢫㢬㢭㢮㢯㢰㢱㢲㢳㢴㢵㢶㢷㢸㢹㢺㢻㢼㢽㢾㢿
+    U+38C0..U+38DF 㣀㣁㣂㣃㣄㣅㣆㣇㣈㣉㣊㣋㣌㣍㣎㣏㣐㣑㣒㣓㣔㣕㣖㣗㣘㣙㣚㣛㣜㣝㣞㣟
+    U+38E0..U+38FF 㣠㣡㣢㣣㣤㣥㣦㣧㣨㣩㣪㣫㣬㣭㣮㣯㣰㣱㣲㣳㣴㣵㣶㣷㣸㣹㣺㣻㣼㣽㣾㣿
+    U+3900..U+391F 㤀㤁㤂㤃㤄㤅㤆㤇㤈㤉㤊㤋㤌㤍㤎㤏㤐㤑㤒㤓㤔㤕㤖㤗㤘㤙㤚㤛㤜㤝㤞㤟
+    U+3920..U+393F 㤠㤡㤢㤣㤤㤥㤦㤧㤨㤩㤪㤫㤬㤭㤮㤯㤰㤱㤲㤳㤴㤵㤶㤷㤸㤹㤺㤻㤼㤽㤾㤿
+    U+3940..U+395F 㥀㥁㥂㥃㥄㥅㥆㥇㥈㥉㥊㥋㥌㥍㥎㥏㥐㥑㥒㥓㥔㥕㥖㥗㥘㥙㥚㥛㥜㥝㥞㥟
+    U+3960..U+397F 㥠㥡㥢㥣㥤㥥㥦㥧㥨㥩㥪㥫㥬㥭㥮㥯㥰㥱㥲㥳㥴㥵㥶㥷㥸㥹㥺㥻㥼㥽㥾㥿
+    U+3980..U+399F 㦀㦁㦂㦃㦄㦅㦆㦇㦈㦉㦊㦋㦌㦍㦎㦏㦐㦑㦒㦓㦔㦕㦖㦗㦘㦙㦚㦛㦜㦝㦞㦟
+    U+39A0..U+39BF 㦠㦡㦢㦣㦤㦥㦦㦧㦨㦩㦪㦫㦬㦭㦮㦯㦰㦱㦲㦳㦴㦵㦶㦷㦸㦹㦺㦻㦼㦽㦾㦿
+    U+39C0..U+39DF 㧀㧁㧂㧃㧄㧅㧆㧇㧈㧉㧊㧋㧌㧍㧎㧏㧐㧑㧒㧓㧔㧕㧖㧗㧘㧙㧚㧛㧜㧝㧞㧟
+    U+39E0..U+39FF 㧠㧡㧢㧣㧤㧥㧦㧧㧨㧩㧪㧫㧬㧭㧮㧯㧰㧱㧲㧳㧴㧵㧶㧷㧸㧹㧺㧻㧼㧽㧾㧿
+    U+3A00..U+3A1F 㨀㨁㨂㨃㨄㨅㨆㨇㨈㨉㨊㨋㨌㨍㨎㨏㨐㨑㨒㨓㨔㨕㨖㨗㨘㨙㨚㨛㨜㨝㨞㨟
+    U+3A20..U+3A3F 㨠㨡㨢㨣㨤㨥㨦㨧㨨㨩㨪㨫㨬㨭㨮㨯㨰㨱㨲㨳㨴㨵㨶㨷㨸㨹㨺㨻㨼㨽㨾㨿
+    U+3A40..U+3A5F 㩀㩁㩂㩃㩄㩅㩆㩇㩈㩉㩊㩋㩌㩍㩎㩏㩐㩑㩒㩓㩔㩕㩖㩗㩘㩙㩚㩛㩜㩝㩞㩟
+    U+3A60..U+3A7F 㩠㩡㩢㩣㩤㩥㩦㩧㩨㩩㩪㩫㩬㩭㩮㩯㩰㩱㩲㩳㩴㩵㩶㩷㩸㩹㩺㩻㩼㩽㩾㩿
+    U+3A80..U+3A9F 㪀㪁㪂㪃㪄㪅㪆㪇㪈㪉㪊㪋㪌㪍㪎㪏㪐㪑㪒㪓㪔㪕㪖㪗㪘㪙㪚㪛㪜㪝㪞㪟
+    U+3AA0..U+3ABF 㪠㪡㪢㪣㪤㪥㪦㪧㪨㪩㪪㪫㪬㪭㪮㪯㪰㪱㪲㪳㪴㪵㪶㪷㪸㪹㪺㪻㪼㪽㪾㪿
+    U+3AC0..U+3ADF 㫀㫁㫂㫃㫄㫅㫆㫇㫈㫉㫊㫋㫌㫍㫎㫏㫐㫑㫒㫓㫔㫕㫖㫗㫘㫙㫚㫛㫜㫝㫞㫟
+    U+3AE0..U+3AFF 㫠㫡㫢㫣㫤㫥㫦㫧㫨㫩㫪㫫㫬㫭㫮㫯㫰㫱㫲㫳㫴㫵㫶㫷㫸㫹㫺㫻㫼㫽㫾㫿
+    U+3B00..U+3B1F 㬀㬁㬂㬃㬄㬅㬆㬇㬈㬉㬊㬋㬌㬍㬎㬏㬐㬑㬒㬓㬔㬕㬖㬗㬘㬙㬚㬛㬜㬝㬞㬟
+    U+3B20..U+3B3F 㬠㬡㬢㬣㬤㬥㬦㬧㬨㬩㬪㬫㬬㬭㬮㬯㬰㬱㬲㬳㬴㬵㬶㬷㬸㬹㬺㬻㬼㬽㬾㬿
+    U+3B40..U+3B5F 㭀㭁㭂㭃㭄㭅㭆㭇㭈㭉㭊㭋㭌㭍㭎㭏㭐㭑㭒㭓㭔㭕㭖㭗㭘㭙㭚㭛㭜㭝㭞㭟
+    U+3B60..U+3B7F 㭠㭡㭢㭣㭤㭥㭦㭧㭨㭩㭪㭫㭬㭭㭮㭯㭰㭱㭲㭳㭴㭵㭶㭷㭸㭹㭺㭻㭼㭽㭾㭿
+    U+3B80..U+3B9F 㮀㮁㮂㮃㮄㮅㮆㮇㮈㮉㮊㮋㮌㮍㮎㮏㮐㮑㮒㮓㮔㮕㮖㮗㮘㮙㮚㮛㮜㮝㮞㮟
+    U+3BA0..U+3BBF 㮠㮡㮢㮣㮤㮥㮦㮧㮨㮩㮪㮫㮬㮭㮮㮯㮰㮱㮲㮳㮴㮵㮶㮷㮸㮹㮺㮻㮼㮽㮾㮿
+    U+3BC0..U+3BDF 㯀㯁㯂㯃㯄㯅㯆㯇㯈㯉㯊㯋㯌㯍㯎㯏㯐㯑㯒㯓㯔㯕㯖㯗㯘㯙㯚㯛㯜㯝㯞㯟
+    U+3BE0..U+3BFF 㯠㯡㯢㯣㯤㯥㯦㯧㯨㯩㯪㯫㯬㯭㯮㯯㯰㯱㯲㯳㯴㯵㯶㯷㯸㯹㯺㯻㯼㯽㯾㯿
+    U+3C00..U+3C1F 㰀㰁㰂㰃㰄㰅㰆㰇㰈㰉㰊㰋㰌㰍㰎㰏㰐㰑㰒㰓㰔㰕㰖㰗㰘㰙㰚㰛㰜㰝㰞㰟
+    U+3C20..U+3C3F 㰠㰡㰢㰣㰤㰥㰦㰧㰨㰩㰪㰫㰬㰭㰮㰯㰰㰱㰲㰳㰴㰵㰶㰷㰸㰹㰺㰻㰼㰽㰾㰿
+    U+3C40..U+3C5F 㱀㱁㱂㱃㱄㱅㱆㱇㱈㱉㱊㱋㱌㱍㱎㱏㱐㱑㱒㱓㱔㱕㱖㱗㱘㱙㱚㱛㱜㱝㱞㱟
+    U+3C60..U+3C7F 㱠㱡㱢㱣㱤㱥㱦㱧㱨㱩㱪㱫㱬㱭㱮㱯㱰㱱㱲㱳㱴㱵㱶㱷㱸㱹㱺㱻㱼㱽㱾㱿
+    U+3C80..U+3C9F 㲀㲁㲂㲃㲄㲅㲆㲇㲈㲉㲊㲋㲌㲍㲎㲏㲐㲑㲒㲓㲔㲕㲖㲗㲘㲙㲚㲛㲜㲝㲞㲟
+    U+3CA0..U+3CBF 㲠㲡㲢㲣㲤㲥㲦㲧㲨㲩㲪㲫㲬㲭㲮㲯㲰㲱㲲㲳㲴㲵㲶㲷㲸㲹㲺㲻㲼㲽㲾㲿
+    U+3CC0..U+3CDF 㳀㳁㳂㳃㳄㳅㳆㳇㳈㳉㳊㳋㳌㳍㳎㳏㳐㳑㳒㳓㳔㳕㳖㳗㳘㳙㳚㳛㳜㳝㳞㳟
+    U+3CE0..U+3CFF 㳠㳡㳢㳣㳤㳥㳦㳧㳨㳩㳪㳫㳬㳭㳮㳯㳰㳱㳲㳳㳴㳵㳶㳷㳸㳹㳺㳻㳼㳽㳾㳿
+    U+3D00..U+3D1F 㴀㴁㴂㴃㴄㴅㴆㴇㴈㴉㴊㴋㴌㴍㴎㴏㴐㴑㴒㴓㴔㴕㴖㴗㴘㴙㴚㴛㴜㴝㴞㴟
+    U+3D20..U+3D3F 㴠㴡㴢㴣㴤㴥㴦㴧㴨㴩㴪㴫㴬㴭㴮㴯㴰㴱㴲㴳㴴㴵㴶㴷㴸㴹㴺㴻㴼㴽㴾㴿
+    U+3D40..U+3D5F 㵀㵁㵂㵃㵄㵅㵆㵇㵈㵉㵊㵋㵌㵍㵎㵏㵐㵑㵒㵓㵔㵕㵖㵗㵘㵙㵚㵛㵜㵝㵞㵟
+    U+3D60..U+3D7F 㵠㵡㵢㵣㵤㵥㵦㵧㵨㵩㵪㵫㵬㵭㵮㵯㵰㵱㵲㵳㵴㵵㵶㵷㵸㵹㵺㵻㵼㵽㵾㵿
+    U+3D80..U+3D9F 㶀㶁㶂㶃㶄㶅㶆㶇㶈㶉㶊㶋㶌㶍㶎㶏㶐㶑㶒㶓㶔㶕㶖㶗㶘㶙㶚㶛㶜㶝㶞㶟
+    U+3DA0..U+3DBF 㶠㶡㶢㶣㶤㶥㶦㶧㶨㶩㶪㶫㶬㶭㶮㶯㶰㶱㶲㶳㶴㶵㶶㶷㶸㶹㶺㶻㶼㶽㶾㶿
+    U+3DC0..U+3DDF 㷀㷁㷂㷃㷄㷅㷆㷇㷈㷉㷊㷋㷌㷍㷎㷏㷐㷑㷒㷓㷔㷕㷖㷗㷘㷙㷚㷛㷜㷝㷞㷟
+    U+3DE0..U+3DFF 㷠㷡㷢㷣㷤㷥㷦㷧㷨㷩㷪㷫㷬㷭㷮㷯㷰㷱㷲㷳㷴㷵㷶㷷㷸㷹㷺㷻㷼㷽㷾㷿
+    U+3E00..U+3E1F 㸀㸁㸂㸃㸄㸅㸆㸇㸈㸉㸊㸋㸌㸍㸎㸏㸐㸑㸒㸓㸔㸕㸖㸗㸘㸙㸚㸛㸜㸝㸞㸟
+    U+3E20..U+3E3F 㸠㸡㸢㸣㸤㸥㸦㸧㸨㸩㸪㸫㸬㸭㸮㸯㸰㸱㸲㸳㸴㸵㸶㸷㸸㸹㸺㸻㸼㸽㸾㸿
+    U+3E40..U+3E5F 㹀㹁㹂㹃㹄㹅㹆㹇㹈㹉㹊㹋㹌㹍㹎㹏㹐㹑㹒㹓㹔㹕㹖㹗㹘㹙㹚㹛㹜㹝㹞㹟
+    U+3E60..U+3E7F 㹠㹡㹢㹣㹤㹥㹦㹧㹨㹩㹪㹫㹬㹭㹮㹯㹰㹱㹲㹳㹴㹵㹶㹷㹸㹹㹺㹻㹼㹽㹾㹿
+    U+3E80..U+3E9F 㺀㺁㺂㺃㺄㺅㺆㺇㺈㺉㺊㺋㺌㺍㺎㺏㺐㺑㺒㺓㺔㺕㺖㺗㺘㺙㺚㺛㺜㺝㺞㺟
+    U+3EA0..U+3EBF 㺠㺡㺢㺣㺤㺥㺦㺧㺨㺩㺪㺫㺬㺭㺮㺯㺰㺱㺲㺳㺴㺵㺶㺷㺸㺹㺺㺻㺼㺽㺾㺿
+    U+3EC0..U+3EDF 㻀㻁㻂㻃㻄㻅㻆㻇㻈㻉㻊㻋㻌㻍㻎㻏㻐㻑㻒㻓㻔㻕㻖㻗㻘㻙㻚㻛㻜㻝㻞㻟
+    U+3EE0..U+3EFF 㻠㻡㻢㻣㻤㻥㻦㻧㻨㻩㻪㻫㻬㻭㻮㻯㻰㻱㻲㻳㻴㻵㻶㻷㻸㻹㻺㻻㻼㻽㻾㻿
+    U+3F00..U+3F1F 㼀㼁㼂㼃㼄㼅㼆㼇㼈㼉㼊㼋㼌㼍㼎㼏㼐㼑㼒㼓㼔㼕㼖㼗㼘㼙㼚㼛㼜㼝㼞㼟
+    U+3F20..U+3F3F 㼠㼡㼢㼣㼤㼥㼦㼧㼨㼩㼪㼫㼬㼭㼮㼯㼰㼱㼲㼳㼴㼵㼶㼷㼸㼹㼺㼻㼼㼽㼾㼿
+    U+3F40..U+3F5F 㽀㽁㽂㽃㽄㽅㽆㽇㽈㽉㽊㽋㽌㽍㽎㽏㽐㽑㽒㽓㽔㽕㽖㽗㽘㽙㽚㽛㽜㽝㽞㽟
+    U+3F60..U+3F7F 㽠㽡㽢㽣㽤㽥㽦㽧㽨㽩㽪㽫㽬㽭㽮㽯㽰㽱㽲㽳㽴㽵㽶㽷㽸㽹㽺㽻㽼㽽㽾㽿
+    U+3F80..U+3F9F 㾀㾁㾂㾃㾄㾅㾆㾇㾈㾉㾊㾋㾌㾍㾎㾏㾐㾑㾒㾓㾔㾕㾖㾗㾘㾙㾚㾛㾜㾝㾞㾟
+    U+3FA0..U+3FBF 㾠㾡㾢㾣㾤㾥㾦㾧㾨㾩㾪㾫㾬㾭㾮㾯㾰㾱㾲㾳㾴㾵㾶㾷㾸㾹㾺㾻㾼㾽㾾㾿
+    U+3FC0..U+3FDF 㿀㿁㿂㿃㿄㿅㿆㿇㿈㿉㿊㿋㿌㿍㿎㿏㿐㿑㿒㿓㿔㿕㿖㿗㿘㿙㿚㿛㿜㿝㿞㿟
+    U+3FE0..U+3FFF 㿠㿡㿢㿣㿤㿥㿦㿧㿨㿩㿪㿫㿬㿭㿮㿯㿰㿱㿲㿳㿴㿵㿶㿷㿸㿹㿺㿻㿼㿽㿾㿿
+    U+4000..U+401F 䀀䀁䀂䀃䀄䀅䀆䀇䀈䀉䀊䀋䀌䀍䀎䀏䀐䀑䀒䀓䀔䀕䀖䀗䀘䀙䀚䀛䀜䀝䀞䀟
+    U+4020..U+403F 䀠䀡䀢䀣䀤䀥䀦䀧䀨䀩䀪䀫䀬䀭䀮䀯䀰䀱䀲䀳䀴䀵䀶䀷䀸䀹䀺䀻䀼䀽䀾䀿
+    U+4040..U+405F 䁀䁁䁂䁃䁄䁅䁆䁇䁈䁉䁊䁋䁌䁍䁎䁏䁐䁑䁒䁓䁔䁕䁖䁗䁘䁙䁚䁛䁜䁝䁞䁟
+    U+4060..U+407F 䁠䁡䁢䁣䁤䁥䁦䁧䁨䁩䁪䁫䁬䁭䁮䁯䁰䁱䁲䁳䁴䁵䁶䁷䁸䁹䁺䁻䁼䁽䁾䁿
+    U+4080..U+409F 䂀䂁䂂䂃䂄䂅䂆䂇䂈䂉䂊䂋䂌䂍䂎䂏䂐䂑䂒䂓䂔䂕䂖䂗䂘䂙䂚䂛䂜䂝䂞䂟
+    U+40A0..U+40BF 䂠䂡䂢䂣䂤䂥䂦䂧䂨䂩䂪䂫䂬䂭䂮䂯䂰䂱䂲䂳䂴䂵䂶䂷䂸䂹䂺䂻䂼䂽䂾䂿
+    U+40C0..U+40DF 䃀䃁䃂䃃䃄䃅䃆䃇䃈䃉䃊䃋䃌䃍䃎䃏䃐䃑䃒䃓䃔䃕䃖䃗䃘䃙䃚䃛䃜䃝䃞䃟
+    U+40E0..U+40FF 䃠䃡䃢䃣䃤䃥䃦䃧䃨䃩䃪䃫䃬䃭䃮䃯䃰䃱䃲䃳䃴䃵䃶䃷䃸䃹䃺䃻䃼䃽䃾䃿
+    U+4100..U+411F 䄀䄁䄂䄃䄄䄅䄆䄇䄈䄉䄊䄋䄌䄍䄎䄏䄐䄑䄒䄓䄔䄕䄖䄗䄘䄙䄚䄛䄜䄝䄞䄟
+    U+4120..U+413F 䄠䄡䄢䄣䄤䄥䄦䄧䄨䄩䄪䄫䄬䄭䄮䄯䄰䄱䄲䄳䄴䄵䄶䄷䄸䄹䄺䄻䄼䄽䄾䄿
+    U+4140..U+415F 䅀䅁䅂䅃䅄䅅䅆䅇䅈䅉䅊䅋䅌䅍䅎䅏䅐䅑䅒䅓䅔䅕䅖䅗䅘䅙䅚䅛䅜䅝䅞䅟
+    U+4160..U+417F 䅠䅡䅢䅣䅤䅥䅦䅧䅨䅩䅪䅫䅬䅭䅮䅯䅰䅱䅲䅳䅴䅵䅶䅷䅸䅹䅺䅻䅼䅽䅾䅿
+    U+4180..U+419F 䆀䆁䆂䆃䆄䆅䆆䆇䆈䆉䆊䆋䆌䆍䆎䆏䆐䆑䆒䆓䆔䆕䆖䆗䆘䆙䆚䆛䆜䆝䆞䆟
+    U+41A0..U+41BF 䆠䆡䆢䆣䆤䆥䆦䆧䆨䆩䆪䆫䆬䆭䆮䆯䆰䆱䆲䆳䆴䆵䆶䆷䆸䆹䆺䆻䆼䆽䆾䆿
+    U+41C0..U+41DF 䇀䇁䇂䇃䇄䇅䇆䇇䇈䇉䇊䇋䇌䇍䇎䇏䇐䇑䇒䇓䇔䇕䇖䇗䇘䇙䇚䇛䇜䇝䇞䇟
+    U+41E0..U+41FF 䇠䇡䇢䇣䇤䇥䇦䇧䇨䇩䇪䇫䇬䇭䇮䇯䇰䇱䇲䇳䇴䇵䇶䇷䇸䇹䇺䇻䇼䇽䇾䇿
+    U+4200..U+421F 䈀䈁䈂䈃䈄䈅䈆䈇䈈䈉䈊䈋䈌䈍䈎䈏䈐䈑䈒䈓䈔䈕䈖䈗䈘䈙䈚䈛䈜䈝䈞䈟
+    U+4220..U+423F 䈠䈡䈢䈣䈤䈥䈦䈧䈨䈩䈪䈫䈬䈭䈮䈯䈰䈱䈲䈳䈴䈵䈶䈷䈸䈹䈺䈻䈼䈽䈾䈿
+    U+4240..U+425F 䉀䉁䉂䉃䉄䉅䉆䉇䉈䉉䉊䉋䉌䉍䉎䉏䉐䉑䉒䉓䉔䉕䉖䉗䉘䉙䉚䉛䉜䉝䉞䉟
+    U+4260..U+427F 䉠䉡䉢䉣䉤䉥䉦䉧䉨䉩䉪䉫䉬䉭䉮䉯䉰䉱䉲䉳䉴䉵䉶䉷䉸䉹䉺䉻䉼䉽䉾䉿
+    U+4280..U+429F 䊀䊁䊂䊃䊄䊅䊆䊇䊈䊉䊊䊋䊌䊍䊎䊏䊐䊑䊒䊓䊔䊕䊖䊗䊘䊙䊚䊛䊜䊝䊞䊟
+    U+42A0..U+42BF 䊠䊡䊢䊣䊤䊥䊦䊧䊨䊩䊪䊫䊬䊭䊮䊯䊰䊱䊲䊳䊴䊵䊶䊷䊸䊹䊺䊻䊼䊽䊾䊿
+    U+42C0..U+42DF 䋀䋁䋂䋃䋄䋅䋆䋇䋈䋉䋊䋋䋌䋍䋎䋏䋐䋑䋒䋓䋔䋕䋖䋗䋘䋙䋚䋛䋜䋝䋞䋟
+    U+42E0..U+42FF 䋠䋡䋢䋣䋤䋥䋦䋧䋨䋩䋪䋫䋬䋭䋮䋯䋰䋱䋲䋳䋴䋵䋶䋷䋸䋹䋺䋻䋼䋽䋾䋿
+    U+4300..U+431F 䌀䌁䌂䌃䌄䌅䌆䌇䌈䌉䌊䌋䌌䌍䌎䌏䌐䌑䌒䌓䌔䌕䌖䌗䌘䌙䌚䌛䌜䌝䌞䌟
+    U+4320..U+433F 䌠䌡䌢䌣䌤䌥䌦䌧䌨䌩䌪䌫䌬䌭䌮䌯䌰䌱䌲䌳䌴䌵䌶䌷䌸䌹䌺䌻䌼䌽䌾䌿
+    U+4340..U+435F 䍀䍁䍂䍃䍄䍅䍆䍇䍈䍉䍊䍋䍌䍍䍎䍏䍐䍑䍒䍓䍔䍕䍖䍗䍘䍙䍚䍛䍜䍝䍞䍟
+    U+4360..U+437F 䍠䍡䍢䍣䍤䍥䍦䍧䍨䍩䍪䍫䍬䍭䍮䍯䍰䍱䍲䍳䍴䍵䍶䍷䍸䍹䍺䍻䍼䍽䍾䍿
+    U+4380..U+439F 䎀䎁䎂䎃䎄䎅䎆䎇䎈䎉䎊䎋䎌䎍䎎䎏䎐䎑䎒䎓䎔䎕䎖䎗䎘䎙䎚䎛䎜䎝䎞䎟
+    U+43A0..U+43BF 䎠䎡䎢䎣䎤䎥䎦䎧䎨䎩䎪䎫䎬䎭䎮䎯䎰䎱䎲䎳䎴䎵䎶䎷䎸䎹䎺䎻䎼䎽䎾䎿
+    U+43C0..U+43DF 䏀䏁䏂䏃䏄䏅䏆䏇䏈䏉䏊䏋䏌䏍䏎䏏䏐䏑䏒䏓䏔䏕䏖䏗䏘䏙䏚䏛䏜䏝䏞䏟
+    U+43E0..U+43FF 䏠䏡䏢䏣䏤䏥䏦䏧䏨䏩䏪䏫䏬䏭䏮䏯䏰䏱䏲䏳䏴䏵䏶䏷䏸䏹䏺䏻䏼䏽䏾䏿
+    U+4400..U+441F 䐀䐁䐂䐃䐄䐅䐆䐇䐈䐉䐊䐋䐌䐍䐎䐏䐐䐑䐒䐓䐔䐕䐖䐗䐘䐙䐚䐛䐜䐝䐞䐟
+    U+4420..U+443F 䐠䐡䐢䐣䐤䐥䐦䐧䐨䐩䐪䐫䐬䐭䐮䐯䐰䐱䐲䐳䐴䐵䐶䐷䐸䐹䐺䐻䐼䐽䐾䐿
+    U+4440..U+445F 䑀䑁䑂䑃䑄䑅䑆䑇䑈䑉䑊䑋䑌䑍䑎䑏䑐䑑䑒䑓䑔䑕䑖䑗䑘䑙䑚䑛䑜䑝䑞䑟
+    U+4460..U+447F 䑠䑡䑢䑣䑤䑥䑦䑧䑨䑩䑪䑫䑬䑭䑮䑯䑰䑱䑲䑳䑴䑵䑶䑷䑸䑹䑺䑻䑼䑽䑾䑿
+    U+4480..U+449F 䒀䒁䒂䒃䒄䒅䒆䒇䒈䒉䒊䒋䒌䒍䒎䒏䒐䒑䒒䒓䒔䒕䒖䒗䒘䒙䒚䒛䒜䒝䒞䒟
+    U+44A0..U+44BF 䒠䒡䒢䒣䒤䒥䒦䒧䒨䒩䒪䒫䒬䒭䒮䒯䒰䒱䒲䒳䒴䒵䒶䒷䒸䒹䒺䒻䒼䒽䒾䒿
+    U+44C0..U+44DF 䓀䓁䓂䓃䓄䓅䓆䓇䓈䓉䓊䓋䓌䓍䓎䓏䓐䓑䓒䓓䓔䓕䓖䓗䓘䓙䓚䓛䓜䓝䓞䓟
+    U+44E0..U+44FF 䓠䓡䓢䓣䓤䓥䓦䓧䓨䓩䓪䓫䓬䓭䓮䓯䓰䓱䓲䓳䓴䓵䓶䓷䓸䓹䓺䓻䓼䓽䓾䓿
+    U+4500..U+451F 䔀䔁䔂䔃䔄䔅䔆䔇䔈䔉䔊䔋䔌䔍䔎䔏䔐䔑䔒䔓䔔䔕䔖䔗䔘䔙䔚䔛䔜䔝䔞䔟
+    U+4520..U+453F 䔠䔡䔢䔣䔤䔥䔦䔧䔨䔩䔪䔫䔬䔭䔮䔯䔰䔱䔲䔳䔴䔵䔶䔷䔸䔹䔺䔻䔼䔽䔾䔿
+    U+4540..U+455F 䕀䕁䕂䕃䕄䕅䕆䕇䕈䕉䕊䕋䕌䕍䕎䕏䕐䕑䕒䕓䕔䕕䕖䕗䕘䕙䕚䕛䕜䕝䕞䕟
+    U+4560..U+457F 䕠䕡䕢䕣䕤䕥䕦䕧䕨䕩䕪䕫䕬䕭䕮䕯䕰䕱䕲䕳䕴䕵䕶䕷䕸䕹䕺䕻䕼䕽䕾䕿
+    U+4580..U+459F 䖀䖁䖂䖃䖄䖅䖆䖇䖈䖉䖊䖋䖌䖍䖎䖏䖐䖑䖒䖓䖔䖕䖖䖗䖘䖙䖚䖛䖜䖝䖞䖟
+    U+45A0..U+45BF 䖠䖡䖢䖣䖤䖥䖦䖧䖨䖩䖪䖫䖬䖭䖮䖯䖰䖱䖲䖳䖴䖵䖶䖷䖸䖹䖺䖻䖼䖽䖾䖿
+    U+45C0..U+45DF 䗀䗁䗂䗃䗄䗅䗆䗇䗈䗉䗊䗋䗌䗍䗎䗏䗐䗑䗒䗓䗔䗕䗖䗗䗘䗙䗚䗛䗜䗝䗞䗟
+    U+45E0..U+45FF 䗠䗡䗢䗣䗤䗥䗦䗧䗨䗩䗪䗫䗬䗭䗮䗯䗰䗱䗲䗳䗴䗵䗶䗷䗸䗹䗺䗻䗼䗽䗾䗿
+    U+4600..U+461F 䘀䘁䘂䘃䘄䘅䘆䘇䘈䘉䘊䘋䘌䘍䘎䘏䘐䘑䘒䘓䘔䘕䘖䘗䘘䘙䘚䘛䘜䘝䘞䘟
+    U+4620..U+463F 䘠䘡䘢䘣䘤䘥䘦䘧䘨䘩䘪䘫䘬䘭䘮䘯䘰䘱䘲䘳䘴䘵䘶䘷䘸䘹䘺䘻䘼䘽䘾䘿
+    U+4640..U+465F 䙀䙁䙂䙃䙄䙅䙆䙇䙈䙉䙊䙋䙌䙍䙎䙏䙐䙑䙒䙓䙔䙕䙖䙗䙘䙙䙚䙛䙜䙝䙞䙟
+    U+4660..U+467F 䙠䙡䙢䙣䙤䙥䙦䙧䙨䙩䙪䙫䙬䙭䙮䙯䙰䙱䙲䙳䙴䙵䙶䙷䙸䙹䙺䙻䙼䙽䙾䙿
+    U+4680..U+469F 䚀䚁䚂䚃䚄䚅䚆䚇䚈䚉䚊䚋䚌䚍䚎䚏䚐䚑䚒䚓䚔䚕䚖䚗䚘䚙䚚䚛䚜䚝䚞䚟
+    U+46A0..U+46BF 䚠䚡䚢䚣䚤䚥䚦䚧䚨䚩䚪䚫䚬䚭䚮䚯䚰䚱䚲䚳䚴䚵䚶䚷䚸䚹䚺䚻䚼䚽䚾䚿
+    U+46C0..U+46DF 䛀䛁䛂䛃䛄䛅䛆䛇䛈䛉䛊䛋䛌䛍䛎䛏䛐䛑䛒䛓䛔䛕䛖䛗䛘䛙䛚䛛䛜䛝䛞䛟
+    U+46E0..U+46FF 䛠䛡䛢䛣䛤䛥䛦䛧䛨䛩䛪䛫䛬䛭䛮䛯䛰䛱䛲䛳䛴䛵䛶䛷䛸䛹䛺䛻䛼䛽䛾䛿
+    U+4700..U+471F 䜀䜁䜂䜃䜄䜅䜆䜇䜈䜉䜊䜋䜌䜍䜎䜏䜐䜑䜒䜓䜔䜕䜖䜗䜘䜙䜚䜛䜜䜝䜞䜟
+    U+4720..U+473F 䜠䜡䜢䜣䜤䜥䜦䜧䜨䜩䜪䜫䜬䜭䜮䜯䜰䜱䜲䜳䜴䜵䜶䜷䜸䜹䜺䜻䜼䜽䜾䜿
+    U+4740..U+475F 䝀䝁䝂䝃䝄䝅䝆䝇䝈䝉䝊䝋䝌䝍䝎䝏䝐䝑䝒䝓䝔䝕䝖䝗䝘䝙䝚䝛䝜䝝䝞䝟
+    U+4760..U+477F 䝠䝡䝢䝣䝤䝥䝦䝧䝨䝩䝪䝫䝬䝭䝮䝯䝰䝱䝲䝳䝴䝵䝶䝷䝸䝹䝺䝻䝼䝽䝾䝿
+    U+4780..U+479F 䞀䞁䞂䞃䞄䞅䞆䞇䞈䞉䞊䞋䞌䞍䞎䞏䞐䞑䞒䞓䞔䞕䞖䞗䞘䞙䞚䞛䞜䞝䞞䞟
+    U+47A0..U+47BF 䞠䞡䞢䞣䞤䞥䞦䞧䞨䞩䞪䞫䞬䞭䞮䞯䞰䞱䞲䞳䞴䞵䞶䞷䞸䞹䞺䞻䞼䞽䞾䞿
+    U+47C0..U+47DF 䟀䟁䟂䟃䟄䟅䟆䟇䟈䟉䟊䟋䟌䟍䟎䟏䟐䟑䟒䟓䟔䟕䟖䟗䟘䟙䟚䟛䟜䟝䟞䟟
+    U+47E0..U+47FF 䟠䟡䟢䟣䟤䟥䟦䟧䟨䟩䟪䟫䟬䟭䟮䟯䟰䟱䟲䟳䟴䟵䟶䟷䟸䟹䟺䟻䟼䟽䟾䟿
+    U+4800..U+481F 䠀䠁䠂䠃䠄䠅䠆䠇䠈䠉䠊䠋䠌䠍䠎䠏䠐䠑䠒䠓䠔䠕䠖䠗䠘䠙䠚䠛䠜䠝䠞䠟
+    U+4820..U+483F 䠠䠡䠢䠣䠤䠥䠦䠧䠨䠩䠪䠫䠬䠭䠮䠯䠰䠱䠲䠳䠴䠵䠶䠷䠸䠹䠺䠻䠼䠽䠾䠿
+    U+4840..U+485F 䡀䡁䡂䡃䡄䡅䡆䡇䡈䡉䡊䡋䡌䡍䡎䡏䡐䡑䡒䡓䡔䡕䡖䡗䡘䡙䡚䡛䡜䡝䡞䡟
+    U+4860..U+487F 䡠䡡䡢䡣䡤䡥䡦䡧䡨䡩䡪䡫䡬䡭䡮䡯䡰䡱䡲䡳䡴䡵䡶䡷䡸䡹䡺䡻䡼䡽䡾䡿
+    U+4880..U+489F 䢀䢁䢂䢃䢄䢅䢆䢇䢈䢉䢊䢋䢌䢍䢎䢏䢐䢑䢒䢓䢔䢕䢖䢗䢘䢙䢚䢛䢜䢝䢞䢟
+    U+48A0..U+48BF 䢠䢡䢢䢣䢤䢥䢦䢧䢨䢩䢪䢫䢬䢭䢮䢯䢰䢱䢲䢳䢴䢵䢶䢷䢸䢹䢺䢻䢼䢽䢾䢿
+    U+48C0..U+48DF 䣀䣁䣂䣃䣄䣅䣆䣇䣈䣉䣊䣋䣌䣍䣎䣏䣐䣑䣒䣓䣔䣕䣖䣗䣘䣙䣚䣛䣜䣝䣞䣟
+    U+48E0..U+48FF 䣠䣡䣢䣣䣤䣥䣦䣧䣨䣩䣪䣫䣬䣭䣮䣯䣰䣱䣲䣳䣴䣵䣶䣷䣸䣹䣺䣻䣼䣽䣾䣿
+    U+4900..U+491F 䤀䤁䤂䤃䤄䤅䤆䤇䤈䤉䤊䤋䤌䤍䤎䤏䤐䤑䤒䤓䤔䤕䤖䤗䤘䤙䤚䤛䤜䤝䤞䤟
+    U+4920..U+493F 䤠䤡䤢䤣䤤䤥䤦䤧䤨䤩䤪䤫䤬䤭䤮䤯䤰䤱䤲䤳䤴䤵䤶䤷䤸䤹䤺䤻䤼䤽䤾䤿
+    U+4940..U+495F 䥀䥁䥂䥃䥄䥅䥆䥇䥈䥉䥊䥋䥌䥍䥎䥏䥐䥑䥒䥓䥔䥕䥖䥗䥘䥙䥚䥛䥜䥝䥞䥟
+    U+4960..U+497F 䥠䥡䥢䥣䥤䥥䥦䥧䥨䥩䥪䥫䥬䥭䥮䥯䥰䥱䥲䥳䥴䥵䥶䥷䥸䥹䥺䥻䥼䥽䥾䥿
+    U+4980..U+499F 䦀䦁䦂䦃䦄䦅䦆䦇䦈䦉䦊䦋䦌䦍䦎䦏䦐䦑䦒䦓䦔䦕䦖䦗䦘䦙䦚䦛䦜䦝䦞䦟
+    U+49A0..U+49BF 䦠䦡䦢䦣䦤䦥䦦䦧䦨䦩䦪䦫䦬䦭䦮䦯䦰䦱䦲䦳䦴䦵䦶䦷䦸䦹䦺䦻䦼䦽䦾䦿
+    U+49C0..U+49DF 䧀䧁䧂䧃䧄䧅䧆䧇䧈䧉䧊䧋䧌䧍䧎䧏䧐䧑䧒䧓䧔䧕䧖䧗䧘䧙䧚䧛䧜䧝䧞䧟
+    U+49E0..U+49FF 䧠䧡䧢䧣䧤䧥䧦䧧䧨䧩䧪䧫䧬䧭䧮䧯䧰䧱䧲䧳䧴䧵䧶䧷䧸䧹䧺䧻䧼䧽䧾䧿
+    U+4A00..U+4A1F 䨀䨁䨂䨃䨄䨅䨆䨇䨈䨉䨊䨋䨌䨍䨎䨏䨐䨑䨒䨓䨔䨕䨖䨗䨘䨙䨚䨛䨜䨝䨞䨟
+    U+4A20..U+4A3F 䨠䨡䨢䨣䨤䨥䨦䨧䨨䨩䨪䨫䨬䨭䨮䨯䨰䨱䨲䨳䨴䨵䨶䨷䨸䨹䨺䨻䨼䨽䨾䨿
+    U+4A40..U+4A5F 䩀䩁䩂䩃䩄䩅䩆䩇䩈䩉䩊䩋䩌䩍䩎䩏䩐䩑䩒䩓䩔䩕䩖䩗䩘䩙䩚䩛䩜䩝䩞䩟
+    U+4A60..U+4A7F 䩠䩡䩢䩣䩤䩥䩦䩧䩨䩩䩪䩫䩬䩭䩮䩯䩰䩱䩲䩳䩴䩵䩶䩷䩸䩹䩺䩻䩼䩽䩾䩿
+    U+4A80..U+4A9F 䪀䪁䪂䪃䪄䪅䪆䪇䪈䪉䪊䪋䪌䪍䪎䪏䪐䪑䪒䪓䪔䪕䪖䪗䪘䪙䪚䪛䪜䪝䪞䪟
+    U+4AA0..U+4ABF 䪠䪡䪢䪣䪤䪥䪦䪧䪨䪩䪪䪫䪬䪭䪮䪯䪰䪱䪲䪳䪴䪵䪶䪷䪸䪹䪺䪻䪼䪽䪾䪿
+    U+4AC0..U+4ADF 䫀䫁䫂䫃䫄䫅䫆䫇䫈䫉䫊䫋䫌䫍䫎䫏䫐䫑䫒䫓䫔䫕䫖䫗䫘䫙䫚䫛䫜䫝䫞䫟
+    U+4AE0..U+4AFF 䫠䫡䫢䫣䫤䫥䫦䫧䫨䫩䫪䫫䫬䫭䫮䫯䫰䫱䫲䫳䫴䫵䫶䫷䫸䫹䫺䫻䫼䫽䫾䫿
+    U+4B00..U+4B1F 䬀䬁䬂䬃䬄䬅䬆䬇䬈䬉䬊䬋䬌䬍䬎䬏䬐䬑䬒䬓䬔䬕䬖䬗䬘䬙䬚䬛䬜䬝䬞䬟
+    U+4B20..U+4B3F 䬠䬡䬢䬣䬤䬥䬦䬧䬨䬩䬪䬫䬬䬭䬮䬯䬰䬱䬲䬳䬴䬵䬶䬷䬸䬹䬺䬻䬼䬽䬾䬿
+    U+4B40..U+4B5F 䭀䭁䭂䭃䭄䭅䭆䭇䭈䭉䭊䭋䭌䭍䭎䭏䭐䭑䭒䭓䭔䭕䭖䭗䭘䭙䭚䭛䭜䭝䭞䭟
+    U+4B60..U+4B7F 䭠䭡䭢䭣䭤䭥䭦䭧䭨䭩䭪䭫䭬䭭䭮䭯䭰䭱䭲䭳䭴䭵䭶䭷䭸䭹䭺䭻䭼䭽䭾䭿
+    U+4B80..U+4B9F 䮀䮁䮂䮃䮄䮅䮆䮇䮈䮉䮊䮋䮌䮍䮎䮏䮐䮑䮒䮓䮔䮕䮖䮗䮘䮙䮚䮛䮜䮝䮞䮟
+    U+4BA0..U+4BBF 䮠䮡䮢䮣䮤䮥䮦䮧䮨䮩䮪䮫䮬䮭䮮䮯䮰䮱䮲䮳䮴䮵䮶䮷䮸䮹䮺䮻䮼䮽䮾䮿
+    U+4BC0..U+4BDF 䯀䯁䯂䯃䯄䯅䯆䯇䯈䯉䯊䯋䯌䯍䯎䯏䯐䯑䯒䯓䯔䯕䯖䯗䯘䯙䯚䯛䯜䯝䯞䯟
+    U+4BE0..U+4BFF 䯠䯡䯢䯣䯤䯥䯦䯧䯨䯩䯪䯫䯬䯭䯮䯯䯰䯱䯲䯳䯴䯵䯶䯷䯸䯹䯺䯻䯼䯽䯾䯿
+    U+4C00..U+4C1F 䰀䰁䰂䰃䰄䰅䰆䰇䰈䰉䰊䰋䰌䰍䰎䰏䰐䰑䰒䰓䰔䰕䰖䰗䰘䰙䰚䰛䰜䰝䰞䰟
+    U+4C20..U+4C3F 䰠䰡䰢䰣䰤䰥䰦䰧䰨䰩䰪䰫䰬䰭䰮䰯䰰䰱䰲䰳䰴䰵䰶䰷䰸䰹䰺䰻䰼䰽䰾䰿
+    U+4C40..U+4C5F 䱀䱁䱂䱃䱄䱅䱆䱇䱈䱉䱊䱋䱌䱍䱎䱏䱐䱑䱒䱓䱔䱕䱖䱗䱘䱙䱚䱛䱜䱝䱞䱟
+    U+4C60..U+4C7F 䱠䱡䱢䱣䱤䱥䱦䱧䱨䱩䱪䱫䱬䱭䱮䱯䱰䱱䱲䱳䱴䱵䱶䱷䱸䱹䱺䱻䱼䱽䱾䱿
+    U+4C80..U+4C9F 䲀䲁䲂䲃䲄䲅䲆䲇䲈䲉䲊䲋䲌䲍䲎䲏䲐䲑䲒䲓䲔䲕䲖䲗䲘䲙䲚䲛䲜䲝䲞䲟
+    U+4CA0..U+4CBF 䲠䲡䲢䲣䲤䲥䲦䲧䲨䲩䲪䲫䲬䲭䲮䲯䲰䲱䲲䲳䲴䲵䲶䲷䲸䲹䲺䲻䲼䲽䲾䲿
+    U+4CC0..U+4CDF 䳀䳁䳂䳃䳄䳅䳆䳇䳈䳉䳊䳋䳌䳍䳎䳏䳐䳑䳒䳓䳔䳕䳖䳗䳘䳙䳚䳛䳜䳝䳞䳟
+    U+4CE0..U+4CFF 䳠䳡䳢䳣䳤䳥䳦䳧䳨䳩䳪䳫䳬䳭䳮䳯䳰䳱䳲䳳䳴䳵䳶䳷䳸䳹䳺䳻䳼䳽䳾䳿
+    U+4D00..U+4D1F 䴀䴁䴂䴃䴄䴅䴆䴇䴈䴉䴊䴋䴌䴍䴎䴏䴐䴑䴒䴓䴔䴕䴖䴗䴘䴙䴚䴛䴜䴝䴞䴟
+    U+4D20..U+4D3F 䴠䴡䴢䴣䴤䴥䴦䴧䴨䴩䴪䴫䴬䴭䴮䴯䴰䴱䴲䴳䴴䴵䴶䴷䴸䴹䴺䴻䴼䴽䴾䴿
+    U+4D40..U+4D5F 䵀䵁䵂䵃䵄䵅䵆䵇䵈䵉䵊䵋䵌䵍䵎䵏䵐䵑䵒䵓䵔䵕䵖䵗䵘䵙䵚䵛䵜䵝䵞䵟
+    U+4D60..U+4D7F 䵠䵡䵢䵣䵤䵥䵦䵧䵨䵩䵪䵫䵬䵭䵮䵯䵰䵱䵲䵳䵴䵵䵶䵷䵸䵹䵺䵻䵼䵽䵾䵿
+    U+4D80..U+4D9F 䶀䶁䶂䶃䶄䶅䶆䶇䶈䶉䶊䶋䶌䶍䶎䶏䶐䶑䶒䶓䶔䶕䶖䶗䶘䶙䶚䶛䶜䶝䶞䶟
+    U+4DA0..U+4DBF 䶠䶡䶢䶣䶤䶥䶦䶧䶨䶩䶪䶫䶬䶭䶮䶯䶰䶱䶲䶳䶴䶵䶶䶷䶸䶹䶺䶻䶼䶽䶾䶿
+
+#### Yijing Hexagram Symbols
+
+    U+4DC0..U+4DDF ䷀䷁䷂䷃䷄䷅䷆䷇䷈䷉䷊䷋䷌䷍䷎䷏䷐䷑䷒䷓䷔䷕䷖䷗䷘䷙䷚䷛䷜䷝䷞䷟
+    U+4DE0..U+4DFF ䷠䷡䷢䷣䷤䷥䷦䷧䷨䷩䷪䷫䷬䷭䷮䷯䷰䷱䷲䷳䷴䷵䷶䷷䷸䷹䷺䷻䷼䷽䷾䷿
+
+#### CJK Unified Ideographs
+
+    U+4E00..U+4E1F 一丁丂七丄丅丆万丈三上下丌不与丏丐丑丒专且丕世丗丘丙业丛东丝丞丟
+    U+4E20..U+4E3F 丠両丢丣两严並丧丨丩个丫丬中丮丯丰丱串丳临丵丶丷丸丹为主丼丽举丿
+    U+4E40..U+4E5F 乀乁乂乃乄久乆乇么义乊之乌乍乎乏乐乑乒乓乔乕乖乗乘乙乚乛乜九乞也
+    U+4E60..U+4E7F 习乡乢乣乤乥书乧乨乩乪乫乬乭乮乯买乱乲乳乴乵乶乷乸乹乺乻乼乽乾乿
+    U+4E80..U+4E9F 亀亁亂亃亄亅了亇予争亊事二亍于亏亐云互亓五井亖亗亘亙亚些亜亝亞亟
+    U+4EA0..U+4EBF 亠亡亢亣交亥亦产亨亩亪享京亭亮亯亰亱亲亳亴亵亶亷亸亹人亻亼亽亾亿
+    U+4EC0..U+4EDF 什仁仂仃仄仅仆仇仈仉今介仌仍从仏仐仑仒仓仔仕他仗付仙仚仛仜仝仞仟
+    U+4EE0..U+4EFF 仠仡仢代令以仦仧仨仩仪仫们仭仮仯仰仱仲仳仴仵件价仸仹仺任仼份仾仿
+    U+4F00..U+4F1F 伀企伂伃伄伅伆伇伈伉伊伋伌伍伎伏伐休伒伓伔伕伖众优伙会伛伜伝伞伟
+    U+4F20..U+4F3F 传伡伢伣伤伥伦伧伨伩伪伫伬伭伮伯估伱伲伳伴伵伶伷伸伹伺伻似伽伾伿
+    U+4F40..U+4F5F 佀佁佂佃佄佅但佇佈佉佊佋佌位低住佐佑佒体佔何佖佗佘余佚佛作佝佞佟
+    U+4F60..U+4F7F 你佡佢佣佤佥佦佧佨佩佪佫佬佭佮佯佰佱佲佳佴併佶佷佸佹佺佻佼佽佾使
+    U+4F80..U+4F9F 侀侁侂侃侄侅來侇侈侉侊例侌侍侎侏侐侑侒侓侔侕侖侗侘侙侚供侜依侞侟
+    U+4FA0..U+4FBF 侠価侢侣侤侥侦侧侨侩侪侫侬侭侮侯侰侱侲侳侴侵侶侷侸侹侺侻侼侽侾便
+    U+4FC0..U+4FDF 俀俁係促俄俅俆俇俈俉俊俋俌俍俎俏俐俑俒俓俔俕俖俗俘俙俚俛俜保俞俟
+    U+4FE0..U+4FFF 俠信俢俣俤俥俦俧俨俩俪俫俬俭修俯俰俱俲俳俴俵俶俷俸俹俺俻俼俽俾俿
+    U+5000..U+501F 倀倁倂倃倄倅倆倇倈倉倊個倌倍倎倏倐們倒倓倔倕倖倗倘候倚倛倜倝倞借
+    U+5020..U+503F 倠倡倢倣値倥倦倧倨倩倪倫倬倭倮倯倰倱倲倳倴倵倶倷倸倹债倻值倽倾倿
+    U+5040..U+505F 偀偁偂偃偄偅偆假偈偉偊偋偌偍偎偏偐偑偒偓偔偕偖偗偘偙做偛停偝偞偟
+    U+5060..U+507F 偠偡偢偣偤健偦偧偨偩偪偫偬偭偮偯偰偱偲偳側偵偶偷偸偹偺偻偼偽偾偿
+    U+5080..U+509F 傀傁傂傃傄傅傆傇傈傉傊傋傌傍傎傏傐傑傒傓傔傕傖傗傘備傚傛傜傝傞傟
+    U+50A0..U+50BF 傠傡傢傣傤傥傦傧储傩傪傫催傭傮傯傰傱傲傳傴債傶傷傸傹傺傻傼傽傾傿
+    U+50C0..U+50DF 僀僁僂僃僄僅僆僇僈僉僊僋僌働僎像僐僑僒僓僔僕僖僗僘僙僚僛僜僝僞僟
+    U+50E0..U+50FF 僠僡僢僣僤僥僦僧僨僩僪僫僬僭僮僯僰僱僲僳僴僵僶僷僸價僺僻僼僽僾僿
+    U+5100..U+511F 儀儁儂儃億儅儆儇儈儉儊儋儌儍儎儏儐儑儒儓儔儕儖儗儘儙儚儛儜儝儞償
+    U+5120..U+513F 儠儡儢儣儤儥儦儧儨儩優儫儬儭儮儯儰儱儲儳儴儵儶儷儸儹儺儻儼儽儾儿
+    U+5140..U+515F 兀允兂元兄充兆兇先光兊克兌免兎兏児兑兒兓兔兕兖兗兘兙党兛兜兝兞兟
+    U+5160..U+517F 兠兡兢兣兤入兦內全兩兪八公六兮兯兰共兲关兴兵其具典兹兺养兼兽兾兿
+    U+5180..U+519F 冀冁冂冃冄内円冇冈冉冊冋册再冎冏冐冑冒冓冔冕冖冗冘写冚军农冝冞冟
+    U+51A0..U+51BF 冠冡冢冣冤冥冦冧冨冩冪冫冬冭冮冯冰冱冲决冴况冶冷冸冹冺冻冼冽冾冿
+    U+51C0..U+51DF 净凁凂凃凄凅准凇凈凉凊凋凌凍凎减凐凑凒凓凔凕凖凗凘凙凚凛凜凝凞凟
+    U+51E0..U+51FF 几凡凢凣凤凥処凧凨凩凪凫凬凭凮凯凰凱凲凳凴凵凶凷凸凹出击凼函凾凿
+    U+5200..U+521F 刀刁刂刃刄刅分切刈刉刊刋刌刍刎刏刐刑划刓刔刕刖列刘则刚创刜初刞刟
+    U+5220..U+523F 删刡刢刣判別刦刧刨利刪别刬刭刮刯到刱刲刳刴刵制刷券刹刺刻刼刽刾刿
+    U+5240..U+525F 剀剁剂剃剄剅剆則剈剉削剋剌前剎剏剐剑剒剓剔剕剖剗剘剙剚剛剜剝剞剟
+    U+5260..U+527F 剠剡剢剣剤剥剦剧剨剩剪剫剬剭剮副剰剱割剳剴創剶剷剸剹剺剻剼剽剾剿
+    U+5280..U+529F 劀劁劂劃劄劅劆劇劈劉劊劋劌劍劎劏劐劑劒劓劔劕劖劗劘劙劚力劜劝办功
+    U+52A0..U+52BF 加务劢劣劤劥劦劧动助努劫劬劭劮劯劰励劲劳労劵劶劷劸効劺劻劼劽劾势
+    U+52C0..U+52DF 勀勁勂勃勄勅勆勇勈勉勊勋勌勍勎勏勐勑勒勓勔動勖勗勘務勚勛勜勝勞募
+    U+52E0..U+52FF 勠勡勢勣勤勥勦勧勨勩勪勫勬勭勮勯勰勱勲勳勴勵勶勷勸勹勺勻勼勽勾勿
+    U+5300..U+531F 匀匁匂匃匄包匆匇匈匉匊匋匌匍匎匏匐匑匒匓匔匕化北匘匙匚匛匜匝匞匟
+    U+5320..U+533F 匠匡匢匣匤匥匦匧匨匩匪匫匬匭匮匯匰匱匲匳匴匵匶匷匸匹区医匼匽匾匿
+    U+5340..U+535F 區十卂千卄卅卆升午卉半卋卌卍华协卐卑卒卓協单卖南単卙博卛卜卝卞卟
+    U+5360..U+537F 占卡卢卣卤卥卦卧卨卩卪卫卬卭卮卯印危卲即却卵卶卷卸卹卺卻卼卽卾卿
+    U+5380..U+539F 厀厁厂厃厄厅历厇厈厉厊压厌厍厎厏厐厑厒厓厔厕厖厗厘厙厚厛厜厝厞原
+    U+53A0..U+53BF 厠厡厢厣厤厥厦厧厨厩厪厫厬厭厮厯厰厱厲厳厴厵厶厷厸厹厺去厼厽厾县
+    U+53C0..U+53DF 叀叁参參叄叅叆叇又叉及友双反収叏叐发叒叓叔叕取受变叙叚叛叜叝叞叟
+    U+53E0..U+53FF 叠叡叢口古句另叧叨叩只叫召叭叮可台叱史右叴叵叶号司叹叺叻叼叽叾叿
+    U+5400..U+541F 吀吁吂吃各吅吆吇合吉吊吋同名后吏吐向吒吓吔吕吖吗吘吙吚君吜吝吞吟
+    U+5420..U+543F 吠吡吢吣吤吥否吧吨吩吪含听吭吮启吰吱吲吳吴吵吶吷吸吹吺吻吼吽吾吿
+    U+5440..U+545F 呀呁呂呃呄呅呆呇呈呉告呋呌呍呎呏呐呑呒呓呔呕呖呗员呙呚呛呜呝呞呟
+    U+5460..U+547F 呠呡呢呣呤呥呦呧周呩呪呫呬呭呮呯呰呱呲味呴呵呶呷呸呹呺呻呼命呾呿
+    U+5480..U+549F 咀咁咂咃咄咅咆咇咈咉咊咋和咍咎咏咐咑咒咓咔咕咖咗咘咙咚咛咜咝咞咟
+    U+54A0..U+54BF 咠咡咢咣咤咥咦咧咨咩咪咫咬咭咮咯咰咱咲咳咴咵咶咷咸咹咺咻咼咽咾咿
+    U+54C0..U+54DF 哀品哂哃哄哅哆哇哈哉哊哋哌响哎哏哐哑哒哓哔哕哖哗哘哙哚哛哜哝哞哟
+    U+54E0..U+54FF 哠員哢哣哤哥哦哧哨哩哪哫哬哭哮哯哰哱哲哳哴哵哶哷哸哹哺哻哼哽哾哿
+    U+5500..U+551F 唀唁唂唃唄唅唆唇唈唉唊唋唌唍唎唏唐唑唒唓唔唕唖唗唘唙唚唛唜唝唞唟
+    U+5520..U+553F 唠唡唢唣唤唥唦唧唨唩唪唫唬唭售唯唰唱唲唳唴唵唶唷唸唹唺唻唼唽唾唿
+    U+5540..U+555F 啀啁啂啃啄啅商啇啈啉啊啋啌啍啎問啐啑啒啓啔啕啖啗啘啙啚啛啜啝啞啟
+    U+5560..U+557F 啠啡啢啣啤啥啦啧啨啩啪啫啬啭啮啯啰啱啲啳啴啵啶啷啸啹啺啻啼啽啾啿
+    U+5580..U+559F 喀喁喂喃善喅喆喇喈喉喊喋喌喍喎喏喐喑喒喓喔喕喖喗喘喙喚喛喜喝喞喟
+    U+55A0..U+55BF 喠喡喢喣喤喥喦喧喨喩喪喫喬喭單喯喰喱喲喳喴喵営喷喸喹喺喻喼喽喾喿
+    U+55C0..U+55DF 嗀嗁嗂嗃嗄嗅嗆嗇嗈嗉嗊嗋嗌嗍嗎嗏嗐嗑嗒嗓嗔嗕嗖嗗嗘嗙嗚嗛嗜嗝嗞嗟
+    U+55E0..U+55FF 嗠嗡嗢嗣嗤嗥嗦嗧嗨嗩嗪嗫嗬嗭嗮嗯嗰嗱嗲嗳嗴嗵嗶嗷嗸嗹嗺嗻嗼嗽嗾嗿
+    U+5600..U+561F 嘀嘁嘂嘃嘄嘅嘆嘇嘈嘉嘊嘋嘌嘍嘎嘏嘐嘑嘒嘓嘔嘕嘖嘗嘘嘙嘚嘛嘜嘝嘞嘟
+    U+5620..U+563F 嘠嘡嘢嘣嘤嘥嘦嘧嘨嘩嘪嘫嘬嘭嘮嘯嘰嘱嘲嘳嘴嘵嘶嘷嘸嘹嘺嘻嘼嘽嘾嘿
+    U+5640..U+565F 噀噁噂噃噄噅噆噇噈噉噊噋噌噍噎噏噐噑噒噓噔噕噖噗噘噙噚噛噜噝噞噟
+    U+5660..U+567F 噠噡噢噣噤噥噦噧器噩噪噫噬噭噮噯噰噱噲噳噴噵噶噷噸噹噺噻噼噽噾噿
+    U+5680..U+569F 嚀嚁嚂嚃嚄嚅嚆嚇嚈嚉嚊嚋嚌嚍嚎嚏嚐嚑嚒嚓嚔嚕嚖嚗嚘嚙嚚嚛嚜嚝嚞嚟
+    U+56A0..U+56BF 嚠嚡嚢嚣嚤嚥嚦嚧嚨嚩嚪嚫嚬嚭嚮嚯嚰嚱嚲嚳嚴嚵嚶嚷嚸嚹嚺嚻嚼嚽嚾嚿
+    U+56C0..U+56DF 囀囁囂囃囄囅囆囇囈囉囊囋囌囍囎囏囐囑囒囓囔囕囖囗囘囙囚四囜囝回囟
+    U+56E0..U+56FF 因囡团団囤囥囦囧囨囩囪囫囬园囮囯困囱囲図围囵囶囷囸囹固囻囼国图囿
+    U+5700..U+571F 圀圁圂圃圄圅圆圇圈圉圊國圌圍圎圏圐圑園圓圔圕圖圗團圙圚圛圜圝圞土
+    U+5720..U+573F 圠圡圢圣圤圥圦圧在圩圪圫圬圭圮圯地圱圲圳圴圵圶圷圸圹场圻圼圽圾圿
+    U+5740..U+575F 址坁坂坃坄坅坆均坈坉坊坋坌坍坎坏坐坑坒坓坔坕坖块坘坙坚坛坜坝坞坟
+    U+5760..U+577F 坠坡坢坣坤坥坦坧坨坩坪坫坬坭坮坯坰坱坲坳坴坵坶坷坸坹坺坻坼坽坾坿
+    U+5780..U+579F 垀垁垂垃垄垅垆垇垈垉垊型垌垍垎垏垐垑垒垓垔垕垖垗垘垙垚垛垜垝垞垟
+    U+57A0..U+57BF 垠垡垢垣垤垥垦垧垨垩垪垫垬垭垮垯垰垱垲垳垴垵垶垷垸垹垺垻垼垽垾垿
+    U+57C0..U+57DF 埀埁埂埃埄埅埆埇埈埉埊埋埌埍城埏埐埑埒埓埔埕埖埗埘埙埚埛埜埝埞域
+    U+57E0..U+57FF 埠埡埢埣埤埥埦埧埨埩埪埫埬埭埮埯埰埱埲埳埴埵埶執埸培基埻埼埽埾埿
+    U+5800..U+581F 堀堁堂堃堄堅堆堇堈堉堊堋堌堍堎堏堐堑堒堓堔堕堖堗堘堙堚堛堜堝堞堟
+    U+5820..U+583F 堠堡堢堣堤堥堦堧堨堩堪堫堬堭堮堯堰報堲堳場堵堶堷堸堹堺堻堼堽堾堿
+    U+5840..U+585F 塀塁塂塃塄塅塆塇塈塉塊塋塌塍塎塏塐塑塒塓塔塕塖塗塘塙塚塛塜塝塞塟
+    U+5860..U+587F 塠塡塢塣塤塥塦塧塨塩塪填塬塭塮塯塰塱塲塳塴塵塶塷塸塹塺塻塼塽塾塿
+    U+5880..U+589F 墀墁墂境墄墅墆墇墈墉墊墋墌墍墎墏墐墑墒墓墔墕墖増墘墙墚墛墜墝增墟
+    U+58A0..U+58BF 墠墡墢墣墤墥墦墧墨墩墪墫墬墭墮墯墰墱墲墳墴墵墶墷墸墹墺墻墼墽墾墿
+    U+58C0..U+58DF 壀壁壂壃壄壅壆壇壈壉壊壋壌壍壎壏壐壑壒壓壔壕壖壗壘壙壚壛壜壝壞壟
+    U+58E0..U+58FF 壠壡壢壣壤壥壦壧壨壩壪士壬壭壮壯声壱売壳壴壵壶壷壸壹壺壻壼壽壾壿
+    U+5900..U+591F 夀夁夂夃处夅夆备夈変夊夋夌复夎夏夐夑夒夓夔夕外夗夘夙多夛夜夝夞够
+    U+5920..U+593F 夠夡夢夣夤夥夦大夨天太夫夬夭央夯夰失夲夳头夵夶夷夸夹夺夻夼夽夾夿
+    U+5940..U+595F 奀奁奂奃奄奅奆奇奈奉奊奋奌奍奎奏奐契奒奓奔奕奖套奘奙奚奛奜奝奞奟
+    U+5960..U+597F 奠奡奢奣奤奥奦奧奨奩奪奫奬奭奮奯奰奱奲女奴奵奶奷奸她奺奻奼好奾奿
+    U+5980..U+599F 妀妁如妃妄妅妆妇妈妉妊妋妌妍妎妏妐妑妒妓妔妕妖妗妘妙妚妛妜妝妞妟
+    U+59A0..U+59BF 妠妡妢妣妤妥妦妧妨妩妪妫妬妭妮妯妰妱妲妳妴妵妶妷妸妹妺妻妼妽妾妿
+    U+59C0..U+59DF 姀姁姂姃姄姅姆姇姈姉姊始姌姍姎姏姐姑姒姓委姕姖姗姘姙姚姛姜姝姞姟
+    U+59E0..U+59FF 姠姡姢姣姤姥姦姧姨姩姪姫姬姭姮姯姰姱姲姳姴姵姶姷姸姹姺姻姼姽姾姿
+    U+5A00..U+5A1F 娀威娂娃娄娅娆娇娈娉娊娋娌娍娎娏娐娑娒娓娔娕娖娗娘娙娚娛娜娝娞娟
+    U+5A20..U+5A3F 娠娡娢娣娤娥娦娧娨娩娪娫娬娭娮娯娰娱娲娳娴娵娶娷娸娹娺娻娼娽娾娿
+    U+5A40..U+5A5F 婀婁婂婃婄婅婆婇婈婉婊婋婌婍婎婏婐婑婒婓婔婕婖婗婘婙婚婛婜婝婞婟
+    U+5A60..U+5A7F 婠婡婢婣婤婥婦婧婨婩婪婫婬婭婮婯婰婱婲婳婴婵婶婷婸婹婺婻婼婽婾婿
+    U+5A80..U+5A9F 媀媁媂媃媄媅媆媇媈媉媊媋媌媍媎媏媐媑媒媓媔媕媖媗媘媙媚媛媜媝媞媟
+    U+5AA0..U+5ABF 媠媡媢媣媤媥媦媧媨媩媪媫媬媭媮媯媰媱媲媳媴媵媶媷媸媹媺媻媼媽媾媿
+    U+5AC0..U+5ADF 嫀嫁嫂嫃嫄嫅嫆嫇嫈嫉嫊嫋嫌嫍嫎嫏嫐嫑嫒嫓嫔嫕嫖嫗嫘嫙嫚嫛嫜嫝嫞嫟
+    U+5AE0..U+5AFF 嫠嫡嫢嫣嫤嫥嫦嫧嫨嫩嫪嫫嫬嫭嫮嫯嫰嫱嫲嫳嫴嫵嫶嫷嫸嫹嫺嫻嫼嫽嫾嫿
+    U+5B00..U+5B1F 嬀嬁嬂嬃嬄嬅嬆嬇嬈嬉嬊嬋嬌嬍嬎嬏嬐嬑嬒嬓嬔嬕嬖嬗嬘嬙嬚嬛嬜嬝嬞嬟
+    U+5B20..U+5B3F 嬠嬡嬢嬣嬤嬥嬦嬧嬨嬩嬪嬫嬬嬭嬮嬯嬰嬱嬲嬳嬴嬵嬶嬷嬸嬹嬺嬻嬼嬽嬾嬿
+    U+5B40..U+5B5F 孀孁孂孃孄孅孆孇孈孉孊孋孌孍孎孏子孑孒孓孔孕孖字存孙孚孛孜孝孞孟
+    U+5B60..U+5B7F 孠孡孢季孤孥学孧孨孩孪孫孬孭孮孯孰孱孲孳孴孵孶孷學孹孺孻孼孽孾孿
+    U+5B80..U+5B9F 宀宁宂它宄宅宆宇守安宊宋完宍宎宏宐宑宒宓宔宕宖宗官宙定宛宜宝实実
+    U+5BA0..U+5BBF 宠审客宣室宥宦宧宨宩宪宫宬宭宮宯宰宱宲害宴宵家宷宸容宺宻宼宽宾宿
+    U+5BC0..U+5BDF 寀寁寂寃寄寅密寇寈寉寊寋富寍寎寏寐寑寒寓寔寕寖寗寘寙寚寛寜寝寞察
+    U+5BE0..U+5BFF 寠寡寢寣寤寥實寧寨審寪寫寬寭寮寯寰寱寲寳寴寵寶寷寸对寺寻导寽対寿
+    U+5C00..U+5C1F 尀封専尃射尅将將專尉尊尋尌對導小尐少尒尓尔尕尖尗尘尙尚尛尜尝尞尟
+    U+5C20..U+5C3F 尠尡尢尣尤尥尦尧尨尩尪尫尬尭尮尯尰就尲尳尴尵尶尷尸尹尺尻尼尽尾尿
+    U+5C40..U+5C5F 局屁层屃屄居屆屇屈屉届屋屌屍屎屏屐屑屒屓屔展屖屗屘屙屚屛屜屝属屟
+    U+5C60..U+5C7F 屠屡屢屣層履屦屧屨屩屪屫屬屭屮屯屰山屲屳屴屵屶屷屸屹屺屻屼屽屾屿
+    U+5C80..U+5C9F 岀岁岂岃岄岅岆岇岈岉岊岋岌岍岎岏岐岑岒岓岔岕岖岗岘岙岚岛岜岝岞岟
+    U+5CA0..U+5CBF 岠岡岢岣岤岥岦岧岨岩岪岫岬岭岮岯岰岱岲岳岴岵岶岷岸岹岺岻岼岽岾岿
+    U+5CC0..U+5CDF 峀峁峂峃峄峅峆峇峈峉峊峋峌峍峎峏峐峑峒峓峔峕峖峗峘峙峚峛峜峝峞峟
+    U+5CE0..U+5CFF 峠峡峢峣峤峥峦峧峨峩峪峫峬峭峮峯峰峱峲峳峴峵島峷峸峹峺峻峼峽峾峿
+    U+5D00..U+5D1F 崀崁崂崃崄崅崆崇崈崉崊崋崌崍崎崏崐崑崒崓崔崕崖崗崘崙崚崛崜崝崞崟
+    U+5D20..U+5D3F 崠崡崢崣崤崥崦崧崨崩崪崫崬崭崮崯崰崱崲崳崴崵崶崷崸崹崺崻崼崽崾崿
+    U+5D40..U+5D5F 嵀嵁嵂嵃嵄嵅嵆嵇嵈嵉嵊嵋嵌嵍嵎嵏嵐嵑嵒嵓嵔嵕嵖嵗嵘嵙嵚嵛嵜嵝嵞嵟
+    U+5D60..U+5D7F 嵠嵡嵢嵣嵤嵥嵦嵧嵨嵩嵪嵫嵬嵭嵮嵯嵰嵱嵲嵳嵴嵵嵶嵷嵸嵹嵺嵻嵼嵽嵾嵿
+    U+5D80..U+5D9F 嶀嶁嶂嶃嶄嶅嶆嶇嶈嶉嶊嶋嶌嶍嶎嶏嶐嶑嶒嶓嶔嶕嶖嶗嶘嶙嶚嶛嶜嶝嶞嶟
+    U+5DA0..U+5DBF 嶠嶡嶢嶣嶤嶥嶦嶧嶨嶩嶪嶫嶬嶭嶮嶯嶰嶱嶲嶳嶴嶵嶶嶷嶸嶹嶺嶻嶼嶽嶾嶿
+    U+5DC0..U+5DDF 巀巁巂巃巄巅巆巇巈巉巊巋巌巍巎巏巐巑巒巓巔巕巖巗巘巙巚巛巜川州巟
+    U+5DE0..U+5DFF 巠巡巢巣巤工左巧巨巩巪巫巬巭差巯巰己已巳巴巵巶巷巸巹巺巻巼巽巾巿
+    U+5E00..U+5E1F 帀币市布帄帅帆帇师帉帊帋希帍帎帏帐帑帒帓帔帕帖帗帘帙帚帛帜帝帞帟
+    U+5E20..U+5E3F 帠帡帢帣帤帥带帧帨帩帪師帬席帮帯帰帱帲帳帴帵帶帷常帹帺帻帼帽帾帿
+    U+5E40..U+5E5F 幀幁幂幃幄幅幆幇幈幉幊幋幌幍幎幏幐幑幒幓幔幕幖幗幘幙幚幛幜幝幞幟
+    U+5E60..U+5E7F 幠幡幢幣幤幥幦幧幨幩幪幫幬幭幮幯幰幱干平年幵并幷幸幹幺幻幼幽幾广
+    U+5E80..U+5E9F 庀庁庂広庄庅庆庇庈庉床庋庌庍庎序庐庑庒库应底庖店庘庙庚庛府庝庞废
+    U+5EA0..U+5EBF 庠庡庢庣庤庥度座庨庩庪庫庬庭庮庯庰庱庲庳庴庵庶康庸庹庺庻庼庽庾庿
+    U+5EC0..U+5EDF 廀廁廂廃廄廅廆廇廈廉廊廋廌廍廎廏廐廑廒廓廔廕廖廗廘廙廚廛廜廝廞廟
+    U+5EE0..U+5EFF 廠廡廢廣廤廥廦廧廨廩廪廫廬廭廮廯廰廱廲廳廴廵延廷廸廹建廻廼廽廾廿
+    U+5F00..U+5F1F 开弁异弃弄弅弆弇弈弉弊弋弌弍弎式弐弑弒弓弔引弖弗弘弙弚弛弜弝弞弟
+    U+5F20..U+5F3F 张弡弢弣弤弥弦弧弨弩弪弫弬弭弮弯弰弱弲弳弴張弶強弸弹强弻弼弽弾弿
+    U+5F40..U+5F5F 彀彁彂彃彄彅彆彇彈彉彊彋彌彍彎彏彐彑归当彔录彖彗彘彙彚彛彜彝彞彟
+    U+5F60..U+5F7F 彠彡形彣彤彥彦彧彨彩彪彫彬彭彮彯彰影彲彳彴彵彶彷彸役彺彻彼彽彾彿
+    U+5F80..U+5F9F 往征徂徃径待徆徇很徉徊律後徍徎徏徐徑徒従徔徕徖得徘徙徚徛徜徝從徟
+    U+5FA0..U+5FBF 徠御徢徣徤徥徦徧徨復循徫徬徭微徯徰徱徲徳徴徵徶德徸徹徺徻徼徽徾徿
+    U+5FC0..U+5FDF 忀忁忂心忄必忆忇忈忉忊忋忌忍忎忏忐忑忒忓忔忕忖志忘忙忚忛応忝忞忟
+    U+5FE0..U+5FFF 忠忡忢忣忤忥忦忧忨忩忪快忬忭忮忯忰忱忲忳忴念忶忷忸忹忺忻忼忽忾忿
+    U+6000..U+601F 怀态怂怃怄怅怆怇怈怉怊怋怌怍怎怏怐怑怒怓怔怕怖怗怘怙怚怛怜思怞怟
+    U+6020..U+603F 怠怡怢怣怤急怦性怨怩怪怫怬怭怮怯怰怱怲怳怴怵怶怷怸怹怺总怼怽怾怿
+    U+6040..U+605F 恀恁恂恃恄恅恆恇恈恉恊恋恌恍恎恏恐恑恒恓恔恕恖恗恘恙恚恛恜恝恞恟
+    U+6060..U+607F 恠恡恢恣恤恥恦恧恨恩恪恫恬恭恮息恰恱恲恳恴恵恶恷恸恹恺恻恼恽恾恿
+    U+6080..U+609F 悀悁悂悃悄悅悆悇悈悉悊悋悌悍悎悏悐悑悒悓悔悕悖悗悘悙悚悛悜悝悞悟
+    U+60A0..U+60BF 悠悡悢患悤悥悦悧您悩悪悫悬悭悮悯悰悱悲悳悴悵悶悷悸悹悺悻悼悽悾悿
+    U+60C0..U+60DF 惀惁惂惃惄情惆惇惈惉惊惋惌惍惎惏惐惑惒惓惔惕惖惗惘惙惚惛惜惝惞惟
+    U+60E0..U+60FF 惠惡惢惣惤惥惦惧惨惩惪惫惬惭惮惯惰惱惲想惴惵惶惷惸惹惺惻惼惽惾惿
+    U+6100..U+611F 愀愁愂愃愄愅愆愇愈愉愊愋愌愍愎意愐愑愒愓愔愕愖愗愘愙愚愛愜愝愞感
+    U+6120..U+613F 愠愡愢愣愤愥愦愧愨愩愪愫愬愭愮愯愰愱愲愳愴愵愶愷愸愹愺愻愼愽愾愿
+    U+6140..U+615F 慀慁慂慃慄慅慆慇慈慉慊態慌慍慎慏慐慑慒慓慔慕慖慗慘慙慚慛慜慝慞慟
+    U+6160..U+617F 慠慡慢慣慤慥慦慧慨慩慪慫慬慭慮慯慰慱慲慳慴慵慶慷慸慹慺慻慼慽慾慿
+    U+6180..U+619F 憀憁憂憃憄憅憆憇憈憉憊憋憌憍憎憏憐憑憒憓憔憕憖憗憘憙憚憛憜憝憞憟
+    U+61A0..U+61BF 憠憡憢憣憤憥憦憧憨憩憪憫憬憭憮憯憰憱憲憳憴憵憶憷憸憹憺憻憼憽憾憿
+    U+61C0..U+61DF 懀懁懂懃懄懅懆懇懈應懊懋懌懍懎懏懐懑懒懓懔懕懖懗懘懙懚懛懜懝懞懟
+    U+61E0..U+61FF 懠懡懢懣懤懥懦懧懨懩懪懫懬懭懮懯懰懱懲懳懴懵懶懷懸懹懺懻懼懽懾懿
+    U+6200..U+621F 戀戁戂戃戄戅戆戇戈戉戊戋戌戍戎戏成我戒戓戔戕或戗战戙戚戛戜戝戞戟
+    U+6220..U+623F 戠戡戢戣戤戥戦戧戨戩截戫戬戭戮戯戰戱戲戳戴戵戶户戸戹戺戻戼戽戾房
+    U+6240..U+625F 所扁扂扃扄扅扆扇扈扉扊手扌才扎扏扐扑扒打扔払扖扗托扙扚扛扜扝扞扟
+    U+6260..U+627F 扠扡扢扣扤扥扦执扨扩扪扫扬扭扮扯扰扱扲扳扴扵扶扷扸批扺扻扼扽找承
+    U+6280..U+629F 技抁抂抃抄抅抆抇抈抉把抋抌抍抎抏抐抑抒抓抔投抖抗折抙抚抛抜抝択抟
+    U+62A0..U+62BF 抠抡抢抣护报抦抧抨抩抪披抬抭抮抯抰抱抲抳抴抵抶抷抸抹抺抻押抽抾抿
+    U+62C0..U+62DF 拀拁拂拃拄担拆拇拈拉拊拋拌拍拎拏拐拑拒拓拔拕拖拗拘拙拚招拜拝拞拟
+    U+62E0..U+62FF 拠拡拢拣拤拥拦拧拨择拪拫括拭拮拯拰拱拲拳拴拵拶拷拸拹拺拻拼拽拾拿
+    U+6300..U+631F 挀持挂挃挄挅挆指挈按挊挋挌挍挎挏挐挑挒挓挔挕挖挗挘挙挚挛挜挝挞挟
+    U+6320..U+633F 挠挡挢挣挤挥挦挧挨挩挪挫挬挭挮振挰挱挲挳挴挵挶挷挸挹挺挻挼挽挾挿
+    U+6340..U+635F 捀捁捂捃捄捅捆捇捈捉捊捋捌捍捎捏捐捑捒捓捔捕捖捗捘捙捚捛捜捝捞损
+    U+6360..U+637F 捠捡换捣捤捥捦捧捨捩捪捫捬捭据捯捰捱捲捳捴捵捶捷捸捹捺捻捼捽捾捿
+    U+6380..U+639F 掀掁掂掃掄掅掆掇授掉掊掋掌掍掎掏掐掑排掓掔掕掖掗掘掙掚掛掜掝掞掟
+    U+63A0..U+63BF 掠採探掣掤接掦控推掩措掫掬掭掮掯掰掱掲掳掴掵掶掷掸掹掺掻掼掽掾掿
+    U+63C0..U+63DF 揀揁揂揃揄揅揆揇揈揉揊揋揌揍揎描提揑插揓揔揕揖揗揘揙揚換揜揝揞揟
+    U+63E0..U+63FF 揠握揢揣揤揥揦揧揨揩揪揫揬揭揮揯揰揱揲揳援揵揶揷揸揹揺揻揼揽揾揿
+    U+6400..U+641F 搀搁搂搃搄搅搆搇搈搉搊搋搌損搎搏搐搑搒搓搔搕搖搗搘搙搚搛搜搝搞搟
+    U+6420..U+643F 搠搡搢搣搤搥搦搧搨搩搪搫搬搭搮搯搰搱搲搳搴搵搶搷搸搹携搻搼搽搾搿
+    U+6440..U+645F 摀摁摂摃摄摅摆摇摈摉摊摋摌摍摎摏摐摑摒摓摔摕摖摗摘摙摚摛摜摝摞摟
+    U+6460..U+647F 摠摡摢摣摤摥摦摧摨摩摪摫摬摭摮摯摰摱摲摳摴摵摶摷摸摹摺摻摼摽摾摿
+    U+6480..U+649F 撀撁撂撃撄撅撆撇撈撉撊撋撌撍撎撏撐撑撒撓撔撕撖撗撘撙撚撛撜撝撞撟
+    U+64A0..U+64BF 撠撡撢撣撤撥撦撧撨撩撪撫撬播撮撯撰撱撲撳撴撵撶撷撸撹撺撻撼撽撾撿
+    U+64C0..U+64DF 擀擁擂擃擄擅擆擇擈擉擊擋擌操擎擏擐擑擒擓擔擕擖擗擘擙據擛擜擝擞擟
+    U+64E0..U+64FF 擠擡擢擣擤擥擦擧擨擩擪擫擬擭擮擯擰擱擲擳擴擵擶擷擸擹擺擻擼擽擾擿
+    U+6500..U+651F 攀攁攂攃攄攅攆攇攈攉攊攋攌攍攎攏攐攑攒攓攔攕攖攗攘攙攚攛攜攝攞攟
+    U+6520..U+653F 攠攡攢攣攤攥攦攧攨攩攪攫攬攭攮支攰攱攲攳攴攵收攷攸改攺攻攼攽放政
+    U+6540..U+655F 敀敁敂敃敄故敆敇效敉敊敋敌敍敎敏敐救敒敓敔敕敖敗敘教敚敛敜敝敞敟
+    U+6560..U+657F 敠敡敢散敤敥敦敧敨敩敪敫敬敭敮敯数敱敲敳整敵敶敷數敹敺敻敼敽敾敿
+    U+6580..U+659F 斀斁斂斃斄斅斆文斈斉斊斋斌斍斎斏斐斑斒斓斔斕斖斗斘料斚斛斜斝斞斟
+    U+65A0..U+65BF 斠斡斢斣斤斥斦斧斨斩斪斫斬断斮斯新斱斲斳斴斵斶斷斸方斺斻於施斾斿
+    U+65C0..U+65DF 旀旁旂旃旄旅旆旇旈旉旊旋旌旍旎族旐旑旒旓旔旕旖旗旘旙旚旛旜旝旞旟
+    U+65E0..U+65FF 无旡既旣旤日旦旧旨早旪旫旬旭旮旯旰旱旲旳旴旵时旷旸旹旺旻旼旽旾旿
+    U+6600..U+661F 昀昁昂昃昄昅昆昇昈昉昊昋昌昍明昏昐昑昒易昔昕昖昗昘昙昚昛昜昝昞星
+    U+6620..U+663F 映昡昢昣昤春昦昧昨昩昪昫昬昭昮是昰昱昲昳昴昵昶昷昸昹昺昻昼昽显昿
+    U+6640..U+665F 晀晁時晃晄晅晆晇晈晉晊晋晌晍晎晏晐晑晒晓晔晕晖晗晘晙晚晛晜晝晞晟
+    U+6660..U+667F 晠晡晢晣晤晥晦晧晨晩晪晫晬晭普景晰晱晲晳晴晵晶晷晸晹智晻晼晽晾晿
+    U+6680..U+669F 暀暁暂暃暄暅暆暇暈暉暊暋暌暍暎暏暐暑暒暓暔暕暖暗暘暙暚暛暜暝暞暟
+    U+66A0..U+66BF 暠暡暢暣暤暥暦暧暨暩暪暫暬暭暮暯暰暱暲暳暴暵暶暷暸暹暺暻暼暽暾暿
+    U+66C0..U+66DF 曀曁曂曃曄曅曆曇曈曉曊曋曌曍曎曏曐曑曒曓曔曕曖曗曘曙曚曛曜曝曞曟
+    U+66E0..U+66FF 曠曡曢曣曤曥曦曧曨曩曪曫曬曭曮曯曰曱曲曳更曵曶曷書曹曺曻曼曽曾替
+    U+6700..U+671F 最朁朂會朄朅朆朇月有朊朋朌服朎朏朐朑朒朓朔朕朖朗朘朙朚望朜朝朞期
+    U+6720..U+673F 朠朡朢朣朤朥朦朧木朩未末本札朮术朰朱朲朳朴朵朶朷朸朹机朻朼朽朾朿
+    U+6740..U+675F 杀杁杂权杄杅杆杇杈杉杊杋杌杍李杏材村杒杓杔杕杖杗杘杙杚杛杜杝杞束
+    U+6760..U+677F 杠条杢杣杤来杦杧杨杩杪杫杬杭杮杯杰東杲杳杴杵杶杷杸杹杺杻杼杽松板
+    U+6780..U+679F 枀极枂枃构枅枆枇枈枉枊枋枌枍枎枏析枑枒枓枔枕枖林枘枙枚枛果枝枞枟
+    U+67A0..U+67BF 枠枡枢枣枤枥枦枧枨枩枪枫枬枭枮枯枰枱枲枳枴枵架枷枸枹枺枻枼枽枾枿
+    U+67C0..U+67DF 柀柁柂柃柄柅柆柇柈柉柊柋柌柍柎柏某柑柒染柔柕柖柗柘柙柚柛柜柝柞柟
+    U+67E0..U+67FF 柠柡柢柣柤查柦柧柨柩柪柫柬柭柮柯柰柱柲柳柴柵柶柷柸柹柺査柼柽柾柿
+    U+6800..U+681F 栀栁栂栃栄栅栆标栈栉栊栋栌栍栎栏栐树栒栓栔栕栖栗栘栙栚栛栜栝栞栟
+    U+6820..U+683F 栠校栢栣栤栥栦栧栨栩株栫栬栭栮栯栰栱栲栳栴栵栶样核根栺栻格栽栾栿
+    U+6840..U+685F 桀桁桂桃桄桅框桇案桉桊桋桌桍桎桏桐桑桒桓桔桕桖桗桘桙桚桛桜桝桞桟
+    U+6860..U+687F 桠桡桢档桤桥桦桧桨桩桪桫桬桭桮桯桰桱桲桳桴桵桶桷桸桹桺桻桼桽桾桿
+    U+6880..U+689F 梀梁梂梃梄梅梆梇梈梉梊梋梌梍梎梏梐梑梒梓梔梕梖梗梘梙梚梛梜條梞梟
+    U+68A0..U+68BF 梠梡梢梣梤梥梦梧梨梩梪梫梬梭梮梯械梱梲梳梴梵梶梷梸梹梺梻梼梽梾梿
+    U+68C0..U+68DF 检棁棂棃棄棅棆棇棈棉棊棋棌棍棎棏棐棑棒棓棔棕棖棗棘棙棚棛棜棝棞棟
+    U+68E0..U+68FF 棠棡棢棣棤棥棦棧棨棩棪棫棬棭森棯棰棱棲棳棴棵棶棷棸棹棺棻棼棽棾棿
+    U+6900..U+691F 椀椁椂椃椄椅椆椇椈椉椊椋椌植椎椏椐椑椒椓椔椕椖椗椘椙椚椛検椝椞椟
+    U+6920..U+693F 椠椡椢椣椤椥椦椧椨椩椪椫椬椭椮椯椰椱椲椳椴椵椶椷椸椹椺椻椼椽椾椿
+    U+6940..U+695F 楀楁楂楃楄楅楆楇楈楉楊楋楌楍楎楏楐楑楒楓楔楕楖楗楘楙楚楛楜楝楞楟
+    U+6960..U+697F 楠楡楢楣楤楥楦楧楨楩楪楫楬業楮楯楰楱楲楳楴極楶楷楸楹楺楻楼楽楾楿
+    U+6980..U+699F 榀榁概榃榄榅榆榇榈榉榊榋榌榍榎榏榐榑榒榓榔榕榖榗榘榙榚榛榜榝榞榟
+    U+69A0..U+69BF 榠榡榢榣榤榥榦榧榨榩榪榫榬榭榮榯榰榱榲榳榴榵榶榷榸榹榺榻榼榽榾榿
+    U+69C0..U+69DF 槀槁槂槃槄槅槆槇槈槉槊構槌槍槎槏槐槑槒槓槔槕槖槗様槙槚槛槜槝槞槟
+    U+69E0..U+69FF 槠槡槢槣槤槥槦槧槨槩槪槫槬槭槮槯槰槱槲槳槴槵槶槷槸槹槺槻槼槽槾槿
+    U+6A00..U+6A1F 樀樁樂樃樄樅樆樇樈樉樊樋樌樍樎樏樐樑樒樓樔樕樖樗樘標樚樛樜樝樞樟
+    U+6A20..U+6A3F 樠模樢樣樤樥樦樧樨権横樫樬樭樮樯樰樱樲樳樴樵樶樷樸樹樺樻樼樽樾樿
+    U+6A40..U+6A5F 橀橁橂橃橄橅橆橇橈橉橊橋橌橍橎橏橐橑橒橓橔橕橖橗橘橙橚橛橜橝橞機
+    U+6A60..U+6A7F 橠橡橢橣橤橥橦橧橨橩橪橫橬橭橮橯橰橱橲橳橴橵橶橷橸橹橺橻橼橽橾橿
+    U+6A80..U+6A9F 檀檁檂檃檄檅檆檇檈檉檊檋檌檍檎檏檐檑檒檓檔檕檖檗檘檙檚檛檜檝檞檟
+    U+6AA0..U+6ABF 檠檡檢檣檤檥檦檧檨檩檪檫檬檭檮檯檰檱檲檳檴檵檶檷檸檹檺檻檼檽檾檿
+    U+6AC0..U+6ADF 櫀櫁櫂櫃櫄櫅櫆櫇櫈櫉櫊櫋櫌櫍櫎櫏櫐櫑櫒櫓櫔櫕櫖櫗櫘櫙櫚櫛櫜櫝櫞櫟
+    U+6AE0..U+6AFF 櫠櫡櫢櫣櫤櫥櫦櫧櫨櫩櫪櫫櫬櫭櫮櫯櫰櫱櫲櫳櫴櫵櫶櫷櫸櫹櫺櫻櫼櫽櫾櫿
+    U+6B00..U+6B1F 欀欁欂欃欄欅欆欇欈欉權欋欌欍欎欏欐欑欒欓欔欕欖欗欘欙欚欛欜欝欞欟
+    U+6B20..U+6B3F 欠次欢欣欤欥欦欧欨欩欪欫欬欭欮欯欰欱欲欳欴欵欶欷欸欹欺欻欼欽款欿
+    U+6B40..U+6B5F 歀歁歂歃歄歅歆歇歈歉歊歋歌歍歎歏歐歑歒歓歔歕歖歗歘歙歚歛歜歝歞歟
+    U+6B60..U+6B7F 歠歡止正此步武歧歨歩歪歫歬歭歮歯歰歱歲歳歴歵歶歷歸歹歺死歼歽歾歿
+    U+6B80..U+6B9F 殀殁殂殃殄殅殆殇殈殉殊残殌殍殎殏殐殑殒殓殔殕殖殗殘殙殚殛殜殝殞殟
+    U+6BA0..U+6BBF 殠殡殢殣殤殥殦殧殨殩殪殫殬殭殮殯殰殱殲殳殴段殶殷殸殹殺殻殼殽殾殿
+    U+6BC0..U+6BDF 毀毁毂毃毄毅毆毇毈毉毊毋毌母毎每毐毑毒毓比毕毖毗毘毙毚毛毜毝毞毟
+    U+6BE0..U+6BFF 毠毡毢毣毤毥毦毧毨毩毪毫毬毭毮毯毰毱毲毳毴毵毶毷毸毹毺毻毼毽毾毿
+    U+6C00..U+6C1F 氀氁氂氃氄氅氆氇氈氉氊氋氌氍氎氏氐民氒氓气氕氖気氘氙氚氛氜氝氞氟
+    U+6C20..U+6C3F 氠氡氢氣氤氥氦氧氨氩氪氫氬氭氮氯氰氱氲氳水氵氶氷永氹氺氻氼氽氾氿
+    U+6C40..U+6C5F 汀汁求汃汄汅汆汇汈汉汊汋汌汍汎汏汐汑汒汓汔汕汖汗汘汙汚汛汜汝汞江
+    U+6C60..U+6C7F 池污汢汣汤汥汦汧汨汩汪汫汬汭汮汯汰汱汲汳汴汵汶汷汸汹決汻汼汽汾汿
+    U+6C80..U+6C9F 沀沁沂沃沄沅沆沇沈沉沊沋沌沍沎沏沐沑沒沓沔沕沖沗沘沙沚沛沜沝沞沟
+    U+6CA0..U+6CBF 沠没沢沣沤沥沦沧沨沩沪沫沬沭沮沯沰沱沲河沴沵沶沷沸油沺治沼沽沾沿
+    U+6CC0..U+6CDF 泀況泂泃泄泅泆泇泈泉泊泋泌泍泎泏泐泑泒泓泔法泖泗泘泙泚泛泜泝泞泟
+    U+6CE0..U+6CFF 泠泡波泣泤泥泦泧注泩泪泫泬泭泮泯泰泱泲泳泴泵泶泷泸泹泺泻泼泽泾泿
+    U+6D00..U+6D1F 洀洁洂洃洄洅洆洇洈洉洊洋洌洍洎洏洐洑洒洓洔洕洖洗洘洙洚洛洜洝洞洟
+    U+6D20..U+6D3F 洠洡洢洣洤津洦洧洨洩洪洫洬洭洮洯洰洱洲洳洴洵洶洷洸洹洺活洼洽派洿
+    U+6D40..U+6D5F 浀流浂浃浄浅浆浇浈浉浊测浌浍济浏浐浑浒浓浔浕浖浗浘浙浚浛浜浝浞浟
+    U+6D60..U+6D7F 浠浡浢浣浤浥浦浧浨浩浪浫浬浭浮浯浰浱浲浳浴浵浶海浸浹浺浻浼浽浾浿
+    U+6D80..U+6D9F 涀涁涂涃涄涅涆涇消涉涊涋涌涍涎涏涐涑涒涓涔涕涖涗涘涙涚涛涜涝涞涟
+    U+6DA0..U+6DBF 涠涡涢涣涤涥润涧涨涩涪涫涬涭涮涯涰涱液涳涴涵涶涷涸涹涺涻涼涽涾涿
+    U+6DC0..U+6DDF 淀淁淂淃淄淅淆淇淈淉淊淋淌淍淎淏淐淑淒淓淔淕淖淗淘淙淚淛淜淝淞淟
+    U+6DE0..U+6DFF 淠淡淢淣淤淥淦淧淨淩淪淫淬淭淮淯淰深淲淳淴淵淶混淸淹淺添淼淽淾淿
+    U+6E00..U+6E1F 渀渁渂渃渄清渆渇済渉渊渋渌渍渎渏渐渑渒渓渔渕渖渗渘渙渚減渜渝渞渟
+    U+6E20..U+6E3F 渠渡渢渣渤渥渦渧渨温渪渫測渭渮港渰渱渲渳渴渵渶渷游渹渺渻渼渽渾渿
+    U+6E40..U+6E5F 湀湁湂湃湄湅湆湇湈湉湊湋湌湍湎湏湐湑湒湓湔湕湖湗湘湙湚湛湜湝湞湟
+    U+6E60..U+6E7F 湠湡湢湣湤湥湦湧湨湩湪湫湬湭湮湯湰湱湲湳湴湵湶湷湸湹湺湻湼湽湾湿
+    U+6E80..U+6E9F 満溁溂溃溄溅溆溇溈溉溊溋溌溍溎溏源溑溒溓溔溕準溗溘溙溚溛溜溝溞溟
+    U+6EA0..U+6EBF 溠溡溢溣溤溥溦溧溨溩溪溫溬溭溮溯溰溱溲溳溴溵溶溷溸溹溺溻溼溽溾溿
+    U+6EC0..U+6EDF 滀滁滂滃滄滅滆滇滈滉滊滋滌滍滎滏滐滑滒滓滔滕滖滗滘滙滚滛滜滝滞滟
+    U+6EE0..U+6EFF 滠满滢滣滤滥滦滧滨滩滪滫滬滭滮滯滰滱滲滳滴滵滶滷滸滹滺滻滼滽滾滿
+    U+6F00..U+6F1F 漀漁漂漃漄漅漆漇漈漉漊漋漌漍漎漏漐漑漒漓演漕漖漗漘漙漚漛漜漝漞漟
+    U+6F20..U+6F3F 漠漡漢漣漤漥漦漧漨漩漪漫漬漭漮漯漰漱漲漳漴漵漶漷漸漹漺漻漼漽漾漿
+    U+6F40..U+6F5F 潀潁潂潃潄潅潆潇潈潉潊潋潌潍潎潏潐潑潒潓潔潕潖潗潘潙潚潛潜潝潞潟
+    U+6F60..U+6F7F 潠潡潢潣潤潥潦潧潨潩潪潫潬潭潮潯潰潱潲潳潴潵潶潷潸潹潺潻潼潽潾潿
+    U+6F80..U+6F9F 澀澁澂澃澄澅澆澇澈澉澊澋澌澍澎澏澐澑澒澓澔澕澖澗澘澙澚澛澜澝澞澟
+    U+6FA0..U+6FBF 澠澡澢澣澤澥澦澧澨澩澪澫澬澭澮澯澰澱澲澳澴澵澶澷澸澹澺澻澼澽澾澿
+    U+6FC0..U+6FDF 激濁濂濃濄濅濆濇濈濉濊濋濌濍濎濏濐濑濒濓濔濕濖濗濘濙濚濛濜濝濞濟
+    U+6FE0..U+6FFF 濠濡濢濣濤濥濦濧濨濩濪濫濬濭濮濯濰濱濲濳濴濵濶濷濸濹濺濻濼濽濾濿
+    U+7000..U+701F 瀀瀁瀂瀃瀄瀅瀆瀇瀈瀉瀊瀋瀌瀍瀎瀏瀐瀑瀒瀓瀔瀕瀖瀗瀘瀙瀚瀛瀜瀝瀞瀟
+    U+7020..U+703F 瀠瀡瀢瀣瀤瀥瀦瀧瀨瀩瀪瀫瀬瀭瀮瀯瀰瀱瀲瀳瀴瀵瀶瀷瀸瀹瀺瀻瀼瀽瀾瀿
+    U+7040..U+705F 灀灁灂灃灄灅灆灇灈灉灊灋灌灍灎灏灐灑灒灓灔灕灖灗灘灙灚灛灜灝灞灟
+    U+7060..U+707F 灠灡灢灣灤灥灦灧灨灩灪火灬灭灮灯灰灱灲灳灴灵灶灷灸灹灺灻灼災灾灿
+    U+7080..U+709F 炀炁炂炃炄炅炆炇炈炉炊炋炌炍炎炏炐炑炒炓炔炕炖炗炘炙炚炛炜炝炞炟
+    U+70A0..U+70BF 炠炡炢炣炤炥炦炧炨炩炪炫炬炭炮炯炰炱炲炳炴炵炶炷炸点為炻炼炽炾炿
+    U+70C0..U+70DF 烀烁烂烃烄烅烆烇烈烉烊烋烌烍烎烏烐烑烒烓烔烕烖烗烘烙烚烛烜烝烞烟
+    U+70E0..U+70FF 烠烡烢烣烤烥烦烧烨烩烪烫烬热烮烯烰烱烲烳烴烵烶烷烸烹烺烻烼烽烾烿
+    U+7100..U+711F 焀焁焂焃焄焅焆焇焈焉焊焋焌焍焎焏焐焑焒焓焔焕焖焗焘焙焚焛焜焝焞焟
+    U+7120..U+713F 焠無焢焣焤焥焦焧焨焩焪焫焬焭焮焯焰焱焲焳焴焵然焷焸焹焺焻焼焽焾焿
+    U+7140..U+715F 煀煁煂煃煄煅煆煇煈煉煊煋煌煍煎煏煐煑煒煓煔煕煖煗煘煙煚煛煜煝煞煟
+    U+7160..U+717F 煠煡煢煣煤煥煦照煨煩煪煫煬煭煮煯煰煱煲煳煴煵煶煷煸煹煺煻煼煽煾煿
+    U+7180..U+719F 熀熁熂熃熄熅熆熇熈熉熊熋熌熍熎熏熐熑熒熓熔熕熖熗熘熙熚熛熜熝熞熟
+    U+71A0..U+71BF 熠熡熢熣熤熥熦熧熨熩熪熫熬熭熮熯熰熱熲熳熴熵熶熷熸熹熺熻熼熽熾熿
+    U+71C0..U+71DF 燀燁燂燃燄燅燆燇燈燉燊燋燌燍燎燏燐燑燒燓燔燕燖燗燘燙燚燛燜燝燞營
+    U+71E0..U+71FF 燠燡燢燣燤燥燦燧燨燩燪燫燬燭燮燯燰燱燲燳燴燵燶燷燸燹燺燻燼燽燾燿
+    U+7200..U+721F 爀爁爂爃爄爅爆爇爈爉爊爋爌爍爎爏爐爑爒爓爔爕爖爗爘爙爚爛爜爝爞爟
+    U+7220..U+723F 爠爡爢爣爤爥爦爧爨爩爪爫爬爭爮爯爰爱爲爳爴爵父爷爸爹爺爻爼爽爾爿
+    U+7240..U+725F 牀牁牂牃牄牅牆片版牉牊牋牌牍牎牏牐牑牒牓牔牕牖牗牘牙牚牛牜牝牞牟
+    U+7260..U+727F 牠牡牢牣牤牥牦牧牨物牪牫牬牭牮牯牰牱牲牳牴牵牶牷牸特牺牻牼牽牾牿
+    U+7280..U+729F 犀犁犂犃犄犅犆犇犈犉犊犋犌犍犎犏犐犑犒犓犔犕犖犗犘犙犚犛犜犝犞犟
+    U+72A0..U+72BF 犠犡犢犣犤犥犦犧犨犩犪犫犬犭犮犯犰犱犲犳犴犵状犷犸犹犺犻犼犽犾犿
+    U+72C0..U+72DF 狀狁狂狃狄狅狆狇狈狉狊狋狌狍狎狏狐狑狒狓狔狕狖狗狘狙狚狛狜狝狞狟
+    U+72E0..U+72FF 狠狡狢狣狤狥狦狧狨狩狪狫独狭狮狯狰狱狲狳狴狵狶狷狸狹狺狻狼狽狾狿
+    U+7300..U+731F 猀猁猂猃猄猅猆猇猈猉猊猋猌猍猎猏猐猑猒猓猔猕猖猗猘猙猚猛猜猝猞猟
+    U+7320..U+733F 猠猡猢猣猤猥猦猧猨猩猪猫猬猭献猯猰猱猲猳猴猵猶猷猸猹猺猻猼猽猾猿
+    U+7340..U+735F 獀獁獂獃獄獅獆獇獈獉獊獋獌獍獎獏獐獑獒獓獔獕獖獗獘獙獚獛獜獝獞獟
+    U+7360..U+737F 獠獡獢獣獤獥獦獧獨獩獪獫獬獭獮獯獰獱獲獳獴獵獶獷獸獹獺獻獼獽獾獿
+    U+7380..U+739F 玀玁玂玃玄玅玆率玈玉玊王玌玍玎玏玐玑玒玓玔玕玖玗玘玙玚玛玜玝玞玟
+    U+73A0..U+73BF 玠玡玢玣玤玥玦玧玨玩玪玫玬玭玮环现玱玲玳玴玵玶玷玸玹玺玻玼玽玾玿
+    U+73C0..U+73DF 珀珁珂珃珄珅珆珇珈珉珊珋珌珍珎珏珐珑珒珓珔珕珖珗珘珙珚珛珜珝珞珟
+    U+73E0..U+73FF 珠珡珢珣珤珥珦珧珨珩珪珫珬班珮珯珰珱珲珳珴珵珶珷珸珹珺珻珼珽現珿
+    U+7400..U+741F 琀琁琂球琄琅理琇琈琉琊琋琌琍琎琏琐琑琒琓琔琕琖琗琘琙琚琛琜琝琞琟
+    U+7420..U+743F 琠琡琢琣琤琥琦琧琨琩琪琫琬琭琮琯琰琱琲琳琴琵琶琷琸琹琺琻琼琽琾琿
+    U+7440..U+745F 瑀瑁瑂瑃瑄瑅瑆瑇瑈瑉瑊瑋瑌瑍瑎瑏瑐瑑瑒瑓瑔瑕瑖瑗瑘瑙瑚瑛瑜瑝瑞瑟
+    U+7460..U+747F 瑠瑡瑢瑣瑤瑥瑦瑧瑨瑩瑪瑫瑬瑭瑮瑯瑰瑱瑲瑳瑴瑵瑶瑷瑸瑹瑺瑻瑼瑽瑾瑿
+    U+7480..U+749F 璀璁璂璃璄璅璆璇璈璉璊璋璌璍璎璏璐璑璒璓璔璕璖璗璘璙璚璛璜璝璞璟
+    U+74A0..U+74BF 璠璡璢璣璤璥璦璧璨璩璪璫璬璭璮璯環璱璲璳璴璵璶璷璸璹璺璻璼璽璾璿
+    U+74C0..U+74DF 瓀瓁瓂瓃瓄瓅瓆瓇瓈瓉瓊瓋瓌瓍瓎瓏瓐瓑瓒瓓瓔瓕瓖瓗瓘瓙瓚瓛瓜瓝瓞瓟
+    U+74E0..U+74FF 瓠瓡瓢瓣瓤瓥瓦瓧瓨瓩瓪瓫瓬瓭瓮瓯瓰瓱瓲瓳瓴瓵瓶瓷瓸瓹瓺瓻瓼瓽瓾瓿
+    U+7500..U+751F 甀甁甂甃甄甅甆甇甈甉甊甋甌甍甎甏甐甑甒甓甔甕甖甗甘甙甚甛甜甝甞生
+    U+7520..U+753F 甠甡產産甤甥甦甧用甩甪甫甬甭甮甯田由甲申甴电甶男甸甹町画甼甽甾甿
+    U+7540..U+755F 畀畁畂畃畄畅畆畇畈畉畊畋界畍畎畏畐畑畒畓畔畕畖畗畘留畚畛畜畝畞畟
+    U+7560..U+757F 畠畡畢畣畤略畦畧畨畩番畫畬畭畮畯異畱畲畳畴畵當畷畸畹畺畻畼畽畾畿
+    U+7580..U+759F 疀疁疂疃疄疅疆疇疈疉疊疋疌疍疎疏疐疑疒疓疔疕疖疗疘疙疚疛疜疝疞疟
+    U+75A0..U+75BF 疠疡疢疣疤疥疦疧疨疩疪疫疬疭疮疯疰疱疲疳疴疵疶疷疸疹疺疻疼疽疾疿
+    U+75C0..U+75DF 痀痁痂痃痄病痆症痈痉痊痋痌痍痎痏痐痑痒痓痔痕痖痗痘痙痚痛痜痝痞痟
+    U+75E0..U+75FF 痠痡痢痣痤痥痦痧痨痩痪痫痬痭痮痯痰痱痲痳痴痵痶痷痸痹痺痻痼痽痾痿
+    U+7600..U+761F 瘀瘁瘂瘃瘄瘅瘆瘇瘈瘉瘊瘋瘌瘍瘎瘏瘐瘑瘒瘓瘔瘕瘖瘗瘘瘙瘚瘛瘜瘝瘞瘟
+    U+7620..U+763F 瘠瘡瘢瘣瘤瘥瘦瘧瘨瘩瘪瘫瘬瘭瘮瘯瘰瘱瘲瘳瘴瘵瘶瘷瘸瘹瘺瘻瘼瘽瘾瘿
+    U+7640..U+765F 癀癁療癃癄癅癆癇癈癉癊癋癌癍癎癏癐癑癒癓癔癕癖癗癘癙癚癛癜癝癞癟
+    U+7660..U+767F 癠癡癢癣癤癥癦癧癨癩癪癫癬癭癮癯癰癱癲癳癴癵癶癷癸癹発登發白百癿
+    U+7680..U+769F 皀皁皂皃的皅皆皇皈皉皊皋皌皍皎皏皐皑皒皓皔皕皖皗皘皙皚皛皜皝皞皟
+    U+76A0..U+76BF 皠皡皢皣皤皥皦皧皨皩皪皫皬皭皮皯皰皱皲皳皴皵皶皷皸皹皺皻皼皽皾皿
+    U+76C0..U+76DF 盀盁盂盃盄盅盆盇盈盉益盋盌盍盎盏盐监盒盓盔盕盖盗盘盙盚盛盜盝盞盟
+    U+76E0..U+76FF 盠盡盢監盤盥盦盧盨盩盪盫盬盭目盯盰盱盲盳直盵盶盷相盹盺盻盼盽盾盿
+    U+7700..U+771F 眀省眂眃眄眅眆眇眈眉眊看県眍眎眏眐眑眒眓眔眕眖眗眘眙眚眛眜眝眞真
+    U+7720..U+773F 眠眡眢眣眤眥眦眧眨眩眪眫眬眭眮眯眰眱眲眳眴眵眶眷眸眹眺眻眼眽眾眿
+    U+7740..U+775F 着睁睂睃睄睅睆睇睈睉睊睋睌睍睎睏睐睑睒睓睔睕睖睗睘睙睚睛睜睝睞睟
+    U+7760..U+777F 睠睡睢督睤睥睦睧睨睩睪睫睬睭睮睯睰睱睲睳睴睵睶睷睸睹睺睻睼睽睾睿
+    U+7780..U+779F 瞀瞁瞂瞃瞄瞅瞆瞇瞈瞉瞊瞋瞌瞍瞎瞏瞐瞑瞒瞓瞔瞕瞖瞗瞘瞙瞚瞛瞜瞝瞞瞟
+    U+77A0..U+77BF 瞠瞡瞢瞣瞤瞥瞦瞧瞨瞩瞪瞫瞬瞭瞮瞯瞰瞱瞲瞳瞴瞵瞶瞷瞸瞹瞺瞻瞼瞽瞾瞿
+    U+77C0..U+77DF 矀矁矂矃矄矅矆矇矈矉矊矋矌矍矎矏矐矑矒矓矔矕矖矗矘矙矚矛矜矝矞矟
+    U+77E0..U+77FF 矠矡矢矣矤知矦矧矨矩矪矫矬短矮矯矰矱矲石矴矵矶矷矸矹矺矻矼矽矾矿
+    U+7800..U+781F 砀码砂砃砄砅砆砇砈砉砊砋砌砍砎砏砐砑砒砓研砕砖砗砘砙砚砛砜砝砞砟
+    U+7820..U+783F 砠砡砢砣砤砥砦砧砨砩砪砫砬砭砮砯砰砱砲砳破砵砶砷砸砹砺砻砼砽砾砿
+    U+7840..U+785F 础硁硂硃硄硅硆硇硈硉硊硋硌硍硎硏硐硑硒硓硔硕硖硗硘硙硚硛硜硝硞硟
+    U+7860..U+787F 硠硡硢硣硤硥硦硧硨硩硪硫硬硭确硯硰硱硲硳硴硵硶硷硸硹硺硻硼硽硾硿
+    U+7880..U+789F 碀碁碂碃碄碅碆碇碈碉碊碋碌碍碎碏碐碑碒碓碔碕碖碗碘碙碚碛碜碝碞碟
+    U+78A0..U+78BF 碠碡碢碣碤碥碦碧碨碩碪碫碬碭碮碯碰碱碲碳碴碵碶碷碸碹確碻碼碽碾碿
+    U+78C0..U+78DF 磀磁磂磃磄磅磆磇磈磉磊磋磌磍磎磏磐磑磒磓磔磕磖磗磘磙磚磛磜磝磞磟
+    U+78E0..U+78FF 磠磡磢磣磤磥磦磧磨磩磪磫磬磭磮磯磰磱磲磳磴磵磶磷磸磹磺磻磼磽磾磿
+    U+7900..U+791F 礀礁礂礃礄礅礆礇礈礉礊礋礌礍礎礏礐礑礒礓礔礕礖礗礘礙礚礛礜礝礞礟
+    U+7920..U+793F 礠礡礢礣礤礥礦礧礨礩礪礫礬礭礮礯礰礱礲礳礴礵礶礷礸礹示礻礼礽社礿
+    U+7940..U+795F 祀祁祂祃祄祅祆祇祈祉祊祋祌祍祎祏祐祑祒祓祔祕祖祗祘祙祚祛祜祝神祟
+    U+7960..U+797F 祠祡祢祣祤祥祦祧票祩祪祫祬祭祮祯祰祱祲祳祴祵祶祷祸祹祺祻祼祽祾祿
+    U+7980..U+799F 禀禁禂禃禄禅禆禇禈禉禊禋禌禍禎福禐禑禒禓禔禕禖禗禘禙禚禛禜禝禞禟
+    U+79A0..U+79BF 禠禡禢禣禤禥禦禧禨禩禪禫禬禭禮禯禰禱禲禳禴禵禶禷禸禹禺离禼禽禾禿
+    U+79C0..U+79DF 秀私秂秃秄秅秆秇秈秉秊秋秌种秎秏秐科秒秓秔秕秖秗秘秙秚秛秜秝秞租
+    U+79E0..U+79FF 秠秡秢秣秤秥秦秧秨秩秪秫秬秭秮积称秱秲秳秴秵秶秷秸秹秺移秼秽秾秿
+    U+7A00..U+7A1F 稀稁稂稃稄稅稆稇稈稉稊程稌稍税稏稐稑稒稓稔稕稖稗稘稙稚稛稜稝稞稟
+    U+7A20..U+7A3F 稠稡稢稣稤稥稦稧稨稩稪稫稬稭種稯稰稱稲稳稴稵稶稷稸稹稺稻稼稽稾稿
+    U+7A40..U+7A5F 穀穁穂穃穄穅穆穇穈穉穊穋穌積穎穏穐穑穒穓穔穕穖穗穘穙穚穛穜穝穞穟
+    U+7A60..U+7A7F 穠穡穢穣穤穥穦穧穨穩穪穫穬穭穮穯穰穱穲穳穴穵究穷穸穹空穻穼穽穾穿
+    U+7A80..U+7A9F 窀突窂窃窄窅窆窇窈窉窊窋窌窍窎窏窐窑窒窓窔窕窖窗窘窙窚窛窜窝窞窟
+    U+7AA0..U+7ABF 窠窡窢窣窤窥窦窧窨窩窪窫窬窭窮窯窰窱窲窳窴窵窶窷窸窹窺窻窼窽窾窿
+    U+7AC0..U+7ADF 竀竁竂竃竄竅竆竇竈竉竊立竌竍竎竏竐竑竒竓竔竕竖竗竘站竚竛竜竝竞竟
+    U+7AE0..U+7AFF 章竡竢竣竤童竦竧竨竩竪竫竬竭竮端竰竱竲竳竴竵競竷竸竹竺竻竼竽竾竿
+    U+7B00..U+7B1F 笀笁笂笃笄笅笆笇笈笉笊笋笌笍笎笏笐笑笒笓笔笕笖笗笘笙笚笛笜笝笞笟
+    U+7B20..U+7B3F 笠笡笢笣笤笥符笧笨笩笪笫第笭笮笯笰笱笲笳笴笵笶笷笸笹笺笻笼笽笾笿
+    U+7B40..U+7B5F 筀筁筂筃筄筅筆筇筈等筊筋筌筍筎筏筐筑筒筓答筕策筗筘筙筚筛筜筝筞筟
+    U+7B60..U+7B7F 筠筡筢筣筤筥筦筧筨筩筪筫筬筭筮筯筰筱筲筳筴筵筶筷筸筹筺筻筼筽签筿
+    U+7B80..U+7B9F 简箁箂箃箄箅箆箇箈箉箊箋箌箍箎箏箐箑箒箓箔箕箖算箘箙箚箛箜箝箞箟
+    U+7BA0..U+7BBF 箠管箢箣箤箥箦箧箨箩箪箫箬箭箮箯箰箱箲箳箴箵箶箷箸箹箺箻箼箽箾箿
+    U+7BC0..U+7BDF 節篁篂篃範篅篆篇篈築篊篋篌篍篎篏篐篑篒篓篔篕篖篗篘篙篚篛篜篝篞篟
+    U+7BE0..U+7BFF 篠篡篢篣篤篥篦篧篨篩篪篫篬篭篮篯篰篱篲篳篴篵篶篷篸篹篺篻篼篽篾篿
+    U+7C00..U+7C1F 簀簁簂簃簄簅簆簇簈簉簊簋簌簍簎簏簐簑簒簓簔簕簖簗簘簙簚簛簜簝簞簟
+    U+7C20..U+7C3F 簠簡簢簣簤簥簦簧簨簩簪簫簬簭簮簯簰簱簲簳簴簵簶簷簸簹簺簻簼簽簾簿
+    U+7C40..U+7C5F 籀籁籂籃籄籅籆籇籈籉籊籋籌籍籎籏籐籑籒籓籔籕籖籗籘籙籚籛籜籝籞籟
+    U+7C60..U+7C7F 籠籡籢籣籤籥籦籧籨籩籪籫籬籭籮籯籰籱籲米籴籵籶籷籸籹籺类籼籽籾籿
+    U+7C80..U+7C9F 粀粁粂粃粄粅粆粇粈粉粊粋粌粍粎粏粐粑粒粓粔粕粖粗粘粙粚粛粜粝粞粟
+    U+7CA0..U+7CBF 粠粡粢粣粤粥粦粧粨粩粪粫粬粭粮粯粰粱粲粳粴粵粶粷粸粹粺粻粼粽精粿
+    U+7CC0..U+7CDF 糀糁糂糃糄糅糆糇糈糉糊糋糌糍糎糏糐糑糒糓糔糕糖糗糘糙糚糛糜糝糞糟
+    U+7CE0..U+7CFF 糠糡糢糣糤糥糦糧糨糩糪糫糬糭糮糯糰糱糲糳糴糵糶糷糸糹糺系糼糽糾糿
+    U+7D00..U+7D1F 紀紁紂紃約紅紆紇紈紉紊紋紌納紎紏紐紑紒紓純紕紖紗紘紙級紛紜紝紞紟
+    U+7D20..U+7D3F 素紡索紣紤紥紦紧紨紩紪紫紬紭紮累細紱紲紳紴紵紶紷紸紹紺紻紼紽紾紿
+    U+7D40..U+7D5F 絀絁終絃組絅絆絇絈絉絊絋経絍絎絏結絑絒絓絔絕絖絗絘絙絚絛絜絝絞絟
+    U+7D60..U+7D7F 絠絡絢絣絤絥給絧絨絩絪絫絬絭絮絯絰統絲絳絴絵絶絷絸絹絺絻絼絽絾絿
+    U+7D80..U+7D9F 綀綁綂綃綄綅綆綇綈綉綊綋綌綍綎綏綐綑綒經綔綕綖綗綘継続綛綜綝綞綟
+    U+7DA0..U+7DBF 綠綡綢綣綤綥綦綧綨綩綪綫綬維綮綯綰綱網綳綴綵綶綷綸綹綺綻綼綽綾綿
+    U+7DC0..U+7DDF 緀緁緂緃緄緅緆緇緈緉緊緋緌緍緎総緐緑緒緓緔緕緖緗緘緙線緛緜緝緞緟
+    U+7DE0..U+7DFF 締緡緢緣緤緥緦緧編緩緪緫緬緭緮緯緰緱緲緳練緵緶緷緸緹緺緻緼緽緾緿
+    U+7E00..U+7E1F 縀縁縂縃縄縅縆縇縈縉縊縋縌縍縎縏縐縑縒縓縔縕縖縗縘縙縚縛縜縝縞縟
+    U+7E20..U+7E3F 縠縡縢縣縤縥縦縧縨縩縪縫縬縭縮縯縰縱縲縳縴縵縶縷縸縹縺縻縼總績縿
+    U+7E40..U+7E5F 繀繁繂繃繄繅繆繇繈繉繊繋繌繍繎繏繐繑繒繓織繕繖繗繘繙繚繛繜繝繞繟
+    U+7E60..U+7E7F 繠繡繢繣繤繥繦繧繨繩繪繫繬繭繮繯繰繱繲繳繴繵繶繷繸繹繺繻繼繽繾繿
+    U+7E80..U+7E9F 纀纁纂纃纄纅纆纇纈纉纊纋續纍纎纏纐纑纒纓纔纕纖纗纘纙纚纛纜纝纞纟
+    U+7EA0..U+7EBF 纠纡红纣纤纥约级纨纩纪纫纬纭纮纯纰纱纲纳纴纵纶纷纸纹纺纻纼纽纾线
+    U+7EC0..U+7EDF 绀绁绂练组绅细织终绉绊绋绌绍绎经绐绑绒结绔绕绖绗绘给绚绛络绝绞统
+    U+7EE0..U+7EFF 绠绡绢绣绤绥绦继绨绩绪绫绬续绮绯绰绱绲绳维绵绶绷绸绹绺绻综绽绾绿
+    U+7F00..U+7F1F 缀缁缂缃缄缅缆缇缈缉缊缋缌缍缎缏缐缑缒缓缔缕编缗缘缙缚缛缜缝缞缟
+    U+7F20..U+7F3F 缠缡缢缣缤缥缦缧缨缩缪缫缬缭缮缯缰缱缲缳缴缵缶缷缸缹缺缻缼缽缾缿
+    U+7F40..U+7F5F 罀罁罂罃罄罅罆罇罈罉罊罋罌罍罎罏罐网罒罓罔罕罖罗罘罙罚罛罜罝罞罟
+    U+7F60..U+7F7F 罠罡罢罣罤罥罦罧罨罩罪罫罬罭置罯罰罱署罳罴罵罶罷罸罹罺罻罼罽罾罿
+    U+7F80..U+7F9F 羀羁羂羃羄羅羆羇羈羉羊羋羌羍美羏羐羑羒羓羔羕羖羗羘羙羚羛羜羝羞羟
+    U+7FA0..U+7FBF 羠羡羢羣群羥羦羧羨義羪羫羬羭羮羯羰羱羲羳羴羵羶羷羸羹羺羻羼羽羾羿
+    U+7FC0..U+7FDF 翀翁翂翃翄翅翆翇翈翉翊翋翌翍翎翏翐翑習翓翔翕翖翗翘翙翚翛翜翝翞翟
+    U+7FE0..U+7FFF 翠翡翢翣翤翥翦翧翨翩翪翫翬翭翮翯翰翱翲翳翴翵翶翷翸翹翺翻翼翽翾翿
+    U+8000..U+801F 耀老耂考耄者耆耇耈耉耊耋而耍耎耏耐耑耒耓耔耕耖耗耘耙耚耛耜耝耞耟
+    U+8020..U+803F 耠耡耢耣耤耥耦耧耨耩耪耫耬耭耮耯耰耱耲耳耴耵耶耷耸耹耺耻耼耽耾耿
+    U+8040..U+805F 聀聁聂聃聄聅聆聇聈聉聊聋职聍聎聏聐聑聒聓联聕聖聗聘聙聚聛聜聝聞聟
+    U+8060..U+807F 聠聡聢聣聤聥聦聧聨聩聪聫聬聭聮聯聰聱聲聳聴聵聶職聸聹聺聻聼聽聾聿
+    U+8080..U+809F 肀肁肂肃肄肅肆肇肈肉肊肋肌肍肎肏肐肑肒肓肔肕肖肗肘肙肚肛肜肝肞肟
+    U+80A0..U+80BF 肠股肢肣肤肥肦肧肨肩肪肫肬肭肮肯肰肱育肳肴肵肶肷肸肹肺肻肼肽肾肿
+    U+80C0..U+80DF 胀胁胂胃胄胅胆胇胈胉胊胋背胍胎胏胐胑胒胓胔胕胖胗胘胙胚胛胜胝胞胟
+    U+80E0..U+80FF 胠胡胢胣胤胥胦胧胨胩胪胫胬胭胮胯胰胱胲胳胴胵胶胷胸胹胺胻胼能胾胿
+    U+8100..U+811F 脀脁脂脃脄脅脆脇脈脉脊脋脌脍脎脏脐脑脒脓脔脕脖脗脘脙脚脛脜脝脞脟
+    U+8120..U+813F 脠脡脢脣脤脥脦脧脨脩脪脫脬脭脮脯脰脱脲脳脴脵脶脷脸脹脺脻脼脽脾脿
+    U+8140..U+815F 腀腁腂腃腄腅腆腇腈腉腊腋腌腍腎腏腐腑腒腓腔腕腖腗腘腙腚腛腜腝腞腟
+    U+8160..U+817F 腠腡腢腣腤腥腦腧腨腩腪腫腬腭腮腯腰腱腲腳腴腵腶腷腸腹腺腻腼腽腾腿
+    U+8180..U+819F 膀膁膂膃膄膅膆膇膈膉膊膋膌膍膎膏膐膑膒膓膔膕膖膗膘膙膚膛膜膝膞膟
+    U+81A0..U+81BF 膠膡膢膣膤膥膦膧膨膩膪膫膬膭膮膯膰膱膲膳膴膵膶膷膸膹膺膻膼膽膾膿
+    U+81C0..U+81DF 臀臁臂臃臄臅臆臇臈臉臊臋臌臍臎臏臐臑臒臓臔臕臖臗臘臙臚臛臜臝臞臟
+    U+81E0..U+81FF 臠臡臢臣臤臥臦臧臨臩自臫臬臭臮臯臰臱臲至致臵臶臷臸臹臺臻臼臽臾臿
+    U+8200..U+821F 舀舁舂舃舄舅舆與興舉舊舋舌舍舎舏舐舑舒舓舔舕舖舗舘舙舚舛舜舝舞舟
+    U+8220..U+823F 舠舡舢舣舤舥舦舧舨舩航舫般舭舮舯舰舱舲舳舴舵舶舷舸船舺舻舼舽舾舿
+    U+8240..U+825F 艀艁艂艃艄艅艆艇艈艉艊艋艌艍艎艏艐艑艒艓艔艕艖艗艘艙艚艛艜艝艞艟
+    U+8260..U+827F 艠艡艢艣艤艥艦艧艨艩艪艫艬艭艮良艰艱色艳艴艵艶艷艸艹艺艻艼艽艾艿
+    U+8280..U+829F 芀芁节芃芄芅芆芇芈芉芊芋芌芍芎芏芐芑芒芓芔芕芖芗芘芙芚芛芜芝芞芟
+    U+82A0..U+82BF 芠芡芢芣芤芥芦芧芨芩芪芫芬芭芮芯芰花芲芳芴芵芶芷芸芹芺芻芼芽芾芿
+    U+82C0..U+82DF 苀苁苂苃苄苅苆苇苈苉苊苋苌苍苎苏苐苑苒苓苔苕苖苗苘苙苚苛苜苝苞苟
+    U+82E0..U+82FF 苠苡苢苣苤若苦苧苨苩苪苫苬苭苮苯苰英苲苳苴苵苶苷苸苹苺苻苼苽苾苿
+    U+8300..U+831F 茀茁茂范茄茅茆茇茈茉茊茋茌茍茎茏茐茑茒茓茔茕茖茗茘茙茚茛茜茝茞茟
+    U+8320..U+833F 茠茡茢茣茤茥茦茧茨茩茪茫茬茭茮茯茰茱茲茳茴茵茶茷茸茹茺茻茼茽茾茿
+    U+8340..U+835F 荀荁荂荃荄荅荆荇荈草荊荋荌荍荎荏荐荑荒荓荔荕荖荗荘荙荚荛荜荝荞荟
+    U+8360..U+837F 荠荡荢荣荤荥荦荧荨荩荪荫荬荭荮药荰荱荲荳荴荵荶荷荸荹荺荻荼荽荾荿
+    U+8380..U+839F 莀莁莂莃莄莅莆莇莈莉莊莋莌莍莎莏莐莑莒莓莔莕莖莗莘莙莚莛莜莝莞莟
+    U+83A0..U+83BF 莠莡莢莣莤莥莦莧莨莩莪莫莬莭莮莯莰莱莲莳莴莵莶获莸莹莺莻莼莽莾莿
+    U+83C0..U+83DF 菀菁菂菃菄菅菆菇菈菉菊菋菌菍菎菏菐菑菒菓菔菕菖菗菘菙菚菛菜菝菞菟
+    U+83E0..U+83FF 菠菡菢菣菤菥菦菧菨菩菪菫菬菭菮華菰菱菲菳菴菵菶菷菸菹菺菻菼菽菾菿
+    U+8400..U+841F 萀萁萂萃萄萅萆萇萈萉萊萋萌萍萎萏萐萑萒萓萔萕萖萗萘萙萚萛萜萝萞萟
+    U+8420..U+843F 萠萡萢萣萤营萦萧萨萩萪萫萬萭萮萯萰萱萲萳萴萵萶萷萸萹萺萻萼落萾萿
+    U+8440..U+845F 葀葁葂葃葄葅葆葇葈葉葊葋葌葍葎葏葐葑葒葓葔葕葖著葘葙葚葛葜葝葞葟
+    U+8460..U+847F 葠葡葢董葤葥葦葧葨葩葪葫葬葭葮葯葰葱葲葳葴葵葶葷葸葹葺葻葼葽葾葿
+    U+8480..U+849F 蒀蒁蒂蒃蒄蒅蒆蒇蒈蒉蒊蒋蒌蒍蒎蒏蒐蒑蒒蒓蒔蒕蒖蒗蒘蒙蒚蒛蒜蒝蒞蒟
+    U+84A0..U+84BF 蒠蒡蒢蒣蒤蒥蒦蒧蒨蒩蒪蒫蒬蒭蒮蒯蒰蒱蒲蒳蒴蒵蒶蒷蒸蒹蒺蒻蒼蒽蒾蒿
+    U+84C0..U+84DF 蓀蓁蓂蓃蓄蓅蓆蓇蓈蓉蓊蓋蓌蓍蓎蓏蓐蓑蓒蓓蓔蓕蓖蓗蓘蓙蓚蓛蓜蓝蓞蓟
+    U+84E0..U+84FF 蓠蓡蓢蓣蓤蓥蓦蓧蓨蓩蓪蓫蓬蓭蓮蓯蓰蓱蓲蓳蓴蓵蓶蓷蓸蓹蓺蓻蓼蓽蓾蓿
+    U+8500..U+851F 蔀蔁蔂蔃蔄蔅蔆蔇蔈蔉蔊蔋蔌蔍蔎蔏蔐蔑蔒蔓蔔蔕蔖蔗蔘蔙蔚蔛蔜蔝蔞蔟
+    U+8520..U+853F 蔠蔡蔢蔣蔤蔥蔦蔧蔨蔩蔪蔫蔬蔭蔮蔯蔰蔱蔲蔳蔴蔵蔶蔷蔸蔹蔺蔻蔼蔽蔾蔿
+    U+8540..U+855F 蕀蕁蕂蕃蕄蕅蕆蕇蕈蕉蕊蕋蕌蕍蕎蕏蕐蕑蕒蕓蕔蕕蕖蕗蕘蕙蕚蕛蕜蕝蕞蕟
+    U+8560..U+857F 蕠蕡蕢蕣蕤蕥蕦蕧蕨蕩蕪蕫蕬蕭蕮蕯蕰蕱蕲蕳蕴蕵蕶蕷蕸蕹蕺蕻蕼蕽蕾蕿
+    U+8580..U+859F 薀薁薂薃薄薅薆薇薈薉薊薋薌薍薎薏薐薑薒薓薔薕薖薗薘薙薚薛薜薝薞薟
+    U+85A0..U+85BF 薠薡薢薣薤薥薦薧薨薩薪薫薬薭薮薯薰薱薲薳薴薵薶薷薸薹薺薻薼薽薾薿
+    U+85C0..U+85DF 藀藁藂藃藄藅藆藇藈藉藊藋藌藍藎藏藐藑藒藓藔藕藖藗藘藙藚藛藜藝藞藟
+    U+85E0..U+85FF 藠藡藢藣藤藥藦藧藨藩藪藫藬藭藮藯藰藱藲藳藴藵藶藷藸藹藺藻藼藽藾藿
+    U+8600..U+861F 蘀蘁蘂蘃蘄蘅蘆蘇蘈蘉蘊蘋蘌蘍蘎蘏蘐蘑蘒蘓蘔蘕蘖蘗蘘蘙蘚蘛蘜蘝蘞蘟
+    U+8620..U+863F 蘠蘡蘢蘣蘤蘥蘦蘧蘨蘩蘪蘫蘬蘭蘮蘯蘰蘱蘲蘳蘴蘵蘶蘷蘸蘹蘺蘻蘼蘽蘾蘿
+    U+8640..U+865F 虀虁虂虃虄虅虆虇虈虉虊虋虌虍虎虏虐虑虒虓虔處虖虗虘虙虚虛虜虝虞號
+    U+8660..U+867F 虠虡虢虣虤虥虦虧虨虩虪虫虬虭虮虯虰虱虲虳虴虵虶虷虸虹虺虻虼虽虾虿
+    U+8680..U+869F 蚀蚁蚂蚃蚄蚅蚆蚇蚈蚉蚊蚋蚌蚍蚎蚏蚐蚑蚒蚓蚔蚕蚖蚗蚘蚙蚚蚛蚜蚝蚞蚟
+    U+86A0..U+86BF 蚠蚡蚢蚣蚤蚥蚦蚧蚨蚩蚪蚫蚬蚭蚮蚯蚰蚱蚲蚳蚴蚵蚶蚷蚸蚹蚺蚻蚼蚽蚾蚿
+    U+86C0..U+86DF 蛀蛁蛂蛃蛄蛅蛆蛇蛈蛉蛊蛋蛌蛍蛎蛏蛐蛑蛒蛓蛔蛕蛖蛗蛘蛙蛚蛛蛜蛝蛞蛟
+    U+86E0..U+86FF 蛠蛡蛢蛣蛤蛥蛦蛧蛨蛩蛪蛫蛬蛭蛮蛯蛰蛱蛲蛳蛴蛵蛶蛷蛸蛹蛺蛻蛼蛽蛾蛿
+    U+8700..U+871F 蜀蜁蜂蜃蜄蜅蜆蜇蜈蜉蜊蜋蜌蜍蜎蜏蜐蜑蜒蜓蜔蜕蜖蜗蜘蜙蜚蜛蜜蜝蜞蜟
+    U+8720..U+873F 蜠蜡蜢蜣蜤蜥蜦蜧蜨蜩蜪蜫蜬蜭蜮蜯蜰蜱蜲蜳蜴蜵蜶蜷蜸蜹蜺蜻蜼蜽蜾蜿
+    U+8740..U+875F 蝀蝁蝂蝃蝄蝅蝆蝇蝈蝉蝊蝋蝌蝍蝎蝏蝐蝑蝒蝓蝔蝕蝖蝗蝘蝙蝚蝛蝜蝝蝞蝟
+    U+8760..U+877F 蝠蝡蝢蝣蝤蝥蝦蝧蝨蝩蝪蝫蝬蝭蝮蝯蝰蝱蝲蝳蝴蝵蝶蝷蝸蝹蝺蝻蝼蝽蝾蝿
+    U+8780..U+879F 螀螁螂螃螄螅螆螇螈螉螊螋螌融螎螏螐螑螒螓螔螕螖螗螘螙螚螛螜螝螞螟
+    U+87A0..U+87BF 螠螡螢螣螤螥螦螧螨螩螪螫螬螭螮螯螰螱螲螳螴螵螶螷螸螹螺螻螼螽螾螿
+    U+87C0..U+87DF 蟀蟁蟂蟃蟄蟅蟆蟇蟈蟉蟊蟋蟌蟍蟎蟏蟐蟑蟒蟓蟔蟕蟖蟗蟘蟙蟚蟛蟜蟝蟞蟟
+    U+87E0..U+87FF 蟠蟡蟢蟣蟤蟥蟦蟧蟨蟩蟪蟫蟬蟭蟮蟯蟰蟱蟲蟳蟴蟵蟶蟷蟸蟹蟺蟻蟼蟽蟾蟿
+    U+8800..U+881F 蠀蠁蠂蠃蠄蠅蠆蠇蠈蠉蠊蠋蠌蠍蠎蠏蠐蠑蠒蠓蠔蠕蠖蠗蠘蠙蠚蠛蠜蠝蠞蠟
+    U+8820..U+883F 蠠蠡蠢蠣蠤蠥蠦蠧蠨蠩蠪蠫蠬蠭蠮蠯蠰蠱蠲蠳蠴蠵蠶蠷蠸蠹蠺蠻蠼蠽蠾蠿
+    U+8840..U+885F 血衁衂衃衄衅衆衇衈衉衊衋行衍衎衏衐衑衒術衔衕衖街衘衙衚衛衜衝衞衟
+    U+8860..U+887F 衠衡衢衣衤补衦衧表衩衪衫衬衭衮衯衰衱衲衳衴衵衶衷衸衹衺衻衼衽衾衿
+    U+8880..U+889F 袀袁袂袃袄袅袆袇袈袉袊袋袌袍袎袏袐袑袒袓袔袕袖袗袘袙袚袛袜袝袞袟
+    U+88A0..U+88BF 袠袡袢袣袤袥袦袧袨袩袪被袬袭袮袯袰袱袲袳袴袵袶袷袸袹袺袻袼袽袾袿
+    U+88C0..U+88DF 裀裁裂裃裄装裆裇裈裉裊裋裌裍裎裏裐裑裒裓裔裕裖裗裘裙裚裛補裝裞裟
+    U+88E0..U+88FF 裠裡裢裣裤裥裦裧裨裩裪裫裬裭裮裯裰裱裲裳裴裵裶裷裸裹裺裻裼製裾裿
+    U+8900..U+891F 褀褁褂褃褄褅褆複褈褉褊褋褌褍褎褏褐褑褒褓褔褕褖褗褘褙褚褛褜褝褞褟
+    U+8920..U+893F 褠褡褢褣褤褥褦褧褨褩褪褫褬褭褮褯褰褱褲褳褴褵褶褷褸褹褺褻褼褽褾褿
+    U+8940..U+895F 襀襁襂襃襄襅襆襇襈襉襊襋襌襍襎襏襐襑襒襓襔襕襖襗襘襙襚襛襜襝襞襟
+    U+8960..U+897F 襠襡襢襣襤襥襦襧襨襩襪襫襬襭襮襯襰襱襲襳襴襵襶襷襸襹襺襻襼襽襾西
+    U+8980..U+899F 覀要覂覃覄覅覆覇覈覉覊見覌覍覎規覐覑覒覓覔覕視覗覘覙覚覛覜覝覞覟
+    U+89A0..U+89BF 覠覡覢覣覤覥覦覧覨覩親覫覬覭覮覯覰覱覲観覴覵覶覷覸覹覺覻覼覽覾覿
+    U+89C0..U+89DF 觀见观觃规觅视觇览觉觊觋觌觍觎觏觐觑角觓觔觕觖觗觘觙觚觛觜觝觞觟
+    U+89E0..U+89FF 觠觡觢解觤觥触觧觨觩觪觫觬觭觮觯觰觱觲觳觴觵觶觷觸觹觺觻觼觽觾觿
+    U+8A00..U+8A1F 言訁訂訃訄訅訆訇計訉訊訋訌訍討訏訐訑訒訓訔訕訖託記訙訚訛訜訝訞訟
+    U+8A20..U+8A3F 訠訡訢訣訤訥訦訧訨訩訪訫訬設訮訯訰許訲訳訴訵訶訷訸訹診註証訽訾訿
+    U+8A40..U+8A5F 詀詁詂詃詄詅詆詇詈詉詊詋詌詍詎詏詐詑詒詓詔評詖詗詘詙詚詛詜詝詞詟
+    U+8A60..U+8A7F 詠詡詢詣詤詥試詧詨詩詪詫詬詭詮詯詰話該詳詴詵詶詷詸詹詺詻詼詽詾詿
+    U+8A80..U+8A9F 誀誁誂誃誄誅誆誇誈誉誊誋誌認誎誏誐誑誒誓誔誕誖誗誘誙誚誛誜誝語誟
+    U+8AA0..U+8ABF 誠誡誢誣誤誥誦誧誨誩說誫説読誮誯誰誱課誳誴誵誶誷誸誹誺誻誼誽誾調
+    U+8AC0..U+8ADF 諀諁諂諃諄諅諆談諈諉諊請諌諍諎諏諐諑諒諓諔諕論諗諘諙諚諛諜諝諞諟
+    U+8AE0..U+8AFF 諠諡諢諣諤諥諦諧諨諩諪諫諬諭諮諯諰諱諲諳諴諵諶諷諸諹諺諻諼諽諾諿
+    U+8B00..U+8B1F 謀謁謂謃謄謅謆謇謈謉謊謋謌謍謎謏謐謑謒謓謔謕謖謗謘謙謚講謜謝謞謟
+    U+8B20..U+8B3F 謠謡謢謣謤謥謦謧謨謩謪謫謬謭謮謯謰謱謲謳謴謵謶謷謸謹謺謻謼謽謾謿
+    U+8B40..U+8B5F 譀譁譂譃譄譅譆譇譈證譊譋譌譍譎譏譐譑譒譓譔譕譖譗識譙譚譛譜譝譞譟
+    U+8B60..U+8B7F 譠譡譢譣譤譥警譧譨譩譪譫譬譭譮譯議譱譲譳譴譵譶護譸譹譺譻譼譽譾譿
+    U+8B80..U+8B9F 讀讁讂讃讄讅讆讇讈讉變讋讌讍讎讏讐讑讒讓讔讕讖讗讘讙讚讛讜讝讞讟
+    U+8BA0..U+8BBF 讠计订讣认讥讦讧讨让讪讫讬训议讯记讱讲讳讴讵讶讷许讹论讻讼讽设访
+    U+8BC0..U+8BDF 诀证诂诃评诅识诇诈诉诊诋诌词诎诏诐译诒诓诔试诖诗诘诙诚诛诜话诞诟
+    U+8BE0..U+8BFF 诠诡询诣诤该详诧诨诩诪诫诬语诮误诰诱诲诳说诵诶请诸诹诺读诼诽课诿
+    U+8C00..U+8C1F 谀谁谂调谄谅谆谇谈谉谊谋谌谍谎谏谐谑谒谓谔谕谖谗谘谙谚谛谜谝谞谟
+    U+8C20..U+8C3F 谠谡谢谣谤谥谦谧谨谩谪谫谬谭谮谯谰谱谲谳谴谵谶谷谸谹谺谻谼谽谾谿
+    U+8C40..U+8C5F 豀豁豂豃豄豅豆豇豈豉豊豋豌豍豎豏豐豑豒豓豔豕豖豗豘豙豚豛豜豝豞豟
+    U+8C60..U+8C7F 豠象豢豣豤豥豦豧豨豩豪豫豬豭豮豯豰豱豲豳豴豵豶豷豸豹豺豻豼豽豾豿
+    U+8C80..U+8C9F 貀貁貂貃貄貅貆貇貈貉貊貋貌貍貎貏貐貑貒貓貔貕貖貗貘貙貚貛貜貝貞貟
+    U+8CA0..U+8CBF 負財貢貣貤貥貦貧貨販貪貫責貭貮貯貰貱貲貳貴貵貶買貸貹貺費貼貽貾貿
+    U+8CC0..U+8CDF 賀賁賂賃賄賅賆資賈賉賊賋賌賍賎賏賐賑賒賓賔賕賖賗賘賙賚賛賜賝賞賟
+    U+8CE0..U+8CFF 賠賡賢賣賤賥賦賧賨賩質賫賬賭賮賯賰賱賲賳賴賵賶賷賸賹賺賻購賽賾賿
+    U+8D00..U+8D1F 贀贁贂贃贄贅贆贇贈贉贊贋贌贍贎贏贐贑贒贓贔贕贖贗贘贙贚贛贜贝贞负
+    U+8D20..U+8D3F 贠贡财责贤败账货质贩贪贫贬购贮贯贰贱贲贳贴贵贶贷贸费贺贻贼贽贾贿
+    U+8D40..U+8D5F 赀赁赂赃资赅赆赇赈赉赊赋赌赍赎赏赐赑赒赓赔赕赖赗赘赙赚赛赜赝赞赟
+    U+8D60..U+8D7F 赠赡赢赣赤赥赦赧赨赩赪赫赬赭赮赯走赱赲赳赴赵赶起赸赹赺赻赼赽赾赿
+    U+8D80..U+8D9F 趀趁趂趃趄超趆趇趈趉越趋趌趍趎趏趐趑趒趓趔趕趖趗趘趙趚趛趜趝趞趟
+    U+8DA0..U+8DBF 趠趡趢趣趤趥趦趧趨趩趪趫趬趭趮趯趰趱趲足趴趵趶趷趸趹趺趻趼趽趾趿
+    U+8DC0..U+8DDF 跀跁跂跃跄跅跆跇跈跉跊跋跌跍跎跏跐跑跒跓跔跕跖跗跘跙跚跛跜距跞跟
+    U+8DE0..U+8DFF 跠跡跢跣跤跥跦跧跨跩跪跫跬跭跮路跰跱跲跳跴践跶跷跸跹跺跻跼跽跾跿
+    U+8E00..U+8E1F 踀踁踂踃踄踅踆踇踈踉踊踋踌踍踎踏踐踑踒踓踔踕踖踗踘踙踚踛踜踝踞踟
+    U+8E20..U+8E3F 踠踡踢踣踤踥踦踧踨踩踪踫踬踭踮踯踰踱踲踳踴踵踶踷踸踹踺踻踼踽踾踿
+    U+8E40..U+8E5F 蹀蹁蹂蹃蹄蹅蹆蹇蹈蹉蹊蹋蹌蹍蹎蹏蹐蹑蹒蹓蹔蹕蹖蹗蹘蹙蹚蹛蹜蹝蹞蹟
+    U+8E60..U+8E7F 蹠蹡蹢蹣蹤蹥蹦蹧蹨蹩蹪蹫蹬蹭蹮蹯蹰蹱蹲蹳蹴蹵蹶蹷蹸蹹蹺蹻蹼蹽蹾蹿
+    U+8E80..U+8E9F 躀躁躂躃躄躅躆躇躈躉躊躋躌躍躎躏躐躑躒躓躔躕躖躗躘躙躚躛躜躝躞躟
+    U+8EA0..U+8EBF 躠躡躢躣躤躥躦躧躨躩躪身躬躭躮躯躰躱躲躳躴躵躶躷躸躹躺躻躼躽躾躿
+    U+8EC0..U+8EDF 軀軁軂軃軄軅軆軇軈軉車軋軌軍軎軏軐軑軒軓軔軕軖軗軘軙軚軛軜軝軞軟
+    U+8EE0..U+8EFF 軠軡転軣軤軥軦軧軨軩軪軫軬軭軮軯軰軱軲軳軴軵軶軷軸軹軺軻軼軽軾軿
+    U+8F00..U+8F1F 輀輁輂較輄輅輆輇輈載輊輋輌輍輎輏輐輑輒輓輔輕輖輗輘輙輚輛輜輝輞輟
+    U+8F20..U+8F3F 輠輡輢輣輤輥輦輧輨輩輪輫輬輭輮輯輰輱輲輳輴輵輶輷輸輹輺輻輼輽輾輿
+    U+8F40..U+8F5F 轀轁轂轃轄轅轆轇轈轉轊轋轌轍轎轏轐轑轒轓轔轕轖轗轘轙轚轛轜轝轞轟
+    U+8F60..U+8F7F 轠轡轢轣轤轥车轧轨轩轪轫转轭轮软轰轱轲轳轴轵轶轷轸轹轺轻轼载轾轿
+    U+8F80..U+8F9F 辀辁辂较辄辅辆辇辈辉辊辋辌辍辎辏辐辑辒输辔辕辖辗辘辙辚辛辜辝辞辟
+    U+8FA0..U+8FBF 辠辡辢辣辤辥辦辧辨辩辪辫辬辭辮辯辰辱農辳辴辵辶辷辸边辺辻込辽达辿
+    U+8FC0..U+8FDF 迀迁迂迃迄迅迆过迈迉迊迋迌迍迎迏运近迒迓返迕迖迗还这迚进远违连迟
+    U+8FE0..U+8FFF 迠迡迢迣迤迥迦迧迨迩迪迫迬迭迮迯述迱迲迳迴迵迶迷迸迹迺迻迼追迾迿
+    U+9000..U+901F 退送适逃逄逅逆逇逈选逊逋逌逍逎透逐逑递逓途逕逖逗逘這通逛逜逝逞速
+    U+9020..U+903F 造逡逢連逤逥逦逧逨逩逪逫逬逭逮逯逰週進逳逴逵逶逷逸逹逺逻逼逽逾逿
+    U+9040..U+905F 遀遁遂遃遄遅遆遇遈遉遊運遌遍過遏遐遑遒道達違遖遗遘遙遚遛遜遝遞遟
+    U+9060..U+907F 遠遡遢遣遤遥遦遧遨適遪遫遬遭遮遯遰遱遲遳遴遵遶遷選遹遺遻遼遽遾避
+    U+9080..U+909F 邀邁邂邃還邅邆邇邈邉邊邋邌邍邎邏邐邑邒邓邔邕邖邗邘邙邚邛邜邝邞邟
+    U+90A0..U+90BF 邠邡邢那邤邥邦邧邨邩邪邫邬邭邮邯邰邱邲邳邴邵邶邷邸邹邺邻邼邽邾邿
+    U+90C0..U+90DF 郀郁郂郃郄郅郆郇郈郉郊郋郌郍郎郏郐郑郒郓郔郕郖郗郘郙郚郛郜郝郞郟
+    U+90E0..U+90FF 郠郡郢郣郤郥郦郧部郩郪郫郬郭郮郯郰郱郲郳郴郵郶郷郸郹郺郻郼都郾郿
+    U+9100..U+911F 鄀鄁鄂鄃鄄鄅鄆鄇鄈鄉鄊鄋鄌鄍鄎鄏鄐鄑鄒鄓鄔鄕鄖鄗鄘鄙鄚鄛鄜鄝鄞鄟
+    U+9120..U+913F 鄠鄡鄢鄣鄤鄥鄦鄧鄨鄩鄪鄫鄬鄭鄮鄯鄰鄱鄲鄳鄴鄵鄶鄷鄸鄹鄺鄻鄼鄽鄾鄿
+    U+9140..U+915F 酀酁酂酃酄酅酆酇酈酉酊酋酌配酎酏酐酑酒酓酔酕酖酗酘酙酚酛酜酝酞酟
+    U+9160..U+917F 酠酡酢酣酤酥酦酧酨酩酪酫酬酭酮酯酰酱酲酳酴酵酶酷酸酹酺酻酼酽酾酿
+    U+9180..U+919F 醀醁醂醃醄醅醆醇醈醉醊醋醌醍醎醏醐醑醒醓醔醕醖醗醘醙醚醛醜醝醞醟
+    U+91A0..U+91BF 醠醡醢醣醤醥醦醧醨醩醪醫醬醭醮醯醰醱醲醳醴醵醶醷醸醹醺醻醼醽醾醿
+    U+91C0..U+91DF 釀釁釂釃釄釅釆采釈釉释釋里重野量釐金釒釓釔釕釖釗釘釙釚釛釜針釞釟
+    U+91E0..U+91FF 釠釡釢釣釤釥釦釧釨釩釪釫釬釭釮釯釰釱釲釳釴釵釶釷釸釹釺釻釼釽釾釿
+    U+9200..U+921F 鈀鈁鈂鈃鈄鈅鈆鈇鈈鈉鈊鈋鈌鈍鈎鈏鈐鈑鈒鈓鈔鈕鈖鈗鈘鈙鈚鈛鈜鈝鈞鈟
+    U+9220..U+923F 鈠鈡鈢鈣鈤鈥鈦鈧鈨鈩鈪鈫鈬鈭鈮鈯鈰鈱鈲鈳鈴鈵鈶鈷鈸鈹鈺鈻鈼鈽鈾鈿
+    U+9240..U+925F 鉀鉁鉂鉃鉄鉅鉆鉇鉈鉉鉊鉋鉌鉍鉎鉏鉐鉑鉒鉓鉔鉕鉖鉗鉘鉙鉚鉛鉜鉝鉞鉟
+    U+9260..U+927F 鉠鉡鉢鉣鉤鉥鉦鉧鉨鉩鉪鉫鉬鉭鉮鉯鉰鉱鉲鉳鉴鉵鉶鉷鉸鉹鉺鉻鉼鉽鉾鉿
+    U+9280..U+929F 銀銁銂銃銄銅銆銇銈銉銊銋銌銍銎銏銐銑銒銓銔銕銖銗銘銙銚銛銜銝銞銟
+    U+92A0..U+92BF 銠銡銢銣銤銥銦銧銨銩銪銫銬銭銮銯銰銱銲銳銴銵銶銷銸銹銺銻銼銽銾銿
+    U+92C0..U+92DF 鋀鋁鋂鋃鋄鋅鋆鋇鋈鋉鋊鋋鋌鋍鋎鋏鋐鋑鋒鋓鋔鋕鋖鋗鋘鋙鋚鋛鋜鋝鋞鋟
+    U+92E0..U+92FF 鋠鋡鋢鋣鋤鋥鋦鋧鋨鋩鋪鋫鋬鋭鋮鋯鋰鋱鋲鋳鋴鋵鋶鋷鋸鋹鋺鋻鋼鋽鋾鋿
+    U+9300..U+931F 錀錁錂錃錄錅錆錇錈錉錊錋錌錍錎錏錐錑錒錓錔錕錖錗錘錙錚錛錜錝錞錟
+    U+9320..U+933F 錠錡錢錣錤錥錦錧錨錩錪錫錬錭錮錯錰錱録錳錴錵錶錷錸錹錺錻錼錽錾錿
+    U+9340..U+935F 鍀鍁鍂鍃鍄鍅鍆鍇鍈鍉鍊鍋鍌鍍鍎鍏鍐鍑鍒鍓鍔鍕鍖鍗鍘鍙鍚鍛鍜鍝鍞鍟
+    U+9360..U+937F 鍠鍡鍢鍣鍤鍥鍦鍧鍨鍩鍪鍫鍬鍭鍮鍯鍰鍱鍲鍳鍴鍵鍶鍷鍸鍹鍺鍻鍼鍽鍾鍿
+    U+9380..U+939F 鎀鎁鎂鎃鎄鎅鎆鎇鎈鎉鎊鎋鎌鎍鎎鎏鎐鎑鎒鎓鎔鎕鎖鎗鎘鎙鎚鎛鎜鎝鎞鎟
+    U+93A0..U+93BF 鎠鎡鎢鎣鎤鎥鎦鎧鎨鎩鎪鎫鎬鎭鎮鎯鎰鎱鎲鎳鎴鎵鎶鎷鎸鎹鎺鎻鎼鎽鎾鎿
+    U+93C0..U+93DF 鏀鏁鏂鏃鏄鏅鏆鏇鏈鏉鏊鏋鏌鏍鏎鏏鏐鏑鏒鏓鏔鏕鏖鏗鏘鏙鏚鏛鏜鏝鏞鏟
+    U+93E0..U+93FF 鏠鏡鏢鏣鏤鏥鏦鏧鏨鏩鏪鏫鏬鏭鏮鏯鏰鏱鏲鏳鏴鏵鏶鏷鏸鏹鏺鏻鏼鏽鏾鏿
+    U+9400..U+941F 鐀鐁鐂鐃鐄鐅鐆鐇鐈鐉鐊鐋鐌鐍鐎鐏鐐鐑鐒鐓鐔鐕鐖鐗鐘鐙鐚鐛鐜鐝鐞鐟
+    U+9420..U+943F 鐠鐡鐢鐣鐤鐥鐦鐧鐨鐩鐪鐫鐬鐭鐮鐯鐰鐱鐲鐳鐴鐵鐶鐷鐸鐹鐺鐻鐼鐽鐾鐿
+    U+9440..U+945F 鑀鑁鑂鑃鑄鑅鑆鑇鑈鑉鑊鑋鑌鑍鑎鑏鑐鑑鑒鑓鑔鑕鑖鑗鑘鑙鑚鑛鑜鑝鑞鑟
+    U+9460..U+947F 鑠鑡鑢鑣鑤鑥鑦鑧鑨鑩鑪鑫鑬鑭鑮鑯鑰鑱鑲鑳鑴鑵鑶鑷鑸鑹鑺鑻鑼鑽鑾鑿
+    U+9480..U+949F 钀钁钂钃钄钅钆钇针钉钊钋钌钍钎钏钐钑钒钓钔钕钖钗钘钙钚钛钜钝钞钟
+    U+94A0..U+94BF 钠钡钢钣钤钥钦钧钨钩钪钫钬钭钮钯钰钱钲钳钴钵钶钷钸钹钺钻钼钽钾钿
+    U+94C0..U+94DF 铀铁铂铃铄铅铆铇铈铉铊铋铌铍铎铏铐铑铒铓铔铕铖铗铘铙铚铛铜铝铞铟
+    U+94E0..U+94FF 铠铡铢铣铤铥铦铧铨铩铪铫铬铭铮铯铰铱铲铳铴铵银铷铸铹铺铻铼铽链铿
+    U+9500..U+951F 销锁锂锃锄锅锆锇锈锉锊锋锌锍锎锏锐锑锒锓锔锕锖锗锘错锚锛锜锝锞锟
+    U+9520..U+953F 锠锡锢锣锤锥锦锧锨锩锪锫锬锭键锯锰锱锲锳锴锵锶锷锸锹锺锻锼锽锾锿
+    U+9540..U+955F 镀镁镂镃镄镅镆镇镈镉镊镋镌镍镎镏镐镑镒镓镔镕镖镗镘镙镚镛镜镝镞镟
+    U+9560..U+957F 镠镡镢镣镤镥镦镧镨镩镪镫镬镭镮镯镰镱镲镳镴镵镶長镸镹镺镻镼镽镾长
+    U+9580..U+959F 門閁閂閃閄閅閆閇閈閉閊開閌閍閎閏閐閑閒間閔閕閖閗閘閙閚閛閜閝閞閟
+    U+95A0..U+95BF 閠閡関閣閤閥閦閧閨閩閪閫閬閭閮閯閰閱閲閳閴閵閶閷閸閹閺閻閼閽閾閿
+    U+95C0..U+95DF 闀闁闂闃闄闅闆闇闈闉闊闋闌闍闎闏闐闑闒闓闔闕闖闗闘闙闚闛關闝闞闟
+    U+95E0..U+95FF 闠闡闢闣闤闥闦闧门闩闪闫闬闭问闯闰闱闲闳间闵闶闷闸闹闺闻闼闽闾闿
+    U+9600..U+961F 阀阁阂阃阄阅阆阇阈阉阊阋阌阍阎阏阐阑阒阓阔阕阖阗阘阙阚阛阜阝阞队
+    U+9620..U+963F 阠阡阢阣阤阥阦阧阨阩阪阫阬阭阮阯阰阱防阳阴阵阶阷阸阹阺阻阼阽阾阿
+    U+9640..U+965F 陀陁陂陃附际陆陇陈陉陊陋陌降陎陏限陑陒陓陔陕陖陗陘陙陚陛陜陝陞陟
+    U+9660..U+967F 陠陡院陣除陥陦陧陨险陪陫陬陭陮陯陰陱陲陳陴陵陶陷陸陹険陻陼陽陾陿
+    U+9680..U+969F 隀隁隂隃隄隅隆隇隈隉隊隋隌隍階随隐隑隒隓隔隕隖隗隘隙隚際障隝隞隟
+    U+96A0..U+96BF 隠隡隢隣隤隥隦隧隨隩險隫隬隭隮隯隰隱隲隳隴隵隶隷隸隹隺隻隼隽难隿
+    U+96C0..U+96DF 雀雁雂雃雄雅集雇雈雉雊雋雌雍雎雏雐雑雒雓雔雕雖雗雘雙雚雛雜雝雞雟
+    U+96E0..U+96FF 雠雡離難雤雥雦雧雨雩雪雫雬雭雮雯雰雱雲雳雴雵零雷雸雹雺電雼雽雾雿
+    U+9700..U+971F 需霁霂霃霄霅霆震霈霉霊霋霌霍霎霏霐霑霒霓霔霕霖霗霘霙霚霛霜霝霞霟
+    U+9720..U+973F 霠霡霢霣霤霥霦霧霨霩霪霫霬霭霮霯霰霱露霳霴霵霶霷霸霹霺霻霼霽霾霿
+    U+9740..U+975F 靀靁靂靃靄靅靆靇靈靉靊靋靌靍靎靏靐靑青靓靔靕靖靗靘静靚靛靜靝非靟
+    U+9760..U+977F 靠靡面靣靤靥靦靧靨革靪靫靬靭靮靯靰靱靲靳靴靵靶靷靸靹靺靻靼靽靾靿
+    U+9780..U+979F 鞀鞁鞂鞃鞄鞅鞆鞇鞈鞉鞊鞋鞌鞍鞎鞏鞐鞑鞒鞓鞔鞕鞖鞗鞘鞙鞚鞛鞜鞝鞞鞟
+    U+97A0..U+97BF 鞠鞡鞢鞣鞤鞥鞦鞧鞨鞩鞪鞫鞬鞭鞮鞯鞰鞱鞲鞳鞴鞵鞶鞷鞸鞹鞺鞻鞼鞽鞾鞿
+    U+97C0..U+97DF 韀韁韂韃韄韅韆韇韈韉韊韋韌韍韎韏韐韑韒韓韔韕韖韗韘韙韚韛韜韝韞韟
+    U+97E0..U+97FF 韠韡韢韣韤韥韦韧韨韩韪韫韬韭韮韯韰韱韲音韴韵韶韷韸韹韺韻韼韽韾響
+    U+9800..U+981F 頀頁頂頃頄項順頇須頉頊頋頌頍頎頏預頑頒頓頔頕頖頗領頙頚頛頜頝頞頟
+    U+9820..U+983F 頠頡頢頣頤頥頦頧頨頩頪頫頬頭頮頯頰頱頲頳頴頵頶頷頸頹頺頻頼頽頾頿
+    U+9840..U+985F 顀顁顂顃顄顅顆顇顈顉顊顋題額顎顏顐顑顒顓顔顕顖顗願顙顚顛顜顝類顟
+    U+9860..U+987F 顠顡顢顣顤顥顦顧顨顩顪顫顬顭顮顯顰顱顲顳顴页顶顷顸项顺须顼顽顾顿
+    U+9880..U+989F 颀颁颂颃预颅领颇颈颉颊颋颌颍颎颏颐频颒颓颔颕颖颗题颙颚颛颜额颞颟
+    U+98A0..U+98BF 颠颡颢颣颤颥颦颧風颩颪颫颬颭颮颯颰颱颲颳颴颵颶颷颸颹颺颻颼颽颾颿
+    U+98C0..U+98DF 飀飁飂飃飄飅飆飇飈飉飊飋飌飍风飏飐飑飒飓飔飕飖飗飘飙飚飛飜飝飞食
+    U+98E0..U+98FF 飠飡飢飣飤飥飦飧飨飩飪飫飬飭飮飯飰飱飲飳飴飵飶飷飸飹飺飻飼飽飾飿
+    U+9900..U+991F 餀餁餂餃餄餅餆餇餈餉養餋餌餍餎餏餐餑餒餓餔餕餖餗餘餙餚餛餜餝餞餟
+    U+9920..U+993F 餠餡餢餣餤餥餦餧館餩餪餫餬餭餮餯餰餱餲餳餴餵餶餷餸餹餺餻餼餽餾餿
+    U+9940..U+995F 饀饁饂饃饄饅饆饇饈饉饊饋饌饍饎饏饐饑饒饓饔饕饖饗饘饙饚饛饜饝饞饟
+    U+9960..U+997F 饠饡饢饣饤饥饦饧饨饩饪饫饬饭饮饯饰饱饲饳饴饵饶饷饸饹饺饻饼饽饾饿
+    U+9980..U+999F 馀馁馂馃馄馅馆馇馈馉馊馋馌馍馎馏馐馑馒馓馔馕首馗馘香馚馛馜馝馞馟
+    U+99A0..U+99BF 馠馡馢馣馤馥馦馧馨馩馪馫馬馭馮馯馰馱馲馳馴馵馶馷馸馹馺馻馼馽馾馿
+    U+99C0..U+99DF 駀駁駂駃駄駅駆駇駈駉駊駋駌駍駎駏駐駑駒駓駔駕駖駗駘駙駚駛駜駝駞駟
+    U+99E0..U+99FF 駠駡駢駣駤駥駦駧駨駩駪駫駬駭駮駯駰駱駲駳駴駵駶駷駸駹駺駻駼駽駾駿
+    U+9A00..U+9A1F 騀騁騂騃騄騅騆騇騈騉騊騋騌騍騎騏騐騑騒験騔騕騖騗騘騙騚騛騜騝騞騟
+    U+9A20..U+9A3F 騠騡騢騣騤騥騦騧騨騩騪騫騬騭騮騯騰騱騲騳騴騵騶騷騸騹騺騻騼騽騾騿
+    U+9A40..U+9A5F 驀驁驂驃驄驅驆驇驈驉驊驋驌驍驎驏驐驑驒驓驔驕驖驗驘驙驚驛驜驝驞驟
+    U+9A60..U+9A7F 驠驡驢驣驤驥驦驧驨驩驪驫马驭驮驯驰驱驲驳驴驵驶驷驸驹驺驻驼驽驾驿
+    U+9A80..U+9A9F 骀骁骂骃骄骅骆骇骈骉骊骋验骍骎骏骐骑骒骓骔骕骖骗骘骙骚骛骜骝骞骟
+    U+9AA0..U+9ABF 骠骡骢骣骤骥骦骧骨骩骪骫骬骭骮骯骰骱骲骳骴骵骶骷骸骹骺骻骼骽骾骿
+    U+9AC0..U+9ADF 髀髁髂髃髄髅髆髇髈髉髊髋髌髍髎髏髐髑髒髓體髕髖髗高髙髚髛髜髝髞髟
+    U+9AE0..U+9AFF 髠髡髢髣髤髥髦髧髨髩髪髫髬髭髮髯髰髱髲髳髴髵髶髷髸髹髺髻髼髽髾髿
+    U+9B00..U+9B1F 鬀鬁鬂鬃鬄鬅鬆鬇鬈鬉鬊鬋鬌鬍鬎鬏鬐鬑鬒鬓鬔鬕鬖鬗鬘鬙鬚鬛鬜鬝鬞鬟
+    U+9B20..U+9B3F 鬠鬡鬢鬣鬤鬥鬦鬧鬨鬩鬪鬫鬬鬭鬮鬯鬰鬱鬲鬳鬴鬵鬶鬷鬸鬹鬺鬻鬼鬽鬾鬿
+    U+9B40..U+9B5F 魀魁魂魃魄魅魆魇魈魉魊魋魌魍魎魏魐魑魒魓魔魕魖魗魘魙魚魛魜魝魞魟
+    U+9B60..U+9B7F 魠魡魢魣魤魥魦魧魨魩魪魫魬魭魮魯魰魱魲魳魴魵魶魷魸魹魺魻魼魽魾魿
+    U+9B80..U+9B9F 鮀鮁鮂鮃鮄鮅鮆鮇鮈鮉鮊鮋鮌鮍鮎鮏鮐鮑鮒鮓鮔鮕鮖鮗鮘鮙鮚鮛鮜鮝鮞鮟
+    U+9BA0..U+9BBF 鮠鮡鮢鮣鮤鮥鮦鮧鮨鮩鮪鮫鮬鮭鮮鮯鮰鮱鮲鮳鮴鮵鮶鮷鮸鮹鮺鮻鮼鮽鮾鮿
+    U+9BC0..U+9BDF 鯀鯁鯂鯃鯄鯅鯆鯇鯈鯉鯊鯋鯌鯍鯎鯏鯐鯑鯒鯓鯔鯕鯖鯗鯘鯙鯚鯛鯜鯝鯞鯟
+    U+9BE0..U+9BFF 鯠鯡鯢鯣鯤鯥鯦鯧鯨鯩鯪鯫鯬鯭鯮鯯鯰鯱鯲鯳鯴鯵鯶鯷鯸鯹鯺鯻鯼鯽鯾鯿
+    U+9C00..U+9C1F 鰀鰁鰂鰃鰄鰅鰆鰇鰈鰉鰊鰋鰌鰍鰎鰏鰐鰑鰒鰓鰔鰕鰖鰗鰘鰙鰚鰛鰜鰝鰞鰟
+    U+9C20..U+9C3F 鰠鰡鰢鰣鰤鰥鰦鰧鰨鰩鰪鰫鰬鰭鰮鰯鰰鰱鰲鰳鰴鰵鰶鰷鰸鰹鰺鰻鰼鰽鰾鰿
+    U+9C40..U+9C5F 鱀鱁鱂鱃鱄鱅鱆鱇鱈鱉鱊鱋鱌鱍鱎鱏鱐鱑鱒鱓鱔鱕鱖鱗鱘鱙鱚鱛鱜鱝鱞鱟
+    U+9C60..U+9C7F 鱠鱡鱢鱣鱤鱥鱦鱧鱨鱩鱪鱫鱬鱭鱮鱯鱰鱱鱲鱳鱴鱵鱶鱷鱸鱹鱺鱻鱼鱽鱾鱿
+    U+9C80..U+9C9F 鲀鲁鲂鲃鲄鲅鲆鲇鲈鲉鲊鲋鲌鲍鲎鲏鲐鲑鲒鲓鲔鲕鲖鲗鲘鲙鲚鲛鲜鲝鲞鲟
+    U+9CA0..U+9CBF 鲠鲡鲢鲣鲤鲥鲦鲧鲨鲩鲪鲫鲬鲭鲮鲯鲰鲱鲲鲳鲴鲵鲶鲷鲸鲹鲺鲻鲼鲽鲾鲿
+    U+9CC0..U+9CDF 鳀鳁鳂鳃鳄鳅鳆鳇鳈鳉鳊鳋鳌鳍鳎鳏鳐鳑鳒鳓鳔鳕鳖鳗鳘鳙鳚鳛鳜鳝鳞鳟
+    U+9CE0..U+9CFF 鳠鳡鳢鳣鳤鳥鳦鳧鳨鳩鳪鳫鳬鳭鳮鳯鳰鳱鳲鳳鳴鳵鳶鳷鳸鳹鳺鳻鳼鳽鳾鳿
+    U+9D00..U+9D1F 鴀鴁鴂鴃鴄鴅鴆鴇鴈鴉鴊鴋鴌鴍鴎鴏鴐鴑鴒鴓鴔鴕鴖鴗鴘鴙鴚鴛鴜鴝鴞鴟
+    U+9D20..U+9D3F 鴠鴡鴢鴣鴤鴥鴦鴧鴨鴩鴪鴫鴬鴭鴮鴯鴰鴱鴲鴳鴴鴵鴶鴷鴸鴹鴺鴻鴼鴽鴾鴿
+    U+9D40..U+9D5F 鵀鵁鵂鵃鵄鵅鵆鵇鵈鵉鵊鵋鵌鵍鵎鵏鵐鵑鵒鵓鵔鵕鵖鵗鵘鵙鵚鵛鵜鵝鵞鵟
+    U+9D60..U+9D7F 鵠鵡鵢鵣鵤鵥鵦鵧鵨鵩鵪鵫鵬鵭鵮鵯鵰鵱鵲鵳鵴鵵鵶鵷鵸鵹鵺鵻鵼鵽鵾鵿
+    U+9D80..U+9D9F 鶀鶁鶂鶃鶄鶅鶆鶇鶈鶉鶊鶋鶌鶍鶎鶏鶐鶑鶒鶓鶔鶕鶖鶗鶘鶙鶚鶛鶜鶝鶞鶟
+    U+9DA0..U+9DBF 鶠鶡鶢鶣鶤鶥鶦鶧鶨鶩鶪鶫鶬鶭鶮鶯鶰鶱鶲鶳鶴鶵鶶鶷鶸鶹鶺鶻鶼鶽鶾鶿
+    U+9DC0..U+9DDF 鷀鷁鷂鷃鷄鷅鷆鷇鷈鷉鷊鷋鷌鷍鷎鷏鷐鷑鷒鷓鷔鷕鷖鷗鷘鷙鷚鷛鷜鷝鷞鷟
+    U+9DE0..U+9DFF 鷠鷡鷢鷣鷤鷥鷦鷧鷨鷩鷪鷫鷬鷭鷮鷯鷰鷱鷲鷳鷴鷵鷶鷷鷸鷹鷺鷻鷼鷽鷾鷿
+    U+9E00..U+9E1F 鸀鸁鸂鸃鸄鸅鸆鸇鸈鸉鸊鸋鸌鸍鸎鸏鸐鸑鸒鸓鸔鸕鸖鸗鸘鸙鸚鸛鸜鸝鸞鸟
+    U+9E20..U+9E3F 鸠鸡鸢鸣鸤鸥鸦鸧鸨鸩鸪鸫鸬鸭鸮鸯鸰鸱鸲鸳鸴鸵鸶鸷鸸鸹鸺鸻鸼鸽鸾鸿
+    U+9E40..U+9E5F 鹀鹁鹂鹃鹄鹅鹆鹇鹈鹉鹊鹋鹌鹍鹎鹏鹐鹑鹒鹓鹔鹕鹖鹗鹘鹙鹚鹛鹜鹝鹞鹟
+    U+9E60..U+9E7F 鹠鹡鹢鹣鹤鹥鹦鹧鹨鹩鹪鹫鹬鹭鹮鹯鹰鹱鹲鹳鹴鹵鹶鹷鹸鹹鹺鹻鹼鹽鹾鹿
+    U+9E80..U+9E9F 麀麁麂麃麄麅麆麇麈麉麊麋麌麍麎麏麐麑麒麓麔麕麖麗麘麙麚麛麜麝麞麟
+    U+9EA0..U+9EBF 麠麡麢麣麤麥麦麧麨麩麪麫麬麭麮麯麰麱麲麳麴麵麶麷麸麹麺麻麼麽麾麿
+    U+9EC0..U+9EDF 黀黁黂黃黄黅黆黇黈黉黊黋黌黍黎黏黐黑黒黓黔黕黖黗默黙黚黛黜黝點黟
+    U+9EE0..U+9EFF 黠黡黢黣黤黥黦黧黨黩黪黫黬黭黮黯黰黱黲黳黴黵黶黷黸黹黺黻黼黽黾黿
+    U+9F00..U+9F1F 鼀鼁鼂鼃鼄鼅鼆鼇鼈鼉鼊鼋鼌鼍鼎鼏鼐鼑鼒鼓鼔鼕鼖鼗鼘鼙鼚鼛鼜鼝鼞鼟
+    U+9F20..U+9F3F 鼠鼡鼢鼣鼤鼥鼦鼧鼨鼩鼪鼫鼬鼭鼮鼯鼰鼱鼲鼳鼴鼵鼶鼷鼸鼹鼺鼻鼼鼽鼾鼿
+    U+9F40..U+9F5F 齀齁齂齃齄齅齆齇齈齉齊齋齌齍齎齏齐齑齒齓齔齕齖齗齘齙齚齛齜齝齞齟
+    U+9F60..U+9F7F 齠齡齢齣齤齥齦齧齨齩齪齫齬齭齮齯齰齱齲齳齴齵齶齷齸齹齺齻齼齽齾齿
+    U+9F80..U+9F9F 龀龁龂龃龄龅龆龇龈龉龊龋龌龍龎龏龐龑龒龓龔龕龖龗龘龙龚龛龜龝龞龟
+    U+9FA0..U+9FBF 龠龡龢龣龤龥龦龧龨龩龪龫龬龭龮龯龰龱龲龳龴龵龶龷龸龹龺龻龼龽龾龿
+    U+9FC0..U+9FDF 鿀鿁鿂鿃鿄鿅鿆鿇鿈鿉鿊鿋鿌鿍鿎鿏鿐鿑鿒鿓鿔鿕鿖鿗鿘鿙鿚鿛鿜鿝鿞鿟
+    U+9FE0..U+9FFF 鿠鿡鿢鿣鿤鿥鿦鿧鿨鿩鿪鿫鿬鿭鿮鿯鿰鿱鿲鿳鿴鿵鿶鿷鿸鿹鿺鿻鿼鿽鿾鿿
+
+#### Yi Syllables
+
+    U+A000..U+A01F ꀀꀁꀂꀃꀄꀅꀆꀇꀈꀉꀊꀋꀌꀍꀎꀏꀐꀑꀒꀓꀔꀕꀖꀗꀘꀙꀚꀛꀜꀝꀞꀟ
+    U+A020..U+A03F ꀠꀡꀢꀣꀤꀥꀦꀧꀨꀩꀪꀫꀬꀭꀮꀯꀰꀱꀲꀳꀴꀵꀶꀷꀸꀹꀺꀻꀼꀽꀾꀿ
+    U+A040..U+A05F ꁀꁁꁂꁃꁄꁅꁆꁇꁈꁉꁊꁋꁌꁍꁎꁏꁐꁑꁒꁓꁔꁕꁖꁗꁘꁙꁚꁛꁜꁝꁞꁟ
+    U+A060..U+A07F ꁠꁡꁢꁣꁤꁥꁦꁧꁨꁩꁪꁫꁬꁭꁮꁯꁰꁱꁲꁳꁴꁵꁶꁷꁸꁹꁺꁻꁼꁽꁾꁿ
+    U+A080..U+A09F ꂀꂁꂂꂃꂄꂅꂆꂇꂈꂉꂊꂋꂌꂍꂎꂏꂐꂑꂒꂓꂔꂕꂖꂗꂘꂙꂚꂛꂜꂝꂞꂟ
+    U+A0A0..U+A0BF ꂠꂡꂢꂣꂤꂥꂦꂧꂨꂩꂪꂫꂬꂭꂮꂯꂰꂱꂲꂳꂴꂵꂶꂷꂸꂹꂺꂻꂼꂽꂾꂿ
+    U+A0C0..U+A0DF ꃀꃁꃂꃃꃄꃅꃆꃇꃈꃉꃊꃋꃌꃍꃎꃏꃐꃑꃒꃓꃔꃕꃖꃗꃘꃙꃚꃛꃜꃝꃞꃟ
+    U+A0E0..U+A0FF ꃠꃡꃢꃣꃤꃥꃦꃧꃨꃩꃪꃫꃬꃭꃮꃯꃰꃱꃲꃳꃴꃵꃶꃷꃸꃹꃺꃻꃼꃽꃾꃿ
+    U+A100..U+A11F ꄀꄁꄂꄃꄄꄅꄆꄇꄈꄉꄊꄋꄌꄍꄎꄏꄐꄑꄒꄓꄔꄕꄖꄗꄘꄙꄚꄛꄜꄝꄞꄟ
+    U+A120..U+A13F ꄠꄡꄢꄣꄤꄥꄦꄧꄨꄩꄪꄫꄬꄭꄮꄯꄰꄱꄲꄳꄴꄵꄶꄷꄸꄹꄺꄻꄼꄽꄾꄿ
+    U+A140..U+A15F ꅀꅁꅂꅃꅄꅅꅆꅇꅈꅉꅊꅋꅌꅍꅎꅏꅐꅑꅒꅓꅔꅕꅖꅗꅘꅙꅚꅛꅜꅝꅞꅟ
+    U+A160..U+A17F ꅠꅡꅢꅣꅤꅥꅦꅧꅨꅩꅪꅫꅬꅭꅮꅯꅰꅱꅲꅳꅴꅵꅶꅷꅸꅹꅺꅻꅼꅽꅾꅿ
+    U+A180..U+A19F ꆀꆁꆂꆃꆄꆅꆆꆇꆈꆉꆊꆋꆌꆍꆎꆏꆐꆑꆒꆓꆔꆕꆖꆗꆘꆙꆚꆛꆜꆝꆞꆟ
+    U+A1A0..U+A1BF ꆠꆡꆢꆣꆤꆥꆦꆧꆨꆩꆪꆫꆬꆭꆮꆯꆰꆱꆲꆳꆴꆵꆶꆷꆸꆹꆺꆻꆼꆽꆾꆿ
+    U+A1C0..U+A1DF ꇀꇁꇂꇃꇄꇅꇆꇇꇈꇉꇊꇋꇌꇍꇎꇏꇐꇑꇒꇓꇔꇕꇖꇗꇘꇙꇚꇛꇜꇝꇞꇟ
+    U+A1E0..U+A1FF ꇠꇡꇢꇣꇤꇥꇦꇧꇨꇩꇪꇫꇬꇭꇮꇯꇰꇱꇲꇳꇴꇵꇶꇷꇸꇹꇺꇻꇼꇽꇾꇿ
+    U+A200..U+A21F ꈀꈁꈂꈃꈄꈅꈆꈇꈈꈉꈊꈋꈌꈍꈎꈏꈐꈑꈒꈓꈔꈕꈖꈗꈘꈙꈚꈛꈜꈝꈞꈟ
+    U+A220..U+A23F ꈠꈡꈢꈣꈤꈥꈦꈧꈨꈩꈪꈫꈬꈭꈮꈯꈰꈱꈲꈳꈴꈵꈶꈷꈸꈹꈺꈻꈼꈽꈾꈿ
+    U+A240..U+A25F ꉀꉁꉂꉃꉄꉅꉆꉇꉈꉉꉊꉋꉌꉍꉎꉏꉐꉑꉒꉓꉔꉕꉖꉗꉘꉙꉚꉛꉜꉝꉞꉟ
+    U+A260..U+A27F ꉠꉡꉢꉣꉤꉥꉦꉧꉨꉩꉪꉫꉬꉭꉮꉯꉰꉱꉲꉳꉴꉵꉶꉷꉸꉹꉺꉻꉼꉽꉾꉿ
+    U+A280..U+A29F ꊀꊁꊂꊃꊄꊅꊆꊇꊈꊉꊊꊋꊌꊍꊎꊏꊐꊑꊒꊓꊔꊕꊖꊗꊘꊙꊚꊛꊜꊝꊞꊟ
+    U+A2A0..U+A2BF ꊠꊡꊢꊣꊤꊥꊦꊧꊨꊩꊪꊫꊬꊭꊮꊯꊰꊱꊲꊳꊴꊵꊶꊷꊸꊹꊺꊻꊼꊽꊾꊿ
+    U+A2C0..U+A2DF ꋀꋁꋂꋃꋄꋅꋆꋇꋈꋉꋊꋋꋌꋍꋎꋏꋐꋑꋒꋓꋔꋕꋖꋗꋘꋙꋚꋛꋜꋝꋞꋟ
+    U+A2E0..U+A2FF ꋠꋡꋢꋣꋤꋥꋦꋧꋨꋩꋪꋫꋬꋭꋮꋯꋰꋱꋲꋳꋴꋵꋶꋷꋸꋹꋺꋻꋼꋽꋾꋿ
+    U+A300..U+A31F ꌀꌁꌂꌃꌄꌅꌆꌇꌈꌉꌊꌋꌌꌍꌎꌏꌐꌑꌒꌓꌔꌕꌖꌗꌘꌙꌚꌛꌜꌝꌞꌟ
+    U+A320..U+A33F ꌠꌡꌢꌣꌤꌥꌦꌧꌨꌩꌪꌫꌬꌭꌮꌯꌰꌱꌲꌳꌴꌵꌶꌷꌸꌹꌺꌻꌼꌽꌾꌿ
+    U+A340..U+A35F ꍀꍁꍂꍃꍄꍅꍆꍇꍈꍉꍊꍋꍌꍍꍎꍏꍐꍑꍒꍓꍔꍕꍖꍗꍘꍙꍚꍛꍜꍝꍞꍟ
+    U+A360..U+A37F ꍠꍡꍢꍣꍤꍥꍦꍧꍨꍩꍪꍫꍬꍭꍮꍯꍰꍱꍲꍳꍴꍵꍶꍷꍸꍹꍺꍻꍼꍽꍾꍿ
+    U+A380..U+A39F ꎀꎁꎂꎃꎄꎅꎆꎇꎈꎉꎊꎋꎌꎍꎎꎏꎐꎑꎒꎓꎔꎕꎖꎗꎘꎙꎚꎛꎜꎝꎞꎟ
+    U+A3A0..U+A3BF ꎠꎡꎢꎣꎤꎥꎦꎧꎨꎩꎪꎫꎬꎭꎮꎯꎰꎱꎲꎳꎴꎵꎶꎷꎸꎹꎺꎻꎼꎽꎾꎿ
+    U+A3C0..U+A3DF ꏀꏁꏂꏃꏄꏅꏆꏇꏈꏉꏊꏋꏌꏍꏎꏏꏐꏑꏒꏓꏔꏕꏖꏗꏘꏙꏚꏛꏜꏝꏞꏟ
+    U+A3E0..U+A3FF ꏠꏡꏢꏣꏤꏥꏦꏧꏨꏩꏪꏫꏬꏭꏮꏯꏰꏱꏲꏳꏴꏵꏶꏷꏸꏹꏺꏻꏼꏽꏾꏿ
+    U+A400..U+A41F ꐀꐁꐂꐃꐄꐅꐆꐇꐈꐉꐊꐋꐌꐍꐎꐏꐐꐑꐒꐓꐔꐕꐖꐗꐘꐙꐚꐛꐜꐝꐞꐟ
+    U+A420..U+A43F ꐠꐡꐢꐣꐤꐥꐦꐧꐨꐩꐪꐫꐬꐭꐮꐯꐰꐱꐲꐳꐴꐵꐶꐷꐸꐹꐺꐻꐼꐽꐾꐿ
+    U+A440..U+A45F ꑀꑁꑂꑃꑄꑅꑆꑇꑈꑉꑊꑋꑌꑍꑎꑏꑐꑑꑒꑓꑔꑕꑖꑗꑘꑙꑚꑛꑜꑝꑞꑟ
+    U+A460..U+A47F ꑠꑡꑢꑣꑤꑥꑦꑧꑨꑩꑪꑫꑬꑭꑮꑯꑰꑱꑲꑳꑴꑵꑶꑷꑸꑹꑺꑻꑼꑽꑾꑿ
+    U+A480..U+A48F ꒀꒁꒂꒃꒄꒅꒆꒇꒈꒉꒊꒋꒌ꒍꒎꒏　　　　　　　　　　　　　　　　
+
+#### Yi Radicals
+
+    U+A490..U+A4AF ꒐꒑꒒꒓꒔꒕꒖꒗꒘꒙꒚꒛꒜꒝꒞꒟꒠꒡꒢꒣꒤꒥꒦꒧꒨꒩꒪꒫꒬꒭꒮꒯
+    U+A4B0..U+A4CF ꒰꒱꒲꒳꒴꒵꒶꒷꒸꒹꒺꒻꒼꒽꒾꒿꓀꓁꓂꓃꓄꓅꓆꓇꓈꓉꓊꓋꓌꓍꓎꓏
+
+#### Vai
+
+    U+A500..U+A51F ꔀꔁꔂꔃꔄꔅꔆꔇꔈꔉꔊꔋꔌꔍꔎꔏꔐꔑꔒꔓꔔꔕꔖꔗꔘꔙꔚꔛꔜꔝꔞꔟ
+    U+A520..U+A53F ꔠꔡꔢꔣꔤꔥꔦꔧꔨꔩꔪꔫꔬꔭꔮꔯꔰꔱꔲꔳꔴꔵꔶꔷꔸꔹꔺꔻꔼꔽꔾꔿ
+    U+A540..U+A55F ꕀꕁꕂꕃꕄꕅꕆꕇꕈꕉꕊꕋꕌꕍꕎꕏꕐꕑꕒꕓꕔꕕꕖꕗꕘꕙꕚꕛꕜꕝꕞꕟ
+    U+A560..U+A57F ꕠꕡꕢꕣꕤꕥꕦꕧꕨꕩꕪꕫꕬꕭꕮꕯꕰꕱꕲꕳꕴꕵꕶꕷꕸꕹꕺꕻꕼꕽꕾꕿ
+    U+A580..U+A59F ꖀꖁꖂꖃꖄꖅꖆꖇꖈꖉꖊꖋꖌꖍꖎꖏꖐꖑꖒꖓꖔꖕꖖꖗꖘꖙꖚꖛꖜꖝꖞꖟ
+    U+A5A0..U+A5BF ꖠꖡꖢꖣꖤꖥꖦꖧꖨꖩꖪꖫꖬꖭꖮꖯꖰꖱꖲꖳꖴꖵꖶꖷꖸꖹꖺꖻꖼꖽꖾꖿ
+    U+A5C0..U+A5DF ꗀꗁꗂꗃꗄꗅꗆꗇꗈꗉꗊꗋꗌꗍꗎꗏꗐꗑꗒꗓꗔꗕꗖꗗꗘꗙꗚꗛꗜꗝꗞꗟ
+    U+A5E0..U+A5FF ꗠꗡꗢꗣꗤꗥꗦꗧꗨꗩꗪꗫꗬꗭꗮꗯꗰꗱꗲꗳꗴꗵꗶꗷꗸꗹꗺꗻꗼꗽꗾꗿ
+    U+A600..U+A61F ꘀꘁꘂꘃꘄꘅꘆꘇꘈꘉꘊꘋꘌ꘍꘎꘏ꘐꘑꘒꘓꘔꘕꘖꘗꘘꘙꘚꘛꘜꘝꘞꘟ
+    U+A620..U+A63F ꘠꘡꘢꘣꘤꘥꘦꘧꘨꘩ꘪꘫ꘬꘭꘮꘯꘰꘱꘲꘳꘴꘵꘶꘷꘸꘹꘺꘻꘼꘽꘾꘿
+
+#### Cyrillic Extended-B
+
+    U+A640..U+A65F             Ꙍꙍ  Ꙑꙑ            Ꙟ 
+    U+A660..U+A67F   ꙢꙣꙤꙥꙦꙧ    Ꙭꙭꙮ ꙰ ꙲             
+    U+A680..U+A69F     Ꚅꚅ                  Ꚙꚙ      
+
+Supported only by approximation:
+
+    U+A680..U+A69F   Ꚃ                             
+
+#### Bamum
+
+    U+A6E0..U+A6FF                         ꛸꛹꛺꛻꛼꛽꛾꛿
+
+#### Latin Extended-D
+
+    U+A720..U+A73F         Ꜩꜩ        ꜲꜳꜴꜵꜶꜷꜸꜹꜺꜻꜼꜽ  
+    U+A740..U+A75F               Ꝏꝏ        Ꝙꝙ      
+    U+A760..U+A77F                  ꝱꝲꝳꝴꝵꝶꝷ        
+    U+A7C0..U+A7DF ꟀꟁꟂꟃ   ꟇꟈꟉꟊꟋꟌꟍ꟎꟏Ꟑꟑ꟒ꟓ꟔ꟕꟖꟗꟘꟙꟚꟛꟜ꟝꟞꟟
+    U+A7E0..U+A7FF ꟠꟡꟢꟣꟤꟥꟦꟧꟨꟩꟪꟫꟬꟭꟮꟯꟰꟱ꟲꟳꟴꟵꟶ        ꟿ
+
+Supported only by approximation:
+
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
+    U+A780..U+A79F          ꞉    ꞎ                 
+
+#### Syloti Nagri
+
+    U+A800..U+A81F ꠀꠁꠂꠃꠄꠅ꠆ꠇꠈꠉꠊꠋꠌꠍꠎꠏꠐꠑꠒꠓꠔꠕꠖꠗꠘꠙꠚꠛꠜꠝꠞꠟ
+    U+A820..U+A82F ꠠꠡꠢꠣꠤꠥꠦꠧ  ꠪꠫꠬꠭꠮꠯                
+
+#### Common Indic Number Forms
+
+    U+A830..U+A83F ꠰꠱꠲꠳꠴꠵꠶꠷꠸꠹꠺꠻꠼꠽꠾꠿                
+
+#### Phags-pa
+
+    U+A840..U+A85F ꡀꡁꡂꡃꡄꡅꡆꡇꡈꡉꡊꡋꡌꡍꡎꡏꡐꡑꡒꡓꡔꡕꡖꡗꡘꡙꡚꡛꡜꡝꡞꡟ
+    U+A860..U+A87F ꡠꡡꡢꡣꡤꡥꡦꡧꡨꡩꡪꡫꡬꡭꡮꡯꡰꡱꡲꡳ꡴꡵꡶꡷꡸꡹꡺꡻꡼꡽꡾꡿
+
+#### Saurashtra
+
+    U+A880..U+A89F ꢀꢁꢂꢃꢄꢅꢆꢇꢈꢉꢊꢋꢌꢍꢎꢏꢐꢑꢒꢓꢔꢕꢖꢗꢘꢙꢚꢛꢜꢝꢞꢟ
+    U+A8A0..U+A8BF ꢠꢡꢢꢣꢤꢥꢦꢧꢨꢩꢪꢫꢬꢭꢮꢯꢰꢱꢲꢳꢴꢵꢶꢷꢸꢹꢺꢻꢼꢽꢾꢿ
+    U+A8C0..U+A8DF ꣀꣁꣂꣃ꣄ꣅ꣆꣇꣈꣉꣊꣋꣌꣍꣎꣏꣐꣑꣒꣓꣔꣕꣖꣗꣘꣙꣚꣛꣜꣝꣞꣟
+
+#### Devanagari Extended
+
+    U+A8E0..U+A8FF ꣠꣡꣢꣣꣤꣥꣦꣧꣨꣩꣪꣫꣬꣭꣮꣯꣰꣱ꣲꣳꣴꣵꣶꣷ꣸꣹꣺ꣻ꣼ꣽꣾꣿ
+
+#### Kayah Li
+
+    U+A900..U+A91F ꤀꤁꤂꤃꤄꤅꤆꤇꤈꤉ꤊꤋꤌꤍꤎꤏꤐꤑꤒꤓꤔꤕꤖꤗꤘꤙꤚꤛꤜꤝꤞꤟ
+    U+A920..U+A92F ꤠꤡꤢꤣꤤꤥꤦꤧꤨꤩꤪ꤫꤬꤭꤮꤯                
+
+#### Rejang
+
+    U+A930..U+A94F ꤰꤱꤲꤳꤴꤵꤶꤷꤸꤹꤺꤻꤼꤽꤾꤿꥀꥁꥂꥃꥄꥅꥆꥇꥈꥉꥊꥋꥌꥍꥎꥏ
+    U+A950..U+A95F ꥐꥑꥒ꥓꥔꥕꥖꥗꥘꥙꥚꥛꥜꥝꥞꥟　　　　　　　　　　　　　　　　
+
+#### Hangul Jamo Extended-A
+
+    U+A960..U+A97F ꥠꥡꥢꥣꥤꥥꥦꥧꥨꥩꥪꥫꥬꥭꥮꥯꥰꥱꥲꥳꥴꥵꥶꥷꥸꥹꥺꥻꥼ꥽꥾꥿
+
+#### Javanese
+
+    U+A980..U+A99F ꦀꦁꦂꦃꦄꦅꦆꦇꦈꦉꦊꦋꦌꦍꦎꦏꦐꦑꦒꦓꦔꦕꦖꦗꦘꦙꦚꦛꦜꦝꦞꦟ
+    U+A9A0..U+A9BF ꦠꦡꦢꦣꦤꦥꦦꦧꦨꦩꦪꦫꦬꦭꦮꦯꦰꦱꦲ꦳ꦴꦵꦶꦷꦸꦹꦺꦻꦼꦽꦾꦿ
+    U+A9C0..U+A9DF ꧀꧁꧂꧃꧄꧅꧆꧇꧈꧉꧊꧋꧌꧍꧎ꧏ꧐꧑꧒꧓꧔꧕꧖꧗꧘꧙꧚꧛꧜꧝꧞꧟
+
+#### Myanmar Extended-B
+
+    U+A9E0..U+A9FF ꧠꧡꧢꧣꧤꧥꧦꧧꧨꧩꧪꧫꧬꧭꧮꧯ꧰꧱꧲꧳꧴꧵꧶꧷꧸꧹ꧺꧻꧼꧽꧾ꧿
+
+#### Cham
+
+    U+AA00..U+AA1F ꨀꨁꨂꨃꨄꨅꨆꨇꨈꨉꨊꨋꨌꨍꨎꨏꨐꨑꨒꨓꨔꨕꨖꨗꨘꨙꨚꨛꨜꨝꨞꨟ
+    U+AA20..U+AA3F ꨠꨡꨢꨣꨤꨥꨦꨧꨨꨩꨪꨫꨬꨭꨮꨯꨰꨱꨲꨳꨴꨵꨶ꨷꨸꨹꨺꨻꨼꨽꨾꨿
+    U+AA40..U+AA5F ꩀꩁꩂꩃꩄꩅꩆꩇꩈꩉꩊꩋꩌꩍ꩎꩏꩐꩑꩒꩓꩔꩕꩖꩗꩘꩙꩚꩛꩜꩝꩞꩟
+
+#### Myanmar Extended-A
+
+    U+AA60..U+AA7F ꩠꩡꩢꩣꩤꩥꩦꩧꩨꩩꩪꩫꩬꩭꩮꩯꩰꩱꩲꩳꩴꩵꩶ꩷꩸꩹ꩺꩻꩼꩽꩾꩿ
+
+#### Tai Viet
+
+    U+AA80..U+AA9F ꪀꪁꪂꪃꪄꪅꪆꪇꪈꪉꪊꪋꪌꪍꪎꪏꪐꪑꪒꪓꪔꪕꪖꪗꪘꪙꪚꪛꪜꪝꪞꪟ
+    U+AAA0..U+AABF ꪠꪡꪢꪣꪤꪥꪦꪧꪨꪩꪪꪫꪬꪭꪮꪯꪰꪱꪴꪲꪳꪵꪶꪷꪸꪹꪺꪻꪼꪽꪾ꪿
+    U+AAC0..U+AADF ꫀ꫁ꫂ꫃꫄꫅꫆꫇꫈꫉꫊꫋꫌꫍꫎꫏꫐꫑꫒꫓꫔꫕꫖꫗꫘꫙꫚ꫛꫜꫝ꫞꫟
+
+#### Meetei Mayek Extensions
+
+    U+AAE0..U+AAFF ꫠꫡꫢꫣꫤꫥꫦꫧꫨꫩꫪꫫꫬꫭꫮꫯ꫰꫱ꫲꫳꫴꫵ꫶꫷꫸꫹꫺꫻꫼꫽꫾꫿
+
+#### Ethiopic Extended-A
+
+    U+AB00..U+AB1F ꬀ꬁꬂꬃꬄꬅꬆ꬇꬈ꬉꬊꬋꬌꬍꬎ꬏꬐ꬑꬒꬓꬔꬕꬖ꬗꬘꬙꬚꬛꬜꬝꬞꬟
+    U+AB20..U+AB2F ꬠꬡꬢꬣꬤꬥꬦ꬧ꬨꬩꬪꬫꬬꬭꬮ꬯                
+
+#### Latin Extended-E
+
+    U+AB50..U+AB6F                       ꭦꭧꭨꭩ꭪꭫꭬꭭꭮꭯
+
+Supported only by approximation:
+
+    U+AB50..U+AB6F       ꭖꭗꭘ                       
+
+#### Meetei Mayek
+
+    U+ABC0..U+ABDF ꯀꯁꯂꯃꯄꯅꯆꯇꯈꯉꯊꯋꯌꯍꯎꯏꯐꯑꯒꯓꯔꯕꯖꯗꯘꯙꯚꯛꯜꯝꯞꯟ
+    U+ABE0..U+ABFF ꯠꯡꯢꯣꯤꯥꯦꯧꯨꯩꯪ꯫꯬꯭꯮꯯꯰꯱꯲꯳꯴꯵꯶꯷꯸꯹꯺꯻꯼꯽꯾꯿
+
+#### Hangul Syllables
+
+    U+AC00..U+AC1B 가각갂갃간갅갆갇갈갉갊갋갌갍갎갏감갑값갓갔강갖갗갘같갚갛
+    U+AC1C..U+AC37 개객갞갟갠갡갢갣갤갥갦갧갨갩갪갫갬갭갮갯갰갱갲갳갴갵갶갷
+    U+AC38..U+AC53 갸갹갺갻갼갽갾갿걀걁걂걃걄걅걆걇걈걉걊걋걌걍걎걏걐걑걒걓
+    U+AC54..U+AC6F 걔걕걖걗걘걙걚걛걜걝걞걟걠걡걢걣걤걥걦걧걨걩걪걫걬걭걮걯
+    U+AC70..U+AC8B 거걱걲걳건걵걶걷걸걹걺걻걼걽걾걿검겁겂것겄겅겆겇겈겉겊겋
+    U+AC8C..U+ACA7 게겍겎겏겐겑겒겓겔겕겖겗겘겙겚겛겜겝겞겟겠겡겢겣겤겥겦겧
+    U+ACA8..U+ACC3 겨격겪겫견겭겮겯결겱겲겳겴겵겶겷겸겹겺겻겼경겾겿곀곁곂곃
+    U+ACC4..U+ACDF 계곅곆곇곈곉곊곋곌곍곎곏곐곑곒곓곔곕곖곗곘곙곚곛곜곝곞곟
+    U+ACE0..U+ACFB 고곡곢곣곤곥곦곧골곩곪곫곬곭곮곯곰곱곲곳곴공곶곷곸곹곺곻
+    U+ACFC..U+AD17 과곽곾곿관괁괂괃괄괅괆괇괈괉괊괋괌괍괎괏괐광괒괓괔괕괖괗
+    U+AD18..U+AD33 괘괙괚괛괜괝괞괟괠괡괢괣괤괥괦괧괨괩괪괫괬괭괮괯괰괱괲괳
+    U+AD34..U+AD4F 괴괵괶괷괸괹괺괻괼괽괾괿굀굁굂굃굄굅굆굇굈굉굊굋굌굍굎굏
+    U+AD50..U+AD6B 교굑굒굓굔굕굖굗굘굙굚굛굜굝굞굟굠굡굢굣굤굥굦굧굨굩굪굫
+    U+AD6C..U+AD87 구국굮굯군굱굲굳굴굵굶굷굸굹굺굻굼굽굾굿궀궁궂궃궄궅궆궇
+    U+AD88..U+ADA3 궈궉궊궋권궍궎궏궐궑궒궓궔궕궖궗궘궙궚궛궜궝궞궟궠궡궢궣
+    U+ADA4..U+ADBF 궤궥궦궧궨궩궪궫궬궭궮궯궰궱궲궳궴궵궶궷궸궹궺궻궼궽궾궿
+    U+ADC0..U+ADDB 귀귁귂귃귄귅귆귇귈귉귊귋귌귍귎귏귐귑귒귓귔귕귖귗귘귙귚귛
+    U+ADDC..U+ADF7 규귝귞귟균귡귢귣귤귥귦귧귨귩귪귫귬귭귮귯귰귱귲귳귴귵귶귷
+    U+ADF8..U+AE13 그극귺귻근귽귾귿글긁긂긃긄긅긆긇금급긊긋긌긍긎긏긐긑긒긓
+    U+AE14..U+AE2F 긔긕긖긗긘긙긚긛긜긝긞긟긠긡긢긣긤긥긦긧긨긩긪긫긬긭긮긯
+    U+AE30..U+AE4B 기긱긲긳긴긵긶긷길긹긺긻긼긽긾긿김깁깂깃깄깅깆깇깈깉깊깋
+    U+AE4C..U+AE67 까깍깎깏깐깑깒깓깔깕깖깗깘깙깚깛깜깝깞깟깠깡깢깣깤깥깦깧
+    U+AE68..U+AE83 깨깩깪깫깬깭깮깯깰깱깲깳깴깵깶깷깸깹깺깻깼깽깾깿꺀꺁꺂꺃
+    U+AE84..U+AE9F 꺄꺅꺆꺇꺈꺉꺊꺋꺌꺍꺎꺏꺐꺑꺒꺓꺔꺕꺖꺗꺘꺙꺚꺛꺜꺝꺞꺟
+    U+AEA0..U+AEBB 꺠꺡꺢꺣꺤꺥꺦꺧꺨꺩꺪꺫꺬꺭꺮꺯꺰꺱꺲꺳꺴꺵꺶꺷꺸꺹꺺꺻
+    U+AEBC..U+AED7 꺼꺽꺾꺿껀껁껂껃껄껅껆껇껈껉껊껋껌껍껎껏껐껑껒껓껔껕껖껗
+    U+AED8..U+AEF3 께껙껚껛껜껝껞껟껠껡껢껣껤껥껦껧껨껩껪껫껬껭껮껯껰껱껲껳
+    U+AEF4..U+AF0F 껴껵껶껷껸껹껺껻껼껽껾껿꼀꼁꼂꼃꼄꼅꼆꼇꼈꼉꼊꼋꼌꼍꼎꼏
+    U+AF10..U+AF2B 꼐꼑꼒꼓꼔꼕꼖꼗꼘꼙꼚꼛꼜꼝꼞꼟꼠꼡꼢꼣꼤꼥꼦꼧꼨꼩꼪꼫
+    U+AF2C..U+AF47 꼬꼭꼮꼯꼰꼱꼲꼳꼴꼵꼶꼷꼸꼹꼺꼻꼼꼽꼾꼿꽀꽁꽂꽃꽄꽅꽆꽇
+    U+AF48..U+AF63 꽈꽉꽊꽋꽌꽍꽎꽏꽐꽑꽒꽓꽔꽕꽖꽗꽘꽙꽚꽛꽜꽝꽞꽟꽠꽡꽢꽣
+    U+AF64..U+AF7F 꽤꽥꽦꽧꽨꽩꽪꽫꽬꽭꽮꽯꽰꽱꽲꽳꽴꽵꽶꽷꽸꽹꽺꽻꽼꽽꽾꽿
+    U+AF80..U+AF9B 꾀꾁꾂꾃꾄꾅꾆꾇꾈꾉꾊꾋꾌꾍꾎꾏꾐꾑꾒꾓꾔꾕꾖꾗꾘꾙꾚꾛
+    U+AF9C..U+AFB7 꾜꾝꾞꾟꾠꾡꾢꾣꾤꾥꾦꾧꾨꾩꾪꾫꾬꾭꾮꾯꾰꾱꾲꾳꾴꾵꾶꾷
+    U+AFB8..U+AFD3 꾸꾹꾺꾻꾼꾽꾾꾿꿀꿁꿂꿃꿄꿅꿆꿇꿈꿉꿊꿋꿌꿍꿎꿏꿐꿑꿒꿓
+    U+AFD4..U+AFEF 꿔꿕꿖꿗꿘꿙꿚꿛꿜꿝꿞꿟꿠꿡꿢꿣꿤꿥꿦꿧꿨꿩꿪꿫꿬꿭꿮꿯
+    U+AFF0..U+B00B 꿰꿱꿲꿳꿴꿵꿶꿷꿸꿹꿺꿻꿼꿽꿾꿿뀀뀁뀂뀃뀄뀅뀆뀇뀈뀉뀊뀋
+    U+B00C..U+B027 뀌뀍뀎뀏뀐뀑뀒뀓뀔뀕뀖뀗뀘뀙뀚뀛뀜뀝뀞뀟뀠뀡뀢뀣뀤뀥뀦뀧
+    U+B028..U+B043 뀨뀩뀪뀫뀬뀭뀮뀯뀰뀱뀲뀳뀴뀵뀶뀷뀸뀹뀺뀻뀼뀽뀾뀿끀끁끂끃
+    U+B044..U+B05F 끄끅끆끇끈끉끊끋끌끍끎끏끐끑끒끓끔끕끖끗끘끙끚끛끜끝끞끟
+    U+B060..U+B07B 끠끡끢끣끤끥끦끧끨끩끪끫끬끭끮끯끰끱끲끳끴끵끶끷끸끹끺끻
+    U+B07C..U+B097 끼끽끾끿낀낁낂낃낄낅낆낇낈낉낊낋낌낍낎낏낐낑낒낓낔낕낖낗
+    U+B098..U+B0B3 나낙낚낛난낝낞낟날낡낢낣낤낥낦낧남납낪낫났낭낮낯낰낱낲낳
+    U+B0B4..U+B0CF 내낵낶낷낸낹낺낻낼낽낾낿냀냁냂냃냄냅냆냇냈냉냊냋냌냍냎냏
+    U+B0D0..U+B0EB 냐냑냒냓냔냕냖냗냘냙냚냛냜냝냞냟냠냡냢냣냤냥냦냧냨냩냪냫
+    U+B0EC..U+B107 냬냭냮냯냰냱냲냳냴냵냶냷냸냹냺냻냼냽냾냿넀넁넂넃넄넅넆넇
+    U+B108..U+B123 너넉넊넋넌넍넎넏널넑넒넓넔넕넖넗넘넙넚넛넜넝넞넟넠넡넢넣
+    U+B124..U+B13F 네넥넦넧넨넩넪넫넬넭넮넯넰넱넲넳넴넵넶넷넸넹넺넻넼넽넾넿
+    U+B140..U+B15B 녀녁녂녃년녅녆녇녈녉녊녋녌녍녎녏념녑녒녓녔녕녖녗녘녙녚녛
+    U+B15C..U+B177 녜녝녞녟녠녡녢녣녤녥녦녧녨녩녪녫녬녭녮녯녰녱녲녳녴녵녶녷
+    U+B178..U+B193 노녹녺녻논녽녾녿놀놁놂놃놄놅놆놇놈놉놊놋놌농놎놏놐놑높놓
+    U+B194..U+B1AF 놔놕놖놗놘놙놚놛놜놝놞놟놠놡놢놣놤놥놦놧놨놩놪놫놬놭놮놯
+    U+B1B0..U+B1CB 놰놱놲놳놴놵놶놷놸놹놺놻놼놽놾놿뇀뇁뇂뇃뇄뇅뇆뇇뇈뇉뇊뇋
+    U+B1CC..U+B1E7 뇌뇍뇎뇏뇐뇑뇒뇓뇔뇕뇖뇗뇘뇙뇚뇛뇜뇝뇞뇟뇠뇡뇢뇣뇤뇥뇦뇧
+    U+B1E8..U+B203 뇨뇩뇪뇫뇬뇭뇮뇯뇰뇱뇲뇳뇴뇵뇶뇷뇸뇹뇺뇻뇼뇽뇾뇿눀눁눂눃
+    U+B204..U+B21F 누눅눆눇눈눉눊눋눌눍눎눏눐눑눒눓눔눕눖눗눘눙눚눛눜눝눞눟
+    U+B220..U+B23B 눠눡눢눣눤눥눦눧눨눩눪눫눬눭눮눯눰눱눲눳눴눵눶눷눸눹눺눻
+    U+B23C..U+B257 눼눽눾눿뉀뉁뉂뉃뉄뉅뉆뉇뉈뉉뉊뉋뉌뉍뉎뉏뉐뉑뉒뉓뉔뉕뉖뉗
+    U+B258..U+B273 뉘뉙뉚뉛뉜뉝뉞뉟뉠뉡뉢뉣뉤뉥뉦뉧뉨뉩뉪뉫뉬뉭뉮뉯뉰뉱뉲뉳
+    U+B274..U+B28F 뉴뉵뉶뉷뉸뉹뉺뉻뉼뉽뉾뉿늀늁늂늃늄늅늆늇늈늉늊늋늌늍늎늏
+    U+B290..U+B2AB 느늑늒늓는늕늖늗늘늙늚늛늜늝늞늟늠늡늢늣늤능늦늧늨늩늪늫
+    U+B2AC..U+B2C7 늬늭늮늯늰늱늲늳늴늵늶늷늸늹늺늻늼늽늾늿닀닁닂닃닄닅닆닇
+    U+B2C8..U+B2E3 니닉닊닋닌닍닎닏닐닑닒닓닔닕닖닗님닙닚닛닜닝닞닟닠닡닢닣
+    U+B2E4..U+B2FF 다닥닦닧단닩닪닫달닭닮닯닰닱닲닳담답닶닷닸당닺닻닼닽닾닿
+    U+B300..U+B31B 대댁댂댃댄댅댆댇댈댉댊댋댌댍댎댏댐댑댒댓댔댕댖댗댘댙댚댛
+    U+B31C..U+B337 댜댝댞댟댠댡댢댣댤댥댦댧댨댩댪댫댬댭댮댯댰댱댲댳댴댵댶댷
+    U+B338..U+B353 댸댹댺댻댼댽댾댿덀덁덂덃덄덅덆덇덈덉덊덋덌덍덎덏덐덑덒덓
+    U+B354..U+B36F 더덕덖덗던덙덚덛덜덝덞덟덠덡덢덣덤덥덦덧덨덩덪덫덬덭덮덯
+    U+B370..U+B38B 데덱덲덳덴덵덶덷델덹덺덻덼덽덾덿뎀뎁뎂뎃뎄뎅뎆뎇뎈뎉뎊뎋
+    U+B38C..U+B3A7 뎌뎍뎎뎏뎐뎑뎒뎓뎔뎕뎖뎗뎘뎙뎚뎛뎜뎝뎞뎟뎠뎡뎢뎣뎤뎥뎦뎧
+    U+B3A8..U+B3C3 뎨뎩뎪뎫뎬뎭뎮뎯뎰뎱뎲뎳뎴뎵뎶뎷뎸뎹뎺뎻뎼뎽뎾뎿돀돁돂돃
+    U+B3C4..U+B3DF 도독돆돇돈돉돊돋돌돍돎돏돐돑돒돓돔돕돖돗돘동돚돛돜돝돞돟
+    U+B3E0..U+B3FB 돠돡돢돣돤돥돦돧돨돩돪돫돬돭돮돯돰돱돲돳돴돵돶돷돸돹돺돻
+    U+B3FC..U+B417 돼돽돾돿됀됁됂됃됄됅됆됇됈됉됊됋됌됍됎됏됐됑됒됓됔됕됖됗
+    U+B418..U+B433 되됙됚됛된됝됞됟될됡됢됣됤됥됦됧됨됩됪됫됬됭됮됯됰됱됲됳
+    U+B434..U+B44F 됴됵됶됷됸됹됺됻됼됽됾됿둀둁둂둃둄둅둆둇둈둉둊둋둌둍둎둏
+    U+B450..U+B46B 두둑둒둓둔둕둖둗둘둙둚둛둜둝둞둟둠둡둢둣둤둥둦둧둨둩둪둫
+    U+B46C..U+B487 둬둭둮둯둰둱둲둳둴둵둶둷둸둹둺둻둼둽둾둿뒀뒁뒂뒃뒄뒅뒆뒇
+    U+B488..U+B4A3 뒈뒉뒊뒋뒌뒍뒎뒏뒐뒑뒒뒓뒔뒕뒖뒗뒘뒙뒚뒛뒜뒝뒞뒟뒠뒡뒢뒣
+    U+B4A4..U+B4BF 뒤뒥뒦뒧뒨뒩뒪뒫뒬뒭뒮뒯뒰뒱뒲뒳뒴뒵뒶뒷뒸뒹뒺뒻뒼뒽뒾뒿
+    U+B4C0..U+B4DB 듀듁듂듃듄듅듆듇듈듉듊듋듌듍듎듏듐듑듒듓듔듕듖듗듘듙듚듛
+    U+B4DC..U+B4F7 드득듞듟든듡듢듣들듥듦듧듨듩듪듫듬듭듮듯듰등듲듳듴듵듶듷
+    U+B4F8..U+B513 듸듹듺듻듼듽듾듿딀딁딂딃딄딅딆딇딈딉딊딋딌딍딎딏딐딑딒딓
+    U+B514..U+B52F 디딕딖딗딘딙딚딛딜딝딞딟딠딡딢딣딤딥딦딧딨딩딪딫딬딭딮딯
+    U+B530..U+B54B 따딱딲딳딴딵딶딷딸딹딺딻딼딽딾딿땀땁땂땃땄땅땆땇땈땉땊땋
+    U+B54C..U+B567 때땍땎땏땐땑땒땓땔땕땖땗땘땙땚땛땜땝땞땟땠땡땢땣땤땥땦땧
+    U+B568..U+B583 땨땩땪땫땬땭땮땯땰땱땲땳땴땵땶땷땸땹땺땻땼땽땾땿떀떁떂떃
+    U+B584..U+B59F 떄떅떆떇떈떉떊떋떌떍떎떏떐떑떒떓떔떕떖떗떘떙떚떛떜떝떞떟
+    U+B5A0..U+B5BB 떠떡떢떣떤떥떦떧떨떩떪떫떬떭떮떯떰떱떲떳떴떵떶떷떸떹떺떻
+    U+B5BC..U+B5D7 떼떽떾떿뗀뗁뗂뗃뗄뗅뗆뗇뗈뗉뗊뗋뗌뗍뗎뗏뗐뗑뗒뗓뗔뗕뗖뗗
+    U+B5D8..U+B5F3 뗘뗙뗚뗛뗜뗝뗞뗟뗠뗡뗢뗣뗤뗥뗦뗧뗨뗩뗪뗫뗬뗭뗮뗯뗰뗱뗲뗳
+    U+B5F4..U+B60F 뗴뗵뗶뗷뗸뗹뗺뗻뗼뗽뗾뗿똀똁똂똃똄똅똆똇똈똉똊똋똌똍똎똏
+    U+B610..U+B62B 또똑똒똓똔똕똖똗똘똙똚똛똜똝똞똟똠똡똢똣똤똥똦똧똨똩똪똫
+    U+B62C..U+B647 똬똭똮똯똰똱똲똳똴똵똶똷똸똹똺똻똼똽똾똿뙀뙁뙂뙃뙄뙅뙆뙇
+    U+B648..U+B663 뙈뙉뙊뙋뙌뙍뙎뙏뙐뙑뙒뙓뙔뙕뙖뙗뙘뙙뙚뙛뙜뙝뙞뙟뙠뙡뙢뙣
+    U+B664..U+B67F 뙤뙥뙦뙧뙨뙩뙪뙫뙬뙭뙮뙯뙰뙱뙲뙳뙴뙵뙶뙷뙸뙹뙺뙻뙼뙽뙾뙿
+    U+B680..U+B69B 뚀뚁뚂뚃뚄뚅뚆뚇뚈뚉뚊뚋뚌뚍뚎뚏뚐뚑뚒뚓뚔뚕뚖뚗뚘뚙뚚뚛
+    U+B69C..U+B6B7 뚜뚝뚞뚟뚠뚡뚢뚣뚤뚥뚦뚧뚨뚩뚪뚫뚬뚭뚮뚯뚰뚱뚲뚳뚴뚵뚶뚷
+    U+B6B8..U+B6D3 뚸뚹뚺뚻뚼뚽뚾뚿뛀뛁뛂뛃뛄뛅뛆뛇뛈뛉뛊뛋뛌뛍뛎뛏뛐뛑뛒뛓
+    U+B6D4..U+B6EF 뛔뛕뛖뛗뛘뛙뛚뛛뛜뛝뛞뛟뛠뛡뛢뛣뛤뛥뛦뛧뛨뛩뛪뛫뛬뛭뛮뛯
+    U+B6F0..U+B70B 뛰뛱뛲뛳뛴뛵뛶뛷뛸뛹뛺뛻뛼뛽뛾뛿뜀뜁뜂뜃뜄뜅뜆뜇뜈뜉뜊뜋
+    U+B70C..U+B727 뜌뜍뜎뜏뜐뜑뜒뜓뜔뜕뜖뜗뜘뜙뜚뜛뜜뜝뜞뜟뜠뜡뜢뜣뜤뜥뜦뜧
+    U+B728..U+B743 뜨뜩뜪뜫뜬뜭뜮뜯뜰뜱뜲뜳뜴뜵뜶뜷뜸뜹뜺뜻뜼뜽뜾뜿띀띁띂띃
+    U+B744..U+B75F 띄띅띆띇띈띉띊띋띌띍띎띏띐띑띒띓띔띕띖띗띘띙띚띛띜띝띞띟
+    U+B760..U+B77B 띠띡띢띣띤띥띦띧띨띩띪띫띬띭띮띯띰띱띲띳띴띵띶띷띸띹띺띻
+    U+B77C..U+B797 라락띾띿란랁랂랃랄랅랆랇랈랉랊랋람랍랎랏랐랑랒랓랔랕랖랗
+    U+B798..U+B7B3 래랙랚랛랜랝랞랟랠랡랢랣랤랥랦랧램랩랪랫랬랭랮랯랰랱랲랳
+    U+B7B4..U+B7CF 랴략랶랷랸랹랺랻랼랽랾랿럀럁럂럃럄럅럆럇럈량럊럋럌럍럎럏
+    U+B7D0..U+B7EB 럐럑럒럓럔럕럖럗럘럙럚럛럜럝럞럟럠럡럢럣럤럥럦럧럨럩럪럫
+    U+B7EC..U+B807 러럭럮럯런럱럲럳럴럵럶럷럸럹럺럻럼럽럾럿렀렁렂렃렄렅렆렇
+    U+B808..U+B823 레렉렊렋렌렍렎렏렐렑렒렓렔렕렖렗렘렙렚렛렜렝렞렟렠렡렢렣
+    U+B824..U+B83F 려력렦렧련렩렪렫렬렭렮렯렰렱렲렳렴렵렶렷렸령렺렻렼렽렾렿
+    U+B840..U+B85B 례롁롂롃롄롅롆롇롈롉롊롋롌롍롎롏롐롑롒롓롔롕롖롗롘롙롚롛
+    U+B85C..U+B877 로록롞롟론롡롢롣롤롥롦롧롨롩롪롫롬롭롮롯롰롱롲롳롴롵롶롷
+    U+B878..U+B893 롸롹롺롻롼롽롾롿뢀뢁뢂뢃뢄뢅뢆뢇뢈뢉뢊뢋뢌뢍뢎뢏뢐뢑뢒뢓
+    U+B894..U+B8AF 뢔뢕뢖뢗뢘뢙뢚뢛뢜뢝뢞뢟뢠뢡뢢뢣뢤뢥뢦뢧뢨뢩뢪뢫뢬뢭뢮뢯
+    U+B8B0..U+B8CB 뢰뢱뢲뢳뢴뢵뢶뢷뢸뢹뢺뢻뢼뢽뢾뢿룀룁룂룃룄룅룆룇룈룉룊룋
+    U+B8CC..U+B8E7 료룍룎룏룐룑룒룓룔룕룖룗룘룙룚룛룜룝룞룟룠룡룢룣룤룥룦룧
+    U+B8E8..U+B903 루룩룪룫룬룭룮룯룰룱룲룳룴룵룶룷룸룹룺룻룼룽룾룿뤀뤁뤂뤃
+    U+B904..U+B91F 뤄뤅뤆뤇뤈뤉뤊뤋뤌뤍뤎뤏뤐뤑뤒뤓뤔뤕뤖뤗뤘뤙뤚뤛뤜뤝뤞뤟
+    U+B920..U+B93B 뤠뤡뤢뤣뤤뤥뤦뤧뤨뤩뤪뤫뤬뤭뤮뤯뤰뤱뤲뤳뤴뤵뤶뤷뤸뤹뤺뤻
+    U+B93C..U+B957 뤼뤽뤾뤿륀륁륂륃륄륅륆륇륈륉륊륋륌륍륎륏륐륑륒륓륔륕륖륗
+    U+B958..U+B973 류륙륚륛륜륝륞륟률륡륢륣륤륥륦륧륨륩륪륫륬륭륮륯륰륱륲륳
+    U+B974..U+B98F 르륵륶륷른륹륺륻를륽륾륿릀릁릂릃름릅릆릇릈릉릊릋릌릍릎릏
+    U+B990..U+B9AB 릐릑릒릓릔릕릖릗릘릙릚릛릜릝릞릟릠릡릢릣릤릥릦릧릨릩릪릫
+    U+B9AC..U+B9C7 리릭릮릯린릱릲릳릴릵릶릷릸릹릺릻림립릾릿맀링맂맃맄맅맆맇
+    U+B9C8..U+B9E3 마막맊맋만맍많맏말맑맒맓맔맕맖맗맘맙맚맛맜망맞맟맠맡맢맣
+    U+B9E4..U+B9FF 매맥맦맧맨맩맪맫맬맭맮맯맰맱맲맳맴맵맶맷맸맹맺맻맼맽맾맿
+    U+BA00..U+BA1B 먀먁먂먃먄먅먆먇먈먉먊먋먌먍먎먏먐먑먒먓먔먕먖먗먘먙먚먛
+    U+BA1C..U+BA37 먜먝먞먟먠먡먢먣먤먥먦먧먨먩먪먫먬먭먮먯먰먱먲먳먴먵먶먷
+    U+BA38..U+BA53 머먹먺먻먼먽먾먿멀멁멂멃멄멅멆멇멈멉멊멋멌멍멎멏멐멑멒멓
+    U+BA54..U+BA6F 메멕멖멗멘멙멚멛멜멝멞멟멠멡멢멣멤멥멦멧멨멩멪멫멬멭멮멯
+    U+BA70..U+BA8B 며멱멲멳면멵멶멷멸멹멺멻멼멽멾멿몀몁몂몃몄명몆몇몈몉몊몋
+    U+BA8C..U+BAA7 몌몍몎몏몐몑몒몓몔몕몖몗몘몙몚몛몜몝몞몟몠몡몢몣몤몥몦몧
+    U+BAA8..U+BAC3 모목몪몫몬몭몮몯몰몱몲몳몴몵몶몷몸몹몺못몼몽몾몿뫀뫁뫂뫃
+    U+BAC4..U+BADF 뫄뫅뫆뫇뫈뫉뫊뫋뫌뫍뫎뫏뫐뫑뫒뫓뫔뫕뫖뫗뫘뫙뫚뫛뫜뫝뫞뫟
+    U+BAE0..U+BAFB 뫠뫡뫢뫣뫤뫥뫦뫧뫨뫩뫪뫫뫬뫭뫮뫯뫰뫱뫲뫳뫴뫵뫶뫷뫸뫹뫺뫻
+    U+BAFC..U+BB17 뫼뫽뫾뫿묀묁묂묃묄묅묆묇묈묉묊묋묌묍묎묏묐묑묒묓묔묕묖묗
+    U+BB18..U+BB33 묘묙묚묛묜묝묞묟묠묡묢묣묤묥묦묧묨묩묪묫묬묭묮묯묰묱묲묳
+    U+BB34..U+BB4F 무묵묶묷문묹묺묻물묽묾묿뭀뭁뭂뭃뭄뭅뭆뭇뭈뭉뭊뭋뭌뭍뭎뭏
+    U+BB50..U+BB6B 뭐뭑뭒뭓뭔뭕뭖뭗뭘뭙뭚뭛뭜뭝뭞뭟뭠뭡뭢뭣뭤뭥뭦뭧뭨뭩뭪뭫
+    U+BB6C..U+BB87 뭬뭭뭮뭯뭰뭱뭲뭳뭴뭵뭶뭷뭸뭹뭺뭻뭼뭽뭾뭿뮀뮁뮂뮃뮄뮅뮆뮇
+    U+BB88..U+BBA3 뮈뮉뮊뮋뮌뮍뮎뮏뮐뮑뮒뮓뮔뮕뮖뮗뮘뮙뮚뮛뮜뮝뮞뮟뮠뮡뮢뮣
+    U+BBA4..U+BBBF 뮤뮥뮦뮧뮨뮩뮪뮫뮬뮭뮮뮯뮰뮱뮲뮳뮴뮵뮶뮷뮸뮹뮺뮻뮼뮽뮾뮿
+    U+BBC0..U+BBDB 므믁믂믃믄믅믆믇믈믉믊믋믌믍믎믏믐믑믒믓믔믕믖믗믘믙믚믛
+    U+BBDC..U+BBF7 믜믝믞믟믠믡믢믣믤믥믦믧믨믩믪믫믬믭믮믯믰믱믲믳믴믵믶믷
+    U+BBF8..U+BC13 미믹믺믻민믽믾믿밀밁밂밃밄밅밆밇밈밉밊밋밌밍밎및밐밑밒밓
+    U+BC14..U+BC2F 바박밖밗반밙밚받발밝밞밟밠밡밢밣밤밥밦밧밨방밪밫밬밭밮밯
+    U+BC30..U+BC4B 배백밲밳밴밵밶밷밸밹밺밻밼밽밾밿뱀뱁뱂뱃뱄뱅뱆뱇뱈뱉뱊뱋
+    U+BC4C..U+BC67 뱌뱍뱎뱏뱐뱑뱒뱓뱔뱕뱖뱗뱘뱙뱚뱛뱜뱝뱞뱟뱠뱡뱢뱣뱤뱥뱦뱧
+    U+BC68..U+BC83 뱨뱩뱪뱫뱬뱭뱮뱯뱰뱱뱲뱳뱴뱵뱶뱷뱸뱹뱺뱻뱼뱽뱾뱿벀벁벂벃
+    U+BC84..U+BC9F 버벅벆벇번벉벊벋벌벍벎벏벐벑벒벓범법벖벗벘벙벚벛벜벝벞벟
+    U+BCA0..U+BCBB 베벡벢벣벤벥벦벧벨벩벪벫벬벭벮벯벰벱벲벳벴벵벶벷벸벹벺벻
+    U+BCBC..U+BCD7 벼벽벾벿변볁볂볃별볅볆볇볈볉볊볋볌볍볎볏볐병볒볓볔볕볖볗
+    U+BCD8..U+BCF3 볘볙볚볛볜볝볞볟볠볡볢볣볤볥볦볧볨볩볪볫볬볭볮볯볰볱볲볳
+    U+BCF4..U+BD0F 보복볶볷본볹볺볻볼볽볾볿봀봁봂봃봄봅봆봇봈봉봊봋봌봍봎봏
+    U+BD10..U+BD2B 봐봑봒봓봔봕봖봗봘봙봚봛봜봝봞봟봠봡봢봣봤봥봦봧봨봩봪봫
+    U+BD2C..U+BD47 봬봭봮봯봰봱봲봳봴봵봶봷봸봹봺봻봼봽봾봿뵀뵁뵂뵃뵄뵅뵆뵇
+    U+BD48..U+BD63 뵈뵉뵊뵋뵌뵍뵎뵏뵐뵑뵒뵓뵔뵕뵖뵗뵘뵙뵚뵛뵜뵝뵞뵟뵠뵡뵢뵣
+    U+BD64..U+BD7F 뵤뵥뵦뵧뵨뵩뵪뵫뵬뵭뵮뵯뵰뵱뵲뵳뵴뵵뵶뵷뵸뵹뵺뵻뵼뵽뵾뵿
+    U+BD80..U+BD9B 부북붂붃분붅붆붇불붉붊붋붌붍붎붏붐붑붒붓붔붕붖붗붘붙붚붛
+    U+BD9C..U+BDB7 붜붝붞붟붠붡붢붣붤붥붦붧붨붩붪붫붬붭붮붯붰붱붲붳붴붵붶붷
+    U+BDB8..U+BDD3 붸붹붺붻붼붽붾붿뷀뷁뷂뷃뷄뷅뷆뷇뷈뷉뷊뷋뷌뷍뷎뷏뷐뷑뷒뷓
+    U+BDD4..U+BDEF 뷔뷕뷖뷗뷘뷙뷚뷛뷜뷝뷞뷟뷠뷡뷢뷣뷤뷥뷦뷧뷨뷩뷪뷫뷬뷭뷮뷯
+    U+BDF0..U+BE0B 뷰뷱뷲뷳뷴뷵뷶뷷뷸뷹뷺뷻뷼뷽뷾뷿븀븁븂븃븄븅븆븇븈븉븊븋
+    U+BE0C..U+BE27 브븍븎븏븐븑븒븓블븕븖븗븘븙븚븛븜븝븞븟븠븡븢븣븤븥븦븧
+    U+BE28..U+BE43 븨븩븪븫븬븭븮븯븰븱븲븳븴븵븶븷븸븹븺븻븼븽븾븿빀빁빂빃
+    U+BE44..U+BE5F 비빅빆빇빈빉빊빋빌빍빎빏빐빑빒빓빔빕빖빗빘빙빚빛빜빝빞빟
+    U+BE60..U+BE7B 빠빡빢빣빤빥빦빧빨빩빪빫빬빭빮빯빰빱빲빳빴빵빶빷빸빹빺빻
+    U+BE7C..U+BE97 빼빽빾빿뺀뺁뺂뺃뺄뺅뺆뺇뺈뺉뺊뺋뺌뺍뺎뺏뺐뺑뺒뺓뺔뺕뺖뺗
+    U+BE98..U+BEB3 뺘뺙뺚뺛뺜뺝뺞뺟뺠뺡뺢뺣뺤뺥뺦뺧뺨뺩뺪뺫뺬뺭뺮뺯뺰뺱뺲뺳
+    U+BEB4..U+BECF 뺴뺵뺶뺷뺸뺹뺺뺻뺼뺽뺾뺿뻀뻁뻂뻃뻄뻅뻆뻇뻈뻉뻊뻋뻌뻍뻎뻏
+    U+BED0..U+BEEB 뻐뻑뻒뻓뻔뻕뻖뻗뻘뻙뻚뻛뻜뻝뻞뻟뻠뻡뻢뻣뻤뻥뻦뻧뻨뻩뻪뻫
+    U+BEEC..U+BF07 뻬뻭뻮뻯뻰뻱뻲뻳뻴뻵뻶뻷뻸뻹뻺뻻뻼뻽뻾뻿뼀뼁뼂뼃뼄뼅뼆뼇
+    U+BF08..U+BF23 뼈뼉뼊뼋뼌뼍뼎뼏뼐뼑뼒뼓뼔뼕뼖뼗뼘뼙뼚뼛뼜뼝뼞뼟뼠뼡뼢뼣
+    U+BF24..U+BF3F 뼤뼥뼦뼧뼨뼩뼪뼫뼬뼭뼮뼯뼰뼱뼲뼳뼴뼵뼶뼷뼸뼹뼺뼻뼼뼽뼾뼿
+    U+BF40..U+BF5B 뽀뽁뽂뽃뽄뽅뽆뽇뽈뽉뽊뽋뽌뽍뽎뽏뽐뽑뽒뽓뽔뽕뽖뽗뽘뽙뽚뽛
+    U+BF5C..U+BF77 뽜뽝뽞뽟뽠뽡뽢뽣뽤뽥뽦뽧뽨뽩뽪뽫뽬뽭뽮뽯뽰뽱뽲뽳뽴뽵뽶뽷
+    U+BF78..U+BF93 뽸뽹뽺뽻뽼뽽뽾뽿뾀뾁뾂뾃뾄뾅뾆뾇뾈뾉뾊뾋뾌뾍뾎뾏뾐뾑뾒뾓
+    U+BF94..U+BFAF 뾔뾕뾖뾗뾘뾙뾚뾛뾜뾝뾞뾟뾠뾡뾢뾣뾤뾥뾦뾧뾨뾩뾪뾫뾬뾭뾮뾯
+    U+BFB0..U+BFCB 뾰뾱뾲뾳뾴뾵뾶뾷뾸뾹뾺뾻뾼뾽뾾뾿뿀뿁뿂뿃뿄뿅뿆뿇뿈뿉뿊뿋
+    U+BFCC..U+BFE7 뿌뿍뿎뿏뿐뿑뿒뿓뿔뿕뿖뿗뿘뿙뿚뿛뿜뿝뿞뿟뿠뿡뿢뿣뿤뿥뿦뿧
+    U+BFE8..U+C003 뿨뿩뿪뿫뿬뿭뿮뿯뿰뿱뿲뿳뿴뿵뿶뿷뿸뿹뿺뿻뿼뿽뿾뿿쀀쀁쀂쀃
+    U+C004..U+C01F 쀄쀅쀆쀇쀈쀉쀊쀋쀌쀍쀎쀏쀐쀑쀒쀓쀔쀕쀖쀗쀘쀙쀚쀛쀜쀝쀞쀟
+    U+C020..U+C03B 쀠쀡쀢쀣쀤쀥쀦쀧쀨쀩쀪쀫쀬쀭쀮쀯쀰쀱쀲쀳쀴쀵쀶쀷쀸쀹쀺쀻
+    U+C03C..U+C057 쀼쀽쀾쀿쁀쁁쁂쁃쁄쁅쁆쁇쁈쁉쁊쁋쁌쁍쁎쁏쁐쁑쁒쁓쁔쁕쁖쁗
+    U+C058..U+C073 쁘쁙쁚쁛쁜쁝쁞쁟쁠쁡쁢쁣쁤쁥쁦쁧쁨쁩쁪쁫쁬쁭쁮쁯쁰쁱쁲쁳
+    U+C074..U+C08F 쁴쁵쁶쁷쁸쁹쁺쁻쁼쁽쁾쁿삀삁삂삃삄삅삆삇삈삉삊삋삌삍삎삏
+    U+C090..U+C0AB 삐삑삒삓삔삕삖삗삘삙삚삛삜삝삞삟삠삡삢삣삤삥삦삧삨삩삪삫
+    U+C0AC..U+C0C7 사삭삮삯산삱삲삳살삵삶삷삸삹삺삻삼삽삾삿샀상샂샃샄샅샆샇
+    U+C0C8..U+C0E3 새색샊샋샌샍샎샏샐샑샒샓샔샕샖샗샘샙샚샛샜생샞샟샠샡샢샣
+    U+C0E4..U+C0FF 샤샥샦샧샨샩샪샫샬샭샮샯샰샱샲샳샴샵샶샷샸샹샺샻샼샽샾샿
+    U+C100..U+C11B 섀섁섂섃섄섅섆섇섈섉섊섋섌섍섎섏섐섑섒섓섔섕섖섗섘섙섚섛
+    U+C11C..U+C137 서석섞섟선섡섢섣설섥섦섧섨섩섪섫섬섭섮섯섰성섲섳섴섵섶섷
+    U+C138..U+C153 세섹섺섻센섽섾섿셀셁셂셃셄셅셆셇셈셉셊셋셌셍셎셏셐셑셒셓
+    U+C154..U+C16F 셔셕셖셗션셙셚셛셜셝셞셟셠셡셢셣셤셥셦셧셨셩셪셫셬셭셮셯
+    U+C170..U+C18B 셰셱셲셳셴셵셶셷셸셹셺셻셼셽셾셿솀솁솂솃솄솅솆솇솈솉솊솋
+    U+C18C..U+C1A7 소속솎솏손솑솒솓솔솕솖솗솘솙솚솛솜솝솞솟솠송솢솣솤솥솦솧
+    U+C1A8..U+C1C3 솨솩솪솫솬솭솮솯솰솱솲솳솴솵솶솷솸솹솺솻솼솽솾솿쇀쇁쇂쇃
+    U+C1C4..U+C1DF 쇄쇅쇆쇇쇈쇉쇊쇋쇌쇍쇎쇏쇐쇑쇒쇓쇔쇕쇖쇗쇘쇙쇚쇛쇜쇝쇞쇟
+    U+C1E0..U+C1FB 쇠쇡쇢쇣쇤쇥쇦쇧쇨쇩쇪쇫쇬쇭쇮쇯쇰쇱쇲쇳쇴쇵쇶쇷쇸쇹쇺쇻
+    U+C1FC..U+C217 쇼쇽쇾쇿숀숁숂숃숄숅숆숇숈숉숊숋숌숍숎숏숐숑숒숓숔숕숖숗
+    U+C218..U+C233 수숙숚숛순숝숞숟술숡숢숣숤숥숦숧숨숩숪숫숬숭숮숯숰숱숲숳
+    U+C234..U+C24F 숴숵숶숷숸숹숺숻숼숽숾숿쉀쉁쉂쉃쉄쉅쉆쉇쉈쉉쉊쉋쉌쉍쉎쉏
+    U+C250..U+C26B 쉐쉑쉒쉓쉔쉕쉖쉗쉘쉙쉚쉛쉜쉝쉞쉟쉠쉡쉢쉣쉤쉥쉦쉧쉨쉩쉪쉫
+    U+C26C..U+C287 쉬쉭쉮쉯쉰쉱쉲쉳쉴쉵쉶쉷쉸쉹쉺쉻쉼쉽쉾쉿슀슁슂슃슄슅슆슇
+    U+C288..U+C2A3 슈슉슊슋슌슍슎슏슐슑슒슓슔슕슖슗슘슙슚슛슜슝슞슟슠슡슢슣
+    U+C2A4..U+C2BF 스슥슦슧슨슩슪슫슬슭슮슯슰슱슲슳슴습슶슷슸승슺슻슼슽슾슿
+    U+C2C0..U+C2DB 싀싁싂싃싄싅싆싇싈싉싊싋싌싍싎싏싐싑싒싓싔싕싖싗싘싙싚싛
+    U+C2DC..U+C2F7 시식싞싟신싡싢싣실싥싦싧싨싩싪싫심십싮싯싰싱싲싳싴싵싶싷
+    U+C2F8..U+C313 싸싹싺싻싼싽싾싿쌀쌁쌂쌃쌄쌅쌆쌇쌈쌉쌊쌋쌌쌍쌎쌏쌐쌑쌒쌓
+    U+C314..U+C32F 쌔쌕쌖쌗쌘쌙쌚쌛쌜쌝쌞쌟쌠쌡쌢쌣쌤쌥쌦쌧쌨쌩쌪쌫쌬쌭쌮쌯
+    U+C330..U+C34B 쌰쌱쌲쌳쌴쌵쌶쌷쌸쌹쌺쌻쌼쌽쌾쌿썀썁썂썃썄썅썆썇썈썉썊썋
+    U+C34C..U+C367 썌썍썎썏썐썑썒썓썔썕썖썗썘썙썚썛썜썝썞썟썠썡썢썣썤썥썦썧
+    U+C368..U+C383 써썩썪썫썬썭썮썯썰썱썲썳썴썵썶썷썸썹썺썻썼썽썾썿쎀쎁쎂쎃
+    U+C384..U+C39F 쎄쎅쎆쎇쎈쎉쎊쎋쎌쎍쎎쎏쎐쎑쎒쎓쎔쎕쎖쎗쎘쎙쎚쎛쎜쎝쎞쎟
+    U+C3A0..U+C3BB 쎠쎡쎢쎣쎤쎥쎦쎧쎨쎩쎪쎫쎬쎭쎮쎯쎰쎱쎲쎳쎴쎵쎶쎷쎸쎹쎺쎻
+    U+C3BC..U+C3D7 쎼쎽쎾쎿쏀쏁쏂쏃쏄쏅쏆쏇쏈쏉쏊쏋쏌쏍쏎쏏쏐쏑쏒쏓쏔쏕쏖쏗
+    U+C3D8..U+C3F3 쏘쏙쏚쏛쏜쏝쏞쏟쏠쏡쏢쏣쏤쏥쏦쏧쏨쏩쏪쏫쏬쏭쏮쏯쏰쏱쏲쏳
+    U+C3F4..U+C40F 쏴쏵쏶쏷쏸쏹쏺쏻쏼쏽쏾쏿쐀쐁쐂쐃쐄쐅쐆쐇쐈쐉쐊쐋쐌쐍쐎쐏
+    U+C410..U+C42B 쐐쐑쐒쐓쐔쐕쐖쐗쐘쐙쐚쐛쐜쐝쐞쐟쐠쐡쐢쐣쐤쐥쐦쐧쐨쐩쐪쐫
+    U+C42C..U+C447 쐬쐭쐮쐯쐰쐱쐲쐳쐴쐵쐶쐷쐸쐹쐺쐻쐼쐽쐾쐿쑀쑁쑂쑃쑄쑅쑆쑇
+    U+C448..U+C463 쑈쑉쑊쑋쑌쑍쑎쑏쑐쑑쑒쑓쑔쑕쑖쑗쑘쑙쑚쑛쑜쑝쑞쑟쑠쑡쑢쑣
+    U+C464..U+C47F 쑤쑥쑦쑧쑨쑩쑪쑫쑬쑭쑮쑯쑰쑱쑲쑳쑴쑵쑶쑷쑸쑹쑺쑻쑼쑽쑾쑿
+    U+C480..U+C49B 쒀쒁쒂쒃쒄쒅쒆쒇쒈쒉쒊쒋쒌쒍쒎쒏쒐쒑쒒쒓쒔쒕쒖쒗쒘쒙쒚쒛
+    U+C49C..U+C4B7 쒜쒝쒞쒟쒠쒡쒢쒣쒤쒥쒦쒧쒨쒩쒪쒫쒬쒭쒮쒯쒰쒱쒲쒳쒴쒵쒶쒷
+    U+C4B8..U+C4D3 쒸쒹쒺쒻쒼쒽쒾쒿쓀쓁쓂쓃쓄쓅쓆쓇쓈쓉쓊쓋쓌쓍쓎쓏쓐쓑쓒쓓
+    U+C4D4..U+C4EF 쓔쓕쓖쓗쓘쓙쓚쓛쓜쓝쓞쓟쓠쓡쓢쓣쓤쓥쓦쓧쓨쓩쓪쓫쓬쓭쓮쓯
+    U+C4F0..U+C50B 쓰쓱쓲쓳쓴쓵쓶쓷쓸쓹쓺쓻쓼쓽쓾쓿씀씁씂씃씄씅씆씇씈씉씊씋
+    U+C50C..U+C527 씌씍씎씏씐씑씒씓씔씕씖씗씘씙씚씛씜씝씞씟씠씡씢씣씤씥씦씧
+    U+C528..U+C543 씨씩씪씫씬씭씮씯씰씱씲씳씴씵씶씷씸씹씺씻씼씽씾씿앀앁앂앃
+    U+C544..U+C55F 아악앆앇안앉않앋알앍앎앏앐앑앒앓암압앖앗았앙앚앛앜앝앞앟
+    U+C560..U+C57B 애액앢앣앤앥앦앧앨앩앪앫앬앭앮앯앰앱앲앳앴앵앶앷앸앹앺앻
+    U+C57C..U+C597 야약앾앿얀얁얂얃얄얅얆얇얈얉얊얋얌얍얎얏얐양얒얓얔얕얖얗
+    U+C598..U+C5B3 얘얙얚얛얜얝얞얟얠얡얢얣얤얥얦얧얨얩얪얫얬얭얮얯얰얱얲얳
+    U+C5B4..U+C5CF 어억얶얷언얹얺얻얼얽얾얿엀엁엂엃엄업없엇었엉엊엋엌엍엎엏
+    U+C5D0..U+C5EB 에엑엒엓엔엕엖엗엘엙엚엛엜엝엞엟엠엡엢엣엤엥엦엧엨엩엪엫
+    U+C5EC..U+C607 여역엮엯연엱엲엳열엵엶엷엸엹엺엻염엽엾엿였영옂옃옄옅옆옇
+    U+C608..U+C623 예옉옊옋옌옍옎옏옐옑옒옓옔옕옖옗옘옙옚옛옜옝옞옟옠옡옢옣
+    U+C624..U+C63F 오옥옦옧온옩옪옫올옭옮옯옰옱옲옳옴옵옶옷옸옹옺옻옼옽옾옿
+    U+C640..U+C65B 와왁왂왃완왅왆왇왈왉왊왋왌왍왎왏왐왑왒왓왔왕왖왗왘왙왚왛
+    U+C65C..U+C677 왜왝왞왟왠왡왢왣왤왥왦왧왨왩왪왫왬왭왮왯왰왱왲왳왴왵왶왷
+    U+C678..U+C693 외왹왺왻왼왽왾왿욀욁욂욃욄욅욆욇욈욉욊욋욌욍욎욏욐욑욒욓
+    U+C694..U+C6AF 요욕욖욗욘욙욚욛욜욝욞욟욠욡욢욣욤욥욦욧욨용욪욫욬욭욮욯
+    U+C6B0..U+C6CB 우욱욲욳운욵욶욷울욹욺욻욼욽욾욿움웁웂웃웄웅웆웇웈웉웊웋
+    U+C6CC..U+C6E7 워웍웎웏원웑웒웓월웕웖웗웘웙웚웛웜웝웞웟웠웡웢웣웤웥웦웧
+    U+C6E8..U+C703 웨웩웪웫웬웭웮웯웰웱웲웳웴웵웶웷웸웹웺웻웼웽웾웿윀윁윂윃
+    U+C704..U+C71F 위윅윆윇윈윉윊윋윌윍윎윏윐윑윒윓윔윕윖윗윘윙윚윛윜윝윞윟
+    U+C720..U+C73B 유육윢윣윤윥윦윧율윩윪윫윬윭윮윯윰윱윲윳윴융윶윷윸윹윺윻
+    U+C73C..U+C757 으윽윾윿은읁읂읃을읅읆읇읈읉읊읋음읍읎읏읐응읒읓읔읕읖읗
+    U+C758..U+C773 의읙읚읛읜읝읞읟읠읡읢읣읤읥읦읧읨읩읪읫읬읭읮읯읰읱읲읳
+    U+C774..U+C78F 이익읶읷인읹읺읻일읽읾읿잀잁잂잃임입잆잇있잉잊잋잌잍잎잏
+    U+C790..U+C7AB 자작잒잓잔잕잖잗잘잙잚잛잜잝잞잟잠잡잢잣잤장잦잧잨잩잪잫
+    U+C7AC..U+C7C7 재잭잮잯잰잱잲잳잴잵잶잷잸잹잺잻잼잽잾잿쟀쟁쟂쟃쟄쟅쟆쟇
+    U+C7C8..U+C7E3 쟈쟉쟊쟋쟌쟍쟎쟏쟐쟑쟒쟓쟔쟕쟖쟗쟘쟙쟚쟛쟜쟝쟞쟟쟠쟡쟢쟣
+    U+C7E4..U+C7FF 쟤쟥쟦쟧쟨쟩쟪쟫쟬쟭쟮쟯쟰쟱쟲쟳쟴쟵쟶쟷쟸쟹쟺쟻쟼쟽쟾쟿
+    U+C800..U+C81B 저적젂젃전젅젆젇절젉젊젋젌젍젎젏점접젒젓젔정젖젗젘젙젚젛
+    U+C81C..U+C837 제젝젞젟젠젡젢젣젤젥젦젧젨젩젪젫젬젭젮젯젰젱젲젳젴젵젶젷
+    U+C838..U+C853 져젹젺젻젼젽젾젿졀졁졂졃졄졅졆졇졈졉졊졋졌졍졎졏졐졑졒졓
+    U+C854..U+C86F 졔졕졖졗졘졙졚졛졜졝졞졟졠졡졢졣졤졥졦졧졨졩졪졫졬졭졮졯
+    U+C870..U+C88B 조족졲졳존졵졶졷졸졹졺졻졼졽졾졿좀좁좂좃좄종좆좇좈좉좊좋
+    U+C88C..U+C8A7 좌좍좎좏좐좑좒좓좔좕좖좗좘좙좚좛좜좝좞좟좠좡좢좣좤좥좦좧
+    U+C8A8..U+C8C3 좨좩좪좫좬좭좮좯좰좱좲좳좴좵좶좷좸좹좺좻좼좽좾좿죀죁죂죃
+    U+C8C4..U+C8DF 죄죅죆죇죈죉죊죋죌죍죎죏죐죑죒죓죔죕죖죗죘죙죚죛죜죝죞죟
+    U+C8E0..U+C8FB 죠죡죢죣죤죥죦죧죨죩죪죫죬죭죮죯죰죱죲죳죴죵죶죷죸죹죺죻
+    U+C8FC..U+C917 주죽죾죿준줁줂줃줄줅줆줇줈줉줊줋줌줍줎줏줐중줒줓줔줕줖줗
+    U+C918..U+C933 줘줙줚줛줜줝줞줟줠줡줢줣줤줥줦줧줨줩줪줫줬줭줮줯줰줱줲줳
+    U+C934..U+C94F 줴줵줶줷줸줹줺줻줼줽줾줿쥀쥁쥂쥃쥄쥅쥆쥇쥈쥉쥊쥋쥌쥍쥎쥏
+    U+C950..U+C96B 쥐쥑쥒쥓쥔쥕쥖쥗쥘쥙쥚쥛쥜쥝쥞쥟쥠쥡쥢쥣쥤쥥쥦쥧쥨쥩쥪쥫
+    U+C96C..U+C987 쥬쥭쥮쥯쥰쥱쥲쥳쥴쥵쥶쥷쥸쥹쥺쥻쥼쥽쥾쥿즀즁즂즃즄즅즆즇
+    U+C988..U+C9A3 즈즉즊즋즌즍즎즏즐즑즒즓즔즕즖즗즘즙즚즛즜증즞즟즠즡즢즣
+    U+C9A4..U+C9BF 즤즥즦즧즨즩즪즫즬즭즮즯즰즱즲즳즴즵즶즷즸즹즺즻즼즽즾즿
+    U+C9C0..U+C9DB 지직짂짃진짅짆짇질짉짊짋짌짍짎짏짐집짒짓짔징짖짗짘짙짚짛
+    U+C9DC..U+C9F7 짜짝짞짟짠짡짢짣짤짥짦짧짨짩짪짫짬짭짮짯짰짱짲짳짴짵짶짷
+    U+C9F8..U+CA13 째짹짺짻짼짽짾짿쨀쨁쨂쨃쨄쨅쨆쨇쨈쨉쨊쨋쨌쨍쨎쨏쨐쨑쨒쨓
+    U+CA14..U+CA2F 쨔쨕쨖쨗쨘쨙쨚쨛쨜쨝쨞쨟쨠쨡쨢쨣쨤쨥쨦쨧쨨쨩쨪쨫쨬쨭쨮쨯
+    U+CA30..U+CA4B 쨰쨱쨲쨳쨴쨵쨶쨷쨸쨹쨺쨻쨼쨽쨾쨿쩀쩁쩂쩃쩄쩅쩆쩇쩈쩉쩊쩋
+    U+CA4C..U+CA67 쩌쩍쩎쩏쩐쩑쩒쩓쩔쩕쩖쩗쩘쩙쩚쩛쩜쩝쩞쩟쩠쩡쩢쩣쩤쩥쩦쩧
+    U+CA68..U+CA83 쩨쩩쩪쩫쩬쩭쩮쩯쩰쩱쩲쩳쩴쩵쩶쩷쩸쩹쩺쩻쩼쩽쩾쩿쪀쪁쪂쪃
+    U+CA84..U+CA9F 쪄쪅쪆쪇쪈쪉쪊쪋쪌쪍쪎쪏쪐쪑쪒쪓쪔쪕쪖쪗쪘쪙쪚쪛쪜쪝쪞쪟
+    U+CAA0..U+CABB 쪠쪡쪢쪣쪤쪥쪦쪧쪨쪩쪪쪫쪬쪭쪮쪯쪰쪱쪲쪳쪴쪵쪶쪷쪸쪹쪺쪻
+    U+CABC..U+CAD7 쪼쪽쪾쪿쫀쫁쫂쫃쫄쫅쫆쫇쫈쫉쫊쫋쫌쫍쫎쫏쫐쫑쫒쫓쫔쫕쫖쫗
+    U+CAD8..U+CAF3 쫘쫙쫚쫛쫜쫝쫞쫟쫠쫡쫢쫣쫤쫥쫦쫧쫨쫩쫪쫫쫬쫭쫮쫯쫰쫱쫲쫳
+    U+CAF4..U+CB0F 쫴쫵쫶쫷쫸쫹쫺쫻쫼쫽쫾쫿쬀쬁쬂쬃쬄쬅쬆쬇쬈쬉쬊쬋쬌쬍쬎쬏
+    U+CB10..U+CB2B 쬐쬑쬒쬓쬔쬕쬖쬗쬘쬙쬚쬛쬜쬝쬞쬟쬠쬡쬢쬣쬤쬥쬦쬧쬨쬩쬪쬫
+    U+CB2C..U+CB47 쬬쬭쬮쬯쬰쬱쬲쬳쬴쬵쬶쬷쬸쬹쬺쬻쬼쬽쬾쬿쭀쭁쭂쭃쭄쭅쭆쭇
+    U+CB48..U+CB63 쭈쭉쭊쭋쭌쭍쭎쭏쭐쭑쭒쭓쭔쭕쭖쭗쭘쭙쭚쭛쭜쭝쭞쭟쭠쭡쭢쭣
+    U+CB64..U+CB7F 쭤쭥쭦쭧쭨쭩쭪쭫쭬쭭쭮쭯쭰쭱쭲쭳쭴쭵쭶쭷쭸쭹쭺쭻쭼쭽쭾쭿
+    U+CB80..U+CB9B 쮀쮁쮂쮃쮄쮅쮆쮇쮈쮉쮊쮋쮌쮍쮎쮏쮐쮑쮒쮓쮔쮕쮖쮗쮘쮙쮚쮛
+    U+CB9C..U+CBB7 쮜쮝쮞쮟쮠쮡쮢쮣쮤쮥쮦쮧쮨쮩쮪쮫쮬쮭쮮쮯쮰쮱쮲쮳쮴쮵쮶쮷
+    U+CBB8..U+CBD3 쮸쮹쮺쮻쮼쮽쮾쮿쯀쯁쯂쯃쯄쯅쯆쯇쯈쯉쯊쯋쯌쯍쯎쯏쯐쯑쯒쯓
+    U+CBD4..U+CBEF 쯔쯕쯖쯗쯘쯙쯚쯛쯜쯝쯞쯟쯠쯡쯢쯣쯤쯥쯦쯧쯨쯩쯪쯫쯬쯭쯮쯯
+    U+CBF0..U+CC0B 쯰쯱쯲쯳쯴쯵쯶쯷쯸쯹쯺쯻쯼쯽쯾쯿찀찁찂찃찄찅찆찇찈찉찊찋
+    U+CC0C..U+CC27 찌찍찎찏찐찑찒찓찔찕찖찗찘찙찚찛찜찝찞찟찠찡찢찣찤찥찦찧
+    U+CC28..U+CC43 차착찪찫찬찭찮찯찰찱찲찳찴찵찶찷참찹찺찻찼창찾찿챀챁챂챃
+    U+CC44..U+CC5F 채책챆챇챈챉챊챋챌챍챎챏챐챑챒챓챔챕챖챗챘챙챚챛챜챝챞챟
+    U+CC60..U+CC7B 챠챡챢챣챤챥챦챧챨챩챪챫챬챭챮챯챰챱챲챳챴챵챶챷챸챹챺챻
+    U+CC7C..U+CC97 챼챽챾챿첀첁첂첃첄첅첆첇첈첉첊첋첌첍첎첏첐첑첒첓첔첕첖첗
+    U+CC98..U+CCB3 처척첚첛천첝첞첟철첡첢첣첤첥첦첧첨첩첪첫첬청첮첯첰첱첲첳
+    U+CCB4..U+CCCF 체첵첶첷첸첹첺첻첼첽첾첿쳀쳁쳂쳃쳄쳅쳆쳇쳈쳉쳊쳋쳌쳍쳎쳏
+    U+CCD0..U+CCEB 쳐쳑쳒쳓쳔쳕쳖쳗쳘쳙쳚쳛쳜쳝쳞쳟쳠쳡쳢쳣쳤쳥쳦쳧쳨쳩쳪쳫
+    U+CCEC..U+CD07 쳬쳭쳮쳯쳰쳱쳲쳳쳴쳵쳶쳷쳸쳹쳺쳻쳼쳽쳾쳿촀촁촂촃촄촅촆촇
+    U+CD08..U+CD23 초촉촊촋촌촍촎촏촐촑촒촓촔촕촖촗촘촙촚촛촜총촞촟촠촡촢촣
+    U+CD24..U+CD3F 촤촥촦촧촨촩촪촫촬촭촮촯촰촱촲촳촴촵촶촷촸촹촺촻촼촽촾촿
+    U+CD40..U+CD5B 쵀쵁쵂쵃쵄쵅쵆쵇쵈쵉쵊쵋쵌쵍쵎쵏쵐쵑쵒쵓쵔쵕쵖쵗쵘쵙쵚쵛
+    U+CD5C..U+CD77 최쵝쵞쵟쵠쵡쵢쵣쵤쵥쵦쵧쵨쵩쵪쵫쵬쵭쵮쵯쵰쵱쵲쵳쵴쵵쵶쵷
+    U+CD78..U+CD93 쵸쵹쵺쵻쵼쵽쵾쵿춀춁춂춃춄춅춆춇춈춉춊춋춌춍춎춏춐춑춒춓
+    U+CD94..U+CDAF 추축춖춗춘춙춚춛출춝춞춟춠춡춢춣춤춥춦춧춨충춪춫춬춭춮춯
+    U+CDB0..U+CDCB 춰춱춲춳춴춵춶춷춸춹춺춻춼춽춾춿췀췁췂췃췄췅췆췇췈췉췊췋
+    U+CDCC..U+CDE7 췌췍췎췏췐췑췒췓췔췕췖췗췘췙췚췛췜췝췞췟췠췡췢췣췤췥췦췧
+    U+CDE8..U+CE03 취췩췪췫췬췭췮췯췰췱췲췳췴췵췶췷췸췹췺췻췼췽췾췿츀츁츂츃
+    U+CE04..U+CE1F 츄츅츆츇츈츉츊츋츌츍츎츏츐츑츒츓츔츕츖츗츘츙츚츛츜츝츞츟
+    U+CE20..U+CE3B 츠측츢츣츤츥츦츧츨츩츪츫츬츭츮츯츰츱츲츳츴층츶츷츸츹츺츻
+    U+CE3C..U+CE57 츼츽츾츿칀칁칂칃칄칅칆칇칈칉칊칋칌칍칎칏칐칑칒칓칔칕칖칗
+    U+CE58..U+CE73 치칙칚칛친칝칞칟칠칡칢칣칤칥칦칧침칩칪칫칬칭칮칯칰칱칲칳
+    U+CE74..U+CE8F 카칵칶칷칸칹칺칻칼칽칾칿캀캁캂캃캄캅캆캇캈캉캊캋캌캍캎캏
+    U+CE90..U+CEAB 캐캑캒캓캔캕캖캗캘캙캚캛캜캝캞캟캠캡캢캣캤캥캦캧캨캩캪캫
+    U+CEAC..U+CEC7 캬캭캮캯캰캱캲캳캴캵캶캷캸캹캺캻캼캽캾캿컀컁컂컃컄컅컆컇
+    U+CEC8..U+CEE3 컈컉컊컋컌컍컎컏컐컑컒컓컔컕컖컗컘컙컚컛컜컝컞컟컠컡컢컣
+    U+CEE4..U+CEFF 커컥컦컧컨컩컪컫컬컭컮컯컰컱컲컳컴컵컶컷컸컹컺컻컼컽컾컿
+    U+CF00..U+CF1B 케켁켂켃켄켅켆켇켈켉켊켋켌켍켎켏켐켑켒켓켔켕켖켗켘켙켚켛
+    U+CF1C..U+CF37 켜켝켞켟켠켡켢켣켤켥켦켧켨켩켪켫켬켭켮켯켰켱켲켳켴켵켶켷
+    U+CF38..U+CF53 켸켹켺켻켼켽켾켿콀콁콂콃콄콅콆콇콈콉콊콋콌콍콎콏콐콑콒콓
+    U+CF54..U+CF6F 코콕콖콗콘콙콚콛콜콝콞콟콠콡콢콣콤콥콦콧콨콩콪콫콬콭콮콯
+    U+CF70..U+CF8B 콰콱콲콳콴콵콶콷콸콹콺콻콼콽콾콿쾀쾁쾂쾃쾄쾅쾆쾇쾈쾉쾊쾋
+    U+CF8C..U+CFA7 쾌쾍쾎쾏쾐쾑쾒쾓쾔쾕쾖쾗쾘쾙쾚쾛쾜쾝쾞쾟쾠쾡쾢쾣쾤쾥쾦쾧
+    U+CFA8..U+CFC3 쾨쾩쾪쾫쾬쾭쾮쾯쾰쾱쾲쾳쾴쾵쾶쾷쾸쾹쾺쾻쾼쾽쾾쾿쿀쿁쿂쿃
+    U+CFC4..U+CFDF 쿄쿅쿆쿇쿈쿉쿊쿋쿌쿍쿎쿏쿐쿑쿒쿓쿔쿕쿖쿗쿘쿙쿚쿛쿜쿝쿞쿟
+    U+CFE0..U+CFFB 쿠쿡쿢쿣쿤쿥쿦쿧쿨쿩쿪쿫쿬쿭쿮쿯쿰쿱쿲쿳쿴쿵쿶쿷쿸쿹쿺쿻
+    U+CFFC..U+D017 쿼쿽쿾쿿퀀퀁퀂퀃퀄퀅퀆퀇퀈퀉퀊퀋퀌퀍퀎퀏퀐퀑퀒퀓퀔퀕퀖퀗
+    U+D018..U+D033 퀘퀙퀚퀛퀜퀝퀞퀟퀠퀡퀢퀣퀤퀥퀦퀧퀨퀩퀪퀫퀬퀭퀮퀯퀰퀱퀲퀳
+    U+D034..U+D04F 퀴퀵퀶퀷퀸퀹퀺퀻퀼퀽퀾퀿큀큁큂큃큄큅큆큇큈큉큊큋큌큍큎큏
+    U+D050..U+D06B 큐큑큒큓큔큕큖큗큘큙큚큛큜큝큞큟큠큡큢큣큤큥큦큧큨큩큪큫
+    U+D06C..U+D087 크큭큮큯큰큱큲큳클큵큶큷큸큹큺큻큼큽큾큿킀킁킂킃킄킅킆킇
+    U+D088..U+D0A3 킈킉킊킋킌킍킎킏킐킑킒킓킔킕킖킗킘킙킚킛킜킝킞킟킠킡킢킣
+    U+D0A4..U+D0BF 키킥킦킧킨킩킪킫킬킭킮킯킰킱킲킳킴킵킶킷킸킹킺킻킼킽킾킿
+    U+D0C0..U+D0DB 타탁탂탃탄탅탆탇탈탉탊탋탌탍탎탏탐탑탒탓탔탕탖탗탘탙탚탛
+    U+D0DC..U+D0F7 태택탞탟탠탡탢탣탤탥탦탧탨탩탪탫탬탭탮탯탰탱탲탳탴탵탶탷
+    U+D0F8..U+D113 탸탹탺탻탼탽탾탿턀턁턂턃턄턅턆턇턈턉턊턋턌턍턎턏턐턑턒턓
+    U+D114..U+D12F 턔턕턖턗턘턙턚턛턜턝턞턟턠턡턢턣턤턥턦턧턨턩턪턫턬턭턮턯
+    U+D130..U+D14B 터턱턲턳턴턵턶턷털턹턺턻턼턽턾턿텀텁텂텃텄텅텆텇텈텉텊텋
+    U+D14C..U+D167 테텍텎텏텐텑텒텓텔텕텖텗텘텙텚텛템텝텞텟텠텡텢텣텤텥텦텧
+    U+D168..U+D183 텨텩텪텫텬텭텮텯텰텱텲텳텴텵텶텷텸텹텺텻텼텽텾텿톀톁톂톃
+    U+D184..U+D19F 톄톅톆톇톈톉톊톋톌톍톎톏톐톑톒톓톔톕톖톗톘톙톚톛톜톝톞톟
+    U+D1A0..U+D1BB 토톡톢톣톤톥톦톧톨톩톪톫톬톭톮톯톰톱톲톳톴통톶톷톸톹톺톻
+    U+D1BC..U+D1D7 톼톽톾톿퇀퇁퇂퇃퇄퇅퇆퇇퇈퇉퇊퇋퇌퇍퇎퇏퇐퇑퇒퇓퇔퇕퇖퇗
+    U+D1D8..U+D1F3 퇘퇙퇚퇛퇜퇝퇞퇟퇠퇡퇢퇣퇤퇥퇦퇧퇨퇩퇪퇫퇬퇭퇮퇯퇰퇱퇲퇳
+    U+D1F4..U+D20F 퇴퇵퇶퇷퇸퇹퇺퇻퇼퇽퇾퇿툀툁툂툃툄툅툆툇툈툉툊툋툌툍툎툏
+    U+D210..U+D22B 툐툑툒툓툔툕툖툗툘툙툚툛툜툝툞툟툠툡툢툣툤툥툦툧툨툩툪툫
+    U+D22C..U+D247 투툭툮툯툰툱툲툳툴툵툶툷툸툹툺툻툼툽툾툿퉀퉁퉂퉃퉄퉅퉆퉇
+    U+D248..U+D263 퉈퉉퉊퉋퉌퉍퉎퉏퉐퉑퉒퉓퉔퉕퉖퉗퉘퉙퉚퉛퉜퉝퉞퉟퉠퉡퉢퉣
+    U+D264..U+D27F 퉤퉥퉦퉧퉨퉩퉪퉫퉬퉭퉮퉯퉰퉱퉲퉳퉴퉵퉶퉷퉸퉹퉺퉻퉼퉽퉾퉿
+    U+D280..U+D29B 튀튁튂튃튄튅튆튇튈튉튊튋튌튍튎튏튐튑튒튓튔튕튖튗튘튙튚튛
+    U+D29C..U+D2B7 튜튝튞튟튠튡튢튣튤튥튦튧튨튩튪튫튬튭튮튯튰튱튲튳튴튵튶튷
+    U+D2B8..U+D2D3 트특튺튻튼튽튾튿틀틁틂틃틄틅틆틇틈틉틊틋틌틍틎틏틐틑틒틓
+    U+D2D4..U+D2EF 틔틕틖틗틘틙틚틛틜틝틞틟틠틡틢틣틤틥틦틧틨틩틪틫틬틭틮틯
+    U+D2F0..U+D30B 티틱틲틳틴틵틶틷틸틹틺틻틼틽틾틿팀팁팂팃팄팅팆팇팈팉팊팋
+    U+D30C..U+D327 파팍팎팏판팑팒팓팔팕팖팗팘팙팚팛팜팝팞팟팠팡팢팣팤팥팦팧
+    U+D328..U+D343 패팩팪팫팬팭팮팯팰팱팲팳팴팵팶팷팸팹팺팻팼팽팾팿퍀퍁퍂퍃
+    U+D344..U+D35F 퍄퍅퍆퍇퍈퍉퍊퍋퍌퍍퍎퍏퍐퍑퍒퍓퍔퍕퍖퍗퍘퍙퍚퍛퍜퍝퍞퍟
+    U+D360..U+D37B 퍠퍡퍢퍣퍤퍥퍦퍧퍨퍩퍪퍫퍬퍭퍮퍯퍰퍱퍲퍳퍴퍵퍶퍷퍸퍹퍺퍻
+    U+D37C..U+D397 퍼퍽퍾퍿펀펁펂펃펄펅펆펇펈펉펊펋펌펍펎펏펐펑펒펓펔펕펖펗
+    U+D398..U+D3B3 페펙펚펛펜펝펞펟펠펡펢펣펤펥펦펧펨펩펪펫펬펭펮펯펰펱펲펳
+    U+D3B4..U+D3CF 펴펵펶펷편펹펺펻펼펽펾펿폀폁폂폃폄폅폆폇폈평폊폋폌폍폎폏
+    U+D3D0..U+D3EB 폐폑폒폓폔폕폖폗폘폙폚폛폜폝폞폟폠폡폢폣폤폥폦폧폨폩폪폫
+    U+D3EC..U+D407 포폭폮폯폰폱폲폳폴폵폶폷폸폹폺폻폼폽폾폿퐀퐁퐂퐃퐄퐅퐆퐇
+    U+D408..U+D423 퐈퐉퐊퐋퐌퐍퐎퐏퐐퐑퐒퐓퐔퐕퐖퐗퐘퐙퐚퐛퐜퐝퐞퐟퐠퐡퐢퐣
+    U+D424..U+D43F 퐤퐥퐦퐧퐨퐩퐪퐫퐬퐭퐮퐯퐰퐱퐲퐳퐴퐵퐶퐷퐸퐹퐺퐻퐼퐽퐾퐿
+    U+D440..U+D45B 푀푁푂푃푄푅푆푇푈푉푊푋푌푍푎푏푐푑푒푓푔푕푖푗푘푙푚푛
+    U+D45C..U+D477 표푝푞푟푠푡푢푣푤푥푦푧푨푩푪푫푬푭푮푯푰푱푲푳푴푵푶푷
+    U+D478..U+D493 푸푹푺푻푼푽푾푿풀풁풂풃풄풅풆풇품풉풊풋풌풍풎풏풐풑풒풓
+    U+D494..U+D4AF 풔풕풖풗풘풙풚풛풜풝풞풟풠풡풢풣풤풥풦풧풨풩풪풫풬풭풮풯
+    U+D4B0..U+D4CB 풰풱풲풳풴풵풶풷풸풹풺풻풼풽풾풿퓀퓁퓂퓃퓄퓅퓆퓇퓈퓉퓊퓋
+    U+D4CC..U+D4E7 퓌퓍퓎퓏퓐퓑퓒퓓퓔퓕퓖퓗퓘퓙퓚퓛퓜퓝퓞퓟퓠퓡퓢퓣퓤퓥퓦퓧
+    U+D4E8..U+D503 퓨퓩퓪퓫퓬퓭퓮퓯퓰퓱퓲퓳퓴퓵퓶퓷퓸퓹퓺퓻퓼퓽퓾퓿픀픁픂픃
+    U+D504..U+D51F 프픅픆픇픈픉픊픋플픍픎픏픐픑픒픓픔픕픖픗픘픙픚픛픜픝픞픟
+    U+D520..U+D53B 픠픡픢픣픤픥픦픧픨픩픪픫픬픭픮픯픰픱픲픳픴픵픶픷픸픹픺픻
+    U+D53C..U+D557 피픽픾픿핀핁핂핃필핅핆핇핈핉핊핋핌핍핎핏핐핑핒핓핔핕핖핗
+    U+D558..U+D573 하학핚핛한핝핞핟할핡핢핣핤핥핦핧함합핪핫핬항핮핯핰핱핲핳
+    U+D574..U+D58F 해핵핶핷핸핹핺핻핼핽핾핿햀햁햂햃햄햅햆햇했행햊햋햌햍햎햏
+    U+D590..U+D5AB 햐햑햒햓햔햕햖햗햘햙햚햛햜햝햞햟햠햡햢햣햤향햦햧햨햩햪햫
+    U+D5AC..U+D5C7 햬햭햮햯햰햱햲햳햴햵햶햷햸햹햺햻햼햽햾햿헀헁헂헃헄헅헆헇
+    U+D5C8..U+D5E3 허헉헊헋헌헍헎헏헐헑헒헓헔헕헖헗험헙헚헛헜헝헞헟헠헡헢헣
+    U+D5E4..U+D5FF 헤헥헦헧헨헩헪헫헬헭헮헯헰헱헲헳헴헵헶헷헸헹헺헻헼헽헾헿
+    U+D600..U+D61B 혀혁혂혃현혅혆혇혈혉혊혋혌혍혎혏혐협혒혓혔형혖혗혘혙혚혛
+    U+D61C..U+D637 혜혝혞혟혠혡혢혣혤혥혦혧혨혩혪혫혬혭혮혯혰혱혲혳혴혵혶혷
+    U+D638..U+D653 호혹혺혻혼혽혾혿홀홁홂홃홄홅홆홇홈홉홊홋홌홍홎홏홐홑홒홓
+    U+D654..U+D66F 화확홖홗환홙홚홛활홝홞홟홠홡홢홣홤홥홦홧홨황홪홫홬홭홮홯
+    U+D670..U+D68B 홰홱홲홳홴홵홶홷홸홹홺홻홼홽홾홿횀횁횂횃횄횅횆횇횈횉횊횋
+    U+D68C..U+D6A7 회획횎횏횐횑횒횓횔횕횖횗횘횙횚횛횜횝횞횟횠횡횢횣횤횥횦횧
+    U+D6A8..U+D6C3 효횩횪횫횬횭횮횯횰횱횲횳횴횵횶횷횸횹횺횻횼횽횾횿훀훁훂훃
+    U+D6C4..U+D6DF 후훅훆훇훈훉훊훋훌훍훎훏훐훑훒훓훔훕훖훗훘훙훚훛훜훝훞훟
+    U+D6E0..U+D6FB 훠훡훢훣훤훥훦훧훨훩훪훫훬훭훮훯훰훱훲훳훴훵훶훷훸훹훺훻
+    U+D6FC..U+D717 훼훽훾훿휀휁휂휃휄휅휆휇휈휉휊휋휌휍휎휏휐휑휒휓휔휕휖휗
+    U+D718..U+D733 휘휙휚휛휜휝휞휟휠휡휢휣휤휥휦휧휨휩휪휫휬휭휮휯휰휱휲휳
+    U+D734..U+D74F 휴휵휶휷휸휹휺휻휼휽휾휿흀흁흂흃흄흅흆흇흈흉흊흋흌흍흎흏
+    U+D750..U+D76B 흐흑흒흓흔흕흖흗흘흙흚흛흜흝흞흟흠흡흢흣흤흥흦흧흨흩흪흫
+    U+D76C..U+D787 희흭흮흯흰흱흲흳흴흵흶흷흸흹흺흻흼흽흾흿힀힁힂힃힄힅힆힇
+    U+D788..U+D7A3 히힉힊힋힌힍힎힏힐힑힒힓힔힕힖힗힘힙힚힛힜힝힞힟힠힡힢힣
+    U+D7A4..U+D7AF 힤힥힦힧힨힩힪힫힬힭힮힯                
+
+#### Hangul Jamo Extended-B
+
+    U+D7B0..U+D7CF ힰힱힲힳힴힵힶힷힸힹힺힻힼힽힾힿퟀퟁퟂퟃퟄퟅퟆ퟇퟈퟉퟊ퟋퟌퟍퟎퟏ
+    U+D7D0..U+D7EF ퟐퟑퟒퟓퟔퟕퟖퟗퟘퟙퟚퟛퟜퟝퟞퟟퟠퟡퟢퟣퟤퟥퟦퟧퟨퟩퟪퟫퟬퟭퟮퟯ
+    U+D7F0..U+D7FF ퟰퟱퟲퟳퟴퟵퟶퟷퟸퟹퟺퟻ퟼퟽퟾퟿                
+
+#### Private Use Area
+
+    U+E000..U+E01F                 
+    U+E020..U+E03F                            
+    U+E040..U+E05F                            
+    U+E060..U+E07F                       
+    U+E0E0..U+E0FF              
+    U+E160..U+E17F                                
+    U+E180..U+E19F                             
+    U+E1A0..U+E1BF                       
+    U+E1C0..U+E1DF                               
+    U+E200..U+E21F    
+    U+E220..U+E23F                     
+    U+E260..U+E27F                      
+    U+E280..U+E29F          
+    U+E620..U+E63F                 
+    U+E640..U+E65F                 
+    U+E680..U+E69F                      
+    U+E6A0..U+E6BF                              
+    U+E760..U+E77F           
+    U+E780..U+E79F 
+    U+E7A0..U+E7BF                
+    U+E7E0..U+E7FF                    
+    U+E820..U+E83F                           
+    U+E8E0..U+E8FF                      
+    U+F8A0..U+F8BF                               
+    U+F8C0..U+F8DF            
+    U+F8E0..U+F8FF      
+
+#### CJK Compatibility Ideographs
+
+    U+F900..U+F91F 豈更車賈滑串句龜龜契金喇奈懶癩羅蘿螺裸邏樂洛烙珞落酪駱亂卵欄爛蘭
+    U+F920..U+F93F 鸞嵐濫藍襤拉臘蠟廊朗浪狼郎來冷勞擄櫓爐盧老蘆虜路露魯鷺碌祿綠菉錄
+    U+F940..U+F95F 鹿論壟弄籠聾牢磊賂雷壘屢樓淚漏累縷陋勒肋凜凌稜綾菱陵讀拏樂諾丹寧
+    U+F960..U+F97F 怒率異北磻便復不泌數索參塞省葉說殺辰沈拾若掠略亮兩凉梁糧良諒量勵
+    U+F980..U+F99F 呂女廬旅濾礪閭驪麗黎力曆歷轢年憐戀撚漣煉璉秊練聯輦蓮連鍊列劣咽烈
+    U+F9A0..U+F9BF 裂說廉念捻殮簾獵令囹寧嶺怜玲瑩羚聆鈴零靈領例禮醴隸惡了僚寮尿料樂
+    U+F9C0..U+F9DF 燎療蓼遼龍暈阮劉杻柳流溜琉留硫紐類六戮陸倫崙淪輪律慄栗率隆利吏履
+    U+F9E0..U+F9FF 易李梨泥理痢罹裏裡里離匿溺吝燐璘藺隣鱗麟林淋臨立笠粒狀炙識什茶刺
+    U+FA00..U+FA1F 切度拓糖宅洞暴輻行降見廓兀嗀﨎﨏塚﨑晴﨓﨔凞猪益礼神祥福靖精羽﨟
+    U+FA20..U+FA3F 蘒﨡諸﨣﨤逸都﨧﨨﨩飯飼館鶴郞隷侮僧免勉勤卑喝嘆器塀墨層屮悔慨憎
+    U+FA40..U+FA5F 懲敏既暑梅海渚漢煮爫琢碑社祉祈祐祖祝禍禎穀突節練縉繁署者臭艹艹著
+    U+FA60..U+FA7F 褐視謁謹賓贈辶逸難響頻恵𤋮舘﩮﩯並况全侀充冀勇勺喝啕喙嗢塚墳奄奔
+    U+FA80..U+FA9F 婢嬨廒廙彩徭惘慎愈憎慠懲戴揄搜摒敖晴朗望杖歹殺流滛滋漢瀞煮瞧爵犯
+    U+FAA0..U+FABF 猪瑱甆画瘝瘟益盛直睊着磌窱節类絛練缾者荒華蝹襁覆視調諸請謁諾諭謹
+    U+FAC0..U+FADF 變贈輸遲醙鉶陼難靖韛響頋頻鬒龜𢡊𢡄𣏕㮝䀘䀹𥉉𥳐𧻓齃龎﫚﫛﫜﫝﫞﫟
+    U+FAE0..U+FAFF 﫠﫡﫢﫣﫤﫥﫦﫧﫨﫩﫪﫫﫬﫭﫮﫯﫰﫱﫲﫳﫴﫵﫶﫷﫸﫹﫺﫻﫼﫽﫾﫿
+
+#### Alphabetic Presentation Forms
+
+    U+FB00..U+FB1F        ﬇﬈﬉﬊﬋﬌﬍﬎﬏﬐﬑﬒     ﬘﬙﬚﬛﬜   
+    U+FB20..U+FB3F  ﬡﬢﬣﬤﬥﬦﬧﬨ              ﬷     ﬽ ﬿
+    U+FB40..U+FB4F   ﭂  ﭅                          
+
+Supported only by approximation:
+
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                         
+    U+FB20..U+FB3F          ﬩                      
+    U+FB40..U+FB4F  סּ                              
+
+#### Arabic Presentation Forms-A
+
+    U+FBB0..U+FBCF                   ﯂﯃﯄﯅﯆﯇﯈﯉﯊﯋﯌﯍﯎﯏
+    U+FBD0..U+FBEF ﯐﯑﯒                             
+    U+FC10..U+FC2F                ﰟ ﰡ   ﰥ          
+    U+FC30..U+FC4F              ﰽﰾ                 
+    U+FC90..U+FCAF                              ﲭﲮﲯ
+    U+FCB0..U+FCCF  ﲱﲲﲳﲴﲵﲶﲷ                        
+    U+FCD0..U+FCEF                        ﳧﳨﳩﳪ     
+    U+FCF0..U+FD0F            ﳻﳼﳽﳾ                 
+    U+FD10..U+FD2F        ﴗﴘﴙﴚﴛﴜﴝﴞﴟﴠ            ﴭﴮﴯ
+    U+FD30..U+FD4F ﴰﴱﴲ ﴴﴵﴶﴷﴸﴹ    ﴾﴿﵀﵁﵂﵃﵄﵅﵆﵇﵈﵉﵊﵋﵌﵍﵎﵏
+    U+FD50..U+FD6F ﵐﵑﵒﵓﵔﵕﵖﵗﵘﵙﵚﵛﵜﵝﵞﵟﵠﵡﵢﵣﵤﵥﵦﵧﵨﵩﵪﵫﵬﵭﵮﵯ
+    U+FD70..U+FD8F ﵰﵱﵲﵳﵴﵵﵶﵷﵸﵹﵺﵻﵼﵽﵾﵿﶀﶁﶂﶃﶄﶅﶆﶇﶈﶉﶊﶋﶌﶍﶎﶏ
+    U+FD90..U+FDAF ﶐﶑ﶒﶓﶔﶕﶖﶗﶘﶙﶚﶛﶜﶝﶞﶟﶠﶡﶢﶣﶤﶥﶦﶧﶨﶩﶪﶫﶬﶭﶮﶯ
+    U+FDB0..U+FDCF ﶰﶱﶲﶳﶴﶵﶶﶷﶸﶹﶺﶻﶼﶽﶾﶿﷀﷁﷂﷃﷄﷅﷆﷇ﷈﷉﷊﷋﷌﷍﷎﷏
+    U+FDD0..U+FDEF ﷐﷑﷒﷓﷔﷕﷖﷗﷘﷙﷚﷛﷜﷝﷞﷟﷠﷡﷢﷣﷤﷥﷦﷧﷨﷩﷪﷫﷬﷭﷮﷯
+    U+FDF0..U+FDFF ﷰﷱﷲﷳﷴﷵﷶﷷﷸﷹﷺﷻ﷼﷽﷾﷿                
+
+#### Variation Selectors
+
+    U+FE00..U+FE0F ︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️　　　　　　　　　　      
+
+#### Vertical Forms
+
+    U+FE10..U+FE1F ︐︑︒︓︔︕︖︗︘︙︚︛︜︝︞︟                
+
+#### CJK Compatibility Forms
+
+    U+FE30..U+FE4F ︰︱︲︳︴︵︶︷︸︹︺︻︼︽︾︿﹀﹁﹂﹃﹄﹅﹆﹇﹈﹉﹊﹋﹌﹍﹎﹏
+
+#### Small Form Variants
+
+    U+FE50..U+FE6F ﹐﹑﹒﹓﹔﹕﹖﹗﹘﹙﹚﹛﹜﹝﹞﹟﹠﹡﹢﹣﹤﹥﹦﹧﹨﹩﹪﹫﹬﹭﹮﹯
+
+#### Arabic Presentation Forms-B
+
+    U+FE70..U+FE8F      ﹵                          
+    U+FEF0..U+FEFF              ﻽﻾﻿ 　　　　　　　　　　　　　　　
+
+Supported only by approximation:
+
+    U+FED0..U+FEEF              ﻝ                  
+
+#### Halfwidth and Fullwidth Forms
+
+    U+FF00..U+FF1F ＀！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞？
+    U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
+    U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～｟
+    U+FF60..U+FF7F ｠                               
+    U+FFA0..U+FFBF                                ﾿
+    U+FFC0..U+FFDF ￀￁      ￈￉      ￐￑      ￘￙   ￝￞￟
+    U+FFE0..U+FFEF ￠￡￢￣￤￥￦￧       ￯                
+
+Supported only by approximation:
+
+    U+FF60..U+FF7F 　｡｢｣､ ｦｧｨｩｪｫｬｭｮｯ ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿ
+    U+FF80..U+FF9F ﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ  
+    U+FFA0..U+FFBF ﾠﾡﾢﾣﾤﾥﾦﾧﾨﾩﾪﾫﾬﾭﾮﾯﾰﾱﾲﾳﾴﾵﾶﾷﾸﾹﾺﾻﾼﾽﾾ 
+    U+FFC0..U+FFDF   ￂￃￄￅￆￇ  ￊￋￌￍￎￏ  ￒￓￔￕￖￗ  ￚￛￜ   
+    U+FFE0..U+FFEF 　　　　　　　 ￨￩￪￫￬ ￮                 
+
+#### Specials
+
+    U+FFF0..U+FFFF ￰￱￲￳￴￵￶￷￸￹￺￻￼                   
+
+#### Old Italic
+
+
+Supported only by approximation:
+
+    U+10300..U+1031F 𐌀𐌁𐌂𐌃 𐌅    𐌊      𐌑 𐌓   𐌗  𐌚𐌛    
+    U+10320..U+1032F   𐌢                             
+
+#### Osmanya
+
+
+Supported only by approximation:
+
+    U+10480..U+1049F                       𐒖         
+
+#### Musical Symbols
+
+
+Supported only by approximation:
+
+    U+1D100..U+1D11F         𝄈                       
+
+#### Ancient Greek Musical Notation
+
+
+Supported only by approximation:
+
+    U+1D200..U+1D21F       𝈆      𝈍     𝈓  𝈖         
+    U+1D220..U+1D23F           𝈪               𝈺𝈻    
+
+#### Counting Rod Numerals
+
+
+Supported only by approximation:
+
+    U+1D360..U+1D37F               𝍮                 
+
+#### Mathematical Alphanumeric Symbols
+
+
+Supported only by approximation:
+
+    U+1D400..U+1D41F 𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟
+    U+1D420..U+1D43F 𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿
+    U+1D440..U+1D45F 𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔 𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟
+    U+1D460..U+1D47F 𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿
+    U+1D480..U+1D49F 𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜 𝒞𝒟
+    U+1D4A0..U+1D4BF   𝒢  𝒥𝒦  𝒩𝒪𝒫𝒬 𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹 𝒻 𝒽𝒾𝒿
+    U+1D4C0..U+1D4DF 𝓀𝓁𝓂𝓃 𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟
+    U+1D4E0..U+1D4FF 𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿
+    U+1D500..U+1D51F 𝔀𝔁𝔂𝔃𝔄𝔅 𝔇𝔈𝔉𝔊  𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔 𝔖𝔗𝔘𝔙𝔚𝔛𝔜 𝔞𝔟
+    U+1D520..U+1D53F 𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹 𝔻𝔼𝔽𝔾 
+    U+1D540..U+1D55F 𝕀𝕁𝕂𝕃𝕄 𝕆   𝕊𝕋𝕌𝕍𝕎𝕏𝕐 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟
+    U+1D560..U+1D57F 𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿
+    U+1D580..U+1D59F 𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+    U+1D5A0..U+1D5BF 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿
+    U+1D5C0..U+1D5DF 𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟
+    U+1D5E0..U+1D5FF 𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿
+    U+1D600..U+1D61F 𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟
+    U+1D620..U+1D63F 𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿
+    U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
+    U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
+    U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣    𝚨𝚩 𝚫𝚬𝚭𝚮 𝚰𝚱 𝚳𝚴 𝚶 𝚸 𝚺𝚻𝚼 𝚾 
+    U+1D6C0..U+1D6DF                 𝛐 𝛒       𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣 𝛥𝛦𝛧𝛨 𝛪𝛫 𝛭𝛮 𝛰 𝛲 𝛴𝛵𝛶 𝛸       
+    U+1D700..U+1D71F           𝜊 𝜌       𝜔       𝜜𝜝 𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢 𝜤𝜥 𝜧𝜨 𝜪 𝜬 𝜮𝜯𝜰 𝜲             
+    U+1D740..U+1D75F     𝝄 𝝆       𝝎       𝝖𝝗 𝝙𝝚𝝛𝝜 𝝞𝝟
+    U+1D760..U+1D77F  𝝡𝝢 𝝤 𝝦 𝝨𝝩𝝪 𝝬                 𝝾 
+    U+1D780..U+1D79F 𝞀       𝞈       𝞐𝞑 𝞓𝞔𝞕𝞖 𝞘𝞙 𝞛𝞜 𝞞 
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤 𝞦                 𝞸 𝞺     
+    U+1D7C0..U+1D7DF   𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+
+#### Arabic Mathematical Alphabetic Symbols
+
+
+Supported only by approximation:
+
+    U+1EE00..U+1EE1F            𞸋                    
+    U+1EE20..U+1EE3F            𞸫                    
+    U+1EE40..U+1EE5F            𞹋                    
+    U+1EE80..U+1EE9F            𞺋                    
+    U+1EEA0..U+1EEBF            𞺫                    
+
+#### Enclosed Alphanumeric Supplement
+
+
+Supported only by approximation:
+
+    U+1F100..U+1F11F 🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉🄊     🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟
+    U+1F120..U+1F13F 🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩🄪     🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿
+    U+1F140..U+1F15F 🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🅊🅋🅌🅍🅎🅏                
+    U+1F160..U+1F17F           🅪🅫🅬                   
+    U+1F180..U+1F19F               　 🆐　　　　　　　　　　     
+
+#### Enclosed Ideographic Supplement
+
+
+Supported only by approximation:
+
+    U+1F200..U+1F21F 🈀🈁🈂             🈐🈑🈒🈓🈔🈕🈖🈗🈘🈙🈚🈛🈜🈝🈞🈟
+    U+1F220..U+1F23F 🈠🈡🈢🈣🈤🈥🈦🈧🈨🈩🈪🈫🈬🈭🈮🈯🈰🈱🈲🈳🈴🈵🈶🈷🈸🈹🈺🈻    
+    U+1F240..U+1F25F 🉀🉁🉂🉃🉄🉅🉆🉇🉈       　　              
+
+#### Miscellaneous Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F320..U+1F33F 　    🌥       　　　　　　　　　 　　　　　　　　　
+    U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　💮　　　　　　　　　　　　　　　　　
+    U+1F540..U+1F55F       🕆🕇   　　　　 　　　　　　　　　　　　　　　　
+    U+1F580..U+1F59F                      　🖖         
+    U+1F5A0..U+1F5BF     🖤                           
+    U+1F5E0..U+1F5FF                         🗸  　　　　　
+
+#### Alchemical Symbols
+
+
+Supported only by approximation:
+
+    U+1F760..U+1F77F         🝨                       
+
+#### Geometric Shapes Extended
+
+
+Supported only by approximation:
+
+    U+1F780..U+1F79F        🞇                        
+    U+1F7A0..U+1F7BF   🞢                        🞻  🞾 
+    U+1F7C0..U+1F7DF             🟌  🟏 🟑🟒🟓            
+
+#### Supplemental Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F900..U+1F91F              🤍  　　　　　　　　　　　　　　　　
+
+#### CJK Compatibility Ideographs Supplement
+
+
+Supported only by approximation:
+
+    U+2F800..U+2F81F 　丸　　你侮侻倂偺備僧像　　免兔　具　　內再　冗冤　冬况　凵刃　
+    U+2F820..U+2F83F 刻剆割剷　勇勉勤勺包匆北卉卑博即卽卿卿卿　灰及叟　叫叱吆　吸呈周
+    U+2F840..U+2F85F 咢　唐啓啣善善喙喫喳嗂圖嘆　　噴切壮城埴堍型堲報墬　売壷夆多夢奢
+    U+2F860..U+2F87F 　　姬娛　姘婦　　嬈嬾嬾　寃寘寧寳　寿将当尢　屠屮峀岍　嵃　　嵫
+    U+2F880..U+2F89F 嵼巡巢　巽帨帽幩　　　庰庳庶廊　廾　　舁弢弢　　　形彫　　忍志　
+    U+2F8A0..U+2F8BF 悁　　悔　惇慈慌慎慌慺憎憲憤憯懞懲懶成戛　抱拔捐　挽拼捨掃揤　搢
+    U+2F8C0..U+2F8DF 揅掩　摩　撝摷　敏敬　旣書晉　暑　　冒冕最　肭　朗望朡杞杓　　柺
+    U+2F8E0..U+2F8FF 枅　梅　　栟椔　楂榣槪檨　櫛　次　歔　歲殟殺殻　　　汎　沿泍汧洖
+    U+2F900..U+2F91F 派海流浩浸涅　洴港湮　滋滇　淹潮　　濆瀹瀞瀛　灊災　炭　　　熜　
+    U+2F920..U+2F93F 爨爵　　犀犕　　獺王　玥　　　瑜瑱璅瓊　　　甾　異　瘐　　　　　
+    U+2F940..U+2F95F 直　　　　眞真真睊　瞋　　　硎碌磌　　祖　　福秫　穀穊穏　　　竮
+    U+2F960..U+2F97F 　　篆築　　糒　糨　紀　絣　緇　繅　　　　　罺　羕　者　　　　聰
+    U+2F980..U+2F99F 　　育　　脾媵　　　　舁舄辞　芑芋芝　花芳芽苦　若　　　茣莽菧著
+    U+2F9A0..U+2F9BF 荓菊菌菜　　　　蓱蓳蔖　蕤　　　　　　虐虜虧虩蚩　蜎蛢蝹蜨蝫　　
+    U+2F9C0..U+2F9DF 蟡蠁　　衣　裗裞　裺　　　　　誠諭變豕　貫賁贛起　　跋趼跰　軔輸
+    U+2F9E0..U+2F9FF 　　邔郱鄑　鄛鈸鋗鋘鉼鏹鐕　開　閷　　雃嶲霣　　　　　　　　　　
+    U+2FA00..U+2FA1F 頩　飢　餩馧駂駾　　鬒鱀鳽　　鵧　　　　　麻　黹　　鼏鼖鼻　　　
+
+## Font 16x28
+
+
+* Uni1-VGA28x16.psf.gz, Uni2-VGA28x16.psf.gz (Linux consolefonts)
+* FullCyrSlav-VGA28x16.psf.gz, FullGreek-VGA28x16.psf.gz (Linux consolefonts)
+
+
+#### Basic Latin
+
+    U+0020..U+003F  !"#$%&'()*+,-./0123456789:;<=>?
+    U+0040..U+005F @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+    U+0060..U+007E `abcdefghijklmnopqrstuvwxyz{|}~ 
+
+#### Latin-1 Supplement
+
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
+    U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+
+#### Latin Extended-A
+
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň ŊŋŌō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲų    ŸŹźŻżŽž 
+
+Supported only by approximation:
+
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F             Ĭĭ    Ĳĳ           Ŀ
+    U+0140..U+015F ŀ        ŉ    Ŏŏ                
+    U+0160..U+017F                     ŴŵŶŷ       ſ
+
+#### Latin Extended-B
+
+    U+0180..U+019F                   ƒ             
+
+Supported only by approximation:
+
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗȘșȚț  Ȟȟ
+    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+
+#### IPA Extensions
+
+
+Supported only by approximation:
+
+    U+0250..U+026F    ɓ ɕɖɗ   ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴ ɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+
+#### Spacing Modifier Letters
+
+    U+02B0..U+02CF                        ˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
+
+Supported only by approximation:
+
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ         ˆ ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
+
+#### Combining Diacritical Marks
+
+
+Supported only by approximation:
+
+    U+0320..U+033F                         ̸       
+
+#### Greek and Coptic
+
+    U+0370..U+038F                       Ά ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
+    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
+    U+03F0..U+03FF    ϳϴ                           
+
+Supported only by approximation:
+
+    U+0370..U+038F       Ͷͷ      ;      ΅ ·        
+    U+03D0..U+03EF ϐϑϒ  ϕϖ     Ϝ                ϭ  
+    U+03F0..U+03FF ϰϱϲ  ϵ   ϹϺ                     
+
+#### Cyrillic
+
+    U+0400..U+041F  ЁЂЃЄЅІЇЈЉЊЋЌ ЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
+    U+0440..U+045F рстуфхцчшщъыьэюя ёђѓєѕіїјљњћќ ўџ
+    U+0480..U+049F                 Ґґ              
+    U+04A0..U+04BF               Ү                 
+    U+04C0..U+04DF                 Ӑӑ              
+
+Supported only by approximation:
+
+    U+0400..U+041F Ѐ            Ѝ                  
+    U+0440..U+045F                 ѐ            ѝ  
+    U+0460..U+047F Ѡѡ                Ѳ             
+    U+0480..U+049F                   Ғғ            
+    U+04A0..U+04BF     Ҥҥ              Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ               ӒӓӔӕӖӗ    ӜӝӞӟ
+    U+04E0..U+04FF   ӢӣӤӥӦӧӨ   ӬӭӮӯӰӱӲӳӴӵ  ӸӹӺӻ    
+
+#### Cyrillic Supplement
+
+
+Supported only by approximation:
+
+    U+0500..U+051F                           ԚԛԜԝ  
+
+#### Armenian
+
+
+Supported only by approximation:
+
+    U+0530..U+054F             Լ                Ս Տ
+    U+0550..U+056F      Օ                          
+    U+0570..U+058F                          ։     ֏
+
+#### Hebrew
+
+    U+05D0..U+05EF אבגדהוזחטיךכלםמןנסעףפץצקרשת     
+
+Supported only by approximation:
+
+    U+05B0..U+05CF                    ׃            
+    U+05F0..U+05FF װױײ                             
+
+#### Arabic
+
+    U+0600..U+061F             ،              ؛   ؟
+    U+0620..U+063F  ءآأؤإئابةتثجحخدذرزسشصضطظعغ     
+    U+0640..U+065F ـفقكلمنهوىيًٌٍَُِّْ             
+
+Supported only by approximation:
+
+    U+0680..U+069F           ڊڋ        ڔ ږ   ښڛڜ   
+    U+06A0..U+06BF    ڣ                            
+
+#### Syriac
+
+
+Supported only by approximation:
+
+    U+0700..U+071F    ܃                            
+
+#### Arabic Supplement
+
+
+Supported only by approximation:
+
+    U+0750..U+076F  ݑݒݓݔ    ݙ                     ݯ
+    U+0770..U+077F ݰݱ                              
+
+#### NKo
+
+
+Supported only by approximation:
+
+    U+07C0..U+07DF                    ߓ            
+    U+07E0..U+07FF ߠ                               
+
+#### Arabic Extended-A
+
+
+Supported only by approximation:
+
+    U+08A0..U+08BF     ࢤ   ࢨࢩ                ࢺ     
+
+#### Devanagari
+
+
+Supported only by approximation:
+
+    U+0920..U+093F                              ऽ  
+
+#### Telugu
+
+
+Supported only by approximation:
+
+    U+0C60..U+0C7F          ౩                      
+
+#### Georgian
+
+
+Supported only by approximation:
+
+    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
+    U+10C0..U+10DF                      ვ          
+
+#### Cherokee
+
+
+Supported only by approximation:
+
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ  Ꮎ 
+    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       ᏎᏏ  Ꮢ      ᏙᏚ   ᏞᏟ
+    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+
+#### Unified Canadian Aboriginal Syllabics
+
+
+Supported only by approximation:
+
+    U+1400..U+141F ᐀                               
+    U+1420..U+143F                ᐯ        ᐸ       
+    U+1440..U+145F          ᑉ  ᑌ                   
+    U+1460..U+147F              ᑭ                  
+    U+1480..U+149F              ᒍ                  
+    U+14A0..U+14BF           ᒪ                     
+    U+1560..U+157F                             ᕼ   
+    U+1580..U+159F       ᖆᖇ                        
+    U+15A0..U+15BF                     ᖴ           
+    U+15C0..U+15DF      ᗅ     ᗋ                  ᗞ 
+
+#### Ogham
+
+
+Supported only by approximation:
+
+    U+1680..U+169F                 ᚐ               
+
+#### Phonetic Extensions
+
+
+Supported only by approximation:
+
+    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇᴈ ᴊᴋᴌᴍ ᴏ        ᴘᴙ ᴛᴜ   
+    U+1D20..U+1D3F ᴠᴡᴢ   ᴦ ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ ᵝᵞᵟ
+    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ ᵸ ᵺᵻ ᵽᵾ 
+
+#### Phonetic Extensions Supplement
+
+
+Supported only by approximation:
+
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ ᶞ 
+    U+1DA0..U+1DBF ᶠ                          ᶻ   ᶿ
+
+#### Latin Extended Additional
+
+
+Supported only by approximation:
+
+    U+1E00..U+1E1F ḀḁḂḃḄḅḆḇḈḉḊḋḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝḞḟ
+    U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
+    U+1E40..U+1E5F ṀṁṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕṖṗṘṙṚṛṜṝṞṟ
+    U+1E60..U+1E7F ṠṡṢṣṤṥṦṧṨṩṪṫṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
+    U+1E80..U+1E9F ẀẁẂẃẄẅẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
+    U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
+    U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹỺỻỼỽỾỿ
+
+#### Greek Extended
+
+
+Supported only by approximation:
+
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
+    U+1F20..U+1F3F ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿ
+    U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ  ὐὑὒὓὔὕὖὗ Ὑ Ὓ Ὕ Ὗ
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ ι 
+    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ   ῐῑῒΐ  ῖῗῘῙῚΊ    
+    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
+
+#### General Punctuation
+
+    U+2000..U+201F                 ‐‑‒–—― ‗‘’‚‛“”„‟
+    U+2020..U+203F   •                      ‹› ‼ ‾ 
+
+Supported only by approximation:
+
+    U+2020..U+203F †   ․‥…           ′″‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊               ⁚     
+
+#### Superscripts and Subscripts
+
+    U+2070..U+208F                ⁿ                
+
+Supported only by approximation:
+
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+
+#### Currency Symbols
+
+    U+20A0..U+20BF             €                   
+
+Supported only by approximation:
+
+    U+20A0..U+20BF ₠₡₢₣₤  ₧₨₩₪₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+
+#### Combining Diacritical Marks for Symbols
+
+
+Supported only by approximation:
+
+    U+20D0..U+20EF              ⃝       ⃥          
+
+#### Letterlike Symbols
+
+    U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
+
+Supported only by approximation:
+
+    U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
+
+#### Number Forms
+
+
+Supported only by approximation:
+
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
+
+#### Arrows
+
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
+
+Supported only by approximation:
+
+    U+2190..U+21AF           ↚↛                  ↮ 
+    U+21B0..U+21CF                              ⇍⇎⇏
+    U+21D0..U+21EF ⇐ ⇒ ⇔                           
+
+#### Mathematical Operators
+
+    U+2200..U+221F       ∆           −      ∙√    ∟
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠   ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
+
+Supported only by approximation:
+
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
+    U+2220..U+223F    ∣∤∥∦   ∪           ∶     ∼   
+    U+2240..U+225F  ≁  ≄  ≇ ≉                      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F     ⊄⊅  ⊈⊉                      
+    U+22A0..U+22BF     ⊤                           
+    U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
+    U+22E0..U+22FF                ⋯               ⋿
+
+#### Miscellaneous Technical
+
+    U+2300..U+231F   ⌂                       　　    
+    U+2320..U+233F ⌠⌡       　　                     
+
+Supported only by approximation:
+
+    U+2300..U+231F                        ⌗  　　    
+    U+2320..U+233F          〈〉                     
+    U+2360..U+237F                      ⍵          
+    U+23C0..U+23DF          ⏉                      
+
+#### Control Pictures
+
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F     ␤                           
+
+Supported only by approximation:
+
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡ ␣                            
+
+#### Enclosed Alphanumerics
+
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
+
+Supported only by approximation:
+
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+
+#### Box Drawing
+
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
+
+Supported only by approximation:
+
+    U+2560..U+257F                  ╱╲╳            
+
+#### Block Elements
+
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
+
+#### Geometric Shapes
+
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸   ▼ ▾ 
+    U+25C0..U+25DF ◀ ◂        ○   ●        ◘◙      
+
+Supported only by approximation:
+
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹   ▽ ▿
+    U+25C0..U+25DF  ◁ ◃                            
+    U+25E0..U+25FF       ◦        ◯             　　 
+
+#### Miscellaneous Symbols
+
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥    ♪♫                   　
+
+Supported only by approximation:
+
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡  ♤  ♧                       　
+    U+2680..U+269F             ⚌      　            
+    U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
+
+#### Dingbats
+
+
+Supported only by approximation:
+
+    U+2720..U+273F         　        ✱              
+    U+2740..U+275F             　❍　    　　　 　        
+    U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗ ➙      
+    U+27A0..U+27BF  ➡              　              　
+
+#### Miscellaneous Mathematical Symbols-A
+
+
+Supported only by approximation:
+
+    U+27C0..U+27DF            ⟋ ⟍           ⟙      
+    U+27E0..U+27EF           ⟪⟫  ⟮⟯                
+
+#### Miscellaneous Mathematical Symbols-B
+
+
+Supported only by approximation:
+
+    U+29A0..U+29BF                         ⦸     ⦾⦿
+    U+29E0..U+29FF                      ⧵   ⧹      
+
+#### Supplemental Mathematical Operators
+
+
+Supported only by approximation:
+
+    U+2A20..U+2A3F                         ⨸       
+    U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+
+#### Miscellaneous Symbols and Arrows
+
+
+Supported only by approximation:
+
+    U+2B20..U+2B3F     ⬤                           
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
+
+#### Latin Extended-C
+
+
+Supported only by approximation:
+
+    U+2C60..U+2C7F                             ⱼⱽ  
+
+#### Coptic
+
+
+Supported only by approximation:
+
+    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐ ⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
+    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
+
+#### Tifinagh
+
+
+Supported only by approximation:
+
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
+    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+
+#### CJK Symbols and Punctuation
+
+
+Supported only by approximation:
+
+    U+3000..U+301F 　　　　　　　　〈〉　　　　　　　　　　　　　　　　　　　　　　
+
+#### Hiragana
+
+
+Supported only by approximation:
+
+    U+3040..U+305F  　　　　　　　　　　　　　　く　　　　　　　　　　　　　　　　
+
+#### Katakana
+
+
+Supported only by approximation:
+
+    U+30A0..U+30BF ゠　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+#### Enclosed CJK Letters and Months
+
+
+Supported only by approximation:
+
+    U+3220..U+323F ㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩㈪㈫㈬㈭㈮㈯㈰㈱㈲㈳㈴㈵㈶㈷㈸㈹㈺㈻㈼㈽㈾㈿
+    U+3240..U+325F ㉀㉁㉂㉃㉄㉅㉆㉇        ㉐㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟
+    U+3280..U+329F ㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟
+    U+32A0..U+32BF ㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
+    U+32C0..U+32DF ㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㋌㋍㋎㋏㋐㋑㋒㋓㋔㋕㋖㋗㋘㋙㋚㋛㋜㋝㋞㋟
+    U+32E0..U+32FF ㋠㋡㋢㋣㋤㋥㋦㋧㋨㋩㋪㋫㋬㋭㋮㋯㋰㋱㋲㋳㋴㋵㋶㋷㋸㋹㋺㋻㋼㋽㋾ 
+
+#### CJK Compatibility
+
+
+Supported only by approximation:
+
+    U+3340..U+335F 　　　　　　　　　　　　　　　　　　　　　　　　㍘㍙㍚㍛㍜㍝㍞㍟
+    U+3360..U+337F ㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍱㍲㍳㍴㍵㍶㍷㍸㍹㍺　　　　　
+    U+3380..U+339F ㎀㎁㎂㎃㎄㎅㎆㎇㎈㎉㎊㎋㎌㎍㎎㎏㎐㎑㎒㎓㎔㎕㎖㎗㎘㎙㎚㎛㎜㎝㎞㎟
+    U+33A0..U+33BF ㎠㎡㎢㎣㎤㎥㎦㎧㎨㎩㎪㎫㎬㎭㎮㎯㎰㎱㎲㎳㎴㎵㎶㎷㎸㎹㎺㎻㎼㎽㎾㎿
+    U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
+    U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
+
+#### Vai
+
+
+Supported only by approximation:
+
+    U+A500..U+A51F            ꔋ                    
+    U+A540..U+A55F                     ꕔ  ꕗ        
+    U+A560..U+A57F                       ꕶ         
+    U+A580..U+A59F                            ꖛ    
+    U+A5A0..U+A5BF                               ꖾ 
+    U+A5C0..U+A5DF            ꗋ                    
+    U+A600..U+A61F             ꘌ                   
+
+#### Cyrillic Extended-B
+
+
+Supported only by approximation:
+
+    U+A680..U+A69F   Ꚃ                         ꚜꚝ  
+
+#### Latin Extended-D
+
+
+Supported only by approximation:
+
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
+    U+A780..U+A79F          ꞉    ꞎ                 
+    U+A7E0..U+A7FF                         ꟸꟹ      
+
+#### Latin Extended-E
+
+
+Supported only by approximation:
+
+    U+AB50..U+AB6F       ꭖꭗꭘ                       
+
+#### Alphabetic Presentation Forms
+
+
+Supported only by approximation:
+
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                      יִ ײַ
+    U+FB20..U+FB3F ﬠﬡﬢﬣﬤﬥﬦﬧﬨ﬩שׁשׂשּׁשּׂאַאָאּבּגּדּהּוּזּ טּיּךּכּלּ מּ 
+    U+FB40..U+FB4F נּסּ ףּפּ צּקּרּשּתּוֹבֿכֿפֿﭏ                
+
+#### Vertical Forms
+
+
+Supported only by approximation:
+
+    U+FE10..U+FE1F ︐　　︓︔︕　　　︙                      
+
+#### CJK Compatibility Forms
+
+
+Supported only by approximation:
+
+    U+FE30..U+FE4F ︰　︲︳︴︵︶︷︸　　　　　　　　　　　　　　﹇﹈﹉﹊﹋﹌﹍﹎﹏
+
+#### Small Form Variants
+
+
+Supported only by approximation:
+
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+
+#### Arabic Presentation Forms-B
+
+    U+FE70..U+FE8F                 ﺀ            ﺍﺎﺏ
+    U+FE90..U+FEAF ﺐﺑﺒ  ﺕﺖﺗﺘﺙﺚﺛﺜﺝﺞﺟﺠﺡﺢﺣﺤﺥﺦﺧﺨﺩﺪﺫﺬﺭﺮﺯ
+    U+FEB0..U+FECF ﺰﺱﺲﺳﺴﺵﺶﺷﺸﺹﺺﺻﺼﺽﺾﺿﻀﻁﻂﻃﻄﻅﻆﻇﻈﻉﻊﻋﻌﻍﻎﻏ
+    U+FED0..U+FEEF ﻐﻑﻒﻓﻔﻕﻖﻗﻘﻙﻚﻛﻜﻝﻞﻟﻠﻡﻢﻣﻤﻥﻦﻧﻨﻩﻪﻫﻬﻭﻮ 
+    U+FEF0..U+FEFF  ﻱﻲﻳﻴ            　　　　　　　　　　　　　　　
+
+#### Halfwidth and Fullwidth Forms
+
+
+Supported only by approximation:
+
+    U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
+    U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
+    U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
+
+#### Old Italic
+
+
+Supported only by approximation:
+
+    U+10300..U+1031F 𐌀𐌁𐌂𐌃 𐌅    𐌊      𐌑 𐌓   𐌗  𐌚𐌛    
+    U+10320..U+1032F   𐌢                             
+
+#### Osmanya
+
+
+Supported only by approximation:
+
+    U+10480..U+1049F                       𐒖         
+
+#### Musical Symbols
+
+
+Supported only by approximation:
+
+    U+1D100..U+1D11F         𝄈                       
+
+#### Ancient Greek Musical Notation
+
+
+Supported only by approximation:
+
+    U+1D200..U+1D21F       𝈆      𝈍     𝈓  𝈖         
+    U+1D220..U+1D23F           𝈪               𝈺𝈻    
+
+#### Counting Rod Numerals
+
+
+Supported only by approximation:
+
+    U+1D360..U+1D37F               𝍮                 
+
+#### Mathematical Alphanumeric Symbols
+
+
+Supported only by approximation:
+
+    U+1D400..U+1D41F 𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟
+    U+1D420..U+1D43F 𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿
+    U+1D440..U+1D45F 𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔 𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟
+    U+1D460..U+1D47F 𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿
+    U+1D480..U+1D49F 𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜 𝒞𝒟
+    U+1D4A0..U+1D4BF   𝒢  𝒥𝒦  𝒩𝒪𝒫𝒬 𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹 𝒻 𝒽𝒾𝒿
+    U+1D4C0..U+1D4DF 𝓀𝓁𝓂𝓃 𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟
+    U+1D4E0..U+1D4FF 𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿
+    U+1D500..U+1D51F 𝔀𝔁𝔂𝔃𝔄𝔅 𝔇𝔈𝔉𝔊  𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔 𝔖𝔗𝔘𝔙𝔚𝔛𝔜 𝔞𝔟
+    U+1D520..U+1D53F 𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹 𝔻𝔼𝔽𝔾 
+    U+1D540..U+1D55F 𝕀𝕁𝕂𝕃𝕄 𝕆   𝕊𝕋𝕌𝕍𝕎𝕏𝕐 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟
+    U+1D560..U+1D57F 𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿
+    U+1D580..U+1D59F 𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+    U+1D5A0..U+1D5BF 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿
+    U+1D5C0..U+1D5DF 𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟
+    U+1D5E0..U+1D5FF 𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿
+    U+1D600..U+1D61F 𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟
+    U+1D620..U+1D63F 𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿
+    U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
+    U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
+    U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣𝚤   𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸 𝚺𝚻𝚼𝚽𝚾𝚿
+    U+1D6C0..U+1D6DF 𝛀 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿
+    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔       𝜜𝜝𝜞𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
+    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎       𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
+    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈       𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
+    U+1D7C0..U+1D7DF 𝟀𝟁𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+
+#### Arabic Mathematical Alphabetic Symbols
+
+
+Supported only by approximation:
+
+    U+1EE00..U+1EE1F 𞸀𞸁𞸂𞸃 𞸅𞸆𞸇𞸈𞸉𞸊𞸋𞸌𞸍𞸎𞸏𞸐𞸑𞸒𞸓𞸔𞸕𞸖𞸗𞸘𞸙𞸚𞸛    
+    U+1EE20..U+1EE3F  𞸡𞸢 𞸤  𞸧 𞸩𞸪𞸫𞸬𞸭𞸮𞸯𞸰𞸱𞸲 𞸴𞸵𞸶𞸷 𞸹 𞸻    
+    U+1EE40..U+1EE5F   𞹂    𞹇 𞹉 𞹋 𞹍𞹎𞹏 𞹑𞹒 𞹔  𞹗 𞹙 𞹛    
+    U+1EE60..U+1EE7F  𞹡𞹢 𞹤  𞹧𞹨𞹩𞹪 𞹬𞹭𞹮𞹯𞹰𞹱𞹲 𞹴𞹵𞹶𞹷 𞹹𞹺𞹻    
+    U+1EE80..U+1EE9F 𞺀𞺁𞺂𞺃𞺄𞺅𞺆𞺇𞺈𞺉 𞺋𞺌𞺍𞺎𞺏𞺐𞺑𞺒𞺓𞺔𞺕𞺖𞺗𞺘𞺙𞺚𞺛    
+    U+1EEA0..U+1EEBF  𞺡𞺢𞺣 𞺥𞺦𞺧𞺨𞺩 𞺫𞺬𞺭𞺮𞺯𞺰𞺱𞺲𞺳𞺴𞺵𞺶𞺷𞺸𞺹𞺺𞺻    
+
+#### Enclosed Alphanumeric Supplement
+
+
+Supported only by approximation:
+
+    U+1F100..U+1F11F 🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉🄊     🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟
+    U+1F120..U+1F13F 🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩 🄫🄬🄭🄮 🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿
+    U+1F140..U+1F15F 🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🅊🅋🅌🅍🅎🅏                
+    U+1F160..U+1F17F           🅪🅫🅬                   
+    U+1F180..U+1F19F               　 🆐　　　　　　　　　　     
+
+#### Enclosed Ideographic Supplement
+
+
+Supported only by approximation:
+
+    U+1F240..U+1F25F 　　　　　　　　　       🉐🉑              
+
+#### Miscellaneous Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　　　　　💲　　　　　　　　　　　　　
+
+#### Alchemical Symbols
+
+
+Supported only by approximation:
+
+    U+1F760..U+1F77F         🝨                       
+
+#### Geometric Shapes Extended
+
+
+Supported only by approximation:
+
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
+
+## Font 16x32
+
+
+* Uni1-VGA32x16.psf.gz, Uni2-VGA32x16.psf.gz (Linux consolefonts)
+* FullCyrSlav-VGA32x16.psf.gz (Linux consolefonts)
+* Arabic-VGA32x16.psf.gz, Hebrew-VGA32x16.psf.gz (Linux consolefonts)
+
+
+#### Basic Latin
+
+    U+0020..U+003F  !"#$%&'()*+,-./0123456789:;<=>?
+    U+0040..U+005F @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
+    U+0060..U+007E `abcdefghijklmnopqrstuvwxyz{|}~ 
+
+#### Latin-1 Supplement
+
+    U+00A0..U+00BF  ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿
+    U+00C0..U+00DF ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞß
+    U+00E0..U+00FF àáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
+
+#### Latin Extended-A
+
+    U+0100..U+011F ĀāĂăĄąĆćĈĉĊċČčĎďĐđĒē  ĖėĘęĚěĜĝĞğ
+    U+0120..U+013F ĠġĢģĤĥĦħĨĩĪī  Įįİı  ĴĵĶķĸĹĺĻļĽľ 
+    U+0140..U+015F  ŁłŃńŅņŇň ŊŋŌō  ŐőŒœŔŕŖŗŘřŚśŜŝŞş
+    U+0160..U+017F ŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽž 
+
+Supported only by approximation:
+
+    U+0100..U+011F                     Ĕĕ          
+    U+0120..U+013F             Ĭĭ    Ĳĳ           Ŀ
+    U+0140..U+015F ŀ        ŉ    Ŏŏ                
+    U+0160..U+017F                                ſ
+
+#### Latin Extended-B
+
+    U+0180..U+019F                   ƒ             
+    U+0200..U+021F                         ȘșȚț    
+
+Supported only by approximation:
+
+    U+0180..U+019F ƀƁƂƃ   ƇƈƉƊƋƌ   ƐƑ Ɠ ƕƖƗƘƙƚ  ƝƞƟ
+    U+01A0..U+01BF ƠơƢƣƤƥ   Ʃ ƫƬƭƮƯư ƲƳƴƵƶ         
+    U+01C0..U+01DF    ǃǄǅǆǇǈǉǊǋǌǍǎǏǐǑǒǓǔǕǖǗǘǙǚǛǜ Ǟǟ
+    U+01E0..U+01FF ǠǡǢǣǤǥǦǧǨǩǪǫǬǭ  ǰǱǲǳǴǵ  ǸǹǺǻǼǽǾǿ
+    U+0200..U+021F ȀȁȂȃȄȅȆȇȈȉȊȋȌȍȎȏȐȑȒȓȔȕȖȗ      Ȟȟ
+    U+0220..U+023F  ȡ  ȤȥȦȧȨȩȪȫȬȭȮȯȰȱȲȳȴȵȶȷȸȹȺȻȼȽȾȿ
+    U+0240..U+024F ɀ  ɃɄ ɆɇɈɉ  ɌɍɎɏ                
+
+#### IPA Extensions
+
+
+Supported only by approximation:
+
+    U+0250..U+026F    ɓ ɕɖɗ   ɛɜ  ɟɠɡɢ   ɦɧɨɩɪɫɬɭ  
+    U+0270..U+028F  ɱɲɳɴ ɶ     ɼɽɾ ʀ ʂ     ʈʉ ʋ   ʏ
+    U+0290..U+02AF ʐʑ       ʙ ʛʜʝ ʟʠ  ʣ ʥʦ   ʪʫ    
+
+#### Spacing Modifier Letters
+
+    U+02B0..U+02CF                       ˆˇ ˉ      
+    U+02D0..U+02EF         ˘˙ ˛˜˝                  
+
+Supported only by approximation:
+
+    U+02B0..U+02CF ʰ ʲʳ   ʷʸʹʺʻʼ           ˈ ˊˋ ˍ  
+    U+02D0..U+02EF ː                ˡˢˣ      ˪     
+
+#### Combining Diacritical Marks
+
+
+Supported only by approximation:
+
+    U+0320..U+033F                         ̸       
+
+#### Greek and Coptic
+
+    U+0370..U+038F                     ΄΅Ά ΈΉΊ Ό ΎΏ
+    U+0390..U+03AF ΐΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ ΣΤΥΦΧΨΩΪΫάέήί
+    U+03B0..U+03CF ΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώ 
+    U+03F0..U+03FF    ϳϴ                           
+
+Supported only by approximation:
+
+    U+0370..U+038F       Ͷͷ      ;        ·        
+    U+03D0..U+03EF ϐϑϒ  ϕϖ     Ϝ                ϭ  
+    U+03F0..U+03FF ϰϱϲ  ϵ   ϹϺ                     
+
+#### Cyrillic
+
+    U+0400..U+041F ЀЁЂЃЄЅІЇЈЉЊЋЌЍЎЏАБВГДЕЖЗИЙКЛМНОП
+    U+0420..U+043F РСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп
+    U+0440..U+045F рстуфхцчшщъыьэюяѐёђѓєѕіїјљњћќѝўџ
+    U+0480..U+049F                 Ґґ              
+    U+04A0..U+04BF               Ү                 
+    U+04C0..U+04DF                 Ӑӑ              
+
+Supported only by approximation:
+
+    U+0460..U+047F Ѡѡ                Ѳ             
+    U+0480..U+049F                   Ғғ            
+    U+04A0..U+04BF     Ҥҥ              Ҵҵ          
+    U+04C0..U+04DF ӀӁӂ               ӒӓӔӕӖӗ    ӜӝӞӟ
+    U+04E0..U+04FF   ӢӣӤӥӦӧӨ   ӬӭӮӯӰӱӲӳӴӵ  ӸӹӺӻ    
+
+#### Cyrillic Supplement
+
+
+Supported only by approximation:
+
+    U+0500..U+051F                           ԚԛԜԝ  
+
+#### Armenian
+
+
+Supported only by approximation:
+
+    U+0530..U+054F             Լ                Ս Տ
+    U+0550..U+056F      Օ                          
+    U+0570..U+058F                          ։     ֏
+
+#### Hebrew
+
+    U+05B0..U+05CF ְֱֲֳִֵֶַָֹ ֻּֽ־ֿ׀ׁׂ׃            
+    U+05D0..U+05EF אבגדהוזחטיךכלםמןנסעףפץצקרשת     
+    U+05F0..U+05FF װױײ׳״                           
+
+#### Arabic
+
+    U+0600..U+061F             ،              ؛   ؟
+    U+0620..U+063F  ءآأؤإئابةتثجحخدذرزسشصضطظعغ     
+    U+0640..U+065F ـفقكلمنهوىيًٌٍَُِّْ             
+    U+0660..U+067F                          ٹٺٻټ پٿ
+    U+0680..U+069F ڀځ ڃڄڅچڇڈډ  ڌڍڎ  ڑڒړ  ږ ژ ښ     
+    U+06A0..U+06BF     ڤ ڦ  ک ګ ڭ گ ڱ ڳ ڵ    ںڻڼ ھ 
+    U+06C0..U+06DF  ہ    ۆۇۈ  ۋیۍێ ې ے             
+
+Supported only by approximation:
+
+    U+0680..U+069F           ڊڋ        ڔ      ڛڜ   
+    U+06A0..U+06BF    ڣ                            
+
+#### Syriac
+
+
+Supported only by approximation:
+
+    U+0700..U+071F    ܃                            
+
+#### Arabic Supplement
+
+
+Supported only by approximation:
+
+    U+0750..U+076F  ݑݒݓݔ    ݙ                     ݯ
+    U+0770..U+077F ݰݱ                              
+
+#### NKo
+
+
+Supported only by approximation:
+
+    U+07C0..U+07DF                    ߓ            
+    U+07E0..U+07FF ߠ                               
+
+#### Arabic Extended-A
+
+
+Supported only by approximation:
+
+    U+08A0..U+08BF     ࢤ   ࢨࢩ                ࢺ     
+
+#### Devanagari
+
+
+Supported only by approximation:
+
+    U+0920..U+093F                              ऽ  
+
+#### Telugu
+
+
+Supported only by approximation:
+
+    U+0C60..U+0C7F          ౩                      
+
+#### Georgian
+
+
+Supported only by approximation:
+
+    U+10A0..U+10BF              Ⴍ     Ⴓ      Ⴚ  Ⴝ  
+    U+10C0..U+10DF                      ვ          
+
+#### Cherokee
+
+
+Supported only by approximation:
+
+    U+13A0..U+13BF ᎠᎡᎢ       ᎪᎫᎬ    Ꮁ Ꮃ   Ꮇ   Ꮋ  Ꮎ 
+    U+13C0..U+13DF Ꮐ  Ꮓ  Ꮖ       ᏎᏏ  Ꮢ      ᏙᏚ   ᏞᏟ
+    U+13E0..U+13FF   Ꮲ   Ꮶ             Ᏼ           
+
+#### Unified Canadian Aboriginal Syllabics
+
+
+Supported only by approximation:
+
+    U+1400..U+141F ᐀                               
+    U+1420..U+143F                ᐯ        ᐸ       
+    U+1440..U+145F          ᑉ  ᑌ                   
+    U+1460..U+147F              ᑭ                  
+    U+1480..U+149F              ᒍ                  
+    U+14A0..U+14BF           ᒪ                     
+    U+1560..U+157F                             ᕼ   
+    U+1580..U+159F       ᖆᖇ                        
+    U+15A0..U+15BF                     ᖴ           
+    U+15C0..U+15DF      ᗅ     ᗋ                  ᗞ 
+
+#### Ogham
+
+
+Supported only by approximation:
+
+    U+1680..U+169F                 ᚐ               
+
+#### Phonetic Extensions
+
+
+Supported only by approximation:
+
+    U+1D00..U+1D1F ᴀᴁ ᴃᴄᴅᴆᴇᴈ ᴊᴋᴌᴍ ᴏ        ᴘᴙ ᴛᴜ   
+    U+1D20..U+1D3F ᴠᴡᴢ   ᴦ ᴨ   ᴬᴭᴮ ᴰᴱ ᴳᴴᴵᴶᴷᴸᴹᴺ ᴼ ᴾᴿ
+    U+1D40..U+1D5F ᵀᵁᵂᵃ   ᵇᵈᵉ   ᵍ ᵏᵐᵑᵒ   ᵖᵗᵘ  ᵛ ᵝᵞᵟ
+    U+1D60..U+1D7F ᵠᵡᵢᵣᵤᵥᵦᵧᵨᵩᵪᵫᵬᵭᵮᵯᵰᵱᵲᵳᵴᵵᵶ ᵸ ᵺᵻ ᵽᵾ 
+
+#### Phonetic Extensions Supplement
+
+
+Supported only by approximation:
+
+    U+1D80..U+1D9F ᶀᶁᶂᶃᶄᶅᶆᶇᶈᶉᶊ ᶌᶍᶎᶏ ᶑᶒᶓ  ᶖ  ᶙ  ᶜ ᶞ 
+    U+1DA0..U+1DBF ᶠ                          ᶻ   ᶿ
+
+#### Latin Extended Additional
+
+    U+1E00..U+1E1F   Ḃḃ      Ḋḋ                  Ḟḟ
+    U+1E40..U+1E5F Ṁṁ                    Ṗṗ        
+    U+1E60..U+1E7F Ṡṡ        Ṫṫ                    
+    U+1E80..U+1E9F ẀẁẂẃẄẅ                          
+    U+1EE0..U+1EFF                   Ỳỳ            
+
+Supported only by approximation:
+
+    U+1E00..U+1E1F Ḁḁ  ḄḅḆḇḈḉ  ḌḍḎḏḐḑḒḓḔḕḖḗḘḙḚḛḜḝ  
+    U+1E20..U+1E3F ḠḡḢḣḤḥḦḧḨḩḪḫḬḭḮḯḰḱḲḳḴḵḶḷḸḹḺḻḼḽḾḿ
+    U+1E40..U+1E5F   ṂṃṄṅṆṇṈṉṊṋṌṍṎṏṐṑṒṓṔṕ  ṘṙṚṛṜṝṞṟ
+    U+1E60..U+1E7F   ṢṣṤṥṦṧṨṩ  ṬṭṮṯṰṱṲṳṴṵṶṷṸṹṺṻṼṽṾṿ
+    U+1E80..U+1E9F       ẆẇẈẉẊẋẌẍẎẏẐẑẒẓẔẕẖẗẘẙẚ ẜẝẞ 
+    U+1EA0..U+1EBF ẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾế
+    U+1EC0..U+1EDF ỀềỂểỄễỆệỈỉỊịỌọỎỏỐốỒồỔổỖỗỘộỚớỜờỞở
+    U+1EE0..U+1EFF ỠỡỢợỤụỦủỨứỪừỬửỮữỰự  ỴỵỶỷỸỹỺỻỼỽỾỿ
+
+#### Greek Extended
+
+
+Supported only by approximation:
+
+    U+1F00..U+1F1F ἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ  ἘἙἚἛἜἝ  
+    U+1F20..U+1F3F ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿ
+    U+1F40..U+1F5F ὀὁὂὃὄὅ  ὈὉὊὋὌὍ  ὐὑὒὓὔὕὖὗ Ὑ Ὓ Ὕ Ὗ
+    U+1F60..U+1F7F ὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ  
+    U+1F80..U+1F9F ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟ
+    U+1FA0..U+1FBF ᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ ᾶᾷᾸᾹᾺΆᾼ ι 
+    U+1FC0..U+1FDF ῀῁ῂῃῄ ῆῇῈΈῊΉῌ   ῐῑῒΐ  ῖῗῘῙῚΊ    
+    U+1FE0..U+1FFF ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`  ῲῳῴ ῶῷῸΌῺΏῼ´  
+
+#### General Punctuation
+
+    U+2000..U+201F                 ‐‑‒–—―‖‗‘’‚‛“”„‟
+    U+2020..U+203F †‡•   …         ‰ ′″     ‹› ‼ ‾ 
+
+Supported only by approximation:
+
+    U+2020..U+203F     ․‥              ‴‵‶‷        
+    U+2040..U+205F     ⁄  ⁇⁈⁉⁊            ⁗  ⁚     
+
+#### Superscripts and Subscripts
+
+    U+2070..U+208F                ⁿ                
+
+Supported only by approximation:
+
+    U+2070..U+208F ⁰ⁱ  ⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ ₀₁₂₃₄₅₆₇₈₉₊₋₌₍₎ 
+    U+2090..U+209F ₐₑₒₓ ₕₖₗₘₙₚₛₜ                   
+
+#### Currency Symbols
+
+    U+20A0..U+20BF        ₧  ₪ € ₮                 
+
+Supported only by approximation:
+
+    U+20A0..U+20BF ₠₡₢₣₤   ₨₩ ₫   ₯ ₱  ₴   ₸₹₺  ₽₾ 
+
+#### Combining Diacritical Marks for Symbols
+
+
+Supported only by approximation:
+
+    U+20D0..U+20EF              ⃝       ⃥          
+
+#### Letterlike Symbols
+
+    U+2100..U+211F                       №         
+    U+2120..U+213F   ™   Ω   KÅ                    
+
+Supported only by approximation:
+
+    U+2100..U+211F ℀℁ℂ℃ ℅℆  ℉ℊℋℌℍℎℏℐℑℒℓ ℕ   ℙℚℛℜℝ℞ 
+    U+2120..U+213F ℠℡  ℤ   ℨ   ℬℭ℮ℯℰℱ ℳℴℵℶℷℸℹ ℻ℼℽℾℿ
+    U+2140..U+214F ⅀    ⅅⅆⅇⅈⅉ                      
+
+#### Number Forms
+
+
+Supported only by approximation:
+
+    U+2150..U+216F ⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯ
+    U+2170..U+218F ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ         ↉      
+
+#### Arrows
+
+    U+2190..U+21AF ←↑→↓↔↕                  ↨       
+    U+21B0..U+21CF      ↵                          
+    U+21D0..U+21EF ⇐⇑⇒⇓⇔⇕                          
+
+Supported only by approximation:
+
+    U+2190..U+21AF           ↚↛                  ↮ 
+    U+21B0..U+21CF                              ⇍⇎⇏
+
+#### Mathematical Operators
+
+    U+2200..U+221F      ∅∆ ∈         −      ∙√   ∞∟
+    U+2220..U+223F        ∧∨∩∪                     
+    U+2240..U+225F         ≈                       
+    U+2260..U+227F ≠≡  ≤≥    ≪≫                    
+    U+2280..U+229F                      ⊕⊖ ⊘⊙ ⊛⊜   
+
+Supported only by approximation:
+
+    U+2200..U+221F     ∄    ∉  ∌    ∑   ∕∖∗        
+    U+2220..U+223F    ∣∤∥∦               ∶     ∼   
+    U+2240..U+225F  ≁  ≄  ≇ ≉                      
+    U+2260..U+227F   ≢           ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F     ⊄⊅  ⊈⊉                      
+    U+22A0..U+22BF     ⊤                           
+    U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
+    U+22E0..U+22FF                ⋯               ⋿
+
+#### Miscellaneous Technical
+
+    U+2300..U+231F   ⌂             ⌐         　　    
+    U+2320..U+233F ⌠⌡       　　                     
+    U+23A0..U+23BF                           ⎺⎻⎼⎽  
+
+Supported only by approximation:
+
+    U+2300..U+231F                        ⌗  　　    
+    U+2320..U+233F          〈〉                     
+    U+2360..U+237F                      ⍵          
+    U+23C0..U+23DF          ⏉                      
+
+#### Control Pictures
+
+    U+2400..U+241F          ␉␊␋␌␍                  
+    U+2420..U+243F     ␤                           
+
+Supported only by approximation:
+
+    U+2400..U+241F ␀␁␂␃␄␅␆␇␈     ␎␏␐␑␒␓␔␕␖␗␘␙␚␛␜␝␞␟
+    U+2420..U+243F ␠␡ ␣                            
+
+#### Enclosed Alphanumerics
+
+    U+2460..U+247F ①②③④⑤⑥⑦⑧⑨                       
+    U+24A0..U+24BF                       ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿ
+    U+24C0..U+24DF ⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟ
+    U+24E0..U+24FF ⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪                     
+
+Supported only by approximation:
+
+    U+2460..U+247F          ⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿
+    U+2480..U+249F ⒀⒁⒂⒃⒄⒅⒆⒇⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⒜⒝⒞⒟
+    U+24A0..U+24BF ⒠⒡⒢⒣⒤⒥⒦⒧⒨⒩⒪⒫⒬⒭⒮⒯⒰⒱⒲⒳⒴⒵          
+    U+24E0..U+24FF                      ⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾ 
+
+#### Box Drawing
+
+    U+2500..U+251F ─━│┃        ┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+    U+2520..U+253F ┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+    U+2540..U+255F ╀╁╂╃╄╅╆╇╈╉╊╋    ═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+    U+2560..U+257F ╠╡╢╣╤╥╦╧╨╩╪╫╬       ╴╵╶╷╸╹╺╻╼╽╾╿
+
+Supported only by approximation:
+
+    U+2560..U+257F                  ╱╲╳            
+
+#### Block Elements
+
+    U+2580..U+259F ▀   ▄   █   ▌   ▐░▒▓            
+
+#### Geometric Shapes
+
+    U+25A0..U+25BF ■           ▬ ▮   ▲ ▴ ▶ ▸   ▼ ▾ 
+    U+25C0..U+25DF ◀ ◂   ◆   ◊○   ●        ◘◙      
+
+Supported only by approximation:
+
+    U+25A0..U+25BF  □           ▭ ▯   △ ▵ ▷ ▹►▻ ▽ ▿
+    U+25C0..U+25DF  ◁ ◃◄◅ ◇◈◉  ◌◍◎ ◐◑◒◓◔◕◖◗  ◚◛◜◝◞◟
+    U+25E0..U+25FF ◠◡◢◣◤◥◦◧◨◩◪◫◬◭◮◯             　　 
+
+#### Miscellaneous Symbols
+
+    U+2620..U+263F                           ☺☻☼   
+    U+2640..U+265F ♀ ♂     　　　　　　　　　　　　            
+    U+2660..U+267F ♠  ♣ ♥    ♪♫                   　
+
+Supported only by approximation:
+
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡  ♤  ♧                       　
+    U+2680..U+269F             ⚌      　            
+    U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
+
+#### Dingbats
+
+
+Supported only by approximation:
+
+    U+2720..U+273F         　        ✱              
+    U+2740..U+275F             　❍　    　　　 　        
+    U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
+    U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗ ➙      
+    U+27A0..U+27BF  ➡              　              　
+
+#### Miscellaneous Mathematical Symbols-A
+
+
+Supported only by approximation:
+
+    U+27C0..U+27DF            ⟋ ⟍           ⟙      
+    U+27E0..U+27EF           ⟪⟫  ⟮⟯                
+
+#### Miscellaneous Mathematical Symbols-B
+
+
+Supported only by approximation:
+
+    U+29A0..U+29BF                         ⦸     ⦾⦿
+    U+29E0..U+29FF            ⧫         ⧵   ⧹      
+
+#### Supplemental Mathematical Operators
+
+
+Supported only by approximation:
+
+    U+2A20..U+2A3F                         ⨸       
+    U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+
+#### Miscellaneous Symbols and Arrows
+
+
+Supported only by approximation:
+
+    U+2B20..U+2B3F     ⬤                           
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
+
+#### Latin Extended-C
+
+
+Supported only by approximation:
+
+    U+2C60..U+2C7F                             ⱼⱽ  
+
+#### Coptic
+
+
+Supported only by approximation:
+
+    U+2C80..U+2C9F   ⲂⲃⲄⲅ      ⲌⲍⲎⲏⲐ ⲒⲓⲔⲕ  ⲘⲙⲚ   Ⲟⲟ
+    U+2CA0..U+2CBF ⲠⲡⲢⲣⲤⲥⲦⲧⲨⲩⲪⲫⲬⲭⲮⲯⲰⲱ              
+
+#### Tifinagh
+
+
+Supported only by approximation:
+
+    U+2D30..U+2D4F         ⴸⴹ               ⵉ  ⵌ   
+    U+2D50..U+2D6F     ⵔⵕ       ⵝ                  
+
+#### CJK Symbols and Punctuation
+
+
+Supported only by approximation:
+
+    U+3000..U+301F 　　　　　　　　〈〉　　　　　　　　　　　　　　　　　　　　　　
+
+#### Hiragana
+
+
+Supported only by approximation:
+
+    U+3040..U+305F  　　　　　　　　　　　　　　く　　　　　　　　　　　　　　　　
+
+#### Katakana
+
+
+Supported only by approximation:
+
+    U+30A0..U+30BF ゠　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+
+#### Enclosed CJK Letters and Months
+
+
+Supported only by approximation:
+
+    U+3220..U+323F ㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩㈪㈫㈬㈭㈮㈯㈰㈱㈲㈳㈴㈵㈶㈷㈸㈹㈺㈻㈼㈽㈾㈿
+    U+3240..U+325F ㉀㉁㉂㉃㉄㉅㉆㉇        ㉐㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟
+    U+3280..U+329F ㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉㊊㊋㊌㊍㊎㊏㊐㊑㊒㊓㊔㊕㊖㊗㊘㊙㊚㊛㊜㊝㊞㊟
+    U+32A0..U+32BF ㊠㊡㊢㊣㊤㊥㊦㊧㊨㊩㊪㊫㊬㊭㊮㊯㊰㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿
+    U+32C0..U+32DF ㋀㋁㋂㋃㋄㋅㋆㋇㋈㋉㋊㋋㋌㋍㋎㋏㋐㋑㋒㋓㋔㋕㋖㋗㋘㋙㋚㋛㋜㋝㋞㋟
+    U+32E0..U+32FF ㋠㋡㋢㋣㋤㋥㋦㋧㋨㋩㋪㋫㋬㋭㋮㋯㋰㋱㋲㋳㋴㋵㋶㋷㋸㋹㋺㋻㋼㋽㋾ 
+
+#### CJK Compatibility
+
+
+Supported only by approximation:
+
+    U+3340..U+335F 　　　　　　　　　　　　　　　　　　　　　　　　㍘㍙㍚㍛㍜㍝㍞㍟
+    U+3360..U+337F ㍠㍡㍢㍣㍤㍥㍦㍧㍨㍩㍪㍫㍬㍭㍮㍯㍰㍱㍲㍳㍴㍵㍶㍷㍸㍹㍺　　　　　
+    U+3380..U+339F ㎀㎁㎂㎃㎄㎅㎆㎇㎈㎉㎊㎋㎌㎍㎎㎏㎐㎑㎒㎓㎔㎕㎖㎗㎘㎙㎚㎛㎜㎝㎞㎟
+    U+33A0..U+33BF ㎠㎡㎢㎣㎤㎥㎦㎧㎨㎩㎪㎫㎬㎭㎮㎯㎰㎱㎲㎳㎴㎵㎶㎷㎸㎹㎺㎻㎼㎽㎾㎿
+    U+33C0..U+33DF ㏀㏁㏂㏃㏄㏅㏆㏇㏈㏉㏊㏋㏌㏍㏎㏏㏐㏑㏒㏓㏔㏕㏖㏗㏘㏙㏚㏛㏜㏝㏞㏟
+    U+33E0..U+33FF ㏠㏡㏢㏣㏤㏥㏦㏧㏨㏩㏪㏫㏬㏭㏮㏯㏰㏱㏲㏳㏴㏵㏶㏷㏸㏹㏺㏻㏼㏽㏾㏿
+
+#### Vai
+
+
+Supported only by approximation:
+
+    U+A500..U+A51F            ꔋ                    
+    U+A540..U+A55F                     ꕔ  ꕗ        
+    U+A560..U+A57F                       ꕶ         
+    U+A580..U+A59F                            ꖛ    
+    U+A5A0..U+A5BF                               ꖾ 
+    U+A5C0..U+A5DF            ꗋ                    
+    U+A600..U+A61F             ꘌ                   
+
+#### Cyrillic Extended-B
+
+
+Supported only by approximation:
+
+    U+A680..U+A69F   Ꚃ                         ꚜꚝ  
+
+#### Latin Extended-D
+
+
+Supported only by approximation:
+
+    U+A740..U+A75F ꝀꝁꝂꝃꝄꝅ                Ꝗ         
+    U+A780..U+A79F          ꞉    ꞎ                 
+    U+A7E0..U+A7FF                         ꟸꟹ      
+
+#### Latin Extended-E
+
+
+Supported only by approximation:
+
+    U+AB50..U+AB6F       ꭖꭗꭘ                       
+
+#### Alphabetic Presentation Forms
+
+
+Supported only by approximation:
+
+    U+FB00..U+FB1F ﬀﬁﬂﬃﬄﬅﬆ                      יִ ײַ
+    U+FB20..U+FB3F ﬠﬡﬢﬣﬤﬥﬦﬧﬨ﬩שׁשׂשּׁשּׂאַאָאּבּגּדּהּוּזּ טּיּךּכּלּ מּ 
+    U+FB40..U+FB4F נּסּ ףּפּ צּקּרּשּתּוֹבֿכֿפֿﭏ                
+
+#### Arabic Presentation Forms-A
+
+    U+FB50..U+FB6F   ﭒﭓﭔﭕﭖﭗﭘﭙﭚﭛﭜﭝﭞﭟﭠﭡﭢﭣﭤﭥﭦﭧﭨﭩﭪﭫﭬﭭﭮﭯ
+    U+FB70..U+FB8F ﭰﭱﭲﭳﭴﭵﭶﭷﭸﭹﭺﭻﭼﭽﭾﭿﮀﮁﮂﮃﮄﮅﮆﮇﮈﮉﮊﮋﮌﮍﮎﮏ
+    U+FB90..U+FBAF ﮐﮑﮒﮓﮔﮕﮖﮗﮘﮙﮚﮛﮜﮝﮞﮟﮠﮡﮢﮣ      ﮪﮫﮬﮭﮮﮯ
+    U+FBD0..U+FBEF    ﯓﯔﯕﯖﯗﯘﯙﯚﯛﯜ ﯞﯟ    ﯤﯥﯦﯧ        
+    U+FBF0..U+FC0F             ﯼﯽﯾﯿ                
+
+#### Vertical Forms
+
+
+Supported only by approximation:
+
+    U+FE10..U+FE1F ︐　　︓︔︕　　　︙                      
+
+#### CJK Compatibility Forms
+
+
+Supported only by approximation:
+
+    U+FE30..U+FE4F ︰　︲︳︴︵︶︷︸　　　　　　　　　　　　　　﹇﹈﹉﹊﹋﹌﹍﹎﹏
+
+#### Small Form Variants
+
+
+Supported only by approximation:
+
+    U+FE50..U+FE6F ﹐　﹒ ﹔﹕　﹗﹘﹙﹚﹛﹜　　﹟﹠﹡﹢﹣﹤﹥﹦ ﹨﹩﹪﹫    
+
+#### Arabic Presentation Forms-B
+
+    U+FE70..U+FE8F                 ﺀﺁﺂﺃﺄﺅﺆﺇﺈﺉﺊﺋﺌﺍﺎﺏ
+    U+FE90..U+FEAF ﺐﺑﺒﺓﺔﺕﺖﺗﺘﺙﺚﺛﺜﺝﺞﺟﺠﺡﺢﺣﺤﺥﺦﺧﺨﺩﺪﺫﺬﺭﺮﺯ
+    U+FEB0..U+FECF ﺰﺱﺲﺳﺴﺵﺶﺷﺸﺹﺺﺻﺼﺽﺾﺿﻀﻁﻂﻃﻄﻅﻆﻇﻈﻉﻊﻋﻌﻍﻎﻏ
+    U+FED0..U+FEEF ﻐﻑﻒﻓﻔﻕﻖﻗﻘﻙﻚﻛﻜﻝﻞﻟﻠﻡﻢﻣﻤﻥﻦﻧﻨﻩﻪﻫﻬﻭﻮﻯ
+    U+FEF0..U+FEFF ﻰﻱﻲﻳﻴﻵﻶﻷﻸﻹﻺﻻﻼ    　　　　　　　　　　　　　　　
+
+#### Halfwidth and Fullwidth Forms
+
+
+Supported only by approximation:
+
+    U+FF00..U+FF1F  ！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞　
+    U+FF20..U+FF3F ＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿
+    U+FF40..U+FF5F ｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～　
+    U+FFE0..U+FFEF ￠￡￢￣￤￥　 ￨￩￪￫￬￭￮                 
+
+#### Old Italic
+
+
+Supported only by approximation:
+
+    U+10300..U+1031F 𐌀𐌁𐌂𐌃 𐌅    𐌊      𐌑 𐌓   𐌗  𐌚𐌛    
+    U+10320..U+1032F   𐌢                             
+
+#### Osmanya
+
+
+Supported only by approximation:
+
+    U+10480..U+1049F                       𐒖         
+
+#### Musical Symbols
+
+
+Supported only by approximation:
+
+    U+1D100..U+1D11F         𝄈                       
+
+#### Ancient Greek Musical Notation
+
+
+Supported only by approximation:
+
+    U+1D200..U+1D21F       𝈆      𝈍     𝈓  𝈖         
+    U+1D220..U+1D23F           𝈪               𝈺𝈻    
+
+#### Counting Rod Numerals
+
+
+Supported only by approximation:
+
+    U+1D360..U+1D37F               𝍮                 
+
+#### Mathematical Alphanumeric Symbols
+
+
+Supported only by approximation:
+
+    U+1D400..U+1D41F 𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟
+    U+1D420..U+1D43F 𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿
+    U+1D440..U+1D45F 𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔 𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟
+    U+1D460..U+1D47F 𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿
+    U+1D480..U+1D49F 𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜 𝒞𝒟
+    U+1D4A0..U+1D4BF   𝒢  𝒥𝒦  𝒩𝒪𝒫𝒬 𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹 𝒻 𝒽𝒾𝒿
+    U+1D4C0..U+1D4DF 𝓀𝓁𝓂𝓃 𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟
+    U+1D4E0..U+1D4FF 𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿
+    U+1D500..U+1D51F 𝔀𝔁𝔂𝔃𝔄𝔅 𝔇𝔈𝔉𝔊  𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔 𝔖𝔗𝔘𝔙𝔚𝔛𝔜 𝔞𝔟
+    U+1D520..U+1D53F 𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹 𝔻𝔼𝔽𝔾 
+    U+1D540..U+1D55F 𝕀𝕁𝕂𝕃𝕄 𝕆   𝕊𝕋𝕌𝕍𝕎𝕏𝕐 𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟
+    U+1D560..U+1D57F 𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿
+    U+1D580..U+1D59F 𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟
+    U+1D5A0..U+1D5BF 𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿
+    U+1D5C0..U+1D5DF 𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟
+    U+1D5E0..U+1D5FF 𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿
+    U+1D600..U+1D61F 𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟
+    U+1D620..U+1D63F 𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿
+    U+1D640..U+1D65F 𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟
+    U+1D660..U+1D67F 𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿
+    U+1D680..U+1D69F 𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟
+    U+1D6A0..U+1D6BF 𝚠𝚡𝚢𝚣𝚤   𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸 𝚺𝚻𝚼𝚽𝚾𝚿
+    U+1D6C0..U+1D6DF 𝛀 𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚     
+    U+1D6E0..U+1D6FF   𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲 𝛴𝛵𝛶𝛷𝛸𝛹𝛺 𝛼𝛽𝛾𝛿
+    U+1D700..U+1D71F 𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔       𝜜𝜝𝜞𝜟
+    U+1D720..U+1D73F 𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬 𝜮𝜯𝜰𝜱𝜲𝜳𝜴 𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿
+    U+1D740..U+1D75F 𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎       𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟
+    U+1D760..U+1D77F 𝝠𝝡𝝢𝝣𝝤𝝥𝝦 𝝨𝝩𝝪𝝫𝝬𝝭𝝮 𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿
+    U+1D780..U+1D79F 𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈       𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟
+    U+1D7A0..U+1D7BF 𝞠 𝞢𝞣𝞤𝞥𝞦𝞧𝞨 𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿
+    U+1D7C0..U+1D7DF 𝟀𝟁𝟂           𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟
+    U+1D7E0..U+1D7FF 𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿
+
+#### Arabic Mathematical Alphabetic Symbols
+
+
+Supported only by approximation:
+
+    U+1EE00..U+1EE1F 𞸀𞸁𞸂𞸃 𞸅𞸆𞸇𞸈𞸉𞸊𞸋𞸌𞸍𞸎𞸏𞸐𞸑𞸒𞸓𞸔𞸕𞸖𞸗𞸘𞸙𞸚𞸛    
+    U+1EE20..U+1EE3F  𞸡𞸢 𞸤  𞸧 𞸩𞸪𞸫𞸬𞸭𞸮𞸯𞸰𞸱𞸲 𞸴𞸵𞸶𞸷 𞸹 𞸻    
+    U+1EE40..U+1EE5F   𞹂    𞹇 𞹉 𞹋 𞹍𞹎𞹏 𞹑𞹒 𞹔  𞹗 𞹙 𞹛    
+    U+1EE60..U+1EE7F  𞹡𞹢 𞹤  𞹧𞹨𞹩𞹪 𞹬𞹭𞹮𞹯𞹰𞹱𞹲 𞹴𞹵𞹶𞹷 𞹹𞹺𞹻    
+    U+1EE80..U+1EE9F 𞺀𞺁𞺂𞺃𞺄𞺅𞺆𞺇𞺈𞺉 𞺋𞺌𞺍𞺎𞺏𞺐𞺑𞺒𞺓𞺔𞺕𞺖𞺗𞺘𞺙𞺚𞺛    
+    U+1EEA0..U+1EEBF  𞺡𞺢𞺣 𞺥𞺦𞺧𞺨𞺩 𞺫𞺬𞺭𞺮𞺯𞺰𞺱𞺲𞺳𞺴𞺵𞺶𞺷𞺸𞺹𞺺𞺻    
+
+#### Enclosed Alphanumeric Supplement
+
+
+Supported only by approximation:
+
+    U+1F100..U+1F11F 🄀🄁🄂🄃🄄🄅🄆🄇🄈🄉🄊     🄐🄑🄒🄓🄔🄕🄖🄗🄘🄙🄚🄛🄜🄝🄞🄟
+    U+1F120..U+1F13F 🄠🄡🄢🄣🄤🄥🄦🄧🄨🄩 🄫🄬🄭🄮 🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿
+    U+1F140..U+1F15F 🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🅊🅋🅌🅍🅎🅏                
+    U+1F160..U+1F17F           🅪🅫🅬                   
+    U+1F180..U+1F19F               　 🆐　　　　　　　　　　     
+
+#### Enclosed Ideographic Supplement
+
+
+Supported only by approximation:
+
+    U+1F240..U+1F25F 　　　　　　　　　       🉐🉑              
+
+#### Miscellaneous Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F300..U+1F31F 　　　　　　　　　　　　　　　　　　　　　🌕　　　　　　　　　　
+    U+1F4A0..U+1F4BF 　　　　　　　　　　　　　　　　　　💲　　　　　　　　　　　　　
+
+#### Alchemical Symbols
+
+
+Supported only by approximation:
+
+    U+1F760..U+1F77F         🝨                       
+
+#### Geometric Shapes Extended
+
+
+Supported only by approximation:
+
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
+
 ## Font 18x18
 
-X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso10646-1` (Japanese) and `-misc-fixed-medium-r-normal-ko-18-120-100-100-c-180-iso10646-1` (Korean).
+
+X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso10646-1` (Japanese)
+and `-misc-fixed-medium-r-normal-ko-18-120-100-100-c-180-iso10646-1` (Korean).
+
+Like many other fonts in this emulator,
+it merges two different source fonts
+with identical dimensions into one.
+
 
 #### Basic Latin
 

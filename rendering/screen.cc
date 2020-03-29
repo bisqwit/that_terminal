@@ -72,7 +72,6 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 int wdiff = std::abs(int(jx - fx));
                 int hdiff = std::abs(int(jy - fy));
                 int diff = wdiff*wdiff + hdiff*hdiff;
-                if(jy == 18 && fy <= 16) continue;
                 bool good = diff < worst;
                 if(diff == worst)
                 {
@@ -103,9 +102,10 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
           font_row_size_in_bytes, character_size_in_bytes]
             = FindFont(fx, fy);
     auto [actual_fx2,actual_fy2,font2,map2,
-          font_row_size_in_bytes2,character_size_in_bytes2]
-            = FindFont(std::max<unsigned>(12,fx*2),
-                       std::max<unsigned>(13,fy));
+          font_row_size_in_bytes2,character_size_in_bytes2] // Choose either 12x13 or 18x18
+            = std::apply(FindFont, (fy>16)           ? std::tuple<int,int>{18,18}
+                                 : (fx>=8 && fy>=15) ? std::tuple<int,int>{16,16}
+                                 :                     std::tuple<int,int>{12,13});
 
     unsigned timer = unsigned(GetTime() * 60.0);
     bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
