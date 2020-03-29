@@ -252,7 +252,7 @@ compress12: ;
 
 compress3: ;
 	parallel -j42 \
-		sh -c 'for s in 1 2 3 4 5 6 7 8 9 10 11 12 13;do optipng -o7 $$0 ; pngout -c3 -n$$s $$0;done ; advpng -z4 -i16 $$0 ; DeflOpt $$0' \
+		sh -c 'for s in 1 2 3 4 5 6 7 8 9 10 11 12 13;do optipng -o7 $$0 ; pngout -c3 -n$$s $$0;done ; advpng -z4 -i512 $$0 ; DeflOpt $$0' \
 		-- doc/coverage-*.png
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))

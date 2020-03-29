@@ -107,7 +107,14 @@ in [a separate document](doc/escapes.md).
 You can find the list of fonts supported by this emulator
 in [a separate document](doc/fonts.md).
 
-### Supported keyboard inputs and font sizes
+This terminal emulator fully supports single-width
+and double-width characters (such as CJK).
+The best font sizes to try that are 4x8, 6x9, 8x16, and 9x18,
+because they match perfectly with the CJK fonts at 8x8, 12x9, 16x16 and 18x18
+at integer scaling.
+The 8x16 (+16x16) font has best coverage for Unicode, thanks to Unifont.
+
+### Supported keyboard inputs
 
 In [a separate document](doc/inputs.md).
 
