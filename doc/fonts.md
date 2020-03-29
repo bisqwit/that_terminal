@@ -117,6 +117,7 @@ X11 misc-fixed font `-misc-fixed-bold-r-semicondensed--13-120-75-75-c-60-iso1064
 ![Font 6x13 coverage](coverage-6x13-8.png)
 ![Font 6x13 coverage](coverage-6x13-9.png)
 ![Font 6x13 coverage](coverage-6x13-10.png)
+![Font 6x13 coverage](coverage-6x13-11.png)
 
 ## Font 7x13
 
@@ -786,7 +787,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25A0..U+25BF  □                         ▻    
+    U+25C0..U+25DF      ◅     ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -797,6 +799,7 @@ Supported only by approximation:
     U+2620..U+263F                           ☺☻    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -821,6 +824,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸       
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -837,7 +841,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -1113,7 +1117,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 4x6
 
@@ -1436,6 +1441,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2260..U+227F                     ≴≵          
+    U+2280..U+229F                         ⊘ ⊚⊛    
     U+22A0..U+22BF     ⊤                           
     U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
     U+22E0..U+22FF                ⋯               ⋿
@@ -1492,7 +1498,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25C0..U+25DF        ◇   ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -1502,8 +1508,10 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2620..U+263F                           ☺☻    
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -1529,7 +1537,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯        ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -1538,6 +1546,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -1546,7 +1555,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -1824,6 +1833,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 5x7
 
@@ -2157,6 +2167,7 @@ Supported only by approximation:
 
     U+2240..U+225F  ≁  ≄  ≇                        
     U+2260..U+227F               ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F                           ⊚⊛    
     U+22C0..U+22DF  ⋁                   ⋕  ⋘⋙      
     U+22E0..U+22FF                                ⋿
 
@@ -2213,6 +2224,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF                ▯                
+    U+25C0..U+25DF        ◇                        
     U+25E0..U+25FF                ◯             　　 
 
 #### Miscellaneous Symbols
@@ -2223,9 +2236,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -2263,7 +2279,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯        ⦸     ⦾⦿
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -2272,6 +2288,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -2280,7 +2297,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -2559,6 +2576,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 5x8
 
@@ -2894,6 +2912,7 @@ Supported only by approximation:
     U+2220..U+223F             ∬∭ ∯∰               
     U+2240..U+225F  ≁  ≄  ≇                        
     U+2260..U+227F               ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F                           ⊚⊛    
     U+22C0..U+22DF                      ⋕  ⋘⋙      
     U+22E0..U+22FF                ⋯               ⋿
 
@@ -2960,9 +2979,11 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -3000,7 +3021,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯        ⦸     ⦾⦿
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -3009,6 +3030,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -3017,7 +3039,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -3296,6 +3318,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 6x9
 
@@ -3633,6 +3656,7 @@ Supported only by approximation:
     U+2220..U+223F    ∣        ∬∭ ∯∰               
     U+2240..U+225F  ≁  ≄  ≇                        
     U+2260..U+227F               ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F                           ⊚     
     U+22C0..U+22DF                      ⋕  ⋘⋙      
     U+22E0..U+22FF                                ⋿
 
@@ -3689,6 +3713,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25C0..U+25DF        ◇                        
     U+25E0..U+25FF                ◯             　　 
 
 #### Miscellaneous Symbols
@@ -3700,9 +3725,11 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2660..U+267F        ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -3740,7 +3767,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯        ⦸     ⦾⦿
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -3749,6 +3776,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -3757,7 +3785,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -4036,6 +4064,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 6x10
 
@@ -4377,6 +4406,7 @@ Supported only by approximation:
     U+2220..U+223F    ∣        ∬∭ ∯∰     ∶         
     U+2240..U+225F  ≁  ≄  ≇                        
     U+2260..U+227F               ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F                         ⊘⊙⊚     
     U+22C0..U+22DF                      ⋕  ⋘⋙      
     U+22E0..U+22FF                                ⋿
 
@@ -4433,6 +4463,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF              ▭ ▯                
+    U+25C0..U+25DF        ◇                        
     U+25E0..U+25FF                ◯             　　 
 
 #### Miscellaneous Symbols
@@ -4444,9 +4476,11 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2660..U+267F        ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -4484,7 +4518,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯        ⦸     ⦾⦿
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -4493,6 +4527,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -4501,7 +4536,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -4780,6 +4815,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 6x12
 
@@ -5132,6 +5168,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+26C0..U+26DF     　　 ⛇      　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -5145,6 +5182,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2700..U+271F      ✅    　　                    
+    U+2740..U+275F             　 　    　　❕ 　        
     U+2780..U+279F                      ➕➖➗        
 
 #### Miscellaneous Mathematical Symbols-A
@@ -5204,7 +5242,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
     U+2BA0..U+2BBF          ⮩ ⮫                    
 
 #### Latin Extended-C
@@ -5481,6 +5519,13 @@ Supported only by approximation:
     U+1F5A0..U+1F5BF     🖤                           
     U+1F5E0..U+1F5FF                         🗸  　　　　　
 
+#### Transport and Map Symbols
+
+
+Supported only by approximation:
+
+    U+1F6C0..U+1F6DF 　　　　　　  🛈   　   　　　             
+
 #### Alchemical Symbols
 
 
@@ -5494,8 +5539,22 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
-    U+1F7A0..U+1F7BF          🞩  🞬              🞻  🞾 
-    U+1F7C0..U+1F7DF             🟌  🟏 🟑🟒🟓            
+    U+1F7A0..U+1F7BF   🞢      🞩  🞬              🞻  🞾 
+    U+1F7C0..U+1F7DF             🟌  🟏 🟑🟒🟓   🟗        
+
+#### Supplemental Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F900..U+1F91F              🤍  　　　　　　　　　　　　　　　　
+
+#### Chess Symbols
+
+
+Supported only by approximation:
+
+    U+1FA00..U+1FA1F 🨀🨁🨂🨃🨄🨅                          
 
 ## Font 6x13
 
@@ -5876,6 +5935,7 @@ Supported only by approximation:
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　 ⛇      　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -5889,6 +5949,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2700..U+271F      ✅    　　                    
+    U+2740..U+275F ❀           　 　    　　❕ 　        
     U+2780..U+279F                      ➕➖➗        
 
 #### Miscellaneous Mathematical Symbols-A
@@ -5926,7 +5987,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯      ⦶ ⦸     ⦾⦿
     U+29C0..U+29DF                    ⧓  ⧖⧗        
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
@@ -5938,7 +5999,9 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+    U+2AE0..U+2AFF                               ⫾ 
 
 #### Miscellaneous Symbols and Arrows
 
@@ -5946,7 +6009,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
     U+2BA0..U+2BBF          ⮩ ⮫                    
 
 #### Latin Extended-C
@@ -6240,6 +6303,13 @@ Supported only by approximation:
     U+1F5A0..U+1F5BF     🖤                           
     U+1F5E0..U+1F5FF                         🗸  　　　　　
 
+#### Transport and Map Symbols
+
+
+Supported only by approximation:
+
+    U+1F6C0..U+1F6DF 　　　　　　  🛈   　   　　　             
+
 #### Alchemical Symbols
 
 
@@ -6253,8 +6323,22 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
-    U+1F7A0..U+1F7BF          🞩  🞬              🞻  🞾 
-    U+1F7C0..U+1F7DF             🟌  🟏 🟑              
+    U+1F7A0..U+1F7BF   🞢      🞩  🞬              🞻  🞾 
+    U+1F7C0..U+1F7DF             🟌  🟏 🟑     🟗        
+
+#### Supplemental Symbols and Pictographs
+
+
+Supported only by approximation:
+
+    U+1F900..U+1F91F              🤍  　　　　　　　　　　　　　　　　
+
+#### Chess Symbols
+
+
+Supported only by approximation:
+
+    U+1FA00..U+1FA1F 🨀🨁🨂🨃🨄🨅                          
 
 ## Font 7x13
 
@@ -6640,7 +6724,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25A0..U+25BF                ▯                
+    U+25C0..U+25DF        ◇   ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -6652,6 +6737,7 @@ Supported only by approximation:
     U+2620..U+263F                           ☺☻    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -6677,6 +6763,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -6684,6 +6771,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -6692,7 +6780,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -7352,7 +7440,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25A0..U+25BF                ▯                
+    U+25C0..U+25DF        ◇   ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -7364,6 +7453,7 @@ Supported only by approximation:
     U+2620..U+263F                           ☺☻    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -7389,6 +7479,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -7396,6 +7487,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -7404,7 +7496,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -8083,6 +8175,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
+    U+25C0..U+25DF  ◁   ◅         ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -8093,9 +8187,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -8121,6 +8218,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -8128,6 +8226,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -8136,7 +8235,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -8414,7 +8513,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 8x10
 
@@ -8795,6 +8895,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF              ▭     △   ▷   ▻    
+    U+25C0..U+25DF  ◁   ◅ ◇       ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -8805,9 +8907,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -8833,6 +8938,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -8840,6 +8946,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -8848,7 +8955,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -9510,6 +9617,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF              ▭     △   ▷   ▻    
+    U+25C0..U+25DF  ◁   ◅ ◇       ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -9520,9 +9629,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -9548,6 +9660,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -9555,6 +9668,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -9563,7 +9677,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -10230,7 +10344,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25A0..U+25BF                ▯                
+    U+25C0..U+25DF        ◇   ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -10242,6 +10357,7 @@ Supported only by approximation:
     U+2620..U+263F                           ☺☻    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -10267,6 +10383,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -10274,6 +10391,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -10282,7 +10400,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -10961,6 +11079,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
+    U+25C0..U+25DF  ◁   ◅         ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -10971,9 +11091,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -10999,6 +11122,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -11006,6 +11130,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -11014,7 +11139,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -11292,7 +11417,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 8x15
 
@@ -11670,6 +11796,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF  □           ▭     △       ▻ ▽  
+    U+25C0..U+25DF      ◅         ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -11680,8 +11808,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -11707,6 +11839,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -11714,6 +11847,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -11722,7 +11856,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -11975,7 +12109,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 8x16
 
@@ -12377,6 +12512,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF  □           ▭     △   ▷   ▻    
+    U+25C0..U+25DF  ◁   ◅         ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -12387,9 +12524,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -12415,6 +12555,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -12422,6 +12563,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -12430,7 +12572,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -12708,7 +12850,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 8x19
 
@@ -13084,6 +13227,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+25A0..U+25BF  □           ▭     △       ▻ ▽  
+    U+25C0..U+25DF      ◅         ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -13094,8 +13239,12 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
+    U+2660..U+267F  ♡♢ ♤  ♧                       　
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -13121,6 +13270,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -13128,6 +13278,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -13136,7 +13287,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -13389,7 +13540,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+1F780..U+1F79F        🞇                        
+    U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 ## Font 9x15
 
@@ -13801,7 +13953,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25A0..U+25BF                ▯                
+    U+25C0..U+25DF        ◇   ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -13813,6 +13966,7 @@ Supported only by approximation:
     U+2620..U+263F                           ☺☻    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -13839,6 +13993,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -13846,6 +14001,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -13854,7 +14010,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -14530,7 +14686,8 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+25C0..U+25DF            ○                    
+    U+25A0..U+25BF                ▯                
+    U+25C0..U+25DF        ◇   ○   ●                
     U+25E0..U+25FF       ◦        ◯             　　 
 
 #### Miscellaneous Symbols
@@ -14542,6 +14699,7 @@ Supported only by approximation:
     U+2620..U+263F                           ☺☻    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -14567,6 +14725,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF                      ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -14574,6 +14733,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -14582,7 +14742,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -15241,6 +15401,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+26C0..U+26DF     　　 ⛇      　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
@@ -15287,7 +15448,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯      ⦶ ⦸     ⦾⦿
     U+29C0..U+29DF                    ⧓  ⧖⧗        
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
@@ -15299,7 +15460,9 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
+    U+2AE0..U+2AFF                               ⫾ 
 
 #### Miscellaneous Symbols and Arrows
 
@@ -15308,7 +15471,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
     U+2BA0..U+2BBF          ⮩ ⮫                    
 
 #### Latin Extended-C
@@ -15611,6 +15774,13 @@ Supported only by approximation:
     U+1F560..U+1F57F 　　　　　　　　         🕱        　     
     U+1F5E0..U+1F5FF                         🗸  　　　　　
 
+#### Transport and Map Symbols
+
+
+Supported only by approximation:
+
+    U+1F6C0..U+1F6DF 　　　　　　  🛈   　   　　　             
+
 #### Alchemical Symbols
 
 
@@ -15624,8 +15794,15 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
-    U+1F7A0..U+1F7BF          🞩  🞬              🞻  🞾 
-    U+1F7C0..U+1F7DF             🟌  🟏 🟑              
+    U+1F7A0..U+1F7BF   🞢      🞩  🞬              🞻  🞾 
+    U+1F7C0..U+1F7DF             🟌  🟏 🟑     🟗        
+
+#### Chess Symbols
+
+
+Supported only by approximation:
+
+    U+1FA00..U+1FA1F 🨀🨁🨂🨃🨄🨅                          
 
 ## Font 12x13
 
@@ -15973,6 +16150,7 @@ Supported only by approximation:
     U+2220..U+223F    ∣         ∭ ∯∰     ∶         
     U+2240..U+225F  ≁  ≄  ≇                        
     U+2260..U+227F               ≮≯≰≱  ≴≵  ≸≹      
+    U+2280..U+229F                         ⊘⊙⊚     
     U+22C0..U+22DF                      ⋕  ⋘⋙      
     U+22E0..U+22FF                ⋯               ⋿
 
@@ -16026,6 +16204,10 @@ Supported only by approximation:
     U+25C0..U+25DF ◀◁  ◄◅◆◇  ◊○◌ ◎●        ◘◙      
     U+25E0..U+25FF       ◦        ◯             　　 
 
+Supported only by approximation:
+
+    U+25A0..U+25BF                ▯                
+
 #### Miscellaneous Symbols
 
     U+2600..U+261F      ★☆             　　          
@@ -16035,16 +16217,18 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F ☀                   　　          
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
 
 Supported only by approximation:
 
-    U+2720..U+273F         　        ✱              
+    U+2720..U+273F         　 ✪      ✱              
     U+2740..U+275F             　❍　    　　　 　        
     U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
     U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗➘➙➚     
@@ -16064,7 +16248,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
-    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯                
+    U+29A0..U+29BF         ⦨⦩⦪⦫⦬⦭⦮⦯        ⦸     ⦾⦿
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -16073,6 +16257,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -16081,7 +16266,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -17467,6 +17652,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 #### CJK Compatibility Ideographs Supplement
 
@@ -17813,7 +17999,7 @@ Supported only by approximation:
     U+2220..U+223F    ∣∤ ∦      ∭ ∯∰               
     U+2240..U+225F  ≁  ≄  ≇ ≉                      
     U+2260..U+227F   ≢             ≰≱  ≴≵  ≸≹      
-    U+2280..U+229F     ⊄⊅  ⊈⊉                      
+    U+2280..U+229F     ⊄⊅  ⊈⊉                ⊚     
     U+22A0..U+22BF     ⊤                           
     U+22C0..U+22DF  ⋁ ⋃ ⋅               ⋕  ⋘⋙      
     U+22E0..U+22FF                ⋯               ⋿
@@ -17884,16 +18070,18 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+2600..U+261F                     　　    ☚☛    
     U+2680..U+269F             ⚌      　            
     U+26A0..U+26BF  　        ⚪　                 　　 
     U+26C0..U+26DF     　　        　     　      ⛛    
+    U+26E0..U+26FF    ⛣      　       　　 　    　  　  
 
 #### Dingbats
 
 
 Supported only by approximation:
 
-    U+2720..U+273F         　        ✱              
+    U+2720..U+273F         　 ✪      ✱              
     U+2740..U+275F             　❍　    　　　 　        
     U+2760..U+277F                       ❶❷❸❹❺❻❼❽❾❿
     U+2780..U+279F ➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓ ➕➖➗➘➙➚     
@@ -17923,6 +18111,7 @@ Supported only by approximation:
 
 Supported only by approximation:
 
+    U+29A0..U+29BF                         ⦸     ⦾⦿
     U+29E0..U+29FF            ⧫         ⧵   ⧹      
 
 #### Supplemental Mathematical Operators
@@ -17931,6 +18120,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2A00..U+2A1F             ⨌                   
+    U+2A20..U+2A3F                         ⨸       
     U+2A60..U+2A7F                     ⩴⩵⩶⩷        
 
 #### Miscellaneous Symbols and Arrows
@@ -17939,7 +18129,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+2B20..U+2B3F     ⬤                           
-    U+2B40..U+2B5F                 　    ⭕          
+    U+2B40..U+2B5F                 　    ⭕  ⭘       
 
 #### Latin Extended-C
 
@@ -19370,6 +19560,7 @@ Supported only by approximation:
 Supported only by approximation:
 
     U+1F780..U+1F79F        🞇      🞎  🞑              
+    U+1F7C0..U+1F7DF                        🟗        
 
 #### CJK Compatibility Ideographs Supplement
 
