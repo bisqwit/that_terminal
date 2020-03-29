@@ -105,17 +105,17 @@ Exceptions are listed.
 
 This lists the coverage of each font.
 
-The first half of the page has the information embedded in images,
+This page has the information embedded in images,
 rendered using each font. In those images, white denotes glyphs
 that are supported fully. Brown (darker color) denotes
 glyphs that are supported only through approximation,
 such as by removing accents.
 
 )";
-    for(auto p: supports)
+    /*for(auto p: supports)
     {
         unsigned x = p.first / 256, y = p.first % 256;
         std::cout << "\n## Font " << x << 'x' << y << "\n\n" << lore.find(p.first)->second << '\n';
         PrintRanges(p.second.first, p.second.second);
-    }
+    }*/
 }
