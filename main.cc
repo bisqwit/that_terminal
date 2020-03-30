@@ -27,7 +27,9 @@ bool AllowAutoInput = false; // If enabled, reads inputter.dat and streams that 
 bool DoVideoRecording = false; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
 bool IgnoreScale    = false;
 static double AimedFrameRate = 30; // Defines also video recording framerate
-static unsigned PollInterval = 64;
+static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor,
+                                  // you can increase this number to eliminate some syscalls.
+                                  // Otherwise keep it as 1.
 
 
 // Allow windows bigger than desktop? Setting this "true"
