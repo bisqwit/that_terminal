@@ -2,6 +2,7 @@
 #include <tuple>
 #include <array>
 #include <cassert>
+#include <thread>
 
 #include "screen.hh"
 #include "color.hh"
@@ -34,8 +35,6 @@ static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,b
         {
             if(cur && !next)
             {
-// abcdefg
-// 乍 ながら
                 if(prev) result *= float(1.f/3.f); // diminish rightmost pixel
                 else     result *= float(2.f/3.f); // diminish all pixels
             }
@@ -231,9 +230,21 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
         return substitutions;
     }();
 
+#ifdef _OPENMP
+    std::size_t num_dirtycells = std::count_if(cells.begin(),cells.end(),
+                                               [](const Cell& c) { return c.dirty; });
+    double dirtiness = num_dirtycells / double(cells.size());
+    // 0.1: 4.17s (nt=4)    5.1s (nt=2)  3.8s (nt=8) 3.58s (nt=16) 8.0s (nt=48)
+    // 0.2: about 4s (nt=4)
+    // 0.5: 4.3s (nt=4)
+    // 1.0: 5.7s
+    unsigned thread_count = std::clamp(std::min(16u, unsigned(dirtiness*16/0.1)),
+                                       1u, std::thread::hardware_concurrency());
+#endif
+
     std::size_t screen_width  = fx*xsize;
     //std::size_t screen_height = fy*ysize;
-    //#pragma omp parallel for schedule(static) collapse(2) num_threads(4)
+    #pragma omp parallel for schedule(static) collapse(2) num_threads(thread_count)
     for(std::size_t y=0; y<ysize; ++y) // cell-row
         for(std::size_t fr=0; fr<fy; ++fr) // font-row
         {
