@@ -233,7 +233,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
     std::size_t screen_width  = fx*xsize;
     //std::size_t screen_height = fy*ysize;
-    #pragma omp parallel for schedule(static) collapse(2) num_threads(4)
+    //#pragma omp parallel for schedule(static) collapse(2) num_threads(4)
     for(std::size_t y=0; y<ysize; ++y) // cell-row
         for(std::size_t fr=0; fr<fy; ++fr) // font-row
         {
@@ -301,8 +301,9 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
                 if(!cell.dirty
                 && !is_person_row
-                && !cursorloc
-                && !prev_cursorloc
+                && (!(cursorloc || prev_cursorloc)
+                    || (cursorloc == prev_cursorloc && old_blink3 == cur_blink3)
+                   )
                 && (cell.blink!=1 || old_blink1 == cur_blink1)
                 && (cell.blink!=2 || old_blink2 == cur_blink2)
                   )
@@ -456,10 +457,6 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 }
                 pix += width;
                 x   += was_double;
-                /*if(fr == (fy-1))
-                {
-                    cell.dirty = false;
-                }*/
             }
         }
 
