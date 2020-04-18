@@ -20,17 +20,46 @@
 #include <atomic>
 
 /* Settings */
+#if 0
+static double TimeFactor = 0.0; // You can simulate faster / slower system, 0 = as fast as possible
+bool Headless       = true; // Disables window creation (useless without autoinput & video recording)
+bool EnableTimeTemp = true; // Enables substitution of $H:$M:$S and $TEMP in rendering
+bool AllowAutoInput = true; // If enabled, reads inputter.dat and streams that into console
+bool DoVideoRecording = true; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
+bool IgnoreScale    = true;
+static double SimulatedFrameRate = 240; // Defines the time step for autoinput
+static double VideoFrameRate = 240;     // Defines the video recording framerate
+static unsigned PollInterval = 60; // If you use autoinput and nonzero timefactor,
+                                  // you can increase this number to eliminate some syscalls.
+                                  // Otherwise keep it as 1.
+static unsigned VideoFrameRateDownSampleFactor = 4; // Use powers of 2 only
+#elif 0
+static double TimeFactor = 0.0; // You can simulate faster / slower system, 0 = as fast as possible
+bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
+bool EnableTimeTemp = true; // Enables substitution of $H:$M:$S and $TEMP in rendering
+bool AllowAutoInput = true; // If enabled, reads inputter.dat and streams that into console
+bool DoVideoRecording = true; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
+bool IgnoreScale    = false;
+static double SimulatedFrameRate = 60; // Defines the time step for autoinput
+static double VideoFrameRate = 60;     // Defines the video recording framerate
+static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor,
+                                  // you can increase this number to eliminate some syscalls.
+                                  // Otherwise keep it as 1.
+static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
+#else
 static double TimeFactor = 1.0; // You can simulate faster / slower system, 0 = as fast as possible
 bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
 bool EnableTimeTemp = false; // Enables substitution of $H:$M:$S and $TEMP in rendering
 bool AllowAutoInput = false; // If enabled, reads inputter.dat and streams that into console
 bool DoVideoRecording = false; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
 bool IgnoreScale    = false;
-static double AimedFrameRate = 30; // Defines also video recording framerate
+static double SimulatedFrameRate = 30; // Defines the time step for autoinput
+static double VideoFrameRate = 30;     // Defines the video recording framerate
 static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor,
                                   // you can increase this number to eliminate some syscalls.
                                   // Otherwise keep it as 1.
-
+static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
+#endif
 
 // Allow windows bigger than desktop? Setting this "true"
 // also disables reacting to window resizes.
@@ -66,6 +95,9 @@ namespace
     unsigned cells_horiz, cell_width_pixels,  pixels_width,  bufpixels_width, texturewidth;
     unsigned cells_vert,  cell_height_pixels, pixels_height, bufpixels_height, textureheight;
     std::vector<std::uint32_t> pixbuf;
+
+    std::atomic<unsigned long> frames_done     = 0;
+    std::atomic<unsigned long> frames_thisfile = 0;
 
     void SDL_ReInitialize(unsigned cells_horizontal, unsigned cells_vertical)
     {
@@ -170,56 +202,106 @@ namespace
             if(!rect.h) { rect.y = line; rect.h = 1; }
             else rect.h = line+1-rect.y;
         };
+        bool rendered = false;
+        auto DoRendering = [&]()
+        {
+            wnd.Render(VidCellWidth,VidCellHeight, &pixbuf[0]);
+            for(unsigned y=0; y<cells_vert*VidCellHeight; ++y)
+                RenderAddLine(y);
+
+            RenderFlushLines();
+            if(!Headless)
+            {
+                if(rect.y) { SDL_RenderPresent(renderer); }
+            }
+            rendered = true;
+        };
         //std::fprintf(stderr, "\rFR at %10.6f", GetTime());
 
-        wnd.Render(VidCellWidth,VidCellHeight, &pixbuf[0]);
-        for(unsigned y=0; y<cells_vert*VidCellHeight; ++y)
-            RenderAddLine(y);
-
-        RenderFlushLines();
-        if(!Headless)
-        {
-            if(rect.y) { SDL_RenderPresent(renderer); }
-        }
-
+        if(!DoVideoRecording || !Headless) DoRendering();
         if(DoVideoRecording)
         {
-            double fps = AimedFrameRate;
+            double fps = VideoFrameRate;
             static FILE* fp = nullptr;
             static unsigned pwidth=0, pheight=0;
             static auto begin = GetTime();
-            static unsigned long frames_done = 0;
             static std::vector<unsigned char> buffer;
+            static std::vector<unsigned char> lastframe;
 
             static unsigned counter = 0;
             auto Open = [&](bool quick)
             {
                 char fnbuf[256];
                 mkdir(".term_videos", 0755);
-                std::sprintf(fnbuf, ".term_videos/frames%04d.mp4", counter++);
+                std::sprintf(fnbuf, ".term_videos/frames%04d.%s", counter++, quick?"mp4":"mkv");
                 std::remove(fnbuf);
                 std::fprintf(stderr, "Opening %s\n", fnbuf);
 
                 std::string encoder =
                     " -c:v h264_nvenc -profile high444p -pixel_format yuv444p -preset losslesshp";
                 if(quick || true)
-                    encoder = " -c:v libx264 -crf 0 -threads 16 -preset veryslow -g 960"
+                    encoder = " -c:v libx264 -crf 0 -threads 16 -preset faster -g 120"
                               " -x264-params 'subme=0' -me_method dia -b-pyramid none -rc-lookahead 1";
+                std::string filter_complex;
+                for(unsigned down=1; down<VideoFrameRateDownSampleFactor; down *= 2)
+                {
+                    if(!filter_complex.empty()) filter_complex += ',';
+                    filter_complex += "tblend=average,fps=" + std::to_string(fps / (down*2));
+                }
+                if(!filter_complex.empty())
+                {
+                    filter_complex =
+                        " -filter_complex \"" + filter_complex + "\""
+                        " -r " + std::to_string(fps / VideoFrameRateDownSampleFactor);
+                }
                 std::string cmd = "ffmpeg -y -f rawvideo -pix_fmt bgra"
                     " -s:v "+std::to_string(pwidth)+"x"+std::to_string(pheight)+
                     " -r "+std::to_string(fps)+
                     " -i -"
-                    " -aspect 16/9"// -sws_flags neighbor -vf scale=3840:2160"
+                    " -aspect 16/9"
                     " -loglevel error"
                     + encoder
-                //    " -sws_flags neighbor"
-                //    " -vf scale="+std::to_string(swidth)+":"+std::to_string(sheight)+
+                    + filter_complex
                     + " " + (fnbuf);
-                cmd = "dd bs=8G iflag=fullblock 2>/dev/null | "+cmd;
+                //cmd = "dd bs=8G iflag=fullblock 2>/dev/null | "+cmd;
                 fp = popen(cmd.c_str(), "w");
                 setbuffer(fp, nullptr, pixbuf.size()*sizeof(std::uint32_t) * 1);
+                /*
+                sudo sysctl fs.pipe-user-pages-soft=0
+                sudo sysctl fs.pipe-max-size=$[1048576*512]
+                sudo setcap 'CAP_SYS_RESOURCE=+ep' term
+                */
+                int prev_err=0;
+                for(unsigned power=41; power>10; --power)
+                {
+                    int r = 0;
+                    for(int tries=0; tries<4000; ++tries)
+                    {
+                        r = fcntl(fileno(fp), F_SETPIPE_SZ, 1ul<<power);
+                        if(r >= 0) break;
+                    }
+                    if(r >= 0)
+                    {
+                        std::fprintf(stderr, "Pipe size successfully set to %lu (r=%d)\n", 1ul<<power, r);
+                        break;
+                    }
+                    else
+                    {
+                        if(errno != prev_err)
+                        {
+                            std::fprintf(stderr, "Failed to set pipe size to %lu; ", 1ul<<power);
+                            std::perror("fcntl");
+                            prev_err=errno;
+                        }
+                    }
+                }
+                int s = fcntl(fileno(fp), F_GETPIPE_SZ);
+                if(s > 0)
+                    std::fprintf(stderr, "Pipe size is %d bytes\n", s);
+                else
+                    std::perror("fcntl");
             };
-            auto SafeWrite = [&](const void* buffer, std::size_t elemsize, std::size_t nelems, std::FILE* fp)
+            auto SafeWrite = [](const void* buffer, std::size_t elemsize, std::size_t nelems, std::FILE* fp)
             {
                 const char* source = static_cast<const char*>(buffer);;
                 std::size_t p = 0, limit = elemsize * nelems;
@@ -233,22 +315,36 @@ namespace
 
             if(pwidth != bufpixels_width || pheight != bufpixels_height)
             {
-                if(!fp && !buffer.empty()) Open(true);
+                if(!fp && !buffer.empty())
+                {
+                    Open(true);
+                }
                 if(fp)
                 {
                     std::atomic<bool> ent{};
-
-                    std::thread closer([&ent,&SafeWrite, f = fp, buf = std::move(buffer)]()
+                    std::thread closer([&ent,&SafeWrite,//&frames_done,
+                                       f = fp, fr = 0+frames_thisfile, buf = std::move(buffer), last = lastframe]()
                     {
                         ent = true;
-                        SafeWrite(&buf[0], 1, buf.size(), fp);
+                        SafeWrite(&buf[0], 1, buf.size(), f);
+                        unsigned long frr = fr;
+                        while(frr % (VideoFrameRateDownSampleFactor*2) != 0 || frr == 0)
+                        {
+                            // Write duplicates of the last frame
+                            SafeWrite(&last[0], 1, last.size(), f);
+                            ++frr;
+                            ++frames_done;
+                        }
+                        std::fprintf(stderr, "\33[1mWrote %lu frames (%zd bytes)\33[m\n",
+                            (unsigned long)frr, std::ftell(fp));
                         pclose(f);
                     });
-                    while(!ent) std::this_thread::sleep_for(std::chrono::duration<double>(0.1));
+                    while(!ent) std::this_thread::sleep_for(std::chrono::duration<float>(.1f));
                     closer.detach();
                     fp    = nullptr;
-                    begin = GetTime();
-                    frames_done = 0;
+                    //begin = GetTime();
+                    //frames_done     = 0;
+                    frames_thisfile = 0;
                 }
 
                 pwidth  = bufpixels_width;
@@ -262,10 +358,17 @@ namespace
                 auto end = GetTime();
                 double d = end - begin;
                 unsigned long frames_should = d * fps;
+                bool do_at_least_one = false;
+                if(frames_thisfile == 0 && frames_should <= frames_done && SimulatedFrameRate == VideoFrameRate)
+                {
+                    do_at_least_one = true;
+                }
 
                 //bool flag = false;
-                for(; frames_done < frames_should; ++frames_done)
+                for(; frames_done < frames_should || do_at_least_one; ++frames_done, ++frames_thisfile)
                 {
+                    if(!rendered) DoRendering();
+
                     static unsigned prev = 0;
                     unsigned clock = 10 * (
                         //19*60+30+
@@ -286,6 +389,7 @@ namespace
                         Open(false);
                     }
 
+                    lastframe.assign((char*)&pixbuf[0], (char*)(&pixbuf[0]+pixbuf.size()));
                     if(fp)
                     {
                         if(!buffer.empty())
@@ -296,7 +400,10 @@ namespace
                         SafeWrite(&pixbuf[0], sizeof(std::uint32_t), pixbuf.size(), fp);
                     }
                     else
+                    {
                         buffer.insert(buffer.end(), (char*)&pixbuf[0], (char*)(&pixbuf[0]+pixbuf.size()));
+                    }
+                    do_at_least_one = false;
                 }
             }
         }
@@ -337,15 +444,20 @@ int main()
         }
         if((p[0].events) && TimeFactor != 0.0)
         {
-            int pollres = poll(p, 1, 1000/(AimedFrameRate*TimeFactor));
+            int pollres = poll(p, 1, 1000/(SimulatedFrameRate*TimeFactor));
             if(pollres < 0) break;
         }
-        if((p[0].revents & POLLIN) | (TimeFactor==0.0))
+        if((p[0].revents & POLLIN) || (TimeFactor==0.0))
         {
-            auto input = tty.Recv();
-            if(input.second == -1 && errno == EIO) quit = true;
-            auto& str = input.first;
-            term.Write(FromUTF8(str));
+            bool loop = true;
+            while(loop)
+            {
+                auto input = tty.Recv();
+                if(input.second == -1 && errno == EIO) quit = true;
+                auto& str = input.first;
+                term.Write(FromUTF8(str));
+                if(input.first.empty() || TimeFactor != 0.0) loop = false;
+            }
         }
         else
         {
@@ -370,37 +482,49 @@ int main()
             expect = 0;
         }
 
-        for(bool again=true; again; )
-            again=false, std::visit([&](auto&& arg)
-            {
-                if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::string>)
+        if(!(p[0].revents & POLLIN))
+            for(bool again=true; again; )
+                again=false, std::visit([&](auto&& arg)
                 {
-                    outbuffer += std::move(arg);
-                    again=true;
-                    expect = 0;
-
-                    int r = tty.Send(outbuffer);
-                    if(r > 0)
-                        outbuffer.erase(0, r);
-                }
-                else if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::array<unsigned,4>>)
-                {
-                    if(std::array{VidCellWidth,VidCellHeight,WindowWidth,WindowHeight} != arg)
+                    if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::string>)
                     {
-                        ScaleX = 1.0f;
-                        ScaleY = 1.0f;
-                        VidCellWidth = arg[0];
-                        VidCellHeight = arg[1];
-                        term.Resize(arg[2], arg[3]);
-                        SDL_ReInitialize(wnd.xsize, wnd.ysize);
-                        tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
-                        wnd.Dirtify();
-                        //again=true;
-                        // Render at least one frame before a new resize
+                        outbuffer += std::move(arg);
+                        again=true;
                         expect = 0;
+
+                        int r = tty.Send(outbuffer);
+                        if(r > 0)
+                            outbuffer.erase(0, r);
                     }
-                }
-            }, GetAutoInput());
+                    else if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::array<unsigned,4>>)
+                    {
+                        if(std::array{VidCellWidth,VidCellHeight,WindowWidth,WindowHeight} != arg)
+                        {
+                            if(DoVideoRecording && TimeFactor==0)
+                            {
+                                while(frames_thisfile < (VideoFrameRateDownSampleFactor*2))
+                                {
+                                    AdvanceTime(1 / SimulatedFrameRate);
+                                    SDL_ReDraw(wnd);
+                                }
+                            }
+                            if(IgnoreScale)
+                            {
+                                ScaleX = 1.0f;
+                                ScaleY = 1.0f;
+                            }
+                            VidCellWidth = arg[0];
+                            VidCellHeight = arg[1];
+                            term.Resize(arg[2], arg[3]);
+                            SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                            tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
+                            wnd.Dirtify();
+                            //again=true; // Don't set this flag. Render at least one frame before a new resize.
+                            expect = 0;
+                            if(TimeFactor==0) std::this_thread::sleep_for(std::chrono::duration<float>(.1f));
+                        }
+                    }
+                }, GetAutoInput());
 
         if(!Headless)
         {
@@ -441,14 +565,17 @@ int main()
                         break;
                     case SDL_TEXTINPUT:
                         //std::fprintf(stderr, "Text input(%s)\n", ev.text.text);
-                        pending_input.clear(); // Overrides any input events from SDL_KEYDOWN
-                        outbuffer += ev.text.text;
+                        if(!AllowAutoInput || !AutoInputActive())
+                        {
+                            pending_input.clear(); // Overrides any input events from SDL_KEYDOWN
+                            outbuffer += ev.text.text;
+                        }
                         break;
                     case SDL_KEYDOWN:
                     case SDL_KEYUP:
                     {
                         keys[ev.key.keysym.sym] = (ev.type == SDL_KEYDOWN);
-                        if(ev.type == SDL_KEYDOWN)
+                        if((!AllowAutoInput || !AutoInputActive()) && ev.type == SDL_KEYDOWN)
                         {
                             static const std::unordered_map<int, std::pair<int/*num*/,char/*letter*/>> lore
                             {
@@ -581,9 +708,10 @@ int main()
             outbuffer += std::move(pending_input);
         }
 
-        AdvanceTime(1 / AimedFrameRate);
+        AdvanceTime(1 / SimulatedFrameRate);
         SDL_ReDraw(wnd);
     }
+    AutoInputEnd();
     tty.Kill(SIGHUP);
     tty.Close();
     SDL_Quit();
