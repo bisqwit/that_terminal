@@ -18,4 +18,5 @@ using AutoInputResponse =
 
 AutoInputResponse GetAutoInput();
 void AutoInputStart();
-
+void AutoInputEnd();
+bool AutoInputActive();

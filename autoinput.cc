@@ -9,11 +9,14 @@
 #include "ctype.hh"
 #include "clock.hh"
 
+//#define TURBOHACK
+
 namespace
 {
     std::mutex lock;
     std::list<AutoInputResponse> data;
     bool       terminate = false;
+    bool       finished  = true;
 }
 
 static const unsigned char Delay_CharClassTable[] =
@@ -47,6 +50,21 @@ void AutoInputProvider(std::u32string& s)
     char32_t prev_key  = 0;
     bool     had_ctrlk = false;
 
+    auto ResetSeed = [&]()
+    {
+        rnd.seed(rnd.default_seed);
+        modifier  = 5;
+        repeats   = 0;
+        prev_key  = 0;
+        had_ctrlk = false;
+    };
+
+    ResetSeed();
+
+#ifdef TURBOHACK
+    bool TimeHackActive = true;
+#endif
+
     auto Do_Delay_Resize = [&](std::pair<unsigned,unsigned> found_delay,
                                unsigned fx,unsigned fy,
                                unsigned sx,unsigned sy,
@@ -76,6 +94,7 @@ void AutoInputProvider(std::u32string& s)
             resize_first ? '+' : '-',
             time, eat_time);
 
+#ifndef TURBOHACK
         if(!resize_first)
         {
             unsigned eat = (eat_time/step)*step;
@@ -97,6 +116,7 @@ void AutoInputProvider(std::u32string& s)
             }
             SleepFor(g/1e3);
         }
+#endif
         // Instant
         if(true)
         {
@@ -106,12 +126,20 @@ void AutoInputProvider(std::u32string& s)
         data.emplace_back(std::string(""));
         if(time > 0)
         {
+#ifdef TURBOHACK
+            if(TimeHackActive) time = std::max(150u,std::min(200u, time / 20)); //HACK
+#endif
             SleepFor(time/1e3);
         }
+        ResetSeed();
     };
 
     for(std::size_t pos = 0; pos < s.size() && !terminate; ++pos)
     {
+#ifdef TURBOHACK
+        if(GetTime() >= 2*60+40) TimeHackActive = false;
+#endif
+
         //std::cerr << s[pos] << '\n';
         switch(s[pos])
         {
@@ -180,17 +208,21 @@ void AutoInputProvider(std::u32string& s)
                 }
                 else
                 {
-                    //delay /= 20; //HACK
                     fprintf(stderr, "Performing delay: %u ms\n", delay);
                     if(delay)
+                    {
+#ifdef TURBOHACK
+                        if(TimeHackActive) delay = std::max(150u,std::min(200u, delay / 20)); //HACK
+#endif
                         SleepFor(delay/1e3);
+                    }
+                    ResetSeed();
                 }
                 break;
             }
             case U'\U00007FFF':
             {
                 cur_speed = s[++pos];
-                //if(cur_speed > 1) cur_speed = 1; //HACK
                 fprintf(stderr, "Input speed changed to %u\n", cur_speed);
                 break;
             }
@@ -199,6 +231,12 @@ void AutoInputProvider(std::u32string& s)
                 bool allow_merge  = false;
                 unsigned use_speed = cur_speed;
                 unsigned category = 0; // special key
+                if(s[pos] == U'\003'
+                || (s[pos] == U'x' && had_ctrlk))
+                {
+                    // Reset seed always when ^C is pressed
+                    ResetSeed();
+                }
                 if(s[pos] < 0x80)
                     category = (Delay_CharClassTable[s[pos]/2] >> (4-4*(s[pos]%2))) & 15;
                 unsigned factor = 20;
@@ -244,9 +282,13 @@ void AutoInputProvider(std::u32string& s)
                         factor = 1000 / (8 + random(66)); // max: 125ms, min: 13ms
                         break;
                 }
+#ifdef TURBOHACK
+                unsigned u=use_speed;
+                #define use_speed u
+                if(TimeHackActive) use_speed = std::min(2u, use_speed);
+#endif
                 unsigned delay = factor * use_speed / 16;
                 SleepFor(delay/1e3);
-                auto prev_prev = prev_key;
                 prev_key = s[pos];
                 std::string str = ToUTF8(std::u32string(1, s[pos]));
 
@@ -257,14 +299,6 @@ void AutoInputProvider(std::u32string& s)
                 else
                     data.emplace_back(std::move(str));
                 }
-
-                /*
-                if(prev_key == U'\r' || prev_key == U'\t' || prev_prev == U'')
-                {
-                    delay = 25; // Wait until Joe inserts the spaces
-                    SleepFor(delay/1e3);
-                }
-                */
 
                 break;
             }
@@ -302,10 +336,21 @@ void AutoInputStart()
     }
     if(!s.empty())
     {
+        finished = false;
         //s = "rm -f 'gruu.cc' '.#gruu.cc'\nstrace -otmptmp joe -tab 4 gruu.cc\nu" + s;
         std::thread t([](std::u32string data){
             AutoInputProvider(data);
+            finished = true;
         }, FromUTF8(s));
         t.detach();
     }
+}
+void AutoInputEnd()
+{
+    terminate = true;
+}
+
+bool AutoInputActive()
+{
+    return finished == false;
 }
