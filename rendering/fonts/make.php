@@ -4456,8 +4456,6 @@ $specs = Array
   '8x8' => ['cp437'=>'8x8.inc',
             'cp850'=>'850-8x8.asm',
             'cp852'=>'852-8x8.asm',
-            'cp_dum1' => 'Uni1-VGA8.psf.gz',
-            'cp_dum2' => 'Uni2-VGA8.psf.gz',
             #'cp_dum5' => 'FullCyrSlav-VGA8.psf.gz',
             #'cp_dum6' => 'FullGreek-VGA8.psf.gz',
             #'cp_dum7' => 'Arabic-VGA8.psf.gz',
@@ -4466,9 +4464,9 @@ $specs = Array
             #'iso-8859-2'=>'iso02.f08.psf.gz',
             #'iso-8859-3'=>'iso03.f08.psf.gz',
             #'iso-8859-4'=>'iso04.f08.psf.gz',
-            #'iso-8859-5'=>'iso05.f08.psf.gz',
+            'iso-8859-5'=>'iso05.f08.psf.gz', #Fixes cyrillic
             #'iso-8859-6'=>'iso06.f08.psf.gz',
-            #'iso-8859-7'=>'iso07.f08.psf.gz',
+            'iso-8859-7'=>'iso07.f08.psf.gz', #Fixes greek
             'iso-8859-8'=>'iso08.f08.psf.gz',
             #'cp860'=>'860-8x8.asm',
             #'cp863'=>'863-8x8.asm',
@@ -4480,6 +4478,8 @@ $specs = Array
             'latin2' => 'lat2-08.psf.gz',
             #'latin4' => 'lat4-08.psf.gz',
             #'latin9' => 'lat9-08.psf.gz',
+            'cp_dum1' => 'Uni1-VGA8.psf.gz',
+            'cp_dum2' => 'Uni2-VGA8.psf.gz',
             'chars_misaki8' => 'misakig2.bdf',
            ],
 

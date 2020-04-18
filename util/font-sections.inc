@@ -48,7 +48,7 @@ with identical dimensions into one.
 * VGA ROM BIOS font (codepage 437)
 * DISPLAY.SYS codepage 850
 * DISPLAY.SYS codepage 852
-* iso01.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
+* iso01.f08.psf.gz, iso05.f08.psf.gz, iso07.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
 * lat1-08.psf.gz, lat2-08.psf.gz (Linux consolefonts)
 * Uni1-VGA8.psf.gz, Uni2-VGA8.psf.gz (Linux consolefonts)
 * misaki_gothic_2nd.bdf `-Kadoma-MisakiGothic2nd-Regular-R-Normal--8-80-75-75-C-79-ISO10646-1` — free 8x8 kana/kanji font written by Num Kadoma
@@ -59,7 +59,7 @@ with identical dimensions into one.
 )"},
     {8*256+12, R"(
 * 8x12 Source unknown (possibly created automatically by resizing 8x14)
-* lat1-10.psf.gz, lat2-10.psf.gz, lat4-10.psf.gz, lat9-10.psf.gz (Linux consolefonts)
+* lat1-12.psf.gz, lat2-12.psf.gz, lat4-12.psf.gz, lat9-12.psf.gz (Linux consolefonts)
 )"},
     {8*256+14, R"(
 * VGA ROM BIOS font (codepage 437)

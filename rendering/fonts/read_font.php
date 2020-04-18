@@ -41,10 +41,18 @@ function Read_PSFgzEncoding($filename)
           if($unichar == 0xFF) return 'term';
           if($unichar >= 0x80)
           {
-            if(($unichar & 0xF8) == 0xF0) $unichar &= 0x07;
-            elseif(($unichar & 0xF0) == 0xE0) $unichar &= 0x0F;
-            elseif(($unichar & 0xE0) == 0xC0) $unichar &= 0x1F;
-            else $unichar &= 0x7F;
+            /*
+             UTF-8 encodings:
+                 7 bits:  0xxxxxxx                              (7)
+                 11 bits: 110xxxxx 10xxxxxx                     (5 + 6)
+                 16 bits: 1110xxxx 10xxxxxx 10xxxxxx            (4 + 6 + 6)
+                 21 bits: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx   (3 + 6 + 6 + 6)
+            */
+            if(($unichar & 0xF8) == 0xF0) $unichar &= 0x07;     // 3 bits
+            elseif(($unichar & 0xF0) == 0xE0) $unichar &= 0x0F; // 4 bits
+            elseif(($unichar & 0xE0) == 0xC0) $unichar &= 0x1F; // 5 bits
+            else $unichar &= 0x7F;                              // 7 bits
+
             while($pos < strlen($data) && (ord($data[$pos]) & 0xC0) == 0x80)
             {
               #printf("%02X ", ord($data[$pos]));
@@ -138,6 +146,8 @@ function Read_PSFgz($filename, $width, $height)
       $index = Array();
       foreach($table as $u=>$c) if($c==$n) $index[] = $u;
     }
+    $chars = Array(); foreach($index as $u) $chars[] = sprintf('U+%04x', $u);
+    printf("// Char 0x%0X: Fills the role of unicode characters %s\n", $n, join(',',$chars));
     foreach($index as $ch)
     {
       $pos = $offset + $n*$charsize;
