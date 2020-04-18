@@ -51,7 +51,7 @@ void SleepFor(double seconds)
 {
     if(data.TimeFactor != 0.0)
     {
-        std::this_thread::sleep_for(std::chrono::duration<double>(seconds * 1e9 / data.TimeFactor));
+        std::this_thread::sleep_for(std::chrono::duration<double>(seconds / data.TimeFactor));
     }
     else
     {
