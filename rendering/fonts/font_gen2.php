@@ -84,30 +84,45 @@ class Font
     else
     {
       file_put_contents("php://stderr", "Cache miss: $cache_fn for {$width}x{$height}\n");
-      $p = proc_open("./table-packer lookup",
-                     [0=>['pipe','r'], 1=>['pipe','w'], 2=>['file', 'php://stderr', 'w']],
-                     $pipes);
-      foreach($values as $v) fwrite($pipes[0], "$v\n");
-      fclose($pipes[0]);
-      $contents = stream_get_contents($pipes[1]);
-      fclose($pipes[1]);
-      proc_close($p);
-      #print $contents;
-      $contents = preg_replace('@//.*@',      '', $contents);
-      $contents = preg_replace("@\s+\$@",   '', $contents);
-      $contents = preg_replace("@^\s+@",   '', $contents);
-      $contents = preg_replace("@\n+@",    ' ', $contents);
-      $contents = preg_replace("@\s{2,}@", ' ', $contents);
-      $contents = preg_replace("@ *#@", "\n#", $contents);
-      $contents = preg_replace("@#endif\s@", "#endif\n", $contents);
-      $contents = preg_replace("@__ __@", "__\n__", $contents);
-      file_put_contents($cache_fn, $contents);
+      $fp = fopen($cache_fn, 'w+');
+      if(flock($fp, LOCK_EX))
+      {
+        ftruncate($fp, 0);
+        $count = count($values);
+        $p = proc_open("./table-packer lookup {$width}x{$height} $count $cache_fn",
+                       [0=>['pipe','r'], 1=>['pipe','w'], 2=>['file', 'php://stderr', 'w']],
+                       $pipes);
+        foreach($values as $v) fwrite($pipes[0], "$v\n");
+        fclose($pipes[0]);
+        $contents = stream_get_contents($pipes[1]);
+        fclose($pipes[1]);
+        proc_close($p);
+        #print $contents;
+        /*
+        $contents = preg_replace('@//.*@',      '', $contents);
+        $contents = preg_replace("@\s+\$@",   '', $contents);
+        $contents = preg_replace("@^\s+@",   '', $contents);
+        $contents = preg_replace("@\n+@",    ' ', $contents);
+        $contents = preg_replace("@\s{2,}@", ' ', $contents);
+        $contents = preg_replace("@ *#@", "\n#", $contents);
+        $contents = preg_replace("@#endif\s@", "#endif\n", $contents);
+        $contents = preg_replace("@__ __@", "__\n__", $contents);
+        */
+        fwrite($fp, $contents);
+        fflush($fp);
+        flock($fp, LOCK_UN);
+        fclose($fp);
+      }
+      else
+      {
+        file_put_contents("php://stderr", "Could not lock $cache_fn, assuming it is being worked on by another task\n");
+      }
     }
 
     printf("#include \"fonts/%s\"\n", $cache_fn);
     printf("std::pair<unsigned,bool> unicode_to_bitmap_index(char32_t c)\n".
            "{\n".
-           "    if($condition) { unsigned r = lookup(c-$min); return {r, r != $qmark}; }\n".
+           "    if($condition) { unsigned r = lookup(c- $min); return {r, r != $qmark}; }\n".
            "    return {{$qmark}, false};\n".
            "}\n");
   }

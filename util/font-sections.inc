@@ -21,10 +21,18 @@ The 4x8 glyphs from misaki_gothic_2nd.bdf (ASCII/JIS compatibility)
     {6*256+12, R"(
 * X11 misc-fixed font `-misc-fixed-medium-r-semicondensed--12-110-75-75-c-60-iso10646-1`.
 * Uni2-Terminus12x6.psf.gz (Linux consolefonts)
+* X11 mona-gothic font `-mona-gothic-medium-r-normal--12-110-75-75-p-60-jisx0201.1976-0`.
+
+Pairs perfectly with 12x12.
 )"},
     {6*256+13, "X11 misc-fixed font `-misc-fixed-bold-r-semicondensed--13-120-75-75-c-60-iso10646-1`. Pairs perfectly with 12x13."},
     {7*256+13, "X11 misc-fixed font `-misc-fixed-bold-r-normal--13-120-75-75-c-70-iso10646-1`."},
-    {7*256+14, "X11 misc-fixed font `-misc-fixed-bold-r-normal--14-130-75-75-c-70-iso10646-1`."},
+    {7*256+14, R"(
+* X11 misc-fixed font `-misc-fixed-bold-r-normal--14-130-75-75-c-70-iso10646-1`.
+* X11 mona-gothic font `-mona-gothic-medium-r-normal--14-130-75-75-p-70-jisx0201.1976-0`.
+
+Pairs perfectly with 14x14.
+")},
     {8*256+13, "X11 misc-fixed font `-misc-fixed-bold-r-normal--13-120-75-75-c-80-iso10646-1`."},
     {9*256+15, "X11 misc-fixed font `-misc-fixed-bold-r-normal--15-140-75-75-c-90-iso10646-1`."},
     {9*256+18, "X11 misc-fixed font `-misc-fixed-bold-r-normal--18-120-100-100-c-90-iso10646-1`. Pairs perfectly with 18x18."},
@@ -32,7 +40,13 @@ The 4x8 glyphs from misaki_gothic_2nd.bdf (ASCII/JIS compatibility)
 * X11 misc-fixed font `-misc-fixed-medium-r-normal--20-200-75-75-c-100-iso10646-1`.
 * Uni2-TerminusBold20x10.psf.gz (Linux consolefonts)
 )"},
+    {12*256+12, R"(
+* X11 mona-gothic font `-mona-gothic-medium-r-normal--12-110-75-75-p-120-jisx0208.1990-0`.
+)"},
     {12*256+13, "X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-1` (Japanese)."},
+    {14*256+14, R"(
+* X11 mona-gothic font `-mona-gothic-medium-r-normal--14-130-75-75-p-140-jisx0208.1990-0`.
+)"},
     {18*256+18, R"(
 X11 misc-fixed fonts `-misc-fixed-medium-r-normal-ja-18-120-100-100-c-180-iso10646-1` (Japanese)
 and `-misc-fixed-medium-r-normal-ko-18-120-100-100-c-180-iso10646-1` (Korean).
@@ -45,13 +59,13 @@ with identical dimensions into one.
     {8*256+19, "vga8x19.bdf by Martin Reuber, based on VGA ROM BIOS font"},
 
     {8*256+8, R"(
-* VGA ROM BIOS font (codepage 437)
-* DISPLAY.SYS codepage 850
-* DISPLAY.SYS codepage 852
-* iso01.f08.psf.gz, iso05.f08.psf.gz, iso07.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
+* IBM BIOS 8x8 font (`-ibm-bios-normal-r-normal--8-60-96-96-c-80-iso10646-1`)
+* iso01.f08.psf.gz, iso07.f08.psf.gz, iso08.f08.psf.gz (Linux consolefonts)
 * lat1-08.psf.gz, lat2-08.psf.gz (Linux consolefonts)
-* Uni1-VGA8.psf.gz, Uni2-VGA8.psf.gz (Linux consolefonts)
+* Uni1-VGA8.psf.gz, FullCyrSlav-VGA8.psf.gz, FullGreek-VGA8.psf.gz, Arabic-VGA8.psf.gz (Linux consolefonts)
 * misaki_gothic_2nd.bdf `-Kadoma-MisakiGothic2nd-Regular-R-Normal--8-80-75-75-C-79-ISO10646-1` — free 8x8 kana/kanji font written by Num Kadoma
+
+(See https://farsil.github.io/ibmfonts/ )
 )"},
     {8*256+10, R"(
 * 8x10 Source unknown (possibly created automatically by resizing 8x12)
@@ -62,10 +76,8 @@ with identical dimensions into one.
 * lat1-12.psf.gz, lat2-12.psf.gz, lat4-12.psf.gz, lat9-12.psf.gz (Linux consolefonts)
 )"},
     {8*256+14, R"(
-* VGA ROM BIOS font (codepage 437)
-* DISPLAY.SYS codepage 850
-* DISPLAY.SYS codepage 852
-* iso01.f14.psf.gz, is07.f14.psf.gz, iso14.f14.psf.gz (Linux consolefonts)
+* EGA BIOS 8x14 font (`-ibm-ega-normal-r-normal--14-100-96-96-c-80-iso10646-1`)
+* iso01.f14.psf.gz, is07.f14.psf.gz, iso08.f14.psf.gz (Linux consolefonts)
 * lat1-14.psf.gz, lat2-14.psf.gz (Linux consolefonts)
 * Uni1-VGA14.psf.gz, Uni2-VGA14.psf.gz, Uni3-TerminusBoldVGA14.psf.gz (Linux consolefonts)
 )"},
@@ -73,13 +85,11 @@ with identical dimensions into one.
 * 8x15 source unknown (possibly created automatically by resizing 8x16)
 )"},
     {8*256+16, R"(
-* VGA ROM BIOS font (codepage 437)
-* DISPLAY.SYS codepage 850
-* DISPLAY.SYS codepage 852
-* iso01.f16.psf.gz, is07.f16.psf.gz, iso16.f16.psf.gz (Linux consolefonts)
+* VGA BIOS 8x16 font (`ibm-vga-normal-r-normal--16-120-96-96-c-80-iso10646-1`)
+* iso01.f16.psf.gz, is07.f16.psf.gz, iso08.f16.psf.gz (Linux consolefonts)
 * lat1-16.psf.gz, lat2-16.psf.gz (Linux consolefonts)
 * Uni1-VGA16.psf.gz, Uni2-VGA16.psf.gz, Uni3-TerminusBoldVGA16.psf.gz (Linux consolefonts)
-* Arabic-VGA16.psf.gz, Hebrew-VGA16.psf.gz, FullCyrSlav-VGA16.psf.gz (Linux consolefonts)
+* Arabic-VGA16.psf.gz, Hebrew-VGA16.psf.gz, FullCyrAsia-TerminusBoldVGA16.psf.gz, FullCyrSlav-VGA16.psf.gz (Linux consolefonts)
 * X11 Unifont `-gnu-unifont csur-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1`, 8-pixel wide glyphs only
 
 Pairs perfectly with 16x16.

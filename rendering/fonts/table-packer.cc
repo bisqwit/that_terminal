@@ -8,8 +8,111 @@
 #include <iostream>
 #include <sstream>
 #include <numeric>
+#include <string>
 
 static unsigned table_counter = 0;
+static std::ostringstream tables, funcdecl;
+
+static std::pair<const char*,unsigned> value_size(std::uint_fast64_t max)
+{
+    if(max < (1ull<<8)) return {"std::uint_least8_t",1};
+    if(max < (1ull<<16)) return {"std::uint_least16_t",2};
+    if(max < (1ull<<32)) return {"std::uint_least32_t",4};
+    return {"std::uint_least64_t",8};
+}
+static std::pair<const char*,unsigned> value_size(std::uint_fast64_t min, std::uint_fast64_t max)
+{
+    std::uint_fast64_t range = max-min+1;
+    return value_size(range ? range : ~std::uint_fast64_t());
+}
+
+template<typename CharT>
+void str_replace_inplace(std::basic_string<CharT>& where,
+                         const std::basic_string<CharT>& search,
+                         const std::basic_string<CharT>& with)
+{
+    for(typename std::basic_string<CharT>::size_type a = where.size();
+        (a = where.rfind(search, a)) != where.npos;
+        where.replace(a, search.size(), with)) {}
+}
+
+
+static std::map<std::pair<std::string/*type*/, std::string/*name*/>,
+                std::vector<std::uint_fast64_t>> table_values;
+
+template<typename T>
+std::string MakeTableOf(const std::vector<T>& tab,
+                        const std::string& model)
+{
+    int unsmax=1, sigmax=1, negmax=0;
+    for(auto v: tab)
+    {
+        if(v >= std::size_t(- 0x80ll))            { sigmax = std::max(1,sigmax); negmax = std::max(1,negmax); }
+        else if(v >= std::size_t(- 0x8000ll))     { sigmax = std::max(2,sigmax); negmax = std::max(2,negmax); }
+        else if(v >= std::size_t(- 0x80000000ll)) { sigmax = std::max(4,sigmax); negmax = std::max(4,negmax); }
+        else if(v >= (1ull<<32) )                 { sigmax = std::max(8,sigmax); negmax = std::max(8,negmax); unsmax = std::max(8,unsmax); }
+        else
+        {
+            if(v >= (1ull<<7))  { unsmax = std::max(1,unsmax); sigmax = std::max(2,sigmax); }
+            if(v >= (1ull<<8))  { unsmax = std::max(2,unsmax); sigmax = std::max(2,sigmax); }
+            if(v >= (1ull<<15)) { unsmax = std::max(2,unsmax); sigmax = std::max(4,sigmax); }
+            if(v >= (1ull<<16)) { unsmax = std::max(4,unsmax); sigmax = std::max(4,sigmax); }
+            if(v >= (1ull<<31)) { unsmax = std::max(4,unsmax); sigmax = std::max(8,sigmax); }
+        }
+    }
+    std::string type;
+    unsigned    typesize=0;
+    if(negmax)
+    {
+        typesize += 4;
+        if(sigmax <= 1) { type = "std::int_least8_t";  } else { ++typesize;
+        if(sigmax <= 2) { type = "std::int_least16_t"; } else { ++typesize;
+        if(sigmax <= 4) { type = "std::int_least32_t"; } else { ++typesize;
+        if(sigmax <= 8) { type = "std::int_least64_t"; } else { ++typesize;
+        }}}}
+    }
+    else
+    {
+        if(unsmax <= 1) { type = "std::uint_least8_t";  } else { ++typesize;
+        if(unsmax <= 2) { type = "std::uint_least16_t"; } else { ++typesize;
+        if(unsmax <= 4) { type = "std::uint_least32_t"; } else { ++typesize;
+        if(unsmax <= 8) { type = "std::uint_least64_t"; } else { ++typesize;
+        }}}}
+    }
+
+    std::string name = model + std::to_string(typesize);
+
+    auto& table = table_values[std::pair(type,name)];
+    auto start_index = table.size();
+    table.insert(table.end(), tab.begin(), tab.end());
+    if(!start_index) return name;
+    //return "(&"+name+"[" + std::to_string(start_index) + "])";
+    return "("+name+"+"+std::to_string(start_index)+")";
+}
+void FlushTables()
+{
+    for(const auto& table: table_values)
+    {
+        tables << "static const " << table.first.first << " " << table.first.second << "[" << table.second.size() << "] {";
+        for(auto e: table.second)
+        {
+            if(table.first.first[5]=='u') // unsigned?
+            {
+                tables << e;
+                if(e >= (1ul<<31)) tables << 'u';
+                if(e >= (1ul<<32)) tables << 'l';
+            }
+            else
+            {
+                long v = long(e);
+                tables << v;
+                if(v != int(v)) tables << 'l';
+            }
+            tables << ',';
+        }
+        tables << "};\n";
+    }
+}
 
 class TablePacker
 {
@@ -53,18 +156,6 @@ INDEXES:
     */
 
 public:
-    static std::pair<const char*,unsigned> value_size(elem_t max)
-    {
-        if(max < (1ull<<8)) return {"std::uint_least8_t",1};
-        if(max < (1ull<<16)) return {"std::uint_least16_t",2};
-        if(max < (1ull<<32)) return {"std::uint_least32_t",4};
-        return {"std::uint_least64_t",8};
-    }
-    static std::pair<const char*,unsigned> value_size(elem_t min, elem_t max)
-    {
-        elem_t range = max-min+1;
-        return value_size(range ? range : ~elem_t());
-    }
     template<typename T>
     void CreateOptions(std::size_t index, T&& yield) const
     {
@@ -203,40 +294,45 @@ public:
         for(auto s: seq)
             yield(s.second.first, s.first, s.second.second);
     }
+
     template<typename T>
-    std::string CreateTable(std::ostream& out, const std::vector<T>& tab, const std::string& index_str, bool recurse,
-                            bool in_comment = false)
+    std::string CreateTable(
+        std::ostream& out,
+        const std::vector<T>& tab,
+        const std::string& index_str,
+        bool recurse,
+        bool is_return)
     {
+        is_return=false;
         if(!recurse)
         {
             T max = *std::max_element(tab.begin(), tab.end());
-            if(max < 16 && !in_comment)
+            if(max < 16)
             {
                 // use nibbles
                 std::vector<unsigned char> nibbles( (tab.size()+1) / 2 );;
                 for(std::size_t n=0; n<tab.size(); ++n)
                     nibbles[n/2] |= tab[n] << ((n&1)*4);
 
-                std::ostringstream str;
-                str << "[](unsigned index) -> unsigned {\n";
-                std::string tabexp = CreateTable(str, nibbles, "index/2", true);
-                str << "return (" << tabexp << " >> ((index%2)*4u)) % 16u;\n}";
-                return str.str() + "(" + index_str + ")";
+                std::string tabexp = CreateTable(out, nibbles, index_str+"/2", true, false);
+                return "((" + tabexp + " >> (((" + index_str + ")%2)*4u)) % 16u)";
             }
             else
             {
-                std::string name = "help_tab_" + std::to_string(table_counter++);
-                out << "static const " << value_size(max).first << " " << name << "[" << tab.size() << "] {";
-                for(auto e: tab) out << e << ',';
-                out << "};\n";
-                return name + "[" + index_str + "]";
+                return MakeTableOf(tab, "help") + "[" + index_str + "]";
             }
         }
         TablePacker tmp;
         tmp.elems.assign(tab.begin(), tab.end());
         std::ostringstream str;
-        tmp.Compress("", str);
-        return str.str() + "(" + index_str + ")";
+        bool omitted_function = tmp.Compress("", str, "("+index_str+")", is_return);
+        if(omitted_function)
+        {
+            out << str.str();
+            return "0 /*dummy*/";
+        }
+        else
+            return str.str();
     }
     using DistanceType = double;
     using ActionType   = unsigned;
@@ -272,29 +368,70 @@ public:
         return solution;
     }
 
-    void Compress(std::string_view table_name, std::ostream& out)
+    bool Compress(std::string_view table_name, std::ostream& out, std::string index_param, bool is_return)
     {
+        is_return=false;
+        static unsigned counter = 0;
+        unsigned recursion_id = counter++;
+
+        std::string trailer = "";
         auto solution = Solve();
 
-        elem_t max=0;
+        elem_t max = 0;
         for(auto e: elems) max = std::max(max, e);
 
-        const char* rettype = (max <= ~0u) ? "unsigned" : "std::uint_fast64_t";
-        if(table_name.empty())
+        bool function_begun    = false;
+        bool making_statements = false;
+        auto BeginFunction = [&]()
         {
-            out << "[](unsigned index) -> " << rettype << " {";
-        }
-        else
+            function_begun = true;
+
+            const char* rettype = (max <= ~0u) ? "unsigned" : "std::uint_fast64_t";
+            if(table_name.empty())
+            {
+                out << "[](unsigned index) -> " << rettype << " {";
+                trailer = std::move(index_param);
+            }
+            else
+            {
+                funcdecl << rettype << ' ' << table_name << "(unsigned index) {\n";
+                assert(index_param == "index");
+            }
+            index_param       = "index";
+            making_statements = true;
+        };
+        auto Return = [&](auto&&... elems) -> std::ostream&
         {
-            out << rettype << ' ' << table_name << "(unsigned index) {";
-        }
+            if(!making_statements)
+            {
+                (out << ... << elems);
+            }
+            else
+            {
+                ((out << "return ") << ... << elems) << ";\n";
+            }
+            return out;
+        };
+
+        if(solution.size() > 1)
+            making_statements = true;
+
         //if(solution.size() > 1) out << "if(index < " << elems.size() << ") {\n";
+
+        if((making_statements && !is_return) || !table_name.empty())
+        {
+            BeginFunction();
+        }
+
         if(solution.size() > 1)
         {
-            out << " switch(index) {\n";
+            if(index_param != "index")
+            {
+                out << "index = " << index_param << ";\n";
+                index_param = "index";
+            }
+            out << " switch(" << index_param << ") {\n";
         }
-        else
-            out << '\n';
 
         std::map<long, std::vector<std::pair<NodeType/*start*/, long/*offset*/>>> formula_table;
         std::vector<std::pair<NodeType/*start*/, elem_t>>         scalar_table;
@@ -304,11 +441,13 @@ public:
             {
                 if(&s == &solution.back()) out << "default: // " << s.start << "..." << (s.start+s.count-1);
                 else for(std::size_t n = 0; n < s.count; ++n) out << "case " << (s.start + n) << ":";
-                out << "\n";
+                out << "\n\t";
             }
-            std::string index_str = "(index - " + std::to_string(s.start) + ")";
+            std::string index_str = index_param;
+            if(s.start != 0)
+                index_str = "(" + index_param + " - " + std::to_string(s.start) + ")";
 
-            /**/
+            /*
             {std::ostringstream dbg;
             dbg << "// ";
             auto debug_str = CreateTable(dbg, std::vector<elem_t>(elems.begin()+s.start, elems.begin()+s.start+s.count),
@@ -317,8 +456,7 @@ public:
             out << dbg.str() << std::flush;
             std::cerr << dbg.str() << std::flush;
             }
-            /**/
-            if(solution.size() > 1) out << '\t';
+            */
 
             bool recurse = s.count < elems.size();
             switch(s.act)
@@ -351,15 +489,21 @@ public:
                           may_recurse = false;
                     }
 
+                    if(making_statements && index_str != "index")
+                    {
+                        out << "index = " << index_str << ";\n";
+                        index_str = "index";
+                    }
+
                     std::vector<elem_t> el(used.begin(), used.end());
                     if(may_recurse)
                     {
-                        auto bm_str  = CreateTable(out,indexes, index_str, true);
-                        auto val_str = CreateTable(out,el,      bm_str,    true);
+                        auto bm_str  = CreateTable(out, indexes, index_str, true, false);
+                        auto val_str = CreateTable(out, el,      bm_str,    true, min==0);
                         if(min)
-                            out << "return " << val_str << " - " << min << ";\n";
+                            Return("(", val_str, " - ", min, ")");
                         else
-                            out << "return " << val_str << ";\n";
+                            Return(val_str);
                     }
                     else
                     {
@@ -368,36 +512,51 @@ public:
                         for(std::size_t n = 0; n < s.count; ++n)
                             bitmap[n*bits/8] |= indexes[n] << ((n*bits)%8);
 
-                        auto bm_str  = CreateTable(out,bitmap,  "(" + index_str + "*" + std::to_string(bits) + "u)/8u", true);
-                        auto val_str = CreateTable(out,el, "(" + bm_str + " >> "
-                                                                "(" + index_str + "*" + std::to_string(bits) + "u)%8u)"
-                                                           "% " + std::to_string(1u << bits) + "u", true);
-                        if(min)
-                            out << "return " << val_str << " - " << (std::int_fast64_t)min << ";\n";
+                        if(making_statements)
+                        {
+                            if(index_str != "index")
+                                out << "index = " << index_str << ";\n";
+                            out << "index *= " << bits << "u;\n";
+                            index_str = "index";
+                        }
                         else
-                            out << "return " << val_str << ";\n";
+                            index_str = "((" + index_str + ")*" + std::to_string(bits) + "u)";
+
+                        auto bm_str  = CreateTable(out, bitmap, index_str + "/8u", true, false);
+                        auto val_str = CreateTable(out, el,     "(" + bm_str + " >> (" + index_str + "%8u))"
+                                                                "% " + std::to_string(1u << bits) + "u", true, min==0);
+                        if(min)
+                            Return("(", val_str, " - ", (std::int_fast64_t)min, ")");
+                        else
+                            Return(val_str);
                     }
                     break;
                 }
                 case 8:
                     scalar_table.emplace_back(s.start, elems[s.start]);
-                    out << "goto scalar;\n";
+                    if(making_statements)
+                        out << "goto scalar_" << recursion_id << ";\n";
                     break;
                 case 9: case 10:
                 {
                     // individual element table (10 = with offset)
                     std::vector<elem_t> el(elems.begin()+s.start, elems.begin()+s.start+s.count);
+                    if(making_statements && index_str != "index")
+                    {
+                        out << "index = " << index_str << ";\n";
+                        index_str = "index";
+                    }
                     if(s.act == 10)
                     {
                         elem_t min = *std::min_element(el.begin(), el.end());
                         for(auto& e: el) e -= min;
-                        auto str = CreateTable(out,el, index_str, recurse);
-                        out << "return " << str << " + " << (std::int_fast64_t)min << ";\n";
+                        auto str = CreateTable(out, el, index_str, recurse, false);
+                        Return("(", str, " + ", (std::int_fast64_t)min, ")");
                     }
                     else
                     {
-                        auto str = CreateTable(out,el, index_str, recurse);
-                        out << "return " << str << ";\n";
+                        auto str = CreateTable(out, el, index_str, recurse, true);
+                        Return(str);
                     }
                     break;
                 }
@@ -420,9 +579,13 @@ public:
                                 break;
                             }
                     }
-                    std::vector<elem_t> el(elems.begin()+s.start, elems.begin()+s.start+s.count);
-                    out << "return (index == " << (s.start + striking_index) << ")"
-                           " ? " << strikingvalue << " : " << commonvalue << ";\n";
+                    //std::vector<elem_t> el(elems.begin()+s.start, elems.begin()+s.start+s.count);
+                    if(making_statements && index_str != "index")
+                    {
+                        out << "index = " << index_str << ";\n";
+                        index_str = "index";
+                    }
+                    Return("((", index_str, " == ", (striking_index), ") ? ", strikingvalue, " : ", commonvalue, ")");
                     break;
                 }
                 case 11:
@@ -434,10 +597,11 @@ public:
                         formula_table[N].emplace_back(s.start, M);
                         std::string label = "scaler_" + std::to_string(N);
                         for(char& c: label) if(c=='-') c = 'm';
-                        out << "goto " << label << ";\n";
+                        if(making_statements)
+                            out << "goto " << label << '_' << recursion_id << ";\n";
                     }
                     else
-                        out << "return (index*" << N << ") + " << M << ";\n";
+                        Return("((", index_param, "*", N, ") + ", M, ")");
                     break;
                 }
                 case 21: case 22: case 23: case 24: case 25: case 26: case 27: case 28:
@@ -445,6 +609,12 @@ public:
                 case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44:
                 case 45: case 46: case 47: case 48: case 49: case 50: case 51: case 52: // 20 + (1..32)
                 {
+                    if(making_statements && index_str != "index")
+                    {
+                        out << "index = " << index_str << ";\n";
+                        index_str = "index";
+                    }
+
                     std::vector<elem_t> el(elems.begin()+s.start, elems.begin()+s.start+s.count);
                     elem_t min = *std::min_element(el.begin(), el.end());
                     elem_t gcd = el[0];
@@ -461,8 +631,7 @@ public:
                                 mask |= 1ull << n;
                                 other = el[n];
                             }
-                        out << "return ((" << mask << "ull >> " << index_str << ") & 1)"
-                               " ? " << (other) << " : " << (min) << ";\n";
+                        Return("((", mask, "ull >> ", index_str, ") & 1) ? ", other, " : ", min);
                     }
                     else
                     {
@@ -493,15 +662,15 @@ public:
                             {
                                 for(std::size_t n=0; n<el.size(); ++n)
                                     mask |= ((el[n] - min)/gcd) << (n*bits);
-                                out << "return (((" << (mask) << "ull >> (" << index_str << " * " << bits << "u))"
-                                       " & " << ((1ull << bits)-1) << "u)) * " << gcd << " + " << min << ";\n";
+                                Return("((((",(mask),"ull >> (",index_str," * ",bits,"u))"
+                                       " & ", ((1ull << bits)-1),"u)) * ",gcd," + ",min,")");
                             }
                             else
                             {
                                 for(std::size_t n=0; n<el.size(); ++n)
                                     mask |= (el[n]/gcd) << (n*bits);
-                                out << "return ((" << (mask) << "ull >> (" << index_str << " * " << bits << "u))"
-                                       " & " << ((1ull << bits)-1) << "u) * " << gcd << ";\n";
+                                Return("(((",(mask),"ull >> (",index_str," * ",bits,"u))"
+                                       " & ",((1ull << bits)-1),"u) * ",gcd,")");
                             }
                         }
                         else
@@ -510,15 +679,15 @@ public:
                             {
                                 for(std::size_t n=0; n<el.size(); ++n)
                                     mask |= (el[n] - min) << (n*bits);
-                                out << "return ((" << (mask) << "ull >> (" << index_str << " * " << bits << "u))"
-                                       " & " << ((1ull << bits)-1) << "u) + " << min << ";\n";
+                                Return("(((",(mask),"ull >> (",index_str," * ",bits,"u))"
+                                       " & ",((1ull << bits)-1),"u) + ",min,")");
                             }
                             else
                             {
                                 for(std::size_t n=0; n<el.size(); ++n)
                                     mask |= el[n] << (n*bits);
-                                out << "return ((" << (mask) << "ull >> (" << index_str << " * " << bits << "u))"
-                                       " & " << ((1ull << bits)-1) << "u);\n";
+                                Return("((",(mask),"ull >> (",index_str," * ",bits,"u))"
+                                       " & ",((1ull << bits)-1),"u)");
                             }
                         }
                     }
@@ -533,35 +702,55 @@ public:
         }
         if(!scalar_table.empty())
         {
-            out << "\tif(0) { scalar:\n";
+            if(making_statements)
+            {
+                out << "\tif(0) { scalar_" << recursion_id << ":\n";
+            }
             // Merge successive scalar ranges
             scalar_table.erase(std::unique(scalar_table.begin(), scalar_table.end(),
                                            [&](auto a,auto b) { return a.second==b.second; }), scalar_table.end());
             if(scalar_table.size() == 1)
-                out << "\treturn " << scalar_table[0].second << ";\n";
+                Return(scalar_table[0].second);
             else
             {
                 std::vector<NodeType> index;
                 std::vector<elem_t>   values;
                 for(auto& f: scalar_table) { index.push_back(f.first); values.push_back(f.second); }
-                auto max = *std::max_element(index.begin(), index.end());
-                std::string name = "scalar_tab_" + std::to_string(table_counter++);
-                out << "\tstatic const " << value_size(max).first << " " << name << "[" << index.size() << "] {";
-                for(auto e: index) out << e << ',';
-                out << "};\n";
-                std::string fetch_str = CreateTable(out, values,
-                                                    "std::distance("+name+", std::upper_bound("+name+", "+name+"+"+std::to_string(index.size()) +
-                                                    ", index)-1)", true);
-                out << "\treturn " << fetch_str << ";\n";
+
+                std::string name = "scalar_" + std::to_string(table_counter++) + "_tab";
+
+                std::ostringstream stmtbuf;
+                std::string fetch_str = CreateTable(stmtbuf,
+                    values,
+                    "std::distance("+name+", "
+                        "std::upper_bound("+name+", "+name+"+"+std::to_string(index.size()) + ", "+index_param+")"
+                                   "-1)", true, true);
+                std::string fetch_code = stmtbuf.str();
+
+                if(fetch_str.find(name) != fetch_str.npos
+                || fetch_code.find(name) != fetch_code.npos)
+                {
+                    std::string actual_name = MakeTableOf(index, "scalar");
+                    str_replace_inplace(fetch_str, name, actual_name);
+                    str_replace_inplace(fetch_code, name, actual_name);
+                }
+                out << fetch_code;
+                Return(fetch_str);
             }
-            out << "\t}\n";
+            if(making_statements)
+            {
+                out << "\t}\n";
+            }
         }
         for(auto& [N, form]: formula_table)
         {
             std::string label = "scaler_" + std::to_string(N);
             for(char& c: label) if(c=='-') c = 'm';
 
-            out << "\tif(0) { " << label << ":\n";
+            if(making_statements)
+            {
+                out << "\tif(0) { " << label << '_' << recursion_id << ":\n";
+            }
             bool all_negative = true;
             for(auto& f: form)
                 if(f.second > 0)
@@ -574,26 +763,38 @@ public:
             std::vector<elem_t>   offsets;
             for(auto f: form) { index.push_back(f.first); offsets.push_back(f.second); }
 
-            auto max = *std::max_element(index.begin(), index.end());
-            std::string name = "index_tab_" + std::to_string(table_counter++);
             if(form.size() == 1)
             {
                 if(all_negative)
-                    out << "return index*" << N << " - " << form.front().second << ";\n";
+                    Return("(", index_param, '*', N, " - ", form.front().second, ")");
                 else
-                    out << "return index*" << N << " + " << form.front().second << ";\n";
+                    Return("(", index_param, '*', N, " + ", form.front().second, ")");
             }
             else
             {
-                out << "\tstatic const " << value_size(max).first << " " << name << "[" << index.size() << "] {";
-                for(auto e: index) out << e << ',';
-                out << "};\n";
-                std::string fetch_str = CreateTable(out, offsets,
-                                                    "std::distance(" + name + ", std::upper_bound("+name+", "+name+"+"+std::to_string(index.size()) +
-                                                    ", index)-1)", true);
-                out << "\treturn index*" << N << (all_negative ? " - (" : " + (") << fetch_str << ");\n";
+                std::string name = "index_" + std::to_string(table_counter++) + "_tab";
+                std::ostringstream stmtbuf;
+                std::string fetch_str = CreateTable(stmtbuf,
+                    offsets,
+                    "std::distance(" + name + ", "
+                        "std::upper_bound("+name+", "+name+"+"+std::to_string(index.size()) + ", "+index_param+")"
+                                  "-1)", true, false);
+                std::string fetch_code = stmtbuf.str();
+
+                if(fetch_str.find(name) != fetch_str.npos
+                || fetch_code.find(name) != fetch_code.npos)
+                {
+                    std::string actual_name = MakeTableOf(index, "index");
+                    str_replace_inplace(fetch_str, name, actual_name);
+                    str_replace_inplace(fetch_code, name, actual_name);
+                }
+                out << fetch_code;
+                Return("(", index_param, '*', N, (all_negative ? " - (" : " + ("), fetch_str, "))");
             }
-            out << "\t}\n";
+            if(making_statements)
+            {
+                out << "\t}\n";
+            }
         }
         //if(solution.size() > 1) out << "}return {};";
         if(solution.size() > 1)
@@ -602,14 +803,13 @@ public:
                    "__builtin_unreachable();\n"
                    "#endif\n";
         }
-        if(table_name.empty())
+        if(function_begun)
         {
             out << "}";
+            if(!trailer.empty())
+                 out << "(" << trailer << ")";
         }
-        else
-        {
-            out << "}\n";
-        }
+        return making_statements && !function_begun;
     }
 };
 
@@ -628,11 +828,53 @@ public:
 
 int main(int argc, char** argv)
 {
-    TablePacker pack;
-    std::string line;
-    while(std::cin >> line)
-        pack.elems.push_back(std::stoi(line));
+    std::vector<long> values;
+    for(std::string line; std::cin >> line; )
+        values.push_back(std::stol(line));
 
-    //pack.elems.assign(std::begin(values), std::end(values));
-    pack.Compress(argv[1], std::cout);
+    long max=0;
+    for(auto e: values) max = std::max(max, e);
+    const char* rettype = (max <= long(~0u)) ? "unsigned" : "std::uint_fast64_t";
+
+    // If the pack is too large (we might run out of memory),
+    // subdivide it.
+    const std::size_t factor = 0x10000; //
+    if(values.size() > factor)
+    {
+        std::cout << rettype << ' ' << argv[1] << "(unsigned index) {\n";
+        std::ostringstream function;
+
+        function << "switch(index / " << factor << ") {\n";
+        for(std::size_t n=0; n<values.size(); n+=factor)
+        {
+            TablePacker pack;
+            pack.elems.assign(std::begin(values)+n,
+                              std::begin(values)+std::min(std::size(values), n+factor)
+                             );
+            std::ostringstream tmp;
+            bool omitted_function = pack.Compress("", tmp, "index % "+std::to_string(factor), true);
+            if(omitted_function)
+                function << "case " << (n/factor) << ":\n\t" << tmp.str() << ";\n";
+            else
+                function << "case " << (n/factor) << ":\n\treturn " << tmp.str() << ";\n";
+        }
+        function <<
+            "}\n"
+            "#ifdef __GNUC__\n"
+            "__builtin_unreachable();\n"
+            "#endif\n"
+            "}\n";
+        FlushTables();
+        std::cout << tables.str() << function.str();
+    }
+    else
+    {
+        TablePacker pack;
+        pack.elems.assign(std::begin(values), std::end(values));
+
+        std::ostringstream function;
+        pack.Compress(argv[1], function, "index", false);
+        FlushTables();
+        std::cout << funcdecl.str() << tables.str() << function.str();
+    }
 }

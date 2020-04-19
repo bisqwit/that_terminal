@@ -69,32 +69,35 @@ static void PrintRanges(
         // end bitmap
         char buf[64];
         std::sprintf(buf, "coverage-%ux%u-%u.png", width,height, bitmap_index);
-        std::FILE* fp = std::fopen((std::string("../doc/")+buf).c_str(), "wb");
-        unsigned hei = (height==5) ? 6 : height;
-        if(width <= 6)
+        //if(width == 8 && height == 16)
         {
-            gdImagePtr im = gdImageCreateTrueColor(widest*width*2, yc*hei*2);
-            for(unsigned y=0; y<yc*hei*2; ++y)
-                for(unsigned x=0; x<widest*width*2; ++x)
-                    gdImageSetPixel(im, x,y, pixels[(y/2)*dfl_width*width + (x/2)]);
-            gdImagePng(im, fp);
-            gdImageDestroy(im);
+            std::FILE* fp = std::fopen((std::string("../doc/")+buf).c_str(), "wb");
+            unsigned hei = (height==5) ? 6 : height;
+            if(width <= 6)
+            {
+                gdImagePtr im = gdImageCreateTrueColor(widest*width*2, yc*hei*2);
+                for(unsigned y=0; y<yc*hei*2; ++y)
+                    for(unsigned x=0; x<widest*width*2; ++x)
+                        gdImageSetPixel(im, x,y, pixels[(y/2)*dfl_width*width + (x/2)]);
+                gdImagePng(im, fp);
+                gdImageDestroy(im);
+            }
+            else
+            {
+                gdImagePtr im = gdImageCreateTrueColor(widest*width, yc*hei);
+                for(unsigned y=0; y<yc*hei; ++y)
+                    for(unsigned x=0; x<widest*width; ++x)
+                        gdImageSetPixel(im, x,y, pixels[y*dfl_width*width + x]);
+                gdImagePng(im, fp);
+                gdImageDestroy(im);
+            }
+            std::fclose(fp);
         }
-        else
-        {
-            gdImagePtr im = gdImageCreateTrueColor(widest*width, yc*hei);
-            for(unsigned y=0; y<yc*hei; ++y)
-                for(unsigned x=0; x<widest*width; ++x)
-                    gdImageSetPixel(im, x,y, pixels[y*dfl_width*width + x]);
-            gdImagePng(im, fp);
-            gdImageDestroy(im);
-        }
-        std::fclose(fp);
 
         std::cout << "![Font "<<width<<'x'<<height<<" coverage](" << buf << ")\n";
         ++bitmap_index;
         yc = 0; widest = 0;
-        pixels.clear(); pixels.resize(dfl_width*width*hei);
+        pixels.clear(); pixels.resize(dfl_width*width*height);
     };
 
     bool title_printed = false;

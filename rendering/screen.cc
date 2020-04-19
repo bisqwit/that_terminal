@@ -110,11 +110,20 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
     auto [actual_fx, actual_fy, font, map,realmap,
           font_row_size_in_bytes, character_size_in_bytes]
             = FindFont(fx, fy);
+    // For the secondary map, choose one of these:
+    //    8x8  (misaki, adds Japanese (JIS))
+    //   12x12 (mona, adds Japanese (JIS))
+    //   12x13 (misc, adds Japanese)
+    //   14x14 (mona, adds Japanese (JIS))
+    //   16x16 (unifont, adds everything)
+    //   18x18 (misc, adds Japanese and Korean)
     auto [actual_fx2,actual_fy2,font2,map2,realmap2,
-          font_row_size_in_bytes2,character_size_in_bytes2] // Choose either 12x13 or 18x18
+          font_row_size_in_bytes2,character_size_in_bytes2]
             = std::apply(FindFont, (fy>16)           ? std::tuple<int,int>{18,18}
                                  : (fx>=8 && fy>=15) ? std::tuple<int,int>{16,16}
-                                 : (fx<7)            ? std::tuple<int,int>{8,8}
+                                 : (fx<6)            ? std::tuple<int,int>{8,8}
+                                 : (fy>=14)          ? std::tuple<int,int>{14,14}
+                                 : (fy<=12)          ? std::tuple<int,int>{12,12}
                                  :                     std::tuple<int,int>{12,13});
 
     unsigned timer = unsigned(GetTime() * 60.0);
@@ -212,8 +221,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
         if(EnableTimeTemp)
         {
-            char time[16], temp[16], temp1[]="+5.5";
-            unsigned t = GetTime() + 14*3600;
+            char time[16], temp[16], temp1[]="+5.0";
+            unsigned t = GetTime() + 15*3600;
             std::sprintf(time, "%02d:%02d:%02d", t/3600, (t/60)%60, t%60);
             std::sprintf(temp, "%5s", temp1);
             for(std::size_t y=0; y<ysize; ++y) // cell-row
@@ -225,6 +234,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     if(x+5 < xsize && compare(x,y,U"$TEMP"))
                         for(std::size_t p=0; temp[p]; ++p)
                             substitutions.emplace(y*xsize+x+p, temp[p]);
+                    // 🌤 cloudy symbol
                 }
         }
         return substitutions;
