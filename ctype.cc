@@ -189,44 +189,44 @@ static constexpr auto BuildIntervals(std::initializer_list<std::pair<const std::
 #define B(c) /*std::pair<const std::pair<char32_t,unsigned>*, std::size_t>*/{&c##_table[0],c##_table.size()}
 bool isupper(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<59,19>({B(Lu)});
+    static constexpr auto intervals = BuildIntervals<62,21>({B(Lu)});
     return intervals.test(c);
 }
 bool islower(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<69,22>({B(Ll)});
+    static constexpr auto intervals = BuildIntervals<69,24>({B(Ll)});
     return intervals.test(c);
 }
 bool isalpha(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<237,75>({B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Lo),B(Ll),B(Lu)});
+    static constexpr auto intervals = BuildIntervals<256,94>({B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Lo),B(Ll),B(Lu)});
     return intervals.test(c);
 }
 bool isalnum(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<252,79>({B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Lo),B(Ll),B(Lu),B(Nl),B(No),B(Nd)});
+    static constexpr auto intervals = BuildIntervals<275,100>({B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Lo),B(Ll),B(Lu),B(Nl),B(No),B(Nd)});
     return intervals.test(c);
 }
 bool isalnum_(char32_t c)
 {
     static constexpr std::array cd2_table{ std::pair<char32_t,char32_t>{0x200C,0x200D} };
-    static constexpr auto intervals = BuildIntervals<240,74>({B(Lm),B(Lt),B(Lo),B(Ll),B(Lu),B(Pc),B(Nl),B(Mn),B(Mc),B(Nd),B(cd2)});
+    static constexpr auto intervals = BuildIntervals<259,95>({B(Lm),B(Lt),B(Lo),B(Ll),B(Lu),B(Pc),B(Nl),B(Mn),B(Mc),B(Nd),B(cd2)});
     return intervals.test(c);
 }
 bool isdigit(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<11,21>({B(Nd)});
+    static constexpr auto intervals = BuildIntervals<11,24>({B(Nd)});
     return intervals.test(c);
 }
 bool isxdigit(char32_t c)
 {
     static constexpr std::array hex_table{ std::pair<char32_t,char32_t>{U'a',U'f'}, std::pair<char32_t,char32_t>{U'A',U'F'} };
-    static constexpr auto intervals = BuildIntervals<12,21>({B(Nd),B(hex)});
+    static constexpr auto intervals = BuildIntervals<12,24>({B(Nd),B(hex)});
     return intervals.test(c);
 }
 bool ispunct(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<100,43>({B(Pf),B(Pi),B(Pc),B(Pd),B(Pe),B(Ps),B(Po)});
+    static constexpr auto intervals = BuildIntervals<108,48>({B(Pf),B(Pi),B(Pc),B(Pd),B(Pe),B(Ps),B(Po)});
     return intervals.test(c);
 }
 static constexpr std::array bl_table{ std::pair<char32_t,char32_t>{U'\t',U'\t'} };
@@ -240,7 +240,7 @@ bool isspace(char32_t c)
 }
 bool isspace_punct(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<100,43>({B(Zp),B(Zl),B(Zs),B(bl),B(ws),B(Pf),B(Pi),B(Pc),B(Pd),B(Pe),B(Ps),B(Po)});
+    static constexpr auto intervals = BuildIntervals<108,48>({B(Zp),B(Zl),B(Zs),B(bl),B(ws),B(Pf),B(Pi),B(Pc),B(Pd),B(Pe),B(Ps),B(Po)});
     return intervals.test(c);
 }
 bool isblank(char32_t c)
@@ -250,30 +250,30 @@ bool isblank(char32_t c)
 }
 bool isctrl(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<17,14>({B(Co),B(Cs),B(Cf),B(Cc),B(Zl),B(Zp)});
+    static constexpr auto intervals = BuildIntervals<19,15>({B(Co),B(Cs),B(Cf),B(Cc),B(Zl),B(Zp)});
     return intervals.test(c);
 }
 bool isprint(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<246,81>({B(Co),B(Nl),B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Pf),B(No),B(Pi),
+    static constexpr auto intervals = BuildIntervals<268,102>({B(Co),B(Nl),B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Pf),B(No),B(Pi),
     B(Lo),B(So),B(Ll),B(Pc),B(Sk),B(Lu),B(Nd),B(Pd),B(Sm),B(Pe),B(Ps),B(Sc),B(Po),B(Zs)});
     return intervals.test(c);
 }
 bool isgraph(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<248,81>({B(Co),B(Nl),B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Pf),B(No),B(Pi),
+    static constexpr auto intervals = BuildIntervals<270,102>({B(Co),B(Nl),B(Mc),B(Me),B(Mn),B(Lm),B(Lt),B(Pf),B(No),B(Pi),
     B(Lo),B(So),B(Ll),B(Pc),B(Sk),B(Lu),B(Nd),B(Pd),B(Sm),B(Pe),B(Ps),B(Sc),B(Po)});
     return intervals.test(c);
 }
 bool isnotword(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<104,50>({B(Co),B(Cs),B(Zp),B(Zl),B(Pf),B(Cf),B(Pi),
+    static constexpr auto intervals = BuildIntervals<112,56>({B(Co),B(Cs),B(Zp),B(Zl),B(Pf),B(Cf),B(Pi),
     B(Pc),B(Pd),B(Pe),B(Ps),B(Po),B(Zs),B(Cc)});
     return intervals.test(c);
 }
 bool isdouble(char32_t c)
 {
-    static constexpr auto intervals = BuildIntervals<60,30>({B(width)});
+    static constexpr auto intervals = BuildIntervals<64,34>({B(width)});
     return intervals.test(c);
 }
 
