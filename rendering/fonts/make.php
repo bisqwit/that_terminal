@@ -56,9 +56,10 @@ $chars_monak14   = ReadBDFset('monak14.bdf', 14,14); // Note: var-width
 $chars_mona6x12r = ReadBDFset('mona6x12r.bdf', 6,12);// Note: var-width
 $chars_mona7x14r = ReadBDFset('mona7x14r.bdf', 7,14);// Note: var-width
 $chars_vga8x19   = ReadBDFset('vga8x19.bdf', 8,19);
-$chars_cp437     = ReadBDFset('vga8x19.bdf', 8,19, true); // keep index. CP437 with extra U+FFFD
 
-#print_r($chars_cp437);exit;
+$chars_cp437     = Array(); // CP437 with extra U+FFFD
+for($n=0; $n<256; ++$n) $chars_cp437[BDFtranslateToUnicode($n,'IBM','CP437')] = $n;
+for($n=0; $n<256; ++$n) $chars_cp437[65533] = 256;
 
 function TransLow($index, $size)
 {
@@ -187,27 +188,22 @@ function AddChar($utfchar, $n, $size, &$characters, $setname, $authentic_only)
     }
   }
 }
+global $identical;
+$identical = json_decode(file_get_contents('similarities.inc'));
 function AddApproximations(&$characters)
 {
   // List of identical-looking characters that are not recognized by iconv as such
-  require 'similarities.inc';
-
+  global $identical;
   for(;;)
   {
     $changes = false;
-    foreach($identical as $set)
-    {
-      $len = count($set);
-      for($a=0; $a<$len; ++$a)
-        for($b=0; $b<$len; ++$b)
-          if($a != $b)
-            if(isset($characters[$set[$b]]) && !isset($characters[$set[$a]]))
-            {
-              $characters[$set[$a]] = $characters[$set[$b]];
-              $changes = true;
-              break;
-            }
-    }
+    foreach($identical as $pair)
+      if(!isset($characters[$pair[0]])
+      &&  isset($characters[$pair[1]]))
+      {
+        $characters[$pair[0]] = $characters[$pair[1]];
+        $changes = true;
+      }
     if(!$changes) break;
   }
 }
@@ -665,7 +661,7 @@ $t = Array();
 foreach($specs as $size => $selections)
 {
   preg_match('/(\d+)x(\d+)/', $size, $mat);
-  /**/
+  #/*
   if($argc < 3)
   {
     $p = proc_open("php {$argv[0]} {$authentic_only} {$size} | dd bs=16M iflag=fullblock 2>/dev/null",
@@ -676,11 +672,14 @@ foreach($specs as $size => $selections)
     continue;
   }
   if($size != $argv[2]) continue;
-  /**/
+  #*/
 
   $fontwidth  = $mat[1];
   $fontheight = $mat[2];
   $map      = CreateTranslation($size, array_keys($selections), $authentic_only);
+  
+  #if($fontwidth != 8) continue;
+  #if($fontheight != 15 && $fontheight != 19) continue;
 
   $used = Array();
   foreach($map as $specs) $used[$specs[0]] = true;
@@ -718,6 +717,8 @@ foreach($specs as $size => $selections)
       ++$n;
     }
     $revmap[$unicodevalue] = $done[$key];
+    #printf("U+%04X: Glyph index %d, source glyph index %d in %s\n",
+    #  $unicodevalue, $done[$key], $index, $setname);
   }
   
   $globalname = 'f'.$size;

@@ -7,6 +7,8 @@ while($s = fgets($fp,4096))
   if(preg_match('/^([0-9A-F]+);([^;]+)/', $s, $mat))
   {
     $name = $mat[2];
+    // Rename math symbols with "CAPITAL L" into with "LATIN CAPITAL LETTER L"
+    // to get better matches.
     if(preg_match('/(MATHEMATICAL.*) (CAPITAL|SMALL) ([A-Z])$/', $name, $m))
     {
       $name = "{$m[1]} LATIN {$m[2]} LETTER {$m[3]}";
@@ -22,87 +24,406 @@ function ToUTF8($code)
 {
   return iconv('ucs4', 'utf8', pack('N',$code));
 }
-function SubstFor($code,$name,   $base,$attrs=Array())
+
+// Create special matching recipe for ASCII from FULLWIDTH
+// Do this BEFORE the MATHEMATICAL section
+// to avoid your ASCII letters looking completely silly.
+print "// If this is fullwidth font, create ASCII characters from FULLWIDTH characters\n";
+foreach($codes as $name=>$code)
 {
-  global $names,$codes,$lines;
-  if(count($attrs)) $base .= ' WITH '.join(' AND ',$attrs);
-  if(isset($codes[$base]))
+  if(preg_match('/^(FULLWIDTH|HALFWIDTH) (.*)/', $name, $mat) && isset($codes[$mat[2]]))
+    printf("→ %s%s\n", ToUTF8($codes[$mat[2]]), ToUTF8($codes[$name]));
+}
+print "// Insert some manually crafted rules between pre-composed encircled or stylished letters\n";
+print "// Do this before the MATH section may alias doublestruck R (𝕉) with regular R\n";
+print "// when the font may in fact have doublestruck R (ℝ) in the letterlike section.\n";
+print '= ℂ𝔺
+= ℊ𝒼
+= ℋ𝔋
+= ℌ𝔥
+= ℍ𝔿
+= ℎ𝑕
+= ℐ𝒤
+= ℑ𝔌
+= ℒ𝒧
+= ℓ𝓁
+= ℕ𝕅
+= ℙ𝕇
+= ℚ𝕈
+= ℛ𝒭
+= ℜ𝔕
+= ℝ𝕉
+= ℤ𝕑
+= K𝖪
+= ℬ𝒝
+= ℭ𝔆
+= ℮𝕖
+= ℯ𝑒
+= ℳ𝒨
+= ℴ𝓄
+= ℹ𝐢
+= ⅅ𝔻
+= ⅆ𝕕
+= ⅇ𝕖
+= ⅈ𝕚
+= ⅉ𝕛
+= ⅀𝚺
+= ℿ𝚷
+= ℾ𝚪
+= ℽ𝛄
+= ℼ𝛑
+= ℗Ⓟ
+= ©Ⓒ
+= ®Ⓡ
+';
+print "// Insert equality rules between symbols that are visually completely indiscernible\n";
+print "// First, ASCII-like characters\n";
+$equal_symbols = '!ǃ
+#ⵌꖛ⌗⋕
+÷➗
++➕ᚐ
+-−–➖
+.ꓸ
+,ꓹ
+ꓽ::׃꞉⁚ː∶։܃𝄈
+;;;ꓼ
+=ꘌ⚌゠᐀꓿
+/⟋╱⁄𝈺
+\⟍╲𝈻⧹⧵
+2շ
+3З𝟹ვ౩𝈆
+ɜзᴈ
+ƷӠ
+ʒӡ
+4Ꮞ
+8𐌚
+➊❶⓵➀①
+➋❷⓶➁②
+➌❸⓷➂③
+➍❹⓸➃④
+➎❺⓹➄⑤
+➏❻⓺➅⑥
+➐❼⓻➆⑦
+➑❽⓼➇⑧
+➒❾⓽➈⑨
+➓❿⓾➉⑩
+AΑАᎪᗅᗋ𐌀ꓐꓮ
+ĂӐᾸ
+ĀᾹ
+ÄӒ
+ÅÅ
+ÆӔ
+ʙвⲃ
+BΒВᏴⲂꕗ𐌁
+ƂБ
+ϭб
+CϹСᏟⲤⅭꓚ
+ϽƆↃꓛ
+DᎠ𐌃ᗞⅮⅮꓓ
+ꓷᗡ⫏
+EΕЕᎬⴹꗋ⋿ꓰ
+ꓱ∃Ǝⴺ
+ÈЀ
+ËЁ
+ĔӖ
+ƐԐ
+FϜ𝈓ߓᖴ𐌅ꓝ
+GᏀႺꓖ
+HΗНᎻⲎᕼꖾꓧ
+ʜнⲏ
+IΙІӀᏆⲒⅠꓲ
+ΪÏЇ
+JЈᒍلﻝᎫꓙ
+KΚКⲔᏦK𐌊ꓗ
+ḰЌ
+κᴋкⲕ
+LᏞᒪ𝈪Ⅼ˪ԼⅬԼⅬԼլꓡ
+MΜМᎷⲘϺ𐌑Ⅿꓟ
+ᴍмⲙ
+NΝⲚꓠ
+ͶИ
+ɴⲛ
+ͷи
+OΟОⲞ◯○⃝❍🌕߀ⵔՕ⚪⭕౦೦ꓳ
+ÖӦ
+ϴθѲӨƟᎾⲐ
+ΦФⲪ
+PΡРᏢⲢ𐌓ᑭ𐌛ꓑ
+ΠПⲠ
+QԚꝖႳႭⵕℚ
+RᎡ𝈖ᖇᏒꓣ
+Яᖆ
+SЅᏚՏႽꚂऽ𐒖ꕶꓢ
+ΣƩ∑⅀Ʃⵉ
+TΤТᎢⲦ⊤⟙ꔋ𝍮🝨⏉ߠꓔ
+U⋃ᑌ∪ՍՍꓴ
+VᏙᐯⴸ⋁𝈍ⅤⅤꓦ
+WԜᎳꓪ
+XΧХⲬ╳ⵝ𐌢Ⅹ𐌗Ⅹꓫ
+YΥҮⲨꓬ
+ΫŸ
+ZΖᏃⲌꓜ
+aа
+äӓ
+ăӑ
+æӕ
+əә
+ЬᏏ
+cϲсⲥⅽ
+ͻɔᴐↄ
+dⅾ
+eе
+ĕӗ
+ϵє
+ɛԑ
+gց
+гᴦⲅ
+iіⅰ
+ïї
+jϳј
+lⅼ
+ιɩ
+mⅿ
+ʌᴧ
+oοоסᴏⲟօ૦௦ഠ๐໐໐
+òὸ
+óό
+öӧ
+ɵөⲑ
+фⲫ
+pρрⲣ
+πпᴨⲡ
+яᴙ
+qԛ
+sѕ
+uս
+vᴠݍⅴ
+xⅹ
+yу
+~῀
+··•∙⋅・
+ᴛтⲧ
+૰。࿁
+ᐃ△🜂∆ΔᐃⵠΔꕔ
+ᐊᐊ◁⊲
+ᐁ▽🜄⛛∇ᐁ𝈔
+ᐅ▷⊳▻
+ᐱΛ𐤂⋀ⴷ𐌡Ʌ
+ᑎႶ⋂Ո∩𝉅ꓵ
+⨆∐ⵡ𝈈
+∏⨅ПΠ⊓
+⊏ⵎ𝈸
+コ⊐ߏ𝈹
+⎕□☐⬜◻▢⃞❑❒❐❏⧠⃢⌷ロ
+⛝⌧🝱
+ 　         ';
+foreach(explode("\n", $equal_symbols) as $line)
+  print "= $line\n";
+
+print "// Create similarity rules between modified stylished symbols\n";
+$words = Array('BLACK',
+               'HEAVY',
+               'FULLWIDTH',
+               'MATHEMATICAL BOLD',                  // 1D400,1D41A
+               'MATHEMATICAL SANS-SERIF BOLD',       // 1D5D4,1D5EE
+               'MATHEMATICAL SANS-SERIF BOLD ITALIC',// 1D63C,1D656
+               'MATHEMATICAL BOLD ITALIC',           // 1D468,1D482
+               'MATHEMATICAL ITALIC',                // 1D434,1D44E
+               'MATHEMATICAL SANS-SERIF ITALIC',     // 1D608,1D622
+               '',                                   // no modifier.
+               'MATHEMATICAL SANS-SERIF',            // 1D5A0,1D5BA
+               'MATHEMATICAL SCRIPT',                // 1D49C,1D4B6
+               'MATHEMATICAL BOLD SCRIPT',           // 1D4D0,1D4EA
+               'MATHEMATICAL FRAKTUR',               // 1D504,1D51E
+               'MATHEMATICAL BOLD FRAKTUR',          // 1D56C,1D586
+               'MATHEMATICAL DOUBLE-STRUCK',         // 1D538,1D552
+               'MATHEMATICAL MONOSPACE',             // 1D670,1D68A
+               'MATHEMATICAL',
+               'WHITE',
+               'LIGHT',
+               'HALFWIDTH',
+               'SMALL',
+               'PARENTHESIZED',
+               'CIRCLED',
+               'TAG');
+$symbols = Array();
+foreach($codes as $name=>$code)
+{
+  $symbols[$name][''] = $code;
+  if(preg_match('/^('.join('|',$words).') (.*)/', $name, $mat))
+    $symbols[$mat[2]][$mat[1]] = $code;
+}
+foreach($symbols as $basename => $group)
+  if(count($group) > 1)
   {
-    $lines[] = sprintf("Array(0x%X /*%s*/, 0x%X/*%s*/), // Make %s from %s\n",
-      $codes[$base], ToUTF8($codes[$base]),
-      $code,         ToUTF8($code),
-      $name, $base);
+    print "◆ ";
+    foreach($words as $w) if(isset($group[$w])) print ToUTF8($group[$w]);
+    print "\n";
   }
-  #else
-  #  printf("// Unable to make %s from %s\n", $name, $base);
+
+// Convert the equal-symbols list into a searchable one
+$equal_with = Array();
+foreach(explode("\n", $equal_symbols) as $line)
+{
+  $eq = unpack('N*',iconv('utf8','ucs4',$line));
+  foreach($eq as $code)
+    foreach($eq as $code2)
+      if($code != $code2)
+        $equal_with[$code][$code2] = $code2;
 }
 
+print "// Then go through all symbols that are “WITH” something.\n";
+print "// As a general rule, try to compose things that have more “WITHs”\n";
+print "// from things that have less “WITHs”.\n";
+$with_lists = Array();
 foreach($codes as $name=>$code)
   if(preg_match('/(.*) WITH (.*)/', $name, $mat))
   {
     $base = $mat[1];
-    $attrs = explode(' AND ', $mat[2]);
+    $full = $mat[2];
+    $attrs = explode(' AND ', $full);
     $len = count($attrs);
+    $with_lists[" WITH $full"][""] = 0;
     for($n=$len-1; $n>0; --$n)
     {
       $pick = Array();
-      $do = function($index,$start)use(&$attrs,&$pick,$n,$len,$code,$name,$base,&$do)
+      $do = function($index,$start)use(&$attrs,&$pick,$n,$len,$code,$name,$base,&$do,&$full,&$with_lists)
       {
         for($a=$start; $a<$len; ++$a)
         {
           $pick[$index] = $attrs[$a];
-          if($index+1 == $n) SubstFor($code,$name, $base,$pick);
-          else               $do($index+1, $a+1);
+          if($index+1 == $n)
+          {
+            $partial = join($pick, ' AND ');
+            $with_lists[" WITH $full"][" WITH $partial"] = count($pick);
+            #print "try make $partial from $full for $name for $base\n";
+          }
+          else
+          {
+            $do($index+1, $a+1);
+          }
         }
       };
       $do(0, 0);
     }
   }
 
-foreach($codes as $name=>$code)
-  if(preg_match('/(.*) WITH (.*)/', $name, $mat))
+foreach(Array("→ ", "← ") as $operation)
+  foreach($with_lists as $full_with => $partial_list)
   {
-    $base = $mat[1];
-    SubstFor($code,$name, $base);
+    arsort($partial_list);
+    // Find all symbols that have this "full with" list.
+    foreach($codes as $name => $code)
+      if(preg_match("/(.*)$full_with\$/", $name, $mat))
+      {
+        $rep_list = Array();
+        $rep_list[] = Array($code, $name, $mat[1]);
+        if(isset($equal_with[$code]))
+        {
+          foreach($equal_with[$code] as $code2)
+          {
+            $name2 = $names[$code2];
+            preg_match("/(.*) WITH.*\$/", $name2, $mat2);
+            $rep_list[] = Array($code2, $name2, @$mat2[1]);
+          }
+        }
+        $sub_list = Array();
+        foreach($partial_list as $partial_with=>$dummy)
+        {
+          foreach($rep_list as $rep)
+          {
+            $sub_name = "{$rep[2]}$partial_with";
+            #print "can we find $sub_name?\n";
+            if(isset($codes[$sub_name]))
+            {
+              #if(count($rep_list) > 1) print "guu\n";
+              $sub_list[] = Array($codes[$sub_name], $sub_name, $rep[2]);
+            }
+          }
+        }
+        foreach($sub_list as $sub) $rep_list[] = $sub;
+        if(count($rep_list) > 1)
+        {
+          print $operation;
+          foreach($rep_list as $rep)
+            print ToUTF8($rep[0]);
+          print "\n";
+        }
+      }
   }
 
-// Create special matching recipe for ASCII from FULLWIDTH
-foreach($codes as $name=>$code)
-{
-  if(preg_match('/^(FULLWIDTH|HALFWIDTH) (.*)/', $name, $mat) && isset($codes[$mat[2]]))
-    SubstFor($codes[$mat[2]],$mat[2], $name);
-}
+print '// Some symbols that act as last resort…
+= Ⅱ║∥‖ǁ𝄁
+= Ⅲ⫴⦀⫼𝍫ꔖ
+= -‐‑–—−－‒―➖─━一╴╶╸╺╼╾╼╾
+= ┄┅⋯┈┉╌╍
+= ╎╏¦
+= │┃|╿╽
+= ═＝꓿
+= ~⁓～
+= <く𐌂ᐸᑉ
+= ┌┍┎┏╭╒╓╔гᴦⲅ
+= ┐┑┒┓╮╕╖╗
+= └┕┖┗╰╘╙╚˪լ
+= ┘┙┚┛╯╛╜╝
+= ┬┭┮┯┰┱┲┳╤╥╦⊤
+= ┴┵┶┷┸┹┺┻╧╨╩
+= ├┝┞┟┠┡┢┣߅╞╟╠
+= ┤┥┦┧┨┩┪┫╡╢╣
+= ┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╪╫╬
+= ▉⬛██▉▇
+→ ガカ
+→ グク
+→ ギキ
+→ ゲケ
+→ ゴコ
+→ パバハ
+→ ピビヒ
+→ ペベヘ
+→ ポボホ
+→ プブフ
+→ ピビ
+→ ペベ
+→ ポボ
+→ プブ
+→ ザサ
+→ ジシ
+→ ズス
+→ ゼセ
+→ ゾソ
+→ ダタ
+→ ヂチ
+→ ヅツ
+→ デテ
+→ ドト
+→ がか
+→ ぐく
+→ ぎき
+→ げけ
+→ ごこ
+→ ぱばは
+→ ぴびひ
+→ ぺべへ
+→ ぽぼほ
+→ ぷぶふ
+→ ぱば
+→ ぴび
+→ ぺべ
+→ ぽぼ
+→ ぷぶ
+→ ざさ
+→ じし
+→ ずす
+→ ぜせ
+→ ぞそ
+→ だた
+→ ぢち
+→ づつ
+→ でて
+→ どと
+';
 
-$words = Array('PARENTHESIZED','CIRCLED','BLACK','WHITE','HEAVY','LIGHT','FULLWIDTH','HALFWIDTH','SMALL','TAG',
-               'MATHEMATICAL BOLD',                  // 1D400,1D41A
-               'MATHEMATICAL ITALIC',                // 1D434,1D44E
-               'MATHEMATICAL BOLD ITALIC',           // 1D468,1D482
-               'MATHEMATICAL SCRIPT',                // 1D49C,1D4B6
-               'MATHEMATICAL BOLD SCRIPT',           // 1D4D0,1D4EA
-               'MATHEMATICAL FRAKTUR',               // 1D504,1D51E
-               'MATHEMATICAL DOUBLE-STRUCK',         // 1D538,1D552
-               'MATHEMATICAL BOLD FRAKTUR',          // 1D56C,1D586
-               'MATHEMATICAL SANS-SERIF',            // 1D5A0,1D5BA
-               'MATHEMATICAL SANS-SERIF BOLD',       // 1D5D4,1D5EE
-               'MATHEMATICAL SANS-SERIF ITALIC',     // 1D608,1D622
-               'MATHEMATICAL SANS-SERIF BOLD ITALIC',// 1D63C,1D656
-               'MATHEMATICAL MONOSPACE');            // 1D670,1D68A
-foreach($codes as $name=>$code)
-  if(preg_match('/^('.join('|',$words).') (.*)/', $name, $mat))
-    foreach($words as $w)
-      if($w != $mat[1])
-        SubstFor($code,$name, "$w {$mat[2]}");
-foreach($codes as $name=>$code)
-  if(preg_match('/^('.join('|',$words).') (.*)/', $name, $mat))
-    SubstFor($code,$name, $mat[2]);
-
-function MathGen($begin,$c)
-{
-  $c=ord($c);
-  if($c>=0x61) $n = $begin + 26 + $c-0x61;
-  else         $n = $begin +      $c-0x41;
-  return sprintf('0x%X', $n);
-}
+exit;
 print "<?php\n";
 ?>
   $identical = Array
@@ -115,45 +436,6 @@ print "<?php\n";
 ?>
     // End autogenerated list 1
     // Math: 
-    
-    Array(0x2102, <?php print MathGen(0x1D538,'C');?>), // double-struck C
-    Array(0x210A, <?php print MathGen(0x1D49C,'g');?>), // script g
-    Array(0x210B, <?php print MathGen(0x1D504,'H');?>), // fraktur H
-    Array(0x210C, <?php print MathGen(0x1D504,'h');?>), // fraktur h
-    Array(0x210D, <?php print MathGen(0x1D538,'H');?>), // double-struck H
-    Array(0x210E, <?php print MathGen(0x1D434,'H');?>), // italic H
-    Array(0x2110, <?php print MathGen(0x1D49C,'I');?>), // script I
-    Array(0x2111, <?php print MathGen(0x1D504,'I');?>), // fraktur I
-    Array(0x2112, <?php print MathGen(0x1D504,'L');?>), // fraktur L
-    Array(0x2113, <?php print MathGen(0x1D49C,'l');?>), // script l
-    Array(0x2115, <?php print MathGen(0x1D538,'N');?>), // double-struck N
-    Array(0x2119, <?php print MathGen(0x1D538,'P');?>), // double-struck P
-    Array(0x211A, <?php print MathGen(0x1D538,'Q');?>), // double-struck Q
-    Array(0x211B, <?php print MathGen(0x1D49C,'R');?>), // script R
-    Array(0x211C, <?php print MathGen(0x1D504,'R');?>), // fraktur R
-    Array(0x211D, <?php print MathGen(0x1D538,'R');?>), // double-struck R
-    Array(0x2124, <?php print MathGen(0x1D538,'Z');?>), // double-struck Z
-    Array(0x212A, <?php print MathGen(0x1D5A0,'K');?>), // sans-serif K
-    Array(0x212C, <?php print MathGen(0x1D49C,'B');?>), // script B
-    Array(0x212D, <?php print MathGen(0x1D504,'C');?>), // fraktur C
-    Array(0x212E, <?php print MathGen(0x1D538,'e');?>), // double-struck e
-    Array(0x212F, <?php print MathGen(0x1D434,'e');?>), // italic e
-    Array(0x2133, <?php print MathGen(0x1D49C,'M');?>), // script M
-    Array(0x2134, <?php print MathGen(0x1D5A0,'o');?>), // sans-serif o
-    Array(0x2139, <?php print MathGen(0x1D400,'i');?>), // bold i
-    Array(0x2145, <?php print MathGen(0x1D538,'D');?>), // double-struck italic D
-    Array(0x2146, <?php print MathGen(0x1D538,'d');?>), // double-struck italic d
-    Array(0x2147, <?php print MathGen(0x1D538,'e');?>), // double-struck italic e
-    Array(0x2148, <?php print MathGen(0x1D538,'i');?>), // double-struck italic i
-    Array(0x2149, <?php print MathGen(0x1D538,'j');?>), // double-struck italic j
-    Array(0x2140, 0x1D6BA), // double-struck capital sigma
-    Array(0x213F, 0x1D6B7), // double-struck capital pi
-    Array(0x213E, 0x1D6AA), // double-struck capital gamma
-    Array(0x213D, 0x1D6C4), // double-struck small gamma
-    Array(0x213C, 0x1D6D1), // double-struck small pi
-    Array(0x2117, 0x24C5), // encircled P
-    Array(0xA9,   0x24B8), // encircled C
-    Array(0xAD,   0x24C7), // encircled R
     
     Array(33 /* ! */, 451 /* ǃ */),
     Array(35 /* # */,                               0x2d4c,0xa59b,0x2317,0x22d5),

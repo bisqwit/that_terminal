@@ -80,6 +80,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal--8-80-75-75-c-50-iso10646-1`.
 ![Font 5x8 coverage](coverage-5x8-4.png)
 ![Font 5x8 coverage](coverage-5x8-5.png)
 ![Font 5x8 coverage](coverage-5x8-6.png)
+![Font 5x8 coverage](coverage-5x8-7.png)
 
 ## Font 6x9
 
@@ -93,6 +94,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal--9-90-75-75-c-60-iso10646-1`.
 ![Font 6x9 coverage](coverage-6x9-5.png)
 ![Font 6x9 coverage](coverage-6x9-6.png)
 ![Font 6x9 coverage](coverage-6x9-7.png)
+![Font 6x9 coverage](coverage-6x9-8.png)
 
 ## Font 6x10
 
@@ -107,6 +109,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal--10-100-75-75-c-60-iso10646-1`.
 ![Font 6x10 coverage](coverage-6x10-6.png)
 ![Font 6x10 coverage](coverage-6x10-7.png)
 ![Font 6x10 coverage](coverage-6x10-8.png)
+![Font 6x10 coverage](coverage-6x10-9.png)
 
 ## Font 6x12
 
@@ -130,6 +133,7 @@ Pairs perfectly with 12x12.
 ![Font 6x12 coverage](coverage-6x12-9.png)
 ![Font 6x12 coverage](coverage-6x12-10.png)
 ![Font 6x12 coverage](coverage-6x12-11.png)
+![Font 6x12 coverage](coverage-6x12-12.png)
 
 ## Font 6x13
 
@@ -148,6 +152,7 @@ X11 misc-fixed font `-misc-fixed-bold-r-semicondensed--13-120-75-75-c-60-iso1064
 ![Font 6x13 coverage](coverage-6x13-10.png)
 ![Font 6x13 coverage](coverage-6x13-11.png)
 ![Font 6x13 coverage](coverage-6x13-12.png)
+![Font 6x13 coverage](coverage-6x13-13.png)
 
 ## Font 7x13
 
@@ -164,6 +169,7 @@ X11 misc-fixed font `-misc-fixed-bold-r-normal--13-120-75-75-c-70-iso10646-1`.
 ![Font 7x13 coverage](coverage-7x13-8.png)
 ![Font 7x13 coverage](coverage-7x13-9.png)
 ![Font 7x13 coverage](coverage-7x13-10.png)
+![Font 7x13 coverage](coverage-7x13-11.png)
 
 ## Font 7x14
 
@@ -193,6 +199,8 @@ Pairs perfectly with 14x14.
 ![Font 7x14 coverage](coverage-7x14-9.png)
 ![Font 7x14 coverage](coverage-7x14-10.png)
 ![Font 7x14 coverage](coverage-7x14-11.png)
+![Font 7x14 coverage](coverage-7x14-12.png)
+![Font 7x14 coverage](coverage-7x14-13.png)
 
 ## Font 8x8
 
@@ -236,6 +244,7 @@ Pairs perfectly with 14x14.
 ![Font 8x10 coverage](coverage-8x10-5.png)
 ![Font 8x10 coverage](coverage-8x10-6.png)
 ![Font 8x10 coverage](coverage-8x10-7.png)
+![Font 8x10 coverage](coverage-8x10-8.png)
 
 ## Font 8x12
 
@@ -254,6 +263,7 @@ Pairs perfectly with 14x14.
 ![Font 8x12 coverage](coverage-8x12-7.png)
 ![Font 8x12 coverage](coverage-8x12-8.png)
 ![Font 8x12 coverage](coverage-8x12-9.png)
+![Font 8x12 coverage](coverage-8x12-10.png)
 
 ## Font 8x14
 
@@ -276,6 +286,8 @@ Pairs perfectly with 14x14.
 ![Font 8x14 coverage](coverage-8x14-9.png)
 ![Font 8x14 coverage](coverage-8x14-10.png)
 ![Font 8x14 coverage](coverage-8x14-11.png)
+![Font 8x14 coverage](coverage-8x14-12.png)
+![Font 8x14 coverage](coverage-8x14-13.png)
 
 ## Font 8x15
 
@@ -295,6 +307,8 @@ Pairs perfectly with 14x14.
 ![Font 8x15 coverage](coverage-8x15-9.png)
 ![Font 8x15 coverage](coverage-8x15-10.png)
 ![Font 8x15 coverage](coverage-8x15-11.png)
+![Font 8x15 coverage](coverage-8x15-12.png)
+![Font 8x15 coverage](coverage-8x15-13.png)
 
 ## Font 8x16
 
@@ -329,6 +343,7 @@ Pairs perfectly with 16x16.
 ![Font 8x16 coverage](coverage-8x16-17.png)
 ![Font 8x16 coverage](coverage-8x16-18.png)
 ![Font 8x16 coverage](coverage-8x16-19.png)
+![Font 8x16 coverage](coverage-8x16-20.png)
 
 ## Font 8x19
 
@@ -349,6 +364,8 @@ vga8x19.bdf by Martin Reuber, based on VGA ROM BIOS font
 ![Font 8x19 coverage](coverage-8x19-12.png)
 ![Font 8x19 coverage](coverage-8x19-13.png)
 ![Font 8x19 coverage](coverage-8x19-14.png)
+![Font 8x19 coverage](coverage-8x19-15.png)
+![Font 8x19 coverage](coverage-8x19-16.png)
 
 ## Font 11x22
 
@@ -375,6 +392,8 @@ vga8x19.bdf by Martin Reuber, based on VGA ROM BIOS font
 ![Font 11x22 coverage](coverage-11x22-14.png)
 ![Font 11x22 coverage](coverage-11x22-15.png)
 ![Font 11x22 coverage](coverage-11x22-16.png)
+![Font 11x22 coverage](coverage-11x22-17.png)
+![Font 11x22 coverage](coverage-11x22-18.png)
 
 ## Font 12x12
 
@@ -401,6 +420,7 @@ vga8x19.bdf by Martin Reuber, based on VGA ROM BIOS font
 ![Font 12x12 coverage](coverage-12x12-16.png)
 ![Font 12x12 coverage](coverage-12x12-17.png)
 ![Font 12x12 coverage](coverage-12x12-18.png)
+![Font 12x12 coverage](coverage-12x12-19.png)
 
 ## Font 12x13
 
@@ -460,6 +480,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-
 ![Font 12x24 coverage](coverage-12x24-16.png)
 ![Font 12x24 coverage](coverage-12x24-17.png)
 ![Font 12x24 coverage](coverage-12x24-18.png)
+![Font 12x24 coverage](coverage-12x24-19.png)
 
 ## Font 14x14
 
@@ -489,6 +510,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-
 ![Font 14x14 coverage](coverage-14x14-19.png)
 ![Font 14x14 coverage](coverage-14x14-20.png)
 ![Font 14x14 coverage](coverage-14x14-21.png)
+![Font 14x14 coverage](coverage-14x14-22.png)
 
 ## Font 14x28
 
@@ -520,6 +542,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-
 ![Font 14x28 coverage](coverage-14x28-19.png)
 ![Font 14x28 coverage](coverage-14x28-20.png)
 ![Font 14x28 coverage](coverage-14x28-21.png)
+![Font 14x28 coverage](coverage-14x28-22.png)
 
 ## Font 16x16
 
@@ -606,6 +629,7 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-
 ![Font 16x28 coverage](coverage-16x28-19.png)
 ![Font 16x28 coverage](coverage-16x28-20.png)
 ![Font 16x28 coverage](coverage-16x28-21.png)
+![Font 16x28 coverage](coverage-16x28-22.png)
 
 ## Font 16x32
 
@@ -640,6 +664,8 @@ X11 misc-fixed font `-misc-fixed-medium-r-normal-ja-13-120-75-75-c-120-iso10646-
 ![Font 16x32 coverage](coverage-16x32-22.png)
 ![Font 16x32 coverage](coverage-16x32-23.png)
 ![Font 16x32 coverage](coverage-16x32-24.png)
+![Font 16x32 coverage](coverage-16x32-25.png)
+![Font 16x32 coverage](coverage-16x32-26.png)
 
 ## Font 18x18
 
@@ -688,6 +714,7 @@ with identical dimensions into one.
 ![Font 18x18 coverage](coverage-18x18-33.png)
 ![Font 18x18 coverage](coverage-18x18-34.png)
 ![Font 18x18 coverage](coverage-18x18-35.png)
+![Font 18x18 coverage](coverage-18x18-36.png)
 
 Solid dark blue indicates that this glyph is not supported.
 

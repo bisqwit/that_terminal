@@ -1,4 +1,5 @@
 #include "dijkstra.hh"
+#include "ctype.hh"
 #include <vector>
 #include <utility>
 #include <algorithm>
@@ -93,6 +94,30 @@ void FlushTables()
 {
     for(const auto& table: table_values)
     {
+        bool printable_16 = true, printable_32 = true;
+        for(auto e: table.second)
+        {
+            if(e < 32 || (e >= 127 && e < 160) || e == 34 || e == 92
+            || (e >= 0xD800 && e <= 0xDFFF)
+            || (e >= 0xFFFD && e <= 0xFFFF)
+            || (e >= 0x10FFFE))
+                { printable_16 = false; printable_32 = false; break; }
+            if(e >> 16) printable_16 = false;
+        }
+        if(table.first.first == "std::uint_least16_t" && printable_16)
+        {
+            std::u32string s(table.second.begin(), table.second.end());
+            tables << "static const char16_t " << table.first.second
+                   << "[" << table.second.size() << "+1] = u\"" << ToUTF8(s) << "\";\n";
+            continue;
+        }
+        if(table.first.first == "std::uint_least32_t" && printable_32)
+        {
+            std::u32string s(table.second.begin(), table.second.end());
+            tables << "static const char32_t " << table.first.second
+                   << "[" << table.second.size() << "+1] = U\"" << ToUTF8(s) << "\";\n";
+            continue;
+        }
         tables << "static const " << table.first.first << " " << table.first.second << "[" << table.second.size() << "] {";
         for(auto e: table.second)
         {

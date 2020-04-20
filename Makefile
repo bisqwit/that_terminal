@@ -46,8 +46,8 @@ term: $(OBJS)
 #rendering/color.cc: rendering/color.cc.re
 #	re2c -P $< -o$@
 
-rendering/fonts/table-packer: rendering/fonts/table-packer.cc rendering/fonts/dijkstra.hh
-	$(CXX) -std=c++17 -o "$@" "$<" -Ofast $(CPPFLAGS) -march=native -fopenmp
+rendering/fonts/table-packer: rendering/fonts/table-packer.o ctype.o rendering/fonts/dijkstra.hh
+	$(CXX) -std=c++17 -o "$@" "$<" ctype.o -Ofast $(CPPFLAGS) -march=native -fopenmp
 
 FONTS= \
 	rendering/fonts/data/10x20.bdf \
@@ -144,8 +144,10 @@ FONTS= \
 	rendering/fonts/data/unifont-csur.bdf \
 	rendering/fonts/data/vga8x19.bdf \
 
-rendering/fonts/similarities.inc: rendering/fonts/make-similarities.php rendering/fonts/UnicodeData.txt
-	(cd rendering/fonts; php make-similarities.php > similarities.inc)
+rendering/fonts/similarities.dat: rendering/fonts/make-similarities.php rendering/fonts/UnicodeData.txt
+	(cd rendering/fonts; php make-similarities.php > similarities.dat)
+rendering/fonts/similarities.inc: rendering/fonts/make-similarities2.php rendering/fonts/similarities.dat
+	(cd rendering/fonts; php make-similarities2.php > similarities.inc)
 
 rendering/fonts.inc: rendering/fonts/make.php rendering/fonts/similarities.inc \
 		rendering/fonts/table-packer \
@@ -194,12 +196,12 @@ compress2: ;
 	for s in rendering/fonts/data/.1tran-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
 compress12: ;
 	parallel -j40 advdef -z4 -i65536 -- \
-		 rendering/fonts/data/.1tran-* \
+	         rendering/fonts/data/.1tran-*437* \
 	         rendering/fonts/data/.tran-* \
 	;
 	for s in \
-		rendering/fonts/data/.1tran-* \
-	        rendering/fonts/data/.tran-* \
+	         rendering/fonts/data/.1tran-*437* \
+	         rendering/fonts/data/.tran-* \
 	;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
 
 compress3: ;
