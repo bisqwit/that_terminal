@@ -196,11 +196,11 @@ compress2: ;
 	for s in rendering/fonts/data/.1tran-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
 compress12: ;
 	parallel -j40 advdef -z4 -i65536 -- \
-	         rendering/fonts/data/.1tran-*437* \
+	         rendering/fonts/data/.1tran-* \
 	         rendering/fonts/data/.tran-* \
 	;
 	for s in \
-	         rendering/fonts/data/.1tran-*437* \
+	         rendering/fonts/data/.1tran-* \
 	         rendering/fonts/data/.tran-* \
 	;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
 

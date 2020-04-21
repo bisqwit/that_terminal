@@ -61,6 +61,10 @@ $chars_cp437     = Array(); // CP437 with extra U+FFFD
 for($n=0; $n<256; ++$n) $chars_cp437[BDFtranslateToUnicode($n,'IBM','CP437')] = $n;
 for($n=0; $n<256; ++$n) $chars_cp437[65533] = 256;
 
+$chars_cp850     = Array(); // CP850 with extra U+FFFD
+for($n=0; $n<256; ++$n) $chars_cp850[BDFtranslateToUnicode($n,'IBM','CP850')] = $n;
+for($n=0; $n<256; ++$n) $chars_cp850[65533] = 256;
+
 function TransLow($index, $size)
 {
   $translation = Array
@@ -465,7 +469,7 @@ $specs = Array
             'latin9' => 'lat9-10.psf.gz',
            ],
 
-  '8x12'=> ['chars_cp437'=>'8x12.inc', // vga8x19 has cp437 + U+FFFD at 256
+  '8x12'=> ['chars_cp850'=>'8x12.inc', // vga8x19 has cp437 + U+FFFD at 256
             'latin1' => 'lat1-12.psf.gz',
             'latin2' => 'lat2-12.psf.gz',
             'latin4' => 'lat4-12.psf.gz',
