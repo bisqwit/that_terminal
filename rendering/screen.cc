@@ -362,9 +362,9 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                                     + 16*dim;
 
                 unsigned widefont = fontptr[0];
-                if(use_fx >= 8)  {widefont |= (fontptr[1] << 8);
-                if(use_fx >= 16) {widefont |= (fontptr[2] << 16);
-                if(use_fx >= 24) {widefont |= (fontptr[3] << 24);}}}
+                if(use_fx > 8)  {widefont |= (fontptr[1] << 8);
+                if(use_fx > 16) {widefont |= (fontptr[2] << 16);
+                if(use_fx > 24) {widefont |= (fontptr[3] << 24);}}}
 
                 if(!cell.italic) widefont <<= 1;
 
