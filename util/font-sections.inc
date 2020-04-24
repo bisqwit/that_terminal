@@ -55,6 +55,7 @@ Pairs perfectly with 14x14.
 )"},
     {9*256+16, R"(
 * gb16st.bdf `-ISAS-Song ti-Medium-R-Normal--16-160-72-72-c-160-GB2312.1980-0`, 9-pixel wide glyphs only
+
 Pairs perfectly with 16x16.
 )"},
     {9*256+18, R"(
