@@ -249,9 +249,10 @@ compress3:
 compress123:
 	parallel -j45 util/compressor.sh -- \
 	`echo \
-		rendering/fonts/data/.tran-* \
-		rendering/fonts/data/.1tran-* \
-		doc/coverage-*.png \
+		rendering/fonts/data/.tran-*monak12* \
+		rendering/fonts/data/.1tran-*monak12* \
+		doc/coverage-*12x12*.png \
+		doc/coverage-*14x14*.png \
 	`
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))

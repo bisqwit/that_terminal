@@ -577,10 +577,11 @@ $specs = Array
   '10x24' => ['chars_10x20cn' => 'gb24st.bdf'],
 
   '12x13' => ['chars_12x13ja'=>'12x13ja.bdf'],
-  '12x12' => ['chars_12x12ja'=>'f12.bdf',
-              'chars_monak12'=>'monak12.bdf'],
-  '14x14' => ['chars_14x14ja'=>'f14.bdf',
-              'chars_monak14'=>'monak14.bdf'],
+  '12x12' => ['chars_monak12'=>'monak12.bdf',
+              'chars_12x12ja'=>'f12.bdf'],
+  '14x14' => ['chars_monak14'=>'monak14.bdf',
+              'chars_14x14ja'=>'f14.bdf'
+             ],
 
   '11x22'=> ['cp_dum1' => 'Uni2-TerminusBold22x11.psf.gz',
             'cp_dum2' => 'Uni3-TerminusBold22x11.psf.gz',
