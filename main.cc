@@ -21,6 +21,7 @@
 
 /* Settings */
 #if 0
+// Settings for making autoinput videos...
 static double TimeFactor = 0.0; // You can simulate faster / slower system, 0 = as fast as possible
 bool Headless       = true; // Disables window creation (useless without autoinput & video recording)
 bool EnableTimeTemp = true; // Enables substitution of $H:$M:$S and $TEMP in rendering
@@ -33,7 +34,9 @@ static unsigned PollInterval = 60; // If you use autoinput and nonzero timefacto
                                   // you can increase this number to eliminate some syscalls.
                                   // Otherwise keep it as 1.
 static unsigned VideoFrameRateDownSampleFactor = 4; // Use powers of 2 only
+static bool Allow_Windows_Bigger_Than_Desktop = true;
 #elif 0
+// Settings for *testing* autoinput videos...
 static double TimeFactor = 0.0; // You can simulate faster / slower system, 0 = as fast as possible
 bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
 bool EnableTimeTemp = true; // Enables substitution of $H:$M:$S and $TEMP in rendering
@@ -46,7 +49,9 @@ static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor
                                   // you can increase this number to eliminate some syscalls.
                                   // Otherwise keep it as 1.
 static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
+static bool Allow_Windows_Bigger_Than_Desktop = true;
 #else
+// Settings for using terminal normally
 static double TimeFactor = 1.0; // You can simulate faster / slower system, 0 = as fast as possible
 bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
 bool EnableTimeTemp = false; // Enables substitution of $H:$M:$S and $TEMP in rendering
@@ -59,11 +64,11 @@ static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor
                                   // you can increase this number to eliminate some syscalls.
                                   // Otherwise keep it as 1.
 static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
-#endif
-
 // Allow windows bigger than desktop? Setting this "true"
 // also disables reacting to window resizes.
 static bool Allow_Windows_Bigger_Than_Desktop = false;
+#endif
+
 
 
 unsigned VidCellWidth = 8, VidCellHeight = 12, WindowWidth  =129, WindowHeight = 40;
@@ -629,8 +634,8 @@ int main()
                                     case SDLK_F5: if(VidCellHeight > 5) --VidCellHeight; resized = true; break;
                                     case SDLK_F6: if(VidCellHeight < 32) ++VidCellHeight; resized = true; break;
                                     // Allow widths 6, 8 and 9
-                                    case SDLK_F7: if(VidCellWidth > 4) --VidCellWidth; resized = true; break;
-                                    case SDLK_F8: if(VidCellWidth < 18) ++VidCellWidth; resized = true; break;
+                                    case SDLK_F7: if(VidCellWidth > 4)  --VidCellWidth; resized = true; break;
+                                    case SDLK_F8: if(VidCellWidth < 24) ++VidCellWidth; resized = true; break;
                                     case SDLK_F9:
                                         if(ScaleY >= 2) --ScaleY;
                                         else             ScaleY = ScaleY/std::sqrt(2.f);

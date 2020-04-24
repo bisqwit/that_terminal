@@ -39,7 +39,7 @@ static void PrintRanges(
     std::pair<unsigned,bool>(*find_fake)(char32_t))
 {
     // start bitmap
-    unsigned yc = 0, widest = 0, dfl_width = 64;
+    unsigned yc = 0, widest = 0, dfl_width = 256;
     std::vector<unsigned> pixels(dfl_width*width*(height+1));
     auto BitmapEndl = [&]() { ++yc; pixels.resize(dfl_width*width * ((height==5) ? 6 : height)*(yc+1)); };
     auto BitmapPrintCh = [&](unsigned xc, const unsigned char* bm, unsigned glyph, unsigned color)
@@ -70,6 +70,7 @@ static void PrintRanges(
         char buf[64];
         std::sprintf(buf, "coverage-%ux%u-%u.png", width,height, bitmap_index);
         //if(width == 8 && height == 16)
+        fprintf(stderr, "Creating %s (%ux%u cells)\n", buf, widest,yc);
         {
             std::FILE* fp = std::fopen((std::string("../doc/")+buf).c_str(), "wb");
             unsigned hei = (height==5) ? 6 : height;
@@ -105,10 +106,16 @@ static void PrintRanges(
     {
         if(title_printed) { title_printed = false; BitmapEndl(); }
         unsigned span = 32;
-        if(begin         == 0xAC00)
+        if(begin == 0xAC00) // Korean
         {
             span = 28;
         }
+        if(begin == 0x4E00 || begin == 0x3400 || (begin >= 0x20000 && begin <= 0x30000)) // CJK ideographs
+        {
+            span = 64; // Limited by ok1/ok2 bitness
+        }
+
+        bool something = false;
         for(unsigned index=begin; index<end; index+=span)
         {
             unsigned long ok1 = 0, ok2 = 0;
@@ -152,19 +159,25 @@ static void PrintRanges(
 
                 for(std::size_t p=0; p<str.size(); ++p)
                 {
-                    if(p < color_start)
+                    if(p < color_start || p == str.size()-1)
                         BitmapPrintCh(p, bitmap_fake, find_fake(str[p]).first, 0xFFFFFF);
                     else if(ok1 & (1u << (p-color_start)))
                         BitmapPrintCh(p, bitmap_real, find_real(str[p]).first, 0xFFFFFF);
                     else if(ok2 & (1u << (p-color_start)))
                         BitmapPrintCh(p, bitmap_fake, find_fake(str[p]).first, 0xBB7733);
                     else
-                        BitmapPrintCh(p, (const unsigned char*)"\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377",
+                        BitmapPrintCh(p,
+                            (const unsigned char*)"\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377\377",
                                          0,
                                          0x000022);
                 }
                 BitmapEndl();
+                something = true;
             }
+        }
+        if(!something)
+        {
+            std::fprintf(stderr, "Font has nothing in 0x%X..0x%X range\n", begin,end);
         }
     }
     BitmapFlush();

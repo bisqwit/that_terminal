@@ -26,6 +26,8 @@ CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
 # for forkpty:
 LDLIBS   += -lutil
 
+#CPPFLAGS += -g
+
 OBJS=\
 	tty/terminal.o \
 	tty/forkpty.o \
@@ -34,6 +36,7 @@ OBJS=\
 	rendering/person.o \
 	rendering/color.o \
 	rendering/cset.o \
+	rendering/font.o \
 	beeper.o \
 	main.o \
 	ctype.o \
@@ -49,24 +52,69 @@ term: $(OBJS)
 rendering/fonts/table-packer: rendering/fonts/table-packer.o ctype.o rendering/fonts/dijkstra.hh
 	$(CXX) -std=c++17 -o "$@" "$<" ctype.o -Ofast $(CPPFLAGS) -march=native -fopenmp
 
-FONTS= \
-	rendering/fonts/data/10x20.bdf \
-	rendering/fonts/data/12x13ja.bdf \
-	rendering/fonts/data/18x18ja.bdf \
-	rendering/fonts/data/18x18ko.bdf \
-	rendering/fonts/data/4x5.bdf \
-	rendering/fonts/data/4x6.bdf \
-	rendering/fonts/data/5x7.bdf \
-	rendering/fonts/data/5x8.bdf \
-	rendering/fonts/data/6x10.bdf \
-	rendering/fonts/data/6x12.bdf \
-	rendering/fonts/data/6x13.bdf \
-	rendering/fonts/data/6x9.bdf \
-	rendering/fonts/data/7x13.bdf \
-	rendering/fonts/data/7x14.bdf \
-	rendering/fonts/data/8x13.bdf \
-	rendering/fonts/data/9x15.bdf \
-	rendering/fonts/data/9x18.bdf \
+
+
+# IBM fonts (CGA/EGA/VGA)
+IBMFONTS= \
+	rendering/fonts/data/ib8x8u.bdf \
+	rendering/fonts/data/ie8x14u.bdf \
+	rendering/fonts/data/iv8x16u.bdf \
+	rendering/fonts/data/vga8x19.bdf
+
+# Mona fonts. License: PD
+MONAFONTS= \
+	rendering/fonts/data/mona6x12r.bdf \
+	rendering/fonts/data/mona7x14r.bdf \
+	rendering/fonts/data/monak12.bdf \
+	rendering/fonts/data/monak14.bdf
+
+# Unifont: Copyright (C) 1998-2019 Roman Czyborra, Paul Hardy, Qianqian Fang, Andrew Miller, Johnnie Weaver,
+# David Corbett, et al. License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>
+# with the GNU Font Embedding Exception.
+UNIFONTS= \
+	rendering/fonts/data/unifont-csur.bdf
+
+# CMEX: Dynalab Ming, modified by 趙惟倫and 趙惟倫, PD
+# GB: Song Ti, Copyright (c) 1988  The Institute of Software, Academia Sinica.
+CHINESEFONTS= \
+	rendering/fonts/data/cmex24m.bdf \
+	rendering/fonts/data/gb16st.bdf \
+	rendering/fonts/data/gb24st.bdf
+
+# Misaki: Misaki Gothic, Copyright (C) 2002-2019 Num Kadoma. Unlimited permission/no warranty.
+JAPANESEFONTS= \
+	rendering/fonts/data/misakig2.bdf \
+	rendering/fonts/data/f12.bdf \
+	rendering/fonts/data/f14.bdf
+
+# Traditional Linux 8-bit consolefonts.
+CONSOLEFONTS_OLD= \
+	rendering/fonts/data/iso01.f08.psf.gz \
+	rendering/fonts/data/iso01.f14.psf.gz \
+	rendering/fonts/data/iso01.f16.psf.gz \
+	rendering/fonts/data/iso07.f08.psf.gz \
+	rendering/fonts/data/iso07.f14.psf.gz \
+	rendering/fonts/data/iso07.f16.psf.gz \
+	rendering/fonts/data/iso08.f08.psf.gz \
+	rendering/fonts/data/iso08.f14.psf.gz \
+	rendering/fonts/data/iso08.f16.psf.gz \
+	rendering/fonts/data/lat1-08.psf.gz \
+	rendering/fonts/data/lat1-10.psf.gz \
+	rendering/fonts/data/lat1-12.psf.gz \
+	rendering/fonts/data/lat1-14.psf.gz \
+	rendering/fonts/data/lat1-16.psf.gz \
+	rendering/fonts/data/lat2-08.psf.gz \
+	rendering/fonts/data/lat2-10.psf.gz \
+	rendering/fonts/data/lat2-12.psf.gz \
+	rendering/fonts/data/lat2-14.psf.gz \
+	rendering/fonts/data/lat2-16.psf.gz \
+	rendering/fonts/data/lat4-10.psf.gz \
+	rendering/fonts/data/lat4-12.psf.gz \
+	rendering/fonts/data/lat9-10.psf.gz \
+	rendering/fonts/data/lat9-12.psf.gz
+
+# Unicode-aware Linux consolefonts.
+CONSOLEFONTS_NEW= \
 	rendering/fonts/data/Arabic-VGA16.psf.gz \
 	rendering/fonts/data/Arabic-VGA32x16.psf.gz \
 	rendering/fonts/data/Arabic-VGA8.psf.gz \
@@ -90,37 +138,6 @@ FONTS= \
 	rendering/fonts/data/FullGreek-VGA8.psf.gz \
 	rendering/fonts/data/Hebrew-VGA16.psf.gz \
 	rendering/fonts/data/Hebrew-VGA32x16.psf.gz \
-	rendering/fonts/data/ib8x8u.bdf \
-	rendering/fonts/data/ie8x14u.bdf \
-	rendering/fonts/data/iso01.f08.psf.gz \
-	rendering/fonts/data/iso01.f14.psf.gz \
-	rendering/fonts/data/iso01.f16.psf.gz \
-	rendering/fonts/data/iso07.f08.psf.gz \
-	rendering/fonts/data/iso07.f14.psf.gz \
-	rendering/fonts/data/iso07.f16.psf.gz \
-	rendering/fonts/data/iso08.f08.psf.gz \
-	rendering/fonts/data/iso08.f14.psf.gz \
-	rendering/fonts/data/iso08.f16.psf.gz \
-	rendering/fonts/data/iv8x16u.bdf \
-	rendering/fonts/data/lat1-08.psf.gz \
-	rendering/fonts/data/lat1-10.psf.gz \
-	rendering/fonts/data/lat1-12.psf.gz \
-	rendering/fonts/data/lat1-14.psf.gz \
-	rendering/fonts/data/lat1-16.psf.gz \
-	rendering/fonts/data/lat2-08.psf.gz \
-	rendering/fonts/data/lat2-10.psf.gz \
-	rendering/fonts/data/lat2-12.psf.gz \
-	rendering/fonts/data/lat2-14.psf.gz \
-	rendering/fonts/data/lat2-16.psf.gz \
-	rendering/fonts/data/lat4-10.psf.gz \
-	rendering/fonts/data/lat4-12.psf.gz \
-	rendering/fonts/data/lat9-10.psf.gz \
-	rendering/fonts/data/lat9-12.psf.gz \
-	rendering/fonts/data/misakig2.bdf \
-	rendering/fonts/data/mona6x12r.bdf \
-	rendering/fonts/data/mona7x14r.bdf \
-	rendering/fonts/data/monak12.bdf \
-	rendering/fonts/data/monak14.bdf \
 	rendering/fonts/data/Uni1-VGA14.psf.gz \
 	rendering/fonts/data/Uni1-VGA16.psf.gz \
 	rendering/fonts/data/Uni1-VGA28x16.psf.gz \
@@ -140,9 +157,39 @@ FONTS= \
 	rendering/fonts/data/Uni3-TerminusBold24x12.psf.gz \
 	rendering/fonts/data/Uni3-TerminusBold28x14.psf.gz \
 	rendering/fonts/data/Uni3-TerminusBoldVGA14.psf.gz \
-	rendering/fonts/data/Uni3-TerminusBoldVGA16.psf.gz \
-	rendering/fonts/data/unifont-csur.bdf \
-	rendering/fonts/data/vga8x19.bdf \
+	rendering/fonts/data/Uni3-TerminusBoldVGA16.psf.gz
+
+# Xorg Misc-Fixed fonts, PD
+# Technically 4x5 (micro) and 4x6 are not part of misc-fixed.
+MISCFIXEDFONTS = \
+	rendering/fonts/data/4x5.bdf \
+	rendering/fonts/data/4x6.bdf \
+	rendering/fonts/data/5x7.bdf \
+	rendering/fonts/data/5x8.bdf \
+	rendering/fonts/data/6x10.bdf \
+	rendering/fonts/data/6x12.bdf \
+	rendering/fonts/data/6x13.bdf \
+	rendering/fonts/data/6x9.bdf \
+	rendering/fonts/data/7x13.bdf \
+	rendering/fonts/data/7x14.bdf \
+	rendering/fonts/data/8x13.bdf \
+	rendering/fonts/data/9x15.bdf \
+	rendering/fonts/data/9x18.bdf \
+	rendering/fonts/data/10x20.bdf \
+	rendering/fonts/data/12x13ja.bdf \
+	rendering/fonts/data/18x18ja.bdf \
+	rendering/fonts/data/18x18ko.bdf
+
+
+FONTS= \
+	$(IBMFONTS) \
+	$(MISCFIXEDFONTS) \
+	$(MONAFONTS) \
+	$(UNIFONTS) \
+	$(CONSOLEFONTS_OLD) \
+	$(CONSOLEFONTS_NEW) \
+	$(CHINESEFONTS) \
+	$(JAPANESEFONTS) \
 
 rendering/fonts/similarities.dat: rendering/fonts/make-similarities.php rendering/fonts/UnicodeData.txt
 	(cd rendering/fonts; php make-similarities.php > similarities.dat)
@@ -188,29 +235,23 @@ doc/fonts.md: doc/fonts.md.tmp doc/fonts.md.tmp2 doc/fonts.md.tmp3
 	cat "$@".tmp "$@".tmp2 "$@".tmp3 > "$@"
 	rm -f "$@".tmp "$@".tmp2 "$@".tmp3
 
-compress1: ;
-	parallel -j40 advdef -z4 -i65536 -- rendering/fonts/data/.tran-*
-	for s in rendering/fonts/data/.tran-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
-compress2: ;
-	parallel -j40 advdef -z4 -i65536 -- rendering/fonts/data/.1tran-*
-	for s in rendering/fonts/data/.1tran-*;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
-compress12: ;
-	parallel -j40 advdef -z4 -i65536 -- \
-	         rendering/fonts/data/.1tran-* \
-	         rendering/fonts/data/.tran-* \
-	;
-	for s in \
-	         rendering/fonts/data/.1tran-* \
-	         rendering/fonts/data/.tran-* \
-	;do ln "$$s" tmp.gz && DeflOpt tmp.gz;rm tmp.gz;done
-
-compress3: ;
-	parallel -j45 \
-		sh -c 'for s in 1 2 3 4 5 6 7 8 9 10 11 12 13;do \
-			optipng -o7 $$0 ; \
-			pngout -c3 -n$$s $$0; \
-		done ; \
-		advpng -z4 -i8192 $$0 ; DeflOpt $$0' \
-		-- doc/coverage-*.png
+compress12:
+	parallel -j45 util/compressor.sh -- \
+	`echo \
+		rendering/fonts/data/.tran-* \
+		rendering/fonts/data/.1tran-* \
+	`
+compress3:
+	parallel -j45 util/compressor.sh -- \
+	`echo \
+		doc/coverage-*.png \
+	`
+compress123:
+	parallel -j45 util/compressor.sh -- \
+	`echo \
+		rendering/fonts/data/.tran-* \
+		rendering/fonts/data/.1tran-* \
+		doc/coverage-*.png \
+	`
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))

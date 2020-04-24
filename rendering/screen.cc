@@ -1,7 +1,5 @@
 #include <unordered_map>
-#include <tuple>
 #include <array>
-#include <cassert>
 #include <thread>
 
 #include "screen.hh"
@@ -10,20 +8,7 @@
 #include "clock.hh"
 #include "settings.hh"
 #include "ctype.hh"
-
-namespace realfonts
-{
-    #include "fonts-authentic.inc"
-}
-namespace fakefonts
-{
-    #include "fonts.inc"
-}
-#define NS1 fakefonts::
-#define NS2 realfonts::
-#include "fonts-list.inc"
-#undef NS1
-#undef NS2
+#include "font.hh"
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
@@ -68,63 +53,7 @@ static constexpr std::array<unsigned char,16> taketables[] =
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
-    auto FindFont = [](std::size_t fx, std::size_t fy)
-    {
-        std::size_t actual_fx = fx, actual_fy = fy;
-
-        auto i = fonts.find(actual_fx*256 + actual_fy);
-        if(i == fonts.end())
-        {
-            int worst = 0;
-            for(auto j = fonts.begin(); j != fonts.end(); ++j)
-            {
-                std::size_t jx = j->first / 256, jy = j->first % 256;
-                int wdiff = std::abs(int(jx - fx));
-                int hdiff = std::abs(int(jy - fy));
-                int diff = wdiff*wdiff + hdiff*hdiff;
-                bool good = diff < worst;
-                if(diff == worst)
-                {
-                    if(jx <= fx && jy <= fy) good = true;
-                }
-                if(!worst || good)
-                {
-                    i     = j;
-                    worst = diff;
-                }
-            }
-            assert(i != fonts.end()); if(i == fonts.end()) i = fonts.begin();
-            actual_fx = i->first / 256;
-            actual_fy = i->first % 256;
-        }
-
-        auto [font,map,realmap] = i->second;
-
-        std::size_t font_row_size_in_bytes = (actual_fx+7)/8;
-        std::size_t character_size_in_bytes = font_row_size_in_bytes*actual_fy;
-
-        return std::tuple{actual_fx,actual_fy, font,map,realmap,
-                          font_row_size_in_bytes,
-                          character_size_in_bytes};
-    };
-    auto [actual_fx, actual_fy, font, map,realmap,
-          font_row_size_in_bytes, character_size_in_bytes]
-            = FindFont(fx, fy);
-    // For the secondary map, choose one of these:
-    //    8x8  (misaki, adds Japanese (JIS))
-    //   12x12 (mona, adds Japanese (JIS))
-    //   12x13 (misc, adds Japanese)
-    //   14x14 (mona, adds Japanese (JIS))
-    //   16x16 (unifont, adds everything)
-    //   18x18 (misc, adds Japanese and Korean)
-    auto [actual_fx2,actual_fy2,font2,map2,realmap2,
-          font_row_size_in_bytes2,character_size_in_bytes2]
-            = std::apply(FindFont, (fy>16)           ? std::tuple<int,int>{18,18}
-                                 : (fx>=8 && fy>=15) ? std::tuple<int,int>{16,16}
-                                 : (fx<6)            ? std::tuple<int,int>{8,8}
-                                 : (fy>=14)          ? std::tuple<int,int>{14,14}
-                                 : (fy<=12)          ? std::tuple<int,int>{12,12}
-                                 :                     std::tuple<int,int>{12,13});
+    FontHandler fonthandler = LoadFont(fx,fy);
 
     unsigned timer = unsigned(GetTime() * 60.0);
     bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
@@ -221,7 +150,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
         if(EnableTimeTemp)
         {
-            char time[16], temp[16], temp1[]="+5.0";
+            char time[16], temp[16], temp1[]="+13.0";
             unsigned t = GetTime() + 15*3600;
             std::sprintf(time, "%02d:%02d:%02d", t/3600, (t/60)%60, t%60);
             std::sprintf(temp, "%5s", temp1);
@@ -275,47 +204,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 auto char_to_render = cell.ch;
                 if(auto i = substitutions.find(y * xsize + x); i != substitutions.end())
                     char_to_render = i->second;
-
-                // Character-set translation
-                auto use_fx = actual_fx;
-                auto use_fy = actual_fy;
-                auto use_charsize = character_size_in_bytes;
-                auto use_fontsize = font_row_size_in_bytes;
-                auto use_font = font;
-
                 bool was_double = isdouble(char_to_render);
-                if(was_double)
-                {
-                    xscale *= 2;
-                    width  *= 2;
-                }
-
-                auto [translated_ch, avail] = map(char_to_render);
-
-                // If there is no alt font, take everything from that font.
-                // For double-width characters, try real characters only from first font
-                //   If there is no real character in primary font, try approximation from second font
-                //   If not available there either, use approximation from first font.
-                // For single-width characters, try approximation from first font
-                //   And if not available, try the wide font next.
-                if(font2 != font
-                && (was_double ? !realmap(char_to_render).second : !avail))
-                {
-                    if(auto [t2, avail2] = map2(char_to_render); avail2)
-                    {
-                        translated_ch = t2;
-                        avail = avail2;
-                        use_fx = actual_fx2;
-                        use_fy = actual_fy2;
-                        use_charsize = character_size_in_bytes2;
-                        use_fontsize = font_row_size_in_bytes2;
-                        use_font = font2;
-                        if(was_double)
-                        {
-                            xscale /= 2;
-                        }
-                    }
-                }
+                if(was_double) width *= 2;
 
                 bool cursorloc      = y == cursy     && (x == cursx     || (was_double && cursx     == x+1));
                 bool prev_cursorloc = y == lastcursy && (x == lastcursx || (was_double && lastcursx == x+1));
@@ -341,35 +231,13 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     }
                 }
 
-                unsigned fr_actual = fr * use_fy / fy;
+                unsigned fr_actual = fr;
                 switch(cell.render_size)
                 {
                     default: break;
                     case 2: fr_actual /= 2; break;
                     case 3: fr_actual /= 2; fr_actual += fy/2; break;
                 }
-
-                const unsigned char* fontptr =
-                    use_font + translated_ch * use_charsize
-                             + fr_actual * use_fontsize;
-
-                bool dim = cell.dim && (use_fx >= 7);
-                // Disable dim on fonts narrower than 7,
-                // because it makes them look bad.
-
-                const unsigned mode = cell.italic*(fr*8/fy)
-                                    + 8*cell.bold
-                                    + 16*dim;
-
-                unsigned widefont = fontptr[0];
-                if(use_fx > 8)  {widefont |= (fontptr[1] << 8);
-                if(use_fx > 16) {widefont |= (fontptr[2] << 16);
-                if(use_fx > 24) {widefont |= (fontptr[3] << 24);}}}
-
-                if(!cell.italic) widefont <<= 1;
-
-                if(cell.blink == 1 && !cur_blink1) widefont = 0;
-                if(cell.blink == 2 && !cur_blink2) widefont = 0;
 
                 bool line = (cell.underline && (fr == (fy-1)))
                          || (cell.underline2 && (fr == (fy-1) || fr == (fy-3)))
@@ -416,6 +284,21 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                     cursor_seen = true;
                 }
 
+                bool is_bold = true;
+                unsigned long widefont = 0;
+                /**/ if(cell.blink == 1 && !cur_blink1) {}
+                else if(cell.blink == 2 && !cur_blink2) {}
+                else { auto r = fonthandler.LoadGlyph(char_to_render, fr_actual, width);
+                       widefont = r.bitmap;
+                       is_bold  = r.bold; }
+
+                unsigned shift = 2 + !cell.italic;
+                bool dim = cell.dim && is_bold; // Disable dim on non-bold fonts, because it makes them look bad.
+
+                const unsigned mode = cell.italic*(fr*8/fy)
+                                    + 8*cell.bold
+                                    + 16*dim;
+
                 for(std::size_t fc=0; fc<width; ++fc)
                 {
                     auto fg    = cell.fgcolor;
@@ -426,13 +309,11 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                         std::swap(fg, bg);
                     }
 
-                    std::size_t fontcolumn = fc/xscale;
-                    if(use_font == font2 && font != font2)
-                    {
-                        fontcolumn = fontcolumn * use_fx / width;
-                    }
+                    // taketables requires four consecutive bits from the font:
+                    // previous, current, next and next2.
+                    // <<2 is so that we can get previous pixel, and also not do -1 in width-1-fc
 
-                    unsigned mask = ((widefont << 2) >> (use_fx - fontcolumn)) & 0xF;
+                    unsigned mask = ((widefont << shift) >> (width - fc)) & 0xF;
                     int take = taketables[mode][mask];
                     unsigned untake = std::max(0,128-take);
                     unsigned pre_bg = bg, pre_fg = fg;
@@ -465,11 +346,11 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                             color = Mix(0xFFFFFF, color, 1,1,2);
                     }
 
-                    if(color && use_fx < fx)
+                    /*if(color && use_fx < fx)
                     {
                         // Make brighter to compensate for black 9th column
                         color = Mix(0xFFFFFF, color, fx-use_fx,use_fx, fx);
-                    }
+                    }*/
 
                     if(fc >= sb_begin && fc < sb_end && (((x*width+fc)^(y*fy+fr))&1))
                         color ^= sb_xormask;
