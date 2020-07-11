@@ -288,6 +288,8 @@ void AutoInputProvider(std::u32string& s)
                 if(TimeHackActive) use_speed = std::min(2u, use_speed);
 #endif
                 unsigned delay = factor * use_speed / 16;
+                if(use_speed == 1) delay /= 50;
+
                 SleepFor(delay/1e3);
                 prev_key = s[pos];
                 std::string str = ToUTF8(std::u32string(1, s[pos]));
