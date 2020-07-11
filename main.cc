@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 
+#include "share.hh"
 #include "settings.hh"
 #include "autoinput.hh"
 #include "terminal.hh"
@@ -465,8 +466,15 @@ namespace
     }
 }
 
-int main()
+#include <iostream>
+extern void ReadFonts(std::ostream& out);
+
+int main(int argc, char** argv)
 {
+    SaveArg0(argv[0]);
+    ReadFonts(std::cout);
+    return 0;
+
     SetTimeFactor(TimeFactor);
 
     //SDL_Init(SDL_INIT_EVERYTHING);

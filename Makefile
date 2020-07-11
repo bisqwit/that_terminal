@@ -7,7 +7,7 @@ CXXFLAGS += -Ofast
 
 CXXFLAGS += -fopenmp
 
-CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts
+CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts -Ifile -Iutil/TinyDeflate -Iutil
 
 CXXFLAGS += $(shell pkg-config sdl2 --cflags)
 LDLIBS   += $(shell pkg-config sdl2 --libs)
@@ -37,6 +37,10 @@ OBJS=\
 	rendering/color.o \
 	rendering/cset.o \
 	rendering/font.o \
+	rendering/fonts/make_similarities.o \
+	rendering/fonts/read_fonts.o \
+	rendering/fonts/read_font.o \
+	file/share.o \
 	beeper.o \
 	main.o \
 	ctype.o \
@@ -196,6 +200,7 @@ rendering/fonts/similarities.dat: rendering/fonts/make-similarities.php renderin
 rendering/fonts/similarities.inc: rendering/fonts/make-similarities2.php rendering/fonts/similarities.dat
 	(cd rendering/fonts; php make-similarities2.php > similarities.inc)
 
+define dummy
 rendering/fonts.inc: rendering/fonts/make.php rendering/fonts/similarities.inc \
 		rendering/fonts/table-packer \
 		rendering/fonts/read_font.php \
@@ -212,6 +217,7 @@ rendering/fonts-authentic.inc: rendering/fonts/make.php rendering/fonts/similari
 		$(FONTS)
 	(cd rendering/fonts; php make.php 1  2>inc-files2.dat \
 		| sed 's@//.*@@' |grep . > ../fonts-authentic.inc)
+endef
 
 util/make-fonts-list: util/make-fonts-list.cc ctype.o \
 		rendering/fonts.inc rendering/fonts-authentic.inc \

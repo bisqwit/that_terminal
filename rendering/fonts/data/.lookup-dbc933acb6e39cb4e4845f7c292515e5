@@ -1,3 +1,0 @@
-unsigned lookup(unsigned index) {
-return ((index*1) + 0);
-}
