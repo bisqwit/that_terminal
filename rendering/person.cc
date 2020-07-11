@@ -153,12 +153,18 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
 
     unsigned scrx = x;
     unsigned basex = PersonBaseX(width);
+#ifdef CLOCK_BACKWARDS
+    basex = width - basex;
+#endif
     x -= basex;
     // Person outside view?
     if(x >= person_width)
     {
         return;
     }
+#ifdef CLOCK_BACKWARDS
+    x = person_width-1-x;
+#endif
 
     unsigned frame_number = PersonFrame();
     unsigned frame_start  = xcoordinates[frame_number];

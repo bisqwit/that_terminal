@@ -150,8 +150,13 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
         if(EnableTimeTemp)
         {
-            char time[16], temp[16], temp1[]="+13.0";
+            char time[16], temp[16], temp1[]="+26.7"; // °C, celsius, degC
+
+#ifdef CLOCK_BACKWARDS
+            unsigned t = 19*3600 - GetTime();
+#else
             unsigned t = GetTime() + 15*3600;
+#endif
             std::sprintf(time, "%02d:%02d:%02d", t/3600, (t/60)%60, t%60);
             std::sprintf(temp, "%5s", temp1);
             for(std::size_t y=0; y<ysize; ++y) // cell-row
