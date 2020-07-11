@@ -50,6 +50,38 @@ static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor
                                   // Otherwise keep it as 1.
 static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
 static bool Allow_Windows_Bigger_Than_Desktop = true;
+#elif 0
+// Settings for *testing* autoinput videos... *quicker*
+static double TimeFactor = 0.0; // You can simulate faster / slower system, 0 = as fast as possible
+bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
+bool EnableTimeTemp = true; // Enables substitution of $H:$M:$S and $TEMP in rendering
+bool AllowAutoInput = true; // If enabled, reads inputter.dat and streams that into console
+bool DoVideoRecording = true; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
+bool IgnoreScale    = false;
+static double SimulatedFrameRate = 60; // Defines the time step for autoinput
+static double VideoFrameRate = 30;     // Defines the video recording framerate
+static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor,
+                                  // you can increase this number to eliminate some syscalls.
+                                  // Otherwise keep it as 1.
+static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
+static bool Allow_Windows_Bigger_Than_Desktop = true;
+#elif 0
+// Settings for create videos manually using the terminal
+static double TimeFactor = 1.0; // You can simulate faster / slower system, 0 = as fast as possible
+bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
+bool EnableTimeTemp = true; // Enables substitution of $H:$M:$S and $TEMP in rendering
+bool AllowAutoInput = false; // If enabled, reads inputter.dat and streams that into console
+bool DoVideoRecording = true; // Needs ffmpeg, creates files as .term_videos/frame*.mp4
+bool IgnoreScale    = false;
+static double SimulatedFrameRate = 60; // Defines the time step for autoinput
+static double VideoFrameRate = 60;     // Defines the video recording framerate
+static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor,
+                                  // you can increase this number to eliminate some syscalls.
+                                  // Otherwise keep it as 1.
+static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
+// Allow windows bigger than desktop? Setting this "true"
+// also disables reacting to window resizes.
+static bool Allow_Windows_Bigger_Than_Desktop = false;
 #else
 // Settings for using terminal normally
 static double TimeFactor = 1.0; // You can simulate faster / slower system, 0 = as fast as possible
@@ -208,22 +240,32 @@ namespace
             else rect.h = line+1-rect.y;
         };
         bool rendered = false;
+        bool dummy_video = false;//GetTime() < 16*60;
         auto DoRendering = [&]()
         {
-            wnd.Render(VidCellWidth,VidCellHeight, &pixbuf[0]);
-            for(unsigned y=0; y<cells_vert*VidCellHeight; ++y)
-                RenderAddLine(y);
-
-            RenderFlushLines();
-            if(!Headless)
+            if(dummy_video)
             {
-                if(rect.y) { SDL_RenderPresent(renderer); }
+            }
+            else
+            {
+                wnd.Render(VidCellWidth,VidCellHeight, &pixbuf[0]);
+                for(unsigned y=0; y<cells_vert*VidCellHeight; ++y)
+                    RenderAddLine(y);
+
+                RenderFlushLines();
+                if(!Headless)
+                {
+                    if(rect.y) { SDL_RenderPresent(renderer); }
+                }
             }
             rendered = true;
         };
         //std::fprintf(stderr, "\rFR at %10.6f", GetTime());
 
-        if(!DoVideoRecording || !Headless) DoRendering();
+        if(!DoVideoRecording || !Headless)
+        {
+            DoRendering();
+        }
         if(DoVideoRecording)
         {
             double fps = VideoFrameRate;
@@ -318,7 +360,13 @@ namespace
                 }
             };
 
-            if(pwidth != bufpixels_width || pheight != bufpixels_height)
+            unsigned targetwidth = bufpixels_width, targetheight = bufpixels_height;
+            if(dummy_video)
+            {
+                targetwidth  = 256;
+                targetheight = 144;
+            }
+            if(pwidth != targetwidth || pheight != targetheight)
             {
                 if(!fp && !buffer.empty())
                 {
@@ -341,7 +389,7 @@ namespace
                             ++frames_done;
                         }
                         std::fprintf(stderr, "\33[1mWrote %lu frames (%zd bytes)\33[m\n",
-                            (unsigned long)frr, std::ftell(fp));
+                            (unsigned long)frr, std::ftell(f));
                         pclose(f);
                     });
                     while(!ent) std::this_thread::sleep_for(std::chrono::duration<float>(.1f));
@@ -352,8 +400,8 @@ namespace
                     frames_thisfile = 0;
                 }
 
-                pwidth  = bufpixels_width;
-                pheight = bufpixels_height;
+                pwidth  = targetwidth;
+                pheight = targetheight;
 
                 buffer.clear();
             }
@@ -368,6 +416,8 @@ namespace
                 {
                     do_at_least_one = true;
                 }
+                unsigned words = pwidth*pheight;
+                unsigned bytes = words*sizeof(std::uint32_t);
 
                 //bool flag = false;
                 for(; frames_done < frames_should || do_at_least_one; ++frames_done, ++frames_thisfile)
@@ -384,7 +434,7 @@ namespace
                         prev = clock;
                     }
 
-                    if(!fp && buffer.size() >= pixbuf.size()*sizeof(std::uint32_t)*16)
+                    if(!fp && buffer.size() >= bytes*16)
                     {
                         //unsigned swidth  = pwidth  * std::max(1u, (3840+pwidth-1)/pwidth);
                         //unsigned sheight = pheight * std::max(1u, (2160+pheight-1)/pheight);
@@ -394,7 +444,7 @@ namespace
                         Open(false);
                     }
 
-                    lastframe.assign((char*)&pixbuf[0], (char*)(&pixbuf[0]+pixbuf.size()));
+                    lastframe.assign((char*)&pixbuf[0], (char*)(&pixbuf[0]+words));
                     if(fp)
                     {
                         if(!buffer.empty())
@@ -402,11 +452,11 @@ namespace
                             SafeWrite(&buffer[0], 1, buffer.size(), fp);
                             buffer.clear();
                         }
-                        SafeWrite(&pixbuf[0], sizeof(std::uint32_t), pixbuf.size(), fp);
+                        SafeWrite(&pixbuf[0], sizeof(std::uint32_t), words, fp);
                     }
                     else
                     {
-                        buffer.insert(buffer.end(), (char*)&pixbuf[0], (char*)(&pixbuf[0]+pixbuf.size()));
+                        buffer.insert(buffer.end(), (char*)&pixbuf[0], (char*)(&pixbuf[0]+words));
                     }
                     do_at_least_one = false;
                 }
