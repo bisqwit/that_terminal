@@ -21,7 +21,8 @@ static struct
     double FakeTime   = 0.0;
     std::mutex              lk;
     std::condition_variable updated;
-    double Waiting = 0;
+    double Waiting    = 0;
+    bool   Terminated = false;
 } data;
 
 static thread_local double LastTime = 0.0;
@@ -62,7 +63,7 @@ void SleepFor(double seconds)
             data.Waiting = until;
             if(data.FakeTime < until)
             {
-                data.updated.wait(lock, [&]{ return data.FakeTime >= until; });
+                data.updated.wait(lock, [&]{ return data.FakeTime >= until || data.Terminated; });
             }
             data.Waiting = 0;
         }
@@ -72,4 +73,10 @@ void SleepFor(double seconds)
 void SetTimeFactor(double factor)
 {
     data.TimeFactor = factor;
+}
+void TimeTerminate()
+{
+    data.Terminated = true;
+    {std::unique_lock<std::mutex> lock(data.lk);}
+    data.updated.notify_all();
 }

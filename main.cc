@@ -717,6 +717,7 @@ int main()
         SDL_ReDraw(wnd);
     }
     AutoInputEnd();
+    TimeTerminate();
     tty.Kill(SIGHUP);
     tty.Close();
     SDL_Quit();
