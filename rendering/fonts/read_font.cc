@@ -1,6 +1,7 @@
 #include <regex>
 #include <fstream>
 #include <iostream>
+#include <unordered_map>
 
 #include "read_font.hh"
 #include "gunzip.hh"
@@ -14,6 +15,117 @@ static std::regex operator ""_r(const char* pattern, std::size_t length)
 {
     return std::regex(pattern,length);
 }
+
+/* Read a file in share/encodings/ that specifies character mapping for this encoding */
+static std::unordered_map<char32_t,char32_t> ReadEncoding(std::string_view filename)
+{
+    std::unordered_map<char32_t, char32_t> result;
+    auto [fn, status] = FindShareFile(std::filesystem::path("encodings") / std::filesystem::path(filename));
+    if(std::filesystem::exists(status))
+    {
+        std::ifstream f(fn);
+        auto delim = " \t"sv, hex = "0123456789ABCDEFabcdef"sv;
+        for(std::string line; std::getline(f,line), f; )
+            if(!line.empty() && line[0] != '#')
+            {
+                std::size_t space    = line.find_first_of(delim);
+                if(space == line.npos) continue;
+                std::size_t notspace = line.find_first_not_of(delim, space);
+                if(notspace == line.npos) continue;
+                std::size_t notdigit = line.find_first_not_of(hex, notspace);
+                if(notdigit == line.npos) notdigit = line.size();
+
+                result.emplace(std::stoi(std::string(line, 0, space), nullptr, 16),
+                               std::stoi(std::string(line, notspace, notdigit-notspace), nullptr, 16));
+            }
+        //std::sort(result.begin(), result.end());
+        //for(auto p: result)
+        //    std::printf("Enc %s 0x%X = 0x%X\n", filename.data(), (int)p.first,(int)p.second);
+    }
+    //else
+    //{
+    //    std::printf("%s does not exist\n", filename.data());
+    //}
+    return result;
+}
+
+std::vector<char32_t> BDFtranslateToUnicode(int index, std::string_view reg, std::string_view enc)
+{
+    if(index == -1) return {65533}; // notdef in ibmfonts
+
+    std::string regenc(reg);
+    if(!reg.empty() && !enc.empty()) regenc += '-';
+    regenc += enc;
+    for(char& c: regenc) if(c >= 'A' && c <= 'Z') c += 32; // tolower
+
+    char32_t result = index;
+    if(regenc == "iso10646-1"sv
+    || regenc == "iso-8859-1"sv)
+    {
+        result = index;
+    }
+    else if(regenc == "jisx0201.1976-0"sv)
+    {
+        if(index == 0x5C) result =  0xA5;
+        else if(index == 0x7E) result =  0x203E;
+        else if(index >= 0xA1) result =  index - 0xA1 + 0xFF61;
+        else result = index;
+    }
+    else
+    {
+        static std::unordered_map<std::string, std::unordered_map<char32_t,char32_t>> data;
+        auto i = data.find(regenc);
+        if(i == data.end())
+        {
+            i = data.emplace(regenc, ReadEncoding(regenc + ".txt")).first;
+        }
+        auto& translation = i->second;
+        /*
+        auto j = std::lower_bound(translation.begin(), translation.end(), index,
+                                  [](const auto& pair, char32_t value) { return pair.first < value; });
+        if(j != translation.end() && j->first == (char32_t)index)
+        {
+            result = j->second;
+            //std::printf("%s: 0x%X = 0x%X\n", regenc.c_str(), index, result);
+        }
+        */
+        auto j = translation.find(index);
+        if(j != translation.end())
+            result = j->second;
+    }
+    std::vector<char32_t> chars{ result };
+    static const unsigned short trans_00_to_1F[] = 
+    {
+        0x0000,0x263A,0x263B,0x2665,
+        0x2666,0x2663,0x2660,0x2022,
+        0x25D8,0x25CB,0x25D9,0x2642,
+        0x2640,0x266A,0x266B,0x263C,
+        0x25BA,0x25C4,0x2195,0x203C,
+        0x00B6,0x00A7,0x25AC,0x21A8,
+        0x2191,0x2193,0x2192,0x2190,
+        0x221F,0x2194,0x25B2,0x25BC,
+    };
+    static const unsigned short trans_7F_to_9F[] =
+    {
+        0x2302, // 7F house
+        // 81..8F follows CP/M plus character set (Amstrad CPC e.g.) but shifted 91..9F
+        // ⎺ ╵ ╶ └ ╷ │ ┌ ├ ╴ ┘ ─ ┴ ┐ ┤ ┬ ┼
+        0x23BA,0x2575,0x2576,0x2514,0x2577,0x2502,0x250C,0x251C,
+        0x2574,0x2518,0x2500,0x2534,0x2510,0x2524,0x252C,0x253C,
+        // 95..9F follows CP/M plus character set (Amstrad CPC e.g.) but shifted 85..8F
+        // ⎽ ╧ ╟ ╚ ╤ ║ ╔ ╠ ╢ ╝ ═ ╩ ╗ ╣ ╦ ╬
+        // Note that 91,92,94,98 are truncated *double* lines, which are not supported by unicode
+        0x25BD,0x2567,0x255F,0x255A,0x2564,0x2551,0x2554,0x2560,
+        0x2562,0x255D,0x2550,0x2569,0x2557,0x2563,0x2566,0x256C
+    };
+    if(/* result >= 0x00 &&*/ result <= 0x1F) chars.push_back(trans_00_to_1F[result]);
+    else if(result >= 0x7F && result <= 0x9F) chars.push_back(trans_7F_to_9F[result- 0x7F]);
+
+    if(index < 32 && result >= 32) chars.push_back(index);
+
+    return chars;
+}
+
 
 std::string ReadGZ(std::string_view filename)
 {
@@ -35,12 +147,11 @@ std::string ReadGZ(std::string_view filename)
             [&](unsigned char c) // out char
             {
                 result += char(c);
-            },
+            }/*,
             [&](std::size_t length, std::size_t offset) // window
             {
-                result.insert(result.end(),
-                              result.end()-offset, result.end()-offset + length);
-            });
+                result += std::string( result.end()-(offset+1), result.end()-(offset+1) + length );
+            }*/);
     return result;
 }
 
@@ -62,6 +173,10 @@ PSFheader ReadPSFheader(const char* data)
     {
         unsigned char mode  = data[2];
         unsigned char csize = data[3];
+        /* mode & 1: MODE512
+         * mode & 2: MODEHASTAB
+         * mode & 4: MODEHASSEQ
+         */
         return { (mode&1) ? 512u : 256u, // fontlen
                  (mode&6) != 0,          // hastable
                  4,       // offset
@@ -102,9 +217,9 @@ std::multimap<std::size_t, char32_t>
         std::size_t pos = h.offset + h.fontlen * h.charsize;
         auto ReadUC = [&h,&pos,&data]() -> char32_t
         {
-            char32_t unichar = (unsigned char) data[pos++];
             if(h.utf8)
             {
+                char32_t unichar = (unsigned char) data[pos++];
                 if(unichar == 0xFE) return SS;
                 if(unichar == 0xFF) return TERM;
                 if(unichar >= 0x80)
@@ -127,6 +242,7 @@ std::multimap<std::size_t, char32_t>
             }
             else
             {
+                char32_t unichar = (unsigned char) data[pos++];
                 unichar |= (unsigned char)data[pos++] << 8;
                 switch(unichar)
                 {
@@ -143,10 +259,13 @@ std::multimap<std::size_t, char32_t>
             std::vector<char32_t> list;
             char32_t code;
             // Single-codepoint alternatives for this glyph
+            //if(pos >= data.size()) std::cout << "EOF " << n << '\n';
+            //else                   std::cout << "Pos " << n << ' ' << std::hex << pos << std::dec << '\t';
             while(pos < data.size())
             {
                 code = ReadUC();
                 if(code == TERM || code == SS) break;
+                //std::cout << "Code " << n << ": " << std::hex << code << std::dec << '\n';
                 list.push_back(code);
             }
             // Multi-codepoint alternatives for this glyph (for e.g. combining diacritics)
@@ -159,6 +278,9 @@ std::multimap<std::size_t, char32_t>
                     if(code == SS || code == TERM) break;
                     seq.push_back(code);
                 }
+                //std::cout << "Seq " << n << ":";
+                //for(auto c: seq) std::cout << ' ' << std::hex << c;
+                //std::cout << std::dec << '\n';
                 // We ignore all of them if they have more than 1 codepoint.
                 if(seq.size() == 1) list.push_back(seq[0]); //else { print 'seq'; print_r($seq); }
             }
@@ -177,7 +299,7 @@ std::multimap<std::size_t, char32_t>
     return Read_PSFgzEncoding(data, h);
 }
 
-GlyphList Read_PSFgz(std::string_view filename, unsigned /*width*/, unsigned /*height*/)
+GlyphList Read_PSFgz(std::string_view filename, unsigned /*width*/, unsigned /*height*/, std::string_view assume_encoding)
 {
     std::string data = ReadGZ(filename);
     const PSFheader h = ReadPSFheader(data.data());
@@ -186,16 +308,33 @@ GlyphList Read_PSFgz(std::string_view filename, unsigned /*width*/, unsigned /*h
     GlyphList result;
     result.height = h.height;
     result.widths.push_back(h.width);
+    result.unicode = !table.empty();
+
+    //std::cout << "assuming " << assume_encoding << ", table is " << (table.empty() ? "empty" : "not empty") << '\n';
 
     for(std::size_t n=0; n<h.fontlen; ++n)
     {
         // List of unicode characters fulfilled by this glyph
-        std::vector<char32_t> index{ char32_t(n) };
+        std::vector<char32_t> index;
         if(!table.empty())
         {
             auto [begin, end] = table.equal_range(n);
-            for(index.clear(); begin != end; ++begin) index.push_back(begin->second);
+            // if(begin == end) { std::cout << "Glyph " << n << " empty range?\n"; }
+            for(; begin != end; ++begin) index.push_back(begin->second);
         }
+
+        if(index.empty() && !assume_encoding.empty())
+        {
+            for(auto code: BDFtranslateToUnicode(n, ""sv, assume_encoding))
+                index.push_back(code);
+        }
+
+        if(index.empty())
+        {
+            //std::cout << "Index on " << n << " is empty?\n";
+            index.push_back( n + 0xF300 );
+        }
+
         std::size_t start_offset = result.bitmap.size();
         result.bitmap.reserve(start_offset + h.charsize);
         for(auto c: index) result.glyphs.emplace(c, start_offset);
@@ -218,80 +357,24 @@ GlyphList Read_PSFgz(std::string_view filename, unsigned /*width*/, unsigned /*h
     return result;
 }
 
-/* Read a file in share/encodings/ that specifies character mapping for this encoding */
-static std::vector<std::pair<char32_t, char32_t>> ReadEncoding(std::string_view filename)
+GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*/, std::string_view guess_encoding)
 {
-    std::vector<std::pair<char32_t, char32_t>> result;
-    auto [fn, status] = FindShareFile(std::filesystem::path("encodings") / std::filesystem::path(filename));
-    if(std::filesystem::exists(status))
-    {
-        std::ifstream f(fn);
-        auto delim = " \t"sv, hex = "0123456789ABCDEFabcdef"sv;
-        for(std::string line; std::getline(f,line), f; )
-        {
-            std::size_t space    = line.find_first_of(delim);
-            if(space == line.npos) continue;
-            std::size_t notspace = line.find_first_not_of(delim, space);
-            if(notspace == line.npos) continue;
-            std::size_t notdigit = line.find_first_not_of(hex, notspace);
-            if(notdigit == line.npos) notdigit = line.size();
-            result.emplace_back(std::stoi(std::string(line, space), nullptr, 16),
-                                std::stoi(std::string(line, notspace, notdigit-notspace), nullptr, 16));
-        }
-        std::sort(result.begin(), result.end());
-    }
-    return result;
-}
-
-char32_t BDFtranslateToUnicode(int index, std::string_view reg, std::string_view enc)
-{
-    if(index == -1) return 65533; // notdef in ibmfonts
-
-    std::string regenc(reg); regenc += '-'; regenc += enc;
-    for(char& c: regenc) if(c >= 'A' && c <= 'Z') c += 32; // tolower
-
-    if(regenc == "ISO10646-1"sv)
-        return index;
-    if(regenc == "jisx0201.1976-0"sv)
-    {
-        if(index == 0x5C) return 0xA5;
-        if(index == 0x7E) return 0x203E;
-        if(index >= 0xA1) return index - 0xA1 + 0xFF61;
-        return index;
-    }
-
-    static std::map<std::string, std::vector<std::pair<char32_t,char32_t>>> data;
-    auto i = data.lower_bound(regenc);
-    if(i == data.end())
-    {
-        i = data.emplace_hint(i, regenc, ReadEncoding(regenc + ".txt"));
-    }
-    auto& translation = i->second;
-    auto j = std::lower_bound(translation.begin(), translation.end(), index,
-                              [](const auto& pair, char32_t value) { return pair.first < value; });
-    if(j != translation.end() && j->first == (char32_t)index)
-    {
-        return j->second;
-    }
-    return index;
-}
-
-GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*/)
-{
-    std::size_t chno = 0;
+    std::vector<char32_t> chno = {0};
     std::vector<std::size_t> data;
     unsigned mode            = 0;
     unsigned matrix_row_size = (8 + 7) >> 3; // 1 byte
     int ascent = 0, descent = 0, shiftbits = 0, beforebox = 0, afterbox = 0;
-    std::string registry, encoding;
-    unsigned fontwidth = width, fontheight = 1;
+    std::string registry, encoding(guess_encoding);
+    unsigned fontwidth = width, fontheight = 1, avg_width = 0;
     GlyphList result;
+    result.unicode = false;
 
     // Ignore width for variable-width fonts
     bool ignore_width = std::regex_search(std::string(filename), "monak1[246]|mona6x12|mona7x14"_r);
 
     std::ifstream f{ std::string(filename) };
     auto space = " \t\r"sv;
+    #define r(str) [&]{ static std::regex r{str}; return regex_match(line, mat, r); }()
     for(std::string line; std::getline(f,line), f; )
     {
         // Trim
@@ -301,27 +384,28 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
         if(begin > 0 || end < line.size()) line = line.substr(begin, end-begin);
         // Identify
         std::smatch mat;
-        /**/ if(std::regex_match(line, mat, "FONT_ASCENT ([0-9]+)"_r)) ascent = std::stoi(mat[1]);
-        else if(std::regex_match(line, mat, "FONT_DESCENT ([0-9]+)"_r)) descent = std::stoi(mat[1]);
-        else if(std::regex_match(line, mat, "FONT -.*-([^-]*)-([^-]*)"_r)) { registry = mat[1]; encoding = mat[2]; }
-        else if(std::regex_match(line, mat, "ENCODING (.*)"_r)) chno = BDFtranslateToUnicode(std::stoi(mat[1]), registry, encoding);
-        else if(std::regex_match(line, mat, "CHARSET_REGISTRY \"?([^\"]*)"_r)) registry = mat[1];
-        else if(std::regex_match(line, mat, "CHARSET_ENCODING \"?([^\"]*)"_r)) encoding = mat[1];
-        else if(std::regex_match(line, mat, "FONTBOUNDINGBOX ([0-9]+) ([0-9]+).*"_r))
+        /**/ if(r("FONT_ASCENT ([0-9]+)")) ascent = std::stoi(mat[1]);
+        else if(r("FONT_DESCENT ([0-9]+)")) descent = std::stoi(mat[1]);
+        else if(r("AVERAGE_WIDTH ([0-9]+)")) avg_width = std::stoi(mat[1]);
+        else if(r("FONT -.*-([^-]*)-([^-]*)")) { registry = mat[1]; encoding = mat[2]; result.unicode = true; }
+        else if(r("ENCODING ([0-9]+)")) { chno = BDFtranslateToUnicode(std::stoi(mat[1]), registry, encoding); }
+        else if(r("CHARSET_REGISTRY \"?([^\"]*)")) registry = mat[1];
+        else if(r("CHARSET_ENCODING \"?([^\"]*)")) encoding = mat[1];
+        else if(r("FONTBOUNDINGBOX ([0-9]+) ([0-9]+).*"))
         {
             //fontwidth = std::stoi(mat[1]);
             fontheight = std::stoi(mat[2]);
             //matrix_row_size = (fontwidth + 7) >> 3; // 1 byte
             result.height = fontheight;
         }
-        else if(std::regex_match(line, mat, "DWIDTH ([0-9]+) ([0-9]+).*"_r))
+        else if(r("DWIDTH ([0-9]+) ([0-9]+).*"))
         {
             fontwidth = std::stoi(mat[1]);
             matrix_row_size = (fontwidth + 7) >> 3; // 1 byte
             if(std::find(result.widths.begin(), result.widths.end(), fontwidth) == result.widths.end())
                 result.widths.push_back(fontwidth);
         }
-        else if(std::regex_match(line, mat, "BBX (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+).*"_r))
+        else if(r("BBX (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+).*"))
         {
             int x = std::stoi(mat[1]);
             int y = std::stoi(mat[2]);
@@ -379,8 +463,9 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
                 unsigned sbytes = (fontwidth + 7) >> 3;
 
                 std::size_t start_offset = result.bitmap.size();
-                result.glyphs.emplace(chno, start_offset);
                 result.bitmap.reserve(start_offset + fontheight * bytes);
+
+                for(auto ch: chno) { result.glyphs.emplace(ch, start_offset); }
 
                 for(unsigned y=0; y<fontheight; ++y)
                 {
@@ -388,7 +473,7 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
                     for(unsigned b=0; b<bytes; ++b)
                         result.bitmap.push_back( ((m >> ((sbytes*8)-fontwidth)) >> (b*8)) & 0xFF );
                 }
-                ++chno;
+                for(auto& ch: chno) ++ch;
             }
             data.clear();
         }
@@ -401,22 +486,28 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
                 v >>= -shiftbits;
             data.push_back(v);
         }
+        #undef r
     }
+
     std::sort(result.widths.begin(), result.widths.end());
     if(ignore_width)
     {
-        result.widths.erase(result.widths.begin(), std::prev(result.widths.end()));
+        if(avg_width)
+            result.widths.assign(1, (avg_width + 5) / 10);
+        else
+            result.widths.erase(result.widths.begin(), std::prev(result.widths.end()));
     }
     return result;
 }
 
-GlyphList Read_Inc(std::string_view filename, unsigned width, unsigned height)
+GlyphList Read_Inc(std::string_view filename, unsigned width, unsigned height, std::string_view /*guess_encoding*/)
 {
     if(width != 8) return {};
 
     GlyphList result;
     result.height = height;
     result.widths.push_back(width);
+    result.unicode = false;
 
     std::ifstream f{ std::string(filename) };
     for(std::string line; std::getline(f,line), f; )
@@ -433,13 +524,14 @@ GlyphList Read_Inc(std::string_view filename, unsigned width, unsigned height)
     return result;
 }
 
-GlyphList Read_ASM(std::string_view filename, unsigned width, unsigned height)
+GlyphList Read_ASM(std::string_view filename, unsigned width, unsigned height, std::string_view /*guess_encoding*/)
 {
     if(width != 8) return {};
 
     GlyphList result;
     result.height = height;
     result.widths.push_back(width);
+    result.unicode = false;
 
     std::ifstream f{ std::string(filename) };
     for(std::string line; std::getline(f,line), f; )
@@ -461,17 +553,18 @@ GlyphList Read_ASM(std::string_view filename, unsigned width, unsigned height)
 
 #include <iostream>
 
-GlyphList Read_Font(std::filesystem::path filename, unsigned width, unsigned height, bool find)
+GlyphList Read_Font(std::filesystem::path filename, unsigned width, unsigned height,
+                    bool find, std::string_view guess_encoding)
 {
     if(find)
     {
-        auto [location, status] = FindShareFile(std::filesystem::path("fonts") / filename);
+        auto [location, status] = FindShareFile(std::filesystem::path("fonts") / "files" / filename);
         filename = location;
     }
 
     std::string ext = filename.extension();
-    if(ext == ".inc") return Read_Inc(std::string(filename), width, height);
-    if(ext == ".asm") return Read_ASM(std::string(filename), width, height);
-    if(ext == ".bdf") return Read_BDF(std::string(filename), width, height);
-    return Read_PSFgz(std::string(filename), width, height);
+    if(ext == ".inc") return Read_Inc(std::string(filename), width, height, guess_encoding);
+    if(ext == ".asm") return Read_ASM(std::string(filename), width, height, guess_encoding);
+    if(ext == ".bdf") return Read_BDF(std::string(filename), width, height, guess_encoding);
+    return Read_PSFgz(std::string(filename), width, height, guess_encoding);
 }

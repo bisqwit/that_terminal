@@ -5,9 +5,13 @@
 #include <fstream>
 #include <ostream>
 #include <functional>
+#include <unordered_set>
 
 #include "share.hh"
 #include "ctype.hh"
+#include "make_similarities.hh"
+
+using namespace std::literals;
 
 static auto UnicodeDataFileName()
 {
@@ -525,7 +529,7 @@ void MakeSimilarities(std::ostream& out, std::filesystem::path unipath) // Same 
 )";
 }
 
-std::vector<std::pair<char32_t, char32_t>> ParseSimilarities(std::istream& f) // Same as old "similarities.inc"
+std::vector<std::pair<char32_t/*goal*/, char32_t/*recipe*/>> ParseSimilarities(std::istream& f) // Same as old "similarities.inc"
 {
     std::vector<std::pair<char32_t, char32_t>> results;
 
@@ -574,10 +578,45 @@ std::vector<std::pair<char32_t, char32_t>> ParseSimilarities(std::istream& f) //
             }
         }
 
+    // Improve the list using iconv's //TRANSLIT option (pregenerated using make-alias.php)
+    auto [location, status] = FindShareFile(std::filesystem::path("fonts") / "alias.txt");
+    if(std::filesystem::exists(status))
+    {
+        std::ifstream f2(location);
+        auto delim = " \t"sv, hex = "0123456789ABCDEFabcdef"sv;
+        for(std::string line; std::getline(f2, line), f2; )
+            if(!line.empty() && line[0] != '#')
+            {
+                std::size_t space    = line.find_first_of(delim);
+                if(space == line.npos) continue;
+                std::size_t notspace = line.find_first_not_of(delim, space);
+                if(notspace == line.npos) continue;
+                std::size_t notdigit = line.find_first_not_of(hex, notspace);
+                if(notdigit == line.npos) notdigit = line.size();
+
+                results.emplace_back(std::stoi(std::string(line, 0, space), nullptr, 16),
+                                     std::stoi(std::string(line, notspace, notdigit-notspace), nullptr, 16));
+            }
+    }
+
+    // Delete duplicates
+    std::unordered_set<std::uint_fast64_t> seen;
+    results.erase(std::remove_if(results.begin(), results.end(), [&](auto& pair)
+    {
+        uint_fast64_t key = pair.first; key = (key << 32) | pair.second;
+        if(seen.find(key) == seen.end())
+        {
+            seen.insert(key);
+            return false;
+        }
+        return true;
+    }), results.end());
+
+    std::sort(results.begin(), results.end());
     return results;
 }
 
-std::vector<std::pair<char32_t, char32_t>> ParseSimilarities() // Same as old "similarities.inc"
+std::vector<std::pair<char32_t/*goal*/, char32_t/*recipe*/>> ParseSimilarities() // Same as old "similarities.inc"
 {
     auto [path, status] = FindCacheFile("similarities.dat", true);
     auto [unipath, unistatus] = UnicodeDataFileName();
@@ -589,6 +628,7 @@ std::vector<std::pair<char32_t, char32_t>> ParseSimilarities() // Same as old "s
         std::ofstream file(path);
         MakeSimilarities(file, unipath);
     }
+
     std::ifstream f(path);
     return ParseSimilarities(f);
 }

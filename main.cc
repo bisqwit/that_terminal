@@ -467,13 +467,13 @@ namespace
 }
 
 #include <iostream>
-extern void ReadFonts(std::ostream& out);
+#include "read_fonts.hh"
 
 int main(int argc, char** argv)
 {
     SaveArg0(argv[0]);
-    ReadFonts(std::cout);
-    return 0;
+    //ReadFontsList();
+    //return 0;
 
     SetTimeFactor(TimeFactor);
 

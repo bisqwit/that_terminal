@@ -8,7 +8,7 @@
 #include "clock.hh"
 #include "settings.hh"
 #include "ctype.hh"
-#include "font.hh"
+#include "font_planner.hh"
 
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
@@ -53,8 +53,6 @@ static constexpr std::array<unsigned char,16> taketables[] =
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
-    FontHandler fonthandler = LoadFont(fx,fy);
-
     unsigned timer = unsigned(GetTime() * 60.0);
     bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
     bool old_blink2 = (lasttimer/ 6)&1, cur_blink2 = (timer/ 6)&1;
@@ -173,6 +171,16 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
         }
         return substitutions;
     }();
+
+    constexpr std::size_t font_granularity = 0x200;
+
+    static std::unordered_map<char32_t, FontPlan> fonts[2];
+    for(const auto& cell: cells)
+    {
+        unsigned dbl = isdouble(cell.ch) ? 1 : 0;
+        char32_t ch = cell.ch & ~(font_granularity-1);
+        fonts[dbl][ch].Create(dbl ? fx*2 : fx, fy, ch, font_granularity);
+    }
 
 #ifdef _OPENMP
     std::size_t num_dirtycells = std::count_if(cells.begin(),cells.end(),
@@ -293,7 +301,8 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
                 unsigned long widefont = 0;
                 /**/ if(cell.blink == 1 && !cur_blink1) {}
                 else if(cell.blink == 2 && !cur_blink2) {}
-                else { auto r = fonthandler.LoadGlyph(char_to_render, fr_actual, width);
+                else { auto r = fonts[was_double ? 1 : 0].find(char_to_render &~ (font_granularity-1))->second
+                                    .LoadGlyph(char_to_render % font_granularity, fr_actual, width);
                        widefont = r.bitmap;
                        is_bold  = r.bold; }
 

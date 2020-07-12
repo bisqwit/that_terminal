@@ -1,0 +1,33 @@
+00  25A0 #  00 ∎ little black square
+01  230A #  01 ι or maybe APL symbol ⌊
+02  03BA #  02 κ
+03  03B8 #  03 θ
+04  2303 #  04 house? ⌃
+05  00AC #  05 right angle
+06  03B5 #  06 ε
+07  03C0 #  07 π
+08  03BB #  08 λ
+09  03B3 #  09 γ
+0A  03B4 #  0A δ
+0B  2308 #  0B maybe ⌠, maybe APL symbol ⌈
+0C  00B1 #  0C ±
+0D  2363 #  0D + with two dots??
+0E  22EE #  0E ⋮ (vertical ellipsis)
+0F  2202 #  0F maybe ð
+10  2282 #  10 ⊂ (bendy left)
+11  2283 #  11 ⊃ (bendy right)
+12  2229 #  12 ∩ (bendy up)
+13  222A #  13 ∪ (bendy down)
+14  2200 #  14 ∀ (upsidedown A)
+15  2203 #  15 sort of like 3
+16  1E8D #  16 x with two dots??  ⍣ ẍ
+17  2277 #  17 Zig-zaggy
+18  25C4 #  18 ◄ (black arrow left)
+19  25BA #  19 ► (black arrow right)
+1A  2260 #  1A ≠
+1B  22C4 #  1B sort of like diamond
+1C  2264 #  1C ≤
+1D  2265 #  1D ≥
+1E  2261 #  1E ≡ (three horizontal lines)
+1F  2228 #  1F ∨ (logical v) 
+7F  222B #     ∫ integral

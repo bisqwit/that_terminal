@@ -1,0 +1,22 @@
+# Regex patterns indicating filenames that are preferred,
+# in descending order of preference
+
+i.8x.*
+[0-9]+x[0-9].*ja\.bdf
+[0-9]+x[0-9].*bdf
+FullCyrSlav-VGA.*
+FullGreek-VGA.*
+Arabic-VGA.*
+Uni1-VGA.*
+iso0[178].*psf.gz
+lat[1249].*psf.gz
+Uni2-VGA.*
+.*-VGA.*
+.*TerminusBold.*
+mona.*
+f12\.bdf
+f14\.bdf
+unifont-csur.*
+cmex24m.*
+gb24st.*
+
