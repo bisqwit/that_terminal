@@ -29,6 +29,8 @@ LDLIBS   += -lutil
 
 #CPPFLAGS += -g
 
+PREFIX := $(shell if [ `id -u` = 0 ]; then echo /usr/local ; else echo $$HOME/.local; fi)
+
 OBJS=\
 	tty/terminal.o \
 	tty/forkpty.o \
@@ -51,8 +53,13 @@ OBJS=\
 term: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)
 	
-#rendering/color.cc: rendering/color.cc.re
-#	re2c -P $< -o$@
+install:
+	- install term $(PREFIX)/bin/that_terminal
+	mkdir -p $(PREFIX)/share/that_terminal
+	(cd share; find -type f|grep -v '~'|xargs cp -a -v --parents -t $(PREFIX)/share/that_terminal)
+uninstall:
+	rm -vf $(PREFIX)/bin/that_terminal
+	rm -vrf $(PREFIX)/share/that_terminal
 
 util/make-fonts-list: util/make-fonts-list.cc ctype.o \
 		rendering/fonts.inc rendering/fonts-authentic.inc \
