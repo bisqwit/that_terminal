@@ -634,13 +634,3 @@ std::vector<std::pair<char32_t/*goal*/, char32_t/*recipe*/>> ParseSimilarities()
     std::ifstream f(path);
     return ParseSimilarities(f);
 }
-
-/*
-#include <iostream>
-
-int main()
-{
-    auto sim = ParseSimilarities();
-    std::cout << sim.size();
-}
-*/

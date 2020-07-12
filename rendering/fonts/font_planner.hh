@@ -11,11 +11,6 @@ class FontPlan
 public:
     void Create(unsigned width, unsigned height, char32_t firstch, char32_t numch);
 
-    const unsigned char* Load(std::size_t index) const
-    {
-        return bitmap_pointers[index];
-    }
-
     // Bitmap for pixels on single scanline
     struct Glyph
     {

@@ -1,8 +1,8 @@
 #include <regex>
 #include <fstream>
-#include <iostream>
 #include <unordered_map>
 #include <mutex>
+#include <set>
 
 #include "read_font.hh"
 #include "gunzip.hh"
@@ -263,7 +263,7 @@ std::multimap<std::size_t, char32_t>
         {
             // Grammar:
             //   UC* (SS UC+)* TERM
-            std::vector<char32_t> list;
+            std::set<char32_t> list;
             char32_t code;
             // Single-codepoint alternatives for this glyph
             //if(pos >= data.size()) std::cout << "EOF " << n << '\n';
@@ -273,7 +273,7 @@ std::multimap<std::size_t, char32_t>
                 code = ReadUC();
                 if(code == TERM || code == SS) break;
                 //std::cout << "Code " << n << ": " << std::hex << code << std::dec << '\n';
-                list.push_back(code);
+                list.insert(code);
             }
             // Multi-codepoint alternatives for this glyph (for e.g. combining diacritics)
             while(pos < data.size() && code == SS)
@@ -285,12 +285,48 @@ std::multimap<std::size_t, char32_t>
                     if(code == SS || code == TERM) break;
                     seq.push_back(code);
                 }
-                //std::cout << "Seq " << n << ":";
-                //for(auto c: seq) std::cout << ' ' << std::hex << c;
-                //std::cout << std::dec << '\n';
+                //std::cout << "Seq " << n << ":"; for(auto c: seq) { std::cout << ' ' << std::hex << c; } std::cout << std::dec << '\n';
                 // We ignore all of them if they have more than 1 codepoint.
-                if(seq.size() == 1) list.push_back(seq[0]); //else { print 'seq'; print_r($seq); }
+                if(seq.size() == 1) list.insert(seq[0]); //else { print 'seq'; print_r($seq); }
             }
+            /*
+            Line-drawing characters:
+            If this symbol claims simultaneously to accomplish
+            multiple line-styles, call out the bluff.
+            */
+            static const std::u32string_view bluff_list[] =
+            {
+                // Single-lines
+                U"─━┄┅┈┉╌╍╴╶╸╺╼╾"sv,
+                U"│┃┆┇┊┋╎╏╵╷╹╻╽╿"sv,
+                // Single-line corners
+                U"┌┍┎┏╭"sv,
+                U"┐┑┒┓╮"sv,
+                U"└┕┖┗╰"sv,
+                U"┘┙┚┛╯"sv,
+                // Double-line corners
+                U"╔╔╒┏"sv,
+                U"╗╕╖┓"sv,
+                U"╚╘╙┗"sv,
+                U"╝╛╜┛"sv,
+                // Single-line junctions
+                U"┬┭┮┯┰┱┲┳"sv,
+                U"┴┵┶┷┸┹┺┻"sv,
+                U"├┝┞┟┠┡┢┣"sv,
+                U"┤┥┦┧┨┩┪┫"sv,
+                U"┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋"sv,
+                // Double-line junctions
+                U"╦╤╥┳"sv,
+                U"╩╧╨┻"sv,
+                U"╠╞╟┣"sv,
+                U"╣╡╢┫"sv,
+                U"╬╪╫╋"sv,
+            };
+            if(list.size() > 1)
+                for(auto s: bluff_list)
+                    if(list.find(s[0]) != list.end())
+                        for(auto i = s.begin()+1; i != s.end(); ++i)
+                            list.erase(*i);
             for(auto u: list)
                 table.emplace(n, u);
         }

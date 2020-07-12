@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <type_traits>
+#include <tuple>
 
 #if defined(__cpp_lib_endian) && __cpp_lib_endian >= 201907L
 # include <bit>
@@ -149,27 +150,31 @@ extern inline std::uint_fast64_t R64r(const void* p)
 extern inline std::uint_fast64_t Rn(const void* p, unsigned bytes)
 {
     const unsigned char* data = (const unsigned char*)p;
-    std::uint_fast64_t res(0);
     switch(bytes)
     {
+        #ifdef __GNUC__
+        default: __builtin_unreachable();
+        #else
+        case 0: return 0;
+        default: [[fallthrough]];
+        #endif
         case 8: return R64(p);
         case 4: return R32(p);
         case 2: return R16(p);
-        case 7: res |= Read<6>(p) << 48; [[fallthrough]];
-        case 6: res |= Read<5>(p) << 40; [[fallthrough]];
-        case 5: res |= Read<3,4>(p) << 24; [[fallthrough]];
-        case 3: res |= Read<1,2>(p) << 8; [[fallthrough]];
-        case 1: res |= R8(data);
+        case 1: return R8(p);
+        case 7: return R32(p) | (std::uint_fast64_t(R24(data+4)) << 32);
+        case 6: return R32(p) | (std::uint_fast64_t(R16(data+4)) << 32);
+        case 5: return R32(p) | (std::uint_fast64_t(R8(data+4)) << 32);
+        case 3: return R24(p);
     }
-    return res;
 }
 
-static void W8(void* p, std::uint_fast8_t value)
+extern inline void W8(void* p, std::uint_fast8_t value)
 {
     unsigned char* data = (unsigned char*)p;
     data[0] = value;
 }
-static void W16(void* p, std::uint_fast16_t value)
+extern inline void W16(void* p, std::uint_fast16_t value)
 {
     if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
         *(uint_least16_t*)p = value;
@@ -178,13 +183,13 @@ static void W16(void* p, std::uint_fast16_t value)
     else
         Write<0,1>(p, value);
 }
-static void W24(void* p, std::uint_fast32_t value)
+extern inline void W24(void* p, std::uint_fast32_t value)
 {
     unsigned char* data = (unsigned char*)p;
     W16(data+0, value);
     W8(data+2,  value >> 16u);
 }
-static void W32(void* p, std::uint_fast32_t value)
+extern inline void W32(void* p, std::uint_fast32_t value)
 {
     if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
         *(uint_least32_t*)p = value;
@@ -193,7 +198,7 @@ static void W32(void* p, std::uint_fast32_t value)
     else
         Write<0,1,2,3>(p, value);
 }
-static void W64(void* p, std::uint_fast64_t value)
+extern inline void W64(void* p, std::uint_fast64_t value)
 {
     if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
         *(uint_least64_t*)p = value;
@@ -209,13 +214,16 @@ extern inline void Wn(void* p, std::uint_fast64_t value, unsigned bytes)
     switch(bytes)
     {
         case 8: W64(p, value); break;
-        case 7: W8(data+6, value>>48);
-        case 6: W8(data+5, value>>40);
-        case 5: W8(data+4, value>>32);
+        case 7: W8(data+6, value>>48); [[fallthrough]];
+        case 6: W8(data+5, value>>40); [[fallthrough]];
+        case 5: W8(data+4, value>>32); [[fallthrough]];
         case 4: W32(p, value); break;
         case 3: W24(p, value); break;
         case 2: W16(p, value); break;
         case 1: W8(p, value); break;
+    #ifdef __GNUC__
+        default: __builtin_unreachable();
+    #endif
     }
 }
 

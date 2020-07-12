@@ -32,15 +32,22 @@ namespace
     std::shared_ptr<GlyphList> LoadFont(const std::string& name, unsigned width, unsigned height,
                                         std::string_view guessed_encoding)
     {
-        std::lock_guard<std::mutex> lk(fonts_lock);
         std::pair key(name, std::pair(width,height));
         auto i = loaded_fonts.lower_bound(key);
         if(i == loaded_fonts.end() || i->first != key)
         {
-            auto font = Read_Font(name, width, height, true, guessed_encoding);
-            i = loaded_fonts.emplace_hint(i, key, std::pair(std::chrono::system_clock::now(),
-                                                            std::make_shared<GlyphList>( std::move(font) )));
+            std::unique_lock<std::mutex> lk(fonts_lock);
+            i = loaded_fonts.lower_bound(key);
+            if(i == loaded_fonts.end() || i->first != key)
+            {
+                //lk.unlock();
+                auto font = Read_Font(name, width, height, true, guessed_encoding);
+                //lk.lock();
+                i = loaded_fonts.emplace_hint(i, key, std::pair(std::chrono::system_clock::now(),
+                                                                std::make_shared<GlyphList>( std::move(font) )));
+            }
         }
+        i->second.first = std::chrono::system_clock::now();
         return i->second.second;
     }
 
@@ -78,7 +85,7 @@ namespace
         return width >= 7;
     }
 
-    extern unsigned long ScaleFont(unsigned long bitmap, unsigned oldwidth, unsigned newwidth)
+    unsigned long ScaleFont(unsigned long bitmap, unsigned oldwidth, unsigned newwidth)
     {
         if(oldwidth == newwidth) return bitmap;
         if(newwidth == oldwidth*2)
@@ -127,14 +134,16 @@ static auto BuildSieves(char32_t granularity)
             bool ok = false;
             for(char32_t ch=0; ch<granularity; ++ch)
             {
-                if(data.second[base+ch])
+                if(data.second.size() > base+ch && data.second[base+ch])
                     { ok = true; break; }
 
+                // Find viable approximations for this symbol
                 auto choices = std::equal_range(similarities.begin(), similarities.end(), std::pair(base+ch,0),
                     [](const auto& pair1, const auto& pair2)
                     {
                         return pair1.first < pair2.first;
                     });
+                // Check if the font implements one of those
                 for(auto i = choices.first; i != choices.second; ++i)
                     if(data.second.size() > i->second && data.second[i->second])
                         { ok = true; break; }
@@ -151,6 +160,12 @@ static const auto& GetSieves(char32_t granularity)
     return sieves;
 }
 
+static const auto& GetSimilarities()
+{
+    static const auto similarities = ParseSimilarities();
+    return similarities;
+}
+
 void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_t numch)
 {
     std::tuple cur(width,height,firstch,numch);
@@ -159,14 +174,15 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
     ready = false;
     prev = cur;
 
-    std::thread updater([=]
+    const auto& similarities = GetSimilarities();
+    const auto& info = GetFontsInfo();
+    const auto& sieves = GetSieves(numch);
+
+    std::thread updater([=,&sieves,&info,&similarities]
     {
         std::unique_lock<std::mutex> lk(working);
 
         static constexpr char32_t ilseq = 0xFFFD;
-
-        static const auto similarities = ParseSimilarities();
-        auto& info = GetFontsInfo();
 
         auto old_loaded_fonts   = std::move(loaded_fonts);   loaded_fonts.clear();
         auto old_font_filenames = std::move(font_filenames); font_filenames.clear();
@@ -176,8 +192,7 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
         bitmap_pointers.resize(numch);
         bold_list.resize(numch);
 
-        std::vector<std::pair<int, std::pair<std::string, std::pair<unsigned,unsigned>>>> fonts;
-        const auto& sieves = GetSieves(numch);
+        std::vector<std::pair<int, std::remove_const_t<FontsInfo::key_type>>> fonts;
         if(auto i = sieves.find(firstch); i != sieves.end())
             for(const auto& keyptr: i->second)
             {
@@ -192,7 +207,11 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
                 int score = diff*64 - name_score;
                 fonts.emplace_back(score, key);
             }
+        // If there were no candidates, check for something that implements ilseq
+        int ilseq_penalty = 18000000;
         if(fonts.empty())
+        {
+            ilseq_penalty = 0;
             for(const auto& [key,data]: info)
             {
                 int name_score = FontNameScore(key.first);
@@ -205,13 +224,14 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
                 int score = diff*64 - name_score;
                 fonts.emplace_back(score, key);
             }
+        }
         std::sort(fonts.begin(), fonts.end());
-        /*if(firstch == 0x00 || firstch == 0x20)
+        if(false)
         {
             for(const auto& [basescore,key]: fonts)
                 std::fprintf(stderr, "For target %ux%u, source %ux%u %s has score %d\n",
                     width,height,  key.second.first,key.second.second, key.first.c_str(), -basescore);
-        }*/
+        }
 
         std::vector<std::tuple<char32_t, std::size_t, unsigned,unsigned>> resize_pointers;
         for(char32_t ch = firstch; ch < firstch + numch; ++ch)
@@ -230,44 +250,56 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
                 unsigned    width;
                 unsigned    height;
                 char32_t    ch;
-                int         score;
+                long        score;
                 std::string_view encoding;
             } candidate = {};
 
             for(const auto& [basescore,key]: fonts)
             {
+                long score = 0x7FFFFFFFl - basescore;
+                if(score <= candidate.score) break;
+
                 const auto& data = info.find(key)->second;
 
                 //bool correct_size       = (key.second == std::pair(width,height));
                 bool has_correct_symbol = data.second.size() > ch && data.second[ch];
-                int score = 0x3FFFFFFF - basescore;
                 if(has_correct_symbol)
                 {
                     if(candidate.filename.empty() || score > candidate.score)
+                    {
+                        //fprintf(stderr, "U+%04X: Chose exact U+%04X from %ux%u %s (score %ld)\n",
+                        //    ch, ch, key.second.first,key.second.second,key.first.c_str(),score);
                         candidate = { key.first, key.second.first, key.second.second, ch, score, data.first };
+                    }
                 }
                 else
                 {
-                    constexpr int ilseq_penalty = 1800000;
-                    constexpr int approx_penalty_once = 0;
-                    constexpr int approx_penalty_per  = 1;
+                    constexpr int approx_penalty_once = 1000000;
+                    constexpr int approx_penalty_per  = 10;
 
+                    long saved_score = score;
                     score -= approx_penalty_once;
-                    if(candidate.score < (score-approx_penalty_per))
+                    if(candidate.score < score)
                         for(auto i = choices.first; i != choices.second; ++i)
                         {
-                            score -= approx_penalty_per;
                             if(data.second.size() > i->second && data.second[i->second])
                             {
                                 if(candidate.filename.empty() || score > candidate.score)
+                                {
+                                    //fprintf(stderr, "U+%04X: Chose approx U+%04X from %ux%u %s (score %ld)\n",
+                                    //    ch, i->second, key.second.first,key.second.second,key.first.c_str(),score);
                                     candidate = { key.first, key.second.first, key.second.second, i->second, score, data.first };
+                                }
                             }
+                            score -= approx_penalty_per;
                         }
-                    if(candidate.score < (score-ilseq_penalty) && data.second.size() > ilseq && data.second[ilseq]) // illseq
+                    score = saved_score - ilseq_penalty;
+                    if(data.second.size() > ilseq && data.second[ilseq] // illseq
+                    && (candidate.filename.empty() || score > candidate.score))
                     {
-                        score -= ilseq_penalty;
-                        if(candidate.filename.empty() || score > candidate.score)
-                            candidate = { key.first, key.second.first, key.second.second, ilseq, score, data.first };
+                        //fprintf(stderr, "U+%04X: Chose fail U+%04X from %ux%u %s (score %ld)\n",
+                        //    ch, ilseq, key.second.first,key.second.second,key.first.c_str(),score);
+                        candidate = { key.first, key.second.first, key.second.second, ilseq, score, data.first };
                     }
                 }
             }
@@ -292,19 +324,30 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
             const unsigned char* bitmap_pointer = &font->bitmap[ k->second ];
             assert(bitmap_pointer != nullptr);
 
+            bold_list[ch-firstch] = IsBoldFont(candidate.filename, candidate.width);
             bitmap_pointers[ch-firstch] = bitmap_pointer;
 
-            if(candidate.width != width || candidate.height != height)
+            if(candidate.width == width && candidate.height == height)
+            {
+                // Make sure this font doesn't get unloaded while it's in use
+                if(font_filenames.find(candidate.filename) == font_filenames.end())
+                {
+                    font_filenames.insert(candidate.filename);
+                    loaded_fonts.emplace_back(std::move(font));
+                }
+            }
+            else
             {
                 // Create resized bitmap
                 resize_pointers.emplace_back(ch, resized_bitmaps.size(), candidate.width,candidate.height);
                 resized_bitmaps.resize(resized_bitmaps.size() + height * ((width+7)/8));
-            }
-            bold_list[ch-firstch] = IsBoldFont(candidate.filename, candidate.width);
-            if(font_filenames.find(candidate.filename) == font_filenames.end())
-            {
-                font_filenames.insert(candidate.filename);
-                loaded_fonts.emplace_back(std::move(font));
+
+                // Make sure this font doesn't get unloaded while it's in use
+                if(font_filenames.find(candidate.filename) == font_filenames.end())
+                {
+                    font_filenames.insert(candidate.filename);
+                    loaded_fonts.emplace_back(std::move(font));
+                }
             }
         }
 
@@ -361,6 +404,12 @@ FontPlan::Glyph FontPlan::LoadGlyph(char32_t ch, unsigned scanline, unsigned ren
 
     unsigned long widefont = Rn(fontptr, bytes_per_fontrow);
 
+    if(std::get<0>(prev) != render_width)
+    {
+        if(render_width != std::get<0>(prev)*2)
+            fprintf(stderr, "font is %u, render %u\n",
+                std::get<0>(prev), render_width);
+    }
     widefont = ScaleFont(widefont, std::get<0>(prev), render_width);
 
     return {widefont, bold_list[ch]};
