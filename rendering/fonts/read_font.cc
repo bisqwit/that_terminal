@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <unordered_map>
+#include <mutex>
 
 #include "read_font.hh"
 #include "gunzip.hh"
@@ -10,10 +11,12 @@
 
 using namespace std::literals;
 
+static constexpr auto Ropt = std::regex_constants::ECMAScript | std::regex_constants::optimize;
+
 // Syntactic shorthand for creating regular expressions.
 static std::regex operator ""_r(const char* pattern, std::size_t length)
 {
-    return std::regex(pattern,length);
+    return std::regex(pattern,length, Ropt);
 }
 
 /* Read a file in share/encodings/ that specifies character mapping for this encoding */
@@ -73,11 +76,15 @@ std::vector<char32_t> BDFtranslateToUnicode(int index, std::string_view reg, std
     }
     else
     {
+        static std::mutex lock;
         static std::unordered_map<std::string, std::unordered_map<char32_t,char32_t>> data;
         auto i = data.find(regenc);
         if(i == data.end())
         {
-            i = data.emplace(regenc, ReadEncoding(regenc + ".txt")).first;
+            std::lock_guard lk(lock);
+            i = data.find(regenc);
+            if(i == data.end())
+                i = data.emplace(regenc, ReadEncoding(regenc + ".txt")).first;
         }
         auto& translation = i->second;
         /*
@@ -369,12 +376,13 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
     GlyphList result;
     result.unicode = false;
 
+    #define r(str) [&]{ static std::regex r{str##s, Ropt}; return regex_match(line, mat, r); }()
+
     // Ignore width for variable-width fonts
     bool ignore_width = std::regex_search(std::string(filename), "monak1[246]|mona6x12|mona7x14"_r);
 
     std::ifstream f{ std::string(filename) };
     auto space = " \t\r"sv;
-    #define r(str) [&]{ static std::regex r{str}; return regex_match(line, mat, r); }()
     for(std::string line; std::getline(f,line), f; )
     {
         // Trim
@@ -500,54 +508,75 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
     return result;
 }
 
-GlyphList Read_Inc(std::string_view filename, unsigned width, unsigned height, std::string_view /*guess_encoding*/)
+static const std::regex& GetHeightPat()
 {
-    if(width != 8) return {};
+    static const std::regex heightpat(".*[^0-9]([0-9]+)[^0-9]*", Ropt);
+    return heightpat;
+}
+
+GlyphList Read_Inc(std::string_view filename, unsigned width, unsigned height, std::string_view guess_encoding)
+{
+    std::smatch mat;
+    if(!height)
+    {
+        std::string tmp(filename);
+        if(std::regex_match(tmp, mat, GetHeightPat())) { height = std::stoi(mat[1]); }
+    }
 
     GlyphList result;
     result.height = height;
-    result.widths.push_back(width);
+    result.widths.push_back(8);
     result.unicode = false;
 
+    if(width != 8) return result;
+    static const std::regex hexpat("0x[0-9A-Fa-f]+", Ropt);
+
     std::ifstream f{ std::string(filename) };
+    unsigned glyph=0, row=0;
     for(std::string line; std::getline(f,line), f; )
-    {
-    /*
-    preg_match_all('/0x[0-9A-F]+/i', $line, $mat);
-    foreach($mat[0] as $hex)
-    {
-      $data[(int)($n/$height)][] = hexdec($hex);
-      ++$n;
-    }
-    */
-    }
+        for(auto b = line.cbegin(), e = line.cend(); std::regex_search(b,e, mat, hexpat); b = mat[0].second)
+        {
+            int val = std::stoi(mat[0], nullptr, 16); // accepts 0x prefix
+            if(!row)
+                for(auto unichar: BDFtranslateToUnicode(glyph, {}, guess_encoding))
+                    result.glyphs.emplace(unichar, result.bitmap.size());
+            result.bitmap.push_back(val);
+            if(++row >= height) { row=0; ++glyph; }
+        }
     return result;
 }
 
-GlyphList Read_ASM(std::string_view filename, unsigned width, unsigned height, std::string_view /*guess_encoding*/)
+GlyphList Read_ASM(std::string_view filename, unsigned width, unsigned height, std::string_view guess_encoding)
 {
-    if(width != 8) return {};
+    std::smatch mat;
+    if(!height)
+    {
+        std::string tmp(filename);
+        if(std::regex_match(tmp, mat, GetHeightPat())) { height = std::stoi(mat[1]); }
+    }
 
     GlyphList result;
     result.height = height;
-    result.widths.push_back(width);
+    result.widths.push_back(8);
     result.unicode = false;
 
+    if(width != 8) return result;
+    static const std::regex dbpat("[ \t]+[dD][bB][ \t]+([^;]+).*", Ropt);
+    static const std::regex hexpat("[0-9A-Fa-f]+", Ropt);
+
+    unsigned glyph=0, row=0;
     std::ifstream f{ std::string(filename) };
     for(std::string line; std::getline(f,line), f; )
-    {
-    /*
-    if(preg_match('/db\s+([^;]+)/i', $line, $mat))
-    {
-      preg_match_all('/[0-9A-F]+/i', $mat[1], $mat);
-      foreach($mat[0] as $hex)
-      {
-        $data[(int)($n/$height)][] = hexdec($hex);
-        ++$n;
-      }
-    }
-    */
-    }
+        if(std::regex_match(line, mat, dbpat))
+            for(auto b = mat[1].first, e = mat[1].second; std::regex_search(b,e, mat, hexpat); b = mat[0].second)
+            {
+                int val = std::stoi(mat[0], nullptr, 16);
+                if(!row)
+                    for(auto unichar: BDFtranslateToUnicode(glyph, {}, guess_encoding))
+                        result.glyphs.emplace(unichar, result.bitmap.size());
+                result.bitmap.push_back(val);
+                if(++row >= height) { row=0; ++glyph; }
+            }
     return result;
 }
 

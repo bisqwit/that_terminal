@@ -172,7 +172,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
         return substitutions;
     }();
 
-    constexpr std::size_t font_granularity = 0x200;
+    constexpr std::size_t font_granularity = 0x40;
 
     static std::unordered_map<char32_t, FontPlan> fonts[2];
     for(const auto& cell: cells)

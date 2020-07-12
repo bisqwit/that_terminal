@@ -2,6 +2,7 @@
 # in descending order of preference
 
 i.8x.*
+.*[0-9]\.(?:inc|asm)
 [0-9]+x[0-9].*ja\.bdf
 [0-9]+x[0-9].*bdf
 FullCyrSlav-VGA.*

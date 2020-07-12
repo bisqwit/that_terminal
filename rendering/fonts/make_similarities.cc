@@ -13,6 +13,8 @@
 
 using namespace std::literals;
 
+static constexpr auto Ropt = std::regex_constants::ECMAScript | std::regex_constants::optimize;
+
 static auto UnicodeDataFileName()
 {
     return FindShareFile("unicode/UnicodeData.txt", {"/usr/local/share", "/usr/share"});
@@ -78,8 +80,8 @@ struct UniData
 
     void Load(std::filesystem::path unipath)
     {
-        std::regex pattern("([0-9A-F]+);([^;]+);.*");
-        std::regex mathpat("(MATHEMATICAL.*) (CAPITAL|SMALL) ([A-Z])");
+        std::regex pattern("([0-9A-F]+);([^;]+);.*", Ropt);
+        std::regex mathpat("(MATHEMATICAL.*) (CAPITAL|SMALL) ([A-Z])", Ropt);
 
         std::ifstream f(unipath);
         for(std::string line; std::getline(f, line), f; )
@@ -120,7 +122,7 @@ void MakeSimilarities(std::ostream& out, std::filesystem::path unipath) // Same 
     // to avoid your ASCII letters looking completely silly.
     out << "// If this is fullwidth font, create ASCII characters from FULLWIDTH characters\n";
 
-    std::regex fullhalf("(FULLWIDTH|HALFWIDTH) (.*)");
+    std::regex fullhalf("(FULLWIDTH|HALFWIDTH) (.*)", Ropt);
     char32_t tmp;
     for(auto&[name,code]: d.codes)
         if(std::smatch mat; std::regex_match(name, mat, fullhalf) && (tmp = d.Has(mat[2])))
@@ -347,7 +349,7 @@ void MakeSimilarities(std::ostream& out, std::filesystem::path unipath) // Same 
             "CIRCLED",
             "TAG"
         };
-        std::regex word_style_pat("(" + Join(words, "|") + ") (.*)");
+        std::regex word_style_pat("(" + Join(words, "|") + ") (.*)", Ropt);
         std::map<std::string, std::map<std::string, char32_t>> symbols;
         for(const auto& [name,code]: d.codes)
         {
@@ -384,7 +386,7 @@ void MakeSimilarities(std::ostream& out, std::filesystem::path unipath) // Same 
            "// from things that have less “WITHs”.\n";
 
     std::map<std::string, std::map<std::string, std::size_t>> with_lists;
-    std::regex with_match("(.*) WITH (.*)");
+    std::regex with_match("(.*) WITH (.*)", Ropt);
     for(const auto& [name,code]: d.codes)
         if(std::smatch mat; std::regex_match(name, mat, with_match))
         {
@@ -422,7 +424,7 @@ void MakeSimilarities(std::ostream& out, std::filesystem::path unipath) // Same 
             std::sort(partial_list.begin(), partial_list.end(),
                 [](const auto& a, const auto& b) { return b.second > a.second; });
             // Find all symbols that have this "full with" list.
-            std::regex pat("(.*)" + full_with);
+            std::regex pat("(.*)" + full_with, Ropt);
             for(auto& [name,code]: d.codes)
                 if(name.size() >= full_with.size() && name.compare(name.size()-full_with.size(), full_with.size(), full_with) == 0)
                 {

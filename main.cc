@@ -6,6 +6,7 @@
 #include "share.hh"
 #include "settings.hh"
 #include "autoinput.hh"
+#include "font_planner.hh"
 #include "terminal.hh"
 #include "forkpty.hh"
 #include "screen.hh"
@@ -777,6 +778,7 @@ int main(int argc, char** argv)
 
         AdvanceTime(1 / SimulatedFrameRate);
         SDL_ReDraw(wnd);
+        FontPlannerTick();
     }
     AutoInputEnd();
     TimeTerminate();
