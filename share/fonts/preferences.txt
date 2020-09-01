@@ -1,5 +1,7 @@
 # Regex patterns indicating filenames that are preferred,
-# in descending order of preference
+# in descending order of preference.
+# Since we like the VGA-style look, the fonts that imitate
+# the IBM CGA/EGA/VGA are listed first.
 
 i.8x.*
 .*[0-9]\.(?:inc|asm)
