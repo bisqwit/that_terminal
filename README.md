@@ -26,7 +26,7 @@ Not supported (yet!)
 * Combining diacritics
 * Letters that change shape depending on position in word (such as word-final glyphs in Hebrew)
 
-This video is designed for programming video production purposes.
+This program is designed for programming video production purposes.
 
 ## What is a terminal emulator?
 
