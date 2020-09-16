@@ -1,6 +1,7 @@
 #include <bitset>
 #include <algorithm>
 #include <cstring>
+#include <array>
 
 /*
 #if __cplusplus <= 201800L
@@ -186,7 +187,7 @@ static constexpr auto BuildIntervals(std::initializer_list<std::pair<const std::
     return result;
 }
 
-#define B(c) /*std::pair<const std::pair<char32_t,unsigned>*, std::size_t>*/{&c##_table[0],c##_table.size()}
+#define B(c) /*std::pair<const std::pair<char32_t,unsigned>*, std::size_t>*/{&c##_table[0],std::size(c##_table)}
 bool isupper(char32_t c)
 {
     static constexpr auto intervals = BuildIntervals<62,21>({B(Lu)});
@@ -296,15 +297,15 @@ static char32_t caseconv(I begin, I end, char32_t c)
 
 char32_t tolower(char32_t c)
 {
-    return caseconv(tolower_table.cbegin(), tolower_table.cend(), c);
+    return caseconv(std::begin(tolower_table), std::end(tolower_table), c);
 }
 char32_t toupper(char32_t c)
 {
-    return caseconv(toupper_table.cbegin(), toupper_table.cend(), c);
+    return caseconv(std::begin(toupper_table), std::end(toupper_table), c);
 }
 char32_t totitle(char32_t c)
 {
-    return caseconv(totitle_table.cbegin(), totitle_table.cend(), c);
+    return caseconv(std::begin(totitle_table), std::end(totitle_table), c);
 }
 
 std::u32string FromUTF8(std::string_view s)
