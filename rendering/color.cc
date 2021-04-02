@@ -1,5 +1,6 @@
 #include <string>
 #include <cstdlib>
+#include <cstring>
 #include <utility>
 #include <vector>
 #include <algorithm>
@@ -21,794 +22,592 @@ grep -v '!' /usr/share/X11/rgb.txt \
 
 */
 
-static constexpr std::uint_least64_t a = 0xC5959135F5F4EE52;
-static constexpr std::uint_least64_t b = 0x9833CB76814DF6DB;
-static constexpr std::uint_least64_t c = 0x3B4236FA60071A28;
-static constexpr std::uint_least64_t d = 0xD43C17959D1B8457;
-static constexpr unsigned mod          = 7709;
-static constexpr unsigned shift        = 0x37;
-
-static constexpr unsigned hash(const char* s, unsigned length)
+static constexpr unsigned mod = 4088;
+// Note: Not using std::string_view, because clang falsely reports it's not a built-in-constant when it is.
+static constexpr unsigned hash(const char* s, std::size_t length)
 {
-    std::uint_least64_t result = a;
-    unsigned s1 = 1 + 16 * ((shift>>0)&3);
-    unsigned s2 = 1 + 16 * ((shift>>2)&3);
-    unsigned s3 = 1 + 16 * ((shift>>4)&3);
-    while(length--)
+    constexpr std::uint_least64_t lett = 0x42EA2DF6C524E; // maps a..z into 0..3 
+    constexpr std::uint_least64_t map = 0x86240793516208; // maps everything into 0..9
+    std::uint_least64_t result = 0x2306F37DE41BF7F4;
+    for(std::size_t p=0; p<length; ++p)
     {
-        result = (result ^ (result >> s1)) * b;
-        result = (result ^ (result >> s2)) * c;
-        result = (result ^ (result >> s3)) * d;
-        result += (unsigned char)*s++;
+        unsigned z = s[p];
+        // For the constant evaluation, repeat the steps done in PreFilterColor().
+    #if defined(__GNUC__) || defined(__clang__)
+        if(__builtin_constant_p(s))
+    #endif
+        { if(z == ' ') continue; if(z >= 'A' && z <= 'Z') z ^= 32; }
+
+        unsigned code_lett = (lett >> 2*((z - 'a') & 31)) & 3 /* 0..3 */;
+        unsigned code_dig  = (z + 4 - '0') & 15               /* 4..13 */;
+
+        // z = (z&64) ? code_lett : code_dig; // Branchful version commented out
+        // Branchless version of the same:
+        // Bit 6 is set for letters, but not digits
+        // Bit 5 is set for lowercase and digits, but not uppercase
+        // Branchless version of the same:
+        unsigned cond = -((z >> 6) & 1); // Test bit 6 to detect alphabet
+        z = (code_lett & cond)  // True: want 3, false: want 0
+          | (code_dig & ~cond); // True: want 0, false: want 15
+
+        auto bits = 15 & (map >> 4*(z&15));
+        result = result * 10 + bits;
     }
     return result % mod;
 }
 
+static constexpr const char _[] = "";
 #define docolors(o) \
-        o(  27, 0xAFEEEE, "paleturquoise") \
-        o(  73, 0xCCCCCC, "grey80") \
-        o(  74, 0xCFCFCF, "grey81") \
-        o(  75, 0xD1D1D1, "grey82") \
-        o(  76, 0xD4D4D4, "grey83") \
-        o(  77, 0xD6D6D6, "grey84") \
-        o(  78, 0xD9D9D9, "grey85") \
-        o(  79, 0xDBDBDB, "grey86") \
-        o(  80, 0xDEDEDE, "grey87") \
-        o(  81, 0xE0E0E0, "grey88") \
-        o(  82, 0xE3E3E3, "grey89") \
-        o( 133, 0x696969, "dim grey") \
-        o( 200, 0x333333, "gray20") \
-        o( 201, 0x363636, "gray21") \
-        o( 202, 0x383838, "gray22") \
-        o( 203, 0x3B3B3B, "gray23") \
-        o( 204, 0x3D3D3D, "gray24") \
-        o( 205, 0x404040, "gray25") \
-        o( 206, 0x424242, "gray26") \
-        o( 207, 0x454545, "gray27") \
-        o( 208, 0x474747, "gray28") \
-        o( 209, 0x4A4A4A, "gray29") \
-        o( 218, 0xAB82FF, "mediumpurple1") \
-        o( 219, 0x9F79EE, "mediumpurple2") \
-        o( 220, 0x8968CD, "mediumpurple3") \
-        o( 221, 0x5D478B, "mediumpurple4") \
-        o( 258, 0x3CB371, "mediumseagreen") \
-        o( 269, 0xADFF2F, "greenyellow") \
-        o( 285, 0xE6E6FA, "lavender") \
-        o( 313, 0x00BFFF, "deepskyblue1") \
-        o( 314, 0x00B2EE, "deepskyblue2") \
-        o( 315, 0x009ACD, "deepskyblue3") \
-        o( 316, 0x00688B, "deepskyblue4") \
-        o( 326, 0xFFE4E1, "misty rose") \
-        o( 327, 0x000000, "gray0") \
-        o( 328, 0x030303, "gray1") \
-        o( 329, 0x050505, "gray2") \
-        o( 330, 0x080808, "gray3") \
-        o( 331, 0x0A0A0A, "gray4") \
-        o( 332, 0x0D0D0D, "gray5") \
-        o( 333, 0x0F0F0F, "gray6") \
-        o( 334, 0x121212, "gray7") \
-        o( 335, 0x141414, "gray8") \
-        o( 336, 0x171717, "gray9") \
-        o( 355, 0xFFFACD, "lemonchiffon1") \
-        o( 356, 0xEEE9BF, "lemonchiffon2") \
-        o( 357, 0xCDC9A5, "lemonchiffon3") \
-        o( 358, 0x8B8970, "lemonchiffon4") \
-        o( 370, 0xF0F8FF, "alice blue") \
-        o( 397, 0xFF4500, "orangered") \
-        o( 416, 0x2E8B57, "seagreen") \
-        o( 435, 0xFFFACD, "lemonchiffon") \
-        o( 436, 0x87CEFF, "skyblue1") \
-        o( 437, 0x7EC0EE, "skyblue2") \
-        o( 438, 0x6CA6CD, "skyblue3") \
-        o( 439, 0x4A708B, "skyblue4") \
-        o( 442, 0xF5FFFA, "mintcream") \
-        o( 469, 0x1E90FF, "dodger blue") \
-        o( 481, 0xFFD39B, "burlywood1") \
-        o( 482, 0xEEC591, "burlywood2") \
-        o( 483, 0xCDAA7D, "burlywood3") \
-        o( 484, 0x8B7355, "burlywood4") \
-        o( 485, 0x008B8B, "dark cyan") \
-        o( 503, 0xBF3EFF, "darkorchid1") \
-        o( 504, 0xB23AEE, "darkorchid2") \
-        o( 505, 0x9A32CD, "darkorchid3") \
-        o( 506, 0x68228B, "darkorchid4") \
-        o( 568, 0x20B2AA, "lightseagreen") \
-        o( 589, 0x000080, "navy") \
-        o( 616, 0xFFC1C1, "rosybrown1") \
-        o( 617, 0xEEB4B4, "rosybrown2") \
-        o( 618, 0xCD9B9B, "rosybrown3") \
-        o( 619, 0x8B6969, "rosybrown4") \
-        o( 622, 0x0000FF, "blue") \
-        o( 629, 0xD3D3D3, "lightgrey") \
-        o( 664, 0x8470FF, "lightslateblue") \
-        o( 671, 0x666666, "gray40") \
-        o( 672, 0x696969, "gray41") \
-        o( 673, 0x6B6B6B, "gray42") \
-        o( 674, 0x6E6E6E, "gray43") \
-        o( 675, 0x707070, "gray44") \
-        o( 676, 0x737373, "gray45") \
-        o( 677, 0x757575, "gray46") \
-        o( 678, 0x787878, "gray47") \
-        o( 679, 0x7A7A7A, "gray48") \
-        o( 680, 0x7D7D7D, "gray49") \
-        o( 681, 0xFFFFE0, "light yellow") \
-        o( 699, 0x8B008B, "darkmagenta") \
-        o( 717, 0xFFDAB9, "peach puff") \
-        o( 759, 0xB0C4DE, "lightsteelblue") \
-        o( 782, 0xDA70D6, "orchid") \
-        o( 784, 0x9370DB, "medium purple") \
-        o( 794, 0xF5FFFA, "mint cream") \
-        o( 802, 0xB22222, "firebrick") \
-        o( 852, 0xFA8072, "salmon") \
-        o( 867, 0xE0FFFF, "light cyan") \
-        o( 878, 0xF0FFFF, "azure1") \
-        o( 879, 0xE0EEEE, "azure2") \
-        o( 880, 0xC1CDCD, "azure3") \
-        o( 881, 0x838B8B, "azure4") \
-        o( 883, 0x00008B, "darkblue") \
-        o( 887, 0x48D1CC, "mediumturquoise") \
-        o( 892, 0x5F9EA0, "cadet blue") \
-        o( 896, 0xE5E5E5, "gray90") \
-        o( 897, 0xE8E8E8, "gray91") \
-        o( 898, 0xEBEBEB, "gray92") \
-        o( 899, 0xEDEDED, "gray93") \
-        o( 900, 0xF0F0F0, "gray94") \
-        o( 901, 0xF2F2F2, "gray95") \
-        o( 902, 0xF5F5F5, "gray96") \
-        o( 903, 0xF7F7F7, "gray97") \
-        o( 904, 0xFAFAFA, "gray98") \
-        o( 905, 0xFCFCFC, "gray99") \
-        o( 932, 0xA9A9A9, "dark grey") \
-        o( 945, 0xCD5C5C, "indian red") \
-        o( 948, 0xA9A9A9, "dark gray") \
-        o( 952, 0xFFFAFA, "snow") \
-        o( 968, 0xFF00FF, "magenta1") \
-        o( 969, 0xEE00EE, "magenta2") \
-        o( 970, 0xCD00CD, "magenta3") \
-        o( 971, 0x8B008B, "magenta4") \
-        o( 973, 0xDB7093, "pale violet red") \
-        o( 982, 0xFFE4B5, "moccasin") \
-        o(1016, 0xFFA07A, "lightsalmon1") \
-        o(1017, 0xEE9572, "lightsalmon2") \
-        o(1018, 0xCD8162, "lightsalmon3") \
-        o(1019, 0x8B5742, "lightsalmon4") \
-        o(1036, 0x00CED1, "dark turquoise") \
-        o(1039, 0xD02090, "violetred") \
-        o(1040, 0x9932CC, "darkorchid") \
-        o(1052, 0xFF82AB, "palevioletred1") \
-        o(1053, 0xEE799F, "palevioletred2") \
-        o(1054, 0xCD6889, "palevioletred3") \
-        o(1055, 0x8B475D, "palevioletred4") \
-        o(1122, 0xFFB5C5, "pink1") \
-        o(1123, 0xEEA9B8, "pink2") \
-        o(1124, 0xCD919E, "pink3") \
-        o(1125, 0x8B636C, "pink4") \
-        o(1141, 0xE0FFFF, "lightcyan1") \
-        o(1142, 0xD1EEEE, "lightcyan2") \
-        o(1143, 0xB4CDCD, "lightcyan3") \
-        o(1144, 0x7A8B8B, "lightcyan4") \
-        o(1222, 0x8B4513, "saddlebrown") \
-        o(1275, 0x708090, "slate gray") \
-        o(1277, 0xEEE8AA, "pale goldenrod") \
-        o(1281, 0x228B22, "forest green") \
-        o(1285, 0xFFDEAD, "navajowhite1") \
-        o(1286, 0xEECFA1, "navajowhite2") \
-        o(1287, 0xCDB38B, "navajowhite3") \
-        o(1288, 0x8B795E, "navajowhite4") \
-        o(1394, 0xFFFFFF, "white") \
-        o(1405, 0xE0FFFF, "lightcyan") \
-        o(1419, 0xFFE7BA, "wheat1") \
-        o(1420, 0xEED8AE, "wheat2") \
-        o(1421, 0xCDBA96, "wheat3") \
-        o(1422, 0x8B7E66, "wheat4") \
-        o(1430, 0xFFF8DC, "cornsilk1") \
-        o(1431, 0xEEE8CD, "cornsilk2") \
-        o(1432, 0xCDC8B1, "cornsilk3") \
-        o(1433, 0x8B8878, "cornsilk4") \
-        o(1464, 0xBBFFFF, "paleturquoise1") \
-        o(1465, 0xAEEEEE, "paleturquoise2") \
-        o(1466, 0x96CDCD, "paleturquoise3") \
-        o(1467, 0x668B8B, "paleturquoise4") \
-        o(1472, 0x4682B4, "steelblue") \
-        o(1506, 0xFF6EB4, "hotpink1") \
-        o(1507, 0xEE6AA7, "hotpink2") \
-        o(1508, 0xCD6090, "hotpink3") \
-        o(1509, 0x8B3A62, "hotpink4") \
-        o(1518, 0x8B4513, "saddle brown") \
-        o(1530, 0x8FBC8F, "darkseagreen") \
-        o(1546, 0xFFEFD5, "papaya whip") \
-        o(1553, 0xB03060, "maroon") \
-        o(1557, 0xBA55D3, "mediumorchid") \
-        o(1598, 0xD2691E, "chocolate") \
-        o(1604, 0xE9967A, "darksalmon") \
-        o(1616, 0xF0FFF0, "honeydew") \
-        o(1626, 0xFFE4C4, "bisque1") \
-        o(1627, 0xEED5B7, "bisque2") \
-        o(1628, 0xCDB79E, "bisque3") \
-        o(1629, 0x8B7D6B, "bisque4") \
-        o(1683, 0xD2B48C, "tan") \
-        o(1690, 0xD3D3D3, "light grey") \
-        o(1713, 0x87CEFA, "light sky blue") \
-        o(1717, 0x90EE90, "lightgreen") \
-        o(1741, 0x90EE90, "light green") \
-        o(1742, 0xBC8F8F, "rosybrown") \
-        o(1750, 0xDCDCDC, "gainsboro") \
-        o(1759, 0xFFB6C1, "light pink") \
-        o(1782, 0x1E90FF, "dodgerblue") \
-        o(1792, 0xA52A2A, "brown") \
-        o(1813, 0xF0FFF0, "honeydew1") \
-        o(1814, 0xE0EEE0, "honeydew2") \
-        o(1815, 0xC1CDC1, "honeydew3") \
-        o(1816, 0x838B83, "honeydew4") \
-        o(1817, 0xFF1493, "deeppink") \
-        o(1819, 0xF0FFFF, "azure") \
-        o(1820, 0x63B8FF, "steelblue1") \
-        o(1821, 0x5CACEE, "steelblue2") \
-        o(1822, 0x4F94CD, "steelblue3") \
-        o(1823, 0x36648B, "steelblue4") \
-        o(1830, 0x4169E1, "royal blue") \
-        o(1845, 0x9932CC, "dark orchid") \
-        o(1853, 0x999999, "grey60") \
-        o(1854, 0x9C9C9C, "grey61") \
-        o(1855, 0x9E9E9E, "grey62") \
-        o(1856, 0xA1A1A1, "grey63") \
-        o(1857, 0xA3A3A3, "grey64") \
-        o(1858, 0xA6A6A6, "grey65") \
-        o(1859, 0xA8A8A8, "grey66") \
-        o(1860, 0xABABAB, "grey67") \
-        o(1861, 0xADADAD, "grey68") \
-        o(1862, 0xB0B0B0, "grey69") \
-        o(1871, 0xFFBBFF, "plum1") \
-        o(1872, 0xEEAEEE, "plum2") \
-        o(1873, 0xCD96CD, "plum3") \
-        o(1874, 0x8B668B, "plum4") \
-        o(1903, 0xFF3E96, "violetred1") \
-        o(1904, 0xEE3A8C, "violetred2") \
-        o(1905, 0xCD3278, "violetred3") \
-        o(1906, 0x8B2252, "violetred4") \
-        o(1907, 0xEEDD82, "light goldenrod") \
-        o(1916, 0x8FBC8F, "dark sea green") \
-        o(1919, 0x191970, "midnight blue") \
-        o(1924, 0x00FA9A, "medium spring green") \
-        o(1948, 0x708090, "slategrey") \
-        o(1960, 0x48D1CC, "medium turquoise") \
-        o(1973, 0xFF6A6A, "indianred1") \
-        o(1974, 0xEE6363, "indianred2") \
-        o(1975, 0xCD5555, "indianred3") \
-        o(1976, 0x8B3A3A, "indianred4") \
-        o(2006, 0xBA55D3, "medium orchid") \
-        o(2064, 0xE9967A, "dark salmon") \
-        o(2067, 0x7FFF00, "chartreuse1") \
-        o(2068, 0x76EE00, "chartreuse2") \
-        o(2069, 0x66CD00, "chartreuse3") \
-        o(2070, 0x458B00, "chartreuse4") \
-        o(2125, 0x6495ED, "cornflower blue") \
-        o(2147, 0xFFA500, "orange") \
-        o(2164, 0xFFF0F5, "lavenderblush") \
-        o(2191, 0x3CB371, "medium sea green") \
-        o(2199, 0x97FFFF, "darkslategray1") \
-        o(2200, 0x8DEEEE, "darkslategray2") \
-        o(2201, 0x79CDCD, "darkslategray3") \
-        o(2202, 0x528B8B, "darkslategray4") \
-        o(2227, 0xFFFF00, "yellow") \
-        o(2239, 0x6A5ACD, "slateblue") \
-        o(2257, 0xD8BFD8, "thistle") \
-        o(2292, 0x4169E1, "royalblue") \
-        o(2342, 0x4D4D4D, "gray30") \
-        o(2343, 0x4F4F4F, "gray31") \
-        o(2344, 0x525252, "gray32") \
-        o(2345, 0x545454, "gray33") \
-        o(2346, 0x575757, "gray34") \
-        o(2347, 0x595959, "gray35") \
-        o(2348, 0x5C5C5C, "gray36") \
-        o(2349, 0x5E5E5E, "gray37") \
-        o(2350, 0x616161, "gray38") \
-        o(2351, 0x636363, "gray39") \
-        o(2362, 0x7FFFD4, "aquamarine") \
-        o(2399, 0xFFA07A, "lightsalmon") \
-        o(2403, 0xFF69B4, "hotpink") \
-        o(2429, 0x8470FF, "light slate blue") \
-        o(2435, 0xE066FF, "mediumorchid1") \
-        o(2436, 0xD15FEE, "mediumorchid2") \
-        o(2437, 0xB452CD, "mediumorchid3") \
-        o(2438, 0x7A378B, "mediumorchid4") \
-        o(2462, 0x7FFF00, "chartreuse") \
-        o(2470, 0xFFF68F, "khaki1") \
-        o(2471, 0xEEE685, "khaki2") \
-        o(2472, 0xCDC673, "khaki3") \
-        o(2473, 0x8B864E, "khaki4") \
-        o(2480, 0xFFF8DC, "cornsilk") \
-        o(2492, 0x8A2BE2, "blue violet") \
-        o(2494, 0xFFF5EE, "seashell") \
-        o(2495, 0x2F4F4F, "dark slate gray") \
-        o(2501, 0xD02090, "violet red") \
-        o(2507, 0xB3B3B3, "grey70") \
-        o(2508, 0xB5B5B5, "grey71") \
-        o(2509, 0xB8B8B8, "grey72") \
-        o(2510, 0xBABABA, "grey73") \
-        o(2511, 0xBDBDBD, "grey74") \
-        o(2512, 0xBFBFBF, "grey75") \
-        o(2513, 0xC2C2C2, "grey76") \
-        o(2514, 0xC4C4C4, "grey77") \
-        o(2515, 0xC7C7C7, "grey78") \
-        o(2516, 0xC9C9C9, "grey79") \
-        o(2525, 0x4D4D4D, "grey30") \
-        o(2526, 0x4F4F4F, "grey31") \
-        o(2527, 0x525252, "grey32") \
-        o(2528, 0x545454, "grey33") \
-        o(2529, 0x575757, "grey34") \
-        o(2530, 0x595959, "grey35") \
-        o(2531, 0x5C5C5C, "grey36") \
-        o(2532, 0x5E5E5E, "grey37") \
-        o(2533, 0x616161, "grey38") \
-        o(2534, 0x636363, "grey39") \
-        o(2543, 0xFF6347, "tomato1") \
-        o(2544, 0xEE5C42, "tomato2") \
-        o(2545, 0xCD4F39, "tomato3") \
-        o(2546, 0x8B3626, "tomato4") \
-        o(2575, 0xADD8E6, "light blue") \
-        o(2620, 0x333333, "grey20") \
-        o(2621, 0x363636, "grey21") \
-        o(2622, 0x383838, "grey22") \
-        o(2623, 0x3B3B3B, "grey23") \
-        o(2624, 0x3D3D3D, "grey24") \
-        o(2625, 0x404040, "grey25") \
-        o(2626, 0x424242, "grey26") \
-        o(2627, 0x454545, "grey27") \
-        o(2628, 0x474747, "grey28") \
-        o(2629, 0x4A4A4A, "grey29") \
-        o(2641, 0x00F5FF, "turquoise1") \
-        o(2642, 0x00E5EE, "turquoise2") \
-        o(2643, 0x00C5CD, "turquoise3") \
-        o(2644, 0x00868B, "turquoise4") \
-        o(2669, 0x708090, "slate grey") \
-        o(2674, 0x66CDAA, "medium aquamarine") \
-        o(2702, 0x54FF9F, "seagreen1") \
-        o(2703, 0x4EEE94, "seagreen2") \
-        o(2704, 0x43CD80, "seagreen3") \
-        o(2705, 0x2E8B57, "seagreen4") \
-        o(2710, 0xFF0000, "red") \
-        o(2734, 0xFFC0CB, "pink") \
-        o(2755, 0xADFF2F, "green yellow") \
-        o(2775, 0xA020F0, "purple") \
-        o(2785, 0xFFE4C4, "bisque") \
-        o(2821, 0x9ACD32, "yellow green") \
-        o(2838, 0x0000CD, "mediumblue") \
-        o(2926, 0x32CD32, "limegreen") \
-        o(2928, 0xFFA07A, "light salmon") \
-        o(2958, 0x5F9EA0, "cadetblue") \
-        o(3025, 0xBDB76B, "darkkhaki") \
-        o(3085, 0xFF7F00, "darkorange1") \
-        o(3086, 0xEE7600, "darkorange2") \
-        o(3087, 0xCD6600, "darkorange3") \
-        o(3088, 0x8B4500, "darkorange4") \
-        o(3091, 0xBEBEBE, "gray") \
-        o(3173, 0x9400D3, "darkviolet") \
-        o(3177, 0x2F4F4F, "darkslategray") \
-        o(3232, 0xFFA54F, "tan1") \
-        o(3233, 0xEE9A49, "tan2") \
-        o(3234, 0xCD853F, "tan3") \
-        o(3235, 0x8B5A2B, "tan4") \
-        o(3238, 0xFF1493, "deep pink") \
-        o(3240, 0xFFFFE0, "lightyellow1") \
-        o(3241, 0xEEEED1, "lightyellow2") \
-        o(3242, 0xCDCDB4, "lightyellow3") \
-        o(3243, 0x8B8B7A, "lightyellow4") \
-        o(3273, 0x87CEEB, "skyblue") \
-        o(3348, 0x32CD32, "lime green") \
-        o(3365, 0xCCCCCC, "gray80") \
-        o(3366, 0xCFCFCF, "gray81") \
-        o(3367, 0xD1D1D1, "gray82") \
-        o(3368, 0xD4D4D4, "gray83") \
-        o(3369, 0xD6D6D6, "gray84") \
-        o(3370, 0xD9D9D9, "gray85") \
-        o(3371, 0xDBDBDB, "gray86") \
-        o(3372, 0xDEDEDE, "gray87") \
-        o(3373, 0xE0E0E0, "gray88") \
-        o(3374, 0xE3E3E3, "gray89") \
-        o(3380, 0xF4A460, "sandy brown") \
-        o(3396, 0xFFEBCD, "blanched almond") \
-        o(3399, 0xFF8C00, "dark orange") \
-        o(3407, 0xFAF0E6, "linen") \
-        o(3521, 0x98FB98, "pale green") \
-        o(3523, 0xF8F8FF, "ghostwhite") \
-        o(3531, 0xB8860B, "darkgoldenrod") \
-        o(3543, 0x1E90FF, "dodgerblue1") \
-        o(3544, 0x1C86EE, "dodgerblue2") \
-        o(3545, 0x1874CD, "dodgerblue3") \
-        o(3546, 0x104E8B, "dodgerblue4") \
-        o(3564, 0x00FF7F, "spring green") \
-        o(3578, 0x8B008B, "dark magenta") \
-        o(3590, 0xCD853F, "peru") \
-        o(3647, 0xADD8E6, "lightblue") \
-        o(3668, 0x006400, "darkgreen") \
-        o(3679, 0xD3D3D3, "light gray") \
-        o(3730, 0xFFDAB9, "peachpuff") \
-        o(3799, 0xFF1493, "deeppink1") \
-        o(3800, 0xEE1289, "deeppink2") \
-        o(3801, 0xCD1076, "deeppink3") \
-        o(3802, 0x8B0A50, "deeppink4") \
-        o(3817, 0x778899, "light slate gray") \
-        o(3837, 0xF4A460, "sandybrown") \
-        o(3877, 0xA9A9A9, "darkgray") \
-        o(3934, 0x000000, "grey0") \
-        o(3935, 0x030303, "grey1") \
-        o(3936, 0x050505, "grey2") \
-        o(3937, 0x080808, "grey3") \
-        o(3938, 0x0A0A0A, "grey4") \
-        o(3939, 0x0D0D0D, "grey5") \
-        o(3940, 0x0F0F0F, "grey6") \
-        o(3941, 0x121212, "grey7") \
-        o(3942, 0x141414, "grey8") \
-        o(3943, 0x171717, "grey9") \
-        o(3976, 0xF8F8FF, "ghost white") \
-        o(3996, 0x00CED1, "darkturquoise") \
-        o(4018, 0xFFE1FF, "thistle1") \
-        o(4019, 0xEED2EE, "thistle2") \
-        o(4020, 0xCDB5CD, "thistle3") \
-        o(4021, 0x8B7B8B, "thistle4") \
-        o(4041, 0x8B0000, "dark red") \
-        o(4062, 0x483D8B, "darkslateblue") \
-        o(4079, 0x00FFFF, "cyan1") \
-        o(4080, 0x00EEEE, "cyan2") \
-        o(4081, 0x00CDCD, "cyan3") \
-        o(4082, 0x008B8B, "cyan4") \
-        o(4089, 0xF5DEB3, "wheat") \
-        o(4092, 0xFF8247, "sienna1") \
-        o(4093, 0xEE7942, "sienna2") \
-        o(4094, 0xCD6839, "sienna3") \
-        o(4095, 0x8B4726, "sienna4") \
-        o(4120, 0xFF7F50, "coral") \
-        o(4126, 0xFFFFFF, "gray100") \
-        o(4132, 0xFFF5EE, "seashell1") \
-        o(4133, 0xEEE5DE, "seashell2") \
-        o(4134, 0xCDC5BF, "seashell3") \
-        o(4135, 0x8B8682, "seashell4") \
-        o(4185, 0x2F4F4F, "darkslategrey") \
-        o(4208, 0xFF4040, "brown1") \
-        o(4209, 0xEE3B3B, "brown2") \
-        o(4210, 0xCD3333, "brown3") \
-        o(4211, 0x8B2323, "brown4") \
-        o(4213, 0xFAFAD2, "lightgoldenrodyellow") \
-        o(4232, 0xB0C4DE, "light steel blue") \
-        o(4279, 0xF0F8FF, "aliceblue") \
-        o(4351, 0xFFE4E1, "mistyrose1") \
-        o(4352, 0xEED5D2, "mistyrose2") \
-        o(4353, 0xCDB7B5, "mistyrose3") \
-        o(4354, 0x8B7D7B, "mistyrose4") \
-        o(4386, 0x8B0000, "darkred") \
-        o(4425, 0x7CFC00, "lawn green") \
-        o(4426, 0xBEBEBE, "grey") \
-        o(4435, 0x00FFFF, "cyan") \
-        o(4445, 0x1A1A1A, "grey10") \
-        o(4446, 0x1C1C1C, "grey11") \
-        o(4447, 0x1F1F1F, "grey12") \
-        o(4448, 0x212121, "grey13") \
-        o(4449, 0x242424, "grey14") \
-        o(4450, 0x262626, "grey15") \
-        o(4451, 0x292929, "grey16") \
-        o(4452, 0x2B2B2B, "grey17") \
-        o(4453, 0x2E2E2E, "grey18") \
-        o(4454, 0x303030, "grey19") \
-        o(4468, 0xF5F5F5, "white smoke") \
-        o(4517, 0x7F7F7F, "grey50") \
-        o(4518, 0x828282, "grey51") \
-        o(4519, 0x858585, "grey52") \
-        o(4520, 0x878787, "grey53") \
-        o(4521, 0x8A8A8A, "grey54") \
-        o(4522, 0x8C8C8C, "grey55") \
-        o(4523, 0x8F8F8F, "grey56") \
-        o(4524, 0x919191, "grey57") \
-        o(4525, 0x949494, "grey58") \
-        o(4526, 0x969696, "grey59") \
-        o(4533, 0xDDA0DD, "plum") \
-        o(4534, 0x00BFFF, "deep sky blue") \
-        o(4540, 0x696969, "dim gray") \
-        o(4560, 0xB3B3B3, "gray70") \
-        o(4561, 0xB5B5B5, "gray71") \
-        o(4562, 0xB8B8B8, "gray72") \
-        o(4563, 0xBABABA, "gray73") \
-        o(4564, 0xBDBDBD, "gray74") \
-        o(4565, 0xBFBFBF, "gray75") \
-        o(4566, 0xC2C2C2, "gray76") \
-        o(4567, 0xC4C4C4, "gray77") \
-        o(4568, 0xC7C7C7, "gray78") \
-        o(4569, 0xC9C9C9, "gray79") \
-        o(4592, 0xFFA500, "orange1") \
-        o(4593, 0xEE9A00, "orange2") \
-        o(4594, 0xCD8500, "orange3") \
-        o(4595, 0x8B5A00, "orange4") \
-        o(4616, 0xFFFAF0, "floralwhite") \
-        o(4652, 0xEEDD82, "lightgoldenrod") \
-        o(4654, 0xA9A9A9, "darkgrey") \
-        o(4659, 0x556B2F, "darkolivegreen") \
-        o(4661, 0xFFFFF0, "ivory1") \
-        o(4662, 0xEEEEE0, "ivory2") \
-        o(4663, 0xCDCDC1, "ivory3") \
-        o(4664, 0x8B8B83, "ivory4") \
-        o(4701, 0x6495ED, "cornflowerblue") \
-        o(4711, 0x00FF7F, "springgreen1") \
-        o(4712, 0x00EE76, "springgreen2") \
-        o(4713, 0x00CD66, "springgreen3") \
-        o(4714, 0x008B45, "springgreen4") \
-        o(4746, 0x000000, "black") \
-        o(4801, 0xFFFACD, "lemon chiffon") \
-        o(4803, 0x9B30FF, "purple1") \
-        o(4804, 0x912CEE, "purple2") \
-        o(4805, 0x7D26CD, "purple3") \
-        o(4806, 0x551A8B, "purple4") \
-        o(4870, 0xFFE4E1, "mistyrose") \
-        o(4907, 0xDAA520, "goldenrod") \
-        o(4925, 0x0000CD, "medium blue") \
-        o(4929, 0xFF3030, "firebrick1") \
-        o(4930, 0xEE2C2C, "firebrick2") \
-        o(4931, 0xCD2626, "firebrick3") \
-        o(4932, 0x8B1A1A, "firebrick4") \
-        o(4987, 0xFF69B4, "hot pink") \
-        o(5011, 0x00FA9A, "mediumspringgreen") \
-        o(5028, 0xBC8F8F, "rosy brown") \
-        o(5037, 0xF08080, "lightcoral") \
-        o(5048, 0xFAEBD7, "antiquewhite") \
-        o(5093, 0xFFB6C1, "lightpink") \
-        o(5146, 0x000080, "navyblue") \
-        o(5165, 0x00FF00, "green") \
-        o(5169, 0xCD5C5C, "indianred") \
-        o(5170, 0x556B2F, "dark olive green") \
-        o(5171, 0x7F7F7F, "gray50") \
-        o(5172, 0x828282, "gray51") \
-        o(5173, 0x858585, "gray52") \
-        o(5174, 0x878787, "gray53") \
-        o(5175, 0x8A8A8A, "gray54") \
-        o(5176, 0x8C8C8C, "gray55") \
-        o(5177, 0x8F8F8F, "gray56") \
-        o(5178, 0x919191, "gray57") \
-        o(5179, 0x949494, "gray58") \
-        o(5180, 0x969696, "gray59") \
-        o(5190, 0x20B2AA, "light sea green") \
-        o(5226, 0x008B8B, "darkcyan") \
-        o(5227, 0xDB7093, "palevioletred") \
-        o(5231, 0x98F5FF, "cadetblue1") \
-        o(5232, 0x8EE5EE, "cadetblue2") \
-        o(5233, 0x7AC5CD, "cadetblue3") \
-        o(5234, 0x53868B, "cadetblue4") \
-        o(5250, 0xF5F5DC, "beige") \
-        o(5283, 0x9AFF9A, "palegreen1") \
-        o(5284, 0x90EE90, "palegreen2") \
-        o(5285, 0x7CCD7C, "palegreen3") \
-        o(5286, 0x548B54, "palegreen4") \
-        o(5291, 0xC71585, "medium violet red") \
-        o(5303, 0x87CEFA, "lightskyblue") \
-        o(5308, 0x66CDAA, "mediumaquamarine") \
-        o(5335, 0xFFFAFA, "snow1") \
-        o(5336, 0xEEE9E9, "snow2") \
-        o(5337, 0xCDC9C9, "snow3") \
-        o(5338, 0x8B8989, "snow4") \
-        o(5374, 0x228B22, "forestgreen") \
-        o(5378, 0xFFAEB9, "lightpink1") \
-        o(5379, 0xEEA2AD, "lightpink2") \
-        o(5380, 0xCD8C95, "lightpink3") \
-        o(5381, 0x8B5F65, "lightpink4") \
-        o(5408, 0xFF0000, "red1") \
-        o(5409, 0xEE0000, "red2") \
-        o(5410, 0xCD0000, "red3") \
-        o(5411, 0x8B0000, "red4") \
-        o(5419, 0x006400, "dark green") \
-        o(5421, 0x9ACD32, "yellowgreen") \
-        o(5432, 0xD70751, "debianred") \
-        o(5547, 0xFF34B3, "maroon1") \
-        o(5548, 0xEE30A7, "maroon2") \
-        o(5549, 0xCD2990, "maroon3") \
-        o(5550, 0x8B1C62, "maroon4") \
-        o(5561, 0xC6E2FF, "slategray1") \
-        o(5562, 0xB9D3EE, "slategray2") \
-        o(5563, 0x9FB6CD, "slategray3") \
-        o(5564, 0x6C7B8B, "slategray4") \
-        o(5590, 0x2E8B57, "sea green") \
-        o(5594, 0xFFFFFF, "grey100") \
-        o(5597, 0x7B68EE, "medium slate blue") \
-        o(5633, 0x4876FF, "royalblue1") \
-        o(5634, 0x436EEE, "royalblue2") \
-        o(5635, 0x3A5FCD, "royalblue3") \
-        o(5636, 0x27408B, "royalblue4") \
-        o(5704, 0xFDF5E6, "old lace") \
-        o(5731, 0xFFDEAD, "navajo white") \
-        o(5746, 0xC1FFC1, "darkseagreen1") \
-        o(5747, 0xB4EEB4, "darkseagreen2") \
-        o(5748, 0x9BCD9B, "darkseagreen3") \
-        o(5749, 0x698B69, "darkseagreen4") \
-        o(5776, 0xFF6347, "tomato") \
-        o(5778, 0x191970, "midnightblue") \
-        o(5788, 0x000080, "navy blue") \
-        o(5810, 0xFFB90F, "darkgoldenrod1") \
-        o(5811, 0xEEAD0E, "darkgoldenrod2") \
-        o(5812, 0xCD950C, "darkgoldenrod3") \
-        o(5813, 0x8B6508, "darkgoldenrod4") \
-        o(5827, 0xFFDEAD, "navajowhite") \
-        o(5844, 0x999999, "gray60") \
-        o(5845, 0x9C9C9C, "gray61") \
-        o(5846, 0x9E9E9E, "gray62") \
-        o(5847, 0xA1A1A1, "gray63") \
-        o(5848, 0xA3A3A3, "gray64") \
-        o(5849, 0xA6A6A6, "gray65") \
-        o(5850, 0xA8A8A8, "gray66") \
-        o(5851, 0xABABAB, "gray67") \
-        o(5852, 0xADADAD, "gray68") \
-        o(5853, 0xB0B0B0, "gray69") \
-        o(5864, 0xFFEFD5, "papayawhip") \
-        o(5888, 0xFFFFE0, "lightyellow") \
-        o(5911, 0x7CFC00, "lawngreen") \
-        o(5965, 0xB0E0E6, "powderblue") \
-        o(5974, 0xEE82EE, "violet") \
-        o(5978, 0x7FFFD4, "aquamarine1") \
-        o(5979, 0x76EEC6, "aquamarine2") \
-        o(5980, 0x66CDAA, "aquamarine3") \
-        o(5981, 0x458B74, "aquamarine4") \
-        o(5990, 0xAFEEEE, "pale turquoise") \
-        o(6013, 0x7B68EE, "mediumslateblue") \
-        o(6041, 0xC0FF3E, "olivedrab1") \
-        o(6042, 0xB3EE3A, "olivedrab2") \
-        o(6043, 0x9ACD32, "olivedrab3") \
-        o(6044, 0x698B22, "olivedrab4") \
-        o(6057, 0x8A2BE2, "blueviolet") \
-        o(6063, 0x2F4F4F, "dark slate grey") \
-        o(6068, 0xFF4500, "orange red") \
-        o(6089, 0xFF7256, "coral1") \
-        o(6090, 0xEE6A50, "coral2") \
-        o(6091, 0xCD5B45, "coral3") \
-        o(6092, 0x8B3E2F, "coral4") \
-        o(6096, 0x00FF00, "green1") \
-        o(6097, 0x00EE00, "green2") \
-        o(6098, 0x00CD00, "green3") \
-        o(6099, 0x008B00, "green4") \
-        o(6136, 0xFFEBCD, "blanchedalmond") \
-        o(6141, 0x4682B4, "steel blue") \
-        o(6147, 0xFFDAB9, "peachpuff1") \
-        o(6148, 0xEECBAD, "peachpuff2") \
-        o(6149, 0xCDAF95, "peachpuff3") \
-        o(6150, 0x8B7765, "peachpuff4") \
-        o(6161, 0xFFFF00, "yellow1") \
-        o(6162, 0xEEEE00, "yellow2") \
-        o(6163, 0xCDCD00, "yellow3") \
-        o(6164, 0x8B8B00, "yellow4") \
-        o(6207, 0x40E0D0, "turquoise") \
-        o(6223, 0xB0E0E6, "powder blue") \
-        o(6278, 0xB0E2FF, "lightskyblue1") \
-        o(6279, 0xA4D3EE, "lightskyblue2") \
-        o(6280, 0x8DB6CD, "lightskyblue3") \
-        o(6281, 0x607B8B, "lightskyblue4") \
-        o(6282, 0xFF7F24, "chocolate1") \
-        o(6283, 0xEE7621, "chocolate2") \
-        o(6284, 0xCD661D, "chocolate3") \
-        o(6285, 0x8B4513, "chocolate4") \
-        o(6292, 0xFF8C00, "darkorange") \
-        o(6316, 0x696969, "dimgrey") \
-        o(6372, 0xDEB887, "burlywood") \
-        o(6374, 0xFF8C69, "salmon1") \
-        o(6375, 0xEE8262, "salmon2") \
-        o(6376, 0xCD7054, "salmon3") \
-        o(6377, 0x8B4C39, "salmon4") \
-        o(6503, 0xEEE8AA, "palegoldenrod") \
-        o(6515, 0xC71585, "mediumvioletred") \
-        o(6542, 0x778899, "lightslategrey") \
-        o(6547, 0xD3D3D3, "lightgray") \
-        o(6551, 0xFFFAF0, "floral white") \
-        o(6563, 0x00FF7F, "springgreen") \
-        o(6584, 0xFFF0F5, "lavenderblush1") \
-        o(6585, 0xEEE0E5, "lavenderblush2") \
-        o(6586, 0xCDC1C5, "lavenderblush3") \
-        o(6587, 0x8B8386, "lavenderblush4") \
-        o(6595, 0x778899, "lightslategray") \
-        o(6608, 0xE5E5E5, "grey90") \
-        o(6609, 0xE8E8E8, "grey91") \
-        o(6610, 0xEBEBEB, "grey92") \
-        o(6611, 0xEDEDED, "grey93") \
-        o(6612, 0xF0F0F0, "grey94") \
-        o(6613, 0xF2F2F2, "grey95") \
-        o(6614, 0xF5F5F5, "grey96") \
-        o(6615, 0xF7F7F7, "grey97") \
-        o(6616, 0xFAFAFA, "grey98") \
-        o(6617, 0xFCFCFC, "grey99") \
-        o(6619, 0xF08080, "light coral") \
-        o(6702, 0x6B8E23, "olive drab") \
-        o(6707, 0xF0E68C, "khaki") \
-        o(6721, 0xFFD700, "gold") \
-        o(6742, 0x778899, "light slate grey") \
-        o(6762, 0xFFFFF0, "ivory") \
-        o(6780, 0x9400D3, "dark violet") \
-        o(6803, 0x98FB98, "palegreen") \
-        o(6815, 0x87CEEB, "sky blue") \
-        o(6859, 0x483D8B, "dark slate blue") \
-        o(6884, 0xFAEBD7, "antique white") \
-        o(6922, 0xFFF0F5, "lavender blush") \
-        o(6939, 0xFF83FA, "orchid1") \
-        o(6940, 0xEE7AE9, "orchid2") \
-        o(6941, 0xCD69C9, "orchid3") \
-        o(6942, 0x8B4789, "orchid4") \
-        o(6953, 0xA0522D, "sienna") \
-        o(7024, 0xFF00FF, "magenta") \
-        o(7029, 0x1A1A1A, "gray10") \
-        o(7030, 0x1C1C1C, "gray11") \
-        o(7031, 0x1F1F1F, "gray12") \
-        o(7032, 0x212121, "gray13") \
-        o(7033, 0x242424, "gray14") \
-        o(7034, 0x262626, "gray15") \
-        o(7035, 0x292929, "gray16") \
-        o(7036, 0x2B2B2B, "gray17") \
-        o(7037, 0x2E2E2E, "gray18") \
-        o(7038, 0x303030, "gray19") \
-        o(7074, 0x00BFFF, "deepskyblue") \
-        o(7097, 0xFFEFDB, "antiquewhite1") \
-        o(7098, 0xEEDFCC, "antiquewhite2") \
-        o(7099, 0xCDC0B0, "antiquewhite3") \
-        o(7100, 0x8B8378, "antiquewhite4") \
-        o(7120, 0xBFEFFF, "lightblue1") \
-        o(7121, 0xB2DFEE, "lightblue2") \
-        o(7122, 0x9AC0CD, "lightblue3") \
-        o(7123, 0x68838B, "lightblue4") \
-        o(7127, 0xCAE1FF, "lightsteelblue1") \
-        o(7128, 0xBCD2EE, "lightsteelblue2") \
-        o(7129, 0xA2B5CD, "lightsteelblue3") \
-        o(7130, 0x6E7B8B, "lightsteelblue4") \
-        o(7183, 0x0000FF, "blue1") \
-        o(7184, 0x0000EE, "blue2") \
-        o(7185, 0x0000CD, "blue3") \
-        o(7186, 0x00008B, "blue4") \
-        o(7189, 0xB8860B, "dark goldenrod") \
-        o(7210, 0x708090, "slategray") \
-        o(7222, 0x6A5ACD, "slate blue") \
-        o(7257, 0xF5F5F5, "whitesmoke") \
-        o(7284, 0xCAFF70, "darkolivegreen1") \
-        o(7285, 0xBCEE68, "darkolivegreen2") \
-        o(7286, 0xA2CD5A, "darkolivegreen3") \
-        o(7287, 0x6E8B3D, "darkolivegreen4") \
-        o(7297, 0x666666, "grey40") \
-        o(7298, 0x696969, "grey41") \
-        o(7299, 0x6B6B6B, "grey42") \
-        o(7300, 0x6E6E6E, "grey43") \
-        o(7301, 0x707070, "grey44") \
-        o(7302, 0x737373, "grey45") \
-        o(7303, 0x757575, "grey46") \
-        o(7304, 0x787878, "grey47") \
-        o(7305, 0x7A7A7A, "grey48") \
-        o(7306, 0x7D7D7D, "grey49") \
-        o(7372, 0xFFD700, "gold1") \
-        o(7373, 0xEEC900, "gold2") \
-        o(7374, 0xCDAD00, "gold3") \
-        o(7375, 0x8B7500, "gold4") \
-        o(7376, 0x9370DB, "mediumpurple") \
-        o(7398, 0xFFC125, "goldenrod1") \
-        o(7399, 0xEEB422, "goldenrod2") \
-        o(7400, 0xCD9B1D, "goldenrod3") \
-        o(7401, 0x8B6914, "goldenrod4") \
-        o(7429, 0xFDF5E6, "oldlace") \
-        o(7464, 0xFF4500, "orangered1") \
-        o(7465, 0xEE4000, "orangered2") \
-        o(7466, 0xCD3700, "orangered3") \
-        o(7467, 0x8B2500, "orangered4") \
-        o(7475, 0xFAFAD2, "light goldenrod yellow") \
-        o(7477, 0xFFEC8B, "lightgoldenrod1") \
-        o(7478, 0xEEDC82, "lightgoldenrod2") \
-        o(7479, 0xCDBE70, "lightgoldenrod3") \
-        o(7480, 0x8B814C, "lightgoldenrod4") \
-        o(7535, 0x6B8E23, "olivedrab") \
-        o(7604, 0x00008B, "dark blue") \
-        o(7619, 0xBDB76B, "dark khaki") \
-        o(7665, 0x696969, "dimgray") \
-        o(7666, 0x836FFF, "slateblue1") \
-        o(7667, 0x7A67EE, "slateblue2") \
-        o(7668, 0x6959CD, "slateblue3") \
-        o(7669, 0x473C8B, "slateblue4") \
-
-#define v(a,b,s) static_assert(hash(s, sizeof(s)-1) == a);
-// ^ Verify that the hashes in o() match the implementation in hash()
-#define o(a,b,s) a,
-#define q(a,b,s) b,
-static const unsigned short colorkeys[] { docolors(o) };
-static const unsigned int colorvalues[] { docolors(q) };
-docolors(v);
-#undef v
-#undef q
-#undef o
+        o(   18, 0x3CB371, "medium sea green","MediumSeaGreen",_,_)\
+        o(   55, 0xEE30A7, "maroon2",_,_,_) \
+        o(   57, 0xFF34B3, "maroon1",_,_,_) \
+        o(   59, 0x8B1C62, "maroon4",_,_,_) \
+        o(   61, 0xCD2990, "maroon3",_,_,_) \
+        o(   62, 0x8A2BE2, "blue violet","BlueViolet",_,_)\
+        o(  114, 0x8FBC8F, "dark sea green","DarkSeaGreen",_,_)\
+        o(  116, 0xD70751, "DebianRed",_,_,_) \
+        o(  127, 0xAEEEEE, "PaleTurquoise2",_,_,_) \
+        o(  129, 0xBBFFFF, "PaleTurquoise1",_,_,_) \
+        o(  131, 0x668B8B, "PaleTurquoise4",_,_,_) \
+        o(  133, 0x96CDCD, "PaleTurquoise3",_,_,_) \
+        o(  135, 0xBCD2EE, "LightSteelBlue2",_,_,_) \
+        o(  137, 0xCAE1FF, "LightSteelBlue1",_,_,_) \
+        o(  139, 0x6E7B8B, "LightSteelBlue4",_,_,_) \
+        o(  141, 0xA2B5CD, "LightSteelBlue3",_,_,_) \
+        o(  146, 0x98FB98, "pale green","PaleGreen",_,_)\
+        o(  155, 0xB9D3EE, "SlateGray2",_,_,_) \
+        o(  157, 0xC6E2FF, "SlateGray1",_,_,_) \
+        o(  159, 0x6C7B8B, "SlateGray4",_,_,_) \
+        o(  161, 0x9FB6CD, "SlateGray3",_,_,_) \
+        o(  182, 0xE9967A, "dark salmon","DarkSalmon",_,_)\
+        o(  194, 0xA020F0, "purple",_,_,_) \
+        o(  202, 0xFFFAFA, "snow",_,_,_) \
+        o(  226, 0x228B22, "forest green","ForestGreen",_,_)\
+        o(  228, 0x2F4F4F, "dark slate gray","DarkSlateGray","dark slate grey","DarkSlateGrey")\
+        o(  263, 0xB2DFEE, "LightBlue2",_,_,_) \
+        o(  265, 0xBFEFFF, "LightBlue1",_,_,_) \
+        o(  267, 0x68838B, "LightBlue4",_,_,_) \
+        o(  269, 0x9AC0CD, "LightBlue3",_,_,_) \
+        o(  278, 0x5F9EA0, "cadet blue","CadetBlue",_,_)\
+        o(  284, 0xE6E6FA, "lavender",_,_,_) \
+        o(  286, 0xFF00FF, "magenta",_,_,_) \
+        o(  322, 0x556B2F, "dark olive green","DarkOliveGreen",_,_)\
+        o(  338, 0x7CFC00, "lawn green","LawnGreen",_,_)\
+        o(  374, 0xFFC0CB, "pink",_,_,_) \
+        o(  415, 0x4EEE94, "SeaGreen2",_,_,_) \
+        o(  417, 0x54FF9F, "SeaGreen1",_,_,_) \
+        o(  419, 0x2E8B57, "SeaGreen4",_,_,_) \
+        o(  420, 0xF08080, "light coral","LightCoral",_,_)\
+        o(  421, 0x43CD80, "SeaGreen3",_,_,_) \
+        o(  422, 0xB0C4DE, "light steel blue","LightSteelBlue",_,_)\
+        o(  423, 0x90EE90, "PaleGreen2",_,_,_) \
+        o(  425, 0x9AFF9A, "PaleGreen1",_,_,_) \
+        o(  427, 0x548B54, "PaleGreen4",_,_,_) \
+        o(  429, 0x7CCD7C, "PaleGreen3",_,_,_) \
+        o(  432, 0xDEB887, "burlywood",_,_,_) \
+        o(  442, 0x20B2AA, "light sea green","LightSeaGreen",_,_)\
+        o(  447, 0xEE7600, "DarkOrange2",_,_,_) \
+        o(  449, 0xFF7F00, "DarkOrange1",_,_,_) \
+        o(  451, 0x8B4500, "DarkOrange4",_,_,_) \
+        o(  453, 0xCD6600, "DarkOrange3",_,_,_) \
+        o(  487, 0xEEA2AD, "LightPink2",_,_,_) \
+        o(  489, 0xFFAEB9, "LightPink1",_,_,_) \
+        o(  491, 0x8B5F65, "LightPink4",_,_,_) \
+        o(  492, 0xFFEBCD, "blanched almond","BlanchedAlmond",_,_)\
+        o(  493, 0xCD8C95, "LightPink3",_,_,_) \
+        o(  542, 0x00CED1, "dark turquoise","DarkTurquoise",_,_)\
+        o(  570, 0xD8BFD8, "thistle",_,_,_) \
+        o(  591, 0xEED2EE, "thistle2",_,_,_) \
+        o(  593, 0xFFE1FF, "thistle1",_,_,_) \
+        o(  595, 0x8B7B8B, "thistle4",_,_,_) \
+        o(  597, 0xCDB5CD, "thistle3",_,_,_) \
+        o(  607, 0x9F79EE, "MediumPurple2",_,_,_) \
+        o(  609, 0xAB82FF, "MediumPurple1",_,_,_) \
+        o(  611, 0x5D478B, "MediumPurple4",_,_,_) \
+        o(  613, 0x8968CD, "MediumPurple3",_,_,_) \
+        o(  654, 0xD2691E, "chocolate",_,_,_) \
+        o(  656, 0xDCDCDC, "gainsboro",_,_,_) \
+        o(  658, 0xFFFFE0, "light yellow","LightYellow",_,_)\
+        o(  670, 0xFFE4C4, "bisque",_,_,_) \
+        o(  672, 0xFFF5EE, "seashell",_,_,_) \
+        o(  688, 0xBA55D3, "medium orchid","MediumOrchid",_,_)\
+        o(  695, 0xEEE9BF, "LemonChiffon2",_,_,_) \
+        o(  697, 0xFFFACD, "LemonChiffon1",_,_,_) \
+        o(  699, 0x8B8970, "LemonChiffon4",_,_,_) \
+        o(  701, 0xCDC9A5, "LemonChiffon3",_,_,_) \
+        o(  742, 0xFFEFD5, "papaya whip","PapayaWhip",_,_)\
+        o(  846, 0x7FFF00, "chartreuse",_,_,_) \
+        o(  862, 0xFF1493, "deep pink","DeepPink",_,_)\
+        o(  890, 0xE0FFFF, "light cyan","LightCyan",_,_)\
+        o(  895, 0x00EEEE, "cyan2",_,_,_) \
+        o(  897, 0x00FFFF, "cyan1",_,_,_) \
+        o(  899, 0x008B8B, "cyan4",_,_,_) \
+        o(  901, 0x00CDCD, "cyan3",_,_,_) \
+        o(  914, 0xFFF8DC, "cornsilk",_,_,_) \
+        o(  943, 0x76EEC6, "aquamarine2",_,_,_) \
+        o(  945, 0x7FFFD4, "aquamarine1",_,_,_) \
+        o(  947, 0x458B74, "aquamarine4",_,_,_) \
+        o(  949, 0x66CDAA, "aquamarine3",_,_,_) \
+        o(  954, 0x00FA9A, "medium spring green","MediumSpringGreen",_,_)\
+        o(  962, 0x2E8B57, "sea green","SeaGreen",_,_)\
+        o(  975, 0xEE7942, "sienna2",_,_,_) \
+        o(  977, 0xFF8247, "sienna1",_,_,_) \
+        o(  979, 0x8B4726, "sienna4",_,_,_) \
+        o(  981, 0xCD6839, "sienna3",_,_,_) \
+        o(  998, 0xFA8072, "salmon",_,_,_) \
+        o( 1011, 0xEE5C42, "tomato2",_,_,_) \
+        o( 1013, 0xFF6347, "tomato1",_,_,_) \
+        o( 1015, 0x8B3626, "tomato4",_,_,_) \
+        o( 1017, 0xCD4F39, "tomato3",_,_,_) \
+        o( 1024, 0xDAA520, "goldenrod",_,_,_) \
+        o( 1027, 0xEEB422, "goldenrod2",_,_,_) \
+        o( 1029, 0xFFC125, "goldenrod1",_,_,_) \
+        o( 1031, 0x8B6914, "goldenrod4",_,_,_) \
+        o( 1033, 0xCD9B1D, "goldenrod3",_,_,_) \
+        o( 1043, 0xEE7AE9, "orchid2",_,_,_) \
+        o( 1045, 0xFF83FA, "orchid1",_,_,_) \
+        o( 1047, 0x8B4789, "orchid4",_,_,_) \
+        o( 1049, 0xCD69C9, "orchid3",_,_,_) \
+        o( 1068, 0xD3D3D3, "light grey","LightGrey","light gray","LightGray")\
+        o( 1098, 0xA52A2A, "brown",_,_,_) \
+        o( 1166, 0x66CDAA, "medium aquamarine","MediumAquamarine",_,_)\
+        o( 1170, 0xFF8C00, "dark orange","DarkOrange",_,_)\
+        o( 1207, 0x436EEE, "RoyalBlue2",_,_,_) \
+        o( 1209, 0x4876FF, "RoyalBlue1",_,_,_) \
+        o( 1211, 0x27408B, "RoyalBlue4",_,_,_) \
+        o( 1213, 0x3A5FCD, "RoyalBlue3",_,_,_) \
+        o( 1250, 0xFAFAD2, "light goldenrod yellow","LightGoldenrodYellow",_,_)\
+        o( 1251, 0x8DEEEE, "DarkSlateGray2",_,_,_) \
+        o( 1253, 0x97FFFF, "DarkSlateGray1",_,_,_) \
+        o( 1255, 0x528B8B, "DarkSlateGray4",_,_,_) \
+        o( 1257, 0x79CDCD, "DarkSlateGray3",_,_,_) \
+        o( 1295, 0x76EE00, "chartreuse2",_,_,_) \
+        o( 1297, 0x7FFF00, "chartreuse1",_,_,_) \
+        o( 1299, 0x458B00, "chartreuse4",_,_,_) \
+        o( 1301, 0x66CD00, "chartreuse3",_,_,_) \
+        o( 1310, 0xF0FFF0, "honeydew",_,_,_) \
+        o( 1326, 0x8B008B, "dark magenta","DarkMagenta",_,_)\
+        o( 1334, 0x483D8B, "dark slate blue","DarkSlateBlue",_,_)\
+        o( 1342, 0xAFEEEE, "pale turquoise","PaleTurquoise",_,_)\
+        o( 1410, 0x90EE90, "light green","LightGreen",_,_)\
+        o( 1415, 0xEE7621, "chocolate2",_,_,_) \
+        o( 1417, 0xFF7F24, "chocolate1",_,_,_) \
+        o( 1419, 0x8B4513, "chocolate4",_,_,_) \
+        o( 1421, 0xCD661D, "chocolate3",_,_,_) \
+        o( 1460, 0x778899, "light slate gray","LightSlateGray","light slate grey","LightSlateGrey")\
+        o( 1471, 0x0000EE, "blue2",_,_,_) \
+        o( 1473, 0x0000FF, "blue1",_,_,_) \
+        o( 1475, 0x00008B, "blue4",_,_,_) \
+        o( 1477, 0x0000CD, "blue3",_,_,_) \
+        o( 1482, 0x00FF7F, "spring green","SpringGreen",_,_)\
+        o( 1494, 0xFF69B4, "hot pink","HotPink",_,_)\
+        o( 1508, 0x696969, "dim gray","DimGray","dim grey","DimGrey")\
+        o( 1511, 0xEEAEEE, "plum2",_,_,_) \
+        o( 1513, 0xFFBBFF, "plum1",_,_,_) \
+        o( 1515, 0x8B668B, "plum4",_,_,_) \
+        o( 1517, 0xCD96CD, "plum3",_,_,_) \
+        o( 1530, 0x000000, "black",_,_,_) \
+        o( 1534, 0x4682B4, "steel blue","SteelBlue",_,_)\
+        o( 1535, 0xEE9572, "LightSalmon2",_,_,_) \
+        o( 1537, 0xFFA07A, "LightSalmon1",_,_,_) \
+        o( 1539, 0x8B5742, "LightSalmon4",_,_,_) \
+        o( 1541, 0xCD8162, "LightSalmon3",_,_,_) \
+        o( 1558, 0xF0F8FF, "alice blue","AliceBlue",_,_)\
+        o( 1579, 0xEE4000, "OrangeRed2",_,_,_) \
+        o( 1581, 0xFF4500, "OrangeRed1",_,_,_) \
+        o( 1583, 0x8B2500, "OrangeRed4",_,_,_) \
+        o( 1585, 0xCD3700, "OrangeRed3",_,_,_) \
+        o( 1594, 0x9370DB, "medium purple","MediumPurple",_,_)\
+        o( 1603, 0xEEE5DE, "seashell2",_,_,_) \
+        o( 1605, 0xFFF5EE, "seashell1",_,_,_) \
+        o( 1607, 0x8B8682, "seashell4",_,_,_) \
+        o( 1609, 0xCDC5BF, "seashell3",_,_,_) \
+        o( 1628, 0xFF7F50, "coral",_,_,_) \
+        o( 1630, 0xB0E0E6, "powder blue","PowderBlue",_,_)\
+        o( 1647, 0x00EE00, "green2",_,_,_) \
+        o( 1649, 0x00FF00, "green1",_,_,_) \
+        o( 1651, 0x008B00, "green4",_,_,_) \
+        o( 1653, 0x00CD00, "green3",_,_,_) \
+        o( 1655, 0xEE6AA7, "HotPink2",_,_,_) \
+        o( 1657, 0xFF6EB4, "HotPink1",_,_,_) \
+        o( 1659, 0x8B3A62, "HotPink4",_,_,_) \
+        o( 1661, 0xCD6090, "HotPink3",_,_,_) \
+        o( 1668, 0xDB7093, "pale violet red","PaleVioletRed",_,_)\
+        o( 1688, 0xFFD700, "gold",_,_,_) \
+        o( 1695, 0xEEA9B8, "pink2",_,_,_) \
+        o( 1697, 0xFFB5C5, "pink1",_,_,_) \
+        o( 1699, 0x8B636C, "pink4",_,_,_) \
+        o( 1701, 0xCD919E, "pink3",_,_,_) \
+        o( 1714, 0xF5FFFA, "mint cream","MintCream",_,_)\
+        o( 1715, 0xEE0000, "red2",_,_,_) \
+        o( 1717, 0xFF0000, "red1",_,_,_) \
+        o( 1718, 0x191970, "midnight blue","MidnightBlue",_,_)\
+        o( 1719, 0x8B0000, "red4",_,_,_) \
+        o( 1721, 0xCD0000, "red3",_,_,_) \
+        o( 1734, 0xA0522D, "sienna",_,_,_) \
+        o( 1742, 0x9400D3, "dark violet","DarkViolet",_,_)\
+        o( 1743, 0x8EE5EE, "CadetBlue2",_,_,_) \
+        o( 1745, 0x98F5FF, "CadetBlue1",_,_,_) \
+        o( 1747, 0x53868B, "CadetBlue4",_,_,_) \
+        o( 1749, 0x7AC5CD, "CadetBlue3",_,_,_) \
+        o( 1778, 0x8B4513, "saddle brown","SaddleBrown",_,_)\
+        o( 1791, 0xEE8262, "salmon2",_,_,_) \
+        o( 1793, 0xFF8C69, "salmon1",_,_,_) \
+        o( 1795, 0x8B4C39, "salmon4",_,_,_) \
+        o( 1797, 0xCD7054, "salmon3",_,_,_) \
+        o( 1803, 0xEECBAD, "PeachPuff2",_,_,_) \
+        o( 1805, 0xFFDAB9, "PeachPuff1",_,_,_) \
+        o( 1807, 0x8B7765, "PeachPuff4",_,_,_) \
+        o( 1809, 0xCDAF95, "PeachPuff3",_,_,_) \
+        o( 1827, 0xEE6363, "IndianRed2",_,_,_) \
+        o( 1829, 0xFF6A6A, "IndianRed1",_,_,_) \
+        o( 1831, 0x8B3A3A, "IndianRed4",_,_,_) \
+        o( 1833, 0xCD5555, "IndianRed3",_,_,_) \
+        o( 1839, 0xEE00EE, "magenta2",_,_,_) \
+        o( 1841, 0xFF00FF, "magenta1",_,_,_) \
+        o( 1843, 0x8B008B, "magenta4",_,_,_) \
+        o( 1845, 0xCD00CD, "magenta3",_,_,_) \
+        o( 1895, 0xFFFFFF, "gray100","grey100",_,_)\
+        o( 1927, 0x912CEE, "purple2",_,_,_) \
+        o( 1929, 0x9B30FF, "purple1",_,_,_) \
+        o( 1931, 0x551A8B, "purple4",_,_,_) \
+        o( 1933, 0x7D26CD, "purple3",_,_,_) \
+        o( 1966, 0xF5F5F5, "white smoke","WhiteSmoke",_,_)\
+        o( 1986, 0xFFA500, "orange",_,_,_) \
+        o( 2039, 0x5CACEE, "SteelBlue2",_,_,_) \
+        o( 2041, 0x63B8FF, "SteelBlue1",_,_,_) \
+        o( 2043, 0x36648B, "SteelBlue4",_,_,_) \
+        o( 2045, 0x4F94CD, "SteelBlue3",_,_,_) \
+        o( 2063, 0x00B2EE, "DeepSkyBlue2",_,_,_) \
+        o( 2065, 0x00BFFF, "DeepSkyBlue1",_,_,_) \
+        o( 2067, 0x00688B, "DeepSkyBlue4",_,_,_) \
+        o( 2069, 0x009ACD, "DeepSkyBlue3",_,_,_) \
+        o( 2074, 0x6B8E23, "olive drab","OliveDrab",_,_)\
+        o( 2083, 0xB23AEE, "DarkOrchid2",_,_,_) \
+        o( 2085, 0xBF3EFF, "DarkOrchid1",_,_,_) \
+        o( 2087, 0x68228B, "DarkOrchid4",_,_,_) \
+        o( 2089, 0x9A32CD, "DarkOrchid3",_,_,_) \
+        o( 2123, 0xEEAD0E, "DarkGoldenrod2",_,_,_) \
+        o( 2125, 0xFFB90F, "DarkGoldenrod1",_,_,_) \
+        o( 2127, 0x8B6508, "DarkGoldenrod4",_,_,_) \
+        o( 2129, 0xCD950C, "DarkGoldenrod3",_,_,_) \
+        o( 2146, 0x9ACD32, "yellow green","YellowGreen",_,_)\
+        o( 2159, 0xB4EEB4, "DarkSeaGreen2",_,_,_) \
+        o( 2161, 0xC1FFC1, "DarkSeaGreen1",_,_,_) \
+        o( 2163, 0x698B69, "DarkSeaGreen4",_,_,_) \
+        o( 2165, 0x9BCD9B, "DarkSeaGreen3",_,_,_) \
+        o( 2174, 0xADD8E6, "light blue","LightBlue",_,_)\
+        o( 2184, 0x8C8C8C, "gray55","grey55",_,_)\
+        o( 2185, 0x7F7F7F, "gray50","grey50",_,_)\
+        o( 2186, 0x919191, "gray57","grey57",_,_)\
+        o( 2187, 0x858585, "gray52","grey52",_,_)\
+        o( 2188, 0x8F8F8F, "gray56","grey56",_,_)\
+        o( 2189, 0x828282, "gray51","grey51",_,_)\
+        o( 2190, 0x949494, "gray58","grey58",_,_)\
+        o( 2191, 0x8A8A8A, "gray54","grey54",_,_)\
+        o( 2192, 0x969696, "gray59","grey59",_,_)\
+        o( 2193, 0x878787, "gray53","grey53",_,_)\
+        o( 2198, 0xFFA07A, "light salmon","LightSalmon",_,_)\
+        o( 2204, 0xBFBFBF, "gray75","grey75",_,_)\
+        o( 2205, 0xB3B3B3, "gray70","grey70",_,_)\
+        o( 2206, 0xC4C4C4, "gray77","grey77",_,_)\
+        o( 2207, 0xB8B8B8, "gray72","grey72",_,_)\
+        o( 2208, 0xC2C2C2, "gray76","grey76",_,_)\
+        o( 2209, 0xB5B5B5, "gray71","grey71",_,_)\
+        o( 2210, 0xC7C7C7, "gray78","grey78",_,_)\
+        o( 2211, 0xBDBDBD, "gray74","grey74",_,_)\
+        o( 2212, 0xC9C9C9, "gray79","grey79",_,_)\
+        o( 2213, 0xBABABA, "gray73","grey73",_,_)\
+        o( 2214, 0x404040, "gray25","grey25",_,_)\
+        o( 2215, 0x333333, "gray20","grey20",_,_)\
+        o( 2216, 0x454545, "gray27","grey27",_,_)\
+        o( 2217, 0x383838, "gray22","grey22",_,_)\
+        o( 2218, 0x424242, "gray26","grey26",_,_)\
+        o( 2219, 0x363636, "gray21","grey21",_,_)\
+        o( 2220, 0x474747, "gray28","grey28",_,_)\
+        o( 2221, 0x3D3D3D, "gray24","grey24",_,_)\
+        o( 2222, 0x4A4A4A, "gray29","grey29",_,_)\
+        o( 2223, 0x3B3B3B, "gray23","grey23",_,_)\
+        o( 2224, 0xA6A6A6, "gray65","grey65",_,_)\
+        o( 2225, 0x999999, "gray60","grey60",_,_)\
+        o( 2226, 0xABABAB, "gray67","grey67",_,_)\
+        o( 2227, 0x9E9E9E, "gray62","grey62",_,_)\
+        o( 2228, 0xA8A8A8, "gray66","grey66",_,_)\
+        o( 2229, 0x9C9C9C, "gray61","grey61",_,_)\
+        o( 2230, 0xADADAD, "gray68","grey68",_,_)\
+        o( 2231, 0xA3A3A3, "gray64","grey64",_,_)\
+        o( 2232, 0xB0B0B0, "gray69","grey69",_,_)\
+        o( 2233, 0xA1A1A1, "gray63","grey63",_,_)\
+        o( 2234, 0x262626, "gray15","grey15",_,_)\
+        o( 2235, 0x1A1A1A, "gray10","grey10",_,_)\
+        o( 2236, 0x2B2B2B, "gray17","grey17",_,_)\
+        o( 2237, 0x1F1F1F, "gray12","grey12",_,_)\
+        o( 2238, 0x292929, "gray16","grey16",_,_)\
+        o( 2239, 0x1C1C1C, "gray11","grey11",_,_)\
+        o( 2240, 0x2E2E2E, "gray18","grey18",_,_)\
+        o( 2241, 0x242424, "gray14","grey14",_,_)\
+        o( 2242, 0x303030, "gray19","grey19",_,_)\
+        o( 2243, 0x212121, "gray13","grey13",_,_)\
+        o( 2244, 0xD9D9D9, "gray85","grey85",_,_)\
+        o( 2245, 0xCCCCCC, "gray80","grey80",_,_)\
+        o( 2246, 0xDEDEDE, "gray87","grey87",_,_)\
+        o( 2247, 0xD1D1D1, "gray82","grey82",_,_)\
+        o( 2248, 0xDBDBDB, "gray86","grey86",_,_)\
+        o( 2249, 0xCFCFCF, "gray81","grey81",_,_)\
+        o( 2250, 0xE0E0E0, "gray88","grey88",_,_)\
+        o( 2251, 0xD6D6D6, "gray84","grey84",_,_)\
+        o( 2252, 0xE3E3E3, "gray89","grey89",_,_)\
+        o( 2253, 0xD4D4D4, "gray83","grey83",_,_)\
+        o( 2254, 0x737373, "gray45","grey45",_,_)\
+        o( 2255, 0x666666, "gray40","grey40",_,_)\
+        o( 2256, 0x787878, "gray47","grey47",_,_)\
+        o( 2257, 0x6B6B6B, "gray42","grey42",_,_)\
+        o( 2258, 0x757575, "gray46","grey46",_,_)\
+        o( 2259, 0x696969, "gray41","grey41",_,_)\
+        o( 2260, 0x7A7A7A, "gray48","grey48",_,_)\
+        o( 2261, 0x707070, "gray44","grey44",_,_)\
+        o( 2262, 0x7D7D7D, "gray49","grey49",_,_)\
+        o( 2263, 0x6E6E6E, "gray43","grey43",_,_)\
+        o( 2264, 0xF2F2F2, "gray95","grey95",_,_)\
+        o( 2265, 0xE5E5E5, "gray90","grey90",_,_)\
+        o( 2266, 0xF7F7F7, "gray97","grey97",_,_)\
+        o( 2267, 0xEBEBEB, "gray92","grey92",_,_)\
+        o( 2268, 0xF5F5F5, "gray96","grey96",_,_)\
+        o( 2269, 0xE8E8E8, "gray91","grey91",_,_)\
+        o( 2270, 0xFAFAFA, "gray98","grey98",_,_)\
+        o( 2271, 0xF0F0F0, "gray94","grey94",_,_)\
+        o( 2272, 0xFCFCFC, "gray99","grey99",_,_)\
+        o( 2273, 0xEDEDED, "gray93","grey93",_,_)\
+        o( 2274, 0x595959, "gray35","grey35",_,_)\
+        o( 2275, 0x4D4D4D, "gray30","grey30",_,_)\
+        o( 2276, 0x5E5E5E, "gray37","grey37",_,_)\
+        o( 2277, 0x525252, "gray32","grey32",_,_)\
+        o( 2278, 0x5C5C5C, "gray36","grey36",_,_)\
+        o( 2279, 0x4F4F4F, "gray31","grey31",_,_)\
+        o( 2280, 0x616161, "gray38","grey38",_,_)\
+        o( 2281, 0x575757, "gray34","grey34",_,_)\
+        o( 2282, 0x636363, "gray39","grey39",_,_)\
+        o( 2283, 0x545454, "gray33","grey33",_,_)\
+        o( 2328, 0xFFDAB9, "peach puff","PeachPuff",_,_)\
+        o( 2338, 0x00FFFF, "cyan",_,_,_) \
+        o( 2350, 0xF5DEB3, "wheat",_,_,_) \
+        o( 2351, 0xEEB4B4, "RosyBrown2",_,_,_) \
+        o( 2353, 0xFFC1C1, "RosyBrown1",_,_,_) \
+        o( 2355, 0x8B6969, "RosyBrown4",_,_,_) \
+        o( 2356, 0xF0E68C, "khaki",_,_,_) \
+        o( 2357, 0xCD9B9B, "RosyBrown3",_,_,_) \
+        o( 2410, 0xF0FFFF, "azure",_,_,_) \
+        o( 2446, 0x7FFFD4, "aquamarine",_,_,_) \
+        o( 2447, 0xA4D3EE, "LightSkyBlue2",_,_,_) \
+        o( 2449, 0xB0E2FF, "LightSkyBlue1",_,_,_) \
+        o( 2451, 0x607B8B, "LightSkyBlue4",_,_,_) \
+        o( 2453, 0x8DB6CD, "LightSkyBlue3",_,_,_) \
+        o( 2454, 0xFFFAF0, "floral white","FloralWhite",_,_)\
+        o( 2458, 0xF4A460, "sandy brown","SandyBrown",_,_)\
+        o( 2466, 0xB22222, "firebrick",_,_,_) \
+        o( 2467, 0xEE3A8C, "VioletRed2",_,_,_) \
+        o( 2469, 0xFF3E96, "VioletRed1",_,_,_) \
+        o( 2471, 0x8B2252, "VioletRed4",_,_,_) \
+        o( 2473, 0xCD3278, "VioletRed3",_,_,_) \
+        o( 2487, 0xEEEED1, "LightYellow2",_,_,_) \
+        o( 2489, 0xFFFFE0, "LightYellow1",_,_,_) \
+        o( 2491, 0x8B8B7A, "LightYellow4",_,_,_) \
+        o( 2493, 0xCDCDB4, "LightYellow3",_,_,_) \
+        o( 2516, 0xBEBEBE, "gray","grey",_,_)\
+        o( 2542, 0xFFE4B5, "moccasin",_,_,_) \
+        o( 2551, 0x00EE76, "SpringGreen2",_,_,_) \
+        o( 2553, 0x00FF7F, "SpringGreen1",_,_,_) \
+        o( 2555, 0x008B45, "SpringGreen4",_,_,_) \
+        o( 2557, 0x00CD66, "SpringGreen3",_,_,_) \
+        o( 2558, 0xEE82EE, "violet",_,_,_) \
+        o( 2560, 0x9932CC, "dark orchid","DarkOrchid",_,_)\
+        o( 2566, 0x8470FF, "light slate blue","LightSlateBlue",_,_)\
+        o( 2571, 0xEEC900, "gold2",_,_,_) \
+        o( 2572, 0x708090, "slate gray","SlateGray","slate grey","SlateGrey")\
+        o( 2573, 0xFFD700, "gold1",_,_,_) \
+        o( 2575, 0x8B7500, "gold4",_,_,_) \
+        o( 2577, 0xCDAD00, "gold3",_,_,_) \
+        o( 2599, 0xEED5B7, "bisque2",_,_,_) \
+        o( 2601, 0xFFE4C4, "bisque1",_,_,_) \
+        o( 2603, 0x8B7D6B, "bisque4",_,_,_) \
+        o( 2605, 0xCDB79E, "bisque3",_,_,_) \
+        o( 2618, 0x00FF00, "green",_,_,_) \
+        o( 2646, 0xFAEBD7, "antique white","AntiqueWhite",_,_)\
+        o( 2654, 0x48D1CC, "medium turquoise","MediumTurquoise",_,_)\
+        o( 2672, 0x0D0D0D, "gray5","grey5",_,_)\
+        o( 2673, 0x000000, "gray0","grey0",_,_)\
+        o( 2674, 0x121212, "gray7","grey7",_,_)\
+        o( 2675, 0x050505, "gray2","grey2",_,_)\
+        o( 2676, 0x0F0F0F, "gray6","grey6",_,_)\
+        o( 2677, 0x030303, "gray1","grey1",_,_)\
+        o( 2678, 0x141414, "gray8","grey8",_,_)\
+        o( 2679, 0x0A0A0A, "gray4","grey4",_,_)\
+        o( 2680, 0x171717, "gray9","grey9",_,_)\
+        o( 2681, 0x080808, "gray3","grey3",_,_)\
+        o( 2694, 0x1E90FF, "dodger blue","DodgerBlue",_,_)\
+        o( 2743, 0xEEEE00, "yellow2",_,_,_) \
+        o( 2745, 0xFFFF00, "yellow1",_,_,_) \
+        o( 2747, 0x8B8B00, "yellow4",_,_,_) \
+        o( 2749, 0xCDCD00, "yellow3",_,_,_) \
+        o( 2768, 0xB8860B, "dark goldenrod","DarkGoldenrod",_,_)\
+        o( 2770, 0x008B8B, "dark cyan","DarkCyan",_,_)\
+        o( 2786, 0xADFF2F, "green yellow","GreenYellow",_,_)\
+        o( 2799, 0xEE3B3B, "brown2",_,_,_) \
+        o( 2801, 0xFF4040, "brown1",_,_,_) \
+        o( 2803, 0x8B2323, "brown4",_,_,_) \
+        o( 2805, 0xCD3333, "brown3",_,_,_) \
+        o( 2808, 0xFFFFF0, "ivory",_,_,_) \
+        o( 2879, 0xEED5D2, "MistyRose2",_,_,_) \
+        o( 2881, 0xFFE4E1, "MistyRose1",_,_,_) \
+        o( 2883, 0x8B7D7B, "MistyRose4",_,_,_) \
+        o( 2885, 0xCDB7B5, "MistyRose3",_,_,_) \
+        o( 2886, 0x40E0D0, "turquoise",_,_,_) \
+        o( 2948, 0xA9A9A9, "dark grey","DarkGrey","dark gray","DarkGray")\
+        o( 2950, 0xFFFFFF, "white",_,_,_) \
+        o( 2951, 0xEEDFCC, "AntiqueWhite2",_,_,_) \
+        o( 2953, 0xFFEFDB, "AntiqueWhite1",_,_,_) \
+        o( 2955, 0x8B8378, "AntiqueWhite4",_,_,_) \
+        o( 2957, 0xCDC0B0, "AntiqueWhite3",_,_,_) \
+        o( 2964, 0xFF6347, "tomato",_,_,_) \
+        o( 2967, 0x7EC0EE, "SkyBlue2",_,_,_) \
+        o( 2969, 0x87CEFF, "SkyBlue1",_,_,_) \
+        o( 2971, 0x4A708B, "SkyBlue4",_,_,_) \
+        o( 2973, 0x6CA6CD, "SkyBlue3",_,_,_) \
+        o( 2980, 0xC71585, "medium violet red","MediumVioletRed",_,_)\
+        o( 3014, 0xFFB6C1, "light pink","LightPink",_,_)\
+        o( 3018, 0xFAF0E6, "linen",_,_,_) \
+        o( 3039, 0x7A67EE, "SlateBlue2",_,_,_) \
+        o( 3041, 0x836FFF, "SlateBlue1",_,_,_) \
+        o( 3043, 0x473C8B, "SlateBlue4",_,_,_) \
+        o( 3045, 0x6959CD, "SlateBlue3",_,_,_) \
+        o( 3055, 0xEED8AE, "wheat2",_,_,_) \
+        o( 3057, 0xFFE7BA, "wheat1",_,_,_) \
+        o( 3059, 0x8B7E66, "wheat4",_,_,_) \
+        o( 3061, 0xCDBA96, "wheat3",_,_,_) \
+        o( 3086, 0x4169E1, "royal blue","RoyalBlue",_,_)\
+        o( 3115, 0xEEE685, "khaki2",_,_,_) \
+        o( 3117, 0xFFF68F, "khaki1",_,_,_) \
+        o( 3119, 0x8B864E, "khaki4",_,_,_) \
+        o( 3121, 0xCDC673, "khaki3",_,_,_) \
+        o( 3126, 0x0000CD, "medium blue","MediumBlue",_,_)\
+        o( 3148, 0xCD5C5C, "indian red","IndianRed",_,_)\
+        o( 3183, 0xEE2C2C, "firebrick2",_,_,_) \
+        o( 3185, 0xFF3030, "firebrick1",_,_,_) \
+        o( 3187, 0x8B1A1A, "firebrick4",_,_,_) \
+        o( 3189, 0xCD2626, "firebrick3",_,_,_) \
+        o( 3211, 0xEEDC82, "LightGoldenrod2",_,_,_) \
+        o( 3212, 0xD02090, "violet red","VioletRed",_,_)\
+        o( 3213, 0xFFEC8B, "LightGoldenrod1",_,_,_) \
+        o( 3215, 0x8B814C, "LightGoldenrod4",_,_,_) \
+        o( 3217, 0xCDBE70, "LightGoldenrod3",_,_,_) \
+        o( 3223, 0xBCEE68, "DarkOliveGreen2",_,_,_) \
+        o( 3225, 0xCAFF70, "DarkOliveGreen1",_,_,_) \
+        o( 3227, 0x6E8B3D, "DarkOliveGreen4",_,_,_) \
+        o( 3229, 0xA2CD5A, "DarkOliveGreen3",_,_,_) \
+        o( 3238, 0xFFFACD, "lemon chiffon","LemonChiffon",_,_)\
+        o( 3258, 0xD2B48C, "tan",_,_,_) \
+        o( 3262, 0x6495ED, "cornflower blue","CornflowerBlue",_,_)\
+        o( 3283, 0xEEC591, "burlywood2",_,_,_) \
+        o( 3285, 0xFFD39B, "burlywood1",_,_,_) \
+        o( 3287, 0x8B7355, "burlywood4",_,_,_) \
+        o( 3289, 0xCDAA7D, "burlywood3",_,_,_) \
+        o( 3295, 0x00E5EE, "turquoise2",_,_,_) \
+        o( 3297, 0x00F5FF, "turquoise1",_,_,_) \
+        o( 3299, 0x00868B, "turquoise4",_,_,_) \
+        o( 3301, 0x00C5CD, "turquoise3",_,_,_) \
+        o( 3322, 0x32CD32, "lime green","LimeGreen",_,_)\
+        o( 3351, 0xB3EE3A, "OliveDrab2",_,_,_) \
+        o( 3353, 0xC0FF3E, "OliveDrab1",_,_,_) \
+        o( 3355, 0x698B22, "OliveDrab4",_,_,_) \
+        o( 3357, 0x9ACD32, "OliveDrab3",_,_,_) \
+        o( 3376, 0xDA70D6, "orchid",_,_,_) \
+        o( 3387, 0xEE799F, "PaleVioletRed2",_,_,_) \
+        o( 3389, 0xFF82AB, "PaleVioletRed1",_,_,_) \
+        o( 3391, 0x8B475D, "PaleVioletRed4",_,_,_) \
+        o( 3393, 0xCD6889, "PaleVioletRed3",_,_,_) \
+        o( 3423, 0x1C86EE, "DodgerBlue2",_,_,_) \
+        o( 3425, 0x1E90FF, "DodgerBlue1",_,_,_) \
+        o( 3427, 0x104E8B, "DodgerBlue4",_,_,_) \
+        o( 3429, 0x1874CD, "DodgerBlue3",_,_,_) \
+        o( 3446, 0x7B68EE, "medium slate blue","MediumSlateBlue",_,_)\
+        o( 3470, 0x000080, "navy blue","NavyBlue",_,_)\
+        o( 3495, 0xEE9A00, "orange2",_,_,_) \
+        o( 3497, 0xFFA500, "orange1",_,_,_) \
+        o( 3499, 0x8B5A00, "orange4",_,_,_) \
+        o( 3501, 0xCD8500, "orange3",_,_,_) \
+        o( 3503, 0xEE1289, "DeepPink2",_,_,_) \
+        o( 3505, 0xFF1493, "DeepPink1",_,_,_) \
+        o( 3507, 0x8B0A50, "DeepPink4",_,_,_) \
+        o( 3509, 0xCD1076, "DeepPink3",_,_,_) \
+        o( 3530, 0xFDF5E6, "old lace","OldLace",_,_)\
+        o( 3532, 0xFF4500, "orange red","OrangeRed",_,_)\
+        o( 3546, 0xFFFF00, "yellow",_,_,_) \
+        o( 3547, 0xEEEEE0, "ivory2",_,_,_) \
+        o( 3549, 0xFFFFF0, "ivory1",_,_,_) \
+        o( 3551, 0x8B8B83, "ivory4",_,_,_) \
+        o( 3553, 0xCDCDC1, "ivory3",_,_,_) \
+        o( 3568, 0xEEE8AA, "pale goldenrod","PaleGoldenrod",_,_)\
+        o( 3604, 0xBDB76B, "dark khaki","DarkKhaki",_,_)\
+        o( 3622, 0x0000FF, "blue",_,_,_) \
+        o( 3626, 0xDDA0DD, "plum",_,_,_) \
+        o( 3646, 0xFFDEAD, "navajo white","NavajoWhite",_,_)\
+        o( 3655, 0xE0EEEE, "azure2",_,_,_) \
+        o( 3657, 0xF0FFFF, "azure1",_,_,_) \
+        o( 3659, 0x838B8B, "azure4",_,_,_) \
+        o( 3661, 0xC1CDCD, "azure3",_,_,_) \
+        o( 3662, 0xFFE4E1, "misty rose","MistyRose",_,_)\
+        o( 3667, 0xEEE0E5, "LavenderBlush2",_,_,_) \
+        o( 3669, 0xFFF0F5, "LavenderBlush1",_,_,_) \
+        o( 3671, 0x8B8386, "LavenderBlush4",_,_,_) \
+        o( 3673, 0xCDC1C5, "LavenderBlush3",_,_,_) \
+        o( 3678, 0x6A5ACD, "slate blue","SlateBlue",_,_)\
+        o( 3686, 0xB03060, "maroon",_,_,_) \
+        o( 3740, 0xFFF0F5, "lavender blush","LavenderBlush",_,_)\
+        o( 3751, 0xEECFA1, "NavajoWhite2",_,_,_) \
+        o( 3753, 0xFFDEAD, "NavajoWhite1",_,_,_) \
+        o( 3755, 0x8B795E, "NavajoWhite4",_,_,_) \
+        o( 3757, 0xCDB38B, "NavajoWhite3",_,_,_) \
+        o( 3775, 0xD1EEEE, "LightCyan2",_,_,_) \
+        o( 3777, 0xE0FFFF, "LightCyan1",_,_,_) \
+        o( 3779, 0x7A8B8B, "LightCyan4",_,_,_) \
+        o( 3781, 0xB4CDCD, "LightCyan3",_,_,_) \
+        o( 3811, 0xD15FEE, "MediumOrchid2",_,_,_) \
+        o( 3813, 0xE066FF, "MediumOrchid1",_,_,_) \
+        o( 3815, 0x7A378B, "MediumOrchid4",_,_,_) \
+        o( 3817, 0xB452CD, "MediumOrchid3",_,_,_) \
+        o( 3822, 0x87CEFA, "light sky blue","LightSkyBlue",_,_)\
+        o( 3852, 0xFF0000, "red",_,_,_) \
+        o( 3866, 0x006400, "dark green","DarkGreen",_,_)\
+        o( 3868, 0x000080, "navy",_,_,_) \
+        o( 3870, 0xF8F8FF, "ghost white","GhostWhite",_,_)\
+        o( 3882, 0xCD853F, "peru",_,_,_) \
+        o( 3886, 0x00BFFF, "deep sky blue","DeepSkyBlue",_,_)\
+        o( 3895, 0xE0EEE0, "honeydew2",_,_,_) \
+        o( 3897, 0xF0FFF0, "honeydew1",_,_,_) \
+        o( 3899, 0x838B83, "honeydew4",_,_,_) \
+        o( 3901, 0xC1CDC1, "honeydew3",_,_,_) \
+        o( 3951, 0xEE9A49, "tan2",_,_,_) \
+        o( 3953, 0xFFA54F, "tan1",_,_,_) \
+        o( 3955, 0x8B5A2B, "tan4",_,_,_) \
+        o( 3957, 0xCD853F, "tan3",_,_,_) \
+        o( 3996, 0x8B0000, "dark red","DarkRed",_,_)\
+        o( 4000, 0xEEDD82, "light goldenrod","LightGoldenrod",_,_)\
+        o( 4011, 0xEE6A50, "coral2",_,_,_) \
+        o( 4013, 0xFF7256, "coral1",_,_,_) \
+        o( 4015, 0x8B3E2F, "coral4",_,_,_) \
+        o( 4017, 0xCD5B45, "coral3",_,_,_) \
+        o( 4018, 0xBC8F8F, "rosy brown","RosyBrown",_,_)\
+        o( 4023, 0xEEE8CD, "cornsilk2",_,_,_) \
+        o( 4025, 0xFFF8DC, "cornsilk1",_,_,_) \
+        o( 4027, 0x8B8878, "cornsilk4",_,_,_) \
+        o( 4029, 0xCDC8B1, "cornsilk3",_,_,_) \
+        o( 4050, 0xF5F5DC, "beige",_,_,_) \
+        o( 4054, 0x00008B, "dark blue","DarkBlue",_,_)\
+        o( 4063, 0xEEE9E9, "snow2",_,_,_) \
+        o( 4065, 0xFFFAFA, "snow1",_,_,_) \
+        o( 4067, 0x8B8989, "snow4",_,_,_) \
+        o( 4069, 0xCDC9C9, "snow3",_,_,_) \
+        o( 4078, 0x87CEEB, "sky blue","SkyBlue",_,_)\
 
 static std::pair<unsigned long long, unsigned> ParseHex(const char*& s)
 {
@@ -825,68 +624,158 @@ static unsigned ParseDbl(const char*& s)
     s = endptr;
     return unsigned(255.9999 * std::max(std::min(result, 1.), 0.));
 }
+enum { use_separator=1, lsb_first=2, use_dbl=4 };
+static unsigned ParseColorNumber(const char* source, unsigned specs)
+{
+    unsigned result        = 0;
+    unsigned long long val = 0;
+    unsigned length        = 0;
+    unsigned bits          = 0;
+
+    for(unsigned n=0; n<3; ++n)
+    {
+        while(*source == '/') ++source;
+
+        if(specs & use_dbl)
+        {
+            val  = ParseDbl(source);
+            bits = 8;
+        }
+        else if((specs & use_separator) || n==0)
+        {
+            std::tie(val, length) = ParseHex(source);
+            bits = length*4;
+            if(!(specs & use_separator)) bits /= 3;
+        }
+
+        unsigned mask = ((0x1u << bits)-1);
+        unsigned temp = val & mask; val >>= bits;
+        // Scale to 0xFF.
+        temp = temp * 0xFF / mask;
+        if(specs & lsb_first)
+        {
+            result += temp << (8*n);
+            // Place n=0 to LSB and n=2 to MSB.
+        }
+        else
+        {
+            result <<= 8;
+            result += temp;
+            // Place n=0 to MSB and n=0 to MSB. Reverse of above.
+        }
+    }
+    return result;
+}
+static std::pair<unsigned,bool> TryParseColorNumber(std::string_view lc)
+{
+    const char* source = nullptr;
+    unsigned    specs  = 0;
+
+    if(lc.size() >= 4)
+    {
+        static constexpr const char hextext[]  = {'#'};
+        static constexpr const char rgbtext[]  = {'r','g','b',':'};
+        static constexpr const char rgbitext[] = {'r','g','b','i',':'};
+
+        if(std::memcmp(lc.data(), hextext, sizeof hextext) == 0) // shortest: "#FFF" = 4 characters
+        {
+            source = lc.data()+1;
+            specs  = lsb_first;
+        }
+        else if(lc.size() >= 9)
+        {
+            if(std::memcmp(lc.data(), rgbtext, sizeof rgbtext) == 0) // shortest: "rgb:F/F/F" = 9
+            {
+                source = lc.data()+4;
+                specs  = use_separator;
+            }
+            else if(std::memcmp(lc.data(), rgbitext, sizeof rgbitext) == 0) // shortest: "rgbi:1/1/1" = 10
+            {
+                source = lc.data()+5;
+                specs  = use_separator | use_dbl;
+            }
+        }
+    }
+    return source
+        ? std::pair{ ParseColorNumber(source, specs), true }
+        : std::pair{ 0u, false };
+}
+
+static std::string PreFilterColor(std::string_view s)
+{
+    std::string lc(s);
+    /* Create a copy of the color name, with spaces erased and characters lowercased */
+    auto first = lc.begin(), end = lc.end();
+    for(auto begin = first; begin != end; ++begin)
+        if(*begin != ' ')
+        {
+            *first = tolower(*begin);
+            ++first;
+        }
+    lc.erase(first, end);
+    return lc;
+}
+
+static constexpr unsigned FindColor(unsigned h)
+{
+    #define o(a,b,s1,s2,s3,s4) case a: return b; break;
+    switch(h) { docolors(o) }
+    #undef o
+    return 0;
+}
+template <std::size_t... N>
+static constexpr const std::array<unsigned, sizeof...(N)> GetColors(std::index_sequence<N...>)
+{
+    return std::array<unsigned, sizeof...(N)>
+    {
+        // Using a separate function for this rather than
+        // inlining a long ?: chain makes compilation on GCC fast.
+        // While Clang has no trouble with a long ?: chain, GCC would take ages to compile it.
+        FindColor(N) ...
+    };
+}
 
 unsigned ParseColorName(std::string_view s)
 {
-    std::string lc(s);
-    for(char& c: lc) c = tolower(c);
+    std::string lc = PreFilterColor(s);
 
-    if(lc.size() >= 4 && lc.compare(0,1,"#") == 0) // shortest: "#FFF"
-    {
-        const char* p = lc.data()+1;
-        auto[val, length] = ParseHex(p);
-        unsigned result = 0;
-        unsigned bits = length/3*4;
-        for(unsigned n=0; n<3; ++n)
-        {
-            unsigned mask = ((0x1u << bits)-1);
-            unsigned temp = val & mask; val >>= bits;
-            temp = temp * 0xFF / mask;
-            result += temp << (8*n);
-        }
-        return result;
-    }
-    if(lc.size() >= 9 && lc.compare(0,4,"rgb:") == 0) // shortest: "rgb:F/F/F"
-    {
-        const char* p = lc.data()+4;
-    	unsigned result = 0;
-    	for(unsigned n=0; n<3; ++n)
-    	{
-    	    while(*p == '/') ++p;
-    	    auto[val, length] = ParseHex(p);
-    	    unsigned bits = length*4;
-            unsigned mask = ((0x1u << bits)-1);
-            unsigned temp = val & mask; val >>= bits;
-            result <<= 8;
-            result += temp * 0xFF / mask;
-    	}
-    	return result;
-    }
-    if(lc.size() >= 10 && lc.compare(0,5,"rgbi:") == 0) // shortest: "rgbi:1/1/1"
-    {
-        const char* p = lc.data()+5;
-    	unsigned result = 0;
-    	for(unsigned n=0; n<3; ++n)
-    	{
-    	    while(*p == '/') ++p;
-            result <<= 8;
-            result += ParseDbl(p);
-    	}
-    	return result;
-    }
+    /* First check if it's #ABC, #AABBCC, rgb:aa/bb/cc or rgbi:0.2/0.6/0.8 */
+    auto [result,success] = TryParseColorNumber(lc);
+    if(success) return result;
 
+    /* Nope? Then look it up in the hardcoded version of Xorg colors database. */
+    /* Begin by reducing the provided color into a small hash that is unique
+     * for all colors in the database.
+     */
     unsigned short h = hash(lc.data(), lc.size());
-#if 0
-    #define o(a,b,s) case a: return b;
-    switch(h) { docolors(o) }
-    #undef o
+
+    /* Verify that the hashes in docolors() match the implementation in hash() */
+    #define v(a,b,s1,s2,s3,s4) static_assert(!s1[0] || hash(s1, sizeof(s1)-1) == a); \
+                               static_assert(!s2[0] || hash(s2, sizeof(s2)-1) == a); \
+                               static_assert(!s3[0] || hash(s3, sizeof(s3)-1) == a); \
+                               static_assert(!s4[0] || hash(s4, sizeof(s4)-1) == a);
+    docolors(v);
+    #undef v
+
+#if defined(__GNUC__)
+    /* GCC generates pretty optimal code for this. */
+    /* This produces an extra range check compared to what's below, but needs less data. */
+    return FindColor(h);
+#elif defined(__clang__) || defined(__GNUC__)
+    /* Clang and GCC compile this well. */
+    static constexpr const auto colorvalues = GetColors(std::make_index_sequence<mod>());
+    return colorvalues[h];
 #else
-    if(h < mod)
-    {
-        auto i = std::lower_bound(std::begin(colorkeys), std::end(colorkeys), h);
-        if(i != std::end(colorkeys) && *i == h)
-            return colorvalues[ i-std::begin(colorkeys) ];
-    }
-#endif
+    #define o(a,b,s1,s2,s3,s4) a,
+    #define q(a,b,s1,s2,s3,s4) b,
+    static const unsigned short colorkeys[] { docolors(o) };
+    static const unsigned int colorvalues[] { docolors(q) };
+    #undef q
+    #undef o
+
+    auto i = std::lower_bound(std::begin(colorkeys), std::end(colorkeys), h);
+    if(i != std::end(colorkeys) && *i == h)
+        return colorvalues[ i-std::begin(colorkeys) ];
     return 0;
+#endif
 }
