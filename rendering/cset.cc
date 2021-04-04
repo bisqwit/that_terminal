@@ -3,7 +3,7 @@ char32_t TranslateCSet(char32_t c, int cset)
     switch(cset)
     {
         case 0:
-	default:
+        default:
             return c;
         case 1: // DEC Graphics
         {
