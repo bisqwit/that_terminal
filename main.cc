@@ -510,7 +510,11 @@ int main()
                 auto input = tty.Recv();
                 if(input.second == -1 && errno == EIO) quit = true;
                 auto& str = input.first;
+            #if 1
                 term.Write(FromUTF8(str));
+            #else
+                term.Write(FromCP437(str));
+            #endif
                 if(input.first.empty() || TimeFactor != 0.0) loop = false;
             }
         }
