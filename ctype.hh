@@ -41,6 +41,7 @@ char32_t toupper(char32_t c);
 char32_t totitle(char32_t c);
 
 std::u32string FromUTF8(std::string_view s);
+std::u32string FromCP437(std::string_view s);
 std::string    ToUTF8(std::u32string_view s);
 std::string    ToUTF8(std::u16string_view s);
 std::size_t    CountIndent(std::u32string_view s, std::size_t begin=0);
