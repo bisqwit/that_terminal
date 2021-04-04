@@ -5,6 +5,7 @@
 Note: Tables include also a few items marked “unsupported”.
 These are documented for possible future use,
 and are not supported by this terminal emulator.
+They are also parsed correctly, even if they do not do anything.
 
 All of these are recognized even in the middle of an escape code.
 E.g. `printf("ABC\033[3\n4mDEF");` will print “ABC” on the current line with the current attribute and “DEF” on the next line with blue color (SGR 34).
@@ -134,10 +135,10 @@ printing anything (including spaces) over them.
   * 7 = Sets inverse. (swaps foreground and background color while in effect)
   * 8 = Sets conceal. (unsupported)
   * 9 = Sets overstrike.
-  * 20 = Sets fraktur. (unsupported)
+  * 20 = Sets fraktur/blackletter. (unsupported)
   * 21 = Sets double underline.
   * 22 = Clears dim and bold.
-  * 23 = Clears italic and fraktur.
+  * 23 = Clears italic and fraktur/blackletter.
   * 24 = Clears underline and double underline.
   * 25 = Clears blink and rapid blink.
   * 26 = Sets proportional spacing. (unsupported)
@@ -152,6 +153,7 @@ printing anything (including spaces) over them.
   * 53 = Sets overlined.
   * 54 = Clears framed and encircled.
   * 55 = Clears overlined.
+  * 59 = Sets default underline color. (unsupported)
   * 60 = Sets ideogram underline. (unsupported)
   * 61 = Sets ideogram double underline. (unsupported)
   * 62 = Sets ideogram overline. (unsupported)
@@ -162,17 +164,41 @@ printing anything (including spaces) over them.
   * 74 = Sets subscript. (unsupported)
   * 75 = Clears superscript and subscript.
   * 38 2 \<r> \<g> \<b> = Sets RGB24 foreground color.
-  * 38 3 \<c> \<m> \<y> = Sets CMY foreground color (interpreted as RGB24 for now).
-  * 38 4 \<c> \<m> \<y> \<k> = Sets CMYK foreground color (interpreted as RGB24 for now).
+  * 38 3 \<c> \<m> \<y> = Sets CMY foreground color.
+  * 38 4 \<c> \<m> \<y> \<k> = Sets CMYK foreground color.
   * 38 5 \<n> = Sets foreground color \<n> using the 256-color lookup table.
   * 48 2 \<r> \<g> \<b> = Sets RGB24 background color.
-  * 48 3 \<c> \<m> \<y> = Sets CMY background color (interpreted as RGB24 for now).
-  * 48 4 \<c> \<m> \<y> \<k> = Sets CMYK background color (interpreted as RGB24 for now).
+  * 48 3 \<c> \<m> \<y> = Sets CMY background color.
+  * 48 4 \<c> \<m> \<y> \<k> = Sets CMYK background color.
   * 48 5 \<n> = Sets background color \<n> using the 256-color lookup table.
+  * 58 2 \<r> \<g> \<b> = Sets RGB24 underline color. (unsupported)
+  * 58 3 \<c> \<m> \<y> = Sets CMY underline color. (unsupported)
+  * 58 4 \<c> \<m> \<y> \<k> = Sets CMYK underline color. (unsupported)
+  * 58 5 \<n> = Sets underline color \<n> using the 256-color lookup table. (unsupported)
+  * 38 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 38 97 5 is interpreted as blink, and 97 is ignored).
+  * 48 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 48 97 5 is interpreted as blink, and 97 is ignored).
+  * 58 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 58 97 5 is interpreted as blink, and 97 is ignored).
   * 30…37 = Sets foreground color \<n−30> using the 256-color lookup table.
   * 40…47 = Sets background color \<n−40> using the 256-color lookup table.
   * 90…97 = Sets foreground color \<n+8−90> using the 256-color lookup table.
   * 100…107 = Sets background color \<n+8−100> using the 256-color lookup table.
+  * Additionally, due to implementation details, the follow unintentional SGR parameters exist in _That Terminal_. Do not rely on them; they may change from release to release, and only exist unintentionally.
+    * 108 = interpreted as 38 108 (does nothing)
+    * 109 = interpreted as 48 109 (does nothing)
+    * 110 = interpreted as 58 110 (does nothing)
+    *  56 = interpreted as 38 5 56 (sets purplish foreground color)
+    *  57 = interpreted as 48 5 57 (sets dark sky background color)
+    *  99 = interpreted as 58 5 99 (does nothing)
+    *  72 = interpreted as 38 2 \<?> \<?> 72 (sets very dark blue foreground color)
+    *  82 = interpreted as 38 3 \<?> \<?> 82 (sets lemon foreground color)
+    *  89 = interpreted as 48 2 \<?> \<?> 89 (sets dark blue background color)
+    * 113 = interpreted as 48 3 \<?> \<?> 113 (sets yellow background color)
+    * 116 = interpreted as 58 2 \<?> \<?> 116 (does nothing)
+    * 119 = interpreted as 58 3 \<?> \<?> 119 (does nothing)
+    *  69 = interpreted as 38 4 \<?> \<?> \<?> 69 (sets white foreground color)
+    *  79 = interpreted as 48 4 \<?> \<?> \<?> 79 (sets lightgray background color)
+    *  86 = interpreted as 58 4 \<?> \<?> \<?> 86 (does nothing)
+    * Any other number in range 66…88 or 99…118, followed by \<n> = \<n> is ignored and sets bold mode (as in 1)
 * `<CSI> g`    Set tab stops (unsupported)
 * `<CSI> q`    Set LED states (unsupported)
 * `<CSI> $ r`  Change character attributes in rectangular area.

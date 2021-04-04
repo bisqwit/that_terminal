@@ -68,43 +68,9 @@ void termwindow::yscroll_up(unsigned y1, unsigned y2, int amount) const
     wnd.fillbox(0,y2-amount+1, wnd.xsize,amount);
 }
 
-
 void termwindow::Write(std::u32string_view s)
 {
-    enum States: unsigned
-    {
-        st_default,
-        st_esc,
-        st_scs,         // esc ()*+-./
-        st_scr,         // esc #
-        st_esc_percent, // esc %
-        st_csi,         // esc [
-        st_csi_dec,     // csi ?
-        st_csi_dec2,    // csi >
-        st_csi_dec3,    // csi =
-        st_csi_ex,      // csi !
-        st_csi_quo,     // csi "
-        st_csi_dol,     // csi $
-        st_csi_star,    // csi *
-        st_csi_dec_dol, // csi ? $
-        st_string,
-        st_string_str,
-        //
-        st_num_states
-    };
-
-    auto GetParams = [&](unsigned min_params, bool change_zero_to_one)
-    {
-        if(p.size() < min_params) { p.resize(min_params); }
-        if(change_zero_to_one) for(auto& v: p) if(!v) v = 1;
-        state = st_default;
-    };
-
     unsigned color = 0;
-    auto State = [](char32_t c, unsigned st) constexpr
-    {
-        return c*st_num_states + st;
-    };
     auto ClampedMoveX = [&](int tgtx)
     {
         wnd.cursx = std::min(std::size_t(std::max(0,tgtx)), wnd.xsize-1);
@@ -159,109 +125,154 @@ void termwindow::Write(std::u32string_view s)
             else                         ++wnd.cursx;
         }
     };
+
+    enum : unsigned {
+        MODE38_2 = 70,  MODE38_2_x1, MODE38_2_x2, MODE_38_x = 108,
+        MODE38_3 = 80,  MODE38_3_x1, MODE38_3_x2, MODE38_5 = 56,
+        MODE48_2 = 87,  MODE48_2_x1, MODE48_2_x2, MODE_48_x = 109,
+        MODE48_3 = 111, MODE48_3_x1, MODE48_3_x2, MODE48_5 = 57,
+        MODE58_2 = 114, MODE58_2_x1, MODE58_2_x2, MODE_58_x = 110,
+        MODE58_3 = 117, MODE58_3_x1, MODE58_3_x2, MODE58_5 = 99,
+        MODE38_4 = 66,  MODE38_4_x1, MODE38_4_x2, MODE38_4_x3,
+        MODE48_4 = 76,  MODE48_4_x1, MODE48_4_x2, MODE48_4_x3,
+        MODE58_4 = 83,  MODE58_4_x1, MODE58_4_x2, MODE58_4_x3,
+    };
+    static_assert(MODE38_4_x1 == MODE38_4+1);    static_assert(MODE38_3_x1 == MODE38_3+1);    static_assert(MODE38_2_x1 == MODE38_2+1);
+    static_assert(MODE48_4_x1 == MODE48_4+1);    static_assert(MODE48_3_x1 == MODE48_3+1);    static_assert(MODE48_2_x1 == MODE48_2+1);
+    static_assert(MODE58_4_x1 == MODE58_4+1);    static_assert(MODE58_3_x1 == MODE58_3+1);    static_assert(MODE58_2_x1 == MODE58_2+1);
+    static_assert(MODE38_4_x2 == MODE38_4_x1+1); static_assert(MODE38_3_x2 == MODE38_3_x1+1); static_assert(MODE38_2_x2 == MODE38_2_x1+1);
+    static_assert(MODE48_4_x2 == MODE48_4_x1+1); static_assert(MODE48_3_x2 == MODE48_3_x1+1); static_assert(MODE48_2_x2 == MODE48_2_x1+1);
+    static_assert(MODE58_4_x2 == MODE58_4_x1+1); static_assert(MODE58_3_x2 == MODE58_3_x1+1); static_assert(MODE58_2_x2 == MODE58_2_x1+1);
+    static_assert(MODE38_4_x3 == MODE38_4_x2+1);
+    static_assert(MODE48_4_x3 == MODE48_4_x2+1);
+    static_assert(MODE58_4_x3 == MODE58_4_x2+1);
+    static_assert(MODE_48_x == MODE_38_x+1); static_assert(MODE_58_x == MODE_48_x+1);
+    /* Translation maps for ProcessSGR for a smaller jump table */
+    auto M = [](unsigned n) constexpr -> unsigned char
+    {
+        // 16? 36, 37?
+        unsigned char result = 0;
+        // SKIP the following, as they are not implemented:
+        //   8 (conceal)
+        //  20 (fraktur)
+        //  26 (proportional)
+        //  28 (clear conceal)
+        //  50 (clear proportional)
+        //  51-52 (framed & encircled)
+        //  54 (clear framed & encircled)
+        //  59 (default underline color)
+        //  60-65 (ideogram settings)
+        //  73-75 (superscript & subscript settings)
+        // This makes the code smaller. They can be enabled when implemented.
+        //
+        // Put most common things first
+        if(/*n >= 0 &&*/ n <= 1) return result+n-0; else result += 2;
+        //
+        if(n >= 30 && n <= 37) return result; else result+=1; // 2 -- handled by a single case
+        if(n >= 90 && n <= 97) return result; else result+=1; // 3 -- handled by a single case
+        if(n == MODE38_5)      return result; else result+=1; // 4 -- fallback from above
+        if(n == MODE38_2_x2)   return result; else result+=1; // 5 -- uncommon, but works as fallback from MODE38_5
+        if(n == MODE38_3_x2)   return result; else result+=1; // 6
+        if(n == MODE38_4_x3)   return result; else result+=1; // 7
+        //
+        if(n >= 40 && n <= 47) return result; else result+=1; // 8 -- handled by a single case
+        if(n >=100 && n <=107) return result; else result+=1; // 9 -- handled by a single case
+        if(n == MODE48_5)      return result; else result+=1; // 10 -- fallback from above
+        if(n == MODE48_2_x2)   return result; else result+=1; // 11 -- uncommon, but works as fallback from MODE48_5
+        if(n == MODE48_3_x2)   return result; else result+=1; // 12
+        if(n == MODE48_4_x3)   return result; else result+=1; // 13
+        //
+        if(n == 38)            return result; else result+=1; // 14 -- sets MODE_38_x
+        if(n == 48)            return result; else result+=1; // 15 -- sets MODE_48_x
+        if(n == 58)            return result; else result+=1; // 16 -- sets MODE_58_x
+        if(n == MODE_38_x
+        || n == MODE_48_x
+        || n == MODE_58_x)     return result; else result+=1; // 17 -- handled by a single case
+        //
+        if((n >= MODE38_4 && n <= MODE38_4_x2)
+        || (n >= MODE38_3 && n <= MODE38_3_x1)
+        || (n >= MODE38_2 && n <= MODE38_2_x1)
+        || (n >= MODE48_4 && n <= MODE48_4_x2)
+        || (n >= MODE48_3 && n <= MODE48_3_x1)
+        || (n >= MODE48_2 && n <= MODE48_2_x1)
+        || (n >= MODE58_4 && n <= MODE58_4_x2)
+        || (n >= MODE58_3 && n <= MODE58_3_x1)
+        || (n >= MODE58_2 && n <= MODE58_2_x1)) return result; else result+=1; // 18 -- handled by a single case
+        // Skip these, as they are not implemented:
+        //if(n == MODE58_4_x3)                  return result; else result+=1;
+        //if(n == MODE58_3_x2)                  return result; else result+=1;
+        //if(n == MODE58_2_x2)                  return result; else result+=1;
+        //if(n == MODE58_5)                     return result; else result+=1;
+        //
+        if(n == 39)            return result; else result+=1; // 29
+        if(n == 49)            return result; else result+=1; // 20
+        //
+        if(n == 9)             return result; else result+=1; // 21
+        if(n >= 2 && n <= 7)   return result+n-2; else result += 6; // 22..27
+        //
+        if(n == 27)            return result; else result+=1; // 28
+        if(n == 29)            return result; else result+=1; // 29
+        if(n == 53)            return result; else result+=1; // 30
+        if(n >= 21 && n <= 25) return result+n-21; else result+=5; // 31..35
+        if(n == 55)            return result; else result+=1; // 36
+        //
+        return result;
+    };
+    static constexpr unsigned char __ = M(~0u);
+    static constexpr unsigned char translate[] =
+    {
+        #define a(n) M(n+0),M(n+1),M(n+2),M(n+3),M(n+4),M(n+5),M(n+6),M(n+7),M(n+8),M(n+9),
+        a(0)a(10)a(20)a(30)a(40)a(50)a(60)a(70)a(80)a(90)a(100)a(110)
+        #undef a
+    };
+    static constexpr unsigned char modetab[] = {MODE38_2,MODE38_3,MODE38_4,MODE38_5,
+                                                MODE48_2,MODE48_3,MODE48_4,MODE48_5,
+                                                MODE58_2,MODE58_3,MODE58_4,MODE58_5};
+
     auto ProcessSGR = [&](char32_t& c, unsigned a,
                           auto&& reset_attr,
                           auto&& change_attr)
     {
         /* c is a state code internal to this function, a is the input number from the SGR code.
          * Codes:
-         *   0 = default state          -- Will parse "a" (input number) as verbatim
-         *   1 = previous was 38
-         *                              -- Will parse 2 as 82+(n-2)+(c-1)*4 = 78 = flag(FLAG38_x,2)                  - 38;2
-         *                              -- Will parse 3 as 82+(n-2)+(c-1)*4 = 79 = flag(FLAG38_x,3)                  - 38;3
-         *                              -- Will parse 4 as 82+(n-2)+(c-1)*4 = 80 = flag(FLAG38_x,4)                  - 38;4
-         *                              -- Will parse 5 as 82+(n-2)+(c-1)*4 = 81 = flag(FLAG38_x,5)                  - 38;5
-         *                              -- Parses anything other as in state 0 (38 is ignored)
-         *   2 = previous was 48
-         *                              -- Will parse 2 as 82+(n-2)+(c-1)*4 = 82 = flag(FLAG48_x,2)                  - 48;2
-         *                              -- Will parse 3 as 82+(n-2)+(c-1)*4 = 83 = flag(FLAG48_x,3)                  - 48;3
-         *                              -- Will parse 4 as 82+(n-2)+(c-1)*4 = 84 = flag(FLAG48_x,4)                  - 48;4
-         *                              -- Will parse 5 as 82+(n-2)+(c-1)*4 = 85 = flag(FLAG48_x,4)                  - 48;5
-         *                              -- Parses anything other as in state 0 (48 is ignored)
-         *   3 = previous was 58
-         *                              -- Will parse 2 as 82+(n-2)+(c-1)*4 = 86 = flag(FLAG58_x,2)                  - 58;2
-         *                              -- Will parse 3 as 82+(n-2)+(c-1)*4 = 87 = flag(FLAG58_x,3)                  - 58;3
-         *                              -- Will parse 4 as 82+(n-2)+(c-1)*4 = 88 = flag(FLAG58_x,4)                  - 58;4
-         *                              -- Will parse 5 as 82+(n-2)+(c-1)*4 = 89 = flag(FLAG58_x,4)                  - 58;5
-         *                              -- Parses anything other as in state 0 (58 is ignored)
-         *   4 = previous two were 38;4 -- Will parse as 108+4-4 = 108; 117; 126; 135= mode(MODE38_4 .. MODE38_4_x3) - CMYK fg
-         *   5 = previous two were 38;3 -- Will parse as 108+5-4 = 109; 118; 127     = mode(MODE38_3 .. MODE38_3_x2) - CMY fg
-         *   6 = previous two were 38;2 -- Will parse as 108+6-4 = 110; 119; 128     = mode(MODE38_2 .. MODE38_2_x2) - RGB fg
-         *   7 = previous two were 48;4 -- Will parse as 108+7-4 = 111; 120; 129; 138= mode(MODE48_4 .. MODE48_4_x3) - CMYK bg
-         *   8 = previous two were 48;3 -- Will parse as 108+8-4 = 112; 121; 130     = mode(MODE48_3 .. MODE48_3_x2) - CMY bg
-         *   9 = previous two were 48;2 -- Will parse as 108+9-4 = 113; 122; 131     = mode(MODE48_2 .. MODE48_2_x2) - RGB bg
-         *  10 = previous two were 58;4 -- Will parse as 108+10-4= 114; 123; 132; 141= mode(MODE48_4 .. MODE48_4_x3) - CMYK underline (UNSUP)
-         *  11 = previous two were 58;3 -- Will parse as 108+11-4= 115; 124; 133     = mode(MODE48_3 .. MODE48_3_x2) - CMY underline (UNSUP)
-         *  12 = previous two were 58;2 -- Will parse as 108+12-4= 116; 125; 134     = mode(MODE48_2 .. MODE48_2_x2) - RGB underline (UNSUP)
-         *  32 = previous two were 38;5 -- Will parse as 108+32-4 = 136              = mode(MODE38_5)                - Xterm256 fg
-         *  33 = previous two were 48;5 -- Will parse as 108+33-4 = 137              = mode(MODE48_5)                - Xterm256 bg
-         *  35 = previous two were 58;5 -- Will parse as 108+35-4 = 139              = mode(MODE58_5)                - Xterm256 underline (UNSUP)
-         *                mode() translates the state code into such numbers that does not conflict normally expected values.
+         *   0 = default state -- Will parse "a" (input number) as verbatim
+         *   Other, see below:
+         * Switch-case map (* = regular use, _ = UDEFINED, # = internal use):
+         *     0-9     **********
+         *    10-19    __________ (font commands, 0=default, 1-9=alt font)
+         *    20-29    **********
+         *    30-39    **********
+         *    40-49    **********
+         *    50-59    ******##**    56: MODE38_5[1]  57: MODE48_5[1]
+         *    60-69    ******####    66: MODE38_4[4]
+         *    70-79    ###***####    70: MODE38_2[3]  76: MODE48_4[4]
+         *    80-89    ##########    80: MODE38_3[3]  83: MODE58_4[4] 87: MODE48_2[3]
+         *    90-99    ********_#    99: MODE58_5[1]
+         *   100-109   ********##    108: MODE_38_x[3]
+         *   110-119   ##########    111: MODE48_3[3] 114: MODE58_2[3] 117: MODE58_3[3]
          *
-         * Regular switch-values:
-         *    0-9, 20-24, 27-49, 51-55, 73-75, 90-97, 100-107
-         * Codes that only indicate internal state changes and will cause wonky things to happen, if encountered in SGR when c is 0-2:
-         *    78                                     mistakenly interpreted as 38;2
-         *    79                                     mistakenly interpreted as 38;3
-         *    80                                     mistakenly interpreted as 38;4
-         *    81                                     mistakenly interpreted as 38;5
-         *    82, 108-134, 127-128, 130-131, 133-134 mistakenly interpreted as 48;2 -- expects 2 more values
-         *    83                                     mistakenly interpreted as 48;3
-         *    84                                     mistakenly interpreted as 48;4
-         *    85                                     mistakenly interpreted as 48;5
-         *    86                                     mistakenly interpreted as 58;2
-         *    87                                     mistakenly interpreted as 58;3
-         *    88                                     mistakenly interpreted as 58;4
-         *    89                                     mistakenly interpreted as 58;5
-         *   126                                     mistakenly interpreted as 38;4;?;?;?;126 -- sets color to undefined value
-         *   129                                     mistakenly interpreted as 48;4;?;?;?;129 -- sets color to undefined value
-         *   136                                     mistakenly interpreted as 38;5;136
-         *   137                                     mistakenly interpreted as 48;5;137
-         *   139                                     mistakenly interpreted as 58;5;139
-         * Unused/unsupported switch-values:
-         *    10      primary (default) font
-         *    11-19   alternative font n-10
-         *    56-57   UNDEFINED
-         *    66-72   UNDEFINED
-         *    76-77   UNDEFINED
-         *    98-99   UNDEFINED
-         *    140     UNDEFINED
-         *    142-    UNDEFINED
+         * Detailed layout on internal use codes --- what happens if "a" has that same value:
+         *    56               mistakenly interpreted as 38;5;56
+         *    57               mistakenly interpreted as 48;5;57
+         *    99               mistakenly interpreted as 58;5;99
+         *    72               mistakenly interpreted as 38;2;?;?;72
+         *    82               mistakenly interpreted as 38;3;?;?;82
+         *    89               mistakenly interpreted as 48;2;?;?;89
+         *   113               mistakenly interpreted as 48;3;?;?;113
+         *   116               mistakenly interpreted as 58;2;?;?;116
+         *   119               mistakenly interpreted as 58;3;?;?;119
+         *    69               mistakenly interpreted as 38;4;?;?;?;69
+         *    79               mistakenly interpreted as 48;4;?;?;?;79
+         *    86               mistakenly interpreted as 58;4;?;?;?;86
+         *   108               mistakenly interpreted as 38;108 -- does nothing
+         *   109               mistakenly interpreted as 48;109 -- does nothing
+         *   110               mistakenly interpreted as 58;110 -- does nothing
+         *   Anything else:    ignores 1 parameter and sets bold mode (as in 1)
          */
-        constexpr unsigned MODE_BASE = 108;
-        constexpr unsigned MODE38_5  = 136 + 4 - MODE_BASE; // Which value for C to use to get 136
-        constexpr unsigned MODE48_5  = 137 + 4 - MODE_BASE; // Which value for C to use to get 137
-        constexpr unsigned MODE58_5  = 139 + 4 - MODE_BASE; // Which value for C to use to get 139
-        constexpr unsigned MODE38_4  = 4, MODE38_4_x1 = MODE38_4+9, MODE38_4_x2 = MODE38_4+9*2, MODE38_4_x3 = MODE38_4+9*3;
-        constexpr unsigned MODE38_3  = 5, MODE38_3_x1 = MODE38_3+9, MODE38_3_x2 = MODE38_3+9*2;
-        constexpr unsigned MODE38_2  = 6, MODE38_2_x1 = MODE38_2+9, MODE38_2_x2 = MODE38_2+9*2;
-        constexpr unsigned MODE48_4  = 7, MODE48_4_x1 = MODE48_4+9, MODE48_4_x2 = MODE48_4+9*2, MODE48_4_x3 = MODE48_4+9*3;
-        constexpr unsigned MODE48_3  = 8, MODE48_3_x1 = MODE48_3+9, MODE48_3_x2 = MODE48_3+9*2;
-        constexpr unsigned MODE48_2  = 9, MODE48_2_x1 = MODE48_2+9, MODE48_2_x2 = MODE48_2+9*2;
-        constexpr unsigned MODE58_4  =10, MODE58_4_x1 = MODE58_4+9, MODE58_4_x2 = MODE58_4+9*2, MODE58_4_x3 = MODE58_4+9*3;
-        constexpr unsigned MODE58_3  =11, MODE58_3_x1 = MODE58_3+9, MODE58_3_x2 = MODE58_3+9*2;
-        constexpr unsigned MODE58_2  =12, MODE58_2_x1 = MODE58_2+9, MODE58_2_x2 = MODE58_2+9*2;
-        constexpr unsigned FLAG_BASE = 78;
-        constexpr unsigned FLAG_38_x = 1, FLAG_48_x = 2, FLAG_58_x = 3;
-
-        auto mode = [](unsigned n)            constexpr { return MODE_BASE + n - 4; };
-        auto flag = [](unsigned c,unsigned n) constexpr { return FLAG_BASE + (n - 2) + (c-FLAG_38_x)*4; };
-        unsigned switchval = a;
-        switch(c)
-        {
-            case 0:         [[likely]] break;
-            case FLAG_38_x: [[fallthrough]];
-            case FLAG_48_x:
-            case FLAG_58_x: if(a >= 2 && a <= 5) [[likely]] switchval = flag(c,a); else c = 0;
-                            break;
-            default:        switchval = mode(c);
-        }
+        unsigned switchval = c ? c : a;
         auto m = [](unsigned n) constexpr
         {
-            //if((n>=10 && n<=19) || (n>=56 && n<=81) || n>=130) n=26;
-            //if(n>=82) n = n+56-82;
-            //if(n>=20) n = n+10-20;
-            return n;
+            return (n < sizeof(translate)) ? translate[n] : __;
         };
         switch(m(switchval))
         {
@@ -276,106 +287,143 @@ void termwindow::Write(std::u32string_view s)
             case m(5): set(blink, 1); c = 0; break;
             case m(6): set(blink, 2); c = 0; break;
             case m(7): set(inverse, true); c = 0; break;
-            case m(8): set(conceal, true); c = 0; break;
+            //case m(8): set(conceal, true); c = 0; break;
             case m(9): set(overstrike, true); c = 0; break;
-            case m(20): set(fraktur, true); c = 0; break;
+            //case m(20): set(fraktur, true); c = 0; break;
             case m(21): set(underline2, true); c = 0; break;
             case m(22): set(dim, false); set(bold, false); c = 0; break;
             case m(23): set(italic, false); set(fraktur, false); c = 0; break;
             case m(24): set(underline, false); set(underline2, false); c = 0; break;
             case m(25): set(blink, 0); c = 0; break;
-            case m(26): set(proportional, true); c = 0; break;
+            //case m(26): set(proportional, true); c = 0; break;
             case m(27): set(inverse, false); c = 0; break;
-            case m(28): set(conceal, false); c = 0; break;
+            //case m(28): set(conceal, false); c = 0; break;
             case m(29): set(overstrike, false); c = 0; break;
             case m(39): set(underline, false); set(underline2, false);
                         set(fgcolor, Cell{}.fgcolor); c = 0; break; // Set default foreground color
             case m(49): set(bgcolor, Cell{}.bgcolor); c = 0; break; // Set default background color
-            case m(59): c = 0; break; // Set default underline color
-            case m(50): set(proportional, false); c = 0; break;
-            case m(51): set(framed, true); c = 0; break;
-            case m(52): set(encircled, true); c = 0; break;
+            //case m(59): c = 0; break; // Set default underline color
+            //case m(50): set(proportional, false); c = 0; break;
+            //case m(51): set(framed, true); c = 0; break;
+            //case m(52): set(encircled, true); c = 0; break;
             case m(53): set(overlined, true); c = 0; break;
-            case m(54): set(framed, false); set(encircled, false); c = 0; break;
+            //case m(54): set(framed, false); set(encircled, false); c = 0; break;
             case m(55): set(overlined, false); c = 0; break;
-            case m(60): set(ideo_underline, true); c = 0; break;
-            case m(61): set(ideo_underline2, true); c = 0; break;
-            case m(62): set(ideo_overline, true); c = 0; break;
-            case m(63): set(ideo_overline2, true); c = 0; break;
-            case m(64): set(ideo_stress, true); c = 0; break;
-            case m(65): set(ideo_underline, false); set(ideo_underline2, false);
-                        set(ideo_overline, false); set(ideo_overline2, false);
-                        set(ideo_stress, false); c = 0; break;
-            case m(73): set(scriptsize, 1); c = 0; break;
-            case m(74): set(scriptsize, 2); c = 0; break;
-            case m(75): set(scriptsize, 0); c = 0; break;
-            case m(38): c = FLAG_38_x; break;
-            case m(48): c = FLAG_48_x; break;
-            case m(58): c = FLAG_58_x; break;
-            case m(flag(FLAG_38_x,2)): c=MODE38_2; color=0; break; // 38;2
-            case m(flag(FLAG_38_x,3)): c=MODE38_3; color=0; break; // 38;3
-            case m(flag(FLAG_38_x,4)): c=MODE38_4; color=0; break; // 38;4
-            case m(flag(FLAG_38_x,5)): c=MODE38_5; break;          // 38;5
-            case m(flag(FLAG_48_x,2)): c=MODE48_2; color=0; break; // 48;2
-            case m(flag(FLAG_48_x,3)): c=MODE48_3; color=0; break; // 48;3
-            case m(flag(FLAG_48_x,4)): c=MODE48_4; color=0; break; // 48;4
-            case m(flag(FLAG_48_x,5)): c=MODE48_5; break;          // 48;5
-            case m(flag(FLAG_58_x,2)): c=MODE58_2; color=0; break; // 58;2
-            case m(flag(FLAG_58_x,3)): c=MODE58_3; color=0; break; // 58;3
-            case m(flag(FLAG_58_x,4)): c=MODE58_4; color=0; break; // 58;4
-            case m(flag(FLAG_58_x,5)): c=MODE58_5; break;          // 58;5
-            case m(mode(MODE38_4)): //color = (color << 8) + a; c+=9; break; // 38;4;n
-            case m(mode(MODE38_3)): //color = (color << 8) + a; c+=9; break; // 38;3;n
-            case m(mode(MODE38_2)): //color = (color << 8) + a; c+=9; break; // 38;2;n
-            case m(mode(MODE48_4)): //color = (color << 8) + a; c+=9; break; // 48;4;n
-            case m(mode(MODE48_3)): //color = (color << 8) + a; c+=9; break; // 48;3;n
-            case m(mode(MODE48_2)): //color = (color << 8) + a; c+=9; break; // 48;2;n
-            case m(mode(MODE58_4)): //color = (color << 8) + a; c+=9; break; // 58;4;n
-            case m(mode(MODE58_3)): //color = (color << 8) + a; c+=9; break; // 58;3;n
-            case m(mode(MODE58_2)): //color = (color << 8) + a; c+=9; break; // 58;2;n
-            case m(mode(MODE38_4_x1)): //color = (color << 8) + a; c+=9; break; // 38;4;#;n
-            case m(mode(MODE38_3_x1))://color = (color << 8) + a; c+=9; break; // 38;3;#;n
-            case m(mode(MODE38_2_x1))://color = (color << 8) + a; c+=9; break; // 38;2;#;n
-            case m(mode(MODE48_4_x1))://color = (color << 8) + a; c+=9; break; // 48;4;#;n
-            case m(mode(MODE48_3_x1))://color = (color << 8) + a; c+=9; break; // 48;3;#;n
-            case m(mode(MODE48_2_x1))://color = (color << 8) + a; c+=9; break; // 48;2;#;n
-            case m(mode(MODE58_4_x1))://color = (color << 8) + a; c+=9; break; // 58;4;#;n
-            case m(mode(MODE58_3_x1))://color = (color << 8) + a; c+=9; break; // 58;3;#;n
-            case m(mode(MODE58_2_x1))://color = (color << 8) + a; c+=9; break; // 58;2;#;n
-            case m(mode(MODE38_4_x2))://color = (color << 8) + a; c+=9; break; // 38;4;#;#;n
-            case m(mode(MODE48_4_x2))://color = (color << 8) + a; c+=9; break; // 48;4;#;#;n
-            case m(mode(MODE58_4_x2)):  color = (color << 8) + a; c+=9; break; // 58;4;#;#;n
+            //case m(60): set(ideo_underline, true); c = 0; break;
+            //case m(61): set(ideo_underline2, true); c = 0; break;
+            //case m(62): set(ideo_overline, true); c = 0; break;
+            //case m(63): set(ideo_overline2, true); c = 0; break;
+            //case m(64): set(ideo_stress, true); c = 0; break;
+            //case m(65): set(ideo_underline, false); set(ideo_underline2, false);
+            //            set(ideo_overline, false); set(ideo_overline2, false);
+            //            set(ideo_stress, false); c = 0; break;
+            //case m(73): set(scriptsize, 1); c = 0; break;
+            //case m(74): set(scriptsize, 2); c = 0; break;
+            //case m(75): set(scriptsize, 0); c = 0; break;
+            case m(38): c = MODE_38_x; break;
+            case m(48): c = MODE_48_x; break;
+            case m(58): c = MODE_58_x; break;
 
-            case m(30):case m(31):case m(32):case m(33):case m(34):case m(35):
-            case m(36):case m(37):    a -= 30; a += 90-8;                 [[fallthrough]];
-            case m(90):case m(91):case m(92):case m(93):case m(94):case m(95):
-            case m(96):case m(97):    a -= 90-8;                          [[fallthrough]];
-            case m(mode(MODE38_5)):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 38;5;n
-            case m(mode(MODE38_4_x3))://color = (color << 8) + a; set(fgcolor, color); c = 0; break; // 38;4;#;#;#;n (TODO CMYK->RGB)
-            case m(mode(MODE38_3_x2))://color = (color << 8) + a; set(fgcolor, color); c = 0; break; // 38;3;#;#;n   (TODO CMY->RGB)
-            case m(mode(MODE38_2_x2)):  color = (color << 8) + a; set(fgcolor, color); c = 0; break; // 38;2;#;#;n   (RGB24)
+            // MODE_38_x, MODE_48_x, MODE_58_x are handled by single case.
+            case m(MODE_38_x):/*
+            case m(MODE_48_x):
+            case m(MODE_58_x):*/
+            {
+                color = 0;
+                if(a >= 2 && a <= 5) { c = modetab[(c-MODE_38_x)*4 + a - 2]; break; }
+                c     = 0;
+                break;
+            }
 
-            case m(40):case m(41):case m(42):case m(43):case m(44):case m(45):
-            case m(46):case m(47):    a -= 40; a += 100-8;                [[fallthrough]];
-            case m(100):case m(101):case m(102):case m(103):case m(104):case m(105):
-            case m(106):case m(107):  a -= 100-8;                         [[fallthrough]];
-            case m(mode(MODE48_5)):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 48;5;n
-            case m(mode(MODE48_4_x3))://color = (color << 8) + a; set(bgcolor, color); c = 0; break; // 48;4;#;#;#;n (TODO CMYK->RGB)
-            case m(mode(MODE48_3_x2))://color = (color << 8) + a; set(bgcolor, color); c = 0; break; // 48;3;#;#;n   (TODO CMY->RGB)
-            case m(mode(MODE48_2_x2)):  color = (color << 8) + a; set(bgcolor, color); c = 0; break; // 48;2;#;#;n   (RGB24)
+            // All of these are handled by a single case. They update color and increment mode number.
+            case m(MODE38_4): /*//color = (color << 8) + a; c+=1; break; // 38;4;n
+            case m(MODE38_3): //color = (color << 8) + a; c+=1; break; // 38;3;n
+            case m(MODE38_2): //color = (color << 8) + a; c+=1; break; // 38;2;n
+            case m(MODE48_4): //color = (color << 8) + a; c+=1; break; // 48;4;n
+            case m(MODE48_3): //color = (color << 8) + a; c+=1; break; // 48;3;n
+            case m(MODE48_2): //color = (color << 8) + a; c+=1; break; // 48;2;n
+            case m(MODE58_4): //color = (color << 8) + a; c+=1; break; // 58;4;n
+            case m(MODE58_3): //color = (color << 8) + a; c+=1; break; // 58;3;n
+            case m(MODE58_2): //color = (color << 8) + a; c+=1; break; // 58;2;n
+            case m(MODE38_4_x1): //color = (color << 8) + a; c+=1; break; // 38;4;#;n
+            case m(MODE38_3_x1)://color = (color << 8) + a; c+=1; break; // 38;3;#;n
+            case m(MODE38_2_x1)://color = (color << 8) + a; c+=1; break; // 38;2;#;n
+            case m(MODE48_4_x1)://color = (color << 8) + a; c+=1; break; // 48;4;#;n
+            case m(MODE48_3_x1)://color = (color << 8) + a; c+=1; break; // 48;3;#;n
+            case m(MODE48_2_x1)://color = (color << 8) + a; c+=1; break; // 48;2;#;n
+            case m(MODE58_4_x1)://color = (color << 8) + a; c+=1; break; // 58;4;#;n
+            case m(MODE58_3_x1)://color = (color << 8) + a; c+=1; break; // 58;3;#;n
+            case m(MODE58_2_x1)://color = (color << 8) + a; c+=1; break; // 58;2;#;n
+            case m(MODE38_4_x2)://color = (color << 8) + a; c+=1; break; // 38;4;#;#;n
+            case m(MODE48_4_x2)://color = (color << 8) + a; c+=1; break; // 48;4;#;#;n
+            case m(MODE58_4_x2):*/color = (color << 8) + a; c+=1; break; // 58;4;#;#;n
 
-            case m(mode(MODE58_5)):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 58;5;n
-            case m(mode(MODE58_4_x3))://color = (color << 8) + a; /*IGNORED*/ c = 0; break;             // 58;4;#;#;#;n (TODO CMYK->RGB)
-            case m(mode(MODE58_3_x2))://color = (color << 8) + a; /*IGNORED*/ c = 0; break;             // 58;3;#;#;n   (TODO CMY->RGB)
-            case m(mode(MODE58_2_x2)):  color = (color << 8) + a; /*IGNORED*/ c = 0; break;             // 58;2;#;#;n   (RGB24)
+            // Foreground colors. 30..37 are handled by a single case, likewise 90..97
+            case m(30):/*case m(31):case m(32):case m(33):
+            case m(34):case m(35):case m(36):case m(37):*/     a -= 30; a += 90-8;  [[fallthrough]];
+            case m(90):/*case m(91):case m(92):case m(93):
+            case m(94):case m(95):case m(96):case m(97):*/     a -= 90-8;           [[fallthrough]];
+            case m(MODE38_5):     color = 0; a = xterm256table[a & 0xFF];           [[fallthrough]];     // 38;5;n
+            case m(MODE38_2_x2):  color = (color << 8) + a; set(fgcolor, color); c = 0; break;           // 38;2;#;#;n   (RGB24)
+            case m(MODE38_3_x2):  color = (color << 8) + a; set(fgcolor, cmy2rgb(color));  c = 0; break; // 38;3;#;#;n   (CMY->RGB)
+            case m(MODE38_4_x3):  color = (color << 8) + a; set(fgcolor, cmyk2rgb(color)); c = 0; break; // 38;4;#;#;#;n (CMYK->RGB)
 
-            default: c = 0; break;
+            // Background colors. 40..47 are handled by a single case, likewise 100..107
+            case m(40):/*case m(41):case m(42):case m(43):
+            case m(44):case m(45):case m(46):case m(47):*/     a -= 40; a += 100-8; [[fallthrough]];
+            case m(100):/*case m(101):case m(102):case m(103):
+            case m(104):case m(105):case m(106):case m(107):*/ a -= 100-8;          [[fallthrough]];
+            case m(MODE48_5):     color = 0; a = xterm256table[a & 0xFF];           [[fallthrough]];     // 48;5;n
+            case m(MODE48_2_x2):  color = (color << 8) + a; set(bgcolor, color);           c = 0; break; // 48;2;#;#;n   (RGB24)
+            case m(MODE48_3_x2):  color = (color << 8) + a; set(bgcolor, cmy2rgb(color));  c = 0; break; // 48;3;#;#;n   (CMY->RGB)
+            case m(MODE48_4_x3):  color = (color << 8) + a; set(bgcolor, cmyk2rgb(color)); c = 0; break; // 48;4;#;#;#;n (CMYK->RGB)
+
+            // These don't do anything, so we just ignore them and reset the mode number c.
+            //
+            //case m(MODE58_5):  color = 0; a = xterm256table[a & 0xFF]; [[fallthrough]];           // 58;5;n
+            //case m(MODE58_4_x3)://color = (color << 8) + a; /*IGNORED*/ c = 0; break;             // 58;4;#;#;#;n (TODO CMYK->RGB)
+            //case m(MODE58_3_x2)://color = (color << 8) + a; /*IGNORED*/ c = 0; break;             // 58;3;#;#;n   (TODO CMY->RGB)
+            //case m(MODE58_2_x2):  color = (color << 8) + a; /*IGNORED*/ c = 0; break;             // 58;2;#;#;n   (RGB24)
+
+            default: case m(~0u): c = 0; break; // undefined
             #undef set
         }
     };
 
     if(bottom >= wnd.ysize) bottom = wnd.ysize-1;
     if(top    > bottom)     top = bottom;
+
+    enum States: unsigned
+    {
+        st_default,
+        st_esc,
+        st_scs,         // esc ()*+-./
+        st_scr,         // esc #
+        st_esc_percent, // esc %
+        st_csi,         // esc [
+        st_csi_dec,     // csi ?
+        st_csi_dec2,    // csi >
+        st_csi_dec3,    // csi =
+        st_csi_ex,      // csi !
+        st_csi_quo,     // csi "
+        st_csi_dol,     // csi $
+        st_csi_star,    // csi *
+        st_csi_dec_dol, // csi ? $
+        st_string,
+        st_string_str,
+        //
+        st_num_states
+    };
+    auto State = [](char32_t c, unsigned st) constexpr
+    {
+        return c*st_num_states + st;
+    };
+    auto GetParams = [&](unsigned min_params, bool change_zero_to_one)
+    {
+        if(p.size() < min_params) { p.resize(min_params); }
+        if(change_zero_to_one) for(auto& v: p) if(!v) v = 1;
+        state = st_default;
+    };
 
     for(char32_t c: s)
     {
@@ -388,7 +436,7 @@ void termwindow::Write(std::u32string_view s)
                                  * from csistate because you can't have parameters
                                  * after this particular symbol.
                                  */
-            #define AnyState(c)      State(c,st_default): case State(c,st_esc): \
+            #define AnyState(c)      State(c,st_default):    case State(c,st_esc): \
                                 case State(c,st_scs):        case State(c,st_csi_ex): \
                                 case State(c,st_string_str): case State(c,st_csi_quo): \
                                 case State(c,st_scr):        case State(c,st_esc_percent): \
