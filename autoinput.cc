@@ -19,7 +19,7 @@ namespace
     bool       finished  = true;
 }
 
-static const unsigned char Delay_CharClassTable[] =
+static constexpr unsigned char Delay_CharClassTable[] =
 {
 //Delay_CharClassTable:
 //        ; D, H, I, J, M are fast ctrls
