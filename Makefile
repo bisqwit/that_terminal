@@ -1,6 +1,6 @@
 CXX=g++
 CPPFLAGS=-Wall -Wextra
-CXXFLAGS=-std=c++17
+CXXFLAGS=-std=c++20
 
 CXXFLAGS += -Ofast
 #CXXFLAGS += -Og -g -fsanitize=address
