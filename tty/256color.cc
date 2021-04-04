@@ -8,7 +8,8 @@ constexpr unsigned Make16(unsigned r,unsigned g,unsigned b)
 inline constexpr unsigned char grayramp[24] = { 1,2,3,5,6,7,8,9,11,12,13,14,16,17,18,19,20,22,23,24,25,27,28,29 };
 inline constexpr unsigned char colorramp[6] = { 0,12,16,21,26,31 };
 
-const std::array<unsigned,256> xterm256table = []() constexpr
+/* Build and define the table of 256 colors. 8-bit index, 24-bit value. */
+const constinit std::array<unsigned,256> xterm256table = []() consteval
 {
     std::array<unsigned,256> result =
     {

@@ -1,3 +1,3 @@
 #include <array>
 
-extern const std::array<unsigned,256> xterm256table;
+extern const constinit std::array<unsigned,256> xterm256table;
