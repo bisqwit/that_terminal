@@ -23,23 +23,32 @@ struct Cell
     std::uint_least32_t fgcolor;
     std::uint_least32_t bgcolor;
     char32_t            ch;
-    bool                bold: 1;
-    bool                dim: 1;
-    bool                italic: 1;
-    bool                underline: 1;
-    bool                underline2: 1;
-    bool                overstrike: 1;
-    bool                inverse: 1;
-    bool                framed: 1;
-    bool                encircled: 1;
-    bool                overlined: 1;
-    bool                fraktur: 1;
-    bool                conceal: 1;
-    unsigned char       render_size: 2; // 0=normal,1=doublewidth,2=doublewidth+topline,3=doublewidth+bottomline
-    unsigned char       blink: 2;
+    bool                bold: 1;            // bit 0
+    bool                dim: 1;             // bit 1
+    bool                italic: 1;          // bit 2
+    bool                underline: 1;       // bit 3
+    bool                underline2: 1;      // bit 4
+    bool                overstrike: 1;      // bit 5
+    bool                inverse: 1;         // bit 6
+    bool                framed: 1;          // bit 7
+    bool                encircled: 1;       // bit 8
+    bool                overlined: 1;       // bit 9
+    bool                fraktur: 1;         // bit 10
+    bool                conceal: 1;         // bit 11
+    unsigned char       render_size: 2;     // bit 12-13 0=normal,1=doublewidth,2=doublewidth+topline,3=doublewidth+bottomline
+    unsigned char       blink: 2;           // bit 14-15
 
-    bool                dirty: 1;
-    bool                protect: 1;
+    unsigned char       scriptsize: 2;      // bit 16-17: 0=normal,1=superscript,2=subscript
+    bool                proportional: 1;    // bit 18
+    bool                ideo_underline:  1; // bit 19
+    bool                ideo_underline2: 1; // bit 20
+    bool                ideo_overline:  1;  // bit 21
+    bool                ideo_overline2: 1;  // bit 22
+    bool                ideo_stress: 1;     // bit 23
+    unsigned padding: 6;                    // bit 24,25,26, 27,28,29
+
+    bool                protect: 1;         // bit 30
+    bool                dirty: 1;           // bit 31 (placed last for efficient access)
 
     Cell()
     {
@@ -53,14 +62,25 @@ struct Cell
     // operator== compares everything except dirty and protect.
     bool operator== (const Cell& b) const
     {
+        Cell tmp1 = *this;
+        Cell tmp2 = b;
+        tmp1.dirty = false; tmp1.protect = false;
+        tmp2.dirty = false; tmp2.protect = false;
+        return std::memcmp(&tmp1, &tmp2, sizeof(Cell)) == 0;
+        /*
         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,
                           underline,underline2,overstrike,inverse,blink,
                           framed,encircled,fraktur,conceal,overlined,
+                          scriptsize,proportional,
+                          ideo_underline,ideo_underline2,ideo_overline,ideo_overline2,ideo_stress,
                           render_size)
             == std::tuple(b.fgcolor,b.bgcolor,b.ch,b.bold,b.dim,b.italic,
                           b.underline,b.underline2,b.overstrike,b.inverse,b.blink,
                           b.framed,b.encircled,b.fraktur,b.conceal,b.overlined,
+                          b.scriptsize,b.proportional,
+                          b.ideo_underline,b.ideo_underline2,b.ideo_overline,b.ideo_overline2,b.ideo_stress,
                           b.render_size);
+        */
     }
     bool operator!= (const Cell& b) const { return !operator==(b); }
 };
