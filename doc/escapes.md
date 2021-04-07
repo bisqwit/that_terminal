@@ -36,7 +36,7 @@ does not happen until the new character is printed.
 ## Esc codes:
 
 * `<1B>`      ESC.
-* `<ESC> [`   CSI. An optional number of non-negative integer parameters may follow, separated by either `:` or `;`.
+* `<ESC> [`   CSI (Control Sequence Introducer). An optional number of non-negative integer parameters may follow, separated by either `:` or `;`.
 * `<CSI> "`   CSI".
 * `<CSI> ?`   CSI?.
 * `<ESC> c`   Resets console. Acts as if these commands were performed consecutively:
@@ -63,45 +63,45 @@ without CR even when the TTY is automatically translating linefeeds into LF+CR.
 will be immune of erase operations. They can still be overwritten by
 printing anything (including spaces) over them.
 * `<CSI> ! p` Same as `<ESC> c`, except leaves cursor and screen contents untouched.
-* `<CSI> A` ¹⁴Moves the cursor up by the specified number of rows.
-* `<CSI> B`, `<CSI> e` ¹⁴Moves the cursor down by the specified number of rows.
-* `<CSI> C`, `<CSI> a` ¹Moves the cursor right by the specified number of columns.
-* `<CSI> D` ¹Moves the cursor left by the specified number of columns.
-* `<CSI> E` Same as `<0D>` followed by `<CSI> B`.
-* `<CSI> F` Same as `<0D>` followed by `<CSI> A`.
-* `<CSI> G`, `<CSI> <60>` ¹²Absolute horizontal cursor positioning: Sets cursor to the specified column (X coordinate). Counting begins from 1.
+* `<CSI> A` CUU: ¹⁴Moves the cursor up by the specified number of rows.
+* `<CSI> B`, `<CSI> e` CUD: ¹⁴Moves the cursor down by the specified number of rows.
+* `<CSI> C`, `<CSI> a` CUF: ¹Moves the cursor right by the specified number of columns.
+* `<CSI> D` CUB: ¹Moves the cursor left by the specified number of columns.
+* `<CSI> E` CNL: Same as `<0D>` followed by `<CSI> B`.
+* `<CSI> F` CPL: Same as `<0D>` followed by `<CSI> A`.
+* `<CSI> G`, `<CSI> <60>` CHA: ¹²Absolute horizontal cursor positioning: Sets cursor to the specified column (X coordinate). Counting begins from 1.
 * `<CSI> d` ¹²Absolute vertical cursor positioning: Sets cursor to the specified row (Y coordinate). Counting begins from 1.
-* `<CSI> H`, `<CSI> f` ¹²Absolute cursor positioning: Row and column, in that order. Counting begins from 1.
-* `<CSI> K` ²Clears on the current line depending on parameter.
+* `<CSI> H`, `<CSI> f` CUP/HVP: ¹²Absolute cursor positioning: Row and column, in that order. Counting begins from 1.
+* `<CSI> K` EL: ²Clears on the current line depending on parameter.
   * 0 = Erase from cursor to end of line
   * 1 = Erase from start of line to cursor
   * 2 = Erase entire line
-* `<CSI> J` ²Combines `<CSI> K` with the following behavior depending on parameter.
+* `<CSI> J` ED: ²Combines `<CSI> K` with the following behavior depending on parameter.
   * 0 = Erase from cursor to end of screen
   * 1 = Erase from start of screen to cursor
   * 2 = Erase entire screen
 * `<CSI> ? J` (???) Seems to do the same as `<CSI> J`, expect changes all remaining characters to protected. (possibly wrong)
 * `<CSI> ? K` (???) Seems to do the same as `<CSI> K`, expect changes all remaining characters to protected. (possibly wrong)
-* `<CSI> M` ¹Scrolls the region between top of window and current line (inclusive) up by specified number of lines.
-* `<CSI> L` ¹Scrolls the region between current line and end of window (inclusive) down by specified number of lines.
-* `<CSI> S` ¹Scrolls the region between top of window and bottom of window (inclusive) up by specified number of lines.
+* `<CSI> M` DL: ¹Scrolls the region between top of window and current line (inclusive) up by specified number of lines.
+* `<CSI> L` IL: ¹Scrolls the region between current line and end of window (inclusive) down by specified number of lines.
+* `<CSI> S` SU: ¹Scrolls the region between top of window and bottom of window (inclusive) up by specified number of lines.
 * `<CSI> ^` ¹Scrolls the region between top of window and bottom of window (inclusive) down by specified number of lines.
-* `<CSI> T` Interpreted as `<CSI> ^` if there is one nonzero parameter. Ignored otherwise.
-* `<CSI> P` ¹²On the current line, scrolls the region between the current column and the right edge of screen left by the specified number of positions.
-* `<CSI> @` ¹²On the current line, scrolls the region between the current column and the right edge of screen right by the specified number of positions.
-* `<CSI> X` ¹²On the current line and current column, writes the specified number of blanks. The write will not wrap to the next line. (ECH)
-* `<CSI> b` ¹²At the current position, writes the specified number of duplicates of the last printed character. The cursor *is* moved, and the write may wrap to the next line.
+* `<CSI> T` DU: Interpreted as `<CSI> ^` if there is one nonzero parameter. Ignored otherwise.
+* `<CSI> P` DCH: ¹²On the current line, scrolls the region between the current column and the right edge of screen left by the specified number of positions.
+* `<CSI> @` ICH: ¹²On the current line, scrolls the region between the current column and the right edge of screen right by the specified number of positions.
+* `<CSI> X` ECH: ¹²On the current line and current column, writes the specified number of blanks. The write will not wrap to the next line. (ECH)
+* `<CSI> b` REP: ¹²At the current position, writes the specified number of duplicates of the last printed character. The cursor *is* moved, and the write may wrap to the next line.
 * `<CSI> r` Sets the window top and bottom line numbers. Missing parameters are interpreted as the top and bottom of the screen respectively. Counting begins from 1.
 * `<CSI> n` Reports depending on the first parameter. Unrecognized values are ignored.
   * Value 5: Responds with `<ESC> [ 0 n`.
-  * Value 6: Responds with `<ESC> [ <row> ; <column> R` with the current cursor coordinates. Counting begins from 1.
+  * Value 6 (DSR): Responds with `<ESC> [ <row> ; <column> R` with the current cursor coordinates. Counting begins from 1.
 * `<CSI> = c` Responds with tertiary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> > c` Responds with secondary device attributes. Ignored if nonzero parameters were found.
 * `<CSI> c`, `<ESC> Z` Responds with primary device attributes. Ignored if nonzero parameters were found.
-* `<CSI?> h` ³Set MISC modes.
-* `<CSI?> l` ³Unset MISC modes.
-* `<CSI?> s` ³Save MISC modes (xterm extension) (unsupported)
-* `<CSI?> r` ³Restore MISC modes (xterm extension) (unsupported)
+* `<CSI?> h` ³Set MISC modes (see `<CSI?> $ p`).
+* `<CSI?> l` ³Unset MISC modes (see `<CSI?> $ p`).
+* `<CSI?> s` (SCP/SCOSC) ³Save MISC modes (xterm extension) (unsupported)
+* `<CSI?> r` (RCP/SCORC) ³Restore MISC modes (xterm extension) (unsupported)
 * `<CSI?> $ p` Responds with `<ESC> [ ? <modenumber> ; <value> $ y` with the current value of the MISC mode. Values: 0=unrecognized, 1=set, 2=unset, 3=permanently set, 4=permanently unset
   * Mode 6: Puts cursor to top-left corner of the window. (Both set & clear)
   * Mode 5: Sets or clears screen-wide inverse flag.
@@ -117,26 +117,35 @@ printing anything (including spaces) over them.
   * Mode 1006: SGR ext mouse support (unsupported)
   * Mode 1015: URXVT ext mouse support (unsupported)
   * Mode 1007: Enable/disable mousewheel sending up/down key inputs (unsupported)
-* `<CSI> h` ³Set ANSI modes.
-* `<CSI> l` ³Unset ANSI modes.
+  * Mode 1049: Enable/disable alternate screen buffer (xterm) (unsupported)
+  * Mode 2004: Enable/disable bracketed paste mode (unsupported)
+* `<CSI> h` SM: ³Set ANSI modes.
+* `<CSI> l` RM: ³Unset ANSI modes.
 * `<CSI> $ p` Responds with `<ESC> [ <modenumber> ; <value> $ y` with the current value of the ANSI mode. Values: 0=unrecognized, 1=set, 2=unset, 3=permanently set, 4=permanently unset
   * Mode 2: Keyboard locked. (unsupported)
   * Mode 4: Insert mode. (unsupported)
   * Mode 12: No local echo. (unsupported)
   * Mode 20: Auto linefeed. (unsupported)
-* `<CSI> m` ³SGR attributes. If no parameters are given, a single zero-parameter is implied.
+* `<CSI> m` SGR: ³Set attributes. If no parameters are given, a single zero-parameter is implied.
   * 0 = Sets default attributes (clears all modes listed below, and sets default foreground and default background color).
   * 1 = Sets bold.
   * 2 = Sets dim.
   * 3 = Sets italic.
   * 4 = Sets underline.
+    * Note: _That Terminal_ does not support ECMA-48 sub-attributes:
+      * 4:0 clear underline and double underline (unsupported)
+      * 4:1 solid underline
+      * 4:2 double underline
+      * 4:3 wavy underline
+      * 4:4 dotted underline
+      * 4:5 dashed underline
   * 5 = Sets blink.
   * 6 = Sets rapid blink.
   * 7 = Sets inverse. (swaps foreground and background color while in effect)
   * 8 = Sets conceal. (unsupported)
   * 9 = Sets overstrike.
   * 20 = Sets fraktur/blackletter. (unsupported)
-  * 21 = Sets double underline.
+  * 21 = Sets double underline. (ECMA-48 behavior)
   * 22 = Clears dim and bold.
   * 23 = Clears italic and fraktur/blackletter.
   * 24 = Clears underline and double underline.
@@ -164,20 +173,18 @@ printing anything (including spaces) over them.
   * 74 = Sets subscript. (unsupported)
   * 75 = Clears superscript and subscript.
   * 38 2 \<r> \<g> \<b> = Sets RGB24 foreground color.
-  * 38 3 \<c> \<m> \<y> = Sets CMY foreground color.
-  * 38 4 \<c> \<m> \<y> \<k> = Sets CMYK foreground color.
-  * 38 5 \<n> = Sets foreground color \<n> using the 256-color lookup table.
+    * Sub-attribute syntax 38:2:\<colorspace>:\<r>:\<g>:\<b> is not supported.
   * 48 2 \<r> \<g> \<b> = Sets RGB24 background color.
+  * 58 2 \<r> \<g> \<b> = Sets RGB24 underline color. (unsupported, non-standard)
+  * 38 3 \<c> \<m> \<y> = Sets CMY foreground color.
   * 48 3 \<c> \<m> \<y> = Sets CMY background color.
+  * 58 3 \<c> \<m> \<y> = Sets CMY underline color. (unsupported, non-standard)
+  * 38 4 \<c> \<m> \<y> \<k> = Sets CMYK foreground color.
   * 48 4 \<c> \<m> \<y> \<k> = Sets CMYK background color.
+  * 58 4 \<c> \<m> \<y> \<k> = Sets CMYK underline color. (unsupported, non-standard)
+  * 38 5 \<n> = Sets foreground color \<n> using the 256-color lookup table.
   * 48 5 \<n> = Sets background color \<n> using the 256-color lookup table.
-  * 58 2 \<r> \<g> \<b> = Sets RGB24 underline color. (unsupported)
-  * 58 3 \<c> \<m> \<y> = Sets CMY underline color. (unsupported)
-  * 58 4 \<c> \<m> \<y> \<k> = Sets CMYK underline color. (unsupported)
-  * 58 5 \<n> = Sets underline color \<n> using the 256-color lookup table. (unsupported)
-  * 38 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 38 97 5 is interpreted as blink, and 97 is ignored).
-  * 48 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 48 97 5 is interpreted as blink, and 97 is ignored).
-  * 58 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 58 97 5 is interpreted as blink, and 97 is ignored).
+  * 58 5 \<n> = Sets underline color \<n> using the 256-color lookup table. (unsupported, non-standard)
   * 30…37 = Sets foreground color \<n−30> using the 256-color lookup table.
   * 40…47 = Sets background color \<n−40> using the 256-color lookup table.
   * 90…97 = Sets foreground color \<n+8−90> using the 256-color lookup table.
@@ -199,7 +206,10 @@ printing anything (including spaces) over them.
     *  79 = interpreted as 48 4 \<?> \<?> \<?> 79 (sets lightgray background color)
     *  86 = interpreted as 58 4 \<?> \<?> \<?> 86 (does nothing)
     * Any other number in range 66…88 or 99…118, followed by \<n> = \<n> is ignored and sets bold mode (as in 1)
-* `<CSI> g`    Set tab stops (unsupported)
+  * 38 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 38 97 5 is interpreted as blink, and 97 is ignored).
+  * 48 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 48 97 5 is interpreted as blink, and 97 is ignored).
+  * 58 \<n> where n is neither 2, 3, 4, nor 5, is ignored (i.e. 58 97 5 is interpreted as blink, and 97 is ignored).
+* `<CSI> g`    TBC: Set tab stops (unsupported)
 * `<CSI> q`    Set LED states (unsupported)
 * `<CSI> $ r`  Change character attributes in rectangular area.
 First 4 params define the rectangle (top line,left column,bottom line,right column), the rest are the SGR sequence. Xterm only supports attributes 0/1/4/5/7/8 and 22/24/25/27/28, but *That terminal* supports all the same attributes that `<CSI> m` does.

@@ -31,7 +31,9 @@ private:
     unsigned utflength;
     unsigned long utfvalue;
 
+    // Parameters from current escape code
     std::vector<unsigned> p;
+
     unsigned              state=0;
     bool                  edgeflag=false;
     std::u32string        string;
