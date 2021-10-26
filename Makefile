@@ -10,6 +10,8 @@ CXXFLAGS += -fopenmp
 
 CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts -Ifile -Iutil/TinyDeflate -Iutil
 
+CPPFLAGS += -fanalyzer
+
 CXXFLAGS += $(shell pkg-config sdl2 --cflags)
 LDLIBS   += $(shell pkg-config sdl2 --libs)
 

@@ -148,7 +148,7 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 
         if(EnableTimeTemp)
         {
-            char time[16], temp[16], temp1[]="+26.7"; // °C, celsius, degC
+            char time[16], temp[16], temp1[]="+3"; // °C, celsius, degC
 
 #ifdef CLOCK_BACKWARDS
             unsigned t = 19*3600 - GetTime();

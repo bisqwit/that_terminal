@@ -67,7 +67,7 @@ static unsigned PollInterval = 1; // If you use autoinput and nonzero timefactor
                                   // Otherwise keep it as 1.
 static unsigned VideoFrameRateDownSampleFactor = 1; // Use powers of 2 only
 static bool Allow_Windows_Bigger_Than_Desktop = true;
-#elif 0
+#elif 1
 // Settings for create videos manually using the terminal
 static double TimeFactor = 1.0; // You can simulate faster / slower system, 0 = as fast as possible
 bool Headless       = false; // Disables window creation (useless without autoinput & video recording)
@@ -105,13 +105,13 @@ static bool Allow_Windows_Bigger_Than_Desktop = false;
 
 
 
-unsigned VidCellWidth = 8, VidCellHeight = 12, WindowWidth  =129, WindowHeight = 40;
-//unsigned VidCellWidth = 9, VidCellHeight = 8, WindowWidth  =126, WindowHeight = 60;
+//unsigned VidCellWidth = 8, VidCellHeight = 12, WindowWidth  =80, WindowHeight = 25;
+//unsigned VidCellWidth = 8, VidCellHeight = 8, WindowWidth  =80, WindowHeight = 63;
 //unsigned VidCellWidth = 9, VidCellHeight = 14, WindowWidth  =126, WindowHeight = 35;
 //unsigned VidCellWidth = 9, VidCellHeight = 12, WindowWidth  =109, WindowHeight = 46;
 //unsigned VidCellWidth = 9, VidCellHeight = 10, WindowWidth  =126, WindowHeight = 48;
 //unsigned VidCellWidth = 8, VidCellHeight = 8, WindowWidth  =126, WindowHeight = 292;
-//unsigned VidCellWidth = 8, VidCellHeight = 16, WindowWidth  = 106, WindowHeight = 30;
+unsigned VidCellWidth = 8, VidCellHeight = 16, WindowWidth  = 106, WindowHeight = 30;
 //unsigned VidCellWidth = 8, VidCellHeight = 14, WindowWidth  = 106, WindowHeight = 34;
 //static unsigned WindowWidth  = 80, WindowHeight = 25;
 //static float ScaleX = 3.f;
@@ -627,7 +627,7 @@ int main(int argc, char** argv)
                         quit = true;
                         break;
                     case SDL_TEXTINPUT:
-                        //std::fprintf(stderr, "Text input(%s)\n", ev.text.text);
+                        std::fprintf(stderr, "Text input(%s)\n", ev.text.text);
                         if(!AllowAutoInput || !AutoInputActive())
                         {
                             pending_input.clear(); // Overrides any input events from SDL_KEYDOWN
@@ -757,7 +757,7 @@ int main(int argc, char** argv)
                                 if(alt) cval |= 0x80;  // Add ALT
                                 if((!alpha && !digit) || ctrl||alt)
                                 {
-                                    //std::fprintf(stderr, "lore input(%c)\n", char(cval));
+                                    std::fprintf(stderr, "lore input(%c)(%d) with keysym=%d\n", char(cval), int(cval), ev.key.keysym.sym);
                                     if(shift && cval == '\t') pending_input += "\33[Z";
                                     else pending_input += ToUTF8(std::u32string_view(&cval,1));
                                 }

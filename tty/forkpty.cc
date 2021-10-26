@@ -48,7 +48,7 @@ int ForkPTY::Send(std::string_view buffer)
 }
 std::pair<std::string,int> ForkPTY::Recv()
 {
-    char buffer[4096];
+    char buffer[16]; usleep(400);
     std::pair<std::string,int> result;
     result.second = read(fd, buffer, sizeof(buffer));
     if(result.second > 0)
