@@ -1,0 +1,13 @@
+<map id="tty/terminal.hh" name="tty/terminal.hh">
+<area shape="rect" id="node1" title="Defines TerminalWindow, the bulk of the terminal emulator. Its main purpose is to render anything tha..." alt="" coords="127,5,232,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,63,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="87,80,141,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="150,155,209,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="217,80,267,107"/>
+<area shape="rect" id="node6" href="$window_8hh.html" title="Defines Window, a renderer and manager of screen contents." alt="" coords="291,80,374,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="481,229,542,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="233,155,283,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="359,229,421,256"/>
+<area shape="rect" id="node10" href="$cset_8hh.html" title="Defines TranslateCSet()" alt="" coords="359,155,424,181"/>
+<area shape="rect" id="node11" href="$cell_8hh.html" title="Defines Cell, the structure that represents a character on screen." alt="" coords="448,155,508,181"/>
+</map>

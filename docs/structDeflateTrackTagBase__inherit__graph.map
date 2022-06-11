@@ -1,0 +1,7 @@
+<map id="DeflateTrackTagBase" name="DeflateTrackTagBase">
+<area shape="rect" id="node1" title=" " alt="" coords="253,5,401,32"/>
+<area shape="rect" id="node2" href="$structDeflateTrackBothSize.html" title=" " alt="" coords="5,80,156,107"/>
+<area shape="rect" id="node3" href="$structDeflateTrackInSize.html" title=" " alt="" coords="180,80,315,107"/>
+<area shape="rect" id="node4" href="$structDeflateTrackNoSize.html" title=" " alt="" coords="339,80,479,107"/>
+<area shape="rect" id="node5" href="$structDeflateTrackOutSize.html" title=" " alt="" coords="503,80,647,107"/>
+</map>

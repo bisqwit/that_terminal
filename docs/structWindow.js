@@ -1,0 +1,28 @@
+var structWindow =
+[
+    [ "Window", "structWindow.html#a2453b08d9a43a395e53de1846c7d73ba", null ],
+    [ "CopyText", "structWindow.html#a461b73c307dbd49b26c1aaf4638392e4", null ],
+    [ "Dirtify", "structWindow.html#a2122daaa28d682b978cd23b60889c944", null ],
+    [ "Dirtify", "structWindow.html#acc5c0dd36314e3e0833c1e5b7d183c13", null ],
+    [ "FillBox", "structWindow.html#ae26dcc4d74818900f146422e4a2ff7c6", null ],
+    [ "FillBox", "structWindow.html#ad6160e1f0d24e0b155bea7596a989861", null ],
+    [ "LineSetRenderSize", "structWindow.html#a66ba7d9686e4767cccde039f9b31e39c", null ],
+    [ "PutCh", "structWindow.html#a44ea6e51328e6ce5c78886dacb42881f", null ],
+    [ "PutCh", "structWindow.html#a14a4d2cbc428fdbb2adb2fa9173a5780", null ],
+    [ "PutCh_KeepAttr", "structWindow.html#acba30321311472f84f868bcbd9ca7f73", null ],
+    [ "PutCh_KeepChar", "structWindow.html#a72d6a68e9866f41e004e97548e63f0a9", null ],
+    [ "Render", "structWindow.html#a3dd52e22aa00c4c4c78f454c228347c4", null ],
+    [ "Resize", "structWindow.html#a9012482d1ab55eca6a443c981d5a0c07", null ],
+    [ "blank", "structWindow.html#a9d8ddf43d135504e2889acd94a89220d", null ],
+    [ "cells", "structWindow.html#ab4dff90add57789afcccf18ee48c98ee", null ],
+    [ "cursorcolor", "structWindow.html#a427cf407e5420752fc9054c5cd660b24", null ],
+    [ "cursorvis", "structWindow.html#a79d02aa80b4718761602c288b5c3ab74", null ],
+    [ "cursx", "structWindow.html#a1d61defa0da5e9ba40f519bf8d9ef1d1", null ],
+    [ "cursy", "structWindow.html#a3240c7dbb7b46d8c322289e29fd59276", null ],
+    [ "inverse", "structWindow.html#a8e277846e6ad8f988929147c6ca07415", null ],
+    [ "mousecolor1", "structWindow.html#a5e486fa744d5c9821c3e11347c245cbe", null ],
+    [ "mousecolor2", "structWindow.html#a0bf593f79d65338f7ca47094c12d1313", null ],
+    [ "mouseselectcolor", "structWindow.html#ad56ee1329ddd3e16476d3423590c22ed", null ],
+    [ "xsize", "structWindow.html#a294266377d740d5c16d3a0822842f985", null ],
+    [ "ysize", "structWindow.html#ac21bd28e272693610c3daa2068e35fe9", null ]
+];

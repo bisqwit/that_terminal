@@ -1,0 +1,4 @@
+<map id="rendering/window.hh" name="rendering/window.hh">
+<area shape="rect" id="node1" title="Defines Window, a renderer and manager of screen contents." alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node2" href="$terminal_8hh.html" title="Defines TerminalWindow, the bulk of the terminal emulator. Its main purpose is to render anything tha..." alt="" coords="22,80,127,107"/>
+</map>

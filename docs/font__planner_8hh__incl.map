@@ -1,0 +1,13 @@
+<map id="rendering/fonts/font_planner.hh" name="rendering/fonts/font_planner.hh">
+<area shape="rect" id="node1" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="197,5,331,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,67,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="91,95,160,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="300,169,359,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="235,95,293,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="317,95,421,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="446,95,573,121"/>
+<area shape="rect" id="node8" href="$read__font_8hh.html" title="Contains low&#45;level functions for parsing font files. Used by ReadFontsList and FontPlan." alt="" coords="597,95,691,121"/>
+<area shape="rect" id="node9" title=" " alt="" coords="513,169,596,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="621,169,667,196"/>
+<area shape="rect" id="node11" title=" " alt="" coords="691,169,802,196"/>
+</map>

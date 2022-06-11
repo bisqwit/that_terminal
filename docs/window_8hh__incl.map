@@ -1,0 +1,9 @@
+<map id="rendering/window.hh" name="rendering/window.hh">
+<area shape="rect" id="node1" title="Defines Window, a renderer and manager of screen contents." alt="" coords="102,5,241,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="104,155,165,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="24,80,82,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="106,80,157,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="258,155,320,181"/>
+<area shape="rect" id="node6" href="$cset_8hh.html" title="Defines TranslateCSet()" alt="" coords="266,80,331,107"/>
+<area shape="rect" id="node7" href="$cell_8hh.html" title="Defines Cell, the structure that represents a character on screen." alt="" coords="182,80,242,107"/>
+</map>
