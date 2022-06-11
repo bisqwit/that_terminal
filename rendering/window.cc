@@ -2,7 +2,7 @@
 #include <array>
 #include <thread>
 
-#include "screen.hh"
+#include "window.hh"
 #include "color.hh"
 #include "person.hh"
 #include "clock.hh"
@@ -10,6 +10,11 @@
 #include "ctype.hh"
 #include "font_planner.hh"
 
+/** Generates an intensity table for the given combination of options:
+ * @param dim    Dim symbols
+ * @param bold   Bold symbols
+ * @param italic A value in range 0-1 representing the slant of the pixel row for italic text
+ */
 static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,bool bold,float italic)
 {
     std::array<unsigned char,16> result={};
@@ -42,6 +47,22 @@ static constexpr std::array<unsigned char,16> CalculateIntensityTable(bool dim,b
     return result;
 }
 
+/** Intensity tables for different combinations of font rendering.
+ *
+ * For taketables[mode][mask],
+ *   mode is 16 when cell is dim
+ *       plus 8 when cell is bold
+ *       plus 0 when cell is not italic, a range from 0-7 when cell is italic (top to bottom)
+ *   mask is a bitmask of four consecutive bits from the font, horizontally:
+ *       bit 0 is previous
+ *       bit 1 is current
+ *       bit 2 is next
+ *       bit 3 is next after next
+ *  Result is a value in range 0-128,
+ *  where 0 means fully background color,
+ *  128 means fully foreground color,
+ *  and the rest of values are linearly interpolated between.
+ */
 static constexpr std::array<unsigned char,16> taketables[] =
 {
     #define i(n,i) CalculateIntensityTable(n&2,n&1,i),
@@ -53,11 +74,18 @@ static constexpr std::array<unsigned char,16> taketables[] =
 
 void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 {
+    /* Blinking happens on timer. */
     unsigned timer = unsigned(GetTime() * 60.0);
+    /* Blink settings:
+     *     blink1 = Used for blinking speed 1 (normal):        1.5 Hz with 50% duty (60/40)
+     *     blink2 = Used for blinking speed 2 (fast blinking): 5   Hz with 50% duty (60/12)
+     *     blink3 = Used for cursor blinking:                  6   Hz with 50% duty (60/10)
+     */
     bool old_blink1 = (lasttimer/20)&1, cur_blink1 = (timer/20)&1;
     bool old_blink2 = (lasttimer/ 6)&1, cur_blink2 = (timer/ 6)&1;
-    bool old_blink3 = lasttimer%10<5, cur_blink3 = timer%10<5;
+    bool old_blink3 = lasttimer%10<5,   cur_blink3 = timer%10<5;
 
+    /* Identify JOE scrollbar on the screen */
     std::vector<std::pair<std::size_t, std::array<std::pair<std::size_t, std::size_t>, 3>>> bar_ranges;
     /* Bar_ranges: [2] = cursor position
                    [1] = visible region
@@ -195,7 +223,6 @@ void Window::Render(std::size_t fx, std::size_t fy, std::uint32_t* pixels)
 #endif
 
     std::size_t screen_width  = fx*xsize;
-    //std::size_t screen_height = fy*ysize;
     #pragma omp parallel for schedule(static) collapse(2) num_threads(thread_count)
     for(std::size_t y=0; y<ysize; ++y) // cell-row
         for(std::size_t fr=0; fr<fy; ++fr) // font-row

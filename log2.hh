@@ -1,21 +1,24 @@
 #ifndef bqtNewNewLog2HH
 #define bqtNewNewLog2HH
+/** @file log2.hh
+ * @brief Base-2 logarithm utilities.
+ */
 
 #include <cstdint>
 
-/* C++11 compile-time unsigned integer base2-logarithm with rounding down (floor) and rounding up (ceil) */
+/** This header defines
+  * c++11 compliant compile-time unsigned integer base2-logarithm
+  * with rounding down (floor) and rounding up (ceil).
+  */
 
-template<std::size_t N> struct log2_floor_st{ static constexpr std::size_t result = 1+log2_floor_st<(N+1)/2>::result; };
-template<> struct log2_floor_st<0> { static constexpr std::size_t result = 0; };
-template<> struct log2_floor_st<1> { static constexpr std::size_t result = 0; };
-// 0:0  1:0  2:1   3:1  4:2  5:2  6:2  7:2  8:3   256:8
-
-template<std::size_t N> struct log2_ceil_st
-{
-    static constexpr std::size_t result = log2_floor_st<N>::result + (N != (1ul << log2_floor_st<N>::result));
-};
-
+/** Returns base-2 logarithm, rounded down.
+ * @param n The value to be calculated for. If less than two, the result is zero.
+ */
 static constexpr std::size_t log2floor(std::size_t n) { return n<2 ? 0 : (1+log2floor((n+1)/2)); }
+
+/** Returns base-2 logarithm, rounded up.
+ * @param n The value to be calculated for.
+ */
 static constexpr std::size_t log2ceil(std::size_t n)  { return log2floor(n) + !(n & (n-1));      }
 
 #endif

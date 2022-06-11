@@ -1,7 +1,15 @@
 #include <map>
 #include <unordered_map>
+#include <thread>
+#include <atomic>
 
 #include <SDL.h>
+
+#include <poll.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 
 #include "share.hh"
 #include "settings.hh"
@@ -9,17 +17,11 @@
 #include "font_planner.hh"
 #include "terminal.hh"
 #include "forkpty.hh"
-#include "screen.hh"
+#include "window.hh"
 #include "ctype.hh"
 #include "clock.hh"
+#include "keysym.hh"
 
-#include <poll.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include <thread>
-#include <atomic>
 
 /* Settings */
 #if 0
@@ -125,10 +127,12 @@ static float ScaleY = 2.f;
 
 SDL_Window*  window   = nullptr; // external linkage, because needed by beeper.cc
 
-
-
 namespace
 {
+    bool quit = false;                          ///< If set to true, terminal should immediately exit
+    std::unordered_map<SDL_Keycode, bool> keys; ///< List of currently depressed keys
+    unsigned poll_counter = 0;                  ///< A counter for PollInterval. epoll() is only done when 0.
+
     SDL_Renderer* renderer = nullptr;
     SDL_Texture*  texture  = nullptr;
     unsigned cells_horiz, cell_width_pixels,  pixels_width,  bufpixels_width, texturewidth;
@@ -465,46 +469,202 @@ namespace
             }
         }
     }
-}
 
-int main(int argc, char** argv)
-{
-    SaveArg0(argv[0]);
-
-    SetTimeFactor(TimeFactor);
-
-    //SDL_Init(SDL_INIT_EVERYTHING);
-    Window wnd(WindowWidth, WindowHeight);
-    termwindow term(wnd);
-    ForkPTY tty(wnd.xsize, wnd.ysize);
-    std::string outbuffer;
-
-    SDL_ReInitialize(wnd.xsize, wnd.ysize);
-    if(!Headless)
+    std::string HandleSDLevents(Window& wnd, TerminalWindow& term, ForkPTY& tty)
     {
-        SDL_StartTextInput();
+        std::string outbuffer, pending_input;
+        for(SDL_Event ev; SDL_PollEvent(&ev); )
+            switch(ev.type)
+            {
+                case SDL_WINDOWEVENT:
+                    switch(ev.window.event)
+                    {
+                        case SDL_WINDOWEVENT_EXPOSED:
+                        case SDL_WINDOWEVENT_RESIZED:
+                        case SDL_WINDOWEVENT_SIZE_CHANGED:
+                        {
+                            if(!Allow_Windows_Bigger_Than_Desktop)
+                            {
+                                int w,h;
+                                SDL_GetWindowSize(window, &w,&h);
+                                if(w != pixels_width*ScaleX
+                                || h != pixels_height*ScaleY)
+                                {
+                                    unsigned newxsize = (w/ScaleX) / VidCellWidth;
+                                    unsigned newysize = (h/ScaleY) / VidCellHeight;
+                                    term.Resize(newxsize, newysize);
+                                    SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                                    tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
+                                }
+                                wnd.Dirtify();
+                            }
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                    break;
+                case SDL_QUIT:
+                    quit = true;
+                    break;
+                case SDL_TEXTINPUT:
+                    //std::fprintf(stderr, "Text input(%s)\n", ev.text.text);
+                    if(!AllowAutoInput || !AutoInputActive())
+                    {
+                        pending_input.clear(); // Overrides any input events from SDL_KEYDOWN
+                        outbuffer += ev.text.text;
+                    }
+                    break;
+                case SDL_KEYDOWN:
+                case SDL_KEYUP:
+                {
+                    keys[ev.key.keysym.sym] = (ev.type == SDL_KEYDOWN);
+                    if((!AllowAutoInput || !AutoInputActive()) && ev.type == SDL_KEYDOWN)
+                    {
+                        bool shift = keys[SDLK_LSHIFT] || keys[SDLK_RSHIFT];
+                        bool alt   = keys[SDLK_LALT]   || keys[SDLK_RALT];
+                        bool ctrl  = keys[SDLK_LCTRL]  || keys[SDLK_RCTRL];
+                        /*
+                        F1 decrease rows
+                        F2 increase rows
+                        F3 decrease columns
+                        F4 increase columns
+                        */
+                        bool processed = false;
+                        bool resized   = false;
+                        if(!shift && !alt && !ctrl)
+                            switch(ev.key.keysym.sym)
+                            {
+                                case SDLK_F1: term.Resize(wnd.xsize, wnd.ysize-1); resized = true; break;
+                                case SDLK_F2: term.Resize(wnd.xsize, wnd.ysize+1); resized = true; break;
+                                case SDLK_F3: term.Resize(wnd.xsize-1, wnd.ysize); resized = true; break;
+                                case SDLK_F4: term.Resize(wnd.xsize+1, wnd.ysize); resized = true; break;
+                                case SDLK_F5: if(VidCellHeight > 5) --VidCellHeight; resized = true; break;
+                                case SDLK_F6: if(VidCellHeight < 32) ++VidCellHeight; resized = true; break;
+                                // Allow widths 6, 8 and 9
+                                case SDLK_F7: if(VidCellWidth > 4)  --VidCellWidth; resized = true; break;
+                                case SDLK_F8: if(VidCellWidth < 24) ++VidCellWidth; resized = true; break;
+                                case SDLK_F9:
+                                    if(ScaleY >= 2) --ScaleY;
+                                    else             ScaleY = ScaleY/std::sqrt(2.f);
+                                    if(ScaleY < 1.5) ScaleY = 1;
+                                    resized = true;
+                                    break;
+                                case SDLK_F10:
+                                    if(ScaleY < 2) ScaleY = ScaleY*std::sqrt(2.f);
+                                    else           ++ScaleY;
+                                    if(ScaleY >= 1.9) ScaleY = int(ScaleY+0.1);
+                                    resized = true;
+                                    break;
+                                case SDLK_F11:
+                                    if(ScaleX >= 2) --ScaleX;
+                                    else            ScaleX = ScaleX/std::sqrt(2.f);
+                                    if(ScaleX < 1.5) ScaleX = 1;
+                                    resized = true;
+                                    break;
+                                case SDLK_F12:
+                                    if(ScaleX < 2) ScaleX = ScaleX*std::sqrt(2.f);
+                                    else           ++ScaleX;
+                                    if(ScaleX >= 1.9) ScaleX = int(ScaleY+0.1);
+                                    resized = true;
+                                    break;
+                            }
+                        if(resized)
+                        {
+                            SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                            //tty.Kill(SIGWINCH);
+                            tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
+                            wnd.Dirtify();
+                            processed = true;
+                        }
+                        if(!processed)
+                        {
+                            auto str = InterpretInput(shift, alt, ctrl, ev.key.keysym.sym);
+                            if(!str.empty())
+                            {
+                                // Put the input in "pending_input", so that it gets automatically
+                                // cancelled if a textinput event is generated.
+                                pending_input += str;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        return outbuffer + pending_input;
     }
 
-    if(AllowAutoInput)
+    std::string ProcessAutoInputs(Window& wnd, TerminalWindow& term, ForkPTY& tty)
     {
-        AutoInputStart();
+        std::string outbuffer;
+        for(bool again=true; again; )
+            again=false, std::visit([&](auto&& arg)
+            {
+                if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::string>)
+                {
+                    if(!arg.empty())
+                    {
+                        outbuffer += std::move(arg);
+                        again = true;
+                        poll_counter = 0;
+
+                        int r = tty.Send(outbuffer);
+                        if(r > 0)
+                            outbuffer.erase(0, r);
+                    }
+                }
+                else if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::array<unsigned,4>>)
+                {
+                    if(std::array{VidCellWidth,VidCellHeight,WindowWidth,WindowHeight} != arg)
+                    {
+                        if(DoVideoRecording && TimeFactor==0)
+                        {
+                            while(frames_thisfile < (VideoFrameRateDownSampleFactor*2))
+                            {
+                                AdvanceTime(1 / SimulatedFrameRate);
+                                SDL_ReDraw(wnd);
+                            }
+                        }
+                        if(IgnoreScale)
+                        {
+                            ScaleX = 1.0f;
+                            ScaleY = 1.0f;
+                        }
+                        VidCellWidth = arg[0];
+                        VidCellHeight = arg[1];
+                        term.Resize(arg[2], arg[3]);
+                        SDL_ReInitialize(wnd.xsize, wnd.ysize);
+                        tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
+                        wnd.Dirtify();
+                        //again=true; // Don't set this flag. Render at least one frame before a new resize.
+                        poll_counter = 0;
+                        if(TimeFactor==0) std::this_thread::sleep_for(std::chrono::duration<float>(.1f));
+                    }
+                }
+            }, GetAutoInput());
+
+        return outbuffer;
     }
 
-    std::unordered_map<int, bool> keys;
-    bool quit = false;
-    unsigned expect = 0;
-    while(!quit)
+    std::pair<bool,bool> Poll(TerminalWindow& term, ForkPTY& tty, bool outgoing)
     {
         struct pollfd p[2] = { { tty.getfd(), POLLIN, 0 } };
-        if(expect != 0) p[0].events = 0;
-        if(!term.OutBuffer.empty() || !outbuffer.empty())
+        if(poll_counter != 0)
+        {
+            p[0].events = 0;
+        }
+        if(!term.OutBuffer.empty() || outgoing)
         {
             p[0].events |= POLLOUT;
         }
         if((p[0].events) && TimeFactor != 0.0)
         {
             int pollres = poll(p, 1, 1000/(SimulatedFrameRate*TimeFactor));
-            if(pollres < 0) break;
+            if(pollres < 0) // If the poll failed, terminate
+            {
+                quit = true;
+                return {false,false};
+            }
         }
         if((p[0].revents & POLLIN) || (TimeFactor==0.0))
         {
@@ -524,257 +684,81 @@ int main(int argc, char** argv)
         }
         else
         {
-            expect = (expect+1) % PollInterval;
+            poll_counter = (poll_counter+1) % PollInterval;
         }
+
+        /* Terminate if the subprocess terminated */
         if(p[0].revents & (POLLERR | POLLHUP))
         {
             quit = true;
         }
 
+        return { bool(p[0].revents & POLLIN), bool(p[0].revents & POLLOUT) };
+    }
+}
+
+int main(int argc, char** argv)
+{
+    /* Set up */
+    SaveArg0(argv[0]);
+    SetTimeFactor(TimeFactor);
+
+    Window         wnd(WindowWidth, WindowHeight);
+    ForkPTY        tty(wnd.xsize, wnd.ysize);
+    TerminalWindow term(wnd);
+
+    SDL_ReInitialize(wnd.xsize, wnd.ysize);
+
+    if(!Headless)
+    {
+        SDL_StartTextInput();
+    }
+
+    if(AllowAutoInput)
+    {
+        AutoInputStart();
+    }
+
+    /* Main loop */
+    std::string outbuffer;
+    while(!quit)
+    {
+        auto [got_input, output_ok] = Poll(term, tty, !outbuffer.empty());
+
+        /* If terminal itself generates input, add those to the output buffer */
         if(!term.OutBuffer.empty())
         {
             std::u32string str(term.OutBuffer.begin(), term.OutBuffer.end());
             outbuffer += ToUTF8(str);
             term.OutBuffer.clear();
         }
-        if(!outbuffer.empty() && ((p[0].revents & POLLOUT) || !(p[0].revents)))
+        /* If we have text to send to subprocess, do it at earliest opportunity */
+        if(!outbuffer.empty() && (output_ok || !got_input))
         {
             int r = tty.Send(outbuffer);
             if(r > 0)
                 outbuffer.erase(0, r);
-            expect = 0;
+            poll_counter = 0;
+        }
+        /* Process autoinputs unless we are busy reading from subprocess */
+        if(!got_input)
+        {
+            outbuffer += ProcessAutoInputs(wnd, term, tty);
         }
 
-        if(!(p[0].revents & POLLIN))
-            for(bool again=true; again; )
-                again=false, std::visit([&](auto&& arg)
-                {
-                    if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::string>)
-                    {
-                        outbuffer += std::move(arg);
-                        again=true;
-                        expect = 0;
-
-                        int r = tty.Send(outbuffer);
-                        if(r > 0)
-                            outbuffer.erase(0, r);
-                    }
-                    else if constexpr(std::is_same_v<std::decay_t<decltype(arg)>, std::array<unsigned,4>>)
-                    {
-                        if(std::array{VidCellWidth,VidCellHeight,WindowWidth,WindowHeight} != arg)
-                        {
-                            if(DoVideoRecording && TimeFactor==0)
-                            {
-                                while(frames_thisfile < (VideoFrameRateDownSampleFactor*2))
-                                {
-                                    AdvanceTime(1 / SimulatedFrameRate);
-                                    SDL_ReDraw(wnd);
-                                }
-                            }
-                            if(IgnoreScale)
-                            {
-                                ScaleX = 1.0f;
-                                ScaleY = 1.0f;
-                            }
-                            VidCellWidth = arg[0];
-                            VidCellHeight = arg[1];
-                            term.Resize(arg[2], arg[3]);
-                            SDL_ReInitialize(wnd.xsize, wnd.ysize);
-                            tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
-                            wnd.Dirtify();
-                            //again=true; // Don't set this flag. Render at least one frame before a new resize.
-                            expect = 0;
-                            if(TimeFactor==0) std::this_thread::sleep_for(std::chrono::duration<float>(.1f));
-                        }
-                    }
-                }, GetAutoInput());
-
+        /* Process SDL events unless we are in headless mode */
         if(!Headless)
         {
-            std::string pending_input;
-            for(SDL_Event ev; SDL_PollEvent(&ev); )
-                switch(ev.type)
-                {
-                    case SDL_WINDOWEVENT:
-                        switch(ev.window.event)
-                        {
-                            case SDL_WINDOWEVENT_EXPOSED:
-                            case SDL_WINDOWEVENT_RESIZED:
-                            case SDL_WINDOWEVENT_SIZE_CHANGED:
-                            {
-                                if(!Allow_Windows_Bigger_Than_Desktop)
-                                {
-                                    int w,h;
-                                    SDL_GetWindowSize(window, &w,&h);
-                                    if(w != pixels_width*ScaleX
-                                    || h != pixels_height*ScaleY)
-                                    {
-                                        unsigned newxsize = (w/ScaleX) / VidCellWidth;
-                                        unsigned newysize = (h/ScaleY) / VidCellHeight;
-                                        term.Resize(newxsize, newysize);
-                                        SDL_ReInitialize(wnd.xsize, wnd.ysize);
-                                        tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
-                                    }
-                                    wnd.Dirtify();
-                                }
-                                break;
-                            }
-                            default:
-                                break;
-                        }
-                        break;
-                    case SDL_QUIT:
-                        quit = true;
-                        break;
-                    case SDL_TEXTINPUT:
-                        std::fprintf(stderr, "Text input(%s)\n", ev.text.text);
-                        if(!AllowAutoInput || !AutoInputActive())
-                        {
-                            pending_input.clear(); // Overrides any input events from SDL_KEYDOWN
-                            outbuffer += ev.text.text;
-                        }
-                        break;
-                    case SDL_KEYDOWN:
-                    case SDL_KEYUP:
-                    {
-                        keys[ev.key.keysym.sym] = (ev.type == SDL_KEYDOWN);
-                        if((!AllowAutoInput || !AutoInputActive()) && ev.type == SDL_KEYDOWN)
-                        {
-                            static const std::unordered_map<int, std::pair<int/*num*/,char/*letter*/>> lore
-                            {
-                                { SDLK_F1,       {1,'P'} },  { SDLK_LEFT,     {1,'D'} },
-                                { SDLK_F2,       {1,'Q'} },  { SDLK_RIGHT,    {1,'C'} },
-                                { SDLK_F3,       {1,'R'} },  { SDLK_UP,       {1,'A'} },
-                                { SDLK_F4,       {1,'S'} },  { SDLK_DOWN,     {1,'B'} },
-                                { SDLK_F5,       {15,'~'} }, { SDLK_HOME,     {1,'H'} },
-                                { SDLK_F6,       {17,'~'} }, { SDLK_END,      {1,'F'} },
-                                { SDLK_F7,       {18,'~'} }, { SDLK_INSERT,   {2,'~'} },
-                                { SDLK_F8,       {19,'~'} }, { SDLK_DELETE,   {3,'~'} },
-                                { SDLK_F9,       {20,'~'} }, { SDLK_PAGEUP,   {5,'~'} },
-                                { SDLK_F10,      {21,'~'} }, { SDLK_PAGEDOWN, {6,'~'} },
-                                { SDLK_F11,      {23,'~'} },
-                                { SDLK_F12,      {24,'~'} },
-                            };
-                            static const std::unordered_map<int, char> lore2
-                            {
-                                { SDLK_a, 'a' }, { SDLK_b, 'b' }, { SDLK_c, 'c' }, { SDLK_d, 'd' },
-                                { SDLK_e, 'e' }, { SDLK_f, 'f' }, { SDLK_g, 'g' }, { SDLK_h, 'h' },
-                                { SDLK_i, 'i' }, { SDLK_j, 'j' }, { SDLK_k, 'k' }, { SDLK_l, 'l' },
-                                { SDLK_m, 'm' }, { SDLK_n, 'n' }, { SDLK_o, 'o' }, { SDLK_p, 'p' },
-                                { SDLK_q, 'q' }, { SDLK_r, 'r' }, { SDLK_s, 's' }, { SDLK_t, 't' },
-                                { SDLK_u, 'u' }, { SDLK_v, 'v' }, { SDLK_w, 'w' }, { SDLK_x, 'x' },
-                                { SDLK_y, 'y' }, { SDLK_z, 'z' }, { SDLK_ESCAPE, '\33' },
-                                { SDLK_0, '0' }, { SDLK_1, '1' }, { SDLK_2, '2' }, { SDLK_3, '3' },
-                                { SDLK_4, '4' }, { SDLK_5, '5' }, { SDLK_6, '6' }, { SDLK_7, '7' },
-                                { SDLK_8, '8' }, { SDLK_9, '9' }, { SDLK_PERIOD, '.' },
-                                { SDLK_COMMA, ',' }, { SDLK_SLASH, '-' },
-                                { SDLK_RETURN, '\r' }, { SDLK_BACKSPACE, '\177' }, { SDLK_TAB, '\t' },
-                                { SDLK_SPACE, ' ' }, { SDLK_KP_ENTER, '\r' },
-                            };
-                            bool shift = keys[SDLK_LSHIFT] || keys[SDLK_RSHIFT];
-                            bool alt   = keys[SDLK_LALT]   || keys[SDLK_RALT];
-                            bool ctrl  = keys[SDLK_LCTRL]  || keys[SDLK_RCTRL];
-                            /*
-                            F1 decrease rows
-                            F2 increase rows
-                            F3 decrease columns
-                            F4 increase columns
-                            */
-                            bool processed = false;
-                            bool resized   = false;
-                            if(!shift && !alt && !ctrl)
-                                switch(ev.key.keysym.sym)
-                                {
-                                    case SDLK_F1: term.Resize(wnd.xsize, wnd.ysize-1); resized = true; break;
-                                    case SDLK_F2: term.Resize(wnd.xsize, wnd.ysize+1); resized = true; break;
-                                    case SDLK_F3: term.Resize(wnd.xsize-1, wnd.ysize); resized = true; break;
-                                    case SDLK_F4: term.Resize(wnd.xsize+1, wnd.ysize); resized = true; break;
-                                    case SDLK_F5: if(VidCellHeight > 5) --VidCellHeight; resized = true; break;
-                                    case SDLK_F6: if(VidCellHeight < 32) ++VidCellHeight; resized = true; break;
-                                    // Allow widths 6, 8 and 9
-                                    case SDLK_F7: if(VidCellWidth > 4)  --VidCellWidth; resized = true; break;
-                                    case SDLK_F8: if(VidCellWidth < 24) ++VidCellWidth; resized = true; break;
-                                    case SDLK_F9:
-                                        if(ScaleY >= 2) --ScaleY;
-                                        else             ScaleY = ScaleY/std::sqrt(2.f);
-                                        if(ScaleY < 1.5) ScaleY = 1;
-                                        resized = true;
-                                        break;
-                                    case SDLK_F10:
-                                        if(ScaleY < 2) ScaleY = ScaleY*std::sqrt(2.f);
-                                        else           ++ScaleY;
-                                        if(ScaleY >= 1.9) ScaleY = int(ScaleY+0.1);
-                                        resized = true;
-                                        break;
-                                    case SDLK_F11:
-                                        if(ScaleX >= 2) --ScaleX;
-                                        else            ScaleX = ScaleX/std::sqrt(2.f);
-                                        if(ScaleX < 1.5) ScaleX = 1;
-                                        resized = true;
-                                        break;
-                                    case SDLK_F12:
-                                        if(ScaleX < 2) ScaleX = ScaleX*std::sqrt(2.f);
-                                        else           ++ScaleX;
-                                        if(ScaleX >= 1.9) ScaleX = int(ScaleY+0.1);
-                                        resized = true;
-                                        break;
-                                }
-                            if(resized)
-                            {
-                                SDL_ReInitialize(wnd.xsize, wnd.ysize);
-                                //tty.Kill(SIGWINCH);
-                                tty.Resize(WindowWidth = wnd.xsize, WindowHeight = wnd.ysize);
-                                wnd.Dirtify();
-                                processed = true;
-                            }
-                            if(processed)
-                            {}
-                            else if(auto i = lore.find(ev.key.keysym.sym); i != lore.end())
-                            {
-                                const auto& d = i->second;
-                                unsigned delta = 1 + shift*1 + alt*2 + ctrl*4, len;
-                                char bracket = '[', Buf[16];
-                                if(d.second >= 'P' && d.second <= 'S') bracket = 'O';
-                                if(d.second >= 'A' && d.second <= 'D' && delta == 1) bracket = 'O'; // less requires this for up&down, alsamixer requires this for left&right
-                                if(delta != 1)
-                                    len = std::sprintf(Buf, "\33%c%d;%d%c", bracket, d.first, delta, d.second);
-                                else if(d.first == 1)
-                                    len = std::sprintf(Buf, "\33%c%c", bracket, d.second);
-                                else
-                                    len = std::sprintf(Buf, "\33%c%d%c", bracket, d.first, d.second);
-                                pending_input.append(Buf,len);
-                            }
-                            else if(auto i = lore2.find(ev.key.keysym.sym); i != lore2.end())
-                            {
-                                char32_t cval = i->second;
-                                bool digit = cval >= '0' && cval <= '9', alpha = cval >= 'a' && cval <= 'z';
-                                if(shift && alpha) cval &= ~0x20; // Turn uppercase
-                                if(ctrl && digit) cval = "01\0\33\34\35\36\37\1779"[cval-'0'];
-                                if(ctrl && i->second=='\177') cval = '\b';
-                                else if(ctrl && !digit) cval &= 0x1F; // Turn into a control character
-                                // CTRL a..z becomes 01..1A
-                                // CTRL 0..9 becomes 10..19, should become xx,xx,00,1B-1F,7F,xx
-                                if(alt) cval |= 0x80;  // Add ALT
-                                if((!alpha && !digit) || ctrl||alt)
-                                {
-                                    std::fprintf(stderr, "lore input(%c)(%d) with keysym=%d\n", char(cval), int(cval), ev.key.keysym.sym);
-                                    if(shift && cval == '\t') pending_input += "\33[Z";
-                                    else pending_input += ToUTF8(std::u32string_view(&cval,1));
-                                }
-                                // Put the input in "pending_input", so that it gets automatically
-                                // cancelled if a textinput event is generated.
-                            }
-                        }
-                        break;
-                    }
-                }
-            outbuffer += std::move(pending_input);
+            outbuffer += HandleSDLevents(wnd, term, tty);
         }
 
+        /* Advance time */
         AdvanceTime(1 / SimulatedFrameRate);
         SDL_ReDraw(wnd);
         FontPlannerTick();
     }
+
+    /* Cleanup */
     AutoInputEnd();
     TimeTerminate();
     tty.Kill(SIGHUP);

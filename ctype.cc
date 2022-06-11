@@ -14,25 +14,40 @@
 #include "ctype.hh"
 #include "log2.hh"
 
+/** A bitset structure that can be initialized at compile-time
+ * and read at both compile-time and run-time.
+ * @param N number of bits that this set can store.
+ */
 template<std::size_t N>
 class constexpr_bitset
 {
 public:
-    using elem_t = unsigned long;
-    static constexpr std::size_t WordSize = sizeof(elem_t) * 8;
-    static constexpr std::size_t nwords   = (N + WordSize-1) / WordSize;
-    static constexpr elem_t      full = ~elem_t{};
-    elem_t data[nwords] {};
+    using elem_t = unsigned long; ///< Internal type of atoms in this array.
+    static constexpr std::size_t WordSize = sizeof(elem_t) * 8;          ///< Number of bits per elem_t.
+    static constexpr std::size_t nwords   = (N + WordSize-1) / WordSize; ///< Number of elem_t's stored.
+    static constexpr elem_t      full = ~elem_t{}; ///< Bitmask of everything set
+    elem_t data[nwords] {}; ///< Storage of data.
 public:
+    /** Set bit at given index.
+     * @param idx Index to set. Counting starts from zero, and must be less than N.
+     */
     constexpr void set(std::size_t idx)
     {
         data[idx/WordSize] |= elem_t(1) << (idx % WordSize);
     }
+    /** Test bit at given index.
+     * @param idx Index to read. Counting starts from zero, and must be less than N.
+     * @returns Whether the given bit is set.
+     */
     constexpr bool test(std::size_t idx) const
     {
         return data[idx/WordSize] & (elem_t(1) << (idx % WordSize));
     }
 
+    /** Set a range of bits.
+     * @param idx   First bit to set
+     * @param count Count of bits to set
+     */
     constexpr void set_n(std::size_t idx, std::size_t count)
     {
         std::size_t widx    = idx / WordSize;
@@ -53,28 +68,54 @@ public:
     }
 };
 
+/** An array structure that can be initialized at compile-time
+ * and read at both compile-time and run-time.
+ * The number of elements and the bit-width of each element
+ * must be specified at compile-time.
+ * All elements have a maximum bit-width,
+ * and exactly that number of bits is used to store the data.
+ */
 template<unsigned nwords, unsigned bits_per_elem>
 class bitval_array
 {
 public:
-    using elem_t = unsigned long;
-    static constexpr unsigned elems_per_mapword = sizeof(elem_t)*8 / bits_per_elem;
-    static constexpr unsigned n_mapwords        = (nwords + elems_per_mapword-1) / elems_per_mapword;
+    using elem_t = unsigned long; ///< Internal type of atoms in this array.
+    static constexpr unsigned elems_per_mapword = sizeof(elem_t)*8 / bits_per_elem; ///< Number of elements in each atom.
+    static constexpr unsigned n_mapwords        = (nwords + elems_per_mapword-1) / elems_per_mapword; ///< Number of atoms needed to store data.
 public:
-    elem_t data[n_mapwords] {};
+    elem_t data[n_mapwords] {}; ///< Storage of data.
 
+    /** Set value at given index.
+     *
+     * @param index Index to set at. Counting starts from zero, and must be less than nwords.
+     * @param value Value to assign to that index.
+     */
     constexpr void set(std::size_t index, unsigned value)
     {
-        data[index / elems_per_mapword] |= elem_t(value) << ((index % elems_per_mapword) * bits_per_elem);
+        data[get_idx(index)] |= elem_t(value) << ((index % elems_per_mapword) * bits_per_elem);
     }
+    /** Read value at given index.
+     *
+     * @param index Index to read at.
+     * @returns The value at given index.
+     **/
     constexpr unsigned get(std::size_t index) const
     {
         return get_from(data[get_idx(index)], index);
     }
+    /** Determine the internal array index at which the given index is stored.
+     * @param index Index to query.
+     * @returns The internal array index.
+     */
     static constexpr unsigned get_idx(std::size_t index)
     {
         return index / elems_per_mapword;
     }
+    /** Read value from internal element.
+     * @param elem  Copy of the internal element that stores the value.
+     * @param index Index from which to read.
+     * @returns The value at given index.
+     */
     static constexpr unsigned get_from(elem_t elem, std::size_t index)
     {
         return (elem >> ((index % elems_per_mapword) * bits_per_elem))
@@ -84,6 +125,8 @@ public:
 
 #define USE_MAP2
 
+/** A compile-time initialized bitset structure
+ * that stores the data as compactly as possible. */
 template<std::size_t N, std::size_t maxdim = 252, std::size_t maxdim2 = 84>
 class compressed_bitset
 {
@@ -115,6 +158,9 @@ class compressed_bitset
 #endif
 
 public:
+    /** Initializes the compressed set using a constexpr_bitset.
+     * @param b An instance of constexpr_bitset to initialized using.
+     */
     constexpr void init(reftype&& b)
     {
 #ifdef USE_MAP2
@@ -155,6 +201,10 @@ public:
 #endif
     }
 
+    /** Tests whether the given index is set.
+     * @param idx Index to set
+     * @returns True if the given index is set.
+     */
     bool test(std::size_t idx) const;// __attribute__((noinline));
 };
 
@@ -186,6 +236,8 @@ static constexpr auto BuildIntervals(std::initializer_list<std::pair<const std::
     result.init(std::move(set));
     return result;
 }
+
+/* Much of the following code is autogenerated. */
 
 #define B(c) /*std::pair<const std::pair<char32_t,unsigned>*, std::size_t>*/{&c##_table[0],std::size(c##_table)}
 bool isupper(char32_t c)
@@ -308,6 +360,10 @@ char32_t totitle(char32_t c)
     return caseconv(std::begin(totitle_table), std::end(totitle_table), c);
 }
 
+/** This function is optimized for performance.
+ * A simple (but incomplete) implementation is shown in if-0.
+ * Surrogate pairs are detected and parsed properly, if they appear within a single string.
+ */
 std::u32string FromUTF8(std::string_view s)
 {
     std::u32string result;
@@ -348,6 +404,9 @@ std::u32string FromUTF8(std::string_view s)
     return result;
 }
 
+/**
+ * This function is optimized for performance.
+ */
 std::string ToUTF8(std::u32string_view s)
 {
     std::string result;
@@ -461,6 +520,9 @@ std::size_t CountIndent(std::u32string_view text, std::size_t begin)
     return pos - oldbegin;
 }
 
+/** Converts a single CP437 codepoint to a unicode codepoint.
+ * This code is generated with constablecom.
+ */
 static unsigned short cp437_uni(unsigned n)
 {
     /* Minmax for 0..47: 161, 8976 */

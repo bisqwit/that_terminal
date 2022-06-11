@@ -30,7 +30,8 @@ std::pair<path, std::filesystem::file_status>
 */
 
 std::pair<path, std::filesystem::file_status>
-    FindShareFile(const std::filesystem::path& file_to_find, std::initializer_list<std::string_view> extra_paths)
+    FindShareFile(const std::filesystem::path& file_to_find,
+                  std::initializer_list<std::string_view> extra_paths)
 {
     using o = std::optional<std::pair<path, std::filesystem::file_status>>;
     auto try_path_fun = [](path test) -> o
@@ -126,6 +127,7 @@ std::pair<path, std::filesystem::file_status>
     std::string uid = std::to_string(getuid());
     path pu = path("that_terminal-" + uid);
 
+    try_path(path("/run/user"),                      (std::initializer_list<path>{uid, file_to_find}) );
     try_path(path("/run"),                           (std::initializer_list<path>{uid, file_to_find}) );
     try_path(std::filesystem::temp_directory_path(), (std::initializer_list<path>{pu, file_to_find}) );
 

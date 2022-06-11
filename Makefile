@@ -37,7 +37,7 @@ OBJS=\
 	tty/terminal.o \
 	tty/forkpty.o \
 	tty/256color.o \
-	rendering/screen.o \
+	rendering/window.o \
 	rendering/person.o \
 	rendering/color.o \
 	rendering/cset.o \
@@ -50,7 +50,8 @@ OBJS=\
 	main.o \
 	ctype.o \
 	autoinput.o \
-	clock.o
+	clock.o \
+	keysym.o
 
 term: $(OBJS)
 	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)
@@ -84,6 +85,10 @@ doc/fonts.md.tmp2: util/make-fonts-list-bitmap
 doc/fonts.md: doc/fonts.md.tmp doc/fonts.md.tmp2 doc/fonts.md.tmp3
 	cat "$@".tmp "$@".tmp2 "$@".tmp3 > "$@"
 	rm -f "$@".tmp "$@".tmp2 "$@".tmp3
+
+doxygen: Doxyfile
+	doxygen $<
+	test -d doc/doxygen/html/doc || ln -sf ../.. doc/doxygen/html/doc
 
 compress3:
 	parallel -j45 util/compressor.sh -- \

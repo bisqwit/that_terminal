@@ -313,7 +313,7 @@ AutoInputResponse GetAutoInput()
     std::lock_guard<std::mutex> lk(lock);
     if(data.empty())
     {
-        return 0u;
+        return std::string{};
     }
     auto result = std::move(data.front());
     data.pop_front();

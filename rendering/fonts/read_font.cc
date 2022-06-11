@@ -162,15 +162,16 @@ std::string ReadGZ(std::string_view filename)
     return result;
 }
 
+/** Data that is read from the PSF file header. */
 struct PSFheader
 {
-    unsigned fontlen;
-    bool     hastable;
-    unsigned offset;
-    bool     utf8;
-    unsigned charsize;
-    unsigned width;
-    unsigned height;
+    unsigned fontlen;  ///< 256 or 512
+    bool     hastable; ///< If the font contains encoding table
+    unsigned offset;   ///< Starting offset of data
+    bool     utf8;     ///< If the codepoints are represented in UTF-8
+    unsigned charsize; ///< Size in bytes of each glyph
+    unsigned width;    ///< Width
+    unsigned height;   ///< Height
 };
 PSFheader ReadPSFheader(const char* data)
 {

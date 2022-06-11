@@ -1,10 +1,10 @@
 #include <cstring>
 #include "clock.hh"
 #include "color.hh"
-#include "screen.hh" // for Cell
+#include "cell.hh"
 #include "256color.hh"
-#include "settings.hh"
 
+/** This is the graphics data that gets rendered. It consists of two four-color 16x16 sprites. */
 static constexpr char persondata[] =
 "                      #####     "
 "      ######         #'''''###  "
@@ -35,14 +35,15 @@ static double GetStartTime()
     return value;
 }
 
+/** X-coordinate where the Person is */
 static int PersonBaseX(unsigned window_width)
 {
-    // X coordinate where The Person is
     double start = GetStartTime();
     double time_elapsed = GetTime() - start;
     unsigned walkway_width = window_width + std::max(person_width, window_width/5) + person_width;
     return unsigned(time_elapsed * walk_speed) % walkway_width - person_width;
 }
+/** Which frame to draw right now */
 static int PersonFrame()
 {
     double start = GetStartTime();
@@ -50,7 +51,8 @@ static int PersonFrame()
     return unsigned(time_elapsed * frame_rate) % 2;
 }
 
-struct ColorSlideCache
+/** ColorSlideCache implements smooth color slides in text mode. */
+class ColorSlideCache
 {
     enum { MaxWidth = 3840 };
     const unsigned char*  const colors;
@@ -61,9 +63,11 @@ struct ColorSlideCache
     unsigned char cache_char[MaxWidth];
 
 public:
+    /** Saves the desired color positions and proportions of the slide for latter use. */
     ColorSlideCache(const unsigned char* c, const unsigned short* p, unsigned l)
         : colors(c), color_positions(p), color_length(l), cached_width(0) {}
 
+    /** Configures the slide for a particular rendering width. */
     void SetWidth(unsigned w)
     {
         if(w == cached_width) return;
@@ -102,6 +106,12 @@ public:
             //cache[x] = 0x80008741ul;
         }
     }
+    /** Retrieves the color data for the given position on the slide.
+     * @param x  Coordinate, must be smaller than the width in SetWidth
+     * @param c1 Out-param: Background color to render
+     * @param c2 Out-param: Foreground color to render, if ch is not blank (0)
+     * @param ch Out-param: Character to render (1 = dither pattern, 0 = black)
+     */
     inline void Get(unsigned x, unsigned char& ch, unsigned char& c1, unsigned char& c2) const
     {
         unsigned short tmp = cache_color[x];
@@ -117,6 +127,7 @@ static const unsigned short slide2_positions[35] = {0u,440u,1247u,2126u,3006u,38
 static ColorSlideCache slide1(slide1_colors, slide1_positions, sizeof(slide1_colors));
 static ColorSlideCache slide2(slide2_colors, slide2_positions, sizeof(slide2_colors));
 
+/* Renders person on the screen. */
 void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
                      unsigned width, unsigned x, unsigned y,
                      unsigned action_type)
@@ -151,7 +162,7 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
         return;
     }
 
-    unsigned scrx = x;
+    //unsigned scrx = x;
     unsigned basex = PersonBaseX(width);
 #ifdef CLOCK_BACKWARDS
     basex = width - basex;

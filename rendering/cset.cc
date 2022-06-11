@@ -1,3 +1,5 @@
+#include "cset.hh"
+
 char32_t TranslateCSet(char32_t c, int cset)
 {
     switch(cset)
@@ -46,4 +48,3 @@ char32_t TranslateCSet(char32_t c, int cset)
         }
     }
 }
-

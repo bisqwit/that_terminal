@@ -73,11 +73,13 @@ static std::string Join(const std::map<T,U>& elems, std::string_view delim)
     return result;
 }
 
+/** Contents of UniData.txt in a parsed format */
 struct UniData
 {
-    std::map<std::string, char32_t> codes;
-    std::map<char32_t, std::string> names;
+    std::map<std::string, char32_t> codes; ///< Translation of names into codepoints
+    std::map<char32_t, std::string> names; ///< Translation of codepoints into names
 
+    /** Load from @param unipath file */
     void Load(std::filesystem::path unipath)
     {
         std::regex pattern("([0-9A-F]+);([^;]+);.*", Ropt);
@@ -101,11 +103,19 @@ struct UniData
                 names[code] = name;
             }
     }
+    /** Query whether the given name is defined.
+     * @param s name to search for
+     * @returns codepoint if known, 0 otherwise
+     */
     char32_t Has(const std::string& s) const
     {
         if(auto i = codes.find(s); i != codes.end()) return i->second;
         return 0;
     }
+    /** Query whether the given codepoint has a name.
+     * @param c codepoint to search for
+     * @returns True if the codepoint has a known name.
+     */
     bool Has(char32_t c) const
     {
         return names.find(c) != names.end();

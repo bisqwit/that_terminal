@@ -28,6 +28,16 @@ Not supported (yet!)
 
 This program is designed for programming video production purposes.
 
+## Requirements
+
+* A version of GCC that supports c++20 (GCC 10 or later)
+* pkg-config
+* libsdl2-dev
+* libx11-dev
+
+To install these dependencies in Debian GNU/Linux, you can use this command:
+`apt-get install libsdl2-dev pkg-config libx11-dev g++-12` (instead of 12, use what your system has available)
+
 ## What is a terminal emulator?
 
 A terminal emulator is a program that emulates a *terminal*.
@@ -145,5 +155,4 @@ In [a separate document](doc/inputs.md).
 *That terminal* is written by Joel Yliluoma.
 You can find my homepage at: https://iki.fi/bisqwit/
 And you can contact me through e-mail: bisqwit@iki.fi
-
 

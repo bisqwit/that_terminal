@@ -178,7 +178,7 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
     const auto& info = GetFontsInfo();
     const auto& sieves = GetSieves(numch);
 
-    std::thread updater([=,&sieves,&info,&similarities]
+    std::thread updater([=,this,&sieves,&info,&similarities]
     {
         std::unique_lock<std::mutex> lk(working);
 
