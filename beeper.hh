@@ -1,2 +1,0 @@
-/* Beep */
-void BeepOn(void);
