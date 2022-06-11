@@ -38,6 +38,10 @@ This program is designed for programming video production purposes.
 To install these dependencies in Debian GNU/Linux, you can use this command:
 `apt-get install libsdl2-dev pkg-config libx11-dev g++-12` (instead of 12, use what your system has available)
 
+__NOTE__: When compiling, you may get a “\__cur could be NULL” warning from
+the static analyzer of the compiler with reference to a vector<Cell>.
+This warning is bogus and should be ignored.
+
 ## What is a terminal emulator?
 
 A terminal emulator is a program that emulates a *terminal*.
