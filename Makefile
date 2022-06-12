@@ -2,17 +2,10 @@ CXX=g++
 CPPFLAGS=-Wall -Wextra
 CXXFLAGS=-std=c++20
 
-# For building:
-#CXXFLAGS += -Ofast
-
-# For debugging:
-#CXXFLAGS += -Og -g -fsanitize=address
-#CXXFLAGS += -Og -g
-
-# For code coverage profiling:
-CXXFLAGS += -Og -fprofile-arcs -ftest-coverage -g
-
-CXXFLAGS += -fopenmp
+OPTIM_BUILD = -fopenmp -Ofast
+OPTIM_DEBUG = -Og -g -fsanitize=address
+OPTIM_GPROF = -Og -g -pg
+OPTIM_GCOV  = -Og -g -fprofile-arcs -ftest-coverage
 
 CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts -Ifile -Iutil/TinyDeflate -Iutil
 
@@ -29,7 +22,6 @@ LDLIBS   += $(shell pkg-config x11 --libs)
 #LDLIBS   += $(shell pkg-config libavcodec libavformat libavutil --libs)
 
 CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
-
 
 #CXXFLAGS += -pg
 
@@ -60,9 +52,29 @@ OBJS=\
 	clock.o \
 	keysym.o
 
-term: $(OBJS)
-	$(CXX) -o $@ $(OBJS) $(CXXFLAGS) $(LDLIBS)
-	
+OBJS_BUILD = $(foreach o,$(OBJS),obj/build/$(notdir $(o)))
+OBJS_DEBUG = $(foreach o,$(OBJS),obj/debug/$(notdir $(o)))
+OBJS_GPROF = $(foreach o,$(OBJS),obj/gprof/$(notdir $(o)))
+OBJS_GCOV = $(foreach o,$(OBJS),obj/gcov/$(notdir $(o)))
+term: $(OBJS_BUILD)
+	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_BUILD)
+term_gcov: $(OBJS_GCOV)
+	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_GCOV) -pthread
+term_gprof: $(OBJS_GPROF)
+	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_GPROF) -pthread
+term_debug: $(OBJS_DEBUG)
+	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_DEBUG) -pthread
+
+define create_rule
+obj/$(1)/$(notdir $(o)): $(subst .o,.cc,$(o))
+	$$(CXX) -c -o "$$@" "$$<" $$(CXXFLAGS) $$(CPPFLAGS) $(2)
+
+endef
+$(eval $(foreach o,$(OBJS),$(call create_rule,build,$(OPTIM_BUILD))))
+$(eval $(foreach o,$(OBJS),$(call create_rule,debug,$(OPTIM_DEBUG))))
+$(eval $(foreach o,$(OBJS),$(call create_rule,gprof,$(OPTIM_GPROF))))
+$(eval $(foreach o,$(OBJS),$(call create_rule,gcov,$(OPTIM_GCOV))))
+
 install:
 	- install term $(PREFIX)/bin/that_terminal
 	mkdir -p $(PREFIX)/share/that_terminal
@@ -103,7 +115,10 @@ compress3:
 		doc/coverage-*.png \
 	`
 
--include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))
+-include $(addprefix .deps/,$(subst /,_,$(OBJS_BUILD:.o=.d)))
+-include $(addprefix .deps/,$(subst /,_,$(OBJS_DEBUG:.o=.d)))
+-include $(addprefix .deps/,$(subst /,_,$(OBJS_GPROF:.o=.d)))
+-include $(addprefix .deps/,$(subst /,_,$(OBJS_GCOV:.o=.d)))
 
 clean:
 	rm -f term $(OBJS)
