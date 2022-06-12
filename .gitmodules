@@ -4,3 +4,6 @@
 [submodule "util/TinyDeflate"]
 	path = util/TinyDeflate
 	url = git://github.com/Bisqwit/TinyDeflate
+[submodule "googletest"]
+	path = googletest
+	url = https://github.com/google/googletest

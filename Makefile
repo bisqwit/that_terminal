@@ -2,15 +2,21 @@ CXX=g++
 CPPFLAGS=-Wall -Wextra
 CXXFLAGS=-std=c++20
 
-CXXFLAGS += -Ofast
+# For building:
+#CXXFLAGS += -Ofast
+
+# For debugging:
 #CXXFLAGS += -Og -g -fsanitize=address
 #CXXFLAGS += -Og -g
+
+# For code coverage profiling:
+CXXFLAGS += -Og -fprofile-arcs -ftest-coverage -g
 
 CXXFLAGS += -fopenmp
 
 CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts -Ifile -Iutil/TinyDeflate -Iutil
 
-CPPFLAGS += -fanalyzer
+#CPPFLAGS += -fanalyzer
 
 CXXFLAGS += $(shell pkg-config sdl2 --cflags)
 LDLIBS   += $(shell pkg-config sdl2 --libs)
@@ -23,6 +29,7 @@ LDLIBS   += $(shell pkg-config x11 --libs)
 #LDLIBS   += $(shell pkg-config libavcodec libavformat libavutil --libs)
 
 CPPFLAGS += -MP -MMD -MF$(subst .o,.d,$(addprefix .deps/,$(subst /,_,$@)))
+
 
 #CXXFLAGS += -pg
 
@@ -88,7 +95,7 @@ doc/fonts.md: doc/fonts.md.tmp doc/fonts.md.tmp2 doc/fonts.md.tmp3
 
 doxygen: Doxyfile
 	doxygen $<
-	test -d doc/doxygen/html/doc || ln -sf ../.. doc/doxygen/html/doc
+	test -d doc/doxygen/docs/doc || ln -sf ../.. doc/doxygen/docs/doc
 
 compress3:
 	parallel -j45 util/compressor.sh -- \
@@ -97,3 +104,7 @@ compress3:
 	`
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS:.o=.d)))
+
+clean:
+	rm -f term $(OBJS)
+

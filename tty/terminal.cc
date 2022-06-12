@@ -482,11 +482,11 @@ void TerminalWindow::Write(std::u32string_view s)
             case State(U'\33', st_default): state = st_esc; p.clear(); break;
             case State(U'(', st_esc): scs = 0; state = st_scs; break; // esc (
             case State(U')', st_esc): scs = 1; state = st_scs; break; // esc )
-            case State(U'*', st_esc): scs = 2; state = st_scs; break; // esc )
-            case State(U'+', st_esc): scs = 3; state = st_scs; break; // esc )
-            case State(U'-', st_esc): scs = 1; state = st_scs; break; // esc )
-            case State(U'.', st_esc): scs = 2; state = st_scs; break; // esc )
-            case State(U'/', st_esc): scs = 3; state = st_scs; break; // esc )
+            case State(U'*', st_esc): scs = 2; state = st_scs; break; // esc *
+            case State(U'+', st_esc): scs = 3; state = st_scs; break; // esc +
+            case State(U'-', st_esc): scs = 1; state = st_scs; break; // esc -
+            case State(U'.', st_esc): scs = 2; state = st_scs; break; // esc .
+            case State(U'/', st_esc): scs = 3; state = st_scs; break; // esc /
             case State(U'#', st_esc): state = st_scr; break;  // esc #
             case State(U'[', st_esc): state = st_csi; break;  // esc [
             case State(U'%', st_esc): state = st_esc_percent; break; // esc %
