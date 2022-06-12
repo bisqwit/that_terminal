@@ -56,6 +56,8 @@ OBJS_BUILD = $(foreach o,$(OBJS),obj/build/$(notdir $(o)))
 OBJS_DEBUG = $(foreach o,$(OBJS),obj/debug/$(notdir $(o)))
 OBJS_GPROF = $(foreach o,$(OBJS),obj/gprof/$(notdir $(o)))
 OBJS_GCOV = $(foreach o,$(OBJS),obj/gcov/$(notdir $(o)))
+all: term term_gcov term_gprof term_debug ;
+
 term: $(OBJS_BUILD)
 	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_BUILD)
 term_gcov: $(OBJS_GCOV)
@@ -121,5 +123,7 @@ compress3:
 -include $(addprefix .deps/,$(subst /,_,$(OBJS_GCOV:.o=.d)))
 
 clean:
-	rm -f term $(OBJS)
-
+	rm -f term term_debug term_gprof term_gcov
+	rm -f $(OBJS_BUILD) $(OBJS_DEBUG) $(OBJS_GPROF) $(OBJS_GCOV)
+	- rm -f obj/gcov/*.gcno obj/gcov/*.gcda
+	rm -rf .deps/obj*.d

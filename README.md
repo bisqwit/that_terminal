@@ -45,6 +45,10 @@ To compile, type `make`. To run, type `./term` after compiling.
 Note that on the first start, the terminal may be slow to start,
 because it rebuilds the cache for fonts.
 
+To build a debugging version, do `make term_debug`.
+To build a profiling version, do `make term_gprof`.
+To build a coverage testing version, do `make term_gcov`.
+
 __NOTE__: When compiling, you may get a “\__cur could be NULL” warning from
 the static analyzer of the compiler with reference to a vector<Cell>.
 This warning is bogus and should be ignored.
