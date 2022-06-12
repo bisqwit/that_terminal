@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"structCell.html#ad870ed2f39f9e7b030793b5a40e5b245":[4,0,1,20],
-"structCell.html#ae1c27ba7d89a42694098b1319246e32c":[4,0,1,18],
 "structCell.html#ae32e986160083d0a6ab94cad0d50af3d":[4,0,1,17],
 "structCell.html#af1b734b700629094c76628ad39acd003":[4,0,1,6],
 "structDeflateTrackBothSize.html":[4,0,5],
