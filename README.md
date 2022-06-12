@@ -27,7 +27,7 @@ Not supported (yet!)
 
 This program is designed for programming video production purposes.
 
-## Requirements
+## Installation instructions
 
 * A version of GCC that supports c++20 (GCC 10 or later)
 * pkg-config
@@ -38,6 +38,8 @@ This program is designed for programming video production purposes.
 
 To install these dependencies in Debian GNU/Linux, you can use this command:
 `apt-get install build-essential libsdl2-dev pkg-config libx11-dev googletest-tools g++-12` (instead of 12, use what your system has available)
+
+After checking out the code from Git, remember to do `git submodule update --init --recursive`.
 
 To compile, type `make`. To run, type `./term` after compiling.
 Note that on the first start, the terminal may be slow to start,

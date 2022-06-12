@@ -1,9 +1,9 @@
-[submodule "rendering/fonts/data/ibmfonts"]
-	path = rendering/fonts/data/ibmfonts
-	url = https://github.com/farsil/ibmfonts.git
-[submodule "util/TinyDeflate"]
-	path = util/TinyDeflate
-	url = git://github.com/Bisqwit/TinyDeflate
 [submodule "googletest"]
 	path = googletest
 	url = https://github.com/google/googletest
+[submodule "util/TinyDeflate"]
+	path = util/TinyDeflate
+	url = https://github.com/bisqwit/TinyDeflate
+[submodule "rendering/fonts/data/ibmfonts"]
+	path = rendering/fonts/data/ibmfonts
+	url = https://github.com/bisqwit/ibmfonts
