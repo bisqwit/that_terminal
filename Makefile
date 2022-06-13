@@ -10,7 +10,7 @@ OPTIM_GPROF = -Og -g -pg
 OPTIM_GCOV  = -Og -g -fprofile-arcs -ftest-coverage
 OPTIM_TEST  = -Og -g -DRUN_TESTS -Igoogletest/googletest/include -fprofile-arcs -ftest-coverage
 
-CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts -Ifile -Iutil/TinyDeflate -Iutil
+CPPFLAGS += -Isrc/rendering -Isrc/tty -Isrc -Isrc/rendering/fonts -Isrc/file -Isrc/util/TinyDeflate -Isrc/util
 
 #CPPFLAGS += -fanalyzer
 
@@ -93,7 +93,7 @@ test: term_test
 	- genhtml main_coverage.info --branch-coverage --output-directory doc/doxygen/docs/cov
 
 define create_rule
-obj/$(1)/$(notdir $(o)): $(subst .o,.cc,$(o))
+obj/$(1)/$(notdir $(o)): $(foreach s,$(subst .o,.cc,$(o)),src/$(s))
 	$$(CXX) -c -o "$$@" "$$<" $$(CXXFLAGS) $$(CPPFLAGS) $(2)
 
 endef

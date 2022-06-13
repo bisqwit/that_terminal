@@ -12,7 +12,7 @@ The test report can be found here:
 Summary:
 
     [----------] Global test environment tear-down
-    [==========] 65 tests from 16 test suites ran. (140972 ms total)
+    [==========] 65 tests from 16 test suites ran. (142382 ms total)
     [  PASSED  ] 65 tests.
 
 ## Coverage testing

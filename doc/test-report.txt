@@ -50,12 +50,12 @@ Running main() from /home/bisqwit/src/terminal_emulator/googletest/googletest/sr
 [ RUN      ] forkpty.opening_a_shell_works
 [       OK ] forkpty.opening_a_shell_works (0 ms)
 [ RUN      ] forkpty.killing_a_shell_works
-[       OK ] forkpty.killing_a_shell_works (543 ms)
+[       OK ] forkpty.killing_a_shell_works (561 ms)
 [ RUN      ] forkpty.running_a_command_in_shell_works
-[       OK ] forkpty.running_a_command_in_shell_works (533 ms)
+[       OK ] forkpty.running_a_command_in_shell_works (544 ms)
 [ RUN      ] forkpty.resizing_works
-[       OK ] forkpty.resizing_works (554 ms)
-[----------] 4 tests from forkpty (1632 ms total)
+[       OK ] forkpty.resizing_works (544 ms)
+[----------] 4 tests from forkpty (1650 ms total)
 
 [----------] 2 tests from xterm256color
 [ RUN      ] xterm256color.contains_two_blacks
@@ -147,8 +147,8 @@ Running font planner stress test. This will take a lot of time.
 - Building similarities
 - Testing 8x8, 8x12, 8x14, 8x16 parallel planning
 - Testing 7x7 large plan.
-[       OK ] font_planner.exhaustive_test (137995 ms)
-[----------] 1 test from font_planner (137995 ms total)
+[       OK ] font_planner.exhaustive_test (139380 ms)
+[----------] 1 test from font_planner (139380 ms total)
 
 [----------] 2 tests from person
 [ RUN      ] person.x_coordinate_varies
@@ -166,7 +166,7 @@ This test will take some time (will load 8x8 fonts for rendering)
 [ RUN      ] window.copytext
 [       OK ] window.copytext (0 ms)
 [ RUN      ] window.font_styles_are_distinct
-[       OK ] window.font_styles_are_distinct (2 ms)
+[       OK ] window.font_styles_are_distinct (1 ms)
 [ RUN      ] window.rendersize
 [       OK ] window.rendersize (0 ms)
 [ RUN      ] window.cursor_blinks
@@ -181,11 +181,11 @@ This test will take some time (will load 8x8 fonts for rendering)
 
 [----------] 2 tests from ui
 [ RUN      ] ui.general
-[       OK ] ui.general (765 ms)
+[       OK ] ui.general (768 ms)
 [ RUN      ] ui.eventsim
-[       OK ] ui.eventsim (14 ms)
-[----------] 2 tests from ui (780 ms total)
+[       OK ] ui.eventsim (17 ms)
+[----------] 2 tests from ui (786 ms total)
 
 [----------] Global test environment tear-down
-[==========] 65 tests from 16 test suites ran. (140972 ms total)
+[==========] 65 tests from 16 test suites ran. (142382 ms total)
 [  PASSED  ] 65 tests.
