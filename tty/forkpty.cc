@@ -1,3 +1,8 @@
+#ifdef RUN_TESTS
+#include <gtest/gtest.h>
+#include <chrono>
+#endif
+
 #include <cstdlib>
 #include <cerrno>
 
@@ -72,3 +77,85 @@ void ForkPTY::Resize(unsigned xsize, unsigned ysize)
     ws.ws_row = ysize;
     ioctl(fd, TIOCSWINSZ, &ws);
 }
+
+#ifdef RUN_TESTS
+TEST(forkpty, opening_a_shell_works) // Test that opening a shell works
+{
+    ForkPTY_Init();
+
+    ForkPTY pty(80,25);
+    EXPECT_NE(pty.getfd(), -1);
+    pty.Close();
+}
+TEST(forkpty, killing_a_shell_works) // Test that killing a shell works
+{
+    ForkPTY pty(80,25);
+    // Disable non-blocking mode
+    fcntl(pty.getfd(), F_SETFL, fcntl(pty.getfd(), F_GETFL) & ~O_NONBLOCK);
+
+    EXPECT_NE(pty.Recv().second, -1);
+    pty.Kill(SIGHUP);
+    EXPECT_EQ(pty.Recv().second, -1);
+    pty.Close();
+}
+// Test that running commands in shell works
+// This test depends on the command `stat` existing.
+TEST(forkpty, running_a_command_in_shell_works)
+{
+    ForkPTY pty(80,25);
+    auto t = []{return std::chrono::system_clock::now(); };
+    // Wait until we receive something
+    auto start = t();
+    pty.Send("\r");
+    std::string in;
+    while(in.empty())
+    {
+        auto k = pty.Recv();
+        in += k.first;
+        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        usleep(10000);
+    }
+    // Send a command
+    pty.Send("stat /tmp\r");
+    // Wait until we receive something
+    for(;;)
+    {
+        auto k = pty.Recv();
+        in += k.first;
+        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        usleep(10000);
+        if(in.find("Device:") != in.npos) break;
+    }
+    pty.Close();
+}
+// Test that the shell reacts to resizes.
+TEST(forkpty, resizing_works)
+{
+    ForkPTY pty(80,25);
+    auto t = []{return std::chrono::system_clock::now(); };
+    // Wait until we receive something
+    auto start = t();
+    pty.Send("\r");
+    pty.Resize(40,30);
+    std::string in;
+    while(in.empty())
+    {
+        auto k = pty.Recv();
+        in += k.first;
+        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        usleep(10000);
+    }
+    // Send a command
+    pty.Send("echo $LINES $COLUMNS\r");
+    // Wait until we receive something
+    for(;;)
+    {
+        auto k = pty.Recv();
+        in += k.first;
+        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        usleep(10000);
+        if(in.find("30 40") != in.npos) break;
+    }
+    pty.Close();
+}
+#endif

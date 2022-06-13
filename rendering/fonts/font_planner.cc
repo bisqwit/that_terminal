@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <map>
 #include <regex>
 #include <fstream>
@@ -401,15 +405,18 @@ FontPlan::Glyph FontPlan::LoadGlyph(char32_t ch, unsigned scanline, unsigned ren
     }
     unsigned bytes_per_fontrow = (std::get<0>(prev) + 7) / 8;
     const unsigned char* fontptr = bitmap_pointers[ch] + scanline * bytes_per_fontrow;
+    unsigned long widefont = 0;
+    if(bitmap_pointers[ch])
+    {
+        widefont = Rn(fontptr, bytes_per_fontrow);
+    }
 
-    unsigned long widefont = Rn(fontptr, bytes_per_fontrow);
-
-    if(std::get<0>(prev) != render_width)
+    /*if(std::get<0>(prev) != render_width)
     {
         if(render_width != std::get<0>(prev)*2)
             fprintf(stderr, "font is %u, render %u\n",
                 std::get<0>(prev), render_width);
-    }
+    }*/
     widefont = ScaleFont(widefont, std::get<0>(prev), render_width);
 
     return {widefont, bold_list[ch]};
@@ -439,3 +446,33 @@ void FontPlannerTick()
         prev = std::move(now);
     }
 }
+
+#ifdef RUN_TESTS
+TEST(font_planner, exhaustive_test)
+{
+    //return;
+    {auto [path, status] = FindCacheFile("similarities.dat", true);
+    // Erase this file and rebuild it
+    if(std::filesystem::exists(status))
+    {
+        std::filesystem::remove(path);
+    }}
+    {auto [path, status] = FindCacheFile("fonts-list.dat", true);
+    // Erase this file and rebuild it
+    if(std::filesystem::exists(status))
+    {
+        std::filesystem::remove(path);
+    }}
+
+    std::cout << "Running font planner stress test. This will take a lot of time.\n";
+    char32_t first = 0x20;
+    char32_t last  = 0x20000;
+    FontPlan plan;
+    plan.Create(7,7, first, last-first+1); // Force some scaling
+    for(char32_t c=first; c<=last; ++c)
+    {
+        plan.LoadGlyph(c - first, 0, 12); // Force some scaling
+    }
+    FontPlannerTick();
+}
+#endif

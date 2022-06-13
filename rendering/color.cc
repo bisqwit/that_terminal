@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <array>
 #include <string>
 #include <cstdlib>
@@ -861,3 +865,55 @@ unsigned ParseColorName(std::string_view s)
     return 0;
 #endif
 }
+
+#ifdef RUN_TESTS
+TEST(color, unpack_ok)
+{
+    EXPECT_EQ(Unpack(0x123456), (std::array{0x12u, 0x34u, 0x56u}));
+}
+TEST(color, repack_ok)
+{
+    // Basic behavior
+    EXPECT_EQ(Repack({0x12,0x34,0x56}), 0x123456u);
+    // Clamping
+    EXPECT_EQ(Repack({256,255,255}), 0xFFFFFFu);
+    // Desaturating
+    EXPECT_EQ(Repack({512,0,0}), 0xFF6E6Eu);
+}
+TEST(color, mix)
+{
+    EXPECT_EQ(Mix(0x000000, 0xFFFFFF, 10,30,40), 0xBFBFBFu);
+    EXPECT_EQ(Mix(0x111111, 0xFF0000, 10,30,40), 0xC30404u);
+    EXPECT_EQ(Mix(0x111111, 0x00FF00, 10,30,40), 0x04C304u);
+    EXPECT_EQ(Mix(0x111111, 0x0000FF, 10,30,40), 0x0404C3u);
+}
+TEST(color, cmyk)
+{
+    EXPECT_EQ(cmy2rgb(0x123456),    (0xFFFFFFu - 0x123456u));
+    EXPECT_EQ(cmyk2rgb(0x12345678), 0x7D6B59u);
+}
+TEST(color, parsecolorname_utf8)
+{
+    EXPECT_EQ(ParseColorName("#123456"), 0x123456u);
+    EXPECT_EQ(ParseColorName("#123"), 0x112233u);
+    EXPECT_EQ(ParseColorName("rgb:1/2/3"), 0x112233u);
+    EXPECT_EQ(ParseColorName("rgbi:0.5/0/1"), 0x7F00FFu);
+    EXPECT_EQ(ParseColorName("black"), 0x000000u);
+    EXPECT_EQ(ParseColorName("white"), 0xFFFFFFu);
+    EXPECT_EQ(ParseColorName("blue"), 0x0000FFu);
+    EXPECT_EQ(ParseColorName("light coral"), 0xF08080u);
+    EXPECT_EQ(ParseColorName("LightCoral"), 0xF08080u);
+}
+TEST(color, parsecolorname_char32)
+{
+    EXPECT_EQ(ParseColorName(U"#123456"), 0x123456u);
+    EXPECT_EQ(ParseColorName(U"#123"), 0x112233u);
+    EXPECT_EQ(ParseColorName(U"rgb:1/2/3"), 0x112233u);
+    EXPECT_EQ(ParseColorName(U"rgbi:0.5/0/1"), 0x7F00FFu);
+    EXPECT_EQ(ParseColorName(U"black"), 0x000000u);
+    EXPECT_EQ(ParseColorName(U"white"), 0xFFFFFFu);
+    EXPECT_EQ(ParseColorName(U"blue"), 0x0000FFu);
+    EXPECT_EQ(ParseColorName(U"light coral"), 0xF08080u);
+    EXPECT_EQ(ParseColorName(U"LightCoral"), 0xF08080u);
+}
+#endif

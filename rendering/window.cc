@@ -1,3 +1,9 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+# include <algorithm>
+# include <set>
+#endif
+
 #include <unordered_map>
 #include <array>
 #include <thread>
@@ -276,6 +282,7 @@ void Window::Resize(std::size_t newsx, std::size_t newsy)
 void Window::Dirtify()
 {
     lastcursx = lastcursy = ~std::size_t();
+    lasttimer = ~0u;
     for(auto& c: cells) c.dirty = true;
 }
 
@@ -284,3 +291,300 @@ void Window::LineSetRenderSize(unsigned val)
     for(std::size_t x=0; x<xsize; ++x)
         cells[cursy*xsize+x].render_size = val;
 }
+
+#ifdef RUN_TESTS
+TEST(window, window_dirty)
+{
+    std::cout << "This test will take some time (will load 8x8 fonts for rendering)\n";
+    Window w(80, 25);
+    // Initially dirty
+    EXPECT_TRUE( std::all_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.dirty;}) );
+    // Clean after render
+    std::vector<std::uint32_t> buffer(80*8 * 25*8);
+    w.Render(8,8, &buffer[0]);
+    EXPECT_TRUE( std::none_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.dirty;}) );
+    // PutCh dirtifies some but not all cells
+    w.PutCh(0,0, U'A');
+    EXPECT_FALSE( std::none_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.dirty;}) );
+    EXPECT_FALSE( std::all_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.dirty;}) );
+    // Dirty after resize
+    w.Resize(40, 25);
+    EXPECT_TRUE( std::all_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.dirty;}) );
+}
+TEST(window, fillbox)
+{
+    Window w(80, 25);
+    // Initially blank
+    EXPECT_TRUE( std::all_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.ch == U' ';}) );
+    // Fillbox with 'A' fills with 'A'
+    Cell a; a.ch = U'A';
+    w.FillBox(20,20, 40,3, a);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}), 40*3 );
+    // Fillbox without character fills with space
+    w.FillBox(30,21, 20,1);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}),       40*3-20 );
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == w.blank;}), 80*25-(40*3-20) );
+}
+TEST(window, copytext)
+{
+    Window w(80, 25);
+    // Create 15x10 'A' box
+    Cell a; a.ch = U'A';
+    w.FillBox(20,10, 15,10, a);
+    // Copy it
+    w.CopyText(60,14, 20,10, 15,10);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}), 2*15*10 );
+    // Test overlap (left) -- should add 10
+    w.CopyText(19,10, 20,10, 15,10);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}), 2*15*10 + 10 );
+    // Test overlap (right) -- should add 10
+    w.CopyText(21,10, 20,10, 15,10);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}), 2*15*10 + 10+10 );
+    // Test overlap (above) -- should add 15
+    w.CopyText(20,9, 20,10, 15,10);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}), 2*15*10 + 10+10+15 );
+    // Test overlap (below) -- should add 15
+    w.CopyText(20,11, 20,10, 15,10);
+    EXPECT_EQ( std::count_if(w.cells.begin(), w.cells.end(), [&](Cell c){return c == a;}), 2*15*10 + 10+10+15+15 );
+}
+TEST(window, font_styles_are_distinct)
+{
+    // Stop timer, so that we do not get blinking cursor
+    SetTimeFactor(0.);
+    Window w(10,10);
+    const std::size_t fx=8, fy=8, npixels = w.xsize*fx * w.ysize*fy;
+    // Place 'B' at (4,4)
+    w.PutCh(4,4, U'B');
+    unsigned position = 4 * w.xsize + 4;
+    // Backup that cell
+    Cell c = w.cells[position];
+    // Create model rendering
+    std::vector<std::uint32_t> model_rendering(npixels);
+    w.Render(fx,fy, &model_rendering[0]);
+    // Render in different styles
+    auto makestyle = [&](auto&& mogrify)
+    {
+        std::vector<std::uint32_t> pix(npixels);
+        w.Dirtify();
+        w.cells[position]=c;
+        mogrify(w.cells[position]);
+        w.Render(fx,fy, &pix[0]);
+        return pix;
+    };
+    auto bold       = makestyle([&](Cell&t) { t.bold=true; });
+    auto dim        = makestyle([&](Cell&t) { t.dim=true; });
+    auto underline  = makestyle([&](Cell&t) { t.underline=true; });
+    auto underline2 = makestyle([&](Cell&t) { t.underline2=true; });
+    auto italic     = makestyle([&](Cell&t) { t.italic=true; });
+    auto inverse    = makestyle([&](Cell&t) { t.inverse=true; });
+    auto overstrike = makestyle([&](Cell&t) { t.overstrike=true; });
+    auto overlined   = makestyle([&](Cell&t) { t.overlined=true; });
+    auto whitefg    = makestyle([&](Cell&t) { t.fgcolor=0xFFFFFF; });
+    auto whitebg    = makestyle([&](Cell&t) { t.bgcolor=0xFFFFFF; });
+    EXPECT_NE(model_rendering, bold);
+    EXPECT_NE(model_rendering, dim);
+    EXPECT_NE(model_rendering, underline);
+    EXPECT_NE(model_rendering, underline2);
+    EXPECT_NE(model_rendering, italic);
+    EXPECT_NE(model_rendering, inverse);
+    EXPECT_NE(model_rendering, overstrike);
+    EXPECT_NE(model_rendering, overlined);
+    EXPECT_NE(model_rendering, whitefg);
+    EXPECT_NE(model_rendering, whitebg);
+    EXPECT_NE(bold, dim); EXPECT_NE(bold, underline); EXPECT_NE(bold, italic);
+    EXPECT_NE(bold, inverse); EXPECT_NE(bold, overstrike); EXPECT_NE(bold, overlined);
+    EXPECT_NE(bold, whitefg); EXPECT_NE(bold, whitebg); EXPECT_NE(bold, underline2);
+    EXPECT_NE(dim, underline); EXPECT_NE(dim, italic);
+    EXPECT_NE(dim, inverse); EXPECT_NE(dim, overstrike); EXPECT_NE(dim, overlined);
+    EXPECT_NE(dim, whitefg); EXPECT_NE(dim, whitebg); EXPECT_NE(dim, underline2);
+    EXPECT_NE(underline, italic);  EXPECT_NE(underline, underline2);
+    EXPECT_NE(underline, inverse); EXPECT_NE(underline, overstrike); EXPECT_NE(underline, overlined);
+    EXPECT_NE(underline, whitefg); EXPECT_NE(underline, whitebg);
+    EXPECT_NE(italic, inverse); EXPECT_NE(italic, overstrike); EXPECT_NE(italic, overlined);
+    EXPECT_NE(italic, whitefg); EXPECT_NE(italic, whitebg); EXPECT_NE(italic, underline2);
+    EXPECT_NE(inverse, overstrike); EXPECT_NE(inverse, overlined); EXPECT_NE(inverse, whitefg); EXPECT_NE(inverse, whitebg);
+    EXPECT_NE(overstrike, overlined); EXPECT_NE(overstrike, whitefg); EXPECT_NE(overstrike, whitebg);
+    EXPECT_NE(overlined, whitefg); EXPECT_NE(overlined, whitebg); EXPECT_NE(inverse, underline2);
+    EXPECT_NE(whitefg, whitebg); EXPECT_NE(overstrike, underline2); EXPECT_NE(whitefg, underline2); EXPECT_NE(whitebg, underline2);
+}
+TEST(window, rendersize)
+{
+    SetTimeFactor(1.);
+    Window w(10,4);
+    w.cursorvis = false; // Make cursor invisible
+    const std::size_t fx=8, fy=8, ncells=w.xsize*w.ysize, npixels = fx*fy*ncells;
+
+    // Place 'X' at (4,2).
+    // This symbol is chosen because its top half looks like V and bottom half like Λ.
+    // This makes it easy to detect programmatically whether we have rendered it correctly.
+    w.PutCh(4,2, U'X');
+
+    // Create model rendering
+    std::vector<std::uint32_t> model_rendering(npixels), pixels(npixels);
+    w.Render(fx,fy, &model_rendering[0]);
+
+    auto makestyle = [&](auto&& mogrify)
+    {
+        std::vector<std::uint32_t> pix(npixels);
+        w.Dirtify();
+        mogrify(w);
+        w.Render(fx,fy, &pix[0]);
+        /*unsigned xpix = fx*w.xsize, ypix=fy*w.ysize;
+        for(unsigned p=0,y=0; y<ypix; ++y)
+        {
+            for(unsigned x=0; x<xpix; ++x,++p)
+                std::cout << (pix[p] ? '#' : ' ');
+            std::cout << '\n';
+        }*/
+        return pix;
+    };
+    // Since cursor is at (0,0), check that LineSetRenderSize does nothing
+    EXPECT_EQ(w.cursx, 0u);
+    EXPECT_EQ(w.cursy, 0u);
+    EXPECT_EQ(model_rendering, makestyle([](auto&w){ w.LineSetRenderSize(0); }));
+    EXPECT_EQ(model_rendering, makestyle([](auto&w){ w.LineSetRenderSize(1); }));
+    EXPECT_EQ(model_rendering, makestyle([](auto&w){ w.LineSetRenderSize(2); }));
+    EXPECT_EQ(model_rendering, makestyle([](auto&w){ w.LineSetRenderSize(3); }));
+
+    auto analyze_shape = [&](auto&& pixels)
+    {
+        // Find the first and last rows where something is drawn
+        // Find the first and last pixel on both rows
+        unsigned first_row=~0u, first_ranges[2]{~0u,0};
+        unsigned last_row=~0u,  last_ranges[2]{~0u,0};
+        unsigned xpix = fx*w.xsize, ypix=fy*w.ysize;
+        for(unsigned p=0,y=0; y<ypix; ++y)
+        {
+            bool first = false;
+            for(unsigned x=0; x<xpix; ++x,++p)
+                if(pixels[p])
+                {
+                    if(first_row == ~0u) first = true;
+                    if(first)
+                    {
+                        if(first_ranges[0] == ~0u) { first_row = y; first_ranges[0] = x; }
+                        first_ranges[1] = x;
+                    }
+                    if(last_row != y) { last_ranges[0] = x; last_row = y; }
+                    last_ranges[1] = x;
+                }
+        }
+        return std::array<std::size_t,6>{
+            first_row, last_row,
+            first_ranges[0], first_ranges[1],
+            last_ranges[0], last_ranges[1]};
+    };
+
+    auto model_shape = analyze_shape(model_rendering);
+    w.cursx = 4;
+    w.cursy = 2;
+
+    // First, make sure that in the model rendering,
+    // the symbol is strictly within permitted bounds
+    EXPECT_GE(model_shape[0], w.cursy*fy); EXPECT_LT(model_shape[1], (w.cursy+1)*fy);
+    EXPECT_GE(model_shape[2], w.cursx*fx); EXPECT_LT(model_shape[3], (w.cursx+1)*fx);
+    EXPECT_GE(model_shape[4], w.cursx*fx); EXPECT_LT(model_shape[5], (w.cursx+1)*fx);
+    // Symbol 'X' height should be at least 50% of cell height
+    EXPECT_GE(model_shape[1], model_shape[0] + fy*2/4);
+    // Symbol 'X' width at top should be at least 75% of cell width
+    EXPECT_GE(model_shape[3], model_shape[2] + fx*3/4);
+    // Symbol 'X' width at bottom should be at least 75% of cell width
+    EXPECT_GE(model_shape[5], model_shape[4] + fx*3/4);
+
+    // Size 1: Double width, full symbol (X); height stays the same.
+    auto shape1 = analyze_shape( makestyle([](auto&w){ w.LineSetRenderSize(1); }) );
+    EXPECT_EQ(shape1[0], model_shape[0]); EXPECT_EQ(shape1[1], model_shape[1]); // Height should be identical
+    EXPECT_EQ(shape1[2], model_shape[2]*2); EXPECT_EQ(shape1[3], model_shape[3]*2+1); // Width should be double
+    EXPECT_EQ(shape1[4], model_shape[4]*2); EXPECT_EQ(shape1[5], model_shape[5]*2+1); // Width should be double
+
+    // Size 2: Double width, only top half (V) is displayed at double size
+    auto shape2 = analyze_shape( makestyle([](auto&w){ w.LineSetRenderSize(2); }) );
+    EXPECT_GE(shape2[0], w.cursy*fy); EXPECT_LT(shape2[1], (w.cursy+1)*fy); // Y coordinates should be in right bounds
+    EXPECT_EQ(shape2[2], shape1[2]); EXPECT_EQ(shape2[3], shape1[3]);       // Top line should be identical to shape1
+    EXPECT_GT(shape2[4], shape1[4]); EXPECT_LT(shape2[5], shape1[5]);       // Bottom line should be narrower.
+
+    // Size 2: Double width, only bottom half (Λ) is displayed at double size
+    auto shape3 = analyze_shape( makestyle([](auto&w){ w.LineSetRenderSize(3); }) );
+    EXPECT_GE(shape3[0], w.cursy*fy); EXPECT_LT(shape3[1], (w.cursy+1)*fy); // Y coordinates should be in right bounds
+    EXPECT_GT(shape3[2], shape1[2]); EXPECT_LT(shape3[3], shape1[3]);       // Top line should be narrower
+    EXPECT_EQ(shape3[4], shape1[4]); EXPECT_EQ(shape3[5], shape1[5]);       // Bottom line should be identical to shape1.
+}
+TEST(window, cursor_blinks)
+{
+    SetTimeFactor(0.);
+    Window w(10,4);
+    w.cursorvis = true; // Make cursor visible
+
+    const std::size_t fx=8, fy=8, cell_pixels = fx*fy, npixels = cell_pixels * w.xsize*w.ysize;
+
+    // Render 1 second at 64 fps, count frames where cursor is visible
+    unsigned count_cursor_visible = 0, count_frames = 0;
+    for(unsigned frame=0; frame<64; ++frame, ++count_frames)
+    {
+        AdvanceTime(1.0 / 64.0);
+        std::vector<std::uint32_t> pix(npixels);
+        w.Dirtify();
+        w.Render(fx,fy, &pix[0]);
+        unsigned visible_pixels = std::count_if(pix.begin(), pix.end(), [](auto c){return c; });
+        // Cursor size should be less than 20% of cell size
+        EXPECT_LT(visible_pixels, cell_pixels/5);
+        if(visible_pixels) ++count_cursor_visible;
+    }
+    // Cursor should be visible at least 25% of frames
+    EXPECT_GT(count_cursor_visible, count_frames*1/4);
+    // Cursor should be invisible at least 25% of frames
+    EXPECT_LT(count_cursor_visible, count_frames*3/4);
+}
+TEST(window, person_animation)
+{
+    // Let window width be 20 cells, font height 16 pixels.
+    // Render some text in top row in inverse.
+    static const char32_t text[] = U"This is sample text ";
+    const unsigned width = sizeof(text)/sizeof(*text)-1, height = 2;
+    const unsigned fx = 8, fy = 16, time = 30, fps = 4, npixels=width*height*fx*fy;
+    SetTimeFactor(0.);      // Chose manual timer
+    Window w(width, height);
+    w.cursorvis = false;    // Make cursor invisible
+    w.blank.inverse = true; // Choose inverse attribute
+    for(auto c: text) if(c) w.PutCh(w.cursx++, w.cursy, c);
+    EXPECT_EQ(w.cursx, width);
+
+    std::vector<std::uint32_t> model(npixels);
+    w.Render(fx,fy, &model[0]);
+
+    // Re-render screen for 30 seconds at 4 fps.
+    // Every frame, the following conditions must be true:
+    //   - Most of the text is visible
+    //   - At most 16x16 pixels may be changed at any given time
+    //   - The list of first changed columns should not be constant
+    std::set<unsigned> change_columns;
+    for(unsigned frame=0; frame<time*fps; ++frame)
+    {
+        const unsigned allowed_diff_x = 16, allowed_diff_y = 16;
+
+        AdvanceTime(1.0 / fps);
+        std::vector<std::uint32_t> pix(npixels);
+        w.Dirtify();
+        w.Render(fx,fy, &pix[0]);
+        unsigned differences = 0, diffy[2]={~0u,0u}, diffx[2]={~0u,0u}, xpix=width*fx;
+        for(unsigned n=0; n<npixels; ++n)
+            if(pix[n] != model[n])
+            {
+                ++differences;
+                diffy[0] = std::min(diffy[0], n / xpix);
+                diffy[1] = std::max(diffy[1], n / xpix);
+                diffx[0] = std::min(diffx[0], n % xpix);
+                diffx[1] = std::max(diffx[1], n % xpix);
+            }
+        EXPECT_LT(differences, npixels - allowed_diff_x*allowed_diff_y);
+        if(differences)
+        {
+            EXPECT_LT(diffy[1], diffy[0]+allowed_diff_y);
+            EXPECT_LT(diffx[1], diffx[0]+allowed_diff_x);
+            change_columns.insert(diffx[0]);
+        }
+    }
+    // Expect the person to appear in at least 10 different positions
+    EXPECT_GT(change_columns.size(), std::size_t(10));
+}
+#endif

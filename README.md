@@ -35,9 +35,10 @@ This program is designed for programming video production purposes.
 * libx11-dev
 * make
 * googletest-tools (for unit testing)
+* lcov (for coverage testing)
 
 To install these dependencies in Debian GNU/Linux, you can use this command:
-`apt-get install build-essential libsdl2-dev pkg-config libx11-dev googletest-tools g++-12` (instead of 12, use what your system has available)
+`apt-get install build-essential libsdl2-dev pkg-config libx11-dev googletest-tools lcov g++-12` (instead of 12, use what your system has available)
 
 After checking out the code from Git, remember to do `git submodule update --init --recursive`.
 
@@ -48,6 +49,7 @@ because it rebuilds the cache for fonts.
 To build a debugging version, do `make term_debug`.
 To build a profiling version, do `make term_gprof`.
 To build a coverage testing version, do `make term_gcov`.
+To run unit tests, do `make test`.
 
 __NOTE__: When compiling, you may get a “\__cur could be NULL” warning from
 the static analyzer of the compiler with reference to a vector<Cell>.
@@ -63,6 +65,7 @@ significantly.
 * [Supported keyboard inputs](doc/inputs.md).
 * [Supported fonts](doc/fonts.md).
 * [Supported escape codes](doc/escapes.md).
+* [Testing](doc/testing.md).
 
 ## What is a terminal emulator?
 

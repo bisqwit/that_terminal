@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <chrono>
 #include <mutex>
 #include <condition_variable>
@@ -90,3 +94,60 @@ void TimeTerminate()
     {std::unique_lock<std::mutex> lock(data.lk);}
     data.updated.notify_all();
 }
+
+#ifdef RUN_TESTS
+TEST(clock, elapsed_time_looks_realistic)
+{
+    auto a = GetRealElapsed();
+    usleep(100000);
+    auto b = GetRealElapsed();
+    auto diff = b-a;
+    EXPECT_TRUE(diff >= 0.098 && diff <= 0.12);
+}
+
+TEST(clock, regular_time_works)
+{
+    data.TimeFactor = 1;
+
+    auto a = GetTime();
+    usleep(100000);
+    AdvanceTime(100);
+    auto b = GetTime();
+    auto diff = b-a;
+    EXPECT_TRUE(diff >= 0.098 && diff <= 0.12);
+}
+
+TEST(clock, double_time_works)
+{
+    data.TimeFactor = 2;
+
+    auto a = GetTime();
+    usleep(100000);
+    AdvanceTime(100);
+    auto b = GetTime();
+    auto diff = b-a;
+    EXPECT_TRUE(diff >= 2*0.098 && diff <= 2*0.12);
+}
+
+TEST(clock, sleep_works)
+{
+    data.TimeFactor = 1;
+
+    auto a = GetTime();
+    SleepFor(0.2);
+    auto b = GetTime();
+    auto diff = b-a;
+    EXPECT_TRUE(diff >= 0.194 && diff <= 0.208);
+}
+
+TEST(clock, manual_time_works)
+{
+    data.TimeFactor = 0;
+
+    auto a = GetTime();
+    AdvanceTime(100);
+    auto b = GetTime();
+    auto diff = b-a;
+    EXPECT_TRUE(diff == 100);
+}
+#endif

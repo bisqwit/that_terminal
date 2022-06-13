@@ -45,8 +45,6 @@ private:
     std::u32string string;            ///< String that is collected in DCS, OSC, PM, APC and SOS commands
 
 private:
-    void ResetFG();               ///< Resets the Window's fgcolor into whatever is default fgcolor in Cell
-    void ResetBG();               ///< Resets the Window's bgcolor into whatever is default bgcolor in Cell
     void ResetAttr();             ///< Resets the Window's attributes into defaults, but keeps protect flag.
     /** Resets all attributes and states. If @param full is true, also clears screen and repositions cursor. */
     void Reset(bool full = true);

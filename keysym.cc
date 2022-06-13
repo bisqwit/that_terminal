@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <unordered_map>
 #include <cstdio> // sprintf
 
@@ -80,3 +84,28 @@ std::string InterpretInput(bool shift, bool alt, bool ctrl, SDL_Keycode sym)
     return {};
 }
 
+
+#ifdef RUN_TESTS
+TEST(keysym, control_keys)
+{
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_F1), "\033OP");
+    EXPECT_EQ(InterpretInput(true, false,false, SDLK_F1), "\033O1;2P");
+    EXPECT_EQ(InterpretInput(false,false, true, SDLK_F1), "\033O1;5P");
+    EXPECT_EQ(InterpretInput(true, false, true, SDLK_F1), "\033O1;6P");
+    EXPECT_EQ(InterpretInput(true,  true, true, SDLK_F1), "\033O1;8P");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_INSERT),   "\033[2~");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_DELETE),   "\033[3~");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_PAGEUP),   "\033[5~");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_PAGEDOWN), "\033[6~");
+}
+TEST(keysym, regular_keys)
+{
+    // Alphabetic input is disabled in order to not conflict with SDL TextInput
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_a), "");
+    EXPECT_EQ(InterpretInput(true, false,false, SDLK_a), "");
+    EXPECT_EQ(InterpretInput(false,false, true, SDLK_c), "\3"); // ctrl-c
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_TAB),   "\t");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_RETURN), "\r");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_SPACE), " ");
+}
+#endif

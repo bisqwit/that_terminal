@@ -1,13 +1,17 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <mutex>
 #include <thread>
 #include <string_view>
 #include <random>
 #include <list>
 
-#include "settings.hh"
 #include "autoinput.hh"
 #include "ctype.hh"
 #include "clock.hh"
+#include "ui.hh"
 
 //#define TURBOHACK
 
@@ -77,10 +81,8 @@ void AutoInputProvider(std::u32string& s)
             s[found_delay.first+1] = 0;
         }
 
-        unsigned vcw = VidCellWidth;
-        unsigned vch = VidCellHeight;
-        unsigned ww = WindowWidth;
-        unsigned wh = WindowHeight;
+        auto [vcw, vch] = ui.GetCellSize();
+        auto [ww, wh] = ui.GetWindowSize();
         if(time == 0 && fx==vcw && fy==vch && sx==ww && sy==wh)
         {
             // Nothing to do
@@ -208,7 +210,7 @@ void AutoInputProvider(std::u32string& s)
                 }
                 else
                 {
-                    fprintf(stderr, "Performing delay: %u ms\n", delay);
+                    //fprintf(stderr, "Performing delay: %u ms\n", delay);
                     if(delay)
                     {
 #ifdef TURBOHACK
@@ -223,7 +225,7 @@ void AutoInputProvider(std::u32string& s)
             case U'\U00007FFF':
             {
                 cur_speed = s[++pos];
-                fprintf(stderr, "Input speed changed to %u\n", cur_speed);
+                //fprintf(stderr, "Input speed changed to %u\n", cur_speed);
                 break;
             }
             default:
@@ -322,11 +324,11 @@ AutoInputResponse GetAutoInput()
 
 #include <fstream>
 
-void AutoInputStart()
+void AutoInputStart(std::string_view filename)
 {
     std::string s;
     try {
-        std::ifstream t("inputter.dat", std::ios::binary);
+        std::ifstream t(std::string(filename), std::ios::binary);
         t.seekg(0, std::ios::end);
         s.reserve(t.tellg());
         t.seekg(0, std::ios::beg);
@@ -356,3 +358,24 @@ bool AutoInputActive()
 {
     return finished == false;
 }
+
+#ifdef RUN_TESTS
+TEST(AutoInput, active_should_be_false)
+{
+    ASSERT_FALSE(AutoInputActive());
+}
+TEST(AutoInput, works)
+{
+    SetTimeFactor(0.);
+    AutoInputStart("test/inputter.dat");
+    AdvanceTime(3600.0);
+    unsigned num_events = 0;
+    while(AutoInputActive())
+    {
+        auto resp = GetAutoInput();
+        ++num_events;
+    }
+    ASSERT_GE(num_events, 10000u);
+    ASSERT_LT(num_events, 150000u);
+}
+#endif

@@ -1,3 +1,8 @@
+#ifdef RUN_TESTS
+#include <gtest/gtest.h>
+#include <algorithm>
+#endif
+
 #include "256color.hh"
 #include "color.hh"
 
@@ -29,3 +34,15 @@ const constinit std::array<unsigned,256> xterm256table = []() consteval
     }
     return result;
 }();
+
+
+#ifdef RUN_TESTS
+TEST(xterm256color, contains_two_blacks) {
+    Make16(0,1,2);
+    EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0x000000));
+}
+TEST(xterm256color, contains_two_whites) {
+    Make16(3,4,5);
+    EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0xFFFFFF));
+}
+#endif

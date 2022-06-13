@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <bitset>
 #include <algorithm>
 #include <cstring>
@@ -331,9 +335,9 @@ bool isdouble(char32_t c)
 }
 
 
-static bool casecomp(const std::tuple<char32_t,unsigned,int>& v, char32_t c)
+static bool casecomp(const std::tuple<char32_t,char32_t,int>& v, char32_t c)
 {
-    return c < std::get<0>(v);
+    return std::get<0>(v) < c;
 }
 template<typename I>
 static char32_t caseconv(I begin, I end, char32_t c) __attribute__((noinline));
@@ -342,9 +346,17 @@ template<typename I>
 static char32_t caseconv(I begin, I end, char32_t c)
 {
     auto i = std::lower_bound(begin, end, c, casecomp);
-    if(i == end || c > std::get<1>(*i))
-        return c;
-    return c + std::get<2>(*i);
+    if(i == end || c < std::get<0>(*i) || c > std::get<1>(*i))
+    {
+        if(i != begin)
+        {
+            --i;
+            if(c < std::get<0>(*i) || c > std::get<1>(*i)) return c;
+        }
+        else
+            return c;
+    }
+    return c - std::get<2>(*i);
 }
 
 char32_t tolower(char32_t c)
@@ -558,3 +570,59 @@ std::u32string FromCP437(std::string_view s)
         result += (char32_t)cp437_uni(c);
     return result;
 }
+
+#ifdef RUN_TESTS
+TEST(ctype, boolean_tests)
+{
+    EXPECT_TRUE(isupper(U'A')); EXPECT_FALSE(isupper(U'a')); EXPECT_FALSE(isupper(U'0'));
+    EXPECT_TRUE(islower(U'a')); EXPECT_FALSE(islower(U'A')); EXPECT_FALSE(islower(U'0'));
+    EXPECT_TRUE(isalpha(U'A')); EXPECT_FALSE(isalpha(U'5')); EXPECT_TRUE(isalpha(U'ä')); EXPECT_TRUE(isalpha(U'ε')); EXPECT_FALSE(isalpha(U'¬'));
+    EXPECT_TRUE(isalnum(U'A')); EXPECT_TRUE(isalnum(U'5')); EXPECT_TRUE(isalnum(U'ä')); EXPECT_TRUE(isalnum(U'²')); EXPECT_FALSE(isalnum(U'—'));
+    EXPECT_TRUE(isalnum_(U'A')); EXPECT_TRUE(isalnum_(U'5')); EXPECT_TRUE(isalnum_(U'_')); EXPECT_FALSE(isalnum_(U'—'));
+    EXPECT_FALSE(isdigit(U'B')); EXPECT_TRUE(isdigit(U'5')); EXPECT_FALSE(isdigit(U'ä')); EXPECT_TRUE(isdigit(U'𝟹')); EXPECT_FALSE(isdigit(U'—'));
+    EXPECT_TRUE(isxdigit(U'B')); EXPECT_TRUE(isxdigit(U'5')); EXPECT_FALSE(isxdigit(U'ä')); EXPECT_TRUE(isxdigit(U'𝟹')); EXPECT_FALSE(isxdigit(U'—'));
+    EXPECT_TRUE(ispunct(U',')); EXPECT_FALSE(ispunct(U'a'));
+    EXPECT_TRUE(isspace(U' ')); EXPECT_FALSE(isspace(U'_')); EXPECT_TRUE(isspace(U'\t'));
+    EXPECT_TRUE(isspace(U'\n')); EXPECT_TRUE(isspace(U'\r'));
+    EXPECT_TRUE(isspace_punct(U' ')); EXPECT_TRUE(isspace_punct(U'_')); EXPECT_TRUE(isspace_punct(U'\t'));
+    EXPECT_TRUE(isspace_punct(U'\n')); EXPECT_TRUE(isspace_punct(U'\r')); EXPECT_TRUE(isspace_punct(U'.'));
+    EXPECT_TRUE(isblank(U' ')); EXPECT_FALSE(isblank(U'_')); EXPECT_TRUE(isblank(U'\t'));
+    EXPECT_FALSE(isblank(U'\n')); EXPECT_FALSE(isblank(U'\r'));
+    EXPECT_TRUE(isgraph(U'^')); EXPECT_TRUE(isgraph(U'┐')); EXPECT_TRUE(isgraph(U'a'));
+    EXPECT_TRUE(isprint(U'^')); EXPECT_TRUE(isprint(U'┐')); EXPECT_FALSE(isprint(0x84));
+    EXPECT_FALSE(isdouble(U'A')); EXPECT_TRUE(isdouble(U'Ｃ')); EXPECT_FALSE(isdouble(U'ｵ')); EXPECT_TRUE(isdouble(U'オ'));
+}
+TEST(ctype, translation_tests)
+{
+    EXPECT_EQ(tolower(U'A'), U'a');
+    EXPECT_EQ(tolower(U's'), U's');
+    EXPECT_EQ(toupper(U'a'), U'A');
+    EXPECT_EQ(toupper(U'S'), U'S');
+    EXPECT_EQ(totitle(U'a'), U'A');
+    EXPECT_EQ(totitle(U'S'), U'S');
+
+    EXPECT_EQ(toupper(U'A'), U'A');
+    EXPECT_EQ(toupper(U's'), U'S');
+    EXPECT_EQ(tolower(U'a'), U'a');
+    EXPECT_EQ(tolower(U'S'), U's');
+    EXPECT_EQ(totitle(U'a'), U'A');
+    EXPECT_EQ(totitle(U'S'), U'S');
+}
+TEST(ctype, charconv_tests)
+{
+    EXPECT_EQ(ToUTF8(U"abckääkオk"), "abck\xC3\xA4\xC3\xA4k\xE3\x82\xAAk");
+    EXPECT_EQ(FromUTF8("abck\xC3\xA4\xC3\xA4k\xE3\x82\xAAk"), U"abckääkオk");
+    EXPECT_EQ(FromCP437("abck\x84\x84k"), U"abckääk");
+}
+TEST(ctype, count_indent)
+{
+    EXPECT_EQ(CountIndent(U""), 0);
+    EXPECT_EQ(CountIndent(U"s    t    "), 0);
+    EXPECT_EQ(CountIndent(U"    s    t    "), 4);
+    EXPECT_EQ(CountIndent(U"    "), 4);
+    EXPECT_EQ(CountIndent(U"    ", 1), 3);
+    EXPECT_EQ(CountIndent(U"    s    t    ", 5), 4);
+    EXPECT_EQ(CountIndent(U"    s    t    ", 7), 2);
+    EXPECT_EQ(CountIndent(std::u32string(150000, U' ')), 150000);
+}
+#endif

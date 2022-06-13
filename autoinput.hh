@@ -6,6 +6,7 @@
 
 #include <string>
 #include <variant>
+#include <string_view>
 /* Special sequences:
  *
  *  7FFD fontsize termsize
@@ -23,7 +24,7 @@ using AutoInputResponse =
     >;                          /* nothing */
 
 /** Starts automatic input from inputter.dat */
-void AutoInputStart();
+void AutoInputStart(std::string_view filename);
 
 /** Ends automatic input. */
 void AutoInputEnd();

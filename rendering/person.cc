@@ -1,3 +1,8 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+# include <set>
+#endif
+
 #include <cstring>
 #include "clock.hh"
 #include "color.hh"
@@ -189,3 +194,38 @@ void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
         case '#': bgcolor=fgcolor = 0x000000; break;
     }
 }
+
+#ifdef RUN_TESTS
+TEST(person, x_coordinate_varies)
+{
+    SetTimeFactor(0.);
+    std::set<int> coordinates;
+    const unsigned width = 640, duration=25, fps=128;
+    // Simulate 25 seconds of time, window width 640, at framerate 128fps.
+    // We should get every X coordinate covered plus a few outside the screen.
+    for(unsigned frame=0; frame<duration*fps; ++frame)
+    {
+        coordinates.insert( PersonBaseX(width) );
+        AdvanceTime(1.0 / fps);
+    }
+    EXPECT_GT(coordinates.size(), std::size_t(width));
+    if(!coordinates.empty())
+    {
+        EXPECT_LT(*coordinates.begin(), 0);
+        EXPECT_GT(*coordinates.rbegin(),  int(width));
+    }
+}
+TEST(person, pose_varies)
+{
+    SetTimeFactor(0.);
+    std::set<int> frames;
+    // Simulate 4 seconds of time, framerate 32fps.
+    // We should get both poses of person.
+    for(unsigned frame=0; frame<128; ++frame)
+    {
+        frames.insert( PersonFrame() );
+        AdvanceTime(1.0 / 32.0);
+    }
+    EXPECT_EQ(frames.size(), 2);
+}
+#endif

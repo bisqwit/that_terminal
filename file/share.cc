@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include <filesystem>
 #include <optional>
 #include <fstream>
@@ -7,11 +11,12 @@
 
 #include <unistd.h> // For getuid()
 
+#include "share.hh"
+
 using std::filesystem::path;
 
-const char* arg0;
-
-path arg0_path;
+static const char* arg0 = nullptr;
+static path arg0_path;
 
 void SaveArg0(const char* a)
 {
@@ -44,8 +49,12 @@ std::pair<path, std::filesystem::file_status>
 
     #define try_path(s) \
         do { \
-            auto temp = try_path_fun(s); \
-            if(temp.has_value()) return std::move(temp).value(); \
+            try { \
+                auto temp = try_path_fun(s); \
+                if(temp.has_value()) return std::move(temp).value(); \
+            } catch(...) \
+            { \
+            } \
         } while(0)
 
     try_path(arg0_path / "share" / file_to_find);
@@ -113,8 +122,12 @@ std::pair<path, std::filesystem::file_status>
 
     #define try_path(s, specifics) \
         do { \
-            auto temp = try_path_fun(s, specifics); \
-            if(temp.has_value()) return std::move(temp).value(); \
+            try { \
+                auto temp = try_path_fun(s, specifics); \
+                if(temp.has_value()) return std::move(temp).value(); \
+            } catch(...) \
+            { \
+            } \
         } while(0)
 
     path p("that_terminal");
@@ -135,3 +148,30 @@ std::pair<path, std::filesystem::file_status>
 
     #undef try_path
 }
+
+#ifdef RUN_TESTS
+TEST(fileshare, sharetest)
+{
+    // These tests do not actually test anything,
+    // except that the program does not crash.
+    // They exist for coverage purposes.
+    SaveArg0("/bin/sh");
+    FindShareFile("unicode/UnicodeData.txt", {});
+    FindShareFile("notfound.txt", {"/abc"});
+    FindShareFile("notfound.txt", {"abc"});
+    FindCacheFile("deleteme.dat", false);
+    FindCacheFile("similarities.dat", true);
+    FindCacheFile("similarities.dat", false);
+
+    {auto [path, status] = FindCacheFile("deleteme.dat", true);
+    if(std::filesystem::exists(status))
+    {
+        std::filesystem::remove(path);
+    }}
+    {auto [path, status] = FindCacheFile("similarities.dat", true);
+    if(std::filesystem::exists(status))
+    {
+        std::filesystem::remove(path);
+    }}
+}
+#endif

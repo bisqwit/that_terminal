@@ -1,3 +1,7 @@
+#ifdef RUN_TESTS
+# include <gtest/gtest.h>
+#endif
+
 #include "cset.hh"
 
 char32_t TranslateCSet(char32_t c, int cset)
@@ -48,3 +52,17 @@ char32_t TranslateCSet(char32_t c, int cset)
         }
     }
 }
+
+#ifdef RUN_TESTS
+TEST(TranslateCSet, zero_ok)
+{
+    for(unsigned a=0; a<512; ++a) EXPECT_EQ(TranslateCSet(a,0), a);
+}
+TEST(TranslateCSet, one_ok)
+{
+    for(unsigned a=0; a<0x5F; ++a) EXPECT_EQ(TranslateCSet(a,1), a);
+    for(unsigned a=0x7F; a<512; ++a) EXPECT_EQ(TranslateCSet(a,1), a);
+    for(unsigned a=0x5F; a<0x7E; ++a) EXPECT_NE(TranslateCSet(a,1), a);
+    EXPECT_EQ(TranslateCSet(0x61, 1), 0x2592);
+}
+#endif

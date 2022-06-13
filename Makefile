@@ -2,10 +2,13 @@ CXX=g++
 CPPFLAGS=-Wall -Wextra
 CXXFLAGS=-std=c++20
 
+GCCVERS=$(shell $(CXX) --version|head -n1|sed 's/.* //;s/\..*//')
+
 OPTIM_BUILD = -fopenmp -Ofast
 OPTIM_DEBUG = -Og -g -fsanitize=address
 OPTIM_GPROF = -Og -g -pg
 OPTIM_GCOV  = -Og -g -fprofile-arcs -ftest-coverage
+OPTIM_TEST  = -Og -g -DRUN_TESTS -Igoogletest/googletest/include -fprofile-arcs -ftest-coverage
 
 CPPFLAGS += -Irendering -Itty -I. -Irendering/fonts -Ifile -Iutil/TinyDeflate -Iutil
 
@@ -45,18 +48,24 @@ OBJS=\
 	rendering/fonts/read_font.o \
 	rendering/fonts/font_planner.o \
 	file/share.o \
-	beeper.o \
 	main.o \
 	ctype.o \
 	autoinput.o \
 	clock.o \
-	keysym.o
+	keysym.o \
+	ui.o
 
-OBJS_BUILD = $(foreach o,$(OBJS),obj/build/$(notdir $(o)))
-OBJS_DEBUG = $(foreach o,$(OBJS),obj/debug/$(notdir $(o)))
-OBJS_GPROF = $(foreach o,$(OBJS),obj/gprof/$(notdir $(o)))
-OBJS_GCOV = $(foreach o,$(OBJS),obj/gcov/$(notdir $(o)))
-all: term term_gcov term_gprof term_debug ;
+GTEST := googletest/build/lib/libgtest.a googletest/build/lib/libgtest_main.a
+
+OBJS_BUILD := $(foreach o,$(OBJS),obj/build/$(notdir $(o)))
+OBJS_DEBUG := $(foreach o,$(OBJS),obj/debug/$(notdir $(o)))
+OBJS_GPROF := $(foreach o,$(OBJS),obj/gprof/$(notdir $(o)))
+OBJS_GCOV := $(foreach o,$(OBJS),obj/gcov/$(notdir $(o)))
+OBJS_TEST := $(foreach o,$(OBJS),obj/test/$(notdir $(o)))
+
+OBJS_TEST := $(filter-out obj/test/main.o,$(OBJS_TEST))
+
+all: term term_gcov term_gprof term_debug term_test ;
 
 term: $(OBJS_BUILD)
 	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_BUILD)
@@ -66,6 +75,15 @@ term_gprof: $(OBJS_GPROF)
 	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_GPROF) -pthread
 term_debug: $(OBJS_DEBUG)
 	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_DEBUG) -pthread
+term_test: $(OBJS_TEST) $(GTEST)
+	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_TEST) -pthread $(GTEST)
+
+test: term_test
+	- rm obj/test/*.gcda
+	./term_test | tee doc/test-report.txt
+	lcov --base-directory . --no-external -d obj/test --output-file main_coverage.info \
+	     -c --gcov-tool gcov-$(GCCVERS) --exclude '*gtest*' --exclude '$(GCCVERS)/*'
+	genhtml main_coverage.info --output-directory doc/doxygen/docs/cov
 
 define create_rule
 obj/$(1)/$(notdir $(o)): $(subst .o,.cc,$(o))
@@ -76,6 +94,7 @@ $(eval $(foreach o,$(OBJS),$(call create_rule,build,$(OPTIM_BUILD))))
 $(eval $(foreach o,$(OBJS),$(call create_rule,debug,$(OPTIM_DEBUG))))
 $(eval $(foreach o,$(OBJS),$(call create_rule,gprof,$(OPTIM_GPROF))))
 $(eval $(foreach o,$(OBJS),$(call create_rule,gcov,$(OPTIM_GCOV))))
+$(eval $(foreach o,$(OBJS),$(call create_rule,test,$(OPTIM_TEST))))
 
 install:
 	- install term $(PREFIX)/bin/that_terminal
@@ -117,13 +136,19 @@ compress3:
 		doc/coverage-*.png \
 	`
 
+$(GTEST):
+	cmake -S googletest -B googletest/build
+	$(MAKE) -C googletest/build
+
 -include $(addprefix .deps/,$(subst /,_,$(OBJS_BUILD:.o=.d)))
 -include $(addprefix .deps/,$(subst /,_,$(OBJS_DEBUG:.o=.d)))
 -include $(addprefix .deps/,$(subst /,_,$(OBJS_GPROF:.o=.d)))
 -include $(addprefix .deps/,$(subst /,_,$(OBJS_GCOV:.o=.d)))
+-include $(addprefix .deps/,$(subst /,_,$(OBJS_TEST:.o=.d)))
 
 clean:
-	rm -f term term_debug term_gprof term_gcov
-	rm -f $(OBJS_BUILD) $(OBJS_DEBUG) $(OBJS_GPROF) $(OBJS_GCOV)
+	rm -f term term_debug term_gprof term_gcov term_test
+	rm -f $(OBJS_BUILD) $(OBJS_DEBUG) $(OBJS_GPROF) $(OBJS_GCOV) $(OBJS_TEST)
 	- rm -f obj/gcov/*.gcno obj/gcov/*.gcda
+	- rm -f obj/test/*.gcno obj/test/*.gcda
 	rm -rf .deps/obj*.d
