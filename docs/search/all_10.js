@@ -14,7 +14,7 @@ var searchData=
   ['render_162',['Render',['../structWindow.html#a3dd52e22aa00c4c4c78f454c228347c4',1,'Window']]],
   ['render_5fsize_163',['render_size',['../structCell.html#a553620ca2e24e36c223b7e878c082b6d',1,'Cell']]],
   ['repack_164',['Repack',['../color_8hh.html#ad890246084d61c6ff3508cc8e6dc9887',1,'color.hh']]],
-  ['resize_165',['Resize',['../classTerminalWindow.html#aca23c9eb63c1ec63f91263fc41b9dc2b',1,'TerminalWindow::Resize()'],['../classForkPTY.html#ac9b8abd4a92dd7309500805cfb5d6844',1,'ForkPTY::Resize()'],['../structWindow.html#a9012482d1ab55eca6a443c981d5a0c07',1,'Window::Resize()']]],
+  ['resize_165',['Resize',['../structWindow.html#a9012482d1ab55eca6a443c981d5a0c07',1,'Window::Resize()'],['../classTerminalWindow.html#aca23c9eb63c1ec63f91263fc41b9dc2b',1,'TerminalWindow::Resize()'],['../classForkPTY.html#ac9b8abd4a92dd7309500805cfb5d6844',1,'ForkPTY::Resize()']]],
   ['resizeto_166',['ResizeTo',['../classUI.html#a540856a3999b70c82aa56ef03c2101b1',1,'UI']]],
   ['resizetype_167',['resizetype',['../classUI.html#aede24db5b495e1f34564e1ba398a2f13',1,'UI']]]
 ];

@@ -1,0 +1,191 @@
+Running main() from /home/bisqwit/src/terminal_emulator/googletest/googletest/src/gtest_main.cc
+[==========] Running 65 tests from 16 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from ctype
+[ RUN      ] ctype.boolean_tests
+[       OK ] ctype.boolean_tests (0 ms)
+[ RUN      ] ctype.translation_tests
+[       OK ] ctype.translation_tests (0 ms)
+[ RUN      ] ctype.charconv_tests
+[       OK ] ctype.charconv_tests (0 ms)
+[ RUN      ] ctype.count_indent
+[       OK ] ctype.count_indent (0 ms)
+[----------] 4 tests from ctype (0 ms total)
+
+[----------] 2 tests from AutoInput
+[ RUN      ] AutoInput.active_should_be_false
+[       OK ] AutoInput.active_should_be_false (0 ms)
+[ RUN      ] AutoInput.works
+[       OK ] AutoInput.works (5 ms)
+[----------] 2 tests from AutoInput (5 ms total)
+
+[----------] 6 tests from clock
+[ RUN      ] clock.elapsed_time_looks_realistic
+[       OK ] clock.elapsed_time_looks_realistic (100 ms)
+[ RUN      ] clock.regular_time_works
+[       OK ] clock.regular_time_works (100 ms)
+[ RUN      ] clock.double_time_works
+[       OK ] clock.double_time_works (100 ms)
+[ RUN      ] clock.sleep_works
+[       OK ] clock.sleep_works (200 ms)
+[ RUN      ] clock.manual_time_works
+[       OK ] clock.manual_time_works (0 ms)
+[ RUN      ] clock.terminate
+[       OK ] clock.terminate (0 ms)
+[----------] 6 tests from clock (500 ms total)
+
+[----------] 2 tests from keysym
+[ RUN      ] keysym.control_keys
+[       OK ] keysym.control_keys (0 ms)
+[ RUN      ] keysym.regular_keys
+[       OK ] keysym.regular_keys (0 ms)
+[----------] 2 tests from keysym (0 ms total)
+
+[----------] 1 test from fileshare
+[ RUN      ] fileshare.sharetest
+[       OK ] fileshare.sharetest (0 ms)
+[----------] 1 test from fileshare (0 ms total)
+
+[----------] 4 tests from forkpty
+[ RUN      ] forkpty.opening_a_shell_works
+[       OK ] forkpty.opening_a_shell_works (0 ms)
+[ RUN      ] forkpty.killing_a_shell_works
+[       OK ] forkpty.killing_a_shell_works (561 ms)
+[ RUN      ] forkpty.running_a_command_in_shell_works
+[       OK ] forkpty.running_a_command_in_shell_works (544 ms)
+[ RUN      ] forkpty.resizing_works
+[       OK ] forkpty.resizing_works (544 ms)
+[----------] 4 tests from forkpty (1650 ms total)
+
+[----------] 2 tests from xterm256color
+[ RUN      ] xterm256color.contains_two_blacks
+[       OK ] xterm256color.contains_two_blacks (0 ms)
+[ RUN      ] xterm256color.contains_two_whites
+[       OK ] xterm256color.contains_two_whites (0 ms)
+[----------] 2 tests from xterm256color (0 ms total)
+
+[----------] 7 tests from terminal
+[ RUN      ] terminal.text_rendering_works
+[       OK ] terminal.text_rendering_works (0 ms)
+[ RUN      ] terminal.sgr_attributes
+[       OK ] terminal.sgr_attributes (0 ms)
+[ RUN      ] terminal.sgr_colors
+[       OK ] terminal.sgr_colors (8 ms)
+[ RUN      ] terminal.save_restore
+[       OK ] terminal.save_restore (0 ms)
+[ RUN      ] terminal.cursor_movements
+[       OK ] terminal.cursor_movements (0 ms)
+[ RUN      ] terminal.scs
+[       OK ] terminal.scs (0 ms)
+[ RUN      ] terminal.stress_test
+[       OK ] terminal.stress_test (1 ms)
+[----------] 7 tests from terminal (10 ms total)
+
+[----------] 6 tests from color
+[ RUN      ] color.unpack_ok
+[       OK ] color.unpack_ok (0 ms)
+[ RUN      ] color.repack_ok
+[       OK ] color.repack_ok (0 ms)
+[ RUN      ] color.mix
+[       OK ] color.mix (0 ms)
+[ RUN      ] color.cmyk
+[       OK ] color.cmyk (0 ms)
+[ RUN      ] color.parsecolorname_utf8
+[       OK ] color.parsecolorname_utf8 (0 ms)
+[ RUN      ] color.parsecolorname_char32
+[       OK ] color.parsecolorname_char32 (0 ms)
+[----------] 6 tests from color (0 ms total)
+
+[----------] 2 tests from TranslateCSet
+[ RUN      ] TranslateCSet.zero_ok
+[       OK ] TranslateCSet.zero_ok (0 ms)
+[ RUN      ] TranslateCSet.one_ok
+[       OK ] TranslateCSet.one_ok (0 ms)
+[----------] 2 tests from TranslateCSet (0 ms total)
+
+[----------] 14 tests from endian
+[ RUN      ] endian.bswap16
+[       OK ] endian.bswap16 (0 ms)
+[ RUN      ] endian.bswap32
+[       OK ] endian.bswap32 (0 ms)
+[ RUN      ] endian.bswap64
+[       OK ] endian.bswap64 (0 ms)
+[ RUN      ] endian.R8
+[       OK ] endian.R8 (0 ms)
+[ RUN      ] endian.R16
+[       OK ] endian.R16 (0 ms)
+[ RUN      ] endian.R24
+[       OK ] endian.R24 (0 ms)
+[ RUN      ] endian.R32
+[       OK ] endian.R32 (0 ms)
+[ RUN      ] endian.R64
+[       OK ] endian.R64 (0 ms)
+[ RUN      ] endian.R16r
+[       OK ] endian.R16r (0 ms)
+[ RUN      ] endian.R24r
+[       OK ] endian.R24r (0 ms)
+[ RUN      ] endian.R32r
+[       OK ] endian.R32r (0 ms)
+[ RUN      ] endian.R64r
+[       OK ] endian.R64r (0 ms)
+[ RUN      ] endian.Rn
+[       OK ] endian.Rn (0 ms)
+[ RUN      ] endian.Wn
+[       OK ] endian.Wn (0 ms)
+[----------] 14 tests from endian (0 ms total)
+
+[----------] 1 test from read_font
+[ RUN      ] read_font.coverage
+[       OK ] read_font.coverage (0 ms)
+[----------] 1 test from read_font (0 ms total)
+
+[----------] 1 test from font_planner
+[ RUN      ] font_planner.exhaustive_test
+Running font planner stress test. This will take a lot of time.
+- Deleting cache
+- Loading fonts list
+- Building similarities
+- Testing 8x8, 8x12, 8x14, 8x16 parallel planning
+- Testing 7x7 large plan.
+[       OK ] font_planner.exhaustive_test (139380 ms)
+[----------] 1 test from font_planner (139380 ms total)
+
+[----------] 2 tests from person
+[ RUN      ] person.x_coordinate_varies
+[       OK ] person.x_coordinate_varies (0 ms)
+[ RUN      ] person.pose_varies
+[       OK ] person.pose_varies (0 ms)
+[----------] 2 tests from person (0 ms total)
+
+[----------] 9 tests from window
+[ RUN      ] window.window_dirty
+This test will take some time (will load 8x8 fonts for rendering)
+[       OK ] window.window_dirty (7 ms)
+[ RUN      ] window.fillbox
+[       OK ] window.fillbox (0 ms)
+[ RUN      ] window.copytext
+[       OK ] window.copytext (0 ms)
+[ RUN      ] window.font_styles_are_distinct
+[       OK ] window.font_styles_are_distinct (1 ms)
+[ RUN      ] window.rendersize
+[       OK ] window.rendersize (0 ms)
+[ RUN      ] window.cursor_blinks
+[       OK ] window.cursor_blinks (5 ms)
+[ RUN      ] window.text_blinks
+[       OK ] window.text_blinks (1 ms)
+[ RUN      ] window.person_animation
+[       OK ] window.person_animation (28 ms)
+[ RUN      ] window.coverage
+[       OK ] window.coverage (0 ms)
+[----------] 9 tests from window (45 ms total)
+
+[----------] 2 tests from ui
+[ RUN      ] ui.general
+[       OK ] ui.general (768 ms)
+[ RUN      ] ui.eventsim
+[       OK ] ui.eventsim (17 ms)
+[----------] 2 tests from ui (786 ms total)
+
+[----------] Global test environment tear-down
+[==========] 65 tests from 16 test suites ran. (142382 ms total)
+[  PASSED  ] 65 tests.

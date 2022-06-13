@@ -1,4 +1,4 @@
-<map id="ctype.hh" name="ctype.hh">
-<area shape="rect" id="node1" title="Functions for identifying and converting unicode characters and representation forms." alt="" coords="5,5,77,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="14,80,69,107"/>
+<map id="src/ctype.hh" name="src/ctype.hh">
+<area shape="rect" id="node1" title="Functions for identifying and converting unicode characters and representation forms." alt="" coords="5,5,100,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="25,80,80,107"/>
 </map>

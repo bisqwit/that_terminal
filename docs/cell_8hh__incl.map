@@ -1,5 +1,5 @@
-<map id="rendering/cell.hh" name="rendering/cell.hh">
-<area shape="rect" id="node1" title="Defines Cell, the structure that represents a character on screen." alt="" coords="20,5,137,32"/>
+<map id="src/rendering/cell.hh" name="src/rendering/cell.hh">
+<area shape="rect" id="node1" title="Defines Cell, the structure that represents a character on screen." alt="" coords="9,5,148,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,67,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="91,80,152,107"/>
 </map>

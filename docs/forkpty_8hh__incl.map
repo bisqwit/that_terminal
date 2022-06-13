@@ -1,5 +1,5 @@
-<map id="tty/forkpty.hh" name="tty/forkpty.hh">
-<area shape="rect" id="node1" title="Physical frontend to the underlying process (shell)." alt="" coords="25,5,123,32"/>
+<map id="src/tty/forkpty.hh" name="src/tty/forkpty.hh">
+<area shape="rect" id="node1" title="Physical frontend to the underlying process (shell)." alt="" coords="15,5,133,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,60,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="84,80,147,107"/>
 </map>

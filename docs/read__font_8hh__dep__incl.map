@@ -1,4 +1,4 @@
-<map id="rendering/fonts/read_font.hh" name="rendering/fonts/read_font.hh">
-<area shape="rect" id="node1" title="Contains low&#45;level functions for parsing font files. Used by ReadFontsList and FontPlan." alt="" coords="5,5,143,47"/>
-<area shape="rect" id="node2" href="$font__planner_8hh.html" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="7,95,141,136"/>
+<map id="src/rendering/fonts/read_font.hh" name="src/rendering/fonts/read_font.hh">
+<area shape="rect" id="node1" title="Contains low&#45;level functions for parsing font files. Used by ReadFontsList and FontPlan." alt="" coords="5,5,136,47"/>
+<area shape="rect" id="node2" href="$font__planner_8hh.html" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="5,95,136,136"/>
 </map>

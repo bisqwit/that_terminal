@@ -1,5 +1,5 @@
-<map id="rendering/color.hh" name="rendering/color.hh">
-<area shape="rect" id="node1" title="Defines conversions between different color formats and parsing colors defined in strings." alt="" coords="46,5,170,32"/>
+<map id="src/rendering/color.hh" name="src/rendering/color.hh">
+<area shape="rect" id="node1" title="Defines conversions between different color formats and parsing colors defined in strings." alt="" coords="35,5,181,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,56,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="81,80,135,107"/>
 <area shape="rect" id="node4" title=" " alt="" coords="160,80,235,107"/>

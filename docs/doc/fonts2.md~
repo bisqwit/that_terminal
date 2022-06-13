@@ -1,0 +1,322 @@
+
+# Fonts supported by *that terminal*
+
+Most of these fonts are Public Domain, and come from X11. Exceptions are
+listed.
+
+
+## Font 4x5
+
+X11 font “micro”.
+
+![Font 4x5 coverage](coverage-4x5-0.png)
+![Font 4x5 coverage](coverage-4x5-1.png)
+![Font 4x5 coverage](coverage-4x5-2.png)
+
+## Font 4x6
+
+X11 misc-fixed font.
+
+![Font 4x6 coverage](coverage-4x6-0.png)
+![Font 4x6 coverage](coverage-4x6-1.png)
+![Font 4x6 coverage](coverage-4x6-2.png)
+
+## Font 5x7
+
+X11 misc-fixed font.
+
+![Font 5x7 coverage](coverage-5x7-0.png)
+![Font 5x7 coverage](coverage-5x7-1.png)
+![Font 5x7 coverage](coverage-5x7-2.png)
+![Font 5x7 coverage](coverage-5x7-3.png)
+
+## Font 5x8
+
+X11 misc-fixed font.
+
+![Font 5x8 coverage](coverage-5x8-0.png)
+![Font 5x8 coverage](coverage-5x8-1.png)
+![Font 5x8 coverage](coverage-5x8-2.png)
+![Font 5x8 coverage](coverage-5x8-3.png)
+![Font 5x8 coverage](coverage-5x8-4.png)
+
+## Font 6x9
+
+X11 misc-fixed font.
+
+![Font 6x9 coverage](coverage-6x9-0.png)
+![Font 6x9 coverage](coverage-6x9-1.png)
+![Font 6x9 coverage](coverage-6x9-2.png)
+![Font 6x9 coverage](coverage-6x9-3.png)
+![Font 6x9 coverage](coverage-6x9-4.png)
+
+## Font 6x10
+
+X11 misc-fixed font.
+
+![Font 6x10 coverage](coverage-6x10-0.png)
+![Font 6x10 coverage](coverage-6x10-1.png)
+![Font 6x10 coverage](coverage-6x10-2.png)
+![Font 6x10 coverage](coverage-6x10-3.png)
+![Font 6x10 coverage](coverage-6x10-4.png)
+![Font 6x10 coverage](coverage-6x10-5.png)
+
+## Font 6x13
+
+X11 misc-fixed font. Pairs perfectly with 12x13.
+
+![Font 6x13 coverage](coverage-6x13-0.png)
+![Font 6x13 coverage](coverage-6x13-1.png)
+![Font 6x13 coverage](coverage-6x13-2.png)
+![Font 6x13 coverage](coverage-6x13-3.png)
+![Font 6x13 coverage](coverage-6x13-4.png)
+![Font 6x13 coverage](coverage-6x13-5.png)
+![Font 6x13 coverage](coverage-6x13-6.png)
+![Font 6x13 coverage](coverage-6x13-7.png)
+![Font 6x13 coverage](coverage-6x13-8.png)
+
+## Font 7x13
+
+X11 misc-fixed font.
+
+![Font 7x13 coverage](coverage-7x13-0.png)
+![Font 7x13 coverage](coverage-7x13-1.png)
+![Font 7x13 coverage](coverage-7x13-2.png)
+![Font 7x13 coverage](coverage-7x13-3.png)
+![Font 7x13 coverage](coverage-7x13-4.png)
+![Font 7x13 coverage](coverage-7x13-5.png)
+![Font 7x13 coverage](coverage-7x13-6.png)
+
+## Font 7x14
+
+X11 misc-fixed font.
+
+![Font 7x14 coverage](coverage-7x14-0.png)
+![Font 7x14 coverage](coverage-7x14-1.png)
+![Font 7x14 coverage](coverage-7x14-2.png)
+![Font 7x14 coverage](coverage-7x14-3.png)
+![Font 7x14 coverage](coverage-7x14-4.png)
+![Font 7x14 coverage](coverage-7x14-5.png)
+![Font 7x14 coverage](coverage-7x14-6.png)
+
+## Font 8x8
+
+
+* VGA ROM BIOS font (codepage 437)
+* DISPLAY.SYS codepage 850
+* DISPLAY.SYS codepage 852
+* cp857-8x8.psf.gz (Linux consolefonts)
+* iso03.f08.psf.gz, iso04.f08.psf.gz, iso05.f08.psf.gz, iso06.f08.psf.gz, iso07.f08.psf.gz, iso08.f08.psf.gz, lat9-08.psf.gz
+
+
+![Font 8x8 coverage](coverage-8x8-0.png)
+![Font 8x8 coverage](coverage-8x8-1.png)
+![Font 8x8 coverage](coverage-8x8-2.png)
+![Font 8x8 coverage](coverage-8x8-3.png)
+![Font 8x8 coverage](coverage-8x8-4.png)
+
+## Font 8x10
+
+
+* 8x10 Source unknown
+* lat1-10.psf.gz, lat2-10.psf.gz, lat4-10.psf.gz, lat9-10.psf.gz (Linux consolefonts)
+
+
+![Font 8x10 coverage](coverage-8x10-0.png)
+![Font 8x10 coverage](coverage-8x10-1.png)
+![Font 8x10 coverage](coverage-8x10-2.png)
+![Font 8x10 coverage](coverage-8x10-3.png)
+![Font 8x10 coverage](coverage-8x10-4.png)
+
+## Font 8x12
+
+
+* 8x12 Source unknown
+* lat1-10.psf.gz, lat2-10.psf.gz, lat4-10.psf.gz, lat9-10.psf.gz (Linux consolefonts)
+
+
+![Font 8x12 coverage](coverage-8x12-0.png)
+![Font 8x12 coverage](coverage-8x12-1.png)
+![Font 8x12 coverage](coverage-8x12-2.png)
+![Font 8x12 coverage](coverage-8x12-3.png)
+![Font 8x12 coverage](coverage-8x12-4.png)
+![Font 8x12 coverage](coverage-8x12-5.png)
+
+## Font 8x13
+
+X11 misc-fixed font.
+
+![Font 8x13 coverage](coverage-8x13-0.png)
+![Font 8x13 coverage](coverage-8x13-1.png)
+![Font 8x13 coverage](coverage-8x13-2.png)
+![Font 8x13 coverage](coverage-8x13-3.png)
+![Font 8x13 coverage](coverage-8x13-4.png)
+![Font 8x13 coverage](coverage-8x13-5.png)
+![Font 8x13 coverage](coverage-8x13-6.png)
+
+## Font 8x14
+
+
+* VGA ROM BIOS font (codepage 437)
+* DISPLAY.SYS codepage 850
+* DISPLAY.SYS codepage 852
+* cp857-8x14.psf.gz (Linux consolefonts)
+* iso03.f14.psf.gz, iso04.f14.psf.gz, iso05.f14.psf.gz, iso06.f14.psf.gz, iso07.f14.psf.gz, iso08.f14.psf.gz, lat9-14.psf.gz
+
+
+![Font 8x14 coverage](coverage-8x14-0.png)
+![Font 8x14 coverage](coverage-8x14-1.png)
+![Font 8x14 coverage](coverage-8x14-2.png)
+![Font 8x14 coverage](coverage-8x14-3.png)
+![Font 8x14 coverage](coverage-8x14-4.png)
+![Font 8x14 coverage](coverage-8x14-5.png)
+![Font 8x14 coverage](coverage-8x14-6.png)
+
+## Font 8x15
+
+Source unknown
+
+![Font 8x15 coverage](coverage-8x15-0.png)
+![Font 8x15 coverage](coverage-8x15-1.png)
+![Font 8x15 coverage](coverage-8x15-2.png)
+![Font 8x15 coverage](coverage-8x15-3.png)
+![Font 8x15 coverage](coverage-8x15-4.png)
+![Font 8x15 coverage](coverage-8x15-5.png)
+![Font 8x15 coverage](coverage-8x15-6.png)
+
+## Font 8x16
+
+
+* VGA ROM BIOS font (codepage 437)
+* DISPLAY.SYS codepage 850
+* DISPLAY.SYS codepage 852
+* cp857-8x16.psf.gz (Linux consolefonts)
+* iso03.f16.psf.gz, iso04.f16.psf.gz, iso05.f16.psf.gz, iso06.f16.psf.gz, iso07.f16.psf.gz, iso08.f16.psf.gz, lat9-16.psf.gz
+
+
+![Font 8x16 coverage](coverage-8x16-0.png)
+![Font 8x16 coverage](coverage-8x16-1.png)
+![Font 8x16 coverage](coverage-8x16-2.png)
+![Font 8x16 coverage](coverage-8x16-3.png)
+![Font 8x16 coverage](coverage-8x16-4.png)
+![Font 8x16 coverage](coverage-8x16-5.png)
+![Font 8x16 coverage](coverage-8x16-6.png)
+![Font 8x16 coverage](coverage-8x16-7.png)
+
+## Font 8x19
+
+vga8x19.bdf by Martin Reuber, based on VGA ROM BIOS font
+
+![Font 8x19 coverage](coverage-8x19-0.png)
+![Font 8x19 coverage](coverage-8x19-1.png)
+![Font 8x19 coverage](coverage-8x19-2.png)
+![Font 8x19 coverage](coverage-8x19-3.png)
+![Font 8x19 coverage](coverage-8x19-4.png)
+![Font 8x19 coverage](coverage-8x19-5.png)
+![Font 8x19 coverage](coverage-8x19-6.png)
+![Font 8x19 coverage](coverage-8x19-7.png)
+
+## Font 9x15
+
+X11 misc-fixed font.
+
+![Font 9x15 coverage](coverage-9x15-0.png)
+![Font 9x15 coverage](coverage-9x15-1.png)
+![Font 9x15 coverage](coverage-9x15-2.png)
+![Font 9x15 coverage](coverage-9x15-3.png)
+![Font 9x15 coverage](coverage-9x15-4.png)
+![Font 9x15 coverage](coverage-9x15-5.png)
+![Font 9x15 coverage](coverage-9x15-6.png)
+![Font 9x15 coverage](coverage-9x15-7.png)
+![Font 9x15 coverage](coverage-9x15-8.png)
+
+## Font 9x18
+
+X11 misc-fixed font. Pairs perfectly with 18x18.
+
+![Font 9x18 coverage](coverage-9x18-0.png)
+![Font 9x18 coverage](coverage-9x18-1.png)
+![Font 9x18 coverage](coverage-9x18-2.png)
+![Font 9x18 coverage](coverage-9x18-3.png)
+![Font 9x18 coverage](coverage-9x18-4.png)
+![Font 9x18 coverage](coverage-9x18-5.png)
+![Font 9x18 coverage](coverage-9x18-6.png)
+![Font 9x18 coverage](coverage-9x18-7.png)
+![Font 9x18 coverage](coverage-9x18-8.png)
+
+## Font 10x20
+
+X11 misc-fixed font.
+
+![Font 10x20 coverage](coverage-10x20-0.png)
+![Font 10x20 coverage](coverage-10x20-1.png)
+![Font 10x20 coverage](coverage-10x20-2.png)
+![Font 10x20 coverage](coverage-10x20-3.png)
+![Font 10x20 coverage](coverage-10x20-4.png)
+![Font 10x20 coverage](coverage-10x20-5.png)
+![Font 10x20 coverage](coverage-10x20-6.png)
+![Font 10x20 coverage](coverage-10x20-7.png)
+![Font 10x20 coverage](coverage-10x20-8.png)
+![Font 10x20 coverage](coverage-10x20-9.png)
+![Font 10x20 coverage](coverage-10x20-10.png)
+![Font 10x20 coverage](coverage-10x20-11.png)
+![Font 10x20 coverage](coverage-10x20-12.png)
+![Font 10x20 coverage](coverage-10x20-13.png)
+
+## Font 12x13
+
+X11 misc-fixed font (Japanese).
+
+![Font 12x13 coverage](coverage-12x13-0.png)
+![Font 12x13 coverage](coverage-12x13-1.png)
+![Font 12x13 coverage](coverage-12x13-2.png)
+![Font 12x13 coverage](coverage-12x13-3.png)
+![Font 12x13 coverage](coverage-12x13-4.png)
+![Font 12x13 coverage](coverage-12x13-5.png)
+![Font 12x13 coverage](coverage-12x13-6.png)
+![Font 12x13 coverage](coverage-12x13-7.png)
+![Font 12x13 coverage](coverage-12x13-8.png)
+![Font 12x13 coverage](coverage-12x13-9.png)
+![Font 12x13 coverage](coverage-12x13-10.png)
+![Font 12x13 coverage](coverage-12x13-11.png)
+![Font 12x13 coverage](coverage-12x13-12.png)
+![Font 12x13 coverage](coverage-12x13-13.png)
+![Font 12x13 coverage](coverage-12x13-14.png)
+![Font 12x13 coverage](coverage-12x13-15.png)
+![Font 12x13 coverage](coverage-12x13-16.png)
+![Font 12x13 coverage](coverage-12x13-17.png)
+![Font 12x13 coverage](coverage-12x13-18.png)
+![Font 12x13 coverage](coverage-12x13-19.png)
+
+## Font 18x18
+
+X11 misc-fixed fonts (Japanese and Korean).
+
+![Font 18x18 coverage](coverage-18x18-0.png)
+![Font 18x18 coverage](coverage-18x18-1.png)
+![Font 18x18 coverage](coverage-18x18-2.png)
+![Font 18x18 coverage](coverage-18x18-3.png)
+![Font 18x18 coverage](coverage-18x18-4.png)
+![Font 18x18 coverage](coverage-18x18-5.png)
+![Font 18x18 coverage](coverage-18x18-6.png)
+![Font 18x18 coverage](coverage-18x18-7.png)
+![Font 18x18 coverage](coverage-18x18-8.png)
+![Font 18x18 coverage](coverage-18x18-9.png)
+![Font 18x18 coverage](coverage-18x18-10.png)
+![Font 18x18 coverage](coverage-18x18-11.png)
+![Font 18x18 coverage](coverage-18x18-12.png)
+![Font 18x18 coverage](coverage-18x18-13.png)
+![Font 18x18 coverage](coverage-18x18-14.png)
+![Font 18x18 coverage](coverage-18x18-15.png)
+![Font 18x18 coverage](coverage-18x18-16.png)
+![Font 18x18 coverage](coverage-18x18-17.png)
+![Font 18x18 coverage](coverage-18x18-18.png)
+![Font 18x18 coverage](coverage-18x18-19.png)
+![Font 18x18 coverage](coverage-18x18-20.png)
+![Font 18x18 coverage](coverage-18x18-21.png)
+![Font 18x18 coverage](coverage-18x18-22.png)
+![Font 18x18 coverage](coverage-18x18-23.png)
+![Font 18x18 coverage](coverage-18x18-24.png)
+![Font 18x18 coverage](coverage-18x18-25.png)
+![Font 18x18 coverage](coverage-18x18-26.png)
+![Font 18x18 coverage](coverage-18x18-27.png)

@@ -86,7 +86,7 @@ $(document).ready(function(){initNavTree('md_doc_escapes.html',''); initResizabl
 <div class="title">Escape codes supported by <em>that terminal</em> </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md27"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md13"></a>
 Non-esc codes:</h1>
 <p>Note: Tables include also a few items marked “unsupported”. These are documented for possible future use, and are not supported by this terminal emulator. They are also parsed correctly, even if they do not do anything.</p>
 <p>All of these are recognized even in the middle of an escape code. E.g. <code>printf("ABC\033[3\n4mDEF");</code> will print “ABC” on the current line with the current attribute and “DEF” on the next line with blue color (SGR 34).</p>
@@ -102,7 +102,7 @@ Non-esc codes:</h1>
 <li><code>&lt;0A&gt;</code>, <code>&lt;0B&gt;</code>, <code>&lt;0C&gt;</code> ⁴Line feed: Moves cursor down within window; if at bottom of the window, scrolls window up and inserts a blank line at bottom. If the cursor is at the bottom of the screen but the window bottom is somewhere above, no scrolling or cursor movement happens.</li>
 </ul>
 <p>Any other character is printed, unless an escape code is being parsed. The cursor is moved to the next column after printing. If the last character was printed to the last column of the screen, the next character is printed to the first column of the next row as if a linefeed was performed in the between. An automatic linefeed does not happen until the new character is printed.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Esc codes:</h1>
 <ul>
 <li><code>&lt;1B&gt;</code> ESC.</li>
@@ -411,7 +411,7 @@ Esc codes:</h1>
 <p><code>When any invalid escape code is encountered, the escape code until the invalid character is silently ignored, and the next character is processed as if no escape code was actived.</code></p>
 <p><code>None of these escape codes are custom-made for this terminal emulator. All of these are supported by e.g. Xterm (although Xterm does not render italic).</code></p>
 <p><code></code></p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Character sets</h1>
 <p><code></p><ul>
 <li><code>&lt;</code> DEC supplementary (unsupported)</li>

@@ -1,4 +1,4 @@
-<map id="log2.hh" name="log2.hh">
-<area shape="rect" id="node1" title="Base&#45;2 logarithm utilities." alt="" coords="5,5,69,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="7,80,68,107"/>
+<map id="src/log2.hh" name="src/log2.hh">
+<area shape="rect" id="node1" title="Base&#45;2 logarithm utilities." alt="" coords="5,5,92,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="18,80,79,107"/>
 </map>
