@@ -35,24 +35,26 @@ LDLIBS   += -lutil
 
 PREFIX := $(shell if [ `id -u` = 0 ]; then echo /usr/local ; else echo $$HOME/.local; fi)
 
+# NOTE: The order of object files in this list also determines
+#       the order of tests run by gtest.
 OBJS=\
-	tty/terminal.o \
+	main.o \
+	ctype.o \
+	autoinput.o \
+	clock.o \
+	keysym.o \
+	file/share.o \
 	tty/forkpty.o \
 	tty/256color.o \
-	rendering/window.o \
-	rendering/person.o \
+	tty/terminal.o \
 	rendering/color.o \
 	rendering/cset.o \
 	rendering/fonts/make_similarities.o \
 	rendering/fonts/read_fonts.o \
 	rendering/fonts/read_font.o \
 	rendering/fonts/font_planner.o \
-	file/share.o \
-	main.o \
-	ctype.o \
-	autoinput.o \
-	clock.o \
-	keysym.o \
+	rendering/person.o \
+	rendering/window.o \
 	ui.o
 
 GTEST := googletest/build/lib/libgtest.a googletest/build/lib/libgtest_main.a
@@ -79,11 +81,16 @@ term_test: $(OBJS_TEST) $(GTEST)
 	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_TEST) -pthread $(GTEST)
 
 test: term_test
+	#- rm $$HOME/.cache/that_terminal/* || \
+	#  rm /home/$$USER/.cache/that_terminal/* || \
+	#  rm /run/user/`id -u`/{similarities.dat,fonts-list.dat}
 	- rm obj/test/*.gcda
 	./term_test | tee doc/test-report.txt
-	lcov --base-directory . --no-external -d obj/test --output-file main_coverage.info \
-	     -c --gcov-tool gcov-$(GCCVERS) --exclude '*gtest*' --exclude '$(GCCVERS)/*'
-	genhtml main_coverage.info --output-directory doc/doxygen/docs/cov
+	- lcov --base-directory . --no-external -d obj/test --output-file main_coverage.info \
+	     -c --gcov-tool "gcov-$(GCCVERS)" --exclude '*gtest*' --exclude '$(GCCVERS)/*' \
+	     --rc "lcov_branch_coverage=1" \
+	     --rc "lcov_excl_br_line=LCOV_EXCL_BR_LINE|EXPECT_*|TEST\("
+	- genhtml main_coverage.info --branch-coverage --output-directory doc/doxygen/docs/cov
 
 define create_rule
 obj/$(1)/$(notdir $(o)): $(subst .o,.cc,$(o))

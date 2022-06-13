@@ -298,6 +298,7 @@ TEST(window, window_dirty)
     std::cout << "This test will take some time (will load 8x8 fonts for rendering)\n";
     Window w(80, 25);
     // Initially dirty
+    w.cells[0].ch = 'X';
     EXPECT_TRUE( std::all_of(w.cells.begin(), w.cells.end(), [](Cell c){return c.dirty;}) );
     // Clean after render
     std::vector<std::uint32_t> buffer(80*8 * 25*8);
@@ -535,6 +536,24 @@ TEST(window, cursor_blinks)
     // Cursor should be invisible at least 25% of frames
     EXPECT_LT(count_cursor_visible, count_frames*3/4);
 }
+TEST(window, text_blinks)
+{
+    SetTimeFactor(0.);
+    Window w(3,3);
+    w.cursorvis = false; // Make cursor invisible
+    w.blank.blink = 0; w.PutCh(0,0, U'A');
+    w.blank.blink = 1; w.PutCh(1,0, U'B');
+    w.blank.blink = 2; w.PutCh(2,0, U'C');
+    const std::size_t fx=8, fy=8, cell_pixels = fx*fy, npixels = cell_pixels * w.xsize*w.ysize;
+    // Render 1 second at 64 fps
+    for(unsigned frame=0; frame<64; ++frame)
+    {
+        AdvanceTime(1.0 / 64.0);
+        std::vector<std::uint32_t> pix(npixels);
+        w.Dirtify();
+        w.Render(fx,fy, &pix[0]);
+    }
+}
 TEST(window, person_animation)
 {
     // Let window width be 20 cells, font height 16 pixels.
@@ -546,11 +565,27 @@ TEST(window, person_animation)
     Window w(width, height);
     w.cursorvis = false;    // Make cursor invisible
     w.blank.inverse = true; // Choose inverse attribute
-    for(auto c: text) if(c) w.PutCh(w.cursx++, w.cursy, c);
+    for(auto c: text) if(c) { w.PutCh(w.cursx, height-1, c); w.PutCh(w.cursx++, w.cursy, c); }
     EXPECT_EQ(w.cursx, width);
+
+    // Wait until Person's starting X coordinate is outside window boundaries
+    while(PersonBaseX(width*fx) < int(width*fx))
+        AdvanceTime(0.01);
 
     std::vector<std::uint32_t> model(npixels);
     w.Render(fx,fy, &model[0]);
+
+    /*{unsigned xpix = fx*w.xsize, ypix=fy*w.ysize;
+    for(unsigned p=0,y=0; y<fy; ++y)
+    {
+        for(unsigned x=0; x<xpix; ++x,++p)
+        {
+            auto q = Unpack(model[p]);
+            char Buf[32]; std::sprintf(Buf, "%X%X%X", q[0]>>4,q[1]>>4,q[2]>>4);
+            std::cout << Buf;
+        }
+        std::cout << '\n';
+    }}*/
 
     // Re-render screen for 30 seconds at 4 fps.
     // Every frame, the following conditions must be true:
@@ -567,7 +602,20 @@ TEST(window, person_animation)
         w.Dirtify();
         w.Render(fx,fy, &pix[0]);
         unsigned differences = 0, diffy[2]={~0u,0u}, diffx[2]={~0u,0u}, xpix=width*fx;
-        for(unsigned n=0; n<npixels; ++n)
+
+        /*{unsigned xpix = fx*w.xsize, ypix=fy*w.ysize;
+        for(unsigned p=0,y=0; y<fy; ++y)
+        {
+            for(unsigned x=0; x<xpix; ++x,++p)
+            {
+                auto q = Unpack(pix[p]);
+                char Buf[32]; std::sprintf(Buf, "%X%X%X", q[0]>>4,q[1]>>4,q[2]>>4);
+                std::cout << Buf;
+            }
+            std::cout << '\n';
+        }}*/
+
+        for(unsigned n=0; n<xpix*fy; ++n)
             if(pix[n] != model[n])
             {
                 ++differences;
@@ -577,14 +625,25 @@ TEST(window, person_animation)
                 diffx[1] = std::max(diffx[1], n % xpix);
             }
         EXPECT_LT(differences, npixels - allowed_diff_x*allowed_diff_y);
+        //printf("Diffs: y(%d..%d) x(%d..%d)\n", diffy[0],diffy[1], diffx[0],diffx[1]);
         if(differences)
         {
-            EXPECT_LT(diffy[1], diffy[0]+allowed_diff_y);
-            EXPECT_LT(diffx[1], diffx[0]+allowed_diff_x);
+            EXPECT_LE(diffy[1]-diffy[0], allowed_diff_y);
+            EXPECT_LE(diffx[1]-diffx[0], allowed_diff_x);
             change_columns.insert(diffx[0]);
         }
     }
     // Expect the person to appear in at least 10 different positions
     EXPECT_GT(change_columns.size(), std::size_t(10));
+}
+TEST(window, coverage)
+{
+    // For coverage, run Cell comparisons
+    Window w(10, 10);
+    Cell mod; mod.bold = true;
+    EXPECT_TRUE(w.blank == w.blank);
+    EXPECT_FALSE(w.blank != w.blank);
+    EXPECT_FALSE(w.blank == mod);
+    EXPECT_TRUE(w.blank != mod);
 }
 #endif

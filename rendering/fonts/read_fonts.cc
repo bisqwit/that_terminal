@@ -136,18 +136,32 @@ void ReadFonts(std::ostream& out)
                         }
                     }
                 }
+
+                std::fprintf(stderr, ".");
+
                 temp << '\n';
                 return temp.str();
             }));
         }
     for(auto& t: tasks) out << t.get();
+    std::fprintf(stderr, "Fonts loaded.");
 }
+
+#pragma GCC push_options
+#pragma GCC optimize ("Ofast")
+template<unsigned l>
+static bool rmatch(std::string_view str, std::smatch& mat, const std::string& line)
+{
+    static std::regex r(std::string(str), Ropt);
+    return std::regex_match(line, mat, r);
+}
+#pragma GCC pop_options
 
 FontsInfo ParseFontsList(std::istream& f)
 {
     FontsInfo result;
 
-    #define r(str) [&]{ static std::regex r{str##s, Ropt}; return regex_match(line, mat, r); }()
+    #define r(str) rmatch<__LINE__>(str##sv, mat, line)
 
     std::string filename;
     unsigned    x=0, y=0;
@@ -216,6 +230,7 @@ FontsInfo ReadFontsList()
     auto [path, status] = FindCacheFile("fonts-list.dat", true);
     auto [fn, status2] = FontPath();
     if(!std::filesystem::exists(status)
+    || !std::filesystem::file_size(path)
     || (std::filesystem::exists(fn)
      && std::filesystem::last_write_time(fn) > std::filesystem::last_write_time(path)))
     {

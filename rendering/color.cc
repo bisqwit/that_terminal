@@ -867,30 +867,37 @@ unsigned ParseColorName(std::string_view s)
 }
 
 #ifdef RUN_TESTS
+/* The word "volatile" is used to ensure that inlining does not foil branch statistics in lcov */
 TEST(color, unpack_ok)
 {
-    EXPECT_EQ(Unpack(0x123456), (std::array{0x12u, 0x34u, 0x56u}));
+    volatile unsigned r = 0x123456;
+    EXPECT_EQ(Unpack(r), (std::array{0x12u, 0x34u, 0x56u}));
 }
 TEST(color, repack_ok)
 {
     // Basic behavior
-    EXPECT_EQ(Repack({0x12,0x34,0x56}), 0x123456u);
+    volatile unsigned r = 0x56;
+    EXPECT_EQ(Repack({0x12,0x34,r}), 0x123456u);
     // Clamping
-    EXPECT_EQ(Repack({256,255,255}), 0xFFFFFFu);
+    volatile unsigned q = 256u;
+    EXPECT_EQ(Repack({q,q,q}), 0xFFFFFFu);
     // Desaturating
-    EXPECT_EQ(Repack({512,0,0}), 0xFF6E6Eu);
+    volatile unsigned m = 512u;
+    EXPECT_EQ(Repack({m,0,0}), 0xFF6E6Eu);
 }
 TEST(color, mix)
 {
-    EXPECT_EQ(Mix(0x000000, 0xFFFFFF, 10,30,40), 0xBFBFBFu);
-    EXPECT_EQ(Mix(0x111111, 0xFF0000, 10,30,40), 0xC30404u);
-    EXPECT_EQ(Mix(0x111111, 0x00FF00, 10,30,40), 0x04C304u);
-    EXPECT_EQ(Mix(0x111111, 0x0000FF, 10,30,40), 0x0404C3u);
+    volatile unsigned a=10;
+    EXPECT_EQ(Mix(0x000000, 0xFFFFFF, a,30,40), 0xBFBFBFu);
+    EXPECT_EQ(Mix(0x111111, 0xFF0000, a,30,40), 0xC30404u);
+    EXPECT_EQ(Mix(0x111111, 0x00FF00, a,30,40), 0x04C304u);
+    EXPECT_EQ(Mix(0x111111, 0x0000FF, a,30,40), 0x0404C3u);
 }
 TEST(color, cmyk)
 {
-    EXPECT_EQ(cmy2rgb(0x123456),    (0xFFFFFFu - 0x123456u));
-    EXPECT_EQ(cmyk2rgb(0x12345678), 0x7D6B59u);
+    volatile unsigned r = 0x123456;
+    EXPECT_EQ(cmy2rgb(r),            (0xFFFFFFu - 0x123456u));
+    EXPECT_EQ(cmyk2rgb((r<<8)|0x78), 0x7D6B59u);
 }
 TEST(color, parsecolorname_utf8)
 {
@@ -903,6 +910,11 @@ TEST(color, parsecolorname_utf8)
     EXPECT_EQ(ParseColorName("blue"), 0x0000FFu);
     EXPECT_EQ(ParseColorName("light coral"), 0xF08080u);
     EXPECT_EQ(ParseColorName("LightCoral"), 0xF08080u);
+
+    // For coverage, do all colors
+    #define o(hash,color,...) {for(auto s: {__VA_ARGS__})ParseColorName(s); FindColor(hash);}
+    docolors(o)
+    #undef o
 }
 TEST(color, parsecolorname_char32)
 {

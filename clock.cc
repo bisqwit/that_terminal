@@ -150,4 +150,10 @@ TEST(clock, manual_time_works)
     auto diff = b-a;
     EXPECT_TRUE(diff == 100);
 }
+
+TEST(clock, terminate)
+{
+    TimeTerminate();
+    data.Terminated = false;
+}
 #endif

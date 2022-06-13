@@ -104,8 +104,9 @@ TEST(keysym, regular_keys)
     EXPECT_EQ(InterpretInput(false,false,false, SDLK_a), "");
     EXPECT_EQ(InterpretInput(true, false,false, SDLK_a), "");
     EXPECT_EQ(InterpretInput(false,false, true, SDLK_c), "\3"); // ctrl-c
-    EXPECT_EQ(InterpretInput(false,false,false, SDLK_TAB),   "\t");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_TAB),    "\t");
+    EXPECT_EQ(InterpretInput(true,false,false, SDLK_TAB),     "\033[Z");
     EXPECT_EQ(InterpretInput(false,false,false, SDLK_RETURN), "\r");
-    EXPECT_EQ(InterpretInput(false,false,false, SDLK_SPACE), " ");
+    EXPECT_EQ(InterpretInput(false,false,false, SDLK_SPACE),  " ");
 }
 #endif

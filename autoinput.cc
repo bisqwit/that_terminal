@@ -362,20 +362,22 @@ bool AutoInputActive()
 #ifdef RUN_TESTS
 TEST(AutoInput, active_should_be_false)
 {
-    ASSERT_FALSE(AutoInputActive());
+    EXPECT_FALSE(AutoInputActive());
 }
 TEST(AutoInput, works)
 {
     SetTimeFactor(0.);
     AutoInputStart("test/inputter.dat");
-    AdvanceTime(3600.0);
     unsigned num_events = 0;
+    AdvanceTime(3600);
     while(AutoInputActive())
     {
         auto resp = GetAutoInput();
         ++num_events;
     }
-    ASSERT_GE(num_events, 10000u);
-    ASSERT_LT(num_events, 150000u);
+    EXPECT_GE(num_events, 10000u);
+    EXPECT_LT(num_events, 150000u);
+    AutoInputEnd();
+    terminate = false;
 }
 #endif

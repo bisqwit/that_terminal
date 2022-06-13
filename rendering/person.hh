@@ -4,9 +4,7 @@
  * @brief Defines PersonTransform(), which renders a person animation on the screen.
  */
 
-/** PersonTransform()
- * 
- * Adds "person" animation into the given pixels
+/** Adds "person" animation into the given pixels
  *
  * @param bgcolor background color in that area
  * @param fgcolor foreground color in that area
@@ -19,5 +17,12 @@
 void PersonTransform(unsigned& bgcolor, unsigned& fgcolor,
                      unsigned width, unsigned x, unsigned y,
                      unsigned action_type);
+
+/** Retrieves timer-based person starting X coordinates for a window of given width
+ * @param window_width window width in pixels
+ * @returns X coordinate where Person would be drawn at this time
+ */
+int PersonBaseX(unsigned window_width);
+
 
 #endif

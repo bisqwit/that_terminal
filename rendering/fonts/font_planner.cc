@@ -240,6 +240,9 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
         std::vector<std::tuple<char32_t, std::size_t, unsigned,unsigned>> resize_pointers;
         for(char32_t ch = firstch; ch < firstch + numch; ++ch)
         {
+#ifdef RUN_TESTS
+            if(ch % 0x100 == 0) fprintf(stderr, "\r%.2g %%...", (ch-firstch) * 100. / numch);
+#endif
             // List all possible approximations for this symbol */
             auto choices = std::equal_range(similarities.begin(), similarities.end(), std::pair(ch,0),
                 [](const auto& pair1, const auto& pair2)
@@ -306,6 +309,11 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
                         candidate = { key.first, key.second.first, key.second.second, ilseq, score, data.first };
                     }
                 }
+            }
+
+            if(candidate.filename.empty())
+            {
+                std::fprintf(stderr, "No candidate (%zu fonts) for char 0x%X\n", fonts.size(), unsigned(ch));
             }
 
             // Append bitmap
@@ -384,7 +392,7 @@ void FontPlan::Create(unsigned width, unsigned height, char32_t firstch, char32_
         old_font_filenames.clear();
 
         {std::lock_guard<std::mutex> temp(fonts_lock); // for printing
-        std::fprintf(stderr, "For U+%04X..U+%04X Chose ", firstch,firstch+numch-1);
+        std::fprintf(stderr, "For U+%04X..U+%04X in %ux%u Chose ", firstch,firstch+numch-1, width,height);
         for(auto& f: font_filenames) fprintf(stderr, " %s", f.c_str());
         std::fprintf(stderr, "\n");}
 
@@ -448,9 +456,8 @@ void FontPlannerTick()
 }
 
 #ifdef RUN_TESTS
-TEST(font_planner, exhaustive_test)
+static void DeleteCaches()
 {
-    //return;
     {auto [path, status] = FindCacheFile("similarities.dat", true);
     // Erase this file and rebuild it
     if(std::filesystem::exists(status))
@@ -463,9 +470,31 @@ TEST(font_planner, exhaustive_test)
     {
         std::filesystem::remove(path);
     }}
-
-    std::cout << "Running font planner stress test. This will take a lot of time.\n";
-    char32_t first = 0x20;
+}
+#include <iostream>
+TEST(font_planner, exhaustive_test)
+{
+    std::cout << "Running font planner stress test. This will take a lot of time.\n" << std::flush;
+    std::cout << "- Deleting cache\n" << std::flush;
+    DeleteCaches();
+    std::cout << "- Loading fonts list\n" << std::flush;
+    GetFontsInfo();
+    std::cout << "- Building similarities\n" << std::flush;
+    GetSimilarities();
+    LoadPreferences();
+    std::cout << "- Testing 8x8, 8x12, 8x14, 8x16 parallel planning\n" << std::flush;
+    {FontPlan tmpplan1, tmpplan2, tmpplan3, tmpplan4;
+    tmpplan1.Create(8,8,  0x00, 0x400);
+    tmpplan2.Create(8,12, 0x00, 0x400);
+    tmpplan3.Create(8,14, 0x00, 0x400);
+    tmpplan4.Create(8,16, 0x00, 0x400);
+    tmpplan1.LoadGlyph(0, 0, 8);
+    tmpplan2.LoadGlyph(0, 1, 8);
+    tmpplan3.LoadGlyph(0, 2, 8);
+    tmpplan4.LoadGlyph(0, 3, 8);
+    }
+    std::cout << "- Testing 7x7 large plan.\n" << std::flush;
+    char32_t first = 0x00;
     char32_t last  = 0x20000;
     FontPlan plan;
     plan.Create(7,7, first, last-first+1); // Force some scaling

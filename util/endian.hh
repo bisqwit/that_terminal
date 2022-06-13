@@ -77,20 +77,20 @@ extern inline std::uint_fast16_t R8(const void* p)
 }
 extern inline std::uint_fast16_t R16(const void* p)
 {
-    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return *(const std::uint_least16_t*)p;
-    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return BSwap16(*(const std::uint_least16_t*)p);
-    else
+    else //LCOV_EXCL_BR_LINE
         return Read<0,1>(p);
 }
 extern inline std::uint_fast16_t R16r(const void* p)
 {
-    if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return *(const std::uint_least16_t*)p;
-    else if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return BSwap16(*(const std::uint_least16_t*)p);
-    else
+    else //LCOV_EXCL_BR_LINE
         return Read<1,0>(p);
 }
 extern inline std::uint_fast32_t R24(const void* p)
@@ -107,20 +107,20 @@ extern inline std::uint_fast32_t R24r(const void* p)
 }
 extern inline std::uint_fast32_t R32(const void* p)
 {
-    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return *(const std::uint_least32_t*)p;
-    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return BSwap32(*(const std::uint_least32_t*)p);
-    else
+    else //LCOV_EXCL_BR_LINE
         return Read<0,1,2,3>(p);
 }
 extern inline std::uint_fast32_t R32r(const void* p)
 {
-    if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return *(const std::uint_least32_t*)p;
-    else if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return BSwap32(*(const std::uint_least32_t*)p);
-    else
+    else //LCOV_EXCL_BR_LINE
         return Read<3,2,1,0>(p);
 }
 
@@ -128,20 +128,20 @@ extern inline std::uint_fast32_t R32r(const void* p)
 
 extern inline std::uint_fast64_t R64(const void* p)
 {
-    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return *(const std::uint_least64_t*)p;
-    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return BSwap64(*(const std::uint_least64_t*)p);
-    else
+    else //LCOV_EXCL_BR_LINE
         return Read<0,1,2,3,4,5,6,7>(p);
 }
 extern inline std::uint_fast64_t R64r(const void* p)
 {
-    if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return *(const std::uint_least64_t*)p;
-    else if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         return BSwap64(*(const std::uint_least64_t*)p);
-    else
+    else //LCOV_EXCL_BR_LINE
         return Read<7,6,5,4,3,2,1,0>(p);
 }
 
@@ -150,13 +150,13 @@ extern inline std::uint_fast64_t R64r(const void* p)
 extern inline std::uint_fast64_t Rn(const void* p, unsigned bytes)
 {
     const unsigned char* data = (const unsigned char*)p;
-    switch(bytes)
+    switch(bytes) //LCOV_EXCL_BR_LINE
     {
         #ifdef __GNUC__
-        default: __builtin_unreachable();
+        default: __builtin_unreachable(); //LCOV_EXCL_BR_LINE
         #else
-        case 0: return 0;
-        default: [[fallthrough]];
+        case 0: return 0; //LCOV_EXCL_BR_LINE
+        default: [[fallthrough]]; //LCOV_EXCL_BR_LINE
         #endif
         case 8: return R64(p);
         case 4: return R32(p);
@@ -176,9 +176,9 @@ extern inline void W8(void* p, std::uint_fast8_t value)
 }
 extern inline void W16(void* p, std::uint_fast16_t value)
 {
-    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         *(uint_least16_t*)p = value;
-    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         *(uint_least16_t*)p = BSwap16(value);
     else
         Write<0,1>(p, value);
@@ -191,27 +191,27 @@ extern inline void W24(void* p, std::uint_fast32_t value)
 }
 extern inline void W32(void* p, std::uint_fast32_t value)
 {
-    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         *(uint_least32_t*)p = value;
-    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         *(uint_least32_t*)p = BSwap32(value);
-    else
+    else //LCOV_EXCL_BR_LINE
         Write<0,1,2,3>(p, value);
 }
 extern inline void W64(void* p, std::uint_fast64_t value)
 {
-    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    if constexpr(LITTLE_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         *(uint_least64_t*)p = value;
-    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK)
+    else if constexpr(BIG_ENDIAN_AND_UNALIGNED_ACCESS_OK) //LCOV_EXCL_BR_LINE
         *(uint_least64_t*)p = BSwap64(value);
-    else
+    else //LCOV_EXCL_BR_LINE
         Write<0,1,2,3,4,5,6,7>(p, value);
 }
 
 extern inline void Wn(void* p, std::uint_fast64_t value, unsigned bytes)
 {
     unsigned char* data = (unsigned char*)p;
-    switch(bytes)
+    switch(bytes) //LCOV_EXCL_BR_LINE
     {
         case 8: W64(p, value); break;
         case 7: W8(data+6, value>>48); [[fallthrough]];
@@ -222,7 +222,7 @@ extern inline void Wn(void* p, std::uint_fast64_t value, unsigned bytes)
         case 2: W16(p, value); break;
         case 1: W8(p, value); break;
     #ifdef __GNUC__
-        default: __builtin_unreachable();
+        default: __builtin_unreachable(); //LCOV_EXCL_BR_LINE
     #endif
     }
 }

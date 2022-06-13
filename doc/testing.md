@@ -9,6 +9,12 @@ The application incorporates the [Google Test](https://github.com/google/googlet
 The test report can be found here:
 * [test report](test-report.txt)
 
+Summary:
+
+    [----------] Global test environment tear-down
+    [==========] 65 tests from 16 test suites ran. (140972 ms total)
+    [  PASSED  ] 65 tests.
+
 ## Coverage testing
 
 Coverage testing is performed using a GCOV.
@@ -22,3 +28,5 @@ The testing results can be found here:
 
 ## Practical testing
 
+This software is used for video making purposes by the author from time to time.
+This ensures that the software is tested while being used.

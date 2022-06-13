@@ -24,11 +24,11 @@ const constinit std::array<unsigned,256> xterm256table = []() consteval
         Make16(15,15,15), Make16(31,10,10), Make16(5,31,10), Make16(31,31,10),
         Make16(10,10,31), Make16(31,10,31), Make16(5,31,31), Make16(31,31,31)
     };
-    for(unsigned n=0; n<216; ++n)
+    for(unsigned n=0; n<216; ++n) //LCOV_EXCL_BR_LINE
     {
         result[16+n] = Make16(colorramp[(n/36)%6], colorramp[(n/6)%6], colorramp[(n)%6]);
     }
-    for(unsigned n=0; n<24; ++n)
+    for(unsigned n=0; n<24; ++n) //LCOV_EXCL_BR_LINE
     {
         result[232 + n] = Make16(grayramp[n],grayramp[n],grayramp[n]);
     }
@@ -37,11 +37,13 @@ const constinit std::array<unsigned,256> xterm256table = []() consteval
 
 
 #ifdef RUN_TESTS
-TEST(xterm256color, contains_two_blacks) {
+TEST(xterm256color, contains_two_blacks)
+{
     Make16(0,1,2);
     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0x000000));
 }
-TEST(xterm256color, contains_two_whites) {
+TEST(xterm256color, contains_two_whites)
+{
     Make16(3,4,5);
     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0xFFFFFF));
 }

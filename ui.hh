@@ -14,8 +14,8 @@ class UI
     unsigned VidCellWidth  = 8;
     unsigned VidCellHeight = 16;
     // Window geometry in cells
-    unsigned WindowWidth  = 106;
-    unsigned WindowHeight = 30;
+    unsigned WindowWidth  = 80;
+    unsigned WindowHeight = 25;
     /// Headless? Disables window creation (useless without autoinput & video recording)
     bool Headless = false;
 
@@ -84,6 +84,9 @@ public:
      * @param permit_text_input If this parameter is false, text input from keyboard is not accepted.
      */
     EventType HandleEvents(bool permit_text_input);
+
+    /** Change headless state. Note: Once a window has been opened, changing this setting does not close it. */
+    void SetHeadless(bool state) { Headless = state; }
 
 private:
     // Delete copies

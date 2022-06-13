@@ -66,11 +66,11 @@ std::pair<path, std::filesystem::file_status>
     else if(const char* user = std::getenv("USER"))
         try_path(path("/home") / path(user) / ".local/share" / pff);
 
-    try_path(path("/usr/local/share") / pff);
-    try_path(path("/usr/share")       / pff);
+    try_path(path("/usr/local/share") / pff); //LCOV_EXCL_BR_LINE
+    try_path(path("/usr/share")       / pff); //LCOV_EXCL_BR_LINE
 
     for(auto s: extra_paths)
-        try_path(path(s) / file_to_find);
+        try_path(path(s) / file_to_find); //LCOV_EXCL_BR_LINE
 
     // Default:
     return { file_to_find, std::filesystem::status(file_to_find) };
@@ -140,9 +140,9 @@ std::pair<path, std::filesystem::file_status>
     std::string uid = std::to_string(getuid());
     path pu = path("that_terminal-" + uid);
 
-    try_path(path("/run/user"),                      (std::initializer_list<path>{uid, file_to_find}) );
-    try_path(path("/run"),                           (std::initializer_list<path>{uid, file_to_find}) );
-    try_path(std::filesystem::temp_directory_path(), (std::initializer_list<path>{pu, file_to_find}) );
+    try_path(path("/run/user"),                      (std::initializer_list<path>{uid, file_to_find}) ); //LCOV_EXCL_BR_LINE
+    try_path(path("/run"),                           (std::initializer_list<path>{uid, file_to_find}) ); //LCOV_EXCL_BR_LINE
+    try_path(std::filesystem::temp_directory_path(), (std::initializer_list<path>{pu, file_to_find}) ); //LCOV_EXCL_BR_LINE
 
     return { file_to_find, std::filesystem::status(file_to_find) };
 
@@ -150,28 +150,44 @@ std::pair<path, std::filesystem::file_status>
 }
 
 #ifdef RUN_TESTS
-TEST(fileshare, sharetest)
+static void RunTests()
 {
+    // Reconstruct a plausible argv[0].
+    char Buf[4096]{};
+    getcwd(Buf, sizeof(Buf)-1);
+    strcat(Buf, "/test");
+    SaveArg0(Buf);
+
     // These tests do not actually test anything,
     // except that the program does not crash.
     // They exist for coverage purposes.
-    SaveArg0("/bin/sh");
-    FindShareFile("unicode/UnicodeData.txt", {});
+
+    FindShareFile("unicode/UnicodeData.txt", {"/usr/local/share", "/usr/share"});
     FindShareFile("notfound.txt", {"/abc"});
-    FindShareFile("notfound.txt", {"abc"});
+    FindShareFile("notfound.txt", {});
     FindCacheFile("deleteme.dat", false);
     FindCacheFile("similarities.dat", true);
     FindCacheFile("similarities.dat", false);
 
     {auto [path, status] = FindCacheFile("deleteme.dat", true);
-    if(std::filesystem::exists(status))
+    if(std::filesystem::exists(status)) //LCOV_EXCL_BR_LINE
     {
         std::filesystem::remove(path);
     }}
     {auto [path, status] = FindCacheFile("similarities.dat", true);
-    if(std::filesystem::exists(status))
+    if(std::filesystem::exists(status)) //LCOV_EXCL_BR_LINE
     {
         std::filesystem::remove(path);
     }}
+}
+TEST(fileshare, sharetest)
+{
+    RunTests();
+    static std::string home = std::string("HOME=") + getenv("HOME");
+    static std::string user = std::string("USER=") + getenv("USER");
+    putenv(const_cast<char*>("HOME")); RunTests();
+    putenv(const_cast<char*>("USER")); RunTests();
+    putenv(const_cast<char*>(home.c_str()));
+    putenv(const_cast<char*>(user.c_str()));
 }
 #endif

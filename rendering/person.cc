@@ -41,7 +41,7 @@ static double GetStartTime()
 }
 
 /** X-coordinate where the Person is */
-static int PersonBaseX(unsigned window_width)
+int PersonBaseX(unsigned window_width)
 {
     double start = GetStartTime();
     double time_elapsed = GetTime() - start;

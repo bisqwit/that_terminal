@@ -84,8 +84,10 @@ TEST(forkpty, opening_a_shell_works) // Test that opening a shell works
     ForkPTY_Init();
 
     ForkPTY pty(80,25);
+    pty.Active();
     EXPECT_NE(pty.getfd(), -1);
     pty.Close();
+    pty.Active();
 }
 TEST(forkpty, killing_a_shell_works) // Test that killing a shell works
 {
@@ -95,8 +97,10 @@ TEST(forkpty, killing_a_shell_works) // Test that killing a shell works
 
     EXPECT_NE(pty.Recv().second, -1);
     pty.Kill(SIGHUP);
+    pty.Active();
     EXPECT_EQ(pty.Recv().second, -1);
     pty.Close();
+    pty.Active();
 }
 // Test that running commands in shell works
 // This test depends on the command `stat` existing.
@@ -112,7 +116,7 @@ TEST(forkpty, running_a_command_in_shell_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
     }
     // Send a command
@@ -122,7 +126,7 @@ TEST(forkpty, running_a_command_in_shell_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
         if(in.find("Device:") != in.npos) break;
     }
@@ -136,13 +140,14 @@ TEST(forkpty, resizing_works)
     // Wait until we receive something
     auto start = t();
     pty.Send("\r");
+    pty.Active();
     pty.Resize(40,30);
     std::string in;
     while(in.empty())
     {
         auto k = pty.Recv();
         in += k.first;
-        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
     }
     // Send a command
@@ -152,10 +157,11 @@ TEST(forkpty, resizing_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        if(std::chrono::duration<double>(t()-start).count() > 2) FAIL();
+        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
         if(in.find("30 40") != in.npos) break;
     }
     pty.Close();
+    pty.Active();
 }
 #endif

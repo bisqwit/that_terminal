@@ -634,6 +634,7 @@ std::vector<std::pair<char32_t/*goal*/, char32_t/*recipe*/>> ParseSimilarities()
     auto [unipath, unistatus] = UnicodeDataFileName();
 
     if(!std::filesystem::exists(status)
+    || !std::filesystem::file_size(path)
     || (std::filesystem::exists(unipath)
      && std::filesystem::last_write_time(unipath) > std::filesystem::last_write_time(path)))
     {

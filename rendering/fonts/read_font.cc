@@ -23,6 +23,16 @@ static std::regex operator ""_r(const char* pattern, std::size_t length)
     return std::regex(pattern,length, Ropt);
 }
 
+#pragma GCC push_options
+#pragma GCC optimize ("Ofast")
+template<unsigned l>
+static bool rmatch(std::string_view str, std::smatch& mat, const std::string& line)
+{
+    static std::regex r(std::string(str), Ropt);
+    return std::regex_match(line, mat, r);
+}
+#pragma GCC pop_options
+
 /* Read a file in share/encodings/ that specifies character mapping for this encoding */
 static std::unordered_map<char32_t,char32_t> ReadEncoding(std::string_view filename)
 {
@@ -417,7 +427,7 @@ GlyphList Read_BDF(std::string_view filename, unsigned width, unsigned /*height*
     GlyphList result;
     result.unicode = false;
 
-    #define r(str) [&]{ static std::regex r{str##s, Ropt}; return regex_match(line, mat, r); }()
+    #define r(str) rmatch<__LINE__>(str##sv, mat, line)
 
     // Ignore width for variable-width fonts
     bool ignore_width = std::regex_search(std::string(filename), "monak1[246]|mona6x12|mona7x14"_r);
@@ -641,35 +651,40 @@ GlyphList Read_Font(std::filesystem::path filename, unsigned width, unsigned hei
 
 #ifdef RUN_TESTS
 // Do tests for endian.hh
-TEST(endian, bswap16) { ASSERT_EQ(BSwap16(0x1234u), 0x3412u); }
-TEST(endian, bswap32) { ASSERT_EQ(BSwap32(0x12345678u), 0x78563412u); }
-TEST(endian, bswap64) { ASSERT_EQ(BSwap64(0x12345678ABCDEF01ull), 0x01EFCDAB78563412ull); }
-TEST(endian, R8)      { ASSERT_EQ(R8("K"), 0x4Bu); }
-TEST(endian, R16)     { ASSERT_EQ(R16(" A"), 0x4120u); }
-TEST(endian, R24)     { ASSERT_EQ(R24(" AB"), 0x424120u); }
-TEST(endian, R32)     { ASSERT_EQ(R32(" ABC"), 0x43424120u); }
-TEST(endian, R64)     { ASSERT_EQ(R64(" ABC0123"), 0x3332313043424120ull); }
-TEST(endian, R16r)     { ASSERT_EQ(R16r(" A"), 0x2041u); }
-TEST(endian, R24r)     { ASSERT_EQ(R24r(" AB"), 0x204142u); }
-TEST(endian, R32r)     { ASSERT_EQ(R32r(" ABC"), 0x20414243u); }
-TEST(endian, R64r)     { ASSERT_EQ(R64r(" ABC0123"), 0x2041424330313233ull); }
+TEST(endian, bswap16) { EXPECT_EQ(BSwap16(0x1234u), 0x3412u); }
+TEST(endian, bswap32) { EXPECT_EQ(BSwap32(0x12345678u), 0x78563412u); }
+TEST(endian, bswap64) { EXPECT_EQ(BSwap64(0x12345678ABCDEF01ull), 0x01EFCDAB78563412ull); }
+TEST(endian, R8)      { EXPECT_EQ(R8("K"), 0x4Bu); }
+TEST(endian, R16)     { EXPECT_EQ(R16(" A"), 0x4120u); }
+TEST(endian, R24)     { EXPECT_EQ(R24(" AB"), 0x424120u); }
+TEST(endian, R32)     { EXPECT_EQ(R32(" ABC"), 0x43424120u); }
+TEST(endian, R64)     { EXPECT_EQ(R64(" ABC0123"), 0x3332313043424120ull); }
+TEST(endian, R16r)     { EXPECT_EQ(R16r(" A"), 0x2041u); }
+TEST(endian, R24r)     { EXPECT_EQ(R24r(" AB"), 0x204142u); }
+TEST(endian, R32r)     { EXPECT_EQ(R32r(" ABC"), 0x20414243u); }
+TEST(endian, R64r)     { EXPECT_EQ(R64r(" ABC0123"), 0x2041424330313233ull); }
 TEST(endian, Rn)       { char data[] = " ABC0123";
-                         ASSERT_EQ(Rn(data,1), 0x20u);
-                         ASSERT_EQ(Rn(data,2), 0x4120u);
-                         ASSERT_EQ(Rn(data,3), 0x424120u);
-                         ASSERT_EQ(Rn(data,4), 0x43424120u);
-                         ASSERT_EQ(Rn(data,5), 0x3043424120u);
-                         ASSERT_EQ(Rn(data,6), 0x313043424120u);
-                         ASSERT_EQ(Rn(data,7), 0x32313043424120u);
-                         ASSERT_EQ(Rn(data,8), 0x3332313043424120u); }
+                         EXPECT_EQ(Rn(data,1), 0x20u);
+                         EXPECT_EQ(Rn(data,2), 0x4120u);
+                         EXPECT_EQ(Rn(data,3), 0x424120u);
+                         EXPECT_EQ(Rn(data,4), 0x43424120u);
+                         EXPECT_EQ(Rn(data,5), 0x3043424120u);
+                         EXPECT_EQ(Rn(data,6), 0x313043424120u);
+                         EXPECT_EQ(Rn(data,7), 0x32313043424120u);
+                         EXPECT_EQ(Rn(data,8), 0x3332313043424120u); }
 TEST(endian, Wn)       { char data[] = " ABC0123";
-                         { char buf[16]{}; Wn(buf, 0x20u, 1); ASSERT_EQ(std::string(buf,1), std::string(data,1)); }
-                         { char buf[16]{}; Wn(buf, 0x4120u, 2); ASSERT_EQ(std::string(buf,2), std::string(data,2)); }
-                         { char buf[16]{}; Wn(buf, 0x424120u, 3); ASSERT_EQ(std::string(buf,3), std::string(data,3)); }
-                         { char buf[16]{}; Wn(buf, 0x43424120u, 4); ASSERT_EQ(std::string(buf,4), std::string(data,4)); }
-                         { char buf[16]{}; Wn(buf, 0x3043424120u, 5); ASSERT_EQ(std::string(buf,5), std::string(data,5)); }
-                         { char buf[16]{}; Wn(buf, 0x313043424120u, 6); ASSERT_EQ(std::string(buf,6), std::string(data,6)); }
-                         { char buf[16]{}; Wn(buf, 0x32313043424120u, 7); ASSERT_EQ(std::string(buf,7), std::string(data,7)); }
-                         { char buf[16]{}; Wn(buf, 0x3332313043424120u, 8); ASSERT_EQ(std::string(buf,8), std::string(data,8)); }
+                         { char buf[16]{}; Wn(buf, 0x20u, 1); EXPECT_EQ(std::string(buf,1), std::string(data,1)); }
+                         { char buf[16]{}; Wn(buf, 0x4120u, 2); EXPECT_EQ(std::string(buf,2), std::string(data,2)); }
+                         { char buf[16]{}; Wn(buf, 0x424120u, 3); EXPECT_EQ(std::string(buf,3), std::string(data,3)); }
+                         { char buf[16]{}; Wn(buf, 0x43424120u, 4); EXPECT_EQ(std::string(buf,4), std::string(data,4)); }
+                         { char buf[16]{}; Wn(buf, 0x3043424120u, 5); EXPECT_EQ(std::string(buf,5), std::string(data,5)); }
+                         { char buf[16]{}; Wn(buf, 0x313043424120u, 6); EXPECT_EQ(std::string(buf,6), std::string(data,6)); }
+                         { char buf[16]{}; Wn(buf, 0x32313043424120u, 7); EXPECT_EQ(std::string(buf,7), std::string(data,7)); }
+                         { char buf[16]{}; Wn(buf, 0x3332313043424120u, 8); EXPECT_EQ(std::string(buf,8), std::string(data,8)); }
                       }
+TEST(read_font, coverage)
+{
+    Read_PSFgzEncoding("share/fonts/files/iso01.f08.psf.gz");
+    Read_ASM("860-8x14.asm", 8, 14, "cp860");
+}
 #endif
