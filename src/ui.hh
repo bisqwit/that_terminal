@@ -1,5 +1,8 @@
 #ifndef bqtTermUI_HH
 #define bqtTermUI_HH
+/** @file ui.hh
+ * @brief User interface.
+ */
 
 #include <string_view>
 #include <cstdint>
@@ -8,6 +11,7 @@
 
 #include "keysym.hh"
 
+/** User interface class. */
 class UI
 {
     // Font geometry in pixels
@@ -23,7 +27,9 @@ class UI
     /// also disables reacting to window resizes.
     bool Allow_Windows_Bigger_Than_Desktop = false;
 public:
+    /** Constructor */
     UI();
+    /** Destructor */
     ~UI();
 
     /** @returns currently configured font cell size */
@@ -96,6 +102,7 @@ private:
     UI& operator=(UI&&) = delete;
 };
 
+/** UI sentinel object. */
 extern UI ui;
 
 #endif

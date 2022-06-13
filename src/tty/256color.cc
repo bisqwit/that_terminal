@@ -2,6 +2,9 @@
 #include <gtest/gtest.h>
 #include <algorithm>
 #endif
+/**@file tty/256color.cc
+ * @brief Defines xterm256table.
+ */
 
 #include "256color.hh"
 #include "color.hh"

@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file tty/terminal.cc
+ * @brief Defines TerminalWindow, the bulk of the terminal emulator. Its main purpose is to render anything that is printed by the subprocess.
+ */
 
 #include <array>
 #include <cstdio> // sprintf

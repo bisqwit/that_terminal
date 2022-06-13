@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file ui.cc
+ * @brief User interface.
+ */
 
 #include <unordered_map>
 #include <cstdlib>

@@ -3,6 +3,9 @@
 # include <algorithm>
 # include <set>
 #endif
+/** @file rendering/window.cc
+ * @brief Defines Window, a renderer and manager of screen contents.
+ */
 
 #include <unordered_map>
 #include <array>

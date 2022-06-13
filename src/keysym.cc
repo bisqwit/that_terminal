@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file keysym.cc
+ * @brief Defines InterpretInput()
+ */
 
 #include <unordered_map>
 #include <cstdio> // sprintf

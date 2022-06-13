@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/**@file autoinput.cc
+ * @brief This module provides the same functionality as INPUTTER (https://bisqwit.iki.fi/source/inputter.html)
+ */
 
 #include <mutex>
 #include <thread>

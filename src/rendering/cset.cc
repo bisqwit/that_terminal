@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file rendering/cset.cc
+ * @brief Defines TranslateCSet()
+ */
 
 #include "cset.hh"
 

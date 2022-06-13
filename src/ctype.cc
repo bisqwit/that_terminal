@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file ctype.cc
+ * @brief Functions for identifying and converting unicode characters and representation forms.
+ */
 
 #include <bitset>
 #include <algorithm>

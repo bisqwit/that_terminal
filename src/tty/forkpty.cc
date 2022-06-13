@@ -2,6 +2,9 @@
 #include <gtest/gtest.h>
 #include <chrono>
 #endif
+/** @file tty/forkpty.cc
+ * @brief Physical frontend to the underlying process (shell).
+ */
 
 #include <cstdlib>
 #include <cerrno>

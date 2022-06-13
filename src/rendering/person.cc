@@ -2,6 +2,9 @@
 # include <gtest/gtest.h>
 # include <set>
 #endif
+/** @file rendering/person.cc
+ * @brief Defines PersonTransform(), which renders a person animation on the screen.
+ */
 
 #include <cstring>
 #include "clock.hh"

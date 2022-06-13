@@ -1,8 +1,10 @@
+/** @file main.cc
+ * @brief The main program
+ */
 #include <map>
 #include <unordered_map>
 #include <thread>
 #include <atomic>
-
 #include "share.hh"
 #include "autoinput.hh"
 #include "font_planner.hh"

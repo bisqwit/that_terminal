@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file rendering/color.cc
+ * @brief Defines conversions between different color formats and parsing colors defined in strings.
+ */
 
 #include <array>
 #include <string>

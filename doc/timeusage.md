@@ -1,5 +1,6 @@
 Approximate time tracking (based on Git logs, made because of Helsinki University requirements):
 
+* 2022-06-14  5h improving coverage, some refactoring
 * 2022-06-13 10h unit tests, to satisfy HY requirements
 * 2022-06-12 14h refactoring, documentation, to satisfy HY requirements
 * 2021-12-25  1h bugfixes

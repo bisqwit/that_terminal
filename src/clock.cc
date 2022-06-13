@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/**@file clock.cc
+ * @brief Time handling interface
+ */
 
 #include <chrono>
 #include <mutex>

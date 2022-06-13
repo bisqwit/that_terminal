@@ -1,7 +1,6 @@
 #ifndef bqtKeySymHH
 #define bqtKeySymHH
 #include <string>
-
 /** @file keysym.hh
  * @brief Defines InterpretInput()
  */
