@@ -16,6 +16,7 @@ var annotated_dup =
     [ "GlyphList", "read__font_8hh.html#structGlyphList", "read__font_8hh_structGlyphList" ],
     [ "PSFheader", "structPSFheader.html", "structPSFheader" ],
     [ "TerminalWindow", "classTerminalWindow.html", "classTerminalWindow" ],
+    [ "UI", "classUI.html", "classUI" ],
     [ "UniData", "structUniData.html", "structUniData" ],
     [ "Window", "structWindow.html", "structWindow" ]
 ];

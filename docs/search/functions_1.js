@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['bdftranslatetounicode_242',['BDFtranslateToUnicode',['../read__font_8hh.html#adc4989c963f1be6c69a527521feb4ef6',1,'read_font.cc']]],
-  ['beepon_243',['BeepOn',['../beeper_8hh.html#aa0c0ba2d5da3e353b9455a174734c517',1,'beeper.cc']]]
+  ['bdftranslatetounicode_252',['BDFtranslateToUnicode',['../read__font_8hh.html#adc4989c963f1be6c69a527521feb4ef6',1,'read_font.cc']]],
+  ['beepon_253',['BeepOn',['../classUI.html#abcd79fcc79a8bcacffe23fcc9a11bac0',1,'UI']]]
 ];

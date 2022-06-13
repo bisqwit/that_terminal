@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['unidata_215',['UniData',['../structUniData.html',1,'']]]
+  ['ui_225',['UI',['../classUI.html',1,'']]],
+  ['unidata_226',['UniData',['../structUniData.html',1,'']]]
 ];

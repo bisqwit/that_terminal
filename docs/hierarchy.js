@@ -19,6 +19,7 @@ var hierarchy =
     [ "GlyphList", "read__font_8hh.html#structGlyphList", null ],
     [ "PSFheader", "structPSFheader.html", null ],
     [ "TerminalWindow", "classTerminalWindow.html", null ],
+    [ "UI", "classUI.html", null ],
     [ "UniData", "structUniData.html", null ],
     [ "Window", "structWindow.html", null ]
 ];

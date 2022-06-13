@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['escape_20codes_20supported_20by_20_3cem_3ethat_20terminal_3c_2fem_3e_396',['Escape codes supported by &lt;em&gt;that terminal&lt;/em&gt;',['../md_doc_escapes.html',1,'']]]
+  ['escape_20codes_20supported_20by_20_3cem_3ethat_20terminal_3c_2fem_3e_416',['Escape codes supported by &lt;em&gt;that terminal&lt;/em&gt;',['../md_doc_escapes.html',1,'']]]
 ];

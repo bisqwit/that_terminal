@@ -27,16 +27,16 @@ var NAVTREE =
   [ "That Terminal", "index.html", [
     [ "That terminal.", "index.html", [
       [ "Features", "index.html#autotoc_md1", null ],
-      [ "Requirements", "index.html#autotoc_md2", null ],
-      [ "What is a terminal emulator?", "index.html#autotoc_md3", [
-        [ "What is terminal emulator <em>not</em>?", "index.html#autotoc_md4", null ],
-        [ "Why is it called an “emulator”?", "index.html#autotoc_md5", null ]
+      [ "Installation instructions", "index.html#autotoc_md2", null ],
+      [ "Documentation", "index.html#autotoc_md3", null ],
+      [ "What is a terminal emulator?", "index.html#autotoc_md4", [
+        [ "What is terminal emulator <em>not</em>?", "index.html#autotoc_md5", null ],
+        [ "Why is it called an “emulator”?", "index.html#autotoc_md6", null ]
       ] ],
-      [ "What is <em>this</em> terminal emulator used for?", "index.html#autotoc_md6", [
-        [ "Why do you need a custom terminal? Why not Xterm?", "index.html#autotoc_md7", null ],
-        [ "Supported fonts", "index.html#autotoc_md8", null ]
+      [ "What is <em>this</em> terminal emulator used for?", "index.html#autotoc_md7", [
+        [ "Why do you need a custom terminal? Why not Xterm?", "index.html#autotoc_md8", null ],
+        [ "Supported fonts", "index.html#autotoc_md9", null ]
       ] ],
-      [ "Documentation", "index.html#autotoc_md9", null ],
       [ "Author", "index.html#autotoc_md10", null ]
     ] ],
     [ "Escape codes supported by <em>that terminal</em>", "md_doc_escapes.html", [
@@ -93,7 +93,8 @@ var NAVTREE =
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ]
+        [ "Typedefs", "functions_type.html", null ],
+        [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -111,7 +112,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "256color_8hh.html",
-"structCell.html#ae32e986160083d0a6ab94cad0d50af3d"
+"structCell.html#a5c8b977f39eaed4c20da6b027047724a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['log2_2ehh_229',['log2.hh',['../log2_8hh.html',1,'']]]
+  ['make_5fsimilarities_2ehh_240',['make_similarities.hh',['../make__similarities_8hh.html',1,'']]]
 ];
