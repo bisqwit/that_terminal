@@ -90,35 +90,36 @@ $(document).ready(function(){initNavTree('autoinput_8hh_source.html',''); initRe
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define bqtAutoInputHH</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;variant&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">/* Special sequences:</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *  7FFD fontsize termsize</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *      where fontsize = newfx + 32*newfy</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *            termsize = newsx + 1024*newsy</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *  7FFE delay</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *      where delay  unit is 250ms</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> *  7FFF speed</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">   19</a></span>&#160;<span class="keyword">using</span> <a class="code" href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">AutoInputResponse</a> =</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    std::variant&lt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        std::string,            <span class="comment">/* input */</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        std::array&lt;unsigned,4&gt;  <span class="comment">/* terminal resize: font size{x,y}, window size{x,y} */</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    &gt;;                          <span class="comment">/* nothing */</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> <a class="code" href="autoinput_8hh.html#a7d112aed3d9e3adabd85eeed0fd2f7f1">AutoInputStart</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">void</span> <a class="code" href="autoinput_8hh.html#a8a4b5f2de236a021843bac47bcb6d3a3">AutoInputEnd</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="autoinput_8hh.html#a07c0cac3754fbd9f487242233d15912d">AutoInputActive</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">AutoInputResponse</a> <a class="code" href="autoinput_8hh.html#a90e09a04adda8e93e740eeba66f0e4a9">GetAutoInput</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aautoinput_8hh_html_a07c0cac3754fbd9f487242233d15912d"><div class="ttname"><a href="autoinput_8hh.html#a07c0cac3754fbd9f487242233d15912d">AutoInputActive</a></div><div class="ttdeci">bool AutoInputActive()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:353</div></div>
-<div class="ttc" id="aautoinput_8hh_html_a7d112aed3d9e3adabd85eeed0fd2f7f1"><div class="ttname"><a href="autoinput_8hh.html#a7d112aed3d9e3adabd85eeed0fd2f7f1">AutoInputStart</a></div><div class="ttdeci">void AutoInputStart()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:323</div></div>
-<div class="ttc" id="aautoinput_8hh_html_a8a4b5f2de236a021843bac47bcb6d3a3"><div class="ttname"><a href="autoinput_8hh.html#a8a4b5f2de236a021843bac47bcb6d3a3">AutoInputEnd</a></div><div class="ttdeci">void AutoInputEnd()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:348</div></div>
-<div class="ttc" id="aautoinput_8hh_html_a90e09a04adda8e93e740eeba66f0e4a9"><div class="ttname"><a href="autoinput_8hh.html#a90e09a04adda8e93e740eeba66f0e4a9">GetAutoInput</a></div><div class="ttdeci">AutoInputResponse GetAutoInput()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:309</div></div>
-<div class="ttc" id="aautoinput_8hh_html_ab25f60b2775dbedba9a675d41493820a"><div class="ttname"><a href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">AutoInputResponse</a></div><div class="ttdeci">std::variant&lt; std::string, std::array&lt; unsigned, 4 &gt; &gt; AutoInputResponse</div><div class="ttdef"><b>Definition:</b> autoinput.hh:23</div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/* Special sequences:</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> *  7FFD fontsize termsize</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> *      where fontsize = newfx + 32*newfy</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> *            termsize = newsx + 1024*newsy</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> *  7FFE delay</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> *      where delay  unit is 250ms</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> *  7FFF speed</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">   20</a></span>&#160;<span class="keyword">using</span> <a class="code" href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">AutoInputResponse</a> =</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    std::variant&lt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        std::string,            <span class="comment">/* input */</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        std::array&lt;unsigned,4&gt;  <span class="comment">/* terminal resize: font size{x,y}, window size{x,y} */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    &gt;;                          <span class="comment">/* nothing */</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> <a class="code" href="autoinput_8hh.html#ad49ead23c75e79fc1c5f6e6102f6fb5e">AutoInputStart</a>(std::string_view filename);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> <a class="code" href="autoinput_8hh.html#a8a4b5f2de236a021843bac47bcb6d3a3">AutoInputEnd</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="autoinput_8hh.html#a07c0cac3754fbd9f487242233d15912d">AutoInputActive</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">AutoInputResponse</a> <a class="code" href="autoinput_8hh.html#a90e09a04adda8e93e740eeba66f0e4a9">GetAutoInput</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aautoinput_8hh_html_a07c0cac3754fbd9f487242233d15912d"><div class="ttname"><a href="autoinput_8hh.html#a07c0cac3754fbd9f487242233d15912d">AutoInputActive</a></div><div class="ttdeci">bool AutoInputActive()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:357</div></div>
+<div class="ttc" id="aautoinput_8hh_html_a8a4b5f2de236a021843bac47bcb6d3a3"><div class="ttname"><a href="autoinput_8hh.html#a8a4b5f2de236a021843bac47bcb6d3a3">AutoInputEnd</a></div><div class="ttdeci">void AutoInputEnd()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:352</div></div>
+<div class="ttc" id="aautoinput_8hh_html_a90e09a04adda8e93e740eeba66f0e4a9"><div class="ttname"><a href="autoinput_8hh.html#a90e09a04adda8e93e740eeba66f0e4a9">GetAutoInput</a></div><div class="ttdeci">AutoInputResponse GetAutoInput()</div><div class="ttdef"><b>Definition:</b> autoinput.cc:313</div></div>
+<div class="ttc" id="aautoinput_8hh_html_ab25f60b2775dbedba9a675d41493820a"><div class="ttname"><a href="autoinput_8hh.html#ab25f60b2775dbedba9a675d41493820a">AutoInputResponse</a></div><div class="ttdeci">std::variant&lt; std::string, std::array&lt; unsigned, 4 &gt; &gt; AutoInputResponse</div><div class="ttdef"><b>Definition:</b> autoinput.hh:24</div></div>
+<div class="ttc" id="aautoinput_8hh_html_ad49ead23c75e79fc1c5f6e6102f6fb5e"><div class="ttname"><a href="autoinput_8hh.html#ad49ead23c75e79fc1c5f6e6102f6fb5e">AutoInputStart</a></div><div class="ttdeci">void AutoInputStart(std::string_view filename)</div><div class="ttdef"><b>Definition:</b> autoinput.cc:327</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

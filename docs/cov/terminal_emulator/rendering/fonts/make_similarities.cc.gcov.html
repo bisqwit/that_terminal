@@ -31,18 +31,27 @@
             <td class="headerValue">main_coverage.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">210</td>
-            <td class="headerCovTableEntry">215</td>
+            <td class="headerCovTableEntry">211</td>
+            <td class="headerCovTableEntry">216</td>
             <td class="headerCovTableEntryHi">97.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-13 17:23:23</td>
+            <td class="headerValue">2022-06-14 01:47:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
             <td class="headerCovTableEntry">12</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntry">274</td>
+            <td class="headerCovTableEntry">441</td>
+            <td class="headerCovTableEntryLo">62.1 %</td>
           </tr>
           <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -58,654 +67,675 @@
     </tr>
     <tr>
       <td>
-<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="sourceHeading">           Branch data     Line data    Source code</pre>
 <pre class="source">
-<a name="1"><span class="lineNum">       1 </span>            : #include &lt;map&gt;</a>
-<a name="2"><span class="lineNum">       2 </span>            : #include &lt;regex&gt;</a>
-<a name="3"><span class="lineNum">       3 </span>            : #include &lt;string&gt;</a>
-<a name="4"><span class="lineNum">       4 </span>            : #include &lt;ranges&gt;</a>
-<a name="5"><span class="lineNum">       5 </span>            : #include &lt;fstream&gt;</a>
-<a name="6"><span class="lineNum">       6 </span>            : #include &lt;ostream&gt;</a>
-<a name="7"><span class="lineNum">       7 </span>            : #include &lt;functional&gt;</a>
-<a name="8"><span class="lineNum">       8 </span>            : #include &lt;unordered_set&gt;</a>
-<a name="9"><span class="lineNum">       9 </span>            : </a>
-<a name="10"><span class="lineNum">      10 </span>            : #include &quot;share.hh&quot;</a>
-<a name="11"><span class="lineNum">      11 </span>            : #include &quot;ctype.hh&quot;</a>
-<a name="12"><span class="lineNum">      12 </span>            : #include &quot;make_similarities.hh&quot;</a>
-<a name="13"><span class="lineNum">      13 </span>            : </a>
-<a name="14"><span class="lineNum">      14 </span>            : using namespace std::literals;</a>
-<a name="15"><span class="lineNum">      15 </span>            : </a>
-<a name="16"><span class="lineNum">      16 </span>            : static constexpr auto Ropt = std::regex_constants::ECMAScript | std::regex_constants::optimize;</a>
-<a name="17"><span class="lineNum">      17 </span>            : </a>
-<a name="18"><span class="lineNum">      18 </span><span class="lineCov">          2 : static auto UnicodeDataFileName()</span></a>
-<a name="19"><span class="lineNum">      19 </span>            : {</a>
-<a name="20"><span class="lineNum">      20 </span><span class="lineCov">          4 :     return FindShareFile(&quot;unicode/UnicodeData.txt&quot;, {&quot;/usr/local/share&quot;, &quot;/usr/share&quot;});</span></a>
-<a name="21"><span class="lineNum">      21 </span>            :     /* Try UnicodeData.txt in the following:</a>
-<a name="22"><span class="lineNum">      22 </span>            : </a>
-<a name="23"><span class="lineNum">      23 </span>            :         &lt;path&gt;/share/unicode/</a>
-<a name="24"><span class="lineNum">      24 </span>            :         &lt;home&gt;/.local/share/&lt;prog&gt;/unicode/</a>
-<a name="25"><span class="lineNum">      25 </span>            :         /usr/local/share/&lt;prog&gt;/unicode/</a>
-<a name="26"><span class="lineNum">      26 </span>            :         /usr/share/&lt;prog&gt;/unicode/</a>
-<a name="27"><span class="lineNum">      27 </span>            :         /usr/share/unicode</a>
-<a name="28"><span class="lineNum">      28 </span>            : </a>
-<a name="29"><span class="lineNum">      29 </span>            :      * Where</a>
-<a name="30"><span class="lineNum">      30 </span>            :         &lt;prog&gt; = that_terminal</a>
-<a name="31"><span class="lineNum">      31 </span>            :         &lt;path&gt; = pathname(argv[0])</a>
-<a name="32"><span class="lineNum">      32 </span>            :      */</a>
-<a name="33"><span class="lineNum">      33 </span>            : }</a>
-<a name="34"><span class="lineNum">      34 </span>            : </a>
-<a name="35"><span class="lineNum">      35 </span><span class="lineCov">      11136 : static std::string u8(char32_t code)</span></a>
-<a name="36"><span class="lineNum">      36 </span>            : {</a>
-<a name="37"><span class="lineNum">      37 </span><span class="lineCov">      11136 :     return ToUTF8(std::u32string_view(&amp;code,1));</span></a>
-<a name="38"><span class="lineNum">      38 </span>            : }</a>
-<a name="39"><span class="lineNum">      39 </span>            : </a>
-<a name="40"><span class="lineNum">      40 </span><span class="lineCov">       2524 : static std::vector&lt;std::string_view&gt; Split(std::string_view str, std::string_view delimiter)</span></a>
-<a name="41"><span class="lineNum">      41 </span>            : {</a>
-<a name="42"><span class="lineNum">      42 </span><span class="lineCov">       2524 :     std::vector&lt;std::string_view&gt; result;</span></a>
-<a name="43"><span class="lineNum">      43 </span><span class="lineCov">       2524 :     if(!str.empty())</span></a>
-<a name="44"><span class="lineNum">      44 </span><span class="lineCov">        361 :         for(std::size_t pos = 0; ; )</span></a>
-<a name="45"><span class="lineNum">      45 </span>            :         {</a>
-<a name="46"><span class="lineNum">      46 </span><span class="lineCov">       2885 :             std::size_t d = str.find(delimiter, pos);</span></a>
-<a name="47"><span class="lineNum">      47 </span><span class="lineCov">       2885 :             if(d == str.npos) { result.emplace_back(str.data()+pos, str.size()-pos); break; }</span></a>
-<a name="48"><span class="lineNum">      48 </span><span class="lineCov">        361 :             result.emplace_back(str.data()+pos, d-pos);</span></a>
-<a name="49"><span class="lineNum">      49 </span><span class="lineCov">        361 :             pos = d + delimiter.size();</span></a>
-<a name="50"><span class="lineNum">      50 </span><span class="lineCov">        361 :         }</span></a>
-<a name="51"><span class="lineNum">      51 </span><span class="lineCov">       2524 :     return result;</span></a>
-<a name="52"><span class="lineNum">      52 </span><span class="lineNoCov">          0 : }</span></a>
-<a name="53"><span class="lineNum">      53 </span>            : template&lt;typename T&gt;</a>
-<a name="54"><span class="lineNum">      54 </span><span class="lineCov">          1 : static std::string Join(const T&amp; elems, std::string_view delim)</span></a>
-<a name="55"><span class="lineNum">      55 </span>            : {</a>
-<a name="56"><span class="lineNum">      56 </span><span class="lineCov">          1 :     std::string result;</span></a>
-<a name="57"><span class="lineNum">      57 </span><span class="lineCov">         26 :     for(auto i = elems.begin(); i != elems.end(); ++i)</span></a>
-<a name="58"><span class="lineNum">      58 </span>            :     {</a>
-<a name="59"><span class="lineNum">      59 </span><span class="lineCov">         49 :         if(i != elems.begin()) result += delim;</span></a>
-<a name="60"><span class="lineNum">      60 </span><span class="lineCov">         25 :         result += *i;</span></a>
-<a name="61"><span class="lineNum">      61 </span>            :     }</a>
-<a name="62"><span class="lineNum">      62 </span><span class="lineCov">          1 :     return result;</span></a>
-<a name="63"><span class="lineNum">      63 </span><span class="lineNoCov">          0 : }</span></a>
-<a name="64"><span class="lineNum">      64 </span>            : template&lt;typename T, typename U&gt;</a>
-<a name="65"><span class="lineNum">      65 </span><span class="lineCov">        800 : static std::string Join(const std::map&lt;T,U&gt;&amp; elems, std::string_view delim)</span></a>
-<a name="66"><span class="lineNum">      66 </span>            : {</a>
-<a name="67"><span class="lineNum">      67 </span><span class="lineCov">        800 :     std::string result;</span></a>
-<a name="68"><span class="lineNum">      68 </span><span class="lineCov">       1717 :     for(auto i = elems.begin(); i != elems.end(); ++i)</span></a>
-<a name="69"><span class="lineNum">      69 </span>            :     {</a>
-<a name="70"><span class="lineNum">      70 </span><span class="lineCov">       1034 :         if(i != elems.begin()) result += delim;</span></a>
-<a name="71"><span class="lineNum">      71 </span><span class="lineCov">        917 :         result += i-&gt;second;</span></a>
-<a name="72"><span class="lineNum">      72 </span>            :     }</a>
-<a name="73"><span class="lineNum">      73 </span><span class="lineCov">        800 :     return result;</span></a>
-<a name="74"><span class="lineNum">      74 </span><span class="lineNoCov">          0 : }</span></a>
-<a name="75"><span class="lineNum">      75 </span>            : </a>
-<a name="76"><span class="lineNum">      76 </span>            : /** Contents of UniData.txt in a parsed format */</a>
-<a name="77"><span class="lineNum">      77 </span><span class="lineCov">          1 : struct UniData</span></a>
-<a name="78"><span class="lineNum">      78 </span>            : {</a>
-<a name="79"><span class="lineNum">      79 </span>            :     std::map&lt;std::string, char32_t&gt; codes; ///&lt; Translation of names into codepoints</a>
-<a name="80"><span class="lineNum">      80 </span>            :     std::map&lt;char32_t, std::string&gt; names; ///&lt; Translation of codepoints into names</a>
-<a name="81"><span class="lineNum">      81 </span>            : </a>
-<a name="82"><span class="lineNum">      82 </span>            :     /** Load from @param unipath file */</a>
-<a name="83"><span class="lineNum">      83 </span><span class="lineCov">          1 :     void Load(std::filesystem::path unipath)</span></a>
-<a name="84"><span class="lineNum">      84 </span>            :     {</a>
-<a name="85"><span class="lineNum">      85 </span><span class="lineCov">          1 :         std::regex pattern(&quot;([0-9A-F]+);([^;]+);.*&quot;, Ropt);</span></a>
-<a name="86"><span class="lineNum">      86 </span><span class="lineCov">          1 :         std::regex mathpat(&quot;(MATHEMATICAL.*) (CAPITAL|SMALL) ([A-Z])&quot;, Ropt);</span></a>
-<a name="87"><span class="lineNum">      87 </span>            : </a>
-<a name="88"><span class="lineNum">      88 </span><span class="lineCov">          1 :         std::ifstream f(unipath);</span></a>
-<a name="89"><span class="lineNum">      89 </span><span class="lineCov">      33829 :         for(std::string line; std::getline(f, line), f; )</span></a>
-<a name="90"><span class="lineNum">      90 </span><span class="lineCov">      33828 :             if(std::smatch mat; std::regex_match(line, mat, pattern))</span></a>
-<a name="91"><span class="lineNum">      91 </span>            :             {</a>
-<a name="92"><span class="lineNum">      92 </span><span class="lineCov">      33828 :                 std::string name = mat[2];</span></a>
-<a name="93"><span class="lineNum">      93 </span><span class="lineCov">      33828 :                 char32_t    code = std::stoi(mat[1], nullptr, 16);</span></a>
-<a name="94"><span class="lineNum">      94 </span>            : </a>
-<a name="95"><span class="lineNum">      95 </span>            :                 // Rename math symbols with &quot;CAPITAL L&quot; into with &quot;LATIN CAPITAL LETTER L&quot;</a>
-<a name="96"><span class="lineNum">      96 </span>            :                 // to get better matches.</a>
-<a name="97"><span class="lineNum">      97 </span><span class="lineCov">      33828 :                 if(std::regex_match(name, mat, mathpat))</span></a>
-<a name="98"><span class="lineNum">      98 </span>            :                 {</a>
-<a name="99"><span class="lineNum">      99 </span><span class="lineCov">        652 :                     name = std::string(mat[1]) + &quot; LATIN &quot; + std::string(mat[2]) + &quot; LETTER &quot; + std::string(mat[3]);</span></a>
-<a name="100"><span class="lineNum">     100 </span>            :                 }</a>
-<a name="101"><span class="lineNum">     101 </span>            : </a>
-<a name="102"><span class="lineNum">     102 </span><span class="lineCov">      33828 :                 codes[name] = code;</span></a>
-<a name="103"><span class="lineNum">     103 </span><span class="lineCov">      67656 :                 names[code] = name;</span></a>
-<a name="104"><span class="lineNum">     104 </span><span class="lineCov">      67656 :             }</span></a>
-<a name="105"><span class="lineNum">     105 </span><span class="lineCov">          1 :     }</span></a>
-<a name="106"><span class="lineNum">     106 </span>            :     /** Query whether the given name is defined.</a>
-<a name="107"><span class="lineNum">     107 </span>            :      * @param s name to search for</a>
-<a name="108"><span class="lineNum">     108 </span>            :      * @returns codepoint if known, 0 otherwise</a>
-<a name="109"><span class="lineNum">     109 </span>            :      */</a>
-<a name="110"><span class="lineNum">     110 </span><span class="lineCov">       7031 :     char32_t Has(const std::string&amp; s) const</span></a>
-<a name="111"><span class="lineNum">     111 </span>            :     {</a>
-<a name="112"><span class="lineNum">     112 </span><span class="lineCov">       7031 :         if(auto i = codes.find(s); i != codes.end()) return i-&gt;second;</span></a>
-<a name="113"><span class="lineNum">     113 </span><span class="lineCov">       1953 :         return 0;</span></a>
-<a name="114"><span class="lineNum">     114 </span>            :     }</a>
-<a name="115"><span class="lineNum">     115 </span>            :     /** Query whether the given codepoint has a name.</a>
-<a name="116"><span class="lineNum">     116 </span>            :      * @param c codepoint to search for</a>
-<a name="117"><span class="lineNum">     117 </span>            :      * @returns True if the codepoint has a known name.</a>
-<a name="118"><span class="lineNum">     118 </span>            :      */</a>
-<a name="119"><span class="lineNum">     119 </span>            :     bool Has(char32_t c) const</a>
-<a name="120"><span class="lineNum">     120 </span>            :     {</a>
-<a name="121"><span class="lineNum">     121 </span>            :         return names.find(c) != names.end();</a>
-<a name="122"><span class="lineNum">     122 </span>            :     }</a>
-<a name="123"><span class="lineNum">     123 </span>            : };</a>
-<a name="124"><span class="lineNum">     124 </span>            : </a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineCov">          1 : void MakeSimilarities(std::ostream&amp; out, std::filesystem::path unipath) // Same as old &quot;similarities.dat&quot;</span></a>
-<a name="126"><span class="lineNum">     126 </span>            : {</a>
-<a name="127"><span class="lineNum">     127 </span><span class="lineCov">          1 :     UniData d;</span></a>
-<a name="128"><span class="lineNum">     128 </span><span class="lineCov">          1 :     d.Load(unipath);</span></a>
-<a name="129"><span class="lineNum">     129 </span>            : </a>
-<a name="130"><span class="lineNum">     130 </span>            :     // Create special matching recipe for ASCII from FULLWIDTH</a>
-<a name="131"><span class="lineNum">     131 </span>            :     // Do this BEFORE the MATHEMATICAL section</a>
-<a name="132"><span class="lineNum">     132 </span>            :     // to avoid your ASCII letters looking completely silly.</a>
-<a name="133"><span class="lineNum">     133 </span><span class="lineCov">          1 :     out &lt;&lt; &quot;// If this is fullwidth font, create ASCII characters from FULLWIDTH characters\n&quot;;</span></a>
-<a name="134"><span class="lineNum">     134 </span>            : </a>
-<a name="135"><span class="lineNum">     135 </span><span class="lineCov">          1 :     std::regex fullhalf(&quot;(FULLWIDTH|HALFWIDTH) (.*)&quot;, Ropt);</span></a>
-<a name="136"><span class="lineNum">     136 </span><span class="lineCov">          1 :     char32_t tmp;</span></a>
-<a name="137"><span class="lineNum">     137 </span><span class="lineCov">      33765 :     for(auto&amp;[name,code]: d.codes)</span></a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineCov">      33992 :         if(std::smatch mat; std::regex_match(name, mat, fullhalf) &amp;&amp; (tmp = d.Has(mat[2])))</span></a>
-<a name="139"><span class="lineNum">     139 </span><span class="lineCov">      34430 :             out &lt;&lt; &quot;→ &quot; &lt;&lt; u8(tmp) &lt;&lt; u8(code) &lt;&lt; '\n';</span></a>
-<a name="140"><span class="lineNum">     140 </span>            : </a>
-<a name="141"><span class="lineNum">     141 </span><span class="lineCov">          1 :     out &lt;&lt; R&quot;(</span></a>
-<a name="142"><span class="lineNum">     142 </span>            : // Insert some manually crafted rules between pre-composed encircled or stylished letters</a>
-<a name="143"><span class="lineNum">     143 </span>            : // Do this before the MATH section may alias doublestruck R (𝕉) with regular R</a>
-<a name="144"><span class="lineNum">     144 </span>            : // when the font may in fact have doublestruck R (ℝ) in the letterlike section.</a>
-<a name="145"><span class="lineNum">     145 </span>            : = ℂ𝔺</a>
-<a name="146"><span class="lineNum">     146 </span>            : = ℊ𝒼</a>
-<a name="147"><span class="lineNum">     147 </span>            : = ℋ𝔋</a>
-<a name="148"><span class="lineNum">     148 </span>            : = ℌ𝔥</a>
-<a name="149"><span class="lineNum">     149 </span>            : = ℍ𝔿</a>
-<a name="150"><span class="lineNum">     150 </span>            : = ℎ𝑕</a>
-<a name="151"><span class="lineNum">     151 </span>            : = ℐ𝒤</a>
-<a name="152"><span class="lineNum">     152 </span>            : = ℑ𝔌</a>
-<a name="153"><span class="lineNum">     153 </span>            : = ℒ𝒧</a>
-<a name="154"><span class="lineNum">     154 </span>            : = ℓ𝓁</a>
-<a name="155"><span class="lineNum">     155 </span>            : = ℕ𝕅</a>
-<a name="156"><span class="lineNum">     156 </span>            : = ℙ𝕇</a>
-<a name="157"><span class="lineNum">     157 </span>            : = ℚ𝕈</a>
-<a name="158"><span class="lineNum">     158 </span>            : = ℛ𝒭</a>
-<a name="159"><span class="lineNum">     159 </span>            : = ℜ𝔕</a>
-<a name="160"><span class="lineNum">     160 </span>            : = ℝ𝕉</a>
-<a name="161"><span class="lineNum">     161 </span>            : = ℤ𝕑</a>
-<a name="162"><span class="lineNum">     162 </span>            : = K𝖪</a>
-<a name="163"><span class="lineNum">     163 </span>            : = ℬ𝒝</a>
-<a name="164"><span class="lineNum">     164 </span>            : = ℭ𝔆</a>
-<a name="165"><span class="lineNum">     165 </span>            : = ℮𝕖</a>
-<a name="166"><span class="lineNum">     166 </span>            : = ℯ𝑒</a>
-<a name="167"><span class="lineNum">     167 </span>            : = ℳ𝒨</a>
-<a name="168"><span class="lineNum">     168 </span>            : = ℴ𝓄</a>
-<a name="169"><span class="lineNum">     169 </span>            : = ℹ𝐢</a>
-<a name="170"><span class="lineNum">     170 </span>            : = ⅅ𝔻</a>
-<a name="171"><span class="lineNum">     171 </span>            : = ⅆ𝕕</a>
-<a name="172"><span class="lineNum">     172 </span>            : = ⅇ𝕖</a>
-<a name="173"><span class="lineNum">     173 </span>            : = ⅈ𝕚</a>
-<a name="174"><span class="lineNum">     174 </span>            : = ⅉ𝕛</a>
-<a name="175"><span class="lineNum">     175 </span>            : = ⅀𝚺</a>
-<a name="176"><span class="lineNum">     176 </span>            : = ℿ𝚷</a>
-<a name="177"><span class="lineNum">     177 </span>            : = ℾ𝚪</a>
-<a name="178"><span class="lineNum">     178 </span>            : = ℽ𝛄</a>
-<a name="179"><span class="lineNum">     179 </span>            : = ℼ𝛑</a>
-<a name="180"><span class="lineNum">     180 </span>            : = ℗Ⓟ</a>
-<a name="181"><span class="lineNum">     181 </span>            : = ©Ⓒ</a>
-<a name="182"><span class="lineNum">     182 </span>            : = ®Ⓡ</a>
-<a name="183"><span class="lineNum">     183 </span>            : </a>
-<a name="184"><span class="lineNum">     184 </span>            : // Insert equality rules between symbols that are visually completely indiscernible</a>
-<a name="185"><span class="lineNum">     185 </span>            : // First, ASCII-like characters</a>
-<a name="186"><span class="lineNum">     186 </span>            : )&quot;;</a>
-<a name="187"><span class="lineNum">     187 </span><span class="lineCov">          1 :     std::vector&lt;std::u32string_view&gt; equal_symbols{</span></a>
-<a name="188"><span class="lineNum">     188 </span>            :         UR&quot;(!ǃ)&quot;,</a>
-<a name="189"><span class="lineNum">     189 </span>            :         UR&quot;(#ⵌꖛ⌗⋕)&quot;,</a>
-<a name="190"><span class="lineNum">     190 </span>            :         UR&quot;(÷➗)&quot;,</a>
-<a name="191"><span class="lineNum">     191 </span>            :         UR&quot;(+➕ᚐ)&quot;,</a>
-<a name="192"><span class="lineNum">     192 </span>            :         UR&quot;(-−–➖)&quot;,</a>
-<a name="193"><span class="lineNum">     193 </span>            :         UR&quot;(.ꓸ)&quot;,</a>
-<a name="194"><span class="lineNum">     194 </span>            :         UR&quot;(,ꓹ)&quot;,</a>
-<a name="195"><span class="lineNum">     195 </span>            :         UR&quot;(ꓽ::׃꞉⁚ː∶։܃𝄈)&quot;,</a>
-<a name="196"><span class="lineNum">     196 </span>            :         UR&quot;(;;;ꓼ)&quot;,</a>
-<a name="197"><span class="lineNum">     197 </span>            :         UR&quot;(=ꘌ⚌゠᐀꓿)&quot;,</a>
-<a name="198"><span class="lineNum">     198 </span>            :         UR&quot;(/⟋╱⁄𝈺)&quot;,</a>
-<a name="199"><span class="lineNum">     199 </span>            :         UR&quot;(\⟍╲𝈻⧹⧵)&quot;,</a>
-<a name="200"><span class="lineNum">     200 </span>            :         UR&quot;(2շ)&quot;,</a>
-<a name="201"><span class="lineNum">     201 </span>            :         UR&quot;(3З𝟹ვ౩𝈆)&quot;,</a>
-<a name="202"><span class="lineNum">     202 </span>            :         UR&quot;(ɜзᴈ)&quot;,</a>
-<a name="203"><span class="lineNum">     203 </span>            :         UR&quot;(ƷӠ)&quot;,</a>
-<a name="204"><span class="lineNum">     204 </span>            :         UR&quot;(ʒӡ)&quot;,</a>
-<a name="205"><span class="lineNum">     205 </span>            :         UR&quot;(4Ꮞ)&quot;,</a>
-<a name="206"><span class="lineNum">     206 </span>            :         UR&quot;(8𐌚)&quot;,</a>
-<a name="207"><span class="lineNum">     207 </span>            :         UR&quot;(➊❶⓵➀①)&quot;,</a>
-<a name="208"><span class="lineNum">     208 </span>            :         UR&quot;(➋❷⓶➁②)&quot;,</a>
-<a name="209"><span class="lineNum">     209 </span>            :         UR&quot;(➌❸⓷➂③)&quot;,</a>
-<a name="210"><span class="lineNum">     210 </span>            :         UR&quot;(➍❹⓸➃④)&quot;,</a>
-<a name="211"><span class="lineNum">     211 </span>            :         UR&quot;(➎❺⓹➄⑤)&quot;,</a>
-<a name="212"><span class="lineNum">     212 </span>            :         UR&quot;(➏❻⓺➅⑥)&quot;,</a>
-<a name="213"><span class="lineNum">     213 </span>            :         UR&quot;(➐❼⓻➆⑦)&quot;,</a>
-<a name="214"><span class="lineNum">     214 </span>            :         UR&quot;(➑❽⓼➇⑧)&quot;,</a>
-<a name="215"><span class="lineNum">     215 </span>            :         UR&quot;(➒❾⓽➈⑨)&quot;,</a>
-<a name="216"><span class="lineNum">     216 </span>            :         UR&quot;(➓❿⓾➉⑩)&quot;,</a>
-<a name="217"><span class="lineNum">     217 </span>            :         UR&quot;(AΑАᎪᗅᗋ𐌀ꓐꓮ)&quot;,</a>
-<a name="218"><span class="lineNum">     218 </span>            :         UR&quot;(ĂӐᾸ)&quot;,</a>
-<a name="219"><span class="lineNum">     219 </span>            :         UR&quot;(ĀᾹ)&quot;,</a>
-<a name="220"><span class="lineNum">     220 </span>            :         UR&quot;(ÄӒ)&quot;,</a>
-<a name="221"><span class="lineNum">     221 </span>            :         UR&quot;(ÅÅ)&quot;,</a>
-<a name="222"><span class="lineNum">     222 </span>            :         UR&quot;(ÆӔ)&quot;,</a>
-<a name="223"><span class="lineNum">     223 </span>            :         UR&quot;(ʙвⲃ)&quot;,</a>
-<a name="224"><span class="lineNum">     224 </span>            :         UR&quot;(BΒВᏴⲂꕗ𐌁)&quot;,</a>
-<a name="225"><span class="lineNum">     225 </span>            :         UR&quot;(ƂБ)&quot;,</a>
-<a name="226"><span class="lineNum">     226 </span>            :         UR&quot;(ϭб)&quot;,</a>
-<a name="227"><span class="lineNum">     227 </span>            :         UR&quot;(CϹСᏟⲤⅭꓚ)&quot;,</a>
-<a name="228"><span class="lineNum">     228 </span>            :         UR&quot;(ϽƆↃꓛ)&quot;,</a>
-<a name="229"><span class="lineNum">     229 </span>            :         UR&quot;(DᎠ𐌃ᗞⅮⅮꓓ)&quot;,</a>
-<a name="230"><span class="lineNum">     230 </span>            :         UR&quot;(ꓷᗡ⫏)&quot;,</a>
-<a name="231"><span class="lineNum">     231 </span>            :         UR&quot;(EΕЕᎬⴹꗋ⋿ꓰ)&quot;,</a>
-<a name="232"><span class="lineNum">     232 </span>            :         UR&quot;(ꓱ∃Ǝⴺ)&quot;,</a>
-<a name="233"><span class="lineNum">     233 </span>            :         UR&quot;(ÈЀ)&quot;,</a>
-<a name="234"><span class="lineNum">     234 </span>            :         UR&quot;(ËЁ)&quot;,</a>
-<a name="235"><span class="lineNum">     235 </span>            :         UR&quot;(ĔӖ)&quot;,</a>
-<a name="236"><span class="lineNum">     236 </span>            :         UR&quot;(ƐԐ)&quot;,</a>
-<a name="237"><span class="lineNum">     237 </span>            :         UR&quot;(FϜ𝈓ߓᖴ𐌅ꓝ)&quot;,</a>
-<a name="238"><span class="lineNum">     238 </span>            :         UR&quot;(GᏀႺꓖ)&quot;,</a>
-<a name="239"><span class="lineNum">     239 </span>            :         UR&quot;(HΗНᎻⲎᕼꖾꓧ)&quot;,</a>
-<a name="240"><span class="lineNum">     240 </span>            :         UR&quot;(ʜнⲏ)&quot;,</a>
-<a name="241"><span class="lineNum">     241 </span>            :         UR&quot;(IΙІӀᏆⲒⅠꓲ)&quot;,</a>
-<a name="242"><span class="lineNum">     242 </span>            :         UR&quot;(ΪÏЇ)&quot;,</a>
-<a name="243"><span class="lineNum">     243 </span>            :         UR&quot;(JЈᒍلﻝᎫꓙ)&quot;,</a>
-<a name="244"><span class="lineNum">     244 </span>            :         UR&quot;(KΚКⲔᏦK𐌊ꓗ)&quot;,</a>
-<a name="245"><span class="lineNum">     245 </span>            :         UR&quot;(ḰЌ)&quot;,</a>
-<a name="246"><span class="lineNum">     246 </span>            :         UR&quot;(κᴋкⲕ)&quot;,</a>
-<a name="247"><span class="lineNum">     247 </span>            :         UR&quot;(LᏞᒪ𝈪Ⅼ˪ԼⅬԼⅬԼլꓡ)&quot;,</a>
-<a name="248"><span class="lineNum">     248 </span>            :         UR&quot;(MΜМᎷⲘϺ𐌑Ⅿꓟ)&quot;,</a>
-<a name="249"><span class="lineNum">     249 </span>            :         UR&quot;(ᴍмⲙ)&quot;,</a>
-<a name="250"><span class="lineNum">     250 </span>            :         UR&quot;(NΝⲚꓠ)&quot;,</a>
-<a name="251"><span class="lineNum">     251 </span>            :         UR&quot;(ͶИ)&quot;,</a>
-<a name="252"><span class="lineNum">     252 </span>            :         UR&quot;(ɴⲛ)&quot;,</a>
-<a name="253"><span class="lineNum">     253 </span>            :         UR&quot;(ͷи)&quot;,</a>
-<a name="254"><span class="lineNum">     254 </span>            :         UR&quot;(OΟОⲞ◯○⃝❍🌕߀ⵔՕ⚪⭕౦೦ꓳ)&quot;,</a>
-<a name="255"><span class="lineNum">     255 </span>            :         UR&quot;(ÖӦ)&quot;,</a>
-<a name="256"><span class="lineNum">     256 </span>            :         UR&quot;(ϴθѲӨƟᎾⲐ)&quot;,</a>
-<a name="257"><span class="lineNum">     257 </span>            :         UR&quot;(ΦФⲪ)&quot;,</a>
-<a name="258"><span class="lineNum">     258 </span>            :         UR&quot;(PΡРᏢⲢ𐌓ᑭ𐌛ꓑ)&quot;,</a>
-<a name="259"><span class="lineNum">     259 </span>            :         UR&quot;(ΠПⲠ)&quot;,</a>
-<a name="260"><span class="lineNum">     260 </span>            :         UR&quot;(QԚꝖႳႭⵕℚ)&quot;,</a>
-<a name="261"><span class="lineNum">     261 </span>            :         UR&quot;(RᎡ𝈖ᖇᏒꓣ)&quot;,</a>
-<a name="262"><span class="lineNum">     262 </span>            :         UR&quot;(Яᖆ)&quot;,</a>
-<a name="263"><span class="lineNum">     263 </span>            :         UR&quot;(SЅᏚՏႽꚂऽ𐒖ꕶꓢ)&quot;,</a>
-<a name="264"><span class="lineNum">     264 </span>            :         UR&quot;(ΣƩ∑⅀Ʃⵉ)&quot;,</a>
-<a name="265"><span class="lineNum">     265 </span>            :         UR&quot;(TΤТᎢⲦ⊤⟙ꔋ𝍮🝨⏉ߠꓔ)&quot;,</a>
-<a name="266"><span class="lineNum">     266 </span>            :         UR&quot;(U⋃ᑌ∪ՍՍꓴ)&quot;,</a>
-<a name="267"><span class="lineNum">     267 </span>            :         UR&quot;(VᏙᐯⴸ⋁𝈍ⅤⅤꓦ)&quot;,</a>
-<a name="268"><span class="lineNum">     268 </span>            :         UR&quot;(WԜᎳꓪ)&quot;,</a>
-<a name="269"><span class="lineNum">     269 </span>            :         UR&quot;(XΧХⲬ╳ⵝ𐌢Ⅹ𐌗Ⅹꓫ)&quot;,</a>
-<a name="270"><span class="lineNum">     270 </span>            :         UR&quot;(YΥҮⲨꓬ)&quot;,</a>
-<a name="271"><span class="lineNum">     271 </span>            :         UR&quot;(ΫŸ)&quot;,</a>
-<a name="272"><span class="lineNum">     272 </span>            :         UR&quot;(ZΖᏃⲌꓜ)&quot;,</a>
-<a name="273"><span class="lineNum">     273 </span>            :         UR&quot;(aа)&quot;,</a>
-<a name="274"><span class="lineNum">     274 </span>            :         UR&quot;(äӓ)&quot;,</a>
-<a name="275"><span class="lineNum">     275 </span>            :         UR&quot;(ăӑ)&quot;,</a>
-<a name="276"><span class="lineNum">     276 </span>            :         UR&quot;(æӕ)&quot;,</a>
-<a name="277"><span class="lineNum">     277 </span>            :         UR&quot;(əә)&quot;,</a>
-<a name="278"><span class="lineNum">     278 </span>            :         UR&quot;(ЬᏏ)&quot;,</a>
-<a name="279"><span class="lineNum">     279 </span>            :         UR&quot;(cϲсⲥⅽ)&quot;,</a>
-<a name="280"><span class="lineNum">     280 </span>            :         UR&quot;(ͻɔᴐↄ)&quot;,</a>
-<a name="281"><span class="lineNum">     281 </span>            :         UR&quot;(dⅾ)&quot;,</a>
-<a name="282"><span class="lineNum">     282 </span>            :         UR&quot;(eе)&quot;,</a>
-<a name="283"><span class="lineNum">     283 </span>            :         UR&quot;(ĕӗ)&quot;,</a>
-<a name="284"><span class="lineNum">     284 </span>            :         UR&quot;(ϵє)&quot;,</a>
-<a name="285"><span class="lineNum">     285 </span>            :         UR&quot;(ɛԑ)&quot;,</a>
-<a name="286"><span class="lineNum">     286 </span>            :         UR&quot;(gց)&quot;,</a>
-<a name="287"><span class="lineNum">     287 </span>            :         UR&quot;(гᴦⲅ)&quot;,</a>
-<a name="288"><span class="lineNum">     288 </span>            :         UR&quot;(iіⅰ)&quot;,</a>
-<a name="289"><span class="lineNum">     289 </span>            :         UR&quot;(ïї)&quot;,</a>
-<a name="290"><span class="lineNum">     290 </span>            :         UR&quot;(jϳј)&quot;,</a>
-<a name="291"><span class="lineNum">     291 </span>            :         UR&quot;(lⅼ)&quot;,</a>
-<a name="292"><span class="lineNum">     292 </span>            :         UR&quot;(ιɩ)&quot;,</a>
-<a name="293"><span class="lineNum">     293 </span>            :         UR&quot;(mⅿ)&quot;,</a>
-<a name="294"><span class="lineNum">     294 </span>            :         UR&quot;(ʌᴧ)&quot;,</a>
-<a name="295"><span class="lineNum">     295 </span>            :         UR&quot;(oοоסᴏⲟօ૦௦ഠ๐໐໐)&quot;,</a>
-<a name="296"><span class="lineNum">     296 </span>            :         UR&quot;(òὸ)&quot;,</a>
-<a name="297"><span class="lineNum">     297 </span>            :         UR&quot;(óό)&quot;,</a>
-<a name="298"><span class="lineNum">     298 </span>            :         UR&quot;(öӧ)&quot;,</a>
-<a name="299"><span class="lineNum">     299 </span>            :         UR&quot;(ɵөⲑ)&quot;,</a>
-<a name="300"><span class="lineNum">     300 </span>            :         UR&quot;(фⲫ)&quot;,</a>
-<a name="301"><span class="lineNum">     301 </span>            :         UR&quot;(pρрⲣ)&quot;,</a>
-<a name="302"><span class="lineNum">     302 </span>            :         UR&quot;(πпᴨⲡ)&quot;,</a>
-<a name="303"><span class="lineNum">     303 </span>            :         UR&quot;(яᴙ)&quot;,</a>
-<a name="304"><span class="lineNum">     304 </span>            :         UR&quot;(qԛ)&quot;,</a>
-<a name="305"><span class="lineNum">     305 </span>            :         UR&quot;(sѕ)&quot;,</a>
-<a name="306"><span class="lineNum">     306 </span>            :         UR&quot;(uս)&quot;,</a>
-<a name="307"><span class="lineNum">     307 </span>            :         UR&quot;(vᴠݍⅴ)&quot;,</a>
-<a name="308"><span class="lineNum">     308 </span>            :         UR&quot;(xⅹ)&quot;,</a>
-<a name="309"><span class="lineNum">     309 </span>            :         UR&quot;(yу)&quot;,</a>
-<a name="310"><span class="lineNum">     310 </span>            :         UR&quot;(~῀)&quot;,</a>
-<a name="311"><span class="lineNum">     311 </span>            :         UR&quot;(··•∙⋅・)&quot;,</a>
-<a name="312"><span class="lineNum">     312 </span>            :         UR&quot;(ᴛтⲧ)&quot;,</a>
-<a name="313"><span class="lineNum">     313 </span>            :         UR&quot;(૰。࿁)&quot;,</a>
-<a name="314"><span class="lineNum">     314 </span>            :         UR&quot;(ᐃ△🜂∆ΔᐃⵠΔꕔ)&quot;,</a>
-<a name="315"><span class="lineNum">     315 </span>            :         UR&quot;(ᐊᐊ◁⊲)&quot;,</a>
-<a name="316"><span class="lineNum">     316 </span>            :         UR&quot;(ᐁ▽🜄⛛∇ᐁ𝈔)&quot;,</a>
-<a name="317"><span class="lineNum">     317 </span>            :         UR&quot;(ᐅ▷⊳▻)&quot;,</a>
-<a name="318"><span class="lineNum">     318 </span>            :         UR&quot;(ᐱΛ𐤂⋀ⴷ𐌡Ʌ)&quot;,</a>
-<a name="319"><span class="lineNum">     319 </span>            :         UR&quot;(ᑎႶ⋂Ո∩𝉅ꓵ)&quot;,</a>
-<a name="320"><span class="lineNum">     320 </span>            :         UR&quot;(⨆∐ⵡ𝈈)&quot;,</a>
-<a name="321"><span class="lineNum">     321 </span>            :         UR&quot;(∏⨅ПΠ⊓)&quot;,</a>
-<a name="322"><span class="lineNum">     322 </span>            :         UR&quot;(⊏ⵎ𝈸)&quot;,</a>
-<a name="323"><span class="lineNum">     323 </span>            :         UR&quot;(コ⊐ߏ𝈹)&quot;,</a>
-<a name="324"><span class="lineNum">     324 </span>            :         UR&quot;(⎕□☐⬜◻▢⃞❑❒❐❏⧠⃢⌷ロ)&quot;,</a>
-<a name="325"><span class="lineNum">     325 </span>            :         UR&quot;(⛝⌧🝱)&quot;,</a>
-<a name="326"><span class="lineNum">     326 </span>            :         UR&quot;( 　         )&quot;</a>
-<a name="327"><span class="lineNum">     327 </span><span class="lineCov">          1 :     };</span></a>
-<a name="328"><span class="lineNum">     328 </span><span class="lineCov">        140 :     for(auto w: equal_symbols)</span></a>
-<a name="329"><span class="lineNum">     329 </span><span class="lineCov">        278 :         out &lt;&lt; &quot;= &quot; &lt;&lt; ToUTF8(w) &lt;&lt; '\n';</span></a>
-<a name="330"><span class="lineNum">     330 </span>            : </a>
-<a name="331"><span class="lineNum">     331 </span><span class="lineCov">          1 :     out &lt;&lt; &quot;\n// Create similarity rules between modified stylished symbols\n&quot;;</span></a>
-<a name="332"><span class="lineNum">     332 </span><span class="lineCov">          1 :     if(1)</span></a>
-<a name="333"><span class="lineNum">     333 </span>            :     {</a>
-<a name="334"><span class="lineNum">     334 </span><span class="lineCov">          1 :         std::initializer_list&lt;std::string_view&gt; words</span></a>
-<a name="335"><span class="lineNum">     335 </span>            :         {</a>
-<a name="336"><span class="lineNum">     336 </span>            :             &quot;BLACK&quot;,</a>
-<a name="337"><span class="lineNum">     337 </span>            :             &quot;HEAVY&quot;,</a>
-<a name="338"><span class="lineNum">     338 </span>            :             &quot;FULLWIDTH&quot;,</a>
-<a name="339"><span class="lineNum">     339 </span>            :             &quot;MATHEMATICAL BOLD&quot;,                  // 1D400,1D41A</a>
-<a name="340"><span class="lineNum">     340 </span>            :             &quot;MATHEMATICAL SANS-SERIF BOLD&quot;,       // 1D5D4,1D5EE</a>
-<a name="341"><span class="lineNum">     341 </span>            :             &quot;MATHEMATICAL SANS-SERIF BOLD ITALIC&quot;,// 1D63C,1D656</a>
-<a name="342"><span class="lineNum">     342 </span>            :             &quot;MATHEMATICAL BOLD ITALIC&quot;,           // 1D468,1D482</a>
-<a name="343"><span class="lineNum">     343 </span>            :             &quot;MATHEMATICAL ITALIC&quot;,                // 1D434,1D44E</a>
-<a name="344"><span class="lineNum">     344 </span>            :             &quot;MATHEMATICAL SANS-SERIF ITALIC&quot;,     // 1D608,1D622</a>
-<a name="345"><span class="lineNum">     345 </span>            :             &quot;&quot;,                                   // no modifier.</a>
-<a name="346"><span class="lineNum">     346 </span>            :             &quot;MATHEMATICAL SANS-SERIF&quot;,            // 1D5A0,1D5BA</a>
-<a name="347"><span class="lineNum">     347 </span>            :             &quot;MATHEMATICAL SCRIPT&quot;,                // 1D49C,1D4B6</a>
-<a name="348"><span class="lineNum">     348 </span>            :             &quot;MATHEMATICAL BOLD SCRIPT&quot;,           // 1D4D0,1D4EA</a>
-<a name="349"><span class="lineNum">     349 </span>            :             &quot;MATHEMATICAL FRAKTUR&quot;,               // 1D504,1D51E</a>
-<a name="350"><span class="lineNum">     350 </span>            :             &quot;MATHEMATICAL BOLD FRAKTUR&quot;,          // 1D56C,1D586</a>
-<a name="351"><span class="lineNum">     351 </span>            :             &quot;MATHEMATICAL DOUBLE-STRUCK&quot;,         // 1D538,1D552</a>
-<a name="352"><span class="lineNum">     352 </span>            :             &quot;MATHEMATICAL MONOSPACE&quot;,             // 1D670,1D68A</a>
-<a name="353"><span class="lineNum">     353 </span>            :             &quot;MATHEMATICAL&quot;,</a>
-<a name="354"><span class="lineNum">     354 </span>            :             &quot;WHITE&quot;,</a>
-<a name="355"><span class="lineNum">     355 </span>            :             &quot;LIGHT&quot;,</a>
-<a name="356"><span class="lineNum">     356 </span>            :             &quot;HALFWIDTH&quot;,</a>
-<a name="357"><span class="lineNum">     357 </span>            :             &quot;SMALL&quot;,</a>
-<a name="358"><span class="lineNum">     358 </span>            :             &quot;PARENTHESIZED&quot;,</a>
-<a name="359"><span class="lineNum">     359 </span>            :             &quot;CIRCLED&quot;,</a>
-<a name="360"><span class="lineNum">     360 </span>            :             &quot;TAG&quot;</a>
-<a name="361"><span class="lineNum">     361 </span><span class="lineCov">          1 :         };</span></a>
-<a name="362"><span class="lineNum">     362 </span><span class="lineCov">          2 :         std::regex word_style_pat(&quot;(&quot; + Join(words, &quot;|&quot;) + &quot;) (.*)&quot;, Ropt);</span></a>
-<a name="363"><span class="lineNum">     363 </span><span class="lineCov">          1 :         std::map&lt;std::string, std::map&lt;std::string, char32_t&gt;&gt; symbols;</span></a>
-<a name="364"><span class="lineNum">     364 </span><span class="lineCov">      33765 :         for(const auto&amp; [name,code]: d.codes)</span></a>
-<a name="365"><span class="lineNum">     365 </span>            :         {</a>
-<a name="366"><span class="lineNum">     366 </span><span class="lineCov">      33764 :             symbols[name][&quot;&quot;] = code;</span></a>
-<a name="367"><span class="lineNum">     367 </span><span class="lineCov">      33764 :             if(std::smatch mat; std::regex_match(name, mat, word_style_pat))</span></a>
-<a name="368"><span class="lineNum">     368 </span><span class="lineCov">      36006 :                 symbols[mat[2]][mat[1]] = code;</span></a>
-<a name="369"><span class="lineNum">     369 </span>            :         }</a>
-<a name="370"><span class="lineNum">     370 </span><span class="lineCov">      34510 :         for(auto&amp;&amp; [basename,group]: symbols)</span></a>
-<a name="371"><span class="lineNum">     371 </span><span class="lineCov">      34509 :             if(group.size() &gt; 1)</span></a>
-<a name="372"><span class="lineNum">     372 </span>            :             {</a>
-<a name="373"><span class="lineNum">     373 </span><span class="lineCov">        679 :                 out &lt;&lt; &quot;◆ &quot;;</span></a>
-<a name="374"><span class="lineNum">     374 </span><span class="lineCov">      17654 :                 for(auto w: words)</span></a>
-<a name="375"><span class="lineNum">     375 </span><span class="lineCov">      33950 :                     if(auto i = group.find(std::string(w)); i != group.end())</span></a>
-<a name="376"><span class="lineNum">     376 </span><span class="lineCov">       4352 :                         out &lt;&lt; u8(i-&gt;second);</span></a>
-<a name="377"><span class="lineNum">     377 </span><span class="lineCov">        679 :                 out &lt;&lt; '\n';</span></a>
-<a name="378"><span class="lineNum">     378 </span>            :             }</a>
-<a name="379"><span class="lineNum">     379 </span><span class="lineCov">          1 :     }</span></a>
-<a name="380"><span class="lineNum">     380 </span>            : </a>
-<a name="381"><span class="lineNum">     381 </span>            :     // Convert the equal-symbols list into a searchable one</a>
-<a name="382"><span class="lineNum">     382 </span><span class="lineCov">          1 :     std::map&lt;char32_t, std::vector&lt;char32_t&gt;&gt; equal_with;</span></a>
-<a name="383"><span class="lineNum">     383 </span><span class="lineCov">        140 :     for(auto w: equal_symbols)</span></a>
-<a name="384"><span class="lineNum">     384 </span><span class="lineCov">        749 :         for(char32_t code:  w)</span></a>
-<a name="385"><span class="lineNum">     385 </span><span class="lineCov">       4544 :         for(char32_t code2: w)</span></a>
-<a name="386"><span class="lineNum">     386 </span><span class="lineCov">       3934 :             if(code != code2)</span></a>
-<a name="387"><span class="lineNum">     387 </span><span class="lineCov">       3288 :                 equal_with[code].push_back(code2);</span></a>
-<a name="388"><span class="lineNum">     388 </span><span class="lineCov">        593 :     for(auto&amp; w: equal_with)</span></a>
-<a name="389"><span class="lineNum">     389 </span>            :     {</a>
-<a name="390"><span class="lineNum">     390 </span><span class="lineCov">        592 :         std::sort(w.second.begin(), w.second.end());</span></a>
-<a name="391"><span class="lineNum">     391 </span><span class="lineCov">        592 :         w.second.erase(std::unique(w.second.begin(), w.second.end()), w.second.end());</span></a>
-<a name="392"><span class="lineNum">     392 </span>            :     }</a>
-<a name="393"><span class="lineNum">     393 </span>            : </a>
-<a name="394"><span class="lineNum">     394 </span><span class="lineCov">          1 :     out &lt;&lt; &quot;// Then go through all symbols that are “WITH” something.\n&quot;</span></a>
-<a name="395"><span class="lineNum">     395 </span>            :            &quot;// As a general rule, try to compose things that have more “WITHs”\n&quot;</a>
-<a name="396"><span class="lineNum">     396 </span><span class="lineCov">          1 :            &quot;// from things that have less “WITHs”.\n&quot;;</span></a>
-<a name="397"><span class="lineNum">     397 </span>            : </a>
-<a name="398"><span class="lineNum">     398 </span><span class="lineCov">          1 :     std::map&lt;std::string, std::map&lt;std::string, std::size_t&gt;&gt; with_lists;</span></a>
-<a name="399"><span class="lineNum">     399 </span><span class="lineCov">          1 :     std::regex with_match(&quot;(.*) WITH (.*)&quot;, Ropt);</span></a>
-<a name="400"><span class="lineNum">     400 </span><span class="lineCov">      33765 :     for(const auto&amp; [name,code]: d.codes)</span></a>
-<a name="401"><span class="lineNum">     401 </span><span class="lineCov">      33764 :         if(std::smatch mat; std::regex_match(name, mat, with_match))</span></a>
-<a name="402"><span class="lineNum">     402 </span>            :         {</a>
-<a name="403"><span class="lineNum">     403 </span><span class="lineCov">       2524 :             std::string base = mat[1];</span></a>
-<a name="404"><span class="lineNum">     404 </span><span class="lineCov">       2524 :             std::string full = mat[2];</span></a>
-<a name="405"><span class="lineNum">     405 </span><span class="lineCov">       2524 :             std::vector&lt;std::string_view&gt; attrs = Split(full, &quot; AND &quot;);</span></a>
-<a name="406"><span class="lineNum">     406 </span><span class="lineCov">       2524 :             std::size_t len = attrs.size();</span></a>
-<a name="407"><span class="lineNum">     407 </span><span class="lineCov">       2524 :             auto&amp; wl = with_lists[&quot; WITH &quot; + full];</span></a>
-<a name="408"><span class="lineNum">     408 </span><span class="lineCov">       2524 :             wl[&quot;&quot;] = 0;</span></a>
-<a name="409"><span class="lineNum">     409 </span><span class="lineCov">       2885 :             for(std::size_t n = len; --n &gt; 0; )</span></a>
-<a name="410"><span class="lineNum">     410 </span>            :             {</a>
-<a name="411"><span class="lineNum">     411 </span><span class="lineCov">        361 :                 std::map&lt;std::size_t, std::string_view&gt; pick;</span></a>
-<a name="412"><span class="lineNum">     412 </span><span class="lineCov">        839 :                 std::function&lt;void(std::size_t,std::size_t)&gt; Do = [&amp;](std::size_t index, std::size_t start)</span></a>
-<a name="413"><span class="lineNum">     413 </span>            :                 {</a>
-<a name="414"><span class="lineNum">     414 </span><span class="lineCov">       1395 :                     for(std::size_t a=start; a&lt;len; ++a)</span></a>
-<a name="415"><span class="lineNum">     415 </span>            :                     {</a>
-<a name="416"><span class="lineNum">     416 </span><span class="lineCov">        917 :                         pick[index] = attrs[a];</span></a>
-<a name="417"><span class="lineNum">     417 </span><span class="lineCov">        917 :                         if(index+1 == n)</span></a>
-<a name="418"><span class="lineNum">     418 </span>            :                         {</a>
-<a name="419"><span class="lineNum">     419 </span><span class="lineCov">        800 :                             wl[&quot; WITH &quot; + /*partial*/Join(pick, &quot; AND &quot;)] = pick.size();</span></a>
-<a name="420"><span class="lineNum">     420 </span>            :                             //print &quot;try make $partial from $full for $name for $base\n&quot;;</a>
-<a name="421"><span class="lineNum">     421 </span>            :                         }</a>
-<a name="422"><span class="lineNum">     422 </span>            :                         else</a>
-<a name="423"><span class="lineNum">     423 </span><span class="lineCov">        117 :                             Do(index+1, a+1);</span></a>
-<a name="424"><span class="lineNum">     424 </span>            :                     }</a>
-<a name="425"><span class="lineNum">     425 </span><span class="lineCov">        839 :                 };</span></a>
-<a name="426"><span class="lineNum">     426 </span><span class="lineCov">        361 :                 Do(0, 0);</span></a>
-<a name="427"><span class="lineNum">     427 </span><span class="lineCov">        361 :             }</span></a>
-<a name="428"><span class="lineNum">     428 </span><span class="lineCov">      36288 :         }</span></a>
-<a name="429"><span class="lineNum">     429 </span><span class="lineCov">          3 :     for(auto operation: std::initializer_list&lt;std::string_view&gt;{&quot;→ &quot;, &quot;← &quot;})</span></a>
-<a name="430"><span class="lineNum">     430 </span><span class="lineCov">       1268 :         for(auto&amp; [full_with, p]: with_lists)</span></a>
-<a name="431"><span class="lineNum">     431 </span>            :         {</a>
-<a name="432"><span class="lineNum">     432 </span><span class="lineCov">       1266 :             std::vector&lt;std::pair&lt;std::string,std::size_t&gt;&gt; partial_list(p.begin(), p.end());</span></a>
-<a name="433"><span class="lineNum">     433 </span>            :             // Sort in descending order according to the score (second item)</a>
-<a name="434"><span class="lineNum">     434 </span><span class="lineCov">       1266 :             std::sort(partial_list.begin(), partial_list.end(),</span></a>
-<a name="435"><span class="lineNum">     435 </span><span class="lineCov">       1328 :                 [](const auto&amp; a, const auto&amp; b) { return b.second &gt; a.second; });</span></a>
-<a name="436"><span class="lineNum">     436 </span>            :             // Find all symbols that have this &quot;full with&quot; list.</a>
-<a name="437"><span class="lineNum">     437 </span><span class="lineCov">       2532 :             std::regex pat(&quot;(.*)&quot; + full_with, Ropt);</span></a>
-<a name="438"><span class="lineNum">     438 </span><span class="lineCov">   42746490 :             for(auto&amp; [name,code]: d.codes)</span></a>
-<a name="439"><span class="lineNum">     439 </span><span class="lineCov">   42745224 :                 if(name.size() &gt;= full_with.size() &amp;&amp; name.compare(name.size()-full_with.size(), full_with.size(), full_with) == 0)</span></a>
-<a name="440"><span class="lineNum">     440 </span>            :                 {</a>
-<a name="441"><span class="lineNum">     441 </span><span class="lineCov">       5048 :                     std::string_view mat1(name.data(), name.size()-full_with.size());</span></a>
-<a name="442"><span class="lineNum">     442 </span><span class="lineCov">       5048 :                     std::vector&lt;std::tuple&lt;char32_t, std::string_view, std::string_view&gt;&gt; rep_list, sub_list;</span></a>
-<a name="443"><span class="lineNum">     443 </span><span class="lineCov">       5048 :                     rep_list.emplace_back(code, name, mat1);</span></a>
-<a name="444"><span class="lineNum">     444 </span><span class="lineCov">       5048 :                     if(auto i = equal_with.find(code); i != equal_with.end())</span></a>
-<a name="445"><span class="lineNum">     445 </span><span class="lineCov">        234 :                         for(auto code2: i-&gt;second)</span></a>
-<a name="446"><span class="lineNum">     446 </span>            :                         {</a>
-<a name="447"><span class="lineNum">     447 </span><span class="lineCov">        158 :                             const auto&amp; name2 = d.names[code2];</span></a>
-<a name="448"><span class="lineNum">     448 </span><span class="lineCov">        158 :                             std::smatch mat2;</span></a>
-<a name="449"><span class="lineNum">     449 </span><span class="lineCov">        158 :                             std::regex_match(name2, mat2, with_match); // (.*) WITH.*</span></a>
-<a name="450"><span class="lineNum">     450 </span><span class="lineCov">        158 :                             rep_list.emplace_back(code2, name2, std::string_view(&amp;*mat2[1].first, mat2[1].second-mat2[1].first));</span></a>
-<a name="451"><span class="lineNum">     451 </span><span class="lineCov">        158 :                         }</span></a>
-<a name="452"><span class="lineNum">     452 </span><span class="lineCov">      11696 :                     for(auto&amp; [partial_with,dummy]: partial_list)</span></a>
-<a name="453"><span class="lineNum">     453 </span><span class="lineCov">      13454 :                         for(auto&amp; rep: rep_list)</span></a>
-<a name="454"><span class="lineNum">     454 </span>            :                         {</a>
-<a name="455"><span class="lineNum">     455 </span><span class="lineCov">       6806 :                             std::string sub_name{std::get&lt;2&gt;(rep)};</span></a>
-<a name="456"><span class="lineNum">     456 </span><span class="lineCov">       6806 :                             sub_name += partial_with;</span></a>
-<a name="457"><span class="lineNum">     457 </span>            :                             //print &quot;can we find $sub_name?\n&quot;;</a>
-<a name="458"><span class="lineNum">     458 </span><span class="lineCov">       6806 :                             if(auto code2 = d.Has(sub_name); code2)</span></a>
-<a name="459"><span class="lineNum">     459 </span><span class="lineCov">       4856 :                                 sub_list.emplace_back(code2, sub_name, sub_name);</span></a>
-<a name="460"><span class="lineNum">     460 </span><span class="lineCov">       6806 :                         }</span></a>
-<a name="461"><span class="lineNum">     461 </span><span class="lineCov">       9904 :                     for(auto&amp;&amp; sub: sub_list) rep_list.push_back(std::move(sub));</span></a>
-<a name="462"><span class="lineNum">     462 </span><span class="lineCov">       5048 :                     if(rep_list.size() &gt; 1)</span></a>
-<a name="463"><span class="lineNum">     463 </span>            :                     {</a>
-<a name="464"><span class="lineNum">     464 </span><span class="lineCov">       3502 :                         out &lt;&lt; operation;</span></a>
-<a name="465"><span class="lineNum">     465 </span><span class="lineCov">      12018 :                         for(auto&amp; rep: rep_list) out &lt;&lt; u8(std::get&lt;0&gt;(rep));</span></a>
-<a name="466"><span class="lineNum">     466 </span><span class="lineCov">       3502 :                         out &lt;&lt; '\n';</span></a>
-<a name="467"><span class="lineNum">     467 </span>            :                     }</a>
-<a name="468"><span class="lineNum">     468 </span><span class="lineCov">       5048 :                 }</span></a>
-<a name="469"><span class="lineNum">     469 </span><span class="lineCov">       1266 :         }</span></a>
-<a name="470"><span class="lineNum">     470 </span>            : </a>
-<a name="471"><span class="lineNum">     471 </span><span class="lineCov">          1 :     out &lt;&lt; R&quot;(</span></a>
-<a name="472"><span class="lineNum">     472 </span>            : // Some symbols that act as last resort…</a>
-<a name="473"><span class="lineNum">     473 </span>            : = Ⅱ║∥‖ǁ𝄁</a>
-<a name="474"><span class="lineNum">     474 </span>            : = Ⅲ⫴⦀⫼𝍫ꔖ</a>
-<a name="475"><span class="lineNum">     475 </span>            : = -‐‑–—−－‒―➖─━一╴╶╸╺╼╾╼╾</a>
-<a name="476"><span class="lineNum">     476 </span>            : = ┄┅⋯┈┉╌╍</a>
-<a name="477"><span class="lineNum">     477 </span>            : = ╎╏¦</a>
-<a name="478"><span class="lineNum">     478 </span>            : = │┃|╿╽</a>
-<a name="479"><span class="lineNum">     479 </span>            : = ═＝꓿</a>
-<a name="480"><span class="lineNum">     480 </span>            : = ~⁓～</a>
-<a name="481"><span class="lineNum">     481 </span>            : = &lt;く𐌂ᐸᑉ</a>
-<a name="482"><span class="lineNum">     482 </span>            : = ┌┍┎┏╭╒╓╔гᴦⲅ</a>
-<a name="483"><span class="lineNum">     483 </span>            : = ┐┑┒┓╮╕╖╗</a>
-<a name="484"><span class="lineNum">     484 </span>            : = └┕┖┗╰╘╙╚˪լ</a>
-<a name="485"><span class="lineNum">     485 </span>            : = ┘┙┚┛╯╛╜╝</a>
-<a name="486"><span class="lineNum">     486 </span>            : = ┬┭┮┯┰┱┲┳╤╥╦⊤</a>
-<a name="487"><span class="lineNum">     487 </span>            : = ┴┵┶┷┸┹┺┻╧╨╩</a>
-<a name="488"><span class="lineNum">     488 </span>            : = ├┝┞┟┠┡┢┣߅╞╟╠</a>
-<a name="489"><span class="lineNum">     489 </span>            : = ┤┥┦┧┨┩┪┫╡╢╣</a>
-<a name="490"><span class="lineNum">     490 </span>            : = ┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╪╫╬</a>
-<a name="491"><span class="lineNum">     491 </span>            : = ▉⬛██▉▇</a>
-<a name="492"><span class="lineNum">     492 </span>            : → ガカ</a>
-<a name="493"><span class="lineNum">     493 </span>            : → グク</a>
-<a name="494"><span class="lineNum">     494 </span>            : → ギキ</a>
-<a name="495"><span class="lineNum">     495 </span>            : → ゲケ</a>
-<a name="496"><span class="lineNum">     496 </span>            : → ゴコ</a>
-<a name="497"><span class="lineNum">     497 </span>            : → パバハ</a>
-<a name="498"><span class="lineNum">     498 </span>            : → ピビヒ</a>
-<a name="499"><span class="lineNum">     499 </span>            : → ペベヘ</a>
-<a name="500"><span class="lineNum">     500 </span>            : → ポボホ</a>
-<a name="501"><span class="lineNum">     501 </span>            : → プブフ</a>
-<a name="502"><span class="lineNum">     502 </span>            : → ピビ</a>
-<a name="503"><span class="lineNum">     503 </span>            : → ペベ</a>
-<a name="504"><span class="lineNum">     504 </span>            : → ポボ</a>
-<a name="505"><span class="lineNum">     505 </span>            : → プブ</a>
-<a name="506"><span class="lineNum">     506 </span>            : → ザサ</a>
-<a name="507"><span class="lineNum">     507 </span>            : → ジシ</a>
-<a name="508"><span class="lineNum">     508 </span>            : → ズス</a>
-<a name="509"><span class="lineNum">     509 </span>            : → ゼセ</a>
-<a name="510"><span class="lineNum">     510 </span>            : → ゾソ</a>
-<a name="511"><span class="lineNum">     511 </span>            : → ダタ</a>
-<a name="512"><span class="lineNum">     512 </span>            : → ヂチ</a>
-<a name="513"><span class="lineNum">     513 </span>            : → ヅツ</a>
-<a name="514"><span class="lineNum">     514 </span>            : → デテ</a>
-<a name="515"><span class="lineNum">     515 </span>            : → ドト</a>
-<a name="516"><span class="lineNum">     516 </span>            : → がか</a>
-<a name="517"><span class="lineNum">     517 </span>            : → ぐく</a>
-<a name="518"><span class="lineNum">     518 </span>            : → ぎき</a>
-<a name="519"><span class="lineNum">     519 </span>            : → げけ</a>
-<a name="520"><span class="lineNum">     520 </span>            : → ごこ</a>
-<a name="521"><span class="lineNum">     521 </span>            : → ぱばは</a>
-<a name="522"><span class="lineNum">     522 </span>            : → ぴびひ</a>
-<a name="523"><span class="lineNum">     523 </span>            : → ぺべへ</a>
-<a name="524"><span class="lineNum">     524 </span>            : → ぽぼほ</a>
-<a name="525"><span class="lineNum">     525 </span>            : → ぷぶふ</a>
-<a name="526"><span class="lineNum">     526 </span>            : → ぱば</a>
-<a name="527"><span class="lineNum">     527 </span>            : → ぴび</a>
-<a name="528"><span class="lineNum">     528 </span>            : → ぺべ</a>
-<a name="529"><span class="lineNum">     529 </span>            : → ぽぼ</a>
-<a name="530"><span class="lineNum">     530 </span>            : → ぷぶ</a>
-<a name="531"><span class="lineNum">     531 </span>            : → ざさ</a>
-<a name="532"><span class="lineNum">     532 </span>            : → じし</a>
-<a name="533"><span class="lineNum">     533 </span>            : → ずす</a>
-<a name="534"><span class="lineNum">     534 </span>            : → ぜせ</a>
-<a name="535"><span class="lineNum">     535 </span>            : → ぞそ</a>
-<a name="536"><span class="lineNum">     536 </span>            : → だた</a>
-<a name="537"><span class="lineNum">     537 </span>            : → ぢち</a>
-<a name="538"><span class="lineNum">     538 </span>            : → づつ</a>
-<a name="539"><span class="lineNum">     539 </span>            : → でて</a>
-<a name="540"><span class="lineNum">     540 </span>            : → どと</a>
-<a name="541"><span class="lineNum">     541 </span>            : )&quot;;</a>
-<a name="542"><span class="lineNum">     542 </span><span class="lineCov">          1 : }</span></a>
-<a name="543"><span class="lineNum">     543 </span>            : </a>
-<a name="544"><span class="lineNum">     544 </span><span class="lineCov">          2 : std::vector&lt;std::pair&lt;char32_t/*goal*/, char32_t/*recipe*/&gt;&gt; ParseSimilarities(std::istream&amp; f) // Same as old &quot;similarities.inc&quot;</span></a>
-<a name="545"><span class="lineNum">     545 </span>            : {</a>
-<a name="546"><span class="lineNum">     546 </span><span class="lineCov">          2 :     std::vector&lt;std::pair&lt;char32_t, char32_t&gt;&gt; results;</span></a>
-<a name="547"><span class="lineNum">     547 </span>            : </a>
-<a name="548"><span class="lineNum">     548 </span><span class="lineCov">       9330 :     for(std::string line; std::getline(f, line), f; )</span></a>
-<a name="549"><span class="lineNum">     549 </span><span class="lineCov">       9326 :         if(!line.empty())</span></a>
-<a name="550"><span class="lineNum">     550 </span>            :         {</a>
-<a name="551"><span class="lineNum">     551 </span><span class="lineCov">       9318 :             if(line.back() == '\r') { line.erase(line.size()-1); }</span></a>
-<a name="552"><span class="lineNum">     552 </span><span class="lineCov">       9318 :             if(auto codes = FromUTF8(line); !codes.empty())</span></a>
-<a name="553"><span class="lineNum">     553 </span>            :             {</a>
-<a name="554"><span class="lineNum">     554 </span><span class="lineCov">       9318 :                 std::size_t a=2, b=codes.size();</span></a>
-<a name="555"><span class="lineNum">     555 </span><span class="lineCov">       9318 :                 switch(codes[0])</span></a>
-<a name="556"><span class="lineNum">     556 </span>            :                 {</a>
-<a name="557"><span class="lineNum">     557 </span>            :                     case U'→':</a>
-<a name="558"><span class="lineNum">     558 </span>            :                         // Generate symbol on left from symbol on right</a>
-<a name="559"><span class="lineNum">     559 </span><span class="lineCov">       9620 :                         for(std::size_t n=a, m=n+1; m&lt;b; ++m)</span></a>
-<a name="560"><span class="lineNum">     560 </span><span class="lineCov">       5576 :                             results.emplace_back(codes[n], codes[m]);</span></a>
-<a name="561"><span class="lineNum">     561 </span>            :                         break;</a>
-<a name="562"><span class="lineNum">     562 </span>            :                     case U'←':</a>
-<a name="563"><span class="lineNum">     563 </span>            :                         // Generate symbol on right from symbol on left</a>
-<a name="564"><span class="lineNum">     564 </span><span class="lineCov">      15520 :                         for(std::size_t n=b; n-- &gt;= a; )</span></a>
-<a name="565"><span class="lineNum">     565 </span><span class="lineCov">      20344 :                             for(std::size_t m=n; --m &gt;= a; )</span></a>
-<a name="566"><span class="lineNum">     566 </span><span class="lineCov">       8326 :                                 results.emplace_back(codes[n], codes[m]);</span></a>
-<a name="567"><span class="lineNum">     567 </span>            :                         break;</a>
-<a name="568"><span class="lineNum">     568 </span><span class="lineCov">       1358 :                     case U'◆':</span></a>
-<a name="569"><span class="lineNum">     569 </span><span class="lineCov">       1358 :                     {</span></a>
-<a name="570"><span class="lineNum">     570 </span>            :                         // Generate any symbol from any other,</a>
-<a name="571"><span class="lineNum">     571 </span>            :                         // with preference for close-by one</a>
-<a name="572"><span class="lineNum">     572 </span><span class="lineCov">       1358 :                         std::map&lt;std::size_t, std::vector&lt;std::pair&lt;std::size_t,std::size_t&gt;&gt;&gt; score;</span></a>
-<a name="573"><span class="lineNum">     573 </span><span class="lineCov">       5710 :                         for(std::size_t n=a; n&lt;b; ++n)</span></a>
-<a name="574"><span class="lineNum">     574 </span><span class="lineCov">      31904 :                             for(std::size_t m=a; m&lt;b; ++m)</span></a>
-<a name="575"><span class="lineNum">     575 </span><span class="lineCov">      27552 :                                 if(m != n)</span></a>
-<a name="576"><span class="lineNum">     576 </span><span class="lineCov">      23200 :                                     score[std::abs(int(n-m))].emplace_back(n, m);</span></a>
-<a name="577"><span class="lineNum">     577 </span><span class="lineCov">       4352 :                         for(auto&amp; [dummy,pairs]: score)</span></a>
-<a name="578"><span class="lineNum">     578 </span><span class="lineCov">      26194 :                             for(auto pair: pairs)</span></a>
-<a name="579"><span class="lineNum">     579 </span><span class="lineCov">      23200 :                                 results.emplace_back(codes[pair.first], codes[pair.second]);</span></a>
-<a name="580"><span class="lineNum">     580 </span><span class="lineCov">       1358 :                         break;</span></a>
-<a name="581"><span class="lineNum">     581 </span><span class="lineCov">       1358 :                     }</span></a>
-<a name="582"><span class="lineNum">     582 </span>            :                     case U'=':</a>
-<a name="583"><span class="lineNum">     583 </span>            :                         // Generate any symbol from any other symbol</a>
-<a name="584"><span class="lineNum">     584 </span><span class="lineCov">       2098 :                         for(std::size_t n=a; n&lt;b; ++n)</span></a>
-<a name="585"><span class="lineNum">     585 </span><span class="lineCov">      13708 :                             for(std::size_t m=a; m&lt;b; ++m)</span></a>
-<a name="586"><span class="lineNum">     586 </span><span class="lineCov">      12002 :                                 if(m != n)</span></a>
-<a name="587"><span class="lineNum">     587 </span><span class="lineCov">      10296 :                                     results.emplace_back(codes[n], codes[m]);</span></a>
-<a name="588"><span class="lineNum">     588 </span>            :                         break;</a>
-<a name="589"><span class="lineNum">     589 </span>            :                 }</a>
-<a name="590"><span class="lineNum">     590 </span><span class="lineCov">       9318 :             }</span></a>
-<a name="591"><span class="lineNum">     591 </span><span class="lineNoCov">          0 :         }</span></a>
-<a name="592"><span class="lineNum">     592 </span>            : </a>
-<a name="593"><span class="lineNum">     593 </span>            :     // Improve the list using iconv's //TRANSLIT option (pregenerated using make-alias.php)</a>
-<a name="594"><span class="lineNum">     594 </span><span class="lineCov">          8 :     auto [location, status] = FindShareFile(std::filesystem::path(&quot;fonts&quot;) / &quot;alias.txt&quot;);</span></a>
-<a name="595"><span class="lineNum">     595 </span><span class="lineCov">          2 :     if(std::filesystem::exists(status))</span></a>
-<a name="596"><span class="lineNum">     596 </span>            :     {</a>
-<a name="597"><span class="lineNum">     597 </span><span class="lineCov">          2 :         std::ifstream f2(location);</span></a>
-<a name="598"><span class="lineNum">     598 </span><span class="lineCov">          2 :         auto delim = &quot; \t&quot;sv, hex = &quot;0123456789ABCDEFabcdef&quot;sv;</span></a>
-<a name="599"><span class="lineNum">     599 </span><span class="lineCov">       9230 :         for(std::string line; std::getline(f2, line), f2; )</span></a>
-<a name="600"><span class="lineNum">     600 </span><span class="lineCov">       9228 :             if(!line.empty() &amp;&amp; line[0] != '#')</span></a>
-<a name="601"><span class="lineNum">     601 </span>            :             {</a>
-<a name="602"><span class="lineNum">     602 </span><span class="lineCov">       9228 :                 std::size_t space    = line.find_first_of(delim);</span></a>
-<a name="603"><span class="lineNum">     603 </span><span class="lineCov">       9228 :                 if(space == line.npos) continue;</span></a>
-<a name="604"><span class="lineNum">     604 </span><span class="lineCov">       9228 :                 std::size_t notspace = line.find_first_not_of(delim, space);</span></a>
-<a name="605"><span class="lineNum">     605 </span><span class="lineCov">       9228 :                 if(notspace == line.npos) continue;</span></a>
-<a name="606"><span class="lineNum">     606 </span><span class="lineCov">       9228 :                 std::size_t notdigit = line.find_first_not_of(hex, notspace);</span></a>
-<a name="607"><span class="lineNum">     607 </span><span class="lineCov">       9228 :                 if(notdigit == line.npos) notdigit = line.size();</span></a>
-<a name="608"><span class="lineNum">     608 </span>            : </a>
-<a name="609"><span class="lineNum">     609 </span><span class="lineCov">       9228 :                 results.emplace_back(std::stoi(std::string(line, 0, space), nullptr, 16),</span></a>
-<a name="610"><span class="lineNum">     610 </span><span class="lineCov">      27684 :                                      std::stoi(std::string(line, notspace, notdigit-notspace), nullptr, 16));</span></a>
-<a name="611"><span class="lineNum">     611 </span><span class="lineNoCov">          0 :             }</span></a>
-<a name="612"><span class="lineNum">     612 </span><span class="lineCov">          2 :     }</span></a>
-<a name="613"><span class="lineNum">     613 </span>            : </a>
-<a name="614"><span class="lineNum">     614 </span>            :     // Delete duplicates</a>
-<a name="615"><span class="lineNum">     615 </span><span class="lineCov">          4 :     std::unordered_set&lt;std::uint_fast64_t&gt; seen;</span></a>
-<a name="616"><span class="lineNum">     616 </span><span class="lineCov">          2 :     results.erase(std::remove_if(results.begin(), results.end(), [&amp;](auto&amp; pair)</span></a>
-<a name="617"><span class="lineNum">     617 </span>            :     {</a>
-<a name="618"><span class="lineNum">     618 </span><span class="lineCov">      56626 :         uint_fast64_t key = pair.first; key = (key &lt;&lt; 32) | pair.second;</span></a>
-<a name="619"><span class="lineNum">     619 </span><span class="lineCov">      56626 :         if(seen.find(key) == seen.end())</span></a>
-<a name="620"><span class="lineNum">     620 </span>            :         {</a>
-<a name="621"><span class="lineNum">     621 </span><span class="lineCov">      49138 :             seen.insert(key);</span></a>
-<a name="622"><span class="lineNum">     622 </span><span class="lineCov">      49138 :             return false;</span></a>
-<a name="623"><span class="lineNum">     623 </span>            :         }</a>
-<a name="624"><span class="lineNum">     624 </span>            :         return true;</a>
-<a name="625"><span class="lineNum">     625 </span><span class="lineCov">          2 :     }), results.end());</span></a>
-<a name="626"><span class="lineNum">     626 </span>            : </a>
-<a name="627"><span class="lineNum">     627 </span><span class="lineCov">          2 :     std::sort(results.begin(), results.end());</span></a>
-<a name="628"><span class="lineNum">     628 </span><span class="lineCov">          2 :     return results;</span></a>
-<a name="629"><span class="lineNum">     629 </span><span class="lineCov">          2 : }</span></a>
-<a name="630"><span class="lineNum">     630 </span>            : </a>
-<a name="631"><span class="lineNum">     631 </span><span class="lineCov">          2 : std::vector&lt;std::pair&lt;char32_t/*goal*/, char32_t/*recipe*/&gt;&gt; ParseSimilarities() // Same as old &quot;similarities.inc&quot;</span></a>
-<a name="632"><span class="lineNum">     632 </span>            : {</a>
-<a name="633"><span class="lineNum">     633 </span><span class="lineCov">          2 :     auto [path, status] = FindCacheFile(&quot;similarities.dat&quot;, true);</span></a>
-<a name="634"><span class="lineNum">     634 </span><span class="lineCov">          2 :     auto [unipath, unistatus] = UnicodeDataFileName();</span></a>
-<a name="635"><span class="lineNum">     635 </span>            : </a>
-<a name="636"><span class="lineNum">     636 </span><span class="lineCov">          3 :     if(!std::filesystem::exists(status)</span></a>
-<a name="637"><span class="lineNum">     637 </span><span class="lineCov">          1 :     || (std::filesystem::exists(unipath)</span></a>
-<a name="638"><span class="lineNum">     638 </span><span class="lineCov">          1 :      &amp;&amp; std::filesystem::last_write_time(unipath) &gt; std::filesystem::last_write_time(path)))</span></a>
-<a name="639"><span class="lineNum">     639 </span>            :     {</a>
-<a name="640"><span class="lineNum">     640 </span><span class="lineCov">          1 :         std::ofstream file(path);</span></a>
-<a name="641"><span class="lineNum">     641 </span><span class="lineCov">          1 :         MakeSimilarities(file, unipath);</span></a>
-<a name="642"><span class="lineNum">     642 </span><span class="lineCov">          1 :     }</span></a>
-<a name="643"><span class="lineNum">     643 </span>            : </a>
-<a name="644"><span class="lineNum">     644 </span><span class="lineCov">          2 :     std::ifstream f(path);</span></a>
-<a name="645"><span class="lineNum">     645 </span><span class="lineCov">          2 :     return ParseSimilarities(f);</span></a>
-<a name="646"><span class="lineNum">     646 </span><span class="lineCov">          6 : }</span></a>
+<a name="1"><span class="lineNum">       1 </span>                :            : #include &lt;map&gt;</a>
+<a name="2"><span class="lineNum">       2 </span>                :            : #include &lt;regex&gt;</a>
+<a name="3"><span class="lineNum">       3 </span>                :            : #include &lt;string&gt;</a>
+<a name="4"><span class="lineNum">       4 </span>                :            : #include &lt;ranges&gt;</a>
+<a name="5"><span class="lineNum">       5 </span>                :            : #include &lt;fstream&gt;</a>
+<a name="6"><span class="lineNum">       6 </span>                :            : #include &lt;ostream&gt;</a>
+<a name="7"><span class="lineNum">       7 </span>                :            : #include &lt;functional&gt;</a>
+<a name="8"><span class="lineNum">       8 </span>                :            : #include &lt;unordered_set&gt;</a>
+<a name="9"><span class="lineNum">       9 </span>                :            : </a>
+<a name="10"><span class="lineNum">      10 </span>                :            : #include &quot;share.hh&quot;</a>
+<a name="11"><span class="lineNum">      11 </span>                :            : #include &quot;ctype.hh&quot;</a>
+<a name="12"><span class="lineNum">      12 </span>                :            : #include &quot;make_similarities.hh&quot;</a>
+<a name="13"><span class="lineNum">      13 </span>                :            : </a>
+<a name="14"><span class="lineNum">      14 </span>                :            : using namespace std::literals;</a>
+<a name="15"><span class="lineNum">      15 </span>                :            : </a>
+<a name="16"><span class="lineNum">      16 </span>                :            : static constexpr auto Ropt = std::regex_constants::ECMAScript | std::regex_constants::optimize;</a>
+<a name="17"><span class="lineNum">      17 </span>                :            : </a>
+<a name="18"><span class="lineNum">      18 </span>                :<span class="lineCov">          2 : static auto UnicodeDataFileName()</span></a>
+<a name="19"><span class="lineNum">      19 </span>                :            : {</a>
+<a name="20"><span class="lineNum">      20 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :     return FindShareFile(&quot;unicode/UnicodeData.txt&quot;, {&quot;/usr/local/share&quot;, &quot;/usr/share&quot;});</span></a>
+<a name="21"><span class="lineNum">      21 </span>                :            :     /* Try UnicodeData.txt in the following:</a>
+<a name="22"><span class="lineNum">      22 </span>                :            : </a>
+<a name="23"><span class="lineNum">      23 </span>                :            :         &lt;path&gt;/share/unicode/</a>
+<a name="24"><span class="lineNum">      24 </span>                :            :         &lt;home&gt;/.local/share/&lt;prog&gt;/unicode/</a>
+<a name="25"><span class="lineNum">      25 </span>                :            :         /usr/local/share/&lt;prog&gt;/unicode/</a>
+<a name="26"><span class="lineNum">      26 </span>                :            :         /usr/share/&lt;prog&gt;/unicode/</a>
+<a name="27"><span class="lineNum">      27 </span>                :            :         /usr/share/unicode</a>
+<a name="28"><span class="lineNum">      28 </span>                :            : </a>
+<a name="29"><span class="lineNum">      29 </span>                :            :      * Where</a>
+<a name="30"><span class="lineNum">      30 </span>                :            :         &lt;prog&gt; = that_terminal</a>
+<a name="31"><span class="lineNum">      31 </span>                :            :         &lt;path&gt; = pathname(argv[0])</a>
+<a name="32"><span class="lineNum">      32 </span>                :            :      */</a>
+<a name="33"><span class="lineNum">      33 </span>                :            : }</a>
+<a name="34"><span class="lineNum">      34 </span>                :            : </a>
+<a name="35"><span class="lineNum">      35 </span>                :<span class="lineCov">      11136 : static std::string u8(char32_t code)</span></a>
+<a name="36"><span class="lineNum">      36 </span>                :            : {</a>
+<a name="37"><span class="lineNum">      37 </span>                :<span class="lineCov">      11136 :     return ToUTF8(std::u32string_view(&amp;code,1));</span></a>
+<a name="38"><span class="lineNum">      38 </span>                :            : }</a>
+<a name="39"><span class="lineNum">      39 </span>                :            : </a>
+<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">       2524 : static std::vector&lt;std::string_view&gt; Split(std::string_view str, std::string_view delimiter)</span></a>
+<a name="41"><span class="lineNum">      41 </span>                :            : {</a>
+<a name="42"><span class="lineNum">      42 </span>        [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2524 :     std::vector&lt;std::string_view&gt; result;</span></a>
+<a name="43"><span class="lineNum">      43 </span>        [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2524 :     if(!str.empty())</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">        361 :         for(std::size_t pos = 0; ; )</span></a>
+<a name="45"><span class="lineNum">      45 </span>                :            :         {</a>
+<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">       2885 :             std::size_t d = str.find(delimiter, pos);</span></a>
+<a name="47"><span class="lineNum">      47 </span>  [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchCov" title="Branch 1 was taken 361 times"> + </span><span class="branchCov" title="Branch 2 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2885 :             if(d == str.npos) { result.emplace_back(str.data()+pos, str.size()-pos); break; }</span></a>
+<a name="48"><span class="lineNum">      48 </span>        [<span class="branchCov" title="Branch 0 was taken 361 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        361 :             result.emplace_back(str.data()+pos, d-pos);</span></a>
+<a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">        361 :             pos = d + delimiter.size();</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">        361 :         }</span></a>
+<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">       2524 :     return result;</span></a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="53"><span class="lineNum">      53 </span>                :            : template&lt;typename T&gt;</a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          1 : static std::string Join(const T&amp; elems, std::string_view delim)</span></a>
+<a name="55"><span class="lineNum">      55 </span>                :            : {</a>
+<a name="56"><span class="lineNum">      56 </span>                :<span class="lineCov">          1 :     std::string result;</span></a>
+<a name="57"><span class="lineNum">      57 </span>        [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">         26 :     for(auto i = elems.begin(); i != elems.end(); ++i)</span></a>
+<a name="58"><span class="lineNum">      58 </span>                :            :     {</a>
+<a name="59"><span class="lineNum">      59 </span>  [<span class="branchCov" title="Branch 0 was taken 24 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">         49 :         if(i != elems.begin()) result += delim;</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">         25 :         result += *i;</span></a>
+<a name="61"><span class="lineNum">      61 </span>                :            :     }</a>
+<a name="62"><span class="lineNum">      62 </span>                :<span class="lineCov">          1 :     return result;</span></a>
+<a name="63"><span class="lineNum">      63 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="64"><span class="lineNum">      64 </span>                :            : template&lt;typename T, typename U&gt;</a>
+<a name="65"><span class="lineNum">      65 </span>                :<span class="lineCov">        800 : static std::string Join(const std::map&lt;T,U&gt;&amp; elems, std::string_view delim)</span></a>
+<a name="66"><span class="lineNum">      66 </span>                :            : {</a>
+<a name="67"><span class="lineNum">      67 </span>                :<span class="lineCov">        800 :     std::string result;</span></a>
+<a name="68"><span class="lineNum">      68 </span>        [<span class="branchCov" title="Branch 0 was taken 917 times"> + </span><span class="branchCov" title="Branch 1 was taken 800 times"> + </span>]:<span class="lineCov">       1717 :     for(auto i = elems.begin(); i != elems.end(); ++i)</span></a>
+<a name="69"><span class="lineNum">      69 </span>                :            :     {</a>
+<a name="70"><span class="lineNum">      70 </span>  [<span class="branchCov" title="Branch 0 was taken 117 times"> + </span><span class="branchCov" title="Branch 1 was taken 800 times"> + </span><span class="branchCov" title="Branch 2 was taken 917 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       1034 :         if(i != elems.begin()) result += delim;</span></a>
+<a name="71"><span class="lineNum">      71 </span>        [<span class="branchCov" title="Branch 0 was taken 917 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        917 :         result += i-&gt;second;</span></a>
+<a name="72"><span class="lineNum">      72 </span>                :            :     }</a>
+<a name="73"><span class="lineNum">      73 </span>                :<span class="lineCov">        800 :     return result;</span></a>
+<a name="74"><span class="lineNum">      74 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="75"><span class="lineNum">      75 </span>                :            : </a>
+<a name="76"><span class="lineNum">      76 </span>                :            : /** Contents of UniData.txt in a parsed format */</a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">          1 : struct UniData</span></a>
+<a name="78"><span class="lineNum">      78 </span>                :            : {</a>
+<a name="79"><span class="lineNum">      79 </span>                :            :     std::map&lt;std::string, char32_t&gt; codes; ///&lt; Translation of names into codepoints</a>
+<a name="80"><span class="lineNum">      80 </span>                :            :     std::map&lt;char32_t, std::string&gt; names; ///&lt; Translation of codepoints into names</a>
+<a name="81"><span class="lineNum">      81 </span>                :            : </a>
+<a name="82"><span class="lineNum">      82 </span>                :            :     /** Load from @param unipath file */</a>
+<a name="83"><span class="lineNum">      83 </span>                :<span class="lineCov">          1 :     void Load(std::filesystem::path unipath)</span></a>
+<a name="84"><span class="lineNum">      84 </span>                :            :     {</a>
+<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">          1 :         std::regex pattern(&quot;([0-9A-F]+);([^;]+);.*&quot;, Ropt);</span></a>
+<a name="86"><span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         std::regex mathpat(&quot;(MATHEMATICAL.*) (CAPITAL|SMALL) ([A-Z])&quot;, Ropt);</span></a>
+<a name="87"><span class="lineNum">      87 </span>                :            : </a>
+<a name="88"><span class="lineNum">      88 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         std::ifstream f(unipath);</span></a>
+<a name="89"><span class="lineNum">      89 </span>  [<span class="branchCov" title="Branch 0 was taken 33829 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33828 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      33829 :         for(std::string line; std::getline(f, line), f; )</span></a>
+<a name="90"><span class="lineNum">      90 </span>  [<span class="branchCov" title="Branch 0 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      33828 :             if(std::smatch mat; std::regex_match(line, mat, pattern))</span></a>
+<a name="91"><span class="lineNum">      91 </span>                :            :             {</a>
+<a name="92"><span class="lineNum">      92 </span>        [<span class="branchCov" title="Branch 0 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      33828 :                 std::string name = mat[2];</span></a>
+<a name="93"><span class="lineNum">      93 </span>  [<span class="branchCov" title="Branch 0 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      33828 :                 char32_t    code = std::stoi(mat[1], nullptr, 16);</span></a>
+<a name="94"><span class="lineNum">      94 </span>                :            : </a>
+<a name="95"><span class="lineNum">      95 </span>                :            :                 // Rename math symbols with &quot;CAPITAL L&quot; into with &quot;LATIN CAPITAL LETTER L&quot;</a>
+<a name="96"><span class="lineNum">      96 </span>                :            :                 // to get better matches.</a>
+<a name="97"><span class="lineNum">      97 </span>  [<span class="branchCov" title="Branch 0 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 652 times"> + </span><span class="branchCov" title="Branch 3 was taken 33176 times"> + </span>]:<span class="lineCov">      33828 :                 if(std::regex_match(name, mat, mathpat))</span></a>
+<a name="98"><span class="lineNum">      98 </span>                :            :                 {</a>
+<a name="99"><span class="lineNum">      99 </span>  [<span class="branchCov" title="Branch 0 was taken 652 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 652 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        652 :                     name = std::string(mat[1]) + &quot; LATIN &quot; + std::string(mat[2]) + &quot; LETTER &quot; + std::string(mat[3]);</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 652 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 652 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchCov" title="Branch 8 was taken 652 times"> + </span> 
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 9 was not taken"> - </span><span class="branchCov" title="Branch 10 was taken 652 times"> + </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchCov" title="Branch 12 was taken 652 times"> + </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 13 was not taken"> - </span>]
+<a name="100"><span class="lineNum">     100 </span>                :            :                 }</a>
+<a name="101"><span class="lineNum">     101 </span>                :            : </a>
+<a name="102"><span class="lineNum">     102 </span>        [<span class="branchCov" title="Branch 0 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      33828 :                 codes[name] = code;</span></a>
+<a name="103"><span class="lineNum">     103 </span>  [<span class="branchCov" title="Branch 0 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33828 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      67656 :                 names[code] = name;</span></a>
+<a name="104"><span class="lineNum">     104 </span>                :<span class="lineCov">      67656 :             }</span></a>
+<a name="105"><span class="lineNum">     105 </span>                :<span class="lineCov">          1 :     }</span></a>
+<a name="106"><span class="lineNum">     106 </span>                :            :     /** Query whether the given name is defined.</a>
+<a name="107"><span class="lineNum">     107 </span>                :            :      * @param s name to search for</a>
+<a name="108"><span class="lineNum">     108 </span>                :            :      * @returns codepoint if known, 0 otherwise</a>
+<a name="109"><span class="lineNum">     109 </span>                :            :      */</a>
+<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">       7031 :     char32_t Has(const std::string&amp; s) const</span></a>
+<a name="111"><span class="lineNum">     111 </span>                :            :     {</a>
+<a name="112"><span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 0 was taken 5078 times"> + </span><span class="branchCov" title="Branch 1 was taken 1953 times"> + </span>]:<span class="lineCov">       7031 :         if(auto i = codes.find(s); i != codes.end()) return i-&gt;second;</span></a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">       1953 :         return 0;</span></a>
+<a name="114"><span class="lineNum">     114 </span>                :            :     }</a>
+<a name="115"><span class="lineNum">     115 </span>                :            :     /** Query whether the given codepoint has a name.</a>
+<a name="116"><span class="lineNum">     116 </span>                :            :      * @param c codepoint to search for</a>
+<a name="117"><span class="lineNum">     117 </span>                :            :      * @returns True if the codepoint has a known name.</a>
+<a name="118"><span class="lineNum">     118 </span>                :            :      */</a>
+<a name="119"><span class="lineNum">     119 </span>                :            :     bool Has(char32_t c) const</a>
+<a name="120"><span class="lineNum">     120 </span>                :            :     {</a>
+<a name="121"><span class="lineNum">     121 </span>                :            :         return names.find(c) != names.end();</a>
+<a name="122"><span class="lineNum">     122 </span>                :            :     }</a>
+<a name="123"><span class="lineNum">     123 </span>                :            : };</a>
+<a name="124"><span class="lineNum">     124 </span>                :            : </a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">          1 : void MakeSimilarities(std::ostream&amp; out, std::filesystem::path unipath) // Same as old &quot;similarities.dat&quot;</span></a>
+<a name="126"><span class="lineNum">     126 </span>                :            : {</a>
+<a name="127"><span class="lineNum">     127 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     UniData d;</span></a>
+<a name="128"><span class="lineNum">     128 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     d.Load(unipath);</span></a>
+<a name="129"><span class="lineNum">     129 </span>                :            : </a>
+<a name="130"><span class="lineNum">     130 </span>                :            :     // Create special matching recipe for ASCII from FULLWIDTH</a>
+<a name="131"><span class="lineNum">     131 </span>                :            :     // Do this BEFORE the MATHEMATICAL section</a>
+<a name="132"><span class="lineNum">     132 </span>                :            :     // to avoid your ASCII letters looking completely silly.</a>
+<a name="133"><span class="lineNum">     133 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     out &lt;&lt; &quot;// If this is fullwidth font, create ASCII characters from FULLWIDTH characters\n&quot;;</span></a>
+<a name="134"><span class="lineNum">     134 </span>                :            : </a>
+<a name="135"><span class="lineNum">     135 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     std::regex fullhalf(&quot;(FULLWIDTH|HALFWIDTH) (.*)&quot;, Ropt);</span></a>
+<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">          1 :     char32_t tmp;</span></a>
+<a name="137"><span class="lineNum">     137 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33764 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      33765 :     for(auto&amp;[name,code]: d.codes)</span></a>
+<a name="138"><span class="lineNum">     138 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 225 times"> + </span><span class="branchCov" title="Branch 3 was taken 33539 times"> + </span> :<span class="lineCov">      33992 :         if(std::smatch mat; std::regex_match(name, mat, fullhalf) &amp;&amp; (tmp = d.Has(mat[2])))</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 225 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 3 times"> + </span><span class="branchCov" title="Branch 7 was taken 222 times"> + </span><span class="branchCov" title="Branch 8 was taken 225 times"> + </span> 
+<span class="lineNum">         </span>      <span class="branchCov" title="Branch 9 was taken 33539 times"> + </span><span class="branchCov" title="Branch 10 was taken 222 times"> + </span><span class="branchCov" title="Branch 11 was taken 33542 times"> + </span>]
+<a name="139"><span class="lineNum">     139 </span>  [<span class="branchCov" title="Branch 0 was taken 222 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 222 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      34430 :             out &lt;&lt; &quot;→ &quot; &lt;&lt; u8(tmp) &lt;&lt; u8(code) &lt;&lt; '\n';</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 222 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 222 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="140"><span class="lineNum">     140 </span>                :            : </a>
+<a name="141"><span class="lineNum">     141 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     out &lt;&lt; R&quot;(</span></a>
+<a name="142"><span class="lineNum">     142 </span>                :            : // Insert some manually crafted rules between pre-composed encircled or stylished letters</a>
+<a name="143"><span class="lineNum">     143 </span>                :            : // Do this before the MATH section may alias doublestruck R (𝕉) with regular R</a>
+<a name="144"><span class="lineNum">     144 </span>                :            : // when the font may in fact have doublestruck R (ℝ) in the letterlike section.</a>
+<a name="145"><span class="lineNum">     145 </span>                :            : = ℂ𝔺</a>
+<a name="146"><span class="lineNum">     146 </span>                :            : = ℊ𝒼</a>
+<a name="147"><span class="lineNum">     147 </span>                :            : = ℋ𝔋</a>
+<a name="148"><span class="lineNum">     148 </span>                :            : = ℌ𝔥</a>
+<a name="149"><span class="lineNum">     149 </span>                :            : = ℍ𝔿</a>
+<a name="150"><span class="lineNum">     150 </span>                :            : = ℎ𝑕</a>
+<a name="151"><span class="lineNum">     151 </span>                :            : = ℐ𝒤</a>
+<a name="152"><span class="lineNum">     152 </span>                :            : = ℑ𝔌</a>
+<a name="153"><span class="lineNum">     153 </span>                :            : = ℒ𝒧</a>
+<a name="154"><span class="lineNum">     154 </span>                :            : = ℓ𝓁</a>
+<a name="155"><span class="lineNum">     155 </span>                :            : = ℕ𝕅</a>
+<a name="156"><span class="lineNum">     156 </span>                :            : = ℙ𝕇</a>
+<a name="157"><span class="lineNum">     157 </span>                :            : = ℚ𝕈</a>
+<a name="158"><span class="lineNum">     158 </span>                :            : = ℛ𝒭</a>
+<a name="159"><span class="lineNum">     159 </span>                :            : = ℜ𝔕</a>
+<a name="160"><span class="lineNum">     160 </span>                :            : = ℝ𝕉</a>
+<a name="161"><span class="lineNum">     161 </span>                :            : = ℤ𝕑</a>
+<a name="162"><span class="lineNum">     162 </span>                :            : = K𝖪</a>
+<a name="163"><span class="lineNum">     163 </span>                :            : = ℬ𝒝</a>
+<a name="164"><span class="lineNum">     164 </span>                :            : = ℭ𝔆</a>
+<a name="165"><span class="lineNum">     165 </span>                :            : = ℮𝕖</a>
+<a name="166"><span class="lineNum">     166 </span>                :            : = ℯ𝑒</a>
+<a name="167"><span class="lineNum">     167 </span>                :            : = ℳ𝒨</a>
+<a name="168"><span class="lineNum">     168 </span>                :            : = ℴ𝓄</a>
+<a name="169"><span class="lineNum">     169 </span>                :            : = ℹ𝐢</a>
+<a name="170"><span class="lineNum">     170 </span>                :            : = ⅅ𝔻</a>
+<a name="171"><span class="lineNum">     171 </span>                :            : = ⅆ𝕕</a>
+<a name="172"><span class="lineNum">     172 </span>                :            : = ⅇ𝕖</a>
+<a name="173"><span class="lineNum">     173 </span>                :            : = ⅈ𝕚</a>
+<a name="174"><span class="lineNum">     174 </span>                :            : = ⅉ𝕛</a>
+<a name="175"><span class="lineNum">     175 </span>                :            : = ⅀𝚺</a>
+<a name="176"><span class="lineNum">     176 </span>                :            : = ℿ𝚷</a>
+<a name="177"><span class="lineNum">     177 </span>                :            : = ℾ𝚪</a>
+<a name="178"><span class="lineNum">     178 </span>                :            : = ℽ𝛄</a>
+<a name="179"><span class="lineNum">     179 </span>                :            : = ℼ𝛑</a>
+<a name="180"><span class="lineNum">     180 </span>                :            : = ℗Ⓟ</a>
+<a name="181"><span class="lineNum">     181 </span>                :            : = ©Ⓒ</a>
+<a name="182"><span class="lineNum">     182 </span>                :            : = ®Ⓡ</a>
+<a name="183"><span class="lineNum">     183 </span>                :            : </a>
+<a name="184"><span class="lineNum">     184 </span>                :            : // Insert equality rules between symbols that are visually completely indiscernible</a>
+<a name="185"><span class="lineNum">     185 </span>                :            : // First, ASCII-like characters</a>
+<a name="186"><span class="lineNum">     186 </span>                :            : )&quot;;</a>
+<a name="187"><span class="lineNum">     187 </span>                :<span class="lineCov">          1 :     std::vector&lt;std::u32string_view&gt; equal_symbols{</span></a>
+<a name="188"><span class="lineNum">     188 </span>                :            :         UR&quot;(!ǃ)&quot;,</a>
+<a name="189"><span class="lineNum">     189 </span>                :            :         UR&quot;(#ⵌꖛ⌗⋕)&quot;,</a>
+<a name="190"><span class="lineNum">     190 </span>                :            :         UR&quot;(÷➗)&quot;,</a>
+<a name="191"><span class="lineNum">     191 </span>                :            :         UR&quot;(+➕ᚐ)&quot;,</a>
+<a name="192"><span class="lineNum">     192 </span>                :            :         UR&quot;(-−–➖)&quot;,</a>
+<a name="193"><span class="lineNum">     193 </span>                :            :         UR&quot;(.ꓸ)&quot;,</a>
+<a name="194"><span class="lineNum">     194 </span>                :            :         UR&quot;(,ꓹ)&quot;,</a>
+<a name="195"><span class="lineNum">     195 </span>                :            :         UR&quot;(ꓽ::׃꞉⁚ː∶։܃𝄈)&quot;,</a>
+<a name="196"><span class="lineNum">     196 </span>                :            :         UR&quot;(;;;ꓼ)&quot;,</a>
+<a name="197"><span class="lineNum">     197 </span>                :            :         UR&quot;(=ꘌ⚌゠᐀꓿)&quot;,</a>
+<a name="198"><span class="lineNum">     198 </span>                :            :         UR&quot;(/⟋╱⁄𝈺)&quot;,</a>
+<a name="199"><span class="lineNum">     199 </span>                :            :         UR&quot;(\⟍╲𝈻⧹⧵)&quot;,</a>
+<a name="200"><span class="lineNum">     200 </span>                :            :         UR&quot;(2շ)&quot;,</a>
+<a name="201"><span class="lineNum">     201 </span>                :            :         UR&quot;(3З𝟹ვ౩𝈆)&quot;,</a>
+<a name="202"><span class="lineNum">     202 </span>                :            :         UR&quot;(ɜзᴈ)&quot;,</a>
+<a name="203"><span class="lineNum">     203 </span>                :            :         UR&quot;(ƷӠ)&quot;,</a>
+<a name="204"><span class="lineNum">     204 </span>                :            :         UR&quot;(ʒӡ)&quot;,</a>
+<a name="205"><span class="lineNum">     205 </span>                :            :         UR&quot;(4Ꮞ)&quot;,</a>
+<a name="206"><span class="lineNum">     206 </span>                :            :         UR&quot;(8𐌚)&quot;,</a>
+<a name="207"><span class="lineNum">     207 </span>                :            :         UR&quot;(➊❶⓵➀①)&quot;,</a>
+<a name="208"><span class="lineNum">     208 </span>                :            :         UR&quot;(➋❷⓶➁②)&quot;,</a>
+<a name="209"><span class="lineNum">     209 </span>                :            :         UR&quot;(➌❸⓷➂③)&quot;,</a>
+<a name="210"><span class="lineNum">     210 </span>                :            :         UR&quot;(➍❹⓸➃④)&quot;,</a>
+<a name="211"><span class="lineNum">     211 </span>                :            :         UR&quot;(➎❺⓹➄⑤)&quot;,</a>
+<a name="212"><span class="lineNum">     212 </span>                :            :         UR&quot;(➏❻⓺➅⑥)&quot;,</a>
+<a name="213"><span class="lineNum">     213 </span>                :            :         UR&quot;(➐❼⓻➆⑦)&quot;,</a>
+<a name="214"><span class="lineNum">     214 </span>                :            :         UR&quot;(➑❽⓼➇⑧)&quot;,</a>
+<a name="215"><span class="lineNum">     215 </span>                :            :         UR&quot;(➒❾⓽➈⑨)&quot;,</a>
+<a name="216"><span class="lineNum">     216 </span>                :            :         UR&quot;(➓❿⓾➉⑩)&quot;,</a>
+<a name="217"><span class="lineNum">     217 </span>                :            :         UR&quot;(AΑАᎪᗅᗋ𐌀ꓐꓮ)&quot;,</a>
+<a name="218"><span class="lineNum">     218 </span>                :            :         UR&quot;(ĂӐᾸ)&quot;,</a>
+<a name="219"><span class="lineNum">     219 </span>                :            :         UR&quot;(ĀᾹ)&quot;,</a>
+<a name="220"><span class="lineNum">     220 </span>                :            :         UR&quot;(ÄӒ)&quot;,</a>
+<a name="221"><span class="lineNum">     221 </span>                :            :         UR&quot;(ÅÅ)&quot;,</a>
+<a name="222"><span class="lineNum">     222 </span>                :            :         UR&quot;(ÆӔ)&quot;,</a>
+<a name="223"><span class="lineNum">     223 </span>                :            :         UR&quot;(ʙвⲃ)&quot;,</a>
+<a name="224"><span class="lineNum">     224 </span>                :            :         UR&quot;(BΒВᏴⲂꕗ𐌁)&quot;,</a>
+<a name="225"><span class="lineNum">     225 </span>                :            :         UR&quot;(ƂБ)&quot;,</a>
+<a name="226"><span class="lineNum">     226 </span>                :            :         UR&quot;(ϭб)&quot;,</a>
+<a name="227"><span class="lineNum">     227 </span>                :            :         UR&quot;(CϹСᏟⲤⅭꓚ)&quot;,</a>
+<a name="228"><span class="lineNum">     228 </span>                :            :         UR&quot;(ϽƆↃꓛ)&quot;,</a>
+<a name="229"><span class="lineNum">     229 </span>                :            :         UR&quot;(DᎠ𐌃ᗞⅮⅮꓓ)&quot;,</a>
+<a name="230"><span class="lineNum">     230 </span>                :            :         UR&quot;(ꓷᗡ⫏)&quot;,</a>
+<a name="231"><span class="lineNum">     231 </span>                :            :         UR&quot;(EΕЕᎬⴹꗋ⋿ꓰ)&quot;,</a>
+<a name="232"><span class="lineNum">     232 </span>                :            :         UR&quot;(ꓱ∃Ǝⴺ)&quot;,</a>
+<a name="233"><span class="lineNum">     233 </span>                :            :         UR&quot;(ÈЀ)&quot;,</a>
+<a name="234"><span class="lineNum">     234 </span>                :            :         UR&quot;(ËЁ)&quot;,</a>
+<a name="235"><span class="lineNum">     235 </span>                :            :         UR&quot;(ĔӖ)&quot;,</a>
+<a name="236"><span class="lineNum">     236 </span>                :            :         UR&quot;(ƐԐ)&quot;,</a>
+<a name="237"><span class="lineNum">     237 </span>                :            :         UR&quot;(FϜ𝈓ߓᖴ𐌅ꓝ)&quot;,</a>
+<a name="238"><span class="lineNum">     238 </span>                :            :         UR&quot;(GᏀႺꓖ)&quot;,</a>
+<a name="239"><span class="lineNum">     239 </span>                :            :         UR&quot;(HΗНᎻⲎᕼꖾꓧ)&quot;,</a>
+<a name="240"><span class="lineNum">     240 </span>                :            :         UR&quot;(ʜнⲏ)&quot;,</a>
+<a name="241"><span class="lineNum">     241 </span>                :            :         UR&quot;(IΙІӀᏆⲒⅠꓲ)&quot;,</a>
+<a name="242"><span class="lineNum">     242 </span>                :            :         UR&quot;(ΪÏЇ)&quot;,</a>
+<a name="243"><span class="lineNum">     243 </span>                :            :         UR&quot;(JЈᒍلﻝᎫꓙ)&quot;,</a>
+<a name="244"><span class="lineNum">     244 </span>                :            :         UR&quot;(KΚКⲔᏦK𐌊ꓗ)&quot;,</a>
+<a name="245"><span class="lineNum">     245 </span>                :            :         UR&quot;(ḰЌ)&quot;,</a>
+<a name="246"><span class="lineNum">     246 </span>                :            :         UR&quot;(κᴋкⲕ)&quot;,</a>
+<a name="247"><span class="lineNum">     247 </span>                :            :         UR&quot;(LᏞᒪ𝈪Ⅼ˪ԼⅬԼⅬԼլꓡ)&quot;,</a>
+<a name="248"><span class="lineNum">     248 </span>                :            :         UR&quot;(MΜМᎷⲘϺ𐌑Ⅿꓟ)&quot;,</a>
+<a name="249"><span class="lineNum">     249 </span>                :            :         UR&quot;(ᴍмⲙ)&quot;,</a>
+<a name="250"><span class="lineNum">     250 </span>                :            :         UR&quot;(NΝⲚꓠ)&quot;,</a>
+<a name="251"><span class="lineNum">     251 </span>                :            :         UR&quot;(ͶИ)&quot;,</a>
+<a name="252"><span class="lineNum">     252 </span>                :            :         UR&quot;(ɴⲛ)&quot;,</a>
+<a name="253"><span class="lineNum">     253 </span>                :            :         UR&quot;(ͷи)&quot;,</a>
+<a name="254"><span class="lineNum">     254 </span>                :            :         UR&quot;(OΟОⲞ◯○⃝❍🌕߀ⵔՕ⚪⭕౦೦ꓳ)&quot;,</a>
+<a name="255"><span class="lineNum">     255 </span>                :            :         UR&quot;(ÖӦ)&quot;,</a>
+<a name="256"><span class="lineNum">     256 </span>                :            :         UR&quot;(ϴθѲӨƟᎾⲐ)&quot;,</a>
+<a name="257"><span class="lineNum">     257 </span>                :            :         UR&quot;(ΦФⲪ)&quot;,</a>
+<a name="258"><span class="lineNum">     258 </span>                :            :         UR&quot;(PΡРᏢⲢ𐌓ᑭ𐌛ꓑ)&quot;,</a>
+<a name="259"><span class="lineNum">     259 </span>                :            :         UR&quot;(ΠПⲠ)&quot;,</a>
+<a name="260"><span class="lineNum">     260 </span>                :            :         UR&quot;(QԚꝖႳႭⵕℚ)&quot;,</a>
+<a name="261"><span class="lineNum">     261 </span>                :            :         UR&quot;(RᎡ𝈖ᖇᏒꓣ)&quot;,</a>
+<a name="262"><span class="lineNum">     262 </span>                :            :         UR&quot;(Яᖆ)&quot;,</a>
+<a name="263"><span class="lineNum">     263 </span>                :            :         UR&quot;(SЅᏚՏႽꚂऽ𐒖ꕶꓢ)&quot;,</a>
+<a name="264"><span class="lineNum">     264 </span>                :            :         UR&quot;(ΣƩ∑⅀Ʃⵉ)&quot;,</a>
+<a name="265"><span class="lineNum">     265 </span>                :            :         UR&quot;(TΤТᎢⲦ⊤⟙ꔋ𝍮🝨⏉ߠꓔ)&quot;,</a>
+<a name="266"><span class="lineNum">     266 </span>                :            :         UR&quot;(U⋃ᑌ∪ՍՍꓴ)&quot;,</a>
+<a name="267"><span class="lineNum">     267 </span>                :            :         UR&quot;(VᏙᐯⴸ⋁𝈍ⅤⅤꓦ)&quot;,</a>
+<a name="268"><span class="lineNum">     268 </span>                :            :         UR&quot;(WԜᎳꓪ)&quot;,</a>
+<a name="269"><span class="lineNum">     269 </span>                :            :         UR&quot;(XΧХⲬ╳ⵝ𐌢Ⅹ𐌗Ⅹꓫ)&quot;,</a>
+<a name="270"><span class="lineNum">     270 </span>                :            :         UR&quot;(YΥҮⲨꓬ)&quot;,</a>
+<a name="271"><span class="lineNum">     271 </span>                :            :         UR&quot;(ΫŸ)&quot;,</a>
+<a name="272"><span class="lineNum">     272 </span>                :            :         UR&quot;(ZΖᏃⲌꓜ)&quot;,</a>
+<a name="273"><span class="lineNum">     273 </span>                :            :         UR&quot;(aа)&quot;,</a>
+<a name="274"><span class="lineNum">     274 </span>                :            :         UR&quot;(äӓ)&quot;,</a>
+<a name="275"><span class="lineNum">     275 </span>                :            :         UR&quot;(ăӑ)&quot;,</a>
+<a name="276"><span class="lineNum">     276 </span>                :            :         UR&quot;(æӕ)&quot;,</a>
+<a name="277"><span class="lineNum">     277 </span>                :            :         UR&quot;(əә)&quot;,</a>
+<a name="278"><span class="lineNum">     278 </span>                :            :         UR&quot;(ЬᏏ)&quot;,</a>
+<a name="279"><span class="lineNum">     279 </span>                :            :         UR&quot;(cϲсⲥⅽ)&quot;,</a>
+<a name="280"><span class="lineNum">     280 </span>                :            :         UR&quot;(ͻɔᴐↄ)&quot;,</a>
+<a name="281"><span class="lineNum">     281 </span>                :            :         UR&quot;(dⅾ)&quot;,</a>
+<a name="282"><span class="lineNum">     282 </span>                :            :         UR&quot;(eе)&quot;,</a>
+<a name="283"><span class="lineNum">     283 </span>                :            :         UR&quot;(ĕӗ)&quot;,</a>
+<a name="284"><span class="lineNum">     284 </span>                :            :         UR&quot;(ϵє)&quot;,</a>
+<a name="285"><span class="lineNum">     285 </span>                :            :         UR&quot;(ɛԑ)&quot;,</a>
+<a name="286"><span class="lineNum">     286 </span>                :            :         UR&quot;(gց)&quot;,</a>
+<a name="287"><span class="lineNum">     287 </span>                :            :         UR&quot;(гᴦⲅ)&quot;,</a>
+<a name="288"><span class="lineNum">     288 </span>                :            :         UR&quot;(iіⅰ)&quot;,</a>
+<a name="289"><span class="lineNum">     289 </span>                :            :         UR&quot;(ïї)&quot;,</a>
+<a name="290"><span class="lineNum">     290 </span>                :            :         UR&quot;(jϳј)&quot;,</a>
+<a name="291"><span class="lineNum">     291 </span>                :            :         UR&quot;(lⅼ)&quot;,</a>
+<a name="292"><span class="lineNum">     292 </span>                :            :         UR&quot;(ιɩ)&quot;,</a>
+<a name="293"><span class="lineNum">     293 </span>                :            :         UR&quot;(mⅿ)&quot;,</a>
+<a name="294"><span class="lineNum">     294 </span>                :            :         UR&quot;(ʌᴧ)&quot;,</a>
+<a name="295"><span class="lineNum">     295 </span>                :            :         UR&quot;(oοоסᴏⲟօ૦௦ഠ๐໐໐)&quot;,</a>
+<a name="296"><span class="lineNum">     296 </span>                :            :         UR&quot;(òὸ)&quot;,</a>
+<a name="297"><span class="lineNum">     297 </span>                :            :         UR&quot;(óό)&quot;,</a>
+<a name="298"><span class="lineNum">     298 </span>                :            :         UR&quot;(öӧ)&quot;,</a>
+<a name="299"><span class="lineNum">     299 </span>                :            :         UR&quot;(ɵөⲑ)&quot;,</a>
+<a name="300"><span class="lineNum">     300 </span>                :            :         UR&quot;(фⲫ)&quot;,</a>
+<a name="301"><span class="lineNum">     301 </span>                :            :         UR&quot;(pρрⲣ)&quot;,</a>
+<a name="302"><span class="lineNum">     302 </span>                :            :         UR&quot;(πпᴨⲡ)&quot;,</a>
+<a name="303"><span class="lineNum">     303 </span>                :            :         UR&quot;(яᴙ)&quot;,</a>
+<a name="304"><span class="lineNum">     304 </span>                :            :         UR&quot;(qԛ)&quot;,</a>
+<a name="305"><span class="lineNum">     305 </span>                :            :         UR&quot;(sѕ)&quot;,</a>
+<a name="306"><span class="lineNum">     306 </span>                :            :         UR&quot;(uս)&quot;,</a>
+<a name="307"><span class="lineNum">     307 </span>                :            :         UR&quot;(vᴠݍⅴ)&quot;,</a>
+<a name="308"><span class="lineNum">     308 </span>                :            :         UR&quot;(xⅹ)&quot;,</a>
+<a name="309"><span class="lineNum">     309 </span>                :            :         UR&quot;(yу)&quot;,</a>
+<a name="310"><span class="lineNum">     310 </span>                :            :         UR&quot;(~῀)&quot;,</a>
+<a name="311"><span class="lineNum">     311 </span>                :            :         UR&quot;(··•∙⋅・)&quot;,</a>
+<a name="312"><span class="lineNum">     312 </span>                :            :         UR&quot;(ᴛтⲧ)&quot;,</a>
+<a name="313"><span class="lineNum">     313 </span>                :            :         UR&quot;(૰。࿁)&quot;,</a>
+<a name="314"><span class="lineNum">     314 </span>                :            :         UR&quot;(ᐃ△🜂∆ΔᐃⵠΔꕔ)&quot;,</a>
+<a name="315"><span class="lineNum">     315 </span>                :            :         UR&quot;(ᐊᐊ◁⊲)&quot;,</a>
+<a name="316"><span class="lineNum">     316 </span>                :            :         UR&quot;(ᐁ▽🜄⛛∇ᐁ𝈔)&quot;,</a>
+<a name="317"><span class="lineNum">     317 </span>                :            :         UR&quot;(ᐅ▷⊳▻)&quot;,</a>
+<a name="318"><span class="lineNum">     318 </span>                :            :         UR&quot;(ᐱΛ𐤂⋀ⴷ𐌡Ʌ)&quot;,</a>
+<a name="319"><span class="lineNum">     319 </span>                :            :         UR&quot;(ᑎႶ⋂Ո∩𝉅ꓵ)&quot;,</a>
+<a name="320"><span class="lineNum">     320 </span>                :            :         UR&quot;(⨆∐ⵡ𝈈)&quot;,</a>
+<a name="321"><span class="lineNum">     321 </span>                :            :         UR&quot;(∏⨅ПΠ⊓)&quot;,</a>
+<a name="322"><span class="lineNum">     322 </span>                :            :         UR&quot;(⊏ⵎ𝈸)&quot;,</a>
+<a name="323"><span class="lineNum">     323 </span>                :            :         UR&quot;(コ⊐ߏ𝈹)&quot;,</a>
+<a name="324"><span class="lineNum">     324 </span>                :            :         UR&quot;(⎕□☐⬜◻▢⃞❑❒❐❏⧠⃢⌷ロ)&quot;,</a>
+<a name="325"><span class="lineNum">     325 </span>                :            :         UR&quot;(⛝⌧🝱)&quot;,</a>
+<a name="326"><span class="lineNum">     326 </span>                :            :         UR&quot;( 　         )&quot;</a>
+<a name="327"><span class="lineNum">     327 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     };</span></a>
+<a name="328"><span class="lineNum">     328 </span>        [<span class="branchCov" title="Branch 0 was taken 139 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        140 :     for(auto w: equal_symbols)</span></a>
+<a name="329"><span class="lineNum">     329 </span>  [<span class="branchCov" title="Branch 0 was taken 139 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 139 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        278 :         out &lt;&lt; &quot;= &quot; &lt;&lt; ToUTF8(w) &lt;&lt; '\n';</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 139 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
+<a name="330"><span class="lineNum">     330 </span>                :            : </a>
+<a name="331"><span class="lineNum">     331 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     out &lt;&lt; &quot;\n// Create similarity rules between modified stylished symbols\n&quot;;</span></a>
+<a name="332"><span class="lineNum">     332 </span>                :<span class="lineCov">          1 :     if(1)</span></a>
+<a name="333"><span class="lineNum">     333 </span>                :            :     {</a>
+<a name="334"><span class="lineNum">     334 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         std::initializer_list&lt;std::string_view&gt; words</span></a>
+<a name="335"><span class="lineNum">     335 </span>                :            :         {</a>
+<a name="336"><span class="lineNum">     336 </span>                :            :             &quot;BLACK&quot;,</a>
+<a name="337"><span class="lineNum">     337 </span>                :            :             &quot;HEAVY&quot;,</a>
+<a name="338"><span class="lineNum">     338 </span>                :            :             &quot;FULLWIDTH&quot;,</a>
+<a name="339"><span class="lineNum">     339 </span>                :            :             &quot;MATHEMATICAL BOLD&quot;,                  // 1D400,1D41A</a>
+<a name="340"><span class="lineNum">     340 </span>                :            :             &quot;MATHEMATICAL SANS-SERIF BOLD&quot;,       // 1D5D4,1D5EE</a>
+<a name="341"><span class="lineNum">     341 </span>                :            :             &quot;MATHEMATICAL SANS-SERIF BOLD ITALIC&quot;,// 1D63C,1D656</a>
+<a name="342"><span class="lineNum">     342 </span>                :            :             &quot;MATHEMATICAL BOLD ITALIC&quot;,           // 1D468,1D482</a>
+<a name="343"><span class="lineNum">     343 </span>                :            :             &quot;MATHEMATICAL ITALIC&quot;,                // 1D434,1D44E</a>
+<a name="344"><span class="lineNum">     344 </span>                :            :             &quot;MATHEMATICAL SANS-SERIF ITALIC&quot;,     // 1D608,1D622</a>
+<a name="345"><span class="lineNum">     345 </span>                :            :             &quot;&quot;,                                   // no modifier.</a>
+<a name="346"><span class="lineNum">     346 </span>                :            :             &quot;MATHEMATICAL SANS-SERIF&quot;,            // 1D5A0,1D5BA</a>
+<a name="347"><span class="lineNum">     347 </span>                :            :             &quot;MATHEMATICAL SCRIPT&quot;,                // 1D49C,1D4B6</a>
+<a name="348"><span class="lineNum">     348 </span>                :            :             &quot;MATHEMATICAL BOLD SCRIPT&quot;,           // 1D4D0,1D4EA</a>
+<a name="349"><span class="lineNum">     349 </span>                :            :             &quot;MATHEMATICAL FRAKTUR&quot;,               // 1D504,1D51E</a>
+<a name="350"><span class="lineNum">     350 </span>                :            :             &quot;MATHEMATICAL BOLD FRAKTUR&quot;,          // 1D56C,1D586</a>
+<a name="351"><span class="lineNum">     351 </span>                :            :             &quot;MATHEMATICAL DOUBLE-STRUCK&quot;,         // 1D538,1D552</a>
+<a name="352"><span class="lineNum">     352 </span>                :            :             &quot;MATHEMATICAL MONOSPACE&quot;,             // 1D670,1D68A</a>
+<a name="353"><span class="lineNum">     353 </span>                :            :             &quot;MATHEMATICAL&quot;,</a>
+<a name="354"><span class="lineNum">     354 </span>                :            :             &quot;WHITE&quot;,</a>
+<a name="355"><span class="lineNum">     355 </span>                :            :             &quot;LIGHT&quot;,</a>
+<a name="356"><span class="lineNum">     356 </span>                :            :             &quot;HALFWIDTH&quot;,</a>
+<a name="357"><span class="lineNum">     357 </span>                :            :             &quot;SMALL&quot;,</a>
+<a name="358"><span class="lineNum">     358 </span>                :            :             &quot;PARENTHESIZED&quot;,</a>
+<a name="359"><span class="lineNum">     359 </span>                :            :             &quot;CIRCLED&quot;,</a>
+<a name="360"><span class="lineNum">     360 </span>                :            :             &quot;TAG&quot;</a>
+<a name="361"><span class="lineNum">     361 </span>                :<span class="lineCov">          1 :         };</span></a>
+<a name="362"><span class="lineNum">     362 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          2 :         std::regex word_style_pat(&quot;(&quot; + Join(words, &quot;|&quot;) + &quot;) (.*)&quot;, Ropt);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
+<a name="363"><span class="lineNum">     363 </span>                :<span class="lineCov">          1 :         std::map&lt;std::string, std::map&lt;std::string, char32_t&gt;&gt; symbols;</span></a>
+<a name="364"><span class="lineNum">     364 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33764 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      33765 :         for(const auto&amp; [name,code]: d.codes)</span></a>
+<a name="365"><span class="lineNum">     365 </span>                :            :         {</a>
+<a name="366"><span class="lineNum">     366 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      33764 :             symbols[name][&quot;&quot;] = code;</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
+<a name="367"><span class="lineNum">     367 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2242 times"> + </span><span class="branchCov" title="Branch 3 was taken 31522 times"> + </span>]:<span class="lineCov">      33764 :             if(std::smatch mat; std::regex_match(name, mat, word_style_pat))</span></a>
+<a name="368"><span class="lineNum">     368 </span>  [<span class="branchCov" title="Branch 0 was taken 2242 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2242 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      36006 :                 symbols[mat[2]][mat[1]] = code;</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 2242 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 2242 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="369"><span class="lineNum">     369 </span>                :            :         }</a>
+<a name="370"><span class="lineNum">     370 </span>  [<span class="branchCov" title="Branch 0 was taken 679 times"> + </span><span class="branchCov" title="Branch 1 was taken 33830 times"> + </span><span class="branchCov" title="Branch 2 was taken 34509 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      34510 :         for(auto&amp;&amp; [basename,group]: symbols)</span></a>
+<a name="371"><span class="lineNum">     371 </span>        [<span class="branchCov" title="Branch 0 was taken 679 times"> + </span><span class="branchCov" title="Branch 1 was taken 33830 times"> + </span>]:<span class="lineCov">      34509 :             if(group.size() &gt; 1)</span></a>
+<a name="372"><span class="lineNum">     372 </span>                :            :             {</a>
+<a name="373"><span class="lineNum">     373 </span>        [<span class="branchCov" title="Branch 0 was taken 679 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        679 :                 out &lt;&lt; &quot;◆ &quot;;</span></a>
+<a name="374"><span class="lineNum">     374 </span>        [<span class="branchCov" title="Branch 0 was taken 16975 times"> + </span><span class="branchCov" title="Branch 1 was taken 679 times"> + </span>]:<span class="lineCov">      17654 :                 for(auto w: words)</span></a>
+<a name="375"><span class="lineNum">     375 </span>  [<span class="branchCov" title="Branch 0 was taken 16975 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2176 times"> + </span><span class="branchCov" title="Branch 3 was taken 14799 times"> + </span>]:<span class="lineCov">      33950 :                     if(auto i = group.find(std::string(w)); i != group.end())</span></a>
+<a name="376"><span class="lineNum">     376 </span>        [<span class="branchCov" title="Branch 0 was taken 2176 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       4352 :                         out &lt;&lt; u8(i-&gt;second);</span></a>
+<a name="377"><span class="lineNum">     377 </span>        [<span class="branchCov" title="Branch 0 was taken 679 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        679 :                 out &lt;&lt; '\n';</span></a>
+<a name="378"><span class="lineNum">     378 </span>                :            :             }</a>
+<a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">          1 :     }</span></a>
+<a name="380"><span class="lineNum">     380 </span>                :            : </a>
+<a name="381"><span class="lineNum">     381 </span>                :            :     // Convert the equal-symbols list into a searchable one</a>
+<a name="382"><span class="lineNum">     382 </span>                :<span class="lineCov">          1 :     std::map&lt;char32_t, std::vector&lt;char32_t&gt;&gt; equal_with;</span></a>
+<a name="383"><span class="lineNum">     383 </span>        [<span class="branchCov" title="Branch 0 was taken 139 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        140 :     for(auto w: equal_symbols)</span></a>
+<a name="384"><span class="lineNum">     384 </span>        [<span class="branchCov" title="Branch 0 was taken 610 times"> + </span><span class="branchCov" title="Branch 1 was taken 139 times"> + </span>]:<span class="lineCov">        749 :         for(char32_t code:  w)</span></a>
+<a name="385"><span class="lineNum">     385 </span>        [<span class="branchCov" title="Branch 0 was taken 3934 times"> + </span><span class="branchCov" title="Branch 1 was taken 610 times"> + </span>]:<span class="lineCov">       4544 :         for(char32_t code2: w)</span></a>
+<a name="386"><span class="lineNum">     386 </span>        [<span class="branchCov" title="Branch 0 was taken 3288 times"> + </span><span class="branchCov" title="Branch 1 was taken 646 times"> + </span>]:<span class="lineCov">       3934 :             if(code != code2)</span></a>
+<a name="387"><span class="lineNum">     387 </span>  [<span class="branchCov" title="Branch 0 was taken 3288 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3288 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3288 :                 equal_with[code].push_back(code2);</span></a>
+<a name="388"><span class="lineNum">     388 </span>        [<span class="branchCov" title="Branch 0 was taken 592 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        593 :     for(auto&amp; w: equal_with)</span></a>
+<a name="389"><span class="lineNum">     389 </span>                :            :     {</a>
+<a name="390"><span class="lineNum">     390 </span>                :<span class="lineCov">        592 :         std::sort(w.second.begin(), w.second.end());</span></a>
+<a name="391"><span class="lineNum">     391 </span>                :<span class="lineCov">        592 :         w.second.erase(std::unique(w.second.begin(), w.second.end()), w.second.end());</span></a>
+<a name="392"><span class="lineNum">     392 </span>                :            :     }</a>
+<a name="393"><span class="lineNum">     393 </span>                :            : </a>
+<a name="394"><span class="lineNum">     394 </span>                :<span class="lineCov">          1 :     out &lt;&lt; &quot;// Then go through all symbols that are “WITH” something.\n&quot;</span></a>
+<a name="395"><span class="lineNum">     395 </span>                :            :            &quot;// As a general rule, try to compose things that have more “WITHs”\n&quot;</a>
+<a name="396"><span class="lineNum">     396 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :            &quot;// from things that have less “WITHs”.\n&quot;;</span></a>
+<a name="397"><span class="lineNum">     397 </span>                :            : </a>
+<a name="398"><span class="lineNum">     398 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     std::map&lt;std::string, std::map&lt;std::string, std::size_t&gt;&gt; with_lists;</span></a>
+<a name="399"><span class="lineNum">     399 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     std::regex with_match(&quot;(.*) WITH (.*)&quot;, Ropt);</span></a>
+<a name="400"><span class="lineNum">     400 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 33764 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">      33765 :     for(const auto&amp; [name,code]: d.codes)</span></a>
+<a name="401"><span class="lineNum">     401 </span>  [<span class="branchCov" title="Branch 0 was taken 33764 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2524 times"> + </span><span class="branchCov" title="Branch 3 was taken 31240 times"> + </span>]:<span class="lineCov">      33764 :         if(std::smatch mat; std::regex_match(name, mat, with_match))</span></a>
+<a name="402"><span class="lineNum">     402 </span>                :            :         {</a>
+<a name="403"><span class="lineNum">     403 </span>        [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2524 :             std::string base = mat[1];</span></a>
+<a name="404"><span class="lineNum">     404 </span>        [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2524 :             std::string full = mat[2];</span></a>
+<a name="405"><span class="lineNum">     405 </span>        [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2524 :             std::vector&lt;std::string_view&gt; attrs = Split(full, &quot; AND &quot;);</span></a>
+<a name="406"><span class="lineNum">     406 </span>        [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2524 :             std::size_t len = attrs.size();</span></a>
+<a name="407"><span class="lineNum">     407 </span>  [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2524 :             auto&amp; wl = with_lists[&quot; WITH &quot; + full];</span></a>
+<a name="408"><span class="lineNum">     408 </span>  [<span class="branchCov" title="Branch 0 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2524 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       2524 :             wl[&quot;&quot;] = 0;</span></a>
+<a name="409"><span class="lineNum">     409 </span>        [<span class="branchCov" title="Branch 0 was taken 361 times"> + </span><span class="branchCov" title="Branch 1 was taken 2524 times"> + </span>]:<span class="lineCov">       2885 :             for(std::size_t n = len; --n &gt; 0; )</span></a>
+<a name="410"><span class="lineNum">     410 </span>                :            :             {</a>
+<a name="411"><span class="lineNum">     411 </span>        [<span class="branchCov" title="Branch 0 was taken 361 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        361 :                 std::map&lt;std::size_t, std::string_view&gt; pick;</span></a>
+<a name="412"><span class="lineNum">     412 </span>                :<span class="lineCov">        839 :                 std::function&lt;void(std::size_t,std::size_t)&gt; Do = [&amp;](std::size_t index, std::size_t start)</span></a>
+<a name="413"><span class="lineNum">     413 </span>                :            :                 {</a>
+<a name="414"><span class="lineNum">     414 </span>        [<span class="branchCov" title="Branch 0 was taken 917 times"> + </span><span class="branchCov" title="Branch 1 was taken 478 times"> + </span>]:<span class="lineCov">       1395 :                     for(std::size_t a=start; a&lt;len; ++a)</span></a>
+<a name="415"><span class="lineNum">     415 </span>                :            :                     {</a>
+<a name="416"><span class="lineNum">     416 </span>                :<span class="lineCov">        917 :                         pick[index] = attrs[a];</span></a>
+<a name="417"><span class="lineNum">     417 </span>        [<span class="branchCov" title="Branch 0 was taken 800 times"> + </span><span class="branchCov" title="Branch 1 was taken 117 times"> + </span>]:<span class="lineCov">        917 :                         if(index+1 == n)</span></a>
+<a name="418"><span class="lineNum">     418 </span>                :            :                         {</a>
+<a name="419"><span class="lineNum">     419 </span>  [<span class="branchCov" title="Branch 0 was taken 800 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 800 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        800 :                             wl[&quot; WITH &quot; + /*partial*/Join(pick, &quot; AND &quot;)] = pick.size();</span></a>
+<a name="420"><span class="lineNum">     420 </span>                :            :                             //print &quot;try make $partial from $full for $name for $base\n&quot;;</a>
+<a name="421"><span class="lineNum">     421 </span>                :            :                         }</a>
+<a name="422"><span class="lineNum">     422 </span>                :            :                         else</a>
+<a name="423"><span class="lineNum">     423 </span>                :<span class="lineCov">        117 :                             Do(index+1, a+1);</span></a>
+<a name="424"><span class="lineNum">     424 </span>                :            :                     }</a>
+<a name="425"><span class="lineNum">     425 </span>        [<span class="branchCov" title="Branch 0 was taken 361 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        839 :                 };</span></a>
+<a name="426"><span class="lineNum">     426 </span>        [<span class="branchCov" title="Branch 0 was taken 361 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        361 :                 Do(0, 0);</span></a>
+<a name="427"><span class="lineNum">     427 </span>                :<span class="lineCov">        361 :             }</span></a>
+<a name="428"><span class="lineNum">     428 </span>                :<span class="lineCov">      36288 :         }</span></a>
+<a name="429"><span class="lineNum">     429 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          3 :     for(auto operation: std::initializer_list&lt;std::string_view&gt;{&quot;→ &quot;, &quot;← &quot;})</span></a>
+<a name="430"><span class="lineNum">     430 </span>  [<span class="branchCov" title="Branch 0 was taken 1266 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1266 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">       1268 :         for(auto&amp; [full_with, p]: with_lists)</span></a>
+<a name="431"><span class="lineNum">     431 </span>                :            :         {</a>
+<a name="432"><span class="lineNum">     432 </span>        [<span class="branchCov" title="Branch 0 was taken 1266 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       1266 :             std::vector&lt;std::pair&lt;std::string,std::size_t&gt;&gt; partial_list(p.begin(), p.end());</span></a>
+<a name="433"><span class="lineNum">     433 </span>                :            :             // Sort in descending order according to the score (second item)</a>
+<a name="434"><span class="lineNum">     434 </span>                :<span class="lineCov">       1266 :             std::sort(partial_list.begin(), partial_list.end(),</span></a>
+<a name="435"><span class="lineNum">     435 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">       1328 :                 [](const auto&amp; a, const auto&amp; b) { return b.second &gt; a.second; });</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 112 times"> + </span><span class="branchCov" title="Branch 5 was taken 608 times"> + </span><span class="branchNoCov" title="Branch 6 was not taken"> - </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchCov" title="Branch 9 was taken 608 times"> + </span><span class="branchNoCov" title="Branch 10 was not taken"> - </span><span class="branchNoCov" title="Branch 11 was not taken"> - </span><span class="branchNoCov" title="Branch 12 was not taken"> - </span><span class="branchNoCov" title="Branch 13 was not taken"> - </span> 
+<span class="lineNum">         </span><span class="branchNoCov" title="Branch 14 was not taken"> - </span><span class="branchNoCov" title="Branch 15 was not taken"> - </span><span class="branchNoCov" title="Branch 16 was not taken"> - </span><span class="branchNoCov" title="Branch 17 was not taken"> - </span><span class="branchNoCov" title="Branch 18 was not taken"> - </span> 
+<span class="lineNum">         </span>   <span class="branchNoCov" title="Branch 19 was not taken"> - </span><span class="branchNoCov" title="Branch 20 was not taken"> - </span><span class="branchNoCov" title="Branch 21 was not taken"> - </span><span class="branchNoCov" title="Branch 22 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 23 was not taken"> - </span>]
+<a name="436"><span class="lineNum">     436 </span>                :            :             // Find all symbols that have this &quot;full with&quot; list.</a>
+<a name="437"><span class="lineNum">     437 </span>        [<span class="branchCov" title="Branch 0 was taken 1266 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       2532 :             std::regex pat(&quot;(.*)&quot; + full_with, Ropt);</span></a>
+<a name="438"><span class="lineNum">     438 </span>  [<span class="branchCov" title="Branch 0 was taken 27464022 times"> + </span><span class="branchCov" title="Branch 1 was taken 15281202 times"> + </span><span class="branchCov" title="Branch 2 was taken 42745224 times"> + </span><span class="branchCov" title="Branch 3 was taken 1266 times"> + </span>]:<span class="lineCov">   42746490 :             for(auto&amp; [name,code]: d.codes)</span></a>
+<a name="439"><span class="lineNum">     439 </span>  [<span class="branchCov" title="Branch 0 was taken 27464022 times"> + </span><span class="branchCov" title="Branch 1 was taken 15281202 times"> + </span><span class="branchCov" title="Branch 2 was taken 27464022 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">   42745224 :                 if(name.size() &gt;= full_with.size() &amp;&amp; name.compare(name.size()-full_with.size(), full_with.size(), full_with) == 0)</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 5048 times"> + </span><span class="branchCov" title="Branch 5 was taken 27458974 times"> + </span>]
+<a name="440"><span class="lineNum">     440 </span>                :            :                 {</a>
+<a name="441"><span class="lineNum">     441 </span>        [<span class="branchCov" title="Branch 0 was taken 5048 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5048 :                     std::string_view mat1(name.data(), name.size()-full_with.size());</span></a>
+<a name="442"><span class="lineNum">     442 </span>        [<span class="branchCov" title="Branch 0 was taken 5048 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5048 :                     std::vector&lt;std::tuple&lt;char32_t, std::string_view, std::string_view&gt;&gt; rep_list, sub_list;</span></a>
+<a name="443"><span class="lineNum">     443 </span>        [<span class="branchCov" title="Branch 0 was taken 5048 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5048 :                     rep_list.emplace_back(code, name, mat1);</span></a>
+<a name="444"><span class="lineNum">     444 </span>        [<span class="branchCov" title="Branch 0 was taken 76 times"> + </span><span class="branchCov" title="Branch 1 was taken 4972 times"> + </span>]:<span class="lineCov">       5048 :                     if(auto i = equal_with.find(code); i != equal_with.end())</span></a>
+<a name="445"><span class="lineNum">     445 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchCov" title="Branch 1 was taken 76 times"> + </span>]:<span class="lineCov">        234 :                         for(auto code2: i-&gt;second)</span></a>
+<a name="446"><span class="lineNum">     446 </span>                :            :                         {</a>
+<a name="447"><span class="lineNum">     447 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :                             const auto&amp; name2 = d.names[code2];</span></a>
+<a name="448"><span class="lineNum">     448 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :                             std::smatch mat2;</span></a>
+<a name="449"><span class="lineNum">     449 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :                             std::regex_match(name2, mat2, with_match); // (.*) WITH.*</span></a>
+<a name="450"><span class="lineNum">     450 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :                             rep_list.emplace_back(code2, name2, std::string_view(&amp;*mat2[1].first, mat2[1].second-mat2[1].first));</span></a>
+<a name="451"><span class="lineNum">     451 </span>                :<span class="lineCov">        158 :                         }</span></a>
+<a name="452"><span class="lineNum">     452 </span>        [<span class="branchCov" title="Branch 0 was taken 6648 times"> + </span><span class="branchCov" title="Branch 1 was taken 5048 times"> + </span>]:<span class="lineCov">      11696 :                     for(auto&amp; [partial_with,dummy]: partial_list)</span></a>
+<a name="453"><span class="lineNum">     453 </span>        [<span class="branchCov" title="Branch 0 was taken 6806 times"> + </span><span class="branchCov" title="Branch 1 was taken 6648 times"> + </span>]:<span class="lineCov">      13454 :                         for(auto&amp; rep: rep_list)</span></a>
+<a name="454"><span class="lineNum">     454 </span>                :            :                         {</a>
+<a name="455"><span class="lineNum">     455 </span>        [<span class="branchCov" title="Branch 0 was taken 6806 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       6806 :                             std::string sub_name{std::get&lt;2&gt;(rep)};</span></a>
+<a name="456"><span class="lineNum">     456 </span>        [<span class="branchCov" title="Branch 0 was taken 6806 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       6806 :                             sub_name += partial_with;</span></a>
+<a name="457"><span class="lineNum">     457 </span>                :            :                             //print &quot;can we find $sub_name?\n&quot;;</a>
+<a name="458"><span class="lineNum">     458 </span>        [<span class="branchCov" title="Branch 0 was taken 4856 times"> + </span><span class="branchCov" title="Branch 1 was taken 1950 times"> + </span>]:<span class="lineCov">       6806 :                             if(auto code2 = d.Has(sub_name); code2)</span></a>
+<a name="459"><span class="lineNum">     459 </span>        [<span class="branchCov" title="Branch 0 was taken 4856 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       4856 :                                 sub_list.emplace_back(code2, sub_name, sub_name);</span></a>
+<a name="460"><span class="lineNum">     460 </span>                :<span class="lineCov">       6806 :                         }</span></a>
+<a name="461"><span class="lineNum">     461 </span>  [<span class="branchCov" title="Branch 0 was taken 4856 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4856 times"> + </span><span class="branchCov" title="Branch 3 was taken 5048 times"> + </span>]:<span class="lineCov">       9904 :                     for(auto&amp;&amp; sub: sub_list) rep_list.push_back(std::move(sub));</span></a>
+<a name="462"><span class="lineNum">     462 </span>        [<span class="branchCov" title="Branch 0 was taken 3502 times"> + </span><span class="branchCov" title="Branch 1 was taken 1546 times"> + </span>]:<span class="lineCov">       5048 :                     if(rep_list.size() &gt; 1)</span></a>
+<a name="463"><span class="lineNum">     463 </span>                :            :                     {</a>
+<a name="464"><span class="lineNum">     464 </span>        [<span class="branchCov" title="Branch 0 was taken 3502 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3502 :                         out &lt;&lt; operation;</span></a>
+<a name="465"><span class="lineNum">     465 </span>  [<span class="branchCov" title="Branch 0 was taken 8516 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 8516 times"> + </span><span class="branchCov" title="Branch 3 was taken 3502 times"> + </span>]:<span class="lineCov">      12018 :                         for(auto&amp; rep: rep_list) out &lt;&lt; u8(std::get&lt;0&gt;(rep));</span></a>
+<a name="466"><span class="lineNum">     466 </span>        [<span class="branchCov" title="Branch 0 was taken 3502 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3502 :                         out &lt;&lt; '\n';</span></a>
+<a name="467"><span class="lineNum">     467 </span>                :            :                     }</a>
+<a name="468"><span class="lineNum">     468 </span>                :<span class="lineCov">       5048 :                 }</span></a>
+<a name="469"><span class="lineNum">     469 </span>                :<span class="lineCov">       1266 :         }</span></a>
+<a name="470"><span class="lineNum">     470 </span>                :            : </a>
+<a name="471"><span class="lineNum">     471 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     out &lt;&lt; R&quot;(</span></a>
+<a name="472"><span class="lineNum">     472 </span>                :            : // Some symbols that act as last resort…</a>
+<a name="473"><span class="lineNum">     473 </span>                :            : = Ⅱ║∥‖ǁ𝄁</a>
+<a name="474"><span class="lineNum">     474 </span>                :            : = Ⅲ⫴⦀⫼𝍫ꔖ</a>
+<a name="475"><span class="lineNum">     475 </span>                :            : = -‐‑–—−－‒―➖─━一╴╶╸╺╼╾╼╾</a>
+<a name="476"><span class="lineNum">     476 </span>                :            : = ┄┅⋯┈┉╌╍</a>
+<a name="477"><span class="lineNum">     477 </span>                :            : = ╎╏¦</a>
+<a name="478"><span class="lineNum">     478 </span>                :            : = │┃|╿╽</a>
+<a name="479"><span class="lineNum">     479 </span>                :            : = ═＝꓿</a>
+<a name="480"><span class="lineNum">     480 </span>                :            : = ~⁓～</a>
+<a name="481"><span class="lineNum">     481 </span>                :            : = &lt;く𐌂ᐸᑉ</a>
+<a name="482"><span class="lineNum">     482 </span>                :            : = ┌┍┎┏╭╒╓╔гᴦⲅ</a>
+<a name="483"><span class="lineNum">     483 </span>                :            : = ┐┑┒┓╮╕╖╗</a>
+<a name="484"><span class="lineNum">     484 </span>                :            : = └┕┖┗╰╘╙╚˪լ</a>
+<a name="485"><span class="lineNum">     485 </span>                :            : = ┘┙┚┛╯╛╜╝</a>
+<a name="486"><span class="lineNum">     486 </span>                :            : = ┬┭┮┯┰┱┲┳╤╥╦⊤</a>
+<a name="487"><span class="lineNum">     487 </span>                :            : = ┴┵┶┷┸┹┺┻╧╨╩</a>
+<a name="488"><span class="lineNum">     488 </span>                :            : = ├┝┞┟┠┡┢┣߅╞╟╠</a>
+<a name="489"><span class="lineNum">     489 </span>                :            : = ┤┥┦┧┨┩┪┫╡╢╣</a>
+<a name="490"><span class="lineNum">     490 </span>                :            : = ┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╪╫╬</a>
+<a name="491"><span class="lineNum">     491 </span>                :            : = ▉⬛██▉▇</a>
+<a name="492"><span class="lineNum">     492 </span>                :            : → ガカ</a>
+<a name="493"><span class="lineNum">     493 </span>                :            : → グク</a>
+<a name="494"><span class="lineNum">     494 </span>                :            : → ギキ</a>
+<a name="495"><span class="lineNum">     495 </span>                :            : → ゲケ</a>
+<a name="496"><span class="lineNum">     496 </span>                :            : → ゴコ</a>
+<a name="497"><span class="lineNum">     497 </span>                :            : → パバハ</a>
+<a name="498"><span class="lineNum">     498 </span>                :            : → ピビヒ</a>
+<a name="499"><span class="lineNum">     499 </span>                :            : → ペベヘ</a>
+<a name="500"><span class="lineNum">     500 </span>                :            : → ポボホ</a>
+<a name="501"><span class="lineNum">     501 </span>                :            : → プブフ</a>
+<a name="502"><span class="lineNum">     502 </span>                :            : → ピビ</a>
+<a name="503"><span class="lineNum">     503 </span>                :            : → ペベ</a>
+<a name="504"><span class="lineNum">     504 </span>                :            : → ポボ</a>
+<a name="505"><span class="lineNum">     505 </span>                :            : → プブ</a>
+<a name="506"><span class="lineNum">     506 </span>                :            : → ザサ</a>
+<a name="507"><span class="lineNum">     507 </span>                :            : → ジシ</a>
+<a name="508"><span class="lineNum">     508 </span>                :            : → ズス</a>
+<a name="509"><span class="lineNum">     509 </span>                :            : → ゼセ</a>
+<a name="510"><span class="lineNum">     510 </span>                :            : → ゾソ</a>
+<a name="511"><span class="lineNum">     511 </span>                :            : → ダタ</a>
+<a name="512"><span class="lineNum">     512 </span>                :            : → ヂチ</a>
+<a name="513"><span class="lineNum">     513 </span>                :            : → ヅツ</a>
+<a name="514"><span class="lineNum">     514 </span>                :            : → デテ</a>
+<a name="515"><span class="lineNum">     515 </span>                :            : → ドト</a>
+<a name="516"><span class="lineNum">     516 </span>                :            : → がか</a>
+<a name="517"><span class="lineNum">     517 </span>                :            : → ぐく</a>
+<a name="518"><span class="lineNum">     518 </span>                :            : → ぎき</a>
+<a name="519"><span class="lineNum">     519 </span>                :            : → げけ</a>
+<a name="520"><span class="lineNum">     520 </span>                :            : → ごこ</a>
+<a name="521"><span class="lineNum">     521 </span>                :            : → ぱばは</a>
+<a name="522"><span class="lineNum">     522 </span>                :            : → ぴびひ</a>
+<a name="523"><span class="lineNum">     523 </span>                :            : → ぺべへ</a>
+<a name="524"><span class="lineNum">     524 </span>                :            : → ぽぼほ</a>
+<a name="525"><span class="lineNum">     525 </span>                :            : → ぷぶふ</a>
+<a name="526"><span class="lineNum">     526 </span>                :            : → ぱば</a>
+<a name="527"><span class="lineNum">     527 </span>                :            : → ぴび</a>
+<a name="528"><span class="lineNum">     528 </span>                :            : → ぺべ</a>
+<a name="529"><span class="lineNum">     529 </span>                :            : → ぽぼ</a>
+<a name="530"><span class="lineNum">     530 </span>                :            : → ぷぶ</a>
+<a name="531"><span class="lineNum">     531 </span>                :            : → ざさ</a>
+<a name="532"><span class="lineNum">     532 </span>                :            : → じし</a>
+<a name="533"><span class="lineNum">     533 </span>                :            : → ずす</a>
+<a name="534"><span class="lineNum">     534 </span>                :            : → ぜせ</a>
+<a name="535"><span class="lineNum">     535 </span>                :            : → ぞそ</a>
+<a name="536"><span class="lineNum">     536 </span>                :            : → だた</a>
+<a name="537"><span class="lineNum">     537 </span>                :            : → ぢち</a>
+<a name="538"><span class="lineNum">     538 </span>                :            : → づつ</a>
+<a name="539"><span class="lineNum">     539 </span>                :            : → でて</a>
+<a name="540"><span class="lineNum">     540 </span>                :            : → どと</a>
+<a name="541"><span class="lineNum">     541 </span>                :            : )&quot;;</a>
+<a name="542"><span class="lineNum">     542 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="543"><span class="lineNum">     543 </span>                :            : </a>
+<a name="544"><span class="lineNum">     544 </span>                :<span class="lineCov">          2 : std::vector&lt;std::pair&lt;char32_t/*goal*/, char32_t/*recipe*/&gt;&gt; ParseSimilarities(std::istream&amp; f) // Same as old &quot;similarities.inc&quot;</span></a>
+<a name="545"><span class="lineNum">     545 </span>                :            : {</a>
+<a name="546"><span class="lineNum">     546 </span>                :<span class="lineCov">          2 :     std::vector&lt;std::pair&lt;char32_t, char32_t&gt;&gt; results;</span></a>
+<a name="547"><span class="lineNum">     547 </span>                :            : </a>
+<a name="548"><span class="lineNum">     548 </span>  [<span class="branchCov" title="Branch 0 was taken 9328 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9326 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">       9330 :     for(std::string line; std::getline(f, line), f; )</span></a>
+<a name="549"><span class="lineNum">     549 </span>        [<span class="branchCov" title="Branch 0 was taken 9318 times"> + </span><span class="branchCov" title="Branch 1 was taken 8 times"> + </span>]:<span class="lineCov">       9326 :         if(!line.empty())</span></a>
+<a name="550"><span class="lineNum">     550 </span>                :            :         {</a>
+<a name="551"><span class="lineNum">     551 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 9318 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       9318 :             if(line.back() == '\r') { line.erase(line.size()-1); }</span></a>
+<a name="552"><span class="lineNum">     552 </span>  [<span class="branchCov" title="Branch 0 was taken 9318 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9318 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       9318 :             if(auto codes = FromUTF8(line); !codes.empty())</span></a>
+<a name="553"><span class="lineNum">     553 </span>                :            :             {</a>
+<a name="554"><span class="lineNum">     554 </span>                :<span class="lineCov">       9318 :                 std::size_t a=2, b=codes.size();</span></a>
+<a name="555"><span class="lineNum">     555 </span>  [<span class="branchCov" title="Branch 0 was taken 4044 times"> + </span><span class="branchCov" title="Branch 1 was taken 3502 times"> + </span><span class="branchCov" title="Branch 2 was taken 1358 times"> + </span><span class="branchCov" title="Branch 3 was taken 392 times"> + </span> :<span class="lineCov">       9318 :                 switch(codes[0])</span></a>
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 22 times"> + </span>]
+<a name="556"><span class="lineNum">     556 </span>                :            :                 {</a>
+<a name="557"><span class="lineNum">     557 </span>                :            :                     case U'→':</a>
+<a name="558"><span class="lineNum">     558 </span>                :            :                         // Generate symbol on left from symbol on right</a>
+<a name="559"><span class="lineNum">     559 </span>        [<span class="branchCov" title="Branch 0 was taken 5576 times"> + </span><span class="branchCov" title="Branch 1 was taken 4044 times"> + </span>]:<span class="lineCov">       9620 :                         for(std::size_t n=a, m=n+1; m&lt;b; ++m)</span></a>
+<a name="560"><span class="lineNum">     560 </span>        [<span class="branchCov" title="Branch 0 was taken 5576 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       5576 :                             results.emplace_back(codes[n], codes[m]);</span></a>
+<a name="561"><span class="lineNum">     561 </span>                :            :                         break;</a>
+<a name="562"><span class="lineNum">     562 </span>                :            :                     case U'←':</a>
+<a name="563"><span class="lineNum">     563 </span>                :            :                         // Generate symbol on right from symbol on left</a>
+<a name="564"><span class="lineNum">     564 </span>        [<span class="branchCov" title="Branch 0 was taken 12018 times"> + </span><span class="branchCov" title="Branch 1 was taken 3502 times"> + </span>]:<span class="lineCov">      15520 :                         for(std::size_t n=b; n-- &gt;= a; )</span></a>
+<a name="565"><span class="lineNum">     565 </span>        [<span class="branchCov" title="Branch 0 was taken 8326 times"> + </span><span class="branchCov" title="Branch 1 was taken 12018 times"> + </span>]:<span class="lineCov">      20344 :                             for(std::size_t m=n; --m &gt;= a; )</span></a>
+<a name="566"><span class="lineNum">     566 </span>        [<span class="branchCov" title="Branch 0 was taken 8326 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       8326 :                                 results.emplace_back(codes[n], codes[m]);</span></a>
+<a name="567"><span class="lineNum">     567 </span>                :            :                         break;</a>
+<a name="568"><span class="lineNum">     568 </span>                :<span class="lineCov">       1358 :                     case U'◆':</span></a>
+<a name="569"><span class="lineNum">     569 </span>                :<span class="lineCov">       1358 :                     {</span></a>
+<a name="570"><span class="lineNum">     570 </span>                :            :                         // Generate any symbol from any other,</a>
+<a name="571"><span class="lineNum">     571 </span>                :            :                         // with preference for close-by one</a>
+<a name="572"><span class="lineNum">     572 </span>                :<span class="lineCov">       1358 :                         std::map&lt;std::size_t, std::vector&lt;std::pair&lt;std::size_t,std::size_t&gt;&gt;&gt; score;</span></a>
+<a name="573"><span class="lineNum">     573 </span>        [<span class="branchCov" title="Branch 0 was taken 4352 times"> + </span><span class="branchCov" title="Branch 1 was taken 1358 times"> + </span>]:<span class="lineCov">       5710 :                         for(std::size_t n=a; n&lt;b; ++n)</span></a>
+<a name="574"><span class="lineNum">     574 </span>        [<span class="branchCov" title="Branch 0 was taken 27552 times"> + </span><span class="branchCov" title="Branch 1 was taken 4352 times"> + </span>]:<span class="lineCov">      31904 :                             for(std::size_t m=a; m&lt;b; ++m)</span></a>
+<a name="575"><span class="lineNum">     575 </span>        [<span class="branchCov" title="Branch 0 was taken 23200 times"> + </span><span class="branchCov" title="Branch 1 was taken 4352 times"> + </span>]:<span class="lineCov">      27552 :                                 if(m != n)</span></a>
+<a name="576"><span class="lineNum">     576 </span>  [<span class="branchCov" title="Branch 0 was taken 23200 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 23200 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      23200 :                                     score[std::abs(int(n-m))].emplace_back(n, m);</span></a>
+<a name="577"><span class="lineNum">     577 </span>        [<span class="branchCov" title="Branch 0 was taken 2994 times"> + </span><span class="branchCov" title="Branch 1 was taken 1358 times"> + </span>]:<span class="lineCov">       4352 :                         for(auto&amp; [dummy,pairs]: score)</span></a>
+<a name="578"><span class="lineNum">     578 </span>        [<span class="branchCov" title="Branch 0 was taken 23200 times"> + </span><span class="branchCov" title="Branch 1 was taken 2994 times"> + </span>]:<span class="lineCov">      26194 :                             for(auto pair: pairs)</span></a>
+<a name="579"><span class="lineNum">     579 </span>        [<span class="branchCov" title="Branch 0 was taken 23200 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      23200 :                                 results.emplace_back(codes[pair.first], codes[pair.second]);</span></a>
+<a name="580"><span class="lineNum">     580 </span>                :<span class="lineCov">       1358 :                         break;</span></a>
+<a name="581"><span class="lineNum">     581 </span>                :<span class="lineCov">       1358 :                     }</span></a>
+<a name="582"><span class="lineNum">     582 </span>                :            :                     case U'=':</a>
+<a name="583"><span class="lineNum">     583 </span>                :            :                         // Generate any symbol from any other symbol</a>
+<a name="584"><span class="lineNum">     584 </span>        [<span class="branchCov" title="Branch 0 was taken 1706 times"> + </span><span class="branchCov" title="Branch 1 was taken 392 times"> + </span>]:<span class="lineCov">       2098 :                         for(std::size_t n=a; n&lt;b; ++n)</span></a>
+<a name="585"><span class="lineNum">     585 </span>        [<span class="branchCov" title="Branch 0 was taken 12002 times"> + </span><span class="branchCov" title="Branch 1 was taken 1706 times"> + </span>]:<span class="lineCov">      13708 :                             for(std::size_t m=a; m&lt;b; ++m)</span></a>
+<a name="586"><span class="lineNum">     586 </span>        [<span class="branchCov" title="Branch 0 was taken 10296 times"> + </span><span class="branchCov" title="Branch 1 was taken 1706 times"> + </span>]:<span class="lineCov">      12002 :                                 if(m != n)</span></a>
+<a name="587"><span class="lineNum">     587 </span>        [<span class="branchCov" title="Branch 0 was taken 10296 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      10296 :                                     results.emplace_back(codes[n], codes[m]);</span></a>
+<a name="588"><span class="lineNum">     588 </span>                :            :                         break;</a>
+<a name="589"><span class="lineNum">     589 </span>                :            :                 }</a>
+<a name="590"><span class="lineNum">     590 </span>                :<span class="lineCov">       9318 :             }</span></a>
+<a name="591"><span class="lineNum">     591 </span>                :<span class="lineNoCov">          0 :         }</span></a>
+<a name="592"><span class="lineNum">     592 </span>                :            : </a>
+<a name="593"><span class="lineNum">     593 </span>                :            :     // Improve the list using iconv's //TRANSLIT option (pregenerated using make-alias.php)</a>
+<a name="594"><span class="lineNum">     594 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          8 :     auto [location, status] = FindShareFile(std::filesystem::path(&quot;fonts&quot;) / &quot;alias.txt&quot;);</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span><span class="branchNoCov" title="Branch 8 was not taken"> - </span> 
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 2 times"> + </span>]
+<a name="595"><span class="lineNum">     595 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     if(std::filesystem::exists(status))</span></a>
+<a name="596"><span class="lineNum">     596 </span>                :            :     {</a>
+<a name="597"><span class="lineNum">     597 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :         std::ifstream f2(location);</span></a>
+<a name="598"><span class="lineNum">     598 </span>                :<span class="lineCov">          2 :         auto delim = &quot; \t&quot;sv, hex = &quot;0123456789ABCDEFabcdef&quot;sv;</span></a>
+<a name="599"><span class="lineNum">     599 </span>  [<span class="branchCov" title="Branch 0 was taken 9230 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9228 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">       9230 :         for(std::string line; std::getline(f2, line), f2; )</span></a>
+<a name="600"><span class="lineNum">     600 </span>  [<span class="branchCov" title="Branch 0 was taken 9228 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9228 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       9228 :             if(!line.empty() &amp;&amp; line[0] != '#')</span></a>
+<a name="601"><span class="lineNum">     601 </span>                :            :             {</a>
+<a name="602"><span class="lineNum">     602 </span>                :<span class="lineCov">       9228 :                 std::size_t space    = line.find_first_of(delim);</span></a>
+<a name="603"><span class="lineNum">     603 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 9228 times"> + </span>]:<span class="lineCov">       9228 :                 if(space == line.npos) continue;</span></a>
+<a name="604"><span class="lineNum">     604 </span>                :<span class="lineCov">       9228 :                 std::size_t notspace = line.find_first_not_of(delim, space);</span></a>
+<a name="605"><span class="lineNum">     605 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 9228 times"> + </span>]:<span class="lineCov">       9228 :                 if(notspace == line.npos) continue;</span></a>
+<a name="606"><span class="lineNum">     606 </span>                :<span class="lineCov">       9228 :                 std::size_t notdigit = line.find_first_not_of(hex, notspace);</span></a>
+<a name="607"><span class="lineNum">     607 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 9228 times"> + </span>]:<span class="lineCov">       9228 :                 if(notdigit == line.npos) notdigit = line.size();</span></a>
+<a name="608"><span class="lineNum">     608 </span>                :            : </a>
+<a name="609"><span class="lineNum">     609 </span>        [<span class="branchCov" title="Branch 0 was taken 9228 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       9228 :                 results.emplace_back(std::stoi(std::string(line, 0, space), nullptr, 16),</span></a>
+<a name="610"><span class="lineNum">     610 </span>  [<span class="branchCov" title="Branch 0 was taken 9228 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 9228 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">      27684 :                                      std::stoi(std::string(line, notspace, notdigit-notspace), nullptr, 16));</span></a>
+<a name="611"><span class="lineNum">     611 </span>                :<span class="lineNoCov">          0 :             }</span></a>
+<a name="612"><span class="lineNum">     612 </span>                :<span class="lineCov">          2 :     }</span></a>
+<a name="613"><span class="lineNum">     613 </span>                :            : </a>
+<a name="614"><span class="lineNum">     614 </span>                :            :     // Delete duplicates</a>
+<a name="615"><span class="lineNum">     615 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :     std::unordered_set&lt;std::uint_fast64_t&gt; seen;</span></a>
+<a name="616"><span class="lineNum">     616 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     results.erase(std::remove_if(results.begin(), results.end(), [&amp;](auto&amp; pair)</span></a>
+<a name="617"><span class="lineNum">     617 </span>                :            :     {</a>
+<a name="618"><span class="lineNum">     618 </span>                :<span class="lineCov">      56626 :         uint_fast64_t key = pair.first; key = (key &lt;&lt; 32) | pair.second;</span></a>
+<a name="619"><span class="lineNum">     619 </span>        [<span class="branchCov" title="Branch 0 was taken 49138 times"> + </span><span class="branchCov" title="Branch 1 was taken 7488 times"> + </span>]:<span class="lineCov">      56626 :         if(seen.find(key) == seen.end())</span></a>
+<a name="620"><span class="lineNum">     620 </span>                :            :         {</a>
+<a name="621"><span class="lineNum">     621 </span>                :<span class="lineCov">      49138 :             seen.insert(key);</span></a>
+<a name="622"><span class="lineNum">     622 </span>                :<span class="lineCov">      49138 :             return false;</span></a>
+<a name="623"><span class="lineNum">     623 </span>                :            :         }</a>
+<a name="624"><span class="lineNum">     624 </span>                :            :         return true;</a>
+<a name="625"><span class="lineNum">     625 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     }), results.end());</span></a>
+<a name="626"><span class="lineNum">     626 </span>                :            : </a>
+<a name="627"><span class="lineNum">     627 </span>                :<span class="lineCov">          2 :     std::sort(results.begin(), results.end());</span></a>
+<a name="628"><span class="lineNum">     628 </span>                :<span class="lineCov">          2 :     return results;</span></a>
+<a name="629"><span class="lineNum">     629 </span>                :<span class="lineCov">          2 : }</span></a>
+<a name="630"><span class="lineNum">     630 </span>                :            : </a>
+<a name="631"><span class="lineNum">     631 </span>                :<span class="lineCov">          2 : std::vector&lt;std::pair&lt;char32_t/*goal*/, char32_t/*recipe*/&gt;&gt; ParseSimilarities() // Same as old &quot;similarities.inc&quot;</span></a>
+<a name="632"><span class="lineNum">     632 </span>                :            : {</a>
+<a name="633"><span class="lineNum">     633 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     auto [path, status] = FindCacheFile(&quot;similarities.dat&quot;, true);</span></a>
+<a name="634"><span class="lineNum">     634 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     auto [unipath, unistatus] = UnicodeDataFileName();</span></a>
+<a name="635"><span class="lineNum">     635 </span>                :            : </a>
+<a name="636"><span class="lineNum">     636 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     if(!std::filesystem::exists(status)</span></a>
+<a name="637"><span class="lineNum">     637 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          2 :     || !std::filesystem::file_size(path)</span></a>
+<a name="638"><span class="lineNum">     638 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     || (std::filesystem::exists(unipath)</span></a>
+<a name="639"><span class="lineNum">     639 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">          1 :      &amp;&amp; std::filesystem::last_write_time(unipath) &gt; std::filesystem::last_write_time(path)))</span></a>
+<span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 1 time"> + </span>]
+<a name="640"><span class="lineNum">     640 </span>                :            :     {</a>
+<a name="641"><span class="lineNum">     641 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :         std::ofstream file(path);</span></a>
+<a name="642"><span class="lineNum">     642 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :         MakeSimilarities(file, unipath);</span></a>
+<a name="643"><span class="lineNum">     643 </span>                :<span class="lineCov">          1 :     }</span></a>
+<a name="644"><span class="lineNum">     644 </span>                :            : </a>
+<a name="645"><span class="lineNum">     645 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     std::ifstream f(path);</span></a>
+<a name="646"><span class="lineNum">     646 </span>        [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          2 :     return ParseSimilarities(f);</span></a>
+<a name="647"><span class="lineNum">     647 </span>                :<span class="lineCov">          6 : }</span></a>
 </pre>
       </td>
     </tr>

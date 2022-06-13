@@ -16,6 +16,7 @@ var classUI =
     [ "IsHeadless", "classUI.html#af4e4e00885d185f933ccaf4e9f9743ae", null ],
     [ "PresentGraphics", "classUI.html#a0d72f6429469324ec5187d8fa4eff126", null ],
     [ "ResizeTo", "classUI.html#a540856a3999b70c82aa56ef03c2101b1", null ],
+    [ "SetHeadless", "classUI.html#a2a876e7965a3f67ccb142fa3d26a286c", null ],
     [ "SetIconName", "classUI.html#af4eb4b5b630b9046a7e21c63ecdefd8f", null ],
     [ "SetWindowTitle", "classUI.html#afe54c9f552ab1f5d5ffa3f9665468b45", null ]
 ];

@@ -128,37 +128,35 @@ $(document).ready(function(){initNavTree('terminal_8hh_source.html',''); initRes
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    std::u32string string;            </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> ResetFG();               </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> ResetBG();               </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> ResetAttr();             </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> Reset(<span class="keywordtype">bool</span> full = <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> YScrollDown(<span class="keywordtype">unsigned</span> y1, <span class="keywordtype">unsigned</span> y2, <span class="keywordtype">int</span> amount) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> YScrollUp(<span class="keywordtype">unsigned</span> y1, <span class="keywordtype">unsigned</span> y2, <span class="keywordtype">int</span> amount) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> SaveCur();                   </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> RestoreCur();                </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> EchoBack(std::u32string_view buffer); </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTerminalWindow.html#a9e5e286c670796f3e6851ad984d1364b">Write</a>(std::u32string_view s);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classTerminalWindow.html#a211c8a27458e0a4011e7d4a64a5d1a6a">   83</a></span>&#160;    <a class="code" href="classTerminalWindow.html#a211c8a27458e0a4011e7d4a64a5d1a6a">TerminalWindow</a>(<a class="code" href="structWindow.html">Window</a>&amp; w): wnd(w)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        ResetAttr();</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        Reset();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        SaveCur();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTerminalWindow.html#aca23c9eb63c1ec63f91263fc41b9dc2b">Resize</a>(std::size_t newsx, std::size_t newsy);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> ResetAttr();             </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> Reset(<span class="keywordtype">bool</span> full = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> YScrollDown(<span class="keywordtype">unsigned</span> y1, <span class="keywordtype">unsigned</span> y2, <span class="keywordtype">int</span> amount) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> YScrollUp(<span class="keywordtype">unsigned</span> y1, <span class="keywordtype">unsigned</span> y2, <span class="keywordtype">int</span> amount) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> SaveCur();                   </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> RestoreCur();                </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> EchoBack(std::u32string_view buffer); </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTerminalWindow.html#a9e5e286c670796f3e6851ad984d1364b">Write</a>(std::u32string_view s);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classTerminalWindow.html#a211c8a27458e0a4011e7d4a64a5d1a6a">   81</a></span>&#160;    <a class="code" href="classTerminalWindow.html#a211c8a27458e0a4011e7d4a64a5d1a6a">TerminalWindow</a>(<a class="code" href="structWindow.html">Window</a>&amp; w): wnd(w)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        ResetAttr();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        Reset();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        SaveCur();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classTerminalWindow.html#aca23c9eb63c1ec63f91263fc41b9dc2b">Resize</a>(std::size_t newsx, std::size_t newsy);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;};</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassTerminalWindow_html"><div class="ttname"><a href="classTerminalWindow.html">TerminalWindow</a></div><div class="ttdef"><b>Definition:</b> terminal.hh:16</div></div>
-<div class="ttc" id="aclassTerminalWindow_html_a211c8a27458e0a4011e7d4a64a5d1a6a"><div class="ttname"><a href="classTerminalWindow.html#a211c8a27458e0a4011e7d4a64a5d1a6a">TerminalWindow::TerminalWindow</a></div><div class="ttdeci">TerminalWindow(Window &amp;w)</div><div class="ttdef"><b>Definition:</b> terminal.hh:83</div></div>
+<div class="ttc" id="aclassTerminalWindow_html_a211c8a27458e0a4011e7d4a64a5d1a6a"><div class="ttname"><a href="classTerminalWindow.html#a211c8a27458e0a4011e7d4a64a5d1a6a">TerminalWindow::TerminalWindow</a></div><div class="ttdeci">TerminalWindow(Window &amp;w)</div><div class="ttdef"><b>Definition:</b> terminal.hh:81</div></div>
 <div class="ttc" id="aclassTerminalWindow_html_a756812b518678b91a4bd0040efd629de"><div class="ttname"><a href="classTerminalWindow.html#a756812b518678b91a4bd0040efd629de">TerminalWindow::OutBuffer</a></div><div class="ttdeci">std::deque&lt; char32_t &gt; OutBuffer</div><div class="ttdoc">Outgoing symbols (some ANSI codes cause input to be generated)</div><div class="ttdef"><b>Definition:</b> terminal.hh:21</div></div>
-<div class="ttc" id="aclassTerminalWindow_html_a9e5e286c670796f3e6851ad984d1364b"><div class="ttname"><a href="classTerminalWindow.html#a9e5e286c670796f3e6851ad984d1364b">TerminalWindow::Write</a></div><div class="ttdeci">void Write(std::u32string_view s)</div><div class="ttdef"><b>Definition:</b> terminal.cc:71</div></div>
-<div class="ttc" id="aclassTerminalWindow_html_aca23c9eb63c1ec63f91263fc41b9dc2b"><div class="ttname"><a href="classTerminalWindow.html#aca23c9eb63c1ec63f91263fc41b9dc2b">TerminalWindow::Resize</a></div><div class="ttdeci">void Resize(std::size_t newsx, std::size_t newsy)</div><div class="ttdef"><b>Definition:</b> terminal.cc:1129</div></div>
+<div class="ttc" id="aclassTerminalWindow_html_a9e5e286c670796f3e6851ad984d1364b"><div class="ttname"><a href="classTerminalWindow.html#a9e5e286c670796f3e6851ad984d1364b">TerminalWindow::Write</a></div><div class="ttdeci">void Write(std::u32string_view s)</div><div class="ttdef"><b>Definition:</b> terminal.cc:65</div></div>
+<div class="ttc" id="aclassTerminalWindow_html_aca23c9eb63c1ec63f91263fc41b9dc2b"><div class="ttname"><a href="classTerminalWindow.html#aca23c9eb63c1ec63f91263fc41b9dc2b">TerminalWindow::Resize</a></div><div class="ttdeci">void Resize(std::size_t newsx, std::size_t newsy)</div><div class="ttdef"><b>Definition:</b> terminal.cc:1123</div></div>
 <div class="ttc" id="astructCell_html"><div class="ttname"><a href="structCell.html">Cell</a></div><div class="ttdef"><b>Definition:</b> cell.hh:39</div></div>
 <div class="ttc" id="astructWindow_html"><div class="ttname"><a href="structWindow.html">Window</a></div><div class="ttdef"><b>Definition:</b> window.hh:17</div></div>
 <div class="ttc" id="awindow_8hh_html"><div class="ttname"><a href="window_8hh.html">window.hh</a></div><div class="ttdoc">Defines Window, a renderer and manager of screen contents.</div></div>
