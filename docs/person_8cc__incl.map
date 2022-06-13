@@ -1,0 +1,12 @@
+<map id="src/rendering/person.cc" name="src/rendering/person.cc">
+<area shape="rect" id="node1" title="Defines PersonTransform(), which renders a person animation on the screen." alt="" coords="115,5,274,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,155,67,181"/>
+<area shape="rect" id="node3" href="$clock_8hh.html" title="Time handling interface." alt="" coords="70,80,141,107"/>
+<area shape="rect" id="node4" href="$color_8hh.html" title="Defines conversions between different color formats and parsing colors defined in strings." alt="" coords="249,80,316,107"/>
+<area shape="rect" id="node8" href="$cell_8hh.html" title="Defines Cell, the structure that represents a character on screen." alt="" coords="165,80,225,107"/>
+<area shape="rect" id="node10" href="$256color_8hh.html" title="Defines xterm256table." alt="" coords="340,80,428,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="359,155,409,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="279,155,334,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="180,155,255,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="95,155,156,181"/>
+</map>

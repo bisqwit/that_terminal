@@ -17,7 +17,7 @@ var hierarchy =
     [ "ForkPTY", "classForkPTY.html", null ],
     [ "FontPlan::Glyph", "classFontPlan.html#structFontPlan_1_1Glyph", null ],
     [ "GlyphList", "read__font_8hh.html#structGlyphList", null ],
-    [ "PSFheader", "structPSFheader.html", null ],
+    [ "PSFheader", "read__font_8cc.html#structPSFheader", null ],
     [ "TerminalWindow", "classTerminalWindow.html", null ],
     [ "UI", "classUI.html", null ],
     [ "UniData", "structUniData.html", null ],

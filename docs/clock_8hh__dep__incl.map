@@ -1,0 +1,7 @@
+<map id="src/clock.hh" name="src/clock.hh">
+<area shape="rect" id="node1" title="Time handling interface." alt="" coords="217,5,311,32"/>
+<area shape="rect" id="node2" href="$autoinput_8cc.html" title="This module provides the same functionality as INPUTTER (https://bisqwit.iki.fi/source/inputter...." alt="" coords="5,80,120,107"/>
+<area shape="rect" id="node3" href="$main_8cc.html" title="The main program." alt="" coords="144,80,235,107"/>
+<area shape="rect" id="node4" href="$person_8cc.html" title="Defines PersonTransform(), which renders a person animation on the screen." alt="" coords="259,80,418,107"/>
+<area shape="rect" id="node5" href="$window_8cc.html" title="Defines Window, a renderer and manager of screen contents." alt="" coords="442,80,603,107"/>
+</map>

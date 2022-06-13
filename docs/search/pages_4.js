@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['that_20terminal_2e_426',['That terminal.',['../index.html',1,'']]],
-  ['timeusage_427',['timeusage',['../md_doc_timeusage.html',1,'']]]
+  ['that_20terminal_2e_473',['That terminal.',['../index.html',1,'']]],
+  ['timeusage_474',['timeusage',['../md_doc_timeusage.html',1,'']]]
 ];

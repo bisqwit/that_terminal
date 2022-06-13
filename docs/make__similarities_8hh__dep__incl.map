@@ -1,0 +1,5 @@
+<map id="src/rendering/fonts/make_similarities.hh" name="src/rendering/fonts/make_similarities.hh">
+<area shape="rect" id="node1" title="Builds a similarity map between glyphs. Used internally by FontPlan." alt="" coords="79,5,225,47"/>
+<area shape="rect" id="node2" href="$font__planner_8cc.html" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="5,95,136,136"/>
+<area shape="rect" id="node3" href="$make__similarities_8cc.html" title="Builds a similarity map between glyphs. Used internally by FontPlan." alt="" coords="161,95,306,136"/>
+</map>

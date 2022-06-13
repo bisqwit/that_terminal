@@ -1,0 +1,11 @@
+<map id="src/ctype.hh" name="src/ctype.hh">
+<area shape="rect" id="node1" title="Functions for identifying and converting unicode characters and representation forms." alt="" coords="461,5,555,32"/>
+<area shape="rect" id="node2" href="$autoinput_8cc.html" title="This module provides the same functionality as INPUTTER (https://bisqwit.iki.fi/source/inputter...." alt="" coords="5,87,120,114"/>
+<area shape="rect" id="node3" href="$ctype_8cc.html" title="Functions for identifying and converting unicode characters and representation forms." alt="" coords="145,87,239,114"/>
+<area shape="rect" id="node4" href="$keysym_8cc.html" title="Defines InterpretInput()" alt="" coords="263,87,371,114"/>
+<area shape="rect" id="node5" href="$main_8cc.html" title="The main program." alt="" coords="396,87,487,114"/>
+<area shape="rect" id="node6" href="$terminal_8cc.html" title="Defines TerminalWindow, the bulk of the terminal emulator. Its main purpose is to render anything tha..." alt="" coords="511,87,638,114"/>
+<area shape="rect" id="node7" href="$color_8cc.html" title="Defines conversions between different color formats and parsing colors defined in strings." alt="" coords="663,87,809,114"/>
+<area shape="rect" id="node8" href="$window_8cc.html" title="Defines Window, a renderer and manager of screen contents." alt="" coords="834,87,995,114"/>
+<area shape="rect" id="node9" href="$make__similarities_8cc.html" title="Builds a similarity map between glyphs. Used internally by FontPlan." alt="" coords="1019,80,1165,121"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="src/rendering/color.hh" name="src/rendering/color.hh">
+<area shape="rect" id="node1" title="Defines conversions between different color formats and parsing colors defined in strings." alt="" coords="310,5,457,32"/>
+<area shape="rect" id="node2" href="$256color_8cc.html" title="Defines xterm256table." alt="" coords="5,80,135,107"/>
+<area shape="rect" id="node3" href="$terminal_8cc.html" title="Defines TerminalWindow, the bulk of the terminal emulator. Its main purpose is to render anything tha..." alt="" coords="159,80,285,107"/>
+<area shape="rect" id="node4" href="$color_8cc.html" title="Defines conversions between different color formats and parsing colors defined in strings." alt="" coords="310,80,457,107"/>
+<area shape="rect" id="node5" href="$person_8cc.html" title="Defines PersonTransform(), which renders a person animation on the screen." alt="" coords="481,80,640,107"/>
+<area shape="rect" id="node6" href="$window_8cc.html" title="Defines Window, a renderer and manager of screen contents." alt="" coords="664,80,825,107"/>
+</map>

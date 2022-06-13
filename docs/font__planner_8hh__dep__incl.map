@@ -1,0 +1,6 @@
+<map id="src/rendering/fonts/font_planner.hh" name="src/rendering/fonts/font_planner.hh">
+<area shape="rect" id="node1" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="136,5,267,47"/>
+<area shape="rect" id="node2" href="$main_8cc.html" title="The main program." alt="" coords="5,102,96,129"/>
+<area shape="rect" id="node3" href="$window_8cc.html" title="Defines Window, a renderer and manager of screen contents." alt="" coords="121,102,282,129"/>
+<area shape="rect" id="node4" href="$font__planner_8cc.html" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="307,95,437,136"/>
+</map>

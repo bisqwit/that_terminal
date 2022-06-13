@@ -40,56 +40,65 @@ var NAVTREE =
       ] ],
       [ "Author", "index.html#autotoc_md11", null ]
     ] ],
+    [ "Architectural description", "md_doc_architecture.html", [
+      [ "Structure", "md_doc_architecture.html#autotoc_md13", null ],
+      [ "User interface", "md_doc_architecture.html#autotoc_md14", null ],
+      [ "Application logic", "md_doc_architecture.html#autotoc_md15", null ],
+      [ "File access", "md_doc_architecture.html#autotoc_md16", [
+        [ "Share files", "md_doc_architecture.html#autotoc_md17", null ],
+        [ "Cache files", "md_doc_architecture.html#autotoc_md18", null ]
+      ] ]
+    ] ],
     [ "Escape codes supported by <em>that terminal</em>", "md_doc_escapes.html", [
-      [ "Non-esc codes:", "md_doc_escapes.html#autotoc_md13", null ],
-      [ "Esc codes:", "md_doc_escapes.html#autotoc_md14", null ],
-      [ "Character sets", "md_doc_escapes.html#autotoc_md15", null ]
+      [ "Non-esc codes:", "md_doc_escapes.html#autotoc_md20", null ],
+      [ "Esc codes:", "md_doc_escapes.html#autotoc_md21", null ],
+      [ "Character sets", "md_doc_escapes.html#autotoc_md22", null ]
     ] ],
     [ "Fonts supported by <em>that terminal</em>", "md_doc_fonts.html", [
-      [ "Font 4x5", "md_doc_fonts.html#autotoc_md17", null ],
-      [ "Font 4x6", "md_doc_fonts.html#autotoc_md18", null ],
-      [ "Font 4x8", "md_doc_fonts.html#autotoc_md19", null ],
-      [ "Font 5x7", "md_doc_fonts.html#autotoc_md20", null ],
-      [ "Font 5x8", "md_doc_fonts.html#autotoc_md21", null ],
-      [ "Font 6x9", "md_doc_fonts.html#autotoc_md22", null ],
-      [ "Font 6x10", "md_doc_fonts.html#autotoc_md23", null ],
-      [ "Font 6x12", "md_doc_fonts.html#autotoc_md24", null ],
-      [ "Font 6x13", "md_doc_fonts.html#autotoc_md25", null ],
-      [ "Font 7x13", "md_doc_fonts.html#autotoc_md26", null ],
-      [ "Font 7x14", "md_doc_fonts.html#autotoc_md27", null ],
-      [ "Font 8x8", "md_doc_fonts.html#autotoc_md28", null ],
-      [ "Font 8x10", "md_doc_fonts.html#autotoc_md29", null ],
-      [ "Font 8x12", "md_doc_fonts.html#autotoc_md30", null ],
-      [ "Font 8x13", "md_doc_fonts.html#autotoc_md31", null ],
-      [ "Font 8x14", "md_doc_fonts.html#autotoc_md32", null ],
-      [ "Font 8x15", "md_doc_fonts.html#autotoc_md33", null ],
-      [ "Font 8x16", "md_doc_fonts.html#autotoc_md34", null ],
-      [ "Font 8x19", "md_doc_fonts.html#autotoc_md35", null ],
-      [ "Font 9x15", "md_doc_fonts.html#autotoc_md36", null ],
-      [ "Font 9x16", "md_doc_fonts.html#autotoc_md37", null ],
-      [ "Font 9x18", "md_doc_fonts.html#autotoc_md38", null ],
-      [ "Font 10x20", "md_doc_fonts.html#autotoc_md39", null ],
-      [ "Font 10x24", "md_doc_fonts.html#autotoc_md40", null ],
-      [ "Font 11x22", "md_doc_fonts.html#autotoc_md41", null ],
-      [ "Font 12x12", "md_doc_fonts.html#autotoc_md42", null ],
-      [ "Font 12x13", "md_doc_fonts.html#autotoc_md43", null ],
-      [ "Font 12x24", "md_doc_fonts.html#autotoc_md44", null ],
-      [ "Font 14x14", "md_doc_fonts.html#autotoc_md45", null ],
-      [ "Font 14x28", "md_doc_fonts.html#autotoc_md46", null ],
-      [ "Font 16x16", "md_doc_fonts.html#autotoc_md47", null ],
-      [ "Font 16x28", "md_doc_fonts.html#autotoc_md48", null ],
-      [ "Font 16x32", "md_doc_fonts.html#autotoc_md49", null ],
-      [ "Font 18x18", "md_doc_fonts.html#autotoc_md50", null ],
-      [ "Font 24x24", "md_doc_fonts.html#autotoc_md51", null ]
+      [ "Font 4x5", "md_doc_fonts.html#autotoc_md24", null ],
+      [ "Font 4x6", "md_doc_fonts.html#autotoc_md25", null ],
+      [ "Font 4x8", "md_doc_fonts.html#autotoc_md26", null ],
+      [ "Font 5x7", "md_doc_fonts.html#autotoc_md27", null ],
+      [ "Font 5x8", "md_doc_fonts.html#autotoc_md28", null ],
+      [ "Font 6x9", "md_doc_fonts.html#autotoc_md29", null ],
+      [ "Font 6x10", "md_doc_fonts.html#autotoc_md30", null ],
+      [ "Font 6x12", "md_doc_fonts.html#autotoc_md31", null ],
+      [ "Font 6x13", "md_doc_fonts.html#autotoc_md32", null ],
+      [ "Font 7x13", "md_doc_fonts.html#autotoc_md33", null ],
+      [ "Font 7x14", "md_doc_fonts.html#autotoc_md34", null ],
+      [ "Font 8x8", "md_doc_fonts.html#autotoc_md35", null ],
+      [ "Font 8x10", "md_doc_fonts.html#autotoc_md36", null ],
+      [ "Font 8x12", "md_doc_fonts.html#autotoc_md37", null ],
+      [ "Font 8x13", "md_doc_fonts.html#autotoc_md38", null ],
+      [ "Font 8x14", "md_doc_fonts.html#autotoc_md39", null ],
+      [ "Font 8x15", "md_doc_fonts.html#autotoc_md40", null ],
+      [ "Font 8x16", "md_doc_fonts.html#autotoc_md41", null ],
+      [ "Font 8x19", "md_doc_fonts.html#autotoc_md42", null ],
+      [ "Font 9x15", "md_doc_fonts.html#autotoc_md43", null ],
+      [ "Font 9x16", "md_doc_fonts.html#autotoc_md44", null ],
+      [ "Font 9x18", "md_doc_fonts.html#autotoc_md45", null ],
+      [ "Font 10x20", "md_doc_fonts.html#autotoc_md46", null ],
+      [ "Font 10x24", "md_doc_fonts.html#autotoc_md47", null ],
+      [ "Font 11x22", "md_doc_fonts.html#autotoc_md48", null ],
+      [ "Font 12x12", "md_doc_fonts.html#autotoc_md49", null ],
+      [ "Font 12x13", "md_doc_fonts.html#autotoc_md50", null ],
+      [ "Font 12x24", "md_doc_fonts.html#autotoc_md51", null ],
+      [ "Font 14x14", "md_doc_fonts.html#autotoc_md52", null ],
+      [ "Font 14x28", "md_doc_fonts.html#autotoc_md53", null ],
+      [ "Font 16x16", "md_doc_fonts.html#autotoc_md54", null ],
+      [ "Font 16x28", "md_doc_fonts.html#autotoc_md55", null ],
+      [ "Font 16x32", "md_doc_fonts.html#autotoc_md56", null ],
+      [ "Font 18x18", "md_doc_fonts.html#autotoc_md57", null ],
+      [ "Font 24x24", "md_doc_fonts.html#autotoc_md58", null ]
     ] ],
     [ "Special inputs supportd by <em>that terminal</em>", "md_doc_inputs.html", [
-      [ "Inputs", "md_doc_inputs.html#autotoc_md53", null ],
-      [ "Supported fonts", "md_doc_inputs.html#autotoc_md54", null ]
+      [ "Inputs", "md_doc_inputs.html#autotoc_md60", null ],
+      [ "Supported fonts", "md_doc_inputs.html#autotoc_md61", null ]
     ] ],
     [ "Application testing", "md_doc_testing.html", [
-      [ "Unit tests", "md_doc_testing.html#autotoc_md56", null ],
-      [ "Coverage testing", "md_doc_testing.html#autotoc_md57", null ],
-      [ "Practical testing", "md_doc_testing.html#autotoc_md58", null ]
+      [ "Unit tests", "md_doc_testing.html#autotoc_md63", null ],
+      [ "Coverage testing", "md_doc_testing.html#autotoc_md64", null ],
+      [ "Practical testing", "md_doc_testing.html#autotoc_md65", null ]
     ] ],
     [ "timeusage", "md_doc_timeusage.html", null ],
     [ "Classes", "annotated.html", [
@@ -118,8 +127,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"256color_8hh.html",
-"structCell.html#a310bbbcf3f200c9fad01f3c099f84877"
+"256color_8cc.html",
+"md_doc_fonts.html#autotoc_md31"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

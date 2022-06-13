@@ -1,0 +1,5 @@
+<map id="src/rendering/fonts/read_fonts.hh" name="src/rendering/fonts/read_fonts.hh">
+<area shape="rect" id="node1" title="Loads the list of available fonts and the list of characters in each. Used by FontPlan." alt="" coords="83,5,213,47"/>
+<area shape="rect" id="node2" href="$font__planner_8cc.html" title="Defines an interface that converts unicode characters into pixels, through scanning available font fi..." alt="" coords="5,95,136,136"/>
+<area shape="rect" id="node3" href="$read__fonts_8cc.html" title="Loads the list of available fonts and the list of characters in each. Used by FontPlan." alt="" coords="160,95,291,136"/>
+</map>

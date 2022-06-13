@@ -1,0 +1,4 @@
+<map id="src/rendering/person.hh" name="src/rendering/person.hh">
+<area shape="rect" id="node1" title="Defines PersonTransform(), which renders a person animation on the screen." alt="" coords="7,5,165,32"/>
+<area shape="rect" id="node2" href="$window_8cc.html" title="Defines Window, a renderer and manager of screen contents." alt="" coords="5,80,167,107"/>
+</map>
