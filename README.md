@@ -67,6 +67,7 @@ significantly.
 * [Supported escape codes](doc/escapes.md)
 * [Testing](doc/testing.md)
 * [Working time log](doc/timeusage.md)
+* [Architecture](doc/architecture.md)
 
 ## Instructions of use
 

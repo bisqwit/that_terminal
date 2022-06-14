@@ -1,3 +1,6 @@
+/** @file rendering/fonts/read_fonts.cc
+ * @brief Loads the list of available fonts and the list of characters in each. Used by FontPlan.
+ */
 #include <cstdio>
 
 #include <future>

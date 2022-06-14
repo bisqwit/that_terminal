@@ -6,6 +6,9 @@
 #include <ostream>
 #include <functional>
 #include <unordered_set>
+/** @file rendering/fonts/make_similarities.cc
+ * @brief Builds a similarity map between glyphs. Used internally by FontPlan.
+ */
 
 #include "share.hh"
 #include "ctype.hh"

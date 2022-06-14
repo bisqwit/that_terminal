@@ -1,6 +1,10 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file rendering/fonts/font_planner.cc
+ * @brief Defines an interface that converts unicode characters into pixels,
+ * through scanning available font files for a specified range in unicode at specified size.
+ */
 
 #include <map>
 #include <regex>

@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
 # include <gtest/gtest.h>
 #endif
+/** @file rendering/fonts/read_font.cc
+ * @brief Contains low-level functions for parsing font files. Used by ReadFontsList and FontPlan.
+ */
 
 #include <regex>
 #include <fstream>
