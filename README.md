@@ -40,16 +40,20 @@ This program is designed for programming video production purposes.
 To install these dependencies in Debian GNU/Linux, you can use this command:
 `apt-get install build-essential libsdl2-dev pkg-config libx11-dev googletest-tools lcov g++-12` (instead of 12, use what your system has available)
 
-After checking out the code from Git, remember to do `git submodule update --init --recursive`.
+Check out the code from Git:
 
-To compile, type `make`. To run, type `./term` after compiling.
+    git clone https://github.com/bisqwit/that_terminal
+    cd that_terminal
+    git submodule update --init --recursive # Do not forget this step!
+
+To compile, type `make -j4`. To run, type `./term` after compiling.
 Note that on the first start, the terminal may be slow to start,
 because it rebuilds the cache for fonts.
 
-To build a debugging version, do `make term_debug`.
-To build a profiling version, do `make term_gprof`.
-To build a coverage testing version, do `make term_gcov`.
-To run unit tests, do `make test`.
+To build a debugging version, do `make term_debug`.  
+To build a profiling version, do `make term_gprof`.  
+To run unit+coverage tests, do `make test`.  
+To build a manual coverage testing version, do `make term_gcov`.
 
 __NOTE__: When compiling, you may get a “\__cur could be NULL” warning from
 the static analyzer of the compiler with reference to a vector<Cell>.

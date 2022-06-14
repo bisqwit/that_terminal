@@ -2,6 +2,17 @@
 
 ## Structure
 
+The structure of the program is divided into these primary components:
+* Main program
+* Terminal emulation
+* Graphics generation
+* File handling
+
+Main program comprises the GUI and interface logic.
+Terminal emulation consists of processing a text-stream that contains special codes.
+Graphics generation consists of rendering text with various properties.
+File handling manages the different types of files that the program accesses.
+
 ## User interface
 
 The user interface of *that terminal* is comprised of a single graphical window.
@@ -35,7 +46,8 @@ and [Window](../src/rendering/window.cc).
   position, and provides a facility to render this state into a pixel-based
   buffer.
 
-The [UI](../src/ui.cc) these these components together as follows:
+The [UI](../src/ui.cc) ties these components together as follows:
+
 * Keyboard input is received by `UI` from the GUI, and `UI` sends it to the underlying process through `ForkPTY`.
 * `ForkPTY`'s output is sent to `TerminalWindow` for processing.
 * `TerminalWindow` updates the state of `Window`.
@@ -44,10 +56,10 @@ The [UI](../src/ui.cc) these these components together as follows:
 For rendering, `Window` needs fonts. For that it uses a `FontPlan`,
 which follows the following hierarchy:
 
-[FontPlan](../src/rendering/fonts/font_planner.cc],
-[FontsInfo and ReadFonts](../src/rendering/fonts/read_fonts.cc],
-[GlyphList and ReadFont](../src/rendering/fonts/read_font.cc],
-[ParseSimilarities](../src/rendering/fonts/make_similarities.cc].
+[FontPlan](../src/rendering/fonts/font_planner.cc),
+[FontsInfo and ReadFonts](../src/rendering/fonts/read_fonts.cc),
+[GlyphList and ReadFont](../src/rendering/fonts/read_font.cc),
+[ParseSimilarities](../src/rendering/fonts/make_similarities.cc).
 
 * `FontPlan` provides facilities for mapping every unicode codepoint into
   a bitmap. If font of the exact size cannot be found, it creates a bitmap
@@ -91,7 +103,7 @@ At runtime, *that terminal* looks for these files in the following paths:
 
 Additionally, some files such as
 [UnicodeData.txt](../share/unicode/UnicodeData.txt)
-also looked for in:
+are also looked for in:
 * /usr/local/share/unicode/
 * /usr/share/unicode/
 as it is common for it to be found there.
@@ -102,8 +114,8 @@ The files that the terminal generates are saved in a user-specific local
 directory. *That terminal* attempts to use the following locations,
 whichever first turns out writable.
 
-*     $HOME/.cache/that_terminal/
-*     /home/$USER/.cache/that_terminal/
-*     /run/user/$UID/
-*     /run/$UID/
-*     $TEMP/that_terminal-$UID/
+* $HOME/.cache/that_terminal/
+* /home/$USER/.cache/that_terminal/
+* /run/user/$UID/
+* /run/$UID/
+* $TEMP/that_terminal-$UID/
