@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>That Terminal: timeusage</title>
+<title>That Terminal: Time used</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,67 +83,64 @@ $(document).ready(function(){initNavTree('md_doc_timeusage.html',''); initResiza
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">timeusage </div>  </div>
+<div class="title">Time used </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Approximate time tracking (based on Git logs, made because of Helsinki University requirements):</p>
-<ul>
-<li>2022-06-14 5h improving coverage, some refactoring</li>
-<li>2022-06-13 10h unit tests, to satisfy HY requirements</li>
-<li>2022-06-12 14h refactoring, documentation, to satisfy HY requirements</li>
-<li>2021-12-25 1h bugfixes</li>
-<li>2021-10-26 1h documentation</li>
-<li>2021-04-07 4h documentation</li>
-<li>2021-04-06 10h optimizations</li>
-<li>2021-04-04 7h improved SGR support, refactoring</li>
-<li>2021-04-02 16h optimizations</li>
-<li>2020-09-16 2h refactoring</li>
-<li>2020-09-01 1h bugfixes</li>
-<li>2020-07-11 2h autoinput features</li>
-<li>2020-04-25 1h font features</li>
-<li>2020-04-24 2h font features</li>
-<li>2020-04-22 1h bugfixes</li>
-<li>2020-04-21 1h bugfixes</li>
-<li>2020-04-20 1h bugfixes</li>
-<li>2020-04-19 3h font features</li>
-<li>2020-04-18 6h features, bugfixes</li>
-<li>2020-03-30 8h documentation on fonts, bugfixes</li>
-<li>2020-03-29 4h features, improvements on font usage</li>
-<li>2020-03-28 4h features, improvements on font usage</li>
-<li>2020-03-28 5h documentation on fonts</li>
-<li>2020-03-27 4h documentation on fonts</li>
-<li>2020-03-26 6h features, new fonts</li>
-<li>2020-03-25 7h features, new fonts</li>
-<li>2020-02-27 1h features</li>
-<li>2019-12-23 1h features</li>
-<li>2019-09-08 1h bugfixes</li>
-<li>2019-06-04 4h video recording support updates</li>
-<li>2019-05-06 3h scrollbar render hack</li>
-<li>2019-05-04 1h bugfixes</li>
-<li>2019-05-01 3h documentation, bugfixes</li>
-<li>2019-04-29 2h design / implementation, livestreamed on YouTube (part 6)</li>
-<li>2019-04-26 3h documentation, more complete vt support</li>
-<li>2019-04-25 2h documentation, bugfixes</li>
-<li>2019-04-24 12h documentation, improved SGR support</li>
-<li>2019-04-23 7h documentation</li>
-<li>2019-04-22 11h coding (fonts and encodings)</li>
-<li>2019-04-18 1h coding</li>
-<li>2019-04-17 5h coding</li>
-<li>2019-04-16 2h coding (OSC &amp; DCS commands)</li>
-<li>2019-04-15 1h documentation (Sixel support)</li>
-<li>2019-04-14 4h documentation &amp; coding</li>
-<li>2019-04-13 10h design / implementation</li>
-<li>2019-04-13 3h design / implementation, livestreamed on YouTube (part 5)</li>
-<li>2019-04-11 5h design / implementation</li>
-<li>2019-04-10 3h design / implementation, livestreamed on YouTube (part 4)</li>
-<li>2019-04-07 3h design / implementation, livestreamed on YouTube (part 3)</li>
-<li>2019-04-02 2h design / implementation, livestreamed on YouTube (prat 2)</li>
-<li><p class="startli">2019-03-31 3h design / implementation, livestreamed on YouTube (part 1)</p>
-<p class="startli">(grep '^[*]' doc/timeusage.md|cut -c13-15|tr -d ' '|tr '\012' +;echo 0)|bc -l</p>
-</li>
-</ul>
-<p>total: 214h </p>
-</div></div><!-- contents -->
+<p>total: 220h </p><pre class="fragment">(grep '^    2' doc/timeusage.md|cut -c15-17|tr -d ' '|tr '\012' +;echo 0)|bc -l
+
+2022-06-14  6h improving coverage, some refactoring
+2022-06-13 10h unit tests, to satisfy HY requirements
+2022-06-12 14h refactoring, documentation, to satisfy HY requirements
+2021-12-25  1h bugfixes
+2021-10-26  1h documentation
+2021-04-07  4h documentation
+2021-04-06 10h optimizations
+2021-04-04  7h improved SGR support, refactoring
+2021-04-02 16h optimizations
+2020-09-16  2h refactoring
+2020-09-01  1h bugfixes
+2020-07-11  2h autoinput features
+2020-04-25  1h font features
+2020-04-24  2h font features
+2020-04-22  1h bugfixes
+2020-04-21  1h bugfixes
+2020-04-20  1h bugfixes
+2020-04-19  3h font features
+2020-04-18  6h features, bugfixes
+2020-03-30  8h documentation on fonts, bugfixes
+2020-03-29  4h features, improvements on font usage
+2020-03-28  4h features, improvements on font usage
+2020-03-28  5h documentation on fonts
+2020-03-27  4h documentation on fonts
+2020-03-26  6h features, new fonts
+2020-03-25  7h features, new fonts
+2020-02-27  1h features
+2019-12-23  1h features
+2019-09-08  1h bugfixes
+2019-06-04  4h video recording support updates
+2019-05-06  3h scrollbar render hack
+2019-05-04  1h bugfixes
+2019-05-01  3h documentation, bugfixes
+2019-04-29  2h design / implementation, livestreamed on YouTube (part 6)
+2019-04-26  3h documentation, more complete vt support
+2019-04-25  2h documentation, bugfixes
+2019-04-24 12h documentation, improved SGR support
+2019-04-23  7h documentation
+2019-04-22 11h coding (fonts and encodings)
+2019-04-18  1h coding
+2019-04-17  5h coding
+2019-04-16  2h coding (OSC &amp; DCS commands)
+2019-04-15  1h documentation (Sixel support)
+2019-04-14  4h documentation &amp; coding
+2019-04-13 10h design / implementation
+2019-04-13  3h design / implementation, livestreamed on YouTube (part 5)
+2019-04-11  5h design / implementation
+2019-04-10  3h design / implementation, livestreamed on YouTube (part 4)
+2019-04-07  3h design / implementation, livestreamed on YouTube (part 3)
+2019-04-02  2h design / implementation, livestreamed on YouTube (prat 2)
+2019-03-31  3h design / implementation, livestreamed on YouTube (part 1)
+</pre> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

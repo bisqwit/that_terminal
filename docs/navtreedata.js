@@ -100,7 +100,7 @@ var NAVTREE =
       [ "Coverage testing", "md_doc_testing.html#autotoc_md64", null ],
       [ "Practical testing", "md_doc_testing.html#autotoc_md65", null ]
     ] ],
-    [ "timeusage", "md_doc_timeusage.html", null ],
+    [ "Time used", "md_doc_timeusage.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

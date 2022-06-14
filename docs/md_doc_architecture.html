@@ -88,6 +88,13 @@ $(document).ready(function(){initNavTree('md_doc_architecture.html',''); initRes
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="autotoc_md13"></a>
 Structure</h1>
+<p>The structure of the program is divided into these primary components:</p><ul>
+<li>Main program</li>
+<li>Terminal emulation</li>
+<li>Graphics generation</li>
+<li>File handling</li>
+</ul>
+<p>Main program comprises the GUI and interface logic. Terminal emulation consists of processing a text-stream that contains special codes. Graphics generation consists of rendering text with various properties. File handling manages the different types of files that the program accesses.</p>
 <h1><a class="anchor" id="autotoc_md14"></a>
 User interface</h1>
 <p>The user interface of <em>that terminal</em> is comprised of a single graphical window. The application takes no commandline parameters.</p>
@@ -96,19 +103,50 @@ User interface</h1>
 <p>The user interface code is in the <a href="../src/ui.cc">ui module</a>, and it uses libSDL2 for rendering and for event handling.</p>
 <h1><a class="anchor" id="autotoc_md15"></a>
 Application logic</h1>
-<p>The core of the application is founded upon three classes: <a href="../src/tty/forkpty.cc">ForkPTY</a>, <a href="../src/tty/terminal.cc">TerminalWindow</a> and <a href="../src/rendering/window.cc">Window</a>.</p>
+<div class="fragment"><div class="line">classDiagram</div>
+<div class="line">    class ForkPTY</div>
+<div class="line">    class TerminalWindow</div>
+<div class="line">    class Window</div>
+<div class="line">    class UI</div>
+<div class="line">    class FontPlan</div>
+<div class="line">    ForkPTY : Open(width, height)</div>
+<div class="line">    ForkPTY : Send(string)</div>
+<div class="line">    ForkPTY : Recv() string</div>
+<div class="line">    TerminalWindow : Write(string)</div>
+<div class="line">    Window : cells</div>
+<div class="line">    Window : blank</div>
+<div class="line">    Window : Render(fontwidth,fontheight, pixels)</div>
+<div class="line">    FontPlan : Create(fontwidth,fontheight, firstchar, numchars)</div>
+<div class="line">    FontPlan : LoadGlyph(index, scanline, renderwidth) Glyph</div>
+<div class="line">    Window          &lt;-- FontPlan</div>
+<div class="line">    UI              &lt;--&gt; ForkPTY</div>
+<div class="line">    ForkPTY          --&gt; TerminalWindow</div>
+<div class="line">    TerminalWindow   --&gt; Window</div>
+<div class="line">    Window           --&gt; UI</div>
+<div class="line">    FontsInfo        --&gt; FontPlan</div>
+<div class="line">    ParseSimilarities --&gt; FontPlan</div>
+<div class="line">    GlyphList         --&gt; FontsInfo</div>
+</div><!-- fragment --><p>The core of the application is founded upon three classes: <a href="../src/tty/forkpty.cc">ForkPTY</a>, <a href="../src/tty/terminal.cc">TerminalWindow</a> and <a href="../src/rendering/window.cc">Window</a>.</p>
 <ul>
 <li><code><a class="el" href="classForkPTY.html">ForkPTY</a></code> is at the lowest level. It is responsible for byte-stream communication between the terminal emulator and the underlying shell.</li>
 <li><code><a class="el" href="classTerminalWindow.html">TerminalWindow</a></code> is a vt100/vt220/vt500/ANSI emulator. It does the bulk of work of converting a text-stream into tangible events on the screen.</li>
 <li><code><a class="el" href="structWindow.html">Window</a></code> is a teletype renderer, but not an interpreter. It keeps track of attributes on a text-based screen, such as each cell’s foreground and background colors and character in that cell, and the current cursor position, and provides a facility to render this state into a pixel-based buffer.</li>
 </ul>
-<p>The <a href="../src/ui.cc">UI</a> these these components together as follows:</p><ul>
+<p>The <a href="../src/ui.cc">UI</a> ties these components together as follows:</p>
+<ul>
 <li>Keyboard input is received by <code><a class="el" href="classUI.html">UI</a></code> from the GUI, and <code><a class="el" href="classUI.html">UI</a></code> sends it to the underlying process through <code><a class="el" href="classForkPTY.html">ForkPTY</a></code>.</li>
 <li><code><a class="el" href="classForkPTY.html">ForkPTY</a></code>'s output is sent to <code><a class="el" href="classTerminalWindow.html">TerminalWindow</a></code> for processing.</li>
 <li><code><a class="el" href="classTerminalWindow.html">TerminalWindow</a></code> updates the state of <code><a class="el" href="structWindow.html">Window</a></code>.</li>
 <li><code><a class="el" href="structWindow.html">Window</a></code> renders into a pixel-buffer provided by <code><a class="el" href="classUI.html">UI</a></code>. `UI sends the pixel-buffer to the GUI for displaying.</li>
 </ul>
-<p>For rendering, <code><a class="el" href="structWindow.html">Window</a></code> needs fonts. This follows the following hierarchy:</p>
+<p>For rendering, <code><a class="el" href="structWindow.html">Window</a></code> needs fonts. For that it uses a <code><a class="el" href="classFontPlan.html">FontPlan</a></code>, which follows the following hierarchy:</p>
+<p><a href="../src/rendering/fonts/font_planner.cc">FontPlan</a>, <a href="../src/rendering/fonts/read_fonts.cc">FontsInfo and ReadFonts</a>, <a href="../src/rendering/fonts/read_font.cc">GlyphList and ReadFont</a>, <a href="../src/rendering/fonts/make_similarities.cc">ParseSimilarities</a>.</p>
+<ul>
+<li><code><a class="el" href="classFontPlan.html">FontPlan</a></code> provides facilities for mapping every unicode codepoint into a bitmap. If font of the exact size cannot be found, it creates a bitmap by scaling a differently sized one. It uses a a share-file <code>preferences.txt</code> which indicates which fonts are more favorable. If an exact representation of a given unicode codepoint cannot be found in any reasonable font, it uses the similarity list generated by <code>ParseSimilarities</code> to find an approximation. For example, Â could be approximated with A in a situation of complete absense of accented characters.</li>
+<li><code>FontsInfo</code> stores information about all fonts known by the terminal emulator. For each font, indicated by a filename and pixel dimensions, it indicates which unicode codepoints are factually supported by this font.</li>
+<li><code><a class="el" href="read__font_8hh.html#structGlyphList">GlyphList</a></code> stores information about a particular font file. It stores all the bitmaps within the font, the list of supported unicode codepoints within the font and the width and height of each glyph. While height is shared between all glyphs, the width can vary.</li>
+<li><code>ParseSimilarities</code> indicates which glyphs can be used to approximate the appearance of another. It does this by a combination of rules based on the character names in Unicode and a list of hardcoded mappings.</li>
+</ul>
 <h1><a class="anchor" id="autotoc_md16"></a>
 File access</h1>
 <p>Besides launching a shell — the behavior of the shell is beyond the scope of the terminal emulator — <em>that terminal</em> accesses a handful of files. These accesses are divided into two categories:</p>
@@ -125,7 +163,7 @@ Share files</h2>
 <li>/usr/local/share/that_terminal/</li>
 <li>/usr/share/that_terminal/</li>
 </ul>
-<p>Additionally, some files such as <a href="../share/unicode/UnicodeData.txt">UnicodeData.txt</a> also looked for in:</p><ul>
+<p>Additionally, some files such as <a href="../share/unicode/UnicodeData.txt">UnicodeData.txt</a> are also looked for in:</p><ul>
 <li>/usr/local/share/unicode/</li>
 <li>/usr/share/unicode/ as it is common for it to be found there.</li>
 </ul>
