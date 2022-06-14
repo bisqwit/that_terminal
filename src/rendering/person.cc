@@ -229,6 +229,6 @@ TEST(person, pose_varies)
         frames.insert( PersonFrame() );
         AdvanceTime(1.0 / 32.0);
     }
-    EXPECT_EQ(frames.size(), 2);
+    EXPECT_EQ(frames.size(), 2u);
 }
 #endif

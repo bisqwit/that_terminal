@@ -31,6 +31,32 @@ and it uses libSDL2 for rendering and for event handling.
 
 ## Application logic
 
+```mermaid
+classDiagram
+    class ForkPTY
+    class TerminalWindow
+    class Window
+    class UI
+    class FontPlan
+    ForkPTY : Open(width, height)
+    ForkPTY : Send(string)
+    ForkPTY : Recv() string
+    TerminalWindow : Write(string)
+    Window : cells
+    Window : blank
+    Window : Render(fontwidth,fontheight, pixels)
+    FontPlan : Create(fontwidth,fontheight, firstchar, numchars)
+    FontPlan : LoadGlyph(index, scanline, renderwidth) Glyph
+    Window          <-- FontPlan
+    UI              <--> ForkPTY
+    ForkPTY          --> TerminalWindow
+    TerminalWindow   --> Window
+    Window           --> UI
+    FontsInfo        --> FontPlan
+    ParseSimilarities --> FontPlan
+    GlyphList         --> FontsInfo
+```
+
 The core of the application is founded upon three classes:
 [ForkPTY](../src/tty/forkpty.cc),
 [TerminalWindow](../src/tty/terminal.cc)

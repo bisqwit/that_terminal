@@ -145,6 +145,7 @@ compress3:
 
 $(GTEST):
 	cmake -S googletest -B googletest/build
+	- $(MAKE) -C googletest/build
 	$(MAKE) -C googletest/build
 
 -include $(addprefix .deps/,$(subst /,_,$(OBJS_BUILD:.o=.d)))

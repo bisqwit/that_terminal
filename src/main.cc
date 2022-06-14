@@ -174,6 +174,7 @@ namespace
 int main(int argc, char** argv)
 {
     /* Set up */
+    argc=argc;
     SaveArg0(argv[0]);
     SetTimeFactor(TimeFactor);
 

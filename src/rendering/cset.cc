@@ -66,6 +66,6 @@ TEST(TranslateCSet, one_ok)
     for(unsigned a=0; a<0x5F; ++a) EXPECT_EQ(TranslateCSet(a,1), a);
     for(unsigned a=0x7F; a<512; ++a) EXPECT_EQ(TranslateCSet(a,1), a);
     for(unsigned a=0x5F; a<0x7E; ++a) EXPECT_NE(TranslateCSet(a,1), a);
-    EXPECT_EQ(TranslateCSet(0x61, 1), 0x2592);
+    EXPECT_EQ(TranslateCSet(0x61, 1), 0x2592u);
 }
 #endif

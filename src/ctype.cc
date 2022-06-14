@@ -619,13 +619,13 @@ TEST(ctype, charconv_tests)
 }
 TEST(ctype, count_indent)
 {
-    EXPECT_EQ(CountIndent(U""), 0);
-    EXPECT_EQ(CountIndent(U"s    t    "), 0);
-    EXPECT_EQ(CountIndent(U"    s    t    "), 4);
-    EXPECT_EQ(CountIndent(U"    "), 4);
-    EXPECT_EQ(CountIndent(U"    ", 1), 3);
-    EXPECT_EQ(CountIndent(U"    s    t    ", 5), 4);
-    EXPECT_EQ(CountIndent(U"    s    t    ", 7), 2);
-    EXPECT_EQ(CountIndent(std::u32string(150000, U' ')), 150000);
+    EXPECT_EQ(CountIndent(U""), 0u);
+    EXPECT_EQ(CountIndent(U"s    t    "), 0u);
+    EXPECT_EQ(CountIndent(U"    s    t    "), 4u);
+    EXPECT_EQ(CountIndent(U"    "), 4u);
+    EXPECT_EQ(CountIndent(U"    ", 1), 3u);
+    EXPECT_EQ(CountIndent(U"    s    t    ", 5), 4u);
+    EXPECT_EQ(CountIndent(U"    s    t    ", 7), 2u);
+    EXPECT_EQ(CountIndent(std::u32string(150000, U' ')), 150000u);
 }
 #endif

@@ -15,6 +15,8 @@ Summary:
     [==========] 65 tests from 16 test suites ran. (142382 ms total)
     [  PASSED  ] 65 tests.
 
+To redo tests, do `make test`. The output will be saved to `doc/test-report.txt`.
+
 ## Coverage testing
 
 Coverage testing is performed using a GCOV.
@@ -25,6 +27,8 @@ Additionally, coverage-testing is performed for the unit-testing binary.
 
 The testing results can be found here:
 * [Test results](https://bisqwit.github.io/that_terminal/cov/index.html)
+
+To redo tests, do `make test`. The output will be saved to `doc/doxygen/docs/cov/`.
 
 ## Practical testing
 
