@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 12:05:34</td>
+            <td class="headerValue">2022-06-15 18:06:38</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -378,12 +378,12 @@
 <a name="301"><span class="lineNum">     301 </span>                :            : </a>
 <a name="302"><span class="lineNum">     302 </span>                :<span class="lineCov">       8553 :                 {</span></a>
 <a name="303"><span class="lineNum">     303 </span>        [<span class="branchCov" title="Branch 0 was taken 8553 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       8553 :                 std::lock_guard&lt;std::mutex&gt; lk(lock);</span></a>
-<a name="304"><span class="lineNum">     304 </span>  [<span class="branchCov" title="Branch 0 was taken 5890 times"> + </span><span class="branchCov" title="Branch 1 was taken 2663 times"> + </span><span class="branchCov" title="Branch 2 was taken 5112 times"> + </span><span class="branchCov" title="Branch 3 was taken 778 times"> + </span> :<span class="lineCov">       8553 :                 if(allow_merge &amp;&amp; !data.empty() &amp;&amp; std::holds_alternative&lt;std::string&gt;(data.back()))</span></a>
-<span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 5112 times"> + </span>]
-<a name="305"><span class="lineNum">     305 </span>  [<span class="branchCov" title="Branch 0 was taken 5112 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 5112 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      13665 :                     std::get&lt;std::string&gt;(data.back()) += std::move(str);</span></a>
+<a name="304"><span class="lineNum">     304 </span>  [<span class="branchCov" title="Branch 0 was taken 5890 times"> + </span><span class="branchCov" title="Branch 1 was taken 2663 times"> + </span><span class="branchCov" title="Branch 2 was taken 4931 times"> + </span><span class="branchCov" title="Branch 3 was taken 959 times"> + </span> :<span class="lineCov">       8553 :                 if(allow_merge &amp;&amp; !data.empty() &amp;&amp; std::holds_alternative&lt;std::string&gt;(data.back()))</span></a>
+<span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchCov" title="Branch 5 was taken 4931 times"> + </span>]
+<a name="305"><span class="lineNum">     305 </span>  [<span class="branchCov" title="Branch 0 was taken 4931 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4931 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      13484 :                     std::get&lt;std::string&gt;(data.back()) += std::move(str);</span></a>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 8553 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
 <a name="306"><span class="lineNum">     306 </span>                :            :                 else</a>
-<a name="307"><span class="lineNum">     307 </span>        [<span class="branchCov" title="Branch 0 was taken 3441 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3441 :                     data.emplace_back(std::move(str));</span></a>
+<a name="307"><span class="lineNum">     307 </span>        [<span class="branchCov" title="Branch 0 was taken 3622 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3622 :                     data.emplace_back(std::move(str));</span></a>
 <a name="308"><span class="lineNum">     308 </span>                :<span class="lineNoCov">          0 :                 }</span></a>
 <a name="309"><span class="lineNum">     309 </span>                :            : </a>
 <a name="310"><span class="lineNum">     310 </span>                :<span class="lineCov">       8553 :                 break;</span></a>
@@ -392,17 +392,17 @@
 <a name="313"><span class="lineNum">     313 </span>                :            :     }</a>
 <a name="314"><span class="lineNum">     314 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="315"><span class="lineNum">     315 </span>                :            : </a>
-<a name="316"><span class="lineNum">     316 </span>                :<span class="lineCov">      47286 : AutoInputResponse GetAutoInput()</span></a>
+<a name="316"><span class="lineNum">     316 </span>                :<span class="lineCov">      90320 : AutoInputResponse GetAutoInput()</span></a>
 <a name="317"><span class="lineNum">     317 </span>                :            : {</a>
-<a name="318"><span class="lineNum">     318 </span>                :<span class="lineCov">      47286 :     std::lock_guard&lt;std::mutex&gt; lk(lock);</span></a>
-<a name="319"><span class="lineNum">     319 </span>        [<span class="branchCov" title="Branch 0 was taken 43809 times"> + </span><span class="branchCov" title="Branch 1 was taken 3477 times"> + </span>]:<span class="lineCov">      47286 :     if(data.empty())</span></a>
+<a name="318"><span class="lineNum">     318 </span>                :<span class="lineCov">      90320 :     std::lock_guard&lt;std::mutex&gt; lk(lock);</span></a>
+<a name="319"><span class="lineNum">     319 </span>        [<span class="branchCov" title="Branch 0 was taken 86670 times"> + </span><span class="branchCov" title="Branch 1 was taken 3650 times"> + </span>]:<span class="lineCov">      90320 :     if(data.empty())</span></a>
 <a name="320"><span class="lineNum">     320 </span>                :            :     {</a>
-<a name="321"><span class="lineNum">     321 </span>                :<span class="lineCov">      43809 :         return std::string{};</span></a>
+<a name="321"><span class="lineNum">     321 </span>                :<span class="lineCov">      86670 :         return std::string{};</span></a>
 <a name="322"><span class="lineNum">     322 </span>                :            :     }</a>
-<a name="323"><span class="lineNum">     323 </span>                :<span class="lineCov">       3477 :     auto result = std::move(data.front());</span></a>
-<a name="324"><span class="lineNum">     324 </span>                :<span class="lineCov">       3477 :     data.pop_front();</span></a>
-<a name="325"><span class="lineNum">     325 </span>                :<span class="lineCov">       3477 :     return result;</span></a>
-<a name="326"><span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 0 was taken 47286 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      47286 : }</span></a>
+<a name="323"><span class="lineNum">     323 </span>                :<span class="lineCov">       3650 :     auto result = std::move(data.front());</span></a>
+<a name="324"><span class="lineNum">     324 </span>                :<span class="lineCov">       3650 :     data.pop_front();</span></a>
+<a name="325"><span class="lineNum">     325 </span>                :<span class="lineCov">       3650 :     return result;</span></a>
+<a name="326"><span class="lineNum">     326 </span>        [<span class="branchCov" title="Branch 0 was taken 90320 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">      90320 : }</span></a>
 <a name="327"><span class="lineNum">     327 </span>                :            : </a>
 <a name="328"><span class="lineNum">     328 </span>                :            : #include &lt;fstream&gt;</a>
 <a name="329"><span class="lineNum">     329 </span>                :            : </a>
@@ -436,9 +436,9 @@
 <a name="357"><span class="lineNum">     357 </span>                :<span class="lineCov">          1 :     terminate = true;</span></a>
 <a name="358"><span class="lineNum">     358 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="359"><span class="lineNum">     359 </span>                :            : </a>
-<a name="360"><span class="lineNum">     360 </span>                :<span class="lineCov">      47288 : bool AutoInputActive()</span></a>
+<a name="360"><span class="lineNum">     360 </span>                :<span class="lineCov">      90322 : bool AutoInputActive()</span></a>
 <a name="361"><span class="lineNum">     361 </span>                :            : {</a>
-<a name="362"><span class="lineNum">     362 </span>                :<span class="lineCov">      47288 :     return finished == false;</span></a>
+<a name="362"><span class="lineNum">     362 </span>                :<span class="lineCov">      90322 :     return finished == false;</span></a>
 <a name="363"><span class="lineNum">     363 </span>                :            : }</a>
 <a name="364"><span class="lineNum">     364 </span>                :            : </a>
 <a name="365"><span class="lineNum">     365 </span>                :            : #ifdef RUN_TESTS</a>
@@ -452,11 +452,11 @@
 <a name="373"><span class="lineNum">     373 </span>                :<span class="lineCov">          1 :     AutoInputStart(&quot;test/inputter.dat&quot;);</span></a>
 <a name="374"><span class="lineNum">     374 </span>                :<span class="lineCov">          1 :     unsigned num_events = 0;</span></a>
 <a name="375"><span class="lineNum">     375 </span>                :<span class="lineCov">          1 :     AdvanceTime(3600);</span></a>
-<a name="376"><span class="lineNum">     376 </span>        [<span class="branchCov" title="Branch 0 was taken 47286 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">      47287 :     while(AutoInputActive())</span></a>
+<a name="376"><span class="lineNum">     376 </span>        [<span class="branchCov" title="Branch 0 was taken 90320 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">      90321 :     while(AutoInputActive())</span></a>
 <a name="377"><span class="lineNum">     377 </span>                :            :     {</a>
-<a name="378"><span class="lineNum">     378 </span>                :<span class="lineCov">      47286 :         auto resp = GetAutoInput();</span></a>
-<a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">      47286 :         ++num_events;</span></a>
-<a name="380"><span class="lineNum">     380 </span>                :<span class="lineCov">      47286 :     }</span></a>
+<a name="378"><span class="lineNum">     378 </span>                :<span class="lineCov">      90320 :         auto resp = GetAutoInput();</span></a>
+<a name="379"><span class="lineNum">     379 </span>                :<span class="lineCov">      90320 :         ++num_events;</span></a>
+<a name="380"><span class="lineNum">     380 </span>                :<span class="lineCov">      90320 :     }</span></a>
 <a name="381"><span class="lineNum">     381 </span>                :<span class="lineCov">          1 :     EXPECT_GE(num_events, 10000u);</span></a>
 <a name="382"><span class="lineNum">     382 </span>                :<span class="lineCov">          1 :     EXPECT_LT(num_events, 150000u);</span></a>
 <a name="383"><span class="lineNum">     383 </span>                :<span class="lineCov">          1 :     AutoInputEnd();</span></a>

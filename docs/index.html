@@ -131,7 +131,7 @@ git submodule update --init --recursive # Do not forget this step!
  To build a profiling version, do <code>make term_gprof</code>. <br  />
  To build and run unit+coverage tests, do <code>make test</code> (see <a class="el" href="md_doc_testing.html">testing</a>). <br  />
  To build a manual coverage testing version, do <code>make term_gcov</code>.</p>
-<p><b>NOTE</b>: When compiling, you may get a “__cur could be NULL” warning from the static analyzer of the compiler with reference to a vector&lt;Cell&gt;. This warning is bogus and should be ignored.</p>
+<p><b>NOTE</b>: When compiling, you may get a “__cur could be NULL” warning from the static analyzer of the compiler with reference to a vector&lt;Cell&gt;. This warning is bogus and should be ignored. You may also get warnings about “<code>#pragma omp</code>” lines. These lines are related to OpenMP, which is disabled in all but the production and debugging builds.</p>
 <p>Compilation of modules within <code>rendering/fonts</code> module may take significant time. This is mainly because of the use of <code>std::regex</code>, which slows down compilation significantly.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Documentation</h1>

@@ -1,12 +1,6 @@
 var read__font_8hh =
 [
-    [ "GlyphList", "read__font_8hh.html#structGlyphList", [
-      [ "bitmap", "read__font_8hh.html#ac915408ed08ac244e09a94763d306249", null ],
-      [ "glyphs", "read__font_8hh.html#abeb11127806e4f9621dff03b63f7f371", null ],
-      [ "height", "read__font_8hh.html#af9f7f5c2890af6712890a0ede0a82f46", null ],
-      [ "unicode", "read__font_8hh.html#ae94bd3e1680a546267d4cbbd613a80b7", null ],
-      [ "widths", "read__font_8hh.html#abad85a6299c62b2590b8b6b72c78fd06", null ]
-    ] ],
+    [ "GlyphList", "structGlyphList.html", "structGlyphList" ],
     [ "BDFtranslateToUnicode", "read__font_8hh.html#adc4989c963f1be6c69a527521feb4ef6", null ],
     [ "Read_ASM", "read__font_8hh.html#a6466f65444a09ef5eabb2dbb0750a87b", null ],
     [ "Read_BDF", "read__font_8hh.html#ab1b636ff02d93d872e389f3fcead8f20", null ],

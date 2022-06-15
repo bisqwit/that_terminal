@@ -13,7 +13,7 @@ var annotated_dup =
     [ "fixed_string", "structfixed__string.html", "structfixed__string" ],
     [ "FontPlan", "classFontPlan.html", "classFontPlan" ],
     [ "ForkPTY", "classForkPTY.html", "classForkPTY" ],
-    [ "GlyphList", "read__font_8hh.html#structGlyphList", "read__font_8hh_structGlyphList" ],
+    [ "GlyphList", "structGlyphList.html", "structGlyphList" ],
     [ "PSFheader", "read__font_8cc.html#structPSFheader", "read__font_8cc_structPSFheader" ],
     [ "TerminalWindow", "classTerminalWindow.html", "classTerminalWindow" ],
     [ "UI", "classUI.html", "classUI" ],
