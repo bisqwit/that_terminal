@@ -2,11 +2,11 @@
 
 Approximate time tracking (based on Git logs, made because of Helsinki University requirements):
 
-total: 223h
+total: 224h
 
     (grep '^    2' doc/timeusage.md|cut -c15-17|tr -d ' '|tr '\012' +;echo 0)|bc -l
 
-    2022-06-15  3h improving coverage
+    2022-06-15  4h improving coverage
     2022-06-14  6h improving coverage, some refactoring
     2022-06-13 10h unit tests, to satisfy HY requirements
     2022-06-12 14h refactoring, documentation, to satisfy HY requirements

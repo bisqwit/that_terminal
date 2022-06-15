@@ -23,6 +23,9 @@
 
 namespace
 {
+    unsigned unload_check_interval = 10;
+    unsigned unload_interval       = 60;
+
     static constexpr auto Ropt = std::regex_constants::ECMAScript | std::regex_constants::optimize;
 
     std::map<std::pair<std::string,std::pair<unsigned,unsigned>>,
@@ -439,13 +442,13 @@ void FontPlannerTick()
     static auto prev = std::chrono::system_clock::now();
     auto now = std::chrono::system_clock::now();
     // Every 10 seconds, free fonts that have not been used for 60 seconds
-    if(std::chrono::duration<double>(now - prev).count() >= 10.0)
+    if(std::chrono::duration<double>(now - prev).count() >= unload_check_interval)
     {
         std::lock_guard<std::mutex> lk(fonts_lock);
         for(auto i = loaded_fonts.begin(); i != loaded_fonts.end(); )
         {
             if(i->second.second.use_count() == 1
-            && std::chrono::duration<double>(now - i->second.first).count() >= 60.0)
+            && std::chrono::duration<double>(now - i->second.first).count() >= unload_interval)
             {
                 std::fprintf(stderr, "Unloading %ux%u font %s\n",
                     i->first.second.first, i->first.second.second,
@@ -514,20 +517,26 @@ TEST(font_planner, large_plan)
 }
 TEST(font_planner, tick10s)
 {
-    std::cout << "- Running FontPlannerTick planner tick for 10 seconds.\n" << std::flush;
-    for(unsigned n=0; n<10*5+1; ++n)
+    unsigned backup = unload_check_interval;
+    unload_check_interval = 1;
+    std::cout << "- Running FontPlannerTick planner tick for " << unload_check_interval << " second(s).\n" << std::flush;
+    for(unsigned n=0; n<unload_check_interval*5+1; ++n)
     {
         FontPlannerTick();
         usleep(200000);
     }
+    unload_check_interval = backup;
 }
 TEST(font_planner, unload_fonts)
 {
-    std::cout << "- Running FontPlannerTick planner tick for another 50 seconds to trigger a font unload.\n" << std::flush;
-    for(unsigned n=0; n<50*5+2; ++n)
+    unsigned backup = unload_interval;
+    unload_interval = 2;
+    std::cout << "- Running FontPlannerTick planner tick for another " << unload_interval << " seconds to trigger a font unload.\n" << std::flush;
+    for(unsigned n=0; n<unload_interval*5+2; ++n)
     {
         FontPlannerTick();
         usleep(200000);
     }
+    unload_interval = backup;
 }
 #endif

@@ -1,6 +1,9 @@
 #ifdef RUN_TESTS
-#include <gtest/gtest.h>
-#include <chrono>
+# include <gtest/gtest.h>
+extern "C" {
+# include <gcov.h>
+}
+# include <utmp.h>
 #endif
 /** @file tty/forkpty.cc
  * @brief Physical frontend to the underlying process (shell).
@@ -21,10 +24,6 @@
 #endif
 
 #include "forkpty.hh"
-
-void ForkPTY_Init()
-{
-}
 
 bool ForkPTY::Active() const
 {
@@ -49,13 +48,35 @@ void ForkPTY::Open(std::size_t width, std::size_t height)
     struct winsize ws = {};
     ws.ws_col = width;
     ws.ws_row = height;
+  #if 0
+    pid = -1;
+  #elif defined RUN_TESTS_no
+    // gcov duplicates every counter on fork. Because of that, implement forkpty
+    // manually, and do NOT call fork() (which gets aliased to __gcov_fork)
+    int fd2 = -1;
+    openpty(&fd, &fd2, nullptr, nullptr, &ws);
+    pid = syscall(__NR_fork);
+    if(pid)
+        close(fd2);
+    else
+    {
+        __gcov_reset();
+        close(fd);
+        login_tty(fd2);
+    }
+  #else
     pid = forkpty(&fd, nullptr, nullptr, &ws);
+  #endif
     if(!pid)
     {
         static char termstr[] = "TERM=xterm";
         putenv(termstr);
+  #ifdef RUN_TESTS_no
+        __gcov_dump();
+  #endif
         execl(std::getenv("SHELL"), std::getenv("SHELL"), "-l", "-i", nullptr); // TODO: check return values
         // Note: getenv() is in C++ standard, but putenv() is not.
+        _exit(0);
     }
 
     // Change the virtual terminal handle (file descriptor)
@@ -65,9 +86,10 @@ void ForkPTY::Open(std::size_t width, std::size_t height)
 
 void ForkPTY::Close()
 {
-    kill(pid, SIGTERM);
+    Kill(SIGTERM);
     close(fd);
     waitpid(pid, nullptr, 0);
+    fd = -1;
 }
 
 int ForkPTY::Send(std::string_view buffer)
@@ -88,7 +110,7 @@ std::pair<std::string,int> ForkPTY::Recv()
 
 void ForkPTY::Kill(int signal)
 {
-    kill(pid, signal);
+    if(pid >= 0) kill(pid, signal);
 }
 
 void ForkPTY::Resize(unsigned xsize, unsigned ysize)
@@ -100,10 +122,12 @@ void ForkPTY::Resize(unsigned xsize, unsigned ysize)
 }
 
 #ifdef RUN_TESTS
+// For some strange reason, every call here seems to be treated as a branch by gcov.
+// This seriously skews the statistics.
+
+#include <chrono>
 TEST(forkpty, opening_a_shell_works) // Test that opening a shell works
 {
-    ForkPTY_Init();
-
     ForkPTY pty(80,25);
     pty.Active();
     EXPECT_NE(pty.getfd(), -1);
@@ -137,7 +161,7 @@ TEST(forkpty, running_a_command_in_shell_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
+        ASSERT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
     }
     // Send a command
@@ -147,7 +171,7 @@ TEST(forkpty, running_a_command_in_shell_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
+        ASSERT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
         if(in.find("Device:") != in.npos) break;
     }

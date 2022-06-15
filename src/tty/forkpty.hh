@@ -58,7 +58,7 @@ public:
     void Resize(unsigned xsize, unsigned ysize);
 
 private:
-    int fd, pid;
+    int fd = -1, pid = -1;
 };
 
 #endif

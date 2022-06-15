@@ -42,12 +42,15 @@ const constinit std::array<unsigned,256> xterm256table = []() consteval
 #ifdef RUN_TESTS
 TEST(xterm256color, contains_two_blacks)
 {
-    Make16(0,1,2);
+    volatile unsigned r = 0;
+    Make16(r,1,2);
     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0x000000));
 }
 TEST(xterm256color, contains_two_whites)
 {
-    Make16(3,4,5);
+    volatile unsigned r = 3;
     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0xFFFFFF));
+    // Dummy function calls for coverage reasons (gcov counts inline functions):
+    Mix(Repack(Unpack(r)),cmyk2rgb(r),r,r,cmy2rgb(r));
 }
 #endif

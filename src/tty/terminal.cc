@@ -1357,8 +1357,9 @@ TEST(terminal, scs)
 #include <fstream>
 TEST(terminal, stress_test)
 {
-    Window wnd(80,25);
+    Window wnd(4, 4);
     TerminalWindow term(wnd);
+    term.Resize(80, 25);
 
     // Issue the patterns from the following files:
     for(std::string s: {"test/escapes.txt", "test/xterm-symbols.txt", "test/xterm-symbols2.txt",

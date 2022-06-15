@@ -16,8 +16,8 @@ Running main() from /home/bisqwit/src/terminal_emulator/googletest/googletest/sr
 [ RUN      ] AutoInput.active_should_be_false
 [       OK ] AutoInput.active_should_be_false (0 ms)
 [ RUN      ] AutoInput.works
-[       OK ] AutoInput.works (6 ms)
-[----------] 2 tests from AutoInput (6 ms total)
+[       OK ] AutoInput.works (4 ms)
+[----------] 2 tests from AutoInput (4 ms total)
 
 [----------] 7 tests from clock
 [ RUN      ] clock.elapsed_time_looks_realistic
@@ -52,12 +52,12 @@ Running main() from /home/bisqwit/src/terminal_emulator/googletest/googletest/sr
 [ RUN      ] forkpty.opening_a_shell_works
 [       OK ] forkpty.opening_a_shell_works (0 ms)
 [ RUN      ] forkpty.killing_a_shell_works
-[       OK ] forkpty.killing_a_shell_works (555 ms)
+[       OK ] forkpty.killing_a_shell_works (528 ms)
 [ RUN      ] forkpty.running_a_command_in_shell_works
-[       OK ] forkpty.running_a_command_in_shell_works (564 ms)
+[       OK ] forkpty.running_a_command_in_shell_works (574 ms)
 [ RUN      ] forkpty.resizing_works
-[       OK ] forkpty.resizing_works (574 ms)
-[----------] 4 tests from forkpty (1694 ms total)
+[       OK ] forkpty.resizing_works (564 ms)
+[----------] 4 tests from forkpty (1667 ms total)
 
 [----------] 2 tests from xterm256color
 [ RUN      ] xterm256color.contains_two_blacks
@@ -72,7 +72,7 @@ Running main() from /home/bisqwit/src/terminal_emulator/googletest/googletest/sr
 [ RUN      ] terminal.sgr_attributes
 [       OK ] terminal.sgr_attributes (0 ms)
 [ RUN      ] terminal.sgr_colors
-[       OK ] terminal.sgr_colors (7 ms)
+[       OK ] terminal.sgr_colors (8 ms)
 [ RUN      ] terminal.save_restore
 [       OK ] terminal.save_restore (0 ms)
 [ RUN      ] terminal.cursor_movements
@@ -81,7 +81,7 @@ Running main() from /home/bisqwit/src/terminal_emulator/googletest/googletest/sr
 [       OK ] terminal.scs (0 ms)
 [ RUN      ] terminal.stress_test
 [       OK ] terminal.stress_test (1 ms)
-[----------] 7 tests from terminal (10 ms total)
+[----------] 7 tests from terminal (11 ms total)
 
 [----------] 6 tests from color
 [ RUN      ] color.unpack_ok
@@ -147,20 +147,20 @@ Running font planner stress test. This will take a lot of time.
 - Deleting cache
 - Loading fonts list
 - Building similarities
-[       OK ] font_planner.rebuild_test (138613 ms)
+[       OK ] font_planner.rebuild_test (137127 ms)
 [ RUN      ] font_planner.parallel_plan
 - Testing 8x8, 8x12, 8x14, 8x16 parallel planning
-[       OK ] font_planner.parallel_plan (5559 ms)
+[       OK ] font_planner.parallel_plan (5555 ms)
 [ RUN      ] font_planner.large_plan
 - Testing 7x7 large plan.
-[       OK ] font_planner.large_plan (3539 ms)
+[       OK ] font_planner.large_plan (3537 ms)
 [ RUN      ] font_planner.tick10s
-- Running FontPlannerTick planner tick for 10 seconds.
-[       OK ] font_planner.tick10s (10203 ms)
+- Running FontPlannerTick planner tick for 1 second(s).
+[       OK ] font_planner.tick10s (1200 ms)
 [ RUN      ] font_planner.unload_fonts
-- Running FontPlannerTick planner tick for another 50 seconds to trigger a font unload.
-[       OK ] font_planner.unload_fonts (50418 ms)
-[----------] 5 tests from font_planner (208334 ms total)
+- Running FontPlannerTick planner tick for another 2 seconds to trigger a font unload.
+[       OK ] font_planner.unload_fonts (2400 ms)
+[----------] 5 tests from font_planner (149820 ms total)
 
 [----------] 2 tests from person
 [ RUN      ] person.x_coordinate_varies
@@ -172,32 +172,32 @@ Running font planner stress test. This will take a lot of time.
 [----------] 9 tests from window
 [ RUN      ] window.window_dirty
 This test will take some time (will load 8x8 fonts for rendering)
-[       OK ] window.window_dirty (4918 ms)
+[       OK ] window.window_dirty (8 ms)
 [ RUN      ] window.fillbox
 [       OK ] window.fillbox (0 ms)
 [ RUN      ] window.copytext
 [       OK ] window.copytext (0 ms)
 [ RUN      ] window.font_styles_are_distinct
-[       OK ] window.font_styles_are_distinct (2 ms)
+[       OK ] window.font_styles_are_distinct (1 ms)
 [ RUN      ] window.rendersize
 [       OK ] window.rendersize (0 ms)
 [ RUN      ] window.cursor_blinks
-[       OK ] window.cursor_blinks (4 ms)
+[       OK ] window.cursor_blinks (5 ms)
 [ RUN      ] window.text_blinks
 [       OK ] window.text_blinks (1 ms)
 [ RUN      ] window.person_animation
-[       OK ] window.person_animation (150 ms)
+[       OK ] window.person_animation (29 ms)
 [ RUN      ] window.coverage
 [       OK ] window.coverage (0 ms)
-[----------] 9 tests from window (5077 ms total)
+[----------] 9 tests from window (46 ms total)
 
 [----------] 2 tests from ui
 [ RUN      ] ui.general
-[       OK ] ui.general (280 ms)
+[       OK ] ui.general (314 ms)
 [ RUN      ] ui.eventsim
-[       OK ] ui.eventsim (9 ms)
-[----------] 2 tests from ui (290 ms total)
+[       OK ] ui.eventsim (10 ms)
+[----------] 2 tests from ui (324 ms total)
 
 [----------] Global test environment tear-down
-[==========] 70 tests from 16 test suites ran. (216020 ms total)
+[==========] 70 tests from 16 test suites ran. (152481 ms total)
 [  PASSED  ] 70 tests.

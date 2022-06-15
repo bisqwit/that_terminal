@@ -80,12 +80,15 @@ term_debug: $(OBJS_DEBUG)
 term_test: $(OBJS_TEST) $(GTEST)
 	$(CXX) -o "$@" $^ $(CXXFLAGS) $(LDLIBS) $(OPTIM_TEST) -pthread $(GTEST)
 
+#TEST_FILTER = --gtest_fitler='fork*'
+TEST_FILTER =
+
 test: term_test
 	#- rm $$HOME/.cache/that_terminal/* || \
 	#  rm /home/$$USER/.cache/that_terminal/* || \
 	#  rm /run/user/`id -u`/{similarities.dat,fonts-list.dat}
 	- rm obj/test/*.gcda
-	./term_test | tee doc/test-report.txt
+	./term_test $(TEST_FILTER) | tee doc/test-report.txt
 	- lcov --base-directory . --no-external -d obj/test --output-file main_coverage.info \
 	     -c --gcov-tool "gcov-$(GCCVERS)" \
 	     	--exclude '*gtest*' \

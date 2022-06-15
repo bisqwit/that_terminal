@@ -103,6 +103,7 @@ void ReadFonts(std::ostream& out)
                         }
                     };
 
+                    /* Express the coverage bitmap in a compact form. */
                     for(std::size_t begin=0; begin<bitmap.size(); ++begin)
                     {
                         if(!bitmap[begin]) continue;
@@ -124,8 +125,10 @@ void ReadFonts(std::ostream& out)
                         if(toggles >= 3 && !run)
                         {
                             char buf[128] = "  MAP ";
+                            /* Put first character index in hex */
                             auto [p, erc]   = std::to_chars(buf+6, buf+sizeof(buf)/2, begin, 16);
                             p[0] = ' ';
+                            /* Put coverage bitmap (64-bit integer) in binary */
                             auto [p2, erc2] = std::to_chars(p+1,   buf+sizeof(buf)-1, bits,   2);
                             *p2++ = '\n';
                             temp << std::string_view(buf, p2-buf);
