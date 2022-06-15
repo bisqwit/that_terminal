@@ -47,13 +47,23 @@ Check out the code from Git:
     git checkout origin/hy -b hy
     git submodule update --init --recursive # Do not forget this step!
 
+__NOTE__: If you use the .tar.gz or .zip from the release archive, it is
+missing the code for submodules. You have to manually checkout them.
+This is a known problem with Github. The recommended way is to download
+sources from the Git repository as instructed above.
+
 To compile, type `make -j4`. To run, type `./term` after compiling.
 Note that on the first start, the terminal may be slow to start,
 because it rebuilds the cache for fonts.
 
+__NOTE__: If `make` is unable to execute `g++`, or you get errors with
+unrecognized option `-std=c++20`, edit the first line in `Makefile` and
+change `g++` to `g++-10` or later. This is because your distribution
+defaults to a too old version of GCC, that is unsupported by *that terminal*.
+
 To build a debugging version, do `make term_debug`.  
 To build a profiling version, do `make term_gprof`.  
-To run unit+coverage tests, do `make test`.  
+To build and run unit+coverage tests, do `make test` (see [testing](doc/testing.md)).  
 To build a manual coverage testing version, do `make term_gcov`.
 
 __NOTE__: When compiling, you may get a “\__cur could be NULL” warning from

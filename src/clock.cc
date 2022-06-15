@@ -154,6 +154,24 @@ TEST(clock, manual_time_works)
     EXPECT_TRUE(diff == 100);
 }
 
+TEST(clock, manual_and_sleep)
+{
+    data.FakeTime   = 0;
+    data.TimeFactor = 0;
+    volatile bool step = false;
+    std::thread test{[&]
+    {
+        SleepFor(100);
+        step = true;
+    }};
+    AdvanceTime(50);
+    usleep(100000);
+    EXPECT_FALSE(step);
+    AdvanceTime(52);
+    test.join();
+    EXPECT_TRUE(step);
+}
+
 TEST(clock, terminate)
 {
     TimeTerminate();

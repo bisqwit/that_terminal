@@ -55,6 +55,6 @@ std::pair<std::filesystem::path, std::filesystem::file_status>
  *                    or where it could be successfully created, whichever is found first.
  */
 std::pair<std::filesystem::path, std::filesystem::file_status>
-    FindCacheFile(std::string_view file_to_find, bool is_file);
+    FindCacheFile(const std::filesystem::path& file_to_find, bool is_file);
 
 #endif

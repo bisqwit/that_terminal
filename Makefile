@@ -87,9 +87,12 @@ test: term_test
 	- rm obj/test/*.gcda
 	./term_test | tee doc/test-report.txt
 	- lcov --base-directory . --no-external -d obj/test --output-file main_coverage.info \
-	     -c --gcov-tool "gcov-$(GCCVERS)" --exclude '*gtest*' --exclude '$(GCCVERS)/*' \
+	     -c --gcov-tool "gcov-$(GCCVERS)" \
+	     	--exclude '*gtest*' \
+	     	--exclude '*gunzip*' \
+	     	--exclude '$(GCCVERS)/*' \
 	     --rc "lcov_branch_coverage=1" \
-	     --rc "lcov_excl_br_line=LCOV_EXCL_BR_LINE|EXPECT_*|TEST\("
+	     --rc "lcov_excl_br_line=LCOV_EXCL_BR_LINE|EXPECT_*|ASSERT_*|usleep|TEST\("
 	- genhtml main_coverage.info --branch-coverage --output-directory doc/doxygen/docs/cov
 
 define create_rule

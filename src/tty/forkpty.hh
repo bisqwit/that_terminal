@@ -19,7 +19,7 @@ public:
     ForkPTY(std::size_t width, std::size_t height) { Open(width,height); }
 
     /** Destructor. Terminates the subprocess if it is still active. */
-    ~ForkPTY() { if(Active()) Close(); }
+    ~ForkPTY();
 
     /** Create a subprocess in a virtual terminal with given dimensions.
      * If the opening is successful, the file descriptor is set to non-blocking mode.
@@ -30,10 +30,10 @@ public:
     void Close();
 
     /** @returns true if the subprocess was launched successfully. */
-    inline bool Active() const { return fd >= 0; }
+    bool Active() const;
 
     /** @returns the underlying file descriptor. */
-    int getfd() const { return fd; }
+    int getfd() const;
 
     /** Try to send the string as input to the subprocess in non-blocking mode.
      * This function is typically called when the user types something.

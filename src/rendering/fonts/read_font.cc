@@ -667,24 +667,26 @@ TEST(endian, R24r)     { EXPECT_EQ(R24r(" AB"), 0x204142u); }
 TEST(endian, R32r)     { EXPECT_EQ(R32r(" ABC"), 0x20414243u); }
 TEST(endian, R64r)     { EXPECT_EQ(R64r(" ABC0123"), 0x2041424330313233ull); }
 TEST(endian, Rn)       { char data[] = " ABC0123";
-                         EXPECT_EQ(Rn(data,1), 0x20u);
-                         EXPECT_EQ(Rn(data,2), 0x4120u);
-                         EXPECT_EQ(Rn(data,3), 0x424120u);
-                         EXPECT_EQ(Rn(data,4), 0x43424120u);
-                         EXPECT_EQ(Rn(data,5), 0x3043424120u);
-                         EXPECT_EQ(Rn(data,6), 0x313043424120u);
-                         EXPECT_EQ(Rn(data,7), 0x32313043424120u);
-                         EXPECT_EQ(Rn(data,8), 0x3332313043424120u); }
+                         volatile unsigned n=0;
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x20u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x4120u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x424120u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x43424120u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x3043424120u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x313043424120u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x32313043424120u);
+                         n=n+1; EXPECT_EQ(Rn(data, n), 0x3332313043424120u); }
 TEST(endian, Wn)       { char data[] = " ABC0123";
-                         { char buf[16]{}; Wn(buf, 0x20u, 1); EXPECT_EQ(std::string(buf,1), std::string(data,1)); }
-                         { char buf[16]{}; Wn(buf, 0x4120u, 2); EXPECT_EQ(std::string(buf,2), std::string(data,2)); }
-                         { char buf[16]{}; Wn(buf, 0x424120u, 3); EXPECT_EQ(std::string(buf,3), std::string(data,3)); }
-                         { char buf[16]{}; Wn(buf, 0x43424120u, 4); EXPECT_EQ(std::string(buf,4), std::string(data,4)); }
-                         { char buf[16]{}; Wn(buf, 0x3043424120u, 5); EXPECT_EQ(std::string(buf,5), std::string(data,5)); }
-                         { char buf[16]{}; Wn(buf, 0x313043424120u, 6); EXPECT_EQ(std::string(buf,6), std::string(data,6)); }
-                         { char buf[16]{}; Wn(buf, 0x32313043424120u, 7); EXPECT_EQ(std::string(buf,7), std::string(data,7)); }
-                         { char buf[16]{}; Wn(buf, 0x3332313043424120u, 8); EXPECT_EQ(std::string(buf,8), std::string(data,8)); }
-                      }
+                         volatile unsigned n=0;
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x20u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x4120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x424120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x43424120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x3043424120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x313043424120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x32313043424120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                         { char buf[16]{}; n=n+1; Wn(buf, 0x3332313043424120u, n); EXPECT_EQ(std::string(buf,n), std::string(data,n)); }
+                       }
 TEST(read_font, coverage)
 {
     Read_PSFgzEncoding("share/fonts/files/iso01.f08.psf.gz");

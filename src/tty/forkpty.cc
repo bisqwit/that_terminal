@@ -26,6 +26,24 @@ void ForkPTY_Init()
 {
 }
 
+bool ForkPTY::Active() const
+{
+    return fd >= 0;
+}
+
+int ForkPTY::getfd() const
+{
+    return fd;
+}
+
+ForkPTY::~ForkPTY()
+{
+    if(Active())
+    {
+        Close();
+    }
+}
+
 void ForkPTY::Open(std::size_t width, std::size_t height)
 {
     struct winsize ws = {};
@@ -150,7 +168,7 @@ TEST(forkpty, resizing_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
+        ASSERT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
     }
     // Send a command
@@ -160,7 +178,7 @@ TEST(forkpty, resizing_works)
     {
         auto k = pty.Recv();
         in += k.first;
-        EXPECT_LE(std::chrono::duration<double>(t()-start).count(), 2);
+        ASSERT_LE(std::chrono::duration<double>(t()-start).count(), 2);
         usleep(10000);
         if(in.find("30 40") != in.npos) break;
     }
