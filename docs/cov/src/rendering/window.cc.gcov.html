@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">42</td>
@@ -49,9 +49,9 @@
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">201</td>
+            <td class="headerCovTableEntry">202</td>
             <td class="headerCovTableEntry">293</td>
-            <td class="headerCovTableEntryLo">68.6 %</td>
+            <td class="headerCovTableEntryLo">68.9 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -344,27 +344,27 @@
 <a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">        269 :     lasttimer = timer;</span></a>
 <a name="268"><span class="lineNum">     268 </span>                :<span class="lineCov">        269 : }</span></a>
 <a name="269"><span class="lineNum">     269 </span>                :            : </a>
-<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">          1 : void Window::Resize(std::size_t newsx, std::size_t newsy)</span></a>
+<a name="270"><span class="lineNum">     270 </span>                :<span class="lineCov">          2 : void Window::Resize(std::size_t newsx, std::size_t newsy)</span></a>
 <a name="271"><span class="lineNum">     271 </span>                :            : {</a>
-<a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">          1 :     std::vector&lt;Cell&gt; newcells(newsx*newsy, blank);</span></a>
-<a name="273"><span class="lineNum">     273 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 25 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">         26 :     for(std::size_t my=std::min(ysize, newsy), y=0; y&lt;my; ++y)</span></a>
-<a name="274"><span class="lineNum">     274 </span>  [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1000 times"> + </span><span class="branchCov" title="Branch 3 was taken 25 times"> + </span>]:<span class="lineCov">       1050 :         for(std::size_t mx=std::min(xsize, newsx), x=0; x&lt;mx; ++x)</span></a>
-<a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">       1000 :             newcells[x + y*newsx] = cells[x + y*xsize];</span></a>
+<a name="272"><span class="lineNum">     272 </span>                :<span class="lineCov">          2 :     std::vector&lt;Cell&gt; newcells(newsx*newsy, blank);</span></a>
+<a name="273"><span class="lineNum">     273 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span><span class="branchCov" title="Branch 2 was taken 29 times"> + </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span>]:<span class="lineCov">         31 :     for(std::size_t my=std::min(ysize, newsy), y=0; y&lt;my; ++y)</span></a>
+<a name="274"><span class="lineNum">     274 </span>  [<span class="branchCov" title="Branch 0 was taken 25 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span><span class="branchCov" title="Branch 2 was taken 1016 times"> + </span><span class="branchCov" title="Branch 3 was taken 29 times"> + </span>]:<span class="lineCov">       1070 :         for(std::size_t mx=std::min(xsize, newsx), x=0; x&lt;mx; ++x)</span></a>
+<a name="275"><span class="lineNum">     275 </span>                :<span class="lineCov">       1016 :             newcells[x + y*newsx] = cells[x + y*xsize];</span></a>
 <a name="276"><span class="lineNum">     276 </span>                :            : </a>
-<a name="277"><span class="lineNum">     277 </span>                :<span class="lineCov">          1 :     cells = std::move(newcells);</span></a>
-<a name="278"><span class="lineNum">     278 </span>                :<span class="lineCov">          1 :     xsize = newsx;</span></a>
-<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">          1 :     ysize = newsy;</span></a>
-<a name="280"><span class="lineNum">     280 </span>                :<span class="lineCov">          1 :     Dirtify();</span></a>
-<a name="281"><span class="lineNum">     281 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     if(cursy &gt;= ysize) cursy = ysize-1;</span></a>
-<a name="282"><span class="lineNum">     282 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">          1 :     if(cursx &gt;= xsize) cursx = xsize-1;</span></a>
-<a name="283"><span class="lineNum">     283 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="277"><span class="lineNum">     277 </span>                :<span class="lineCov">          2 :     cells = std::move(newcells);</span></a>
+<a name="278"><span class="lineNum">     278 </span>                :<span class="lineCov">          2 :     xsize = newsx;</span></a>
+<a name="279"><span class="lineNum">     279 </span>                :<span class="lineCov">          2 :     ysize = newsy;</span></a>
+<a name="280"><span class="lineNum">     280 </span>                :<span class="lineCov">          2 :     Dirtify();</span></a>
+<a name="281"><span class="lineNum">     281 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     if(cursy &gt;= ysize) cursy = ysize-1;</span></a>
+<a name="282"><span class="lineNum">     282 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 2 times"> + </span>]:<span class="lineCov">          2 :     if(cursx &gt;= xsize) cursx = xsize-1;</span></a>
+<a name="283"><span class="lineNum">     283 </span>                :<span class="lineCov">          2 : }</span></a>
 <a name="284"><span class="lineNum">     284 </span>                :            : </a>
-<a name="285"><span class="lineNum">     285 </span>                :<span class="lineCov">        673 : void Window::Dirtify()</span></a>
+<a name="285"><span class="lineNum">     285 </span>                :<span class="lineCov">        674 : void Window::Dirtify()</span></a>
 <a name="286"><span class="lineNum">     286 </span>                :            : {</a>
-<a name="287"><span class="lineNum">     287 </span>                :<span class="lineCov">        673 :     lastcursx = lastcursy = ~std::size_t();</span></a>
-<a name="288"><span class="lineNum">     288 </span>                :<span class="lineCov">        673 :     lasttimer = ~0u;</span></a>
-<a name="289"><span class="lineNum">     289 </span>        [<span class="branchCov" title="Branch 0 was taken 710209 times"> + </span><span class="branchCov" title="Branch 1 was taken 673 times"> + </span>]:<span class="lineCov">     710882 :     for(auto&amp; c: cells) c.dirty = true;</span></a>
-<a name="290"><span class="lineNum">     290 </span>                :<span class="lineCov">        673 : }</span></a>
+<a name="287"><span class="lineNum">     287 </span>                :<span class="lineCov">        674 :     lastcursx = lastcursy = ~std::size_t();</span></a>
+<a name="288"><span class="lineNum">     288 </span>                :<span class="lineCov">        674 :     lasttimer = ~0u;</span></a>
+<a name="289"><span class="lineNum">     289 </span>        [<span class="branchCov" title="Branch 0 was taken 710225 times"> + </span><span class="branchCov" title="Branch 1 was taken 674 times"> + </span>]:<span class="lineCov">     710899 :     for(auto&amp; c: cells) c.dirty = true;</span></a>
+<a name="290"><span class="lineNum">     290 </span>                :<span class="lineCov">        674 : }</span></a>
 <a name="291"><span class="lineNum">     291 </span>                :            : </a>
 <a name="292"><span class="lineNum">     292 </span>                :<span class="lineCov">         11 : void Window::LineSetRenderSize(unsigned val)</span></a>
 <a name="293"><span class="lineNum">     293 </span>                :            : {</a>

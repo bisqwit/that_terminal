@@ -31,13 +31,13 @@
             <td class="headerValue">main_coverage.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">8</td>
-            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
             <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">4</td>
@@ -113,15 +113,18 @@
 <a name="42"><span class="lineNum">      42 </span>                :            : #ifdef RUN_TESTS</a>
 <a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">          3 : TEST(xterm256color, contains_two_blacks)</span></a>
 <a name="44"><span class="lineNum">      44 </span>                :            : {</a>
-<a name="45"><span class="lineNum">      45 </span>                :<span class="lineCov">          1 :     Make16(0,1,2);</span></a>
-<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">          1 :     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0x000000));</span></a>
-<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">          1 : }</span></a>
-<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">          3 : TEST(xterm256color, contains_two_whites)</span></a>
-<a name="49"><span class="lineNum">      49 </span>                :            : {</a>
-<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">          1 :     Make16(3,4,5);</span></a>
-<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">          1 :     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0xFFFFFF));</span></a>
-<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">          1 : }</span></a>
-<a name="53"><span class="lineNum">      53 </span>                :            : #endif</a>
+<a name="45"><span class="lineNum">      45 </span>                :<span class="lineCov">          1 :     volatile unsigned r = 0;</span></a>
+<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">          1 :     Make16(r,1,2);</span></a>
+<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">          1 :     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0x000000));</span></a>
+<a name="48"><span class="lineNum">      48 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">          3 : TEST(xterm256color, contains_two_whites)</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :            : {</a>
+<a name="51"><span class="lineNum">      51 </span>                :<span class="lineCov">          1 :     volatile unsigned r = 3;</span></a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">          1 :     EXPECT_EQ(2, std::count(xterm256table.begin(), xterm256table.end(), 0xFFFFFF));</span></a>
+<a name="53"><span class="lineNum">      53 </span>                :            :     // Dummy function calls for coverage reasons (gcov counts inline functions):</a>
+<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">          1 :     Mix(Repack(Unpack(r)),cmyk2rgb(r),r,r,cmy2rgb(r));</span></a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="56"><span class="lineNum">      56 </span>                :            : #endif</a>
 </pre>
       </td>
     </tr>

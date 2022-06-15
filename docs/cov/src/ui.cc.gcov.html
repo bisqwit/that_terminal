@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">20</td>
@@ -289,10 +289,10 @@
 <a name="217"><span class="lineNum">     217 </span>                :<span class="lineCov">       4858 :                          std::move(v));</span></a>
 <a name="218"><span class="lineNum">     218 </span>                :<span class="lineCov">       4858 :     };</span></a>
 <a name="219"><span class="lineNum">     219 </span>        [<span class="branchCov" title="Branch 0 was taken 4857 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">       4858 :     if(!IsHeadless())</span></a>
-<a name="220"><span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 0 was taken 618 times"> + </span><span class="branchCov" title="Branch 1 was taken 4838 times"> + </span>]:<span class="lineCov">       5456 :         for(SDL_Event ev; SDL_PollEvent(&amp;ev); )</span></a>
+<a name="220"><span class="lineNum">     220 </span>        [<span class="branchCov" title="Branch 0 was taken 617 times"> + </span><span class="branchCov" title="Branch 1 was taken 4838 times"> + </span>]:<span class="lineCov">       5455 :         for(SDL_Event ev; SDL_PollEvent(&amp;ev); )</span></a>
 <a name="221"><span class="lineNum">     221 </span>                :            :         {</a>
-<a name="222"><span class="lineNum">     222 </span>  [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 602 times"> + </span> :<span class="lineCov">        618 :             switch(ev.type)</span></a>
-<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 4 times"> + </span>]
+<a name="222"><span class="lineNum">     222 </span>  [<span class="branchCov" title="Branch 0 was taken 10 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchCov" title="Branch 3 was taken 602 times"> + </span> :<span class="lineCov">        617 :             switch(ev.type)</span></a>
+<span class="lineNum">         </span>            <span class="branchCov" title="Branch 4 was taken 3 times"> + </span>]
 <a name="223"><span class="lineNum">     223 </span>                :            :             {</a>
 <a name="224"><span class="lineNum">     224 </span>                :<span class="lineCov">         10 :                 case SDL_WINDOWEVENT:</span></a>
 <a name="225"><span class="lineNum">     225 </span>        [<span class="branchCov" title="Branch 0 was taken 6 times"> + </span><span class="branchCov" title="Branch 1 was taken 4 times"> + </span>]:<span class="lineCov">         10 :                     switch(ev.window.event)</span></a>
@@ -320,7 +320,7 @@
 <a name="247"><span class="lineNum">     247 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :                     if(permit_text_input)</span></a>
 <a name="248"><span class="lineNum">     248 </span>                :            :                     {</a>
 <a name="249"><span class="lineNum">     249 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :                         pending_input.clear(); // Overrides any input events from SDL_KEYDOWN</span></a>
-<a name="250"><span class="lineNum">     250 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 5456 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5457 :                         outbuffer += ev.text.text;</span></a>
+<a name="250"><span class="lineNum">     250 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 5455 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       5456 :                         outbuffer += ev.text.text;</span></a>
 <a name="251"><span class="lineNum">     251 </span>                :            :                     }</a>
 <a name="252"><span class="lineNum">     252 </span>                :            :                     break;</a>
 <a name="253"><span class="lineNum">     253 </span>                :<span class="lineCov">        602 :                 case SDL_KEYDOWN:</span></a>

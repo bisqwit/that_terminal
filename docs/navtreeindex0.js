@@ -189,7 +189,6 @@ var NAVTREEINDEX0 =
 "font__planner_8hh.html#aea3fe9909f28268dbd00a0e1f2a2c650":[8,0,0,1,0,1,2],
 "font__planner_8hh_source.html":[8,0,0,1,0,1],
 "forkpty_8cc.html":[8,0,0,2,2],
-"forkpty_8cc.html#a552bae1fcb6945437ac09d0164ce80d9":[8,0,0,2,2,0],
 "forkpty_8hh.html":[8,0,0,2,3],
 "forkpty_8hh_source.html":[8,0,0,2,3],
 "functions.html":[7,3,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX0 =
 "md_doc_fonts.html#autotoc_md27":[3,3],
 "md_doc_fonts.html#autotoc_md28":[3,4],
 "md_doc_fonts.html#autotoc_md29":[3,5],
-"md_doc_fonts.html#autotoc_md30":[3,6]
+"md_doc_fonts.html#autotoc_md30":[3,6],
+"md_doc_fonts.html#autotoc_md31":[3,7]
 };

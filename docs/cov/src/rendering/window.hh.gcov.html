@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">8</td>
@@ -123,12 +123,12 @@
 <a name="52"><span class="lineNum">      52 </span>                :            :      */</a>
 <a name="53"><span class="lineNum">      53 </span>                :<span class="lineCov">        416 :     void FillBox(std::size_t x, std::size_t y, std::size_t width, std::size_t height, Cell with)</span></a>
 <a name="54"><span class="lineNum">      54 </span>                :            :     {</a>
-<a name="55"><span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 0 was taken 9029 times"> + </span><span class="branchCov" title="Branch 1 was taken 416 times"> + </span>]:<span class="lineCov">       9445 :         for(std::size_t h=0; h&lt;height; ++h)</span></a>
-<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 706258 times"> + </span><span class="branchCov" title="Branch 1 was taken 9029 times"> + </span>]:<span class="lineCov">     715287 :             for(std::size_t w=0; w&lt;width; ++w)</span></a>
+<a name="55"><span class="lineNum">      55 </span>        [<span class="branchCov" title="Branch 0 was taken 9008 times"> + </span><span class="branchCov" title="Branch 1 was taken 416 times"> + </span>]:<span class="lineCov">       9424 :         for(std::size_t h=0; h&lt;height; ++h)</span></a>
+<a name="56"><span class="lineNum">      56 </span>        [<span class="branchCov" title="Branch 0 was taken 704274 times"> + </span><span class="branchCov" title="Branch 1 was taken 9008 times"> + </span>]:<span class="lineCov">     713282 :             for(std::size_t w=0; w&lt;width; ++w)</span></a>
 <a name="57"><span class="lineNum">      57 </span>                :            :             {</a>
-<a name="58"><span class="lineNum">      58 </span>                :<span class="lineCov">     706258 :                 auto tx = x+w, ty = y+h;</span></a>
-<a name="59"><span class="lineNum">      59 </span>  [<span class="branchCov" title="Branch 0 was taken 705988 times"> + </span><span class="branchCov" title="Branch 1 was taken 270 times"> + </span><span class="branchCov" title="Branch 2 was taken 705988 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     706258 :                 if(with.ch != blank.ch || !cells[ty*xsize+tx].protect)</span></a>
-<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">     706258 :                     PutCh(tx, ty, with);</span></a>
+<a name="58"><span class="lineNum">      58 </span>                :<span class="lineCov">     704274 :                 auto tx = x+w, ty = y+h;</span></a>
+<a name="59"><span class="lineNum">      59 </span>  [<span class="branchCov" title="Branch 0 was taken 704004 times"> + </span><span class="branchCov" title="Branch 1 was taken 270 times"> + </span><span class="branchCov" title="Branch 2 was taken 704004 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     704274 :                 if(with.ch != blank.ch || !cells[ty*xsize+tx].protect)</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :<span class="lineCov">     704274 :                     PutCh(tx, ty, with);</span></a>
 <a name="61"><span class="lineNum">      61 </span>                :            :             }</a>
 <a name="62"><span class="lineNum">      62 </span>                :<span class="lineCov">        416 :     }</span></a>
 <a name="63"><span class="lineNum">      63 </span>                :            :     /** Copies a rectangle from given coordinates to the target coordinates.</a>
@@ -177,15 +177,15 @@
 <a name="106"><span class="lineNum">     106 </span>                :            :     /** Places a cell at the given position on screen.</a>
 <a name="107"><span class="lineNum">     107 </span>                :            :      * If the cell changed, it is marked dirty.</a>
 <a name="108"><span class="lineNum">     108 </span>                :            :      */</a>
-<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">     767358 :     void PutCh(std::size_t x, std::size_t y, const Cell&amp; c)</span></a>
+<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">     765374 :     void PutCh(std::size_t x, std::size_t y, const Cell&amp; c)</span></a>
 <a name="110"><span class="lineNum">     110 </span>                :            :     {</a>
-<a name="111"><span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 0 was taken 49004 times"> + </span><span class="branchCov" title="Branch 1 was taken 718354 times"> + </span>]:<span class="lineCov">     767358 :         auto&amp; tgt = cells[y*xsize+x];</span></a>
-<a name="112"><span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 0 was taken 49004 times"> + </span><span class="branchCov" title="Branch 1 was taken 718354 times"> + </span>]:<span class="lineCov">     767358 :         if(tgt != c)</span></a>
+<a name="111"><span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 0 was taken 49004 times"> + </span><span class="branchCov" title="Branch 1 was taken 716370 times"> + </span>]:<span class="lineCov">     765374 :         auto&amp; tgt = cells[y*xsize+x];</span></a>
+<a name="112"><span class="lineNum">     112 </span>        [<span class="branchCov" title="Branch 0 was taken 49004 times"> + </span><span class="branchCov" title="Branch 1 was taken 716370 times"> + </span>]:<span class="lineCov">     765374 :         if(tgt != c)</span></a>
 <a name="113"><span class="lineNum">     113 </span>                :            :         {</a>
 <a name="114"><span class="lineNum">     114 </span>                :<span class="lineCov">      49004 :             tgt = c;</span></a>
 <a name="115"><span class="lineNum">     115 </span>                :<span class="lineCov">      49004 :             tgt.dirty = true;</span></a>
 <a name="116"><span class="lineNum">     116 </span>                :            :         }</a>
-<a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">     767358 :     }</span></a>
+<a name="117"><span class="lineNum">     117 </span>                :<span class="lineCov">     765374 :     }</span></a>
 <a name="118"><span class="lineNum">     118 </span>                :            : </a>
 <a name="119"><span class="lineNum">     119 </span>                :            :     /** Places a character at the given position on screen.</a>
 <a name="120"><span class="lineNum">     120 </span>                :            :      * Attributes are copied from the blank cell,</a>

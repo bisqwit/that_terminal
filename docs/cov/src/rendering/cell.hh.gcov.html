@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -145,27 +145,27 @@
 <a name="74"><span class="lineNum">      74 </span>                :            :     /* Constructor: Initializes the object with default attributes.</a>
 <a name="75"><span class="lineNum">      75 </span>                :            :      * Sets the character as a space, color as light-gray on black, and the dirty flag.</a>
 <a name="76"><span class="lineNum">      76 </span>                :            :      */</a>
-<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">    1321102 :     Cell()</span></a>
-<a name="78"><span class="lineNum">      78 </span>                :<span class="lineCov">    1321102 :     {</span></a>
-<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">    1321102 :         std::memset(this, 0, sizeof(Cell));</span></a>
-<a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">    1321102 :         fgcolor = 0xCCCCCC;</span></a>
-<a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">    1321102 :         bgcolor = 0x000000;</span></a>
-<a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">    1321102 :         ch      = U' ';</span></a>
-<a name="83"><span class="lineNum">      83 </span>                :<span class="lineCov">    1321102 :         dirty   = true;</span></a>
-<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">    1321102 :     }</span></a>
+<a name="77"><span class="lineNum">      77 </span>                :<span class="lineCov">    1319118 :     Cell()</span></a>
+<a name="78"><span class="lineNum">      78 </span>                :<span class="lineCov">    1319118 :     {</span></a>
+<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">    1319118 :         std::memset(this, 0, sizeof(Cell));</span></a>
+<a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">    1319118 :         fgcolor = 0xCCCCCC;</span></a>
+<a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">    1319118 :         bgcolor = 0x000000;</span></a>
+<a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">    1319118 :         ch      = U' ';</span></a>
+<a name="83"><span class="lineNum">      83 </span>                :<span class="lineCov">    1319118 :         dirty   = true;</span></a>
+<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">    1319118 :     }</span></a>
 <a name="85"><span class="lineNum">      85 </span>                :            : </a>
 <a name="86"><span class="lineNum">      86 </span>                :            :     /** operator==: Equality comparison</a>
 <a name="87"><span class="lineNum">      87 </span>                :            :      * Compares everything except dirty and protect.</a>
 <a name="88"><span class="lineNum">      88 </span>                :            :      * @param b The other cell to compare against.</a>
 <a name="89"><span class="lineNum">      89 </span>                :            :      * @returns True if the cells are equivalent.</a>
 <a name="90"><span class="lineNum">      90 </span>                :            :      */</a>
-<a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">     783674 :     bool operator== (const Cell&amp; b) const</span></a>
+<a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">     781690 :     bool operator== (const Cell&amp; b) const</span></a>
 <a name="92"><span class="lineNum">      92 </span>                :            :     {</a>
-<a name="93"><span class="lineNum">      93 </span>                :<span class="lineCov">     783674 :         Cell tmp1 = *this;</span></a>
-<a name="94"><span class="lineNum">      94 </span>                :<span class="lineCov">     783674 :         Cell tmp2 = b;</span></a>
-<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">     783674 :         tmp1.dirty = false; tmp1.protect = false;</span></a>
-<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">     783674 :         tmp2.dirty = false; tmp2.protect = false;</span></a>
-<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">     783674 :         return std::memcmp(&amp;tmp1, &amp;tmp2, sizeof(Cell)) == 0;</span></a>
+<a name="93"><span class="lineNum">      93 </span>                :<span class="lineCov">     781690 :         Cell tmp1 = *this;</span></a>
+<a name="94"><span class="lineNum">      94 </span>                :<span class="lineCov">     781690 :         Cell tmp2 = b;</span></a>
+<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">     781690 :         tmp1.dirty = false; tmp1.protect = false;</span></a>
+<a name="96"><span class="lineNum">      96 </span>                :<span class="lineCov">     781690 :         tmp2.dirty = false; tmp2.protect = false;</span></a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">     781690 :         return std::memcmp(&amp;tmp1, &amp;tmp2, sizeof(Cell)) == 0;</span></a>
 <a name="98"><span class="lineNum">      98 </span>                :            :         /*</a>
 <a name="99"><span class="lineNum">      99 </span>                :            :         return std::tuple(fgcolor,bgcolor,ch,bold,dim,italic,</a>
 <a name="100"><span class="lineNum">     100 </span>                :            :                           underline,underline2,overstrike,inverse,blink,</a>
@@ -186,10 +186,10 @@
 <a name="115"><span class="lineNum">     115 </span>                :            :      * @param b The other cell to compare against.</a>
 <a name="116"><span class="lineNum">     116 </span>                :            :      * @returns True if the cells are not equivalent.</a>
 <a name="117"><span class="lineNum">     117 </span>                :            :      */</a>
-<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">     767363 :     bool operator!= (const Cell&amp; b) const</span></a>
+<a name="118"><span class="lineNum">     118 </span>                :<span class="lineCov">     765379 :     bool operator!= (const Cell&amp; b) const</span></a>
 <a name="119"><span class="lineNum">     119 </span>                :            :     {</a>
-<a name="120"><span class="lineNum">     120 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span> :<span class="lineCov">     767363 :         return !operator==(b);</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 49004 times"> + </span><span class="branchCov" title="Branch 5 was taken 718354 times"> + </span>]
+<a name="120"><span class="lineNum">     120 </span>  [<span class="branchCov" title="Branch 0 was taken 2 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchCov" title="Branch 3 was taken 2 times"> + </span> :<span class="lineCov">     765379 :         return !operator==(b);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 49004 times"> + </span><span class="branchCov" title="Branch 5 was taken 716370 times"> + </span>]
 <a name="121"><span class="lineNum">     121 </span>                :            :     }</a>
 <a name="122"><span class="lineNum">     122 </span>                :            : };</a>
 <a name="123"><span class="lineNum">     123 </span>                :            : </a>

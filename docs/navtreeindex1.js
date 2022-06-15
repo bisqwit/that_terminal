@@ -1,6 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"md_doc_fonts.html#autotoc_md31":[3,7],
 "md_doc_fonts.html#autotoc_md32":[3,8],
 "md_doc_fonts.html#autotoc_md33":[3,9],
 "md_doc_fonts.html#autotoc_md34":[3,10],

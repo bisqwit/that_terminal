@@ -128,7 +128,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "256color_8cc.html",
-"md_doc_fonts.html#autotoc_md31"
+"md_doc_fonts.html#autotoc_md32"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

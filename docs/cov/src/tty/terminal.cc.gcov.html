@@ -31,27 +31,27 @@
             <td class="headerValue">main_coverage.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">738</td>
-            <td class="headerCovTableEntry">775</td>
-            <td class="headerCovTableEntryHi">95.2 %</td>
+            <td class="headerCovTableEntry">744</td>
+            <td class="headerCovTableEntry">776</td>
+            <td class="headerCovTableEntryHi">95.9 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
-            <td class="headerCovTableEntry">71</td>
+            <td class="headerCovTableEntry">72</td>
             <td class="headerCovTableEntry">80</td>
-            <td class="headerCovTableEntryMed">88.8 %</td>
+            <td class="headerCovTableEntryHi">90.0 %</td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td></td>
             <td class="headerItem">Branches:</td>
-            <td class="headerCovTableEntry">429</td>
-            <td class="headerCovTableEntry">638</td>
-            <td class="headerCovTableEntryLo">67.2 %</td>
+            <td class="headerCovTableEntry">431</td>
+            <td class="headerCovTableEntry">640</td>
+            <td class="headerCovTableEntryLo">67.3 %</td>
           </tr>
           <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
         </table>
@@ -1248,15 +1248,15 @@
 <a name="1123"><span class="lineNum">    1123 </span>                :<span class="lineCov">          3 :     wnd.blank = backup.attr;</span></a>
 <a name="1124"><span class="lineNum">    1124 </span>                :<span class="lineCov">          3 : }</span></a>
 <a name="1125"><span class="lineNum">    1125 </span>                :            : </a>
-<a name="1126"><span class="lineNum">    1126 </span>                :<span class="lineNoCov">          0 : void TerminalWindow::Resize(std::size_t newsx, std::size_t newsy)</span></a>
+<a name="1126"><span class="lineNum">    1126 </span>                :<span class="lineCov">          1 : void TerminalWindow::Resize(std::size_t newsx, std::size_t newsy)</span></a>
 <a name="1127"><span class="lineNum">    1127 </span>                :            : {</a>
-<a name="1128"><span class="lineNum">    1128 </span>        [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span>]:<span class="lineNoCov">          0 :     if(bottom == wnd.ysize-1)</span></a>
+<a name="1128"><span class="lineNum">    1128 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     if(bottom == wnd.ysize-1)</span></a>
 <a name="1129"><span class="lineNum">    1129 </span>                :            :     {</a>
-<a name="1130"><span class="lineNum">    1130 </span>                :<span class="lineNoCov">          0 :         bottom = newsy-1;</span></a>
+<a name="1130"><span class="lineNum">    1130 </span>                :<span class="lineCov">          1 :         bottom = newsy-1;</span></a>
 <a name="1131"><span class="lineNum">    1131 </span>                :            :         //fprintf(stderr, &quot;Creating a window with top=%zu, bottom=%zu\n&quot;, top,bottom);</a>
 <a name="1132"><span class="lineNum">    1132 </span>                :            :     }</a>
-<a name="1133"><span class="lineNum">    1133 </span>                :<span class="lineNoCov">          0 :     wnd.Resize(newsx, newsy);</span></a>
-<a name="1134"><span class="lineNum">    1134 </span>                :<span class="lineNoCov">          0 : }</span></a>
+<a name="1133"><span class="lineNum">    1133 </span>                :<span class="lineCov">          1 :     wnd.Resize(newsx, newsy);</span></a>
+<a name="1134"><span class="lineNum">    1134 </span>                :<span class="lineCov">          1 : }</span></a>
 <a name="1135"><span class="lineNum">    1135 </span>                :            : </a>
 <a name="1136"><span class="lineNum">    1136 </span>                :            : #ifdef RUN_TESTS</a>
 <a name="1137"><span class="lineNum">    1137 </span>                :            : template&lt;typename F&gt;</a>
@@ -1482,25 +1482,26 @@
 <a name="1357"><span class="lineNum">    1357 </span>                :            : #include &lt;fstream&gt;</a>
 <a name="1358"><span class="lineNum">    1358 </span>                :<span class="lineCov">          3 : TEST(terminal, stress_test)</span></a>
 <a name="1359"><span class="lineNum">    1359 </span>                :            : {</a>
-<a name="1360"><span class="lineNum">    1360 </span>                :<span class="lineCov">          1 :     Window wnd(80,25);</span></a>
+<a name="1360"><span class="lineNum">    1360 </span>                :<span class="lineCov">          1 :     Window wnd(4, 4);</span></a>
 <a name="1361"><span class="lineNum">    1361 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     TerminalWindow term(wnd);</span></a>
-<a name="1362"><span class="lineNum">    1362 </span>                :            : </a>
-<a name="1363"><span class="lineNum">    1363 </span>                :            :     // Issue the patterns from the following files:</a>
-<a name="1364"><span class="lineNum">    1364 </span>                :<span class="lineCov">          5 :     for(std::string s: {&quot;test/escapes.txt&quot;, &quot;test/xterm-symbols.txt&quot;, &quot;test/xterm-symbols2.txt&quot;,</span></a>
-<a name="1365"><span class="lineNum">    1365 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          5 :                         &quot;test/ocs_dcs.txt&quot;})</span></a>
-<a name="1366"><span class="lineNum">    1366 </span>                :            :     {</a>
-<a name="1367"><span class="lineNum">    1367 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :         std::ifstream f(s);</span></a>
-<a name="1368"><span class="lineNum">    1368 </span>  [<span class="branchCov" title="Branch 0 was taken 380 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 376 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">        380 :         for(std::string line; std::getline(f,line), f; )</span></a>
-<a name="1369"><span class="lineNum">    1369 </span>  [<span class="branchCov" title="Branch 0 was taken 376 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 376 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        752 :             term.Write(FromUTF8(line));</span></a>
-<a name="1370"><span class="lineNum">    1370 </span>                :<span class="lineCov">          4 :     }</span></a>
-<a name="1371"><span class="lineNum">    1371 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     std::u32string result(term.OutBuffer.begin(), term.OutBuffer.end());</span></a>
-<a name="1372"><span class="lineNum">    1372 </span>                :<span class="lineCov">          1 :     EXPECT_EQ(result,</span></a>
-<a name="1373"><span class="lineNum">    1373 </span>                :            :         U&quot;\33[?65;1;6;8;15;22c\33[?65;1;6;8;15;22c\33[0n\33[1;1R\033P!|00000000\x9C\33[&gt;1;1;0c\33[?65;1;6;8;15;22c\33[?25;1$y\33[12;4$y\33[20;4$y&quot;</a>
-<a name="1374"><span class="lineNum">    1374 </span>                :            :         U&quot;\x18\033$P1$r0;24r\033\\\033$P1$r38;2;204;204;204;48;2;0;0;0m\033\\\033$P1$r24t\033\\\033$P1$r1 q\033\\\033$P1$r0\&quot;q\033\\\033$P1$r64;1\&quot;p\033\\\033$P1$r80$|\033\\\033$P1$r25*|\033\\&quot;</a>
-<a name="1375"><span class="lineNum">    1375 </span>                :<span class="lineCov">          1 :     );</span></a>
-<a name="1376"><span class="lineNum">    1376 </span>                :<span class="lineCov">          1 : }</span></a>
-<a name="1377"><span class="lineNum">    1377 </span>                :            : </a>
-<a name="1378"><span class="lineNum">    1378 </span>                :            : #endif</a>
+<a name="1362"><span class="lineNum">    1362 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     term.Resize(80, 25);</span></a>
+<a name="1363"><span class="lineNum">    1363 </span>                :            : </a>
+<a name="1364"><span class="lineNum">    1364 </span>                :            :     // Issue the patterns from the following files:</a>
+<a name="1365"><span class="lineNum">    1365 </span>                :<span class="lineCov">          5 :     for(std::string s: {&quot;test/escapes.txt&quot;, &quot;test/xterm-symbols.txt&quot;, &quot;test/xterm-symbols2.txt&quot;,</span></a>
+<a name="1366"><span class="lineNum">    1366 </span>  [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4 times"> + </span><span class="branchCov" title="Branch 3 was taken 1 time"> + </span>]:<span class="lineCov">          5 :                         &quot;test/ocs_dcs.txt&quot;})</span></a>
+<a name="1367"><span class="lineNum">    1367 </span>                :            :     {</a>
+<a name="1368"><span class="lineNum">    1368 </span>        [<span class="branchCov" title="Branch 0 was taken 4 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          4 :         std::ifstream f(s);</span></a>
+<a name="1369"><span class="lineNum">    1369 </span>  [<span class="branchCov" title="Branch 0 was taken 380 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 376 times"> + </span><span class="branchCov" title="Branch 3 was taken 4 times"> + </span>]:<span class="lineCov">        380 :         for(std::string line; std::getline(f,line), f; )</span></a>
+<a name="1370"><span class="lineNum">    1370 </span>  [<span class="branchCov" title="Branch 0 was taken 376 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 376 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        752 :             term.Write(FromUTF8(line));</span></a>
+<a name="1371"><span class="lineNum">    1371 </span>                :<span class="lineCov">          4 :     }</span></a>
+<a name="1372"><span class="lineNum">    1372 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">          1 :     std::u32string result(term.OutBuffer.begin(), term.OutBuffer.end());</span></a>
+<a name="1373"><span class="lineNum">    1373 </span>                :<span class="lineCov">          1 :     EXPECT_EQ(result,</span></a>
+<a name="1374"><span class="lineNum">    1374 </span>                :            :         U&quot;\33[?65;1;6;8;15;22c\33[?65;1;6;8;15;22c\33[0n\33[1;1R\033P!|00000000\x9C\33[&gt;1;1;0c\33[?65;1;6;8;15;22c\33[?25;1$y\33[12;4$y\33[20;4$y&quot;</a>
+<a name="1375"><span class="lineNum">    1375 </span>                :            :         U&quot;\x18\033$P1$r0;24r\033\\\033$P1$r38;2;204;204;204;48;2;0;0;0m\033\\\033$P1$r24t\033\\\033$P1$r1 q\033\\\033$P1$r0\&quot;q\033\\\033$P1$r64;1\&quot;p\033\\\033$P1$r80$|\033\\\033$P1$r25*|\033\\&quot;</a>
+<a name="1376"><span class="lineNum">    1376 </span>                :<span class="lineCov">          1 :     );</span></a>
+<a name="1377"><span class="lineNum">    1377 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="1378"><span class="lineNum">    1378 </span>                :            : </a>
+<a name="1379"><span class="lineNum">    1379 </span>                :            : #endif</a>
 </pre>
       </td>
     </tr>

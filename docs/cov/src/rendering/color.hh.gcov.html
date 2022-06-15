@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-15 18:06:38</td>
+            <td class="headerValue">2022-06-15 20:16:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">3</td>
@@ -96,9 +96,9 @@
 <a name="25"><span class="lineNum">      25 </span>                :            : /** Unpack() unpacks an RGB color in a 24-bit integer</a>
 <a name="26"><span class="lineNum">      26 </span>                :            :  * to its constituent r,g,b components.</a>
 <a name="27"><span class="lineNum">      27 </span>                :            :  */</a>
-<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">    1055070 : inline constexpr std::array&lt;unsigned,3&gt; Unpack(unsigned rgb)</span></a>
+<a name="28"><span class="lineNum">      28 </span>                :<span class="lineCov">    1055071 : inline constexpr std::array&lt;unsigned,3&gt; Unpack(unsigned rgb)</span></a>
 <a name="29"><span class="lineNum">      29 </span>                :            : {</a>
-<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">    1055065 :     return { rgb&gt;&gt;16, (rgb&gt;&gt;8)&amp;0xFF, rgb&amp;0xFF };</span></a>
+<a name="30"><span class="lineNum">      30 </span>                :<span class="lineCov">    1055066 :     return { rgb&gt;&gt;16, (rgb&gt;&gt;8)&amp;0xFF, rgb&amp;0xFF };</span></a>
 <a name="31"><span class="lineNum">      31 </span>                :            : }</a>
 <a name="32"><span class="lineNum">      32 </span>                :            : </a>
 <a name="33"><span class="lineNum">      33 </span>                :            : /** Repack() is the inverse of Unpack().</a>
