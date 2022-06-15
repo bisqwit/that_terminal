@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-14 02:02:57</td>
+            <td class="headerValue">2022-06-14 04:50:56</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">14</td>
@@ -333,17 +333,17 @@
 <a name="262"><span class="lineNum">     262 </span>                :            :     {</a>
 <a name="263"><span class="lineNum">     263 </span>                :            :         typedef SmallestType&lt;Elem&gt; E;</a>
 <a name="264"><span class="lineNum">     264 </span>                :            :         E data[Dim];</a>
-<a name="265"><span class="lineNum">     265 </span>                :<span class="lineCov">    3040909 :         inline E Get(unsigned index) const        { return data[index]; }</span></a>
-<a name="266"><span class="lineNum">     266 </span>                :<span class="lineCov">     148888 :         inline void Set(unsigned index, E value)  { data[index] = value; }</span></a>
-<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">      69000 :         inline void QSet(unsigned index, E value) { data[index] = value; }</span></a>
+<a name="265"><span class="lineNum">     265 </span>                :<span class="lineCov">    3035254 :         inline E Get(unsigned index) const        { return data[index]; }</span></a>
+<a name="266"><span class="lineNum">     266 </span>                :<span class="lineCov">     147759 :         inline void Set(unsigned index, E value)  { data[index] = value; }</span></a>
+<a name="267"><span class="lineNum">     267 </span>                :<span class="lineCov">      67322 :         inline void QSet(unsigned index, E value) { data[index] = value; }</span></a>
 <a name="268"><span class="lineNum">     268 </span>                :            :         template&lt;unsigned Bits&gt;</a>
 <a name="269"><span class="lineNum">     269 </span>                :<span class="lineCov">        558 :         inline void WSet(unsigned index, std::uint_fast64_t value)</span></a>
 <a name="270"><span class="lineNum">     270 </span>                :            :         {</a>
 <a name="271"><span class="lineNum">     271 </span>                :<span class="lineCov">        558 :             index *= Bits/Elem;</span></a>
-<a name="272"><span class="lineNum">     272 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      12812 :             for(unsigned b=0; b&lt;Bits; b+=Elem, value&gt;&gt;=Elem)</span></a>
-<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 4070 times"> + </span><span class="branchCov" title="Branch 5 was taken 186 times"> + </span><span class="branchCov" title="Branch 6 was taken 4092 times"> + </span><span class="branchCov" title="Branch 7 was taken 186 times"> + </span><span class="branchCov" title="Branch 8 was taken 4092 times"> + </span> 
+<a name="272"><span class="lineNum">     272 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">      12724 :             for(unsigned b=0; b&lt;Bits; b+=Elem, value&gt;&gt;=Elem)</span></a>
+<span class="lineNum">         </span><span class="branchCov" title="Branch 4 was taken 4092 times"> + </span><span class="branchCov" title="Branch 5 was taken 186 times"> + </span><span class="branchCov" title="Branch 6 was taken 4048 times"> + </span><span class="branchCov" title="Branch 7 was taken 186 times"> + </span><span class="branchCov" title="Branch 8 was taken 4026 times"> + </span> 
 <span class="lineNum">         </span>            <span class="branchCov" title="Branch 9 was taken 186 times"> + </span>]
-<a name="273"><span class="lineNum">     273 </span>                :<span class="lineCov">      12254 :                 QSet(index++, (value % (1u &lt;&lt; Elem)));</span></a>
+<a name="273"><span class="lineNum">     273 </span>                :<span class="lineCov">      12166 :                 QSet(index++, (value % (1u &lt;&lt; Elem)));</span></a>
 <a name="274"><span class="lineNum">     274 </span>                :            :         }</a>
 <a name="275"><span class="lineNum">     275 </span>                :            :     };</a>
 <a name="276"><span class="lineNum">     276 </span>                :            : }</a>
@@ -376,26 +376,26 @@
 <a name="303"><span class="lineNum">     303 </span>                :            :         // Theoretically 15.32 bytes for 288 num_values, 9.375 for 32 num_values, 7.97 for 19 num_values.</a>
 <a name="304"><span class="lineNum">     304 </span>                :            : </a>
 <a name="305"><span class="lineNum">     305 </span>                :            :         // Clear code length count table</a>
-<a name="306"><span class="lineNum">     306 </span>                :<span class="lineCov">      60122 :         tree.template WSet&lt;(15*B + 63) &amp; ~63&gt;(0, 0); // First 15 needed, but round to nice unit</span></a>
+<a name="306"><span class="lineNum">     306 </span>                :<span class="lineCov">      59756 :         tree.template WSet&lt;(15*B + 63) &amp; ~63&gt;(0, 0); // First 15 needed, but round to nice unit</span></a>
 <a name="307"><span class="lineNum">     307 </span>                :            :         // Scan symbol length, and sum code length counts</a>
 <a name="308"><span class="lineNum">     308 </span>                :            :         #ifdef DEFL_DO_HUFF_STATS</a>
 <a name="309"><span class="lineNum">     309 </span>                :            :         unsigned largest_treetable_value = 0, largest_offs = 0, smallest_treetable_value = ~0u;</a>
 <a name="310"><span class="lineNum">     310 </span>                :            :         unsigned largest_treetrans_index=0, largest_treetrans_value=0;</a>
 <a name="311"><span class="lineNum">     311 </span>                :            :         unsigned longest_length = 0;</a>
 <a name="312"><span class="lineNum">     312 </span>                :            :         #endif</a>
-<a name="313"><span class="lineNum">     313 </span>        [<span class="branchCov" title="Branch 0 was taken 59564 times"> + </span><span class="branchCov" title="Branch 1 was taken 558 times"> + </span>]:<span class="lineCov">      60122 :         for(unsigned a = 0; a &lt; num_values; ++a)</span></a>
+<a name="313"><span class="lineNum">     313 </span>        [<span class="branchCov" title="Branch 0 was taken 59198 times"> + </span><span class="branchCov" title="Branch 1 was taken 558 times"> + </span>]:<span class="lineCov">      59756 :         for(unsigned a = 0; a &lt; num_values; ++a)</span></a>
 <a name="314"><span class="lineNum">     314 </span>                :            :         {</a>
-<a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">      59936 :             int length = ReadLength(a); // Note: Can be zero.</span></a>
-<a name="316"><span class="lineNum">     316 </span>                :<span class="lineCov">      56030 :             if(Abortable &amp;&amp; length &lt; 0) return true;</span></a>
-<a name="317"><span class="lineNum">     317 </span>        [<span class="branchCov" title="Branch 0 was taken 47216 times"> + </span><span class="branchCov" title="Branch 1 was taken 8814 times"> + </span>]:<span class="lineCov">      59564 :             if(length)</span></a>
+<a name="315"><span class="lineNum">     315 </span>                :<span class="lineCov">      59570 :             int length = ReadLength(a); // Note: Can be zero.</span></a>
+<a name="316"><span class="lineNum">     316 </span>                :<span class="lineCov">      55679 :             if(Abortable &amp;&amp; length &lt; 0) return true;</span></a>
+<a name="317"><span class="lineNum">     317 </span>        [<span class="branchCov" title="Branch 0 was taken 46929 times"> + </span><span class="branchCov" title="Branch 1 was taken 8750 times"> + </span>]:<span class="lineCov">      59198 :             if(length)</span></a>
 <a name="318"><span class="lineNum">     318 </span>                :            :             {</a>
-<a name="319"><span class="lineNum">     319 </span>                :<span class="lineCov">      49524 :                 unsigned v = tree.Get(0 + length-1)+1;</span></a>
+<a name="319"><span class="lineNum">     319 </span>                :<span class="lineCov">      49227 :                 unsigned v = tree.Get(0 + length-1)+1;</span></a>
 <a name="320"><span class="lineNum">     320 </span>                :            :             #ifdef DEFL_DO_HUFF_STATS</a>
 <a name="321"><span class="lineNum">     321 </span>                :            :                 largest_treetable_value = std::max(largest_treetable_value, v);</a>
 <a name="322"><span class="lineNum">     322 </span>                :            :                 longest_length          = std::max(longest_length, unsigned(length));</a>
 <a name="323"><span class="lineNum">     323 </span>                :            :             #endif</a>
 <a name="324"><span class="lineNum">     324 </span>                :            :                 //fprintf(stderr, &quot; [%d]%3d CLL (val: %d)\n&quot;, length, v, v);</a>
-<a name="325"><span class="lineNum">     325 </span>                :<span class="lineCov">      59564 :                 tree.Set(0 + length-1, v);</span></a>
+<a name="325"><span class="lineNum">     325 </span>                :<span class="lineCov">      59198 :                 tree.Set(0 + length-1, v);</span></a>
 <a name="326"><span class="lineNum">     326 </span>                :            :             }</a>
 <a name="327"><span class="lineNum">     327 </span>                :            :             else</a>
 <a name="328"><span class="lineNum">     328 </span>                :            :             {</a>
@@ -415,21 +415,21 @@
 <a name="342"><span class="lineNum">     342 </span>                :            :         #endif</a>
 <a name="343"><span class="lineNum">     343 </span>                :            : </a>
 <a name="344"><span class="lineNum">     344 </span>                :            :         // Create code-&gt;symbol translation table (symbols sorted by code)</a>
-<a name="345"><span class="lineNum">     345 </span>        [<span class="branchCov" title="Branch 0 was taken 59723 times"> + </span><span class="branchCov" title="Branch 1 was taken 558 times"> + </span>]:<span class="lineCov">      60281 :         for(unsigned value = 0; value &lt; num_values; ++value)</span></a>
+<a name="345"><span class="lineNum">     345 </span>        [<span class="branchCov" title="Branch 0 was taken 59193 times"> + </span><span class="branchCov" title="Branch 1 was taken 558 times"> + </span>]:<span class="lineCov">      59751 :         for(unsigned value = 0; value &lt; num_values; ++value)</span></a>
 <a name="346"><span class="lineNum">     346 </span>                :            :         {</a>
-<a name="347"><span class="lineNum">     347 </span>                :<span class="lineCov">      60095 :             int length = ReadLength(value); // Note: Can be zero.</span></a>
-<a name="348"><span class="lineNum">     348 </span>                :<span class="lineCov">      56189 :             if(Abortable &amp;&amp; length &lt; 0) return true;</span></a>
-<a name="349"><span class="lineNum">     349 </span>        [<span class="branchCov" title="Branch 0 was taken 47374 times"> + </span><span class="branchCov" title="Branch 1 was taken 8815 times"> + </span>]:<span class="lineCov">      59723 :             if(length)</span></a>
+<a name="347"><span class="lineNum">     347 </span>                :<span class="lineCov">      59565 :             int length = ReadLength(value); // Note: Can be zero.</span></a>
+<a name="348"><span class="lineNum">     348 </span>                :<span class="lineCov">      55659 :             if(Abortable &amp;&amp; length &lt; 0) return true;</span></a>
+<a name="349"><span class="lineNum">     349 </span>        [<span class="branchCov" title="Branch 0 was taken 46958 times"> + </span><span class="branchCov" title="Branch 1 was taken 8701 times"> + </span>]:<span class="lineCov">      59193 :             if(length)</span></a>
 <a name="350"><span class="lineNum">     350 </span>                :            :             {</a>
-<a name="351"><span class="lineNum">     351 </span>                :<span class="lineCov">      49682 :                 unsigned q = offs.Get(length-1); offs.Set(length-1, q+1); // q = offset[length]++;</span></a>
+<a name="351"><span class="lineNum">     351 </span>                :<span class="lineCov">      49266 :                 unsigned q = offs.Get(length-1); offs.Set(length-1, q+1); // q = offset[length]++;</span></a>
 <a name="352"><span class="lineNum">     352 </span>                :            :         #ifdef DEFL_DO_HUFF_STATS</a>
 <a name="353"><span class="lineNum">     353 </span>                :            :                 largest_offs = std::max(q, largest_offs);</a>
 <a name="354"><span class="lineNum">     354 </span>                :            :                 largest_treetrans_index = std::max(largest_treetrans_index, q);</a>
 <a name="355"><span class="lineNum">     355 </span>                :            :                 largest_treetrans_value = std::max(largest_treetrans_value, value);</a>
 <a name="356"><span class="lineNum">     356 </span>                :            :         #endif</a>
-<a name="357"><span class="lineNum">     357 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 49682 times"> + </span>]:<span class="lineCov">      49682 :                 assert(q &lt; num_values /*&amp;&amp; value &lt; num_values*/);</span></a>
+<a name="357"><span class="lineNum">     357 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 49266 times"> + </span>]:<span class="lineCov">      49266 :                 assert(q &lt; num_values /*&amp;&amp; value &lt; num_values*/);</span></a>
 <a name="358"><span class="lineNum">     358 </span>                :            :                 //fprintf(stderr, &quot; [x]%3d CLL %d\n&quot;, 15+q, value);</a>
-<a name="359"><span class="lineNum">     359 </span>                :<span class="lineCov">      59723 :                 tree.Set(15 + q, value);</span></a>
+<a name="359"><span class="lineNum">     359 </span>                :<span class="lineCov">      59193 :                 tree.Set(15 + q, value);</span></a>
 <a name="360"><span class="lineNum">     360 </span>                :            :             }</a>
 <a name="361"><span class="lineNum">     361 </span>                :            :         }</a>
 <a name="362"><span class="lineNum">     362 </span>                :            :         #ifdef DEFL_DO_HUFF_STATS</a>
@@ -451,7 +451,7 @@
 <a name="378"><span class="lineNum">     378 </span>                :            : </a>
 <a name="379"><span class="lineNum">     379 </span>                :            : #ifdef DEFLATE_USE_DATA_TABLES</a>
 <a name="380"><span class="lineNum">     380 </span>                :            :     template&lt;bool=0&gt; // Using a dummy template parameter makes this function and its data weak,</a>
-<a name="381"><span class="lineNum">     381 </span>                :<span class="lineCov">     125494 :     inline const std::uint_least8_t* GetBTable() throw() // removing linker problems in multi-module use</span></a>
+<a name="381"><span class="lineNum">     381 </span>                :<span class="lineCov">     136682 :     inline const std::uint_least8_t* GetBTable() throw() // removing linker problems in multi-module use</span></a>
 <a name="382"><span class="lineNum">     382 </span>                :            :     {</a>
 <a name="383"><span class="lineNum">     383 </span>                :            :         static const std::uint_least8_t data[] {</a>
 <a name="384"><span class="lineNum">     384 </span>                :            :             // Length bases (0-31)</a>
@@ -473,17 +473,17 @@
 <a name="400"><span class="lineNum">     400 </span>                :            :     //}</a>
 <a name="401"><span class="lineNum">     401 </span>                :            : </a>
 <a name="402"><span class="lineNum">     402 </span>                :            :     //inline unsigned dbase(unsigned distcode) { return GetWTable&lt;&gt;()[distcode]; }</a>
-<a name="403"><span class="lineNum">     403 </span>                :<span class="lineCov">     118426 :     inline unsigned lbase(unsigned lencode)  { return GetBTable&lt;&gt;()[lencode-257+0] + 3; }</span></a>
+<a name="403"><span class="lineNum">     403 </span>                :<span class="lineCov">     129629 :     inline unsigned lbase(unsigned lencode)  { return GetBTable&lt;&gt;()[lencode-257+0] + 3; }</span></a>
 <a name="404"><span class="lineNum">     404 </span>                :            :     //inline unsigned dbits(unsigned distcode) { return GetBTable&lt;&gt;()[distcode+29] &amp; 0xF; }</a>
 <a name="405"><span class="lineNum">     405 </span>                :            :     //inline unsigned lbits(unsigned lencode) { return GetBTable&lt;&gt;()[lencode-257+29] &gt;&gt; 4; }</a>
-<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">       7068 :     inline unsigned rshift(unsigned a)       { return GetBTable&lt;&gt;()[a + 32]; }</span></a>
+<a name="406"><span class="lineNum">     406 </span>                :<span class="lineCov">       7053 :     inline unsigned rshift(unsigned a)       { return GetBTable&lt;&gt;()[a + 32]; }</span></a>
 <a name="407"><span class="lineNum">     407 </span>                :            : #else</a>
 <a name="408"><span class="lineNum">     408 </span>                :            :     inline unsigned lbase(unsigned lencode)  { return (lencode &gt; 285 ? 3 : ((lencode &gt;= 265) ? (((lencode-257)%4+4) &lt;&lt; ((lencode-257)/4-1)) + (lencode==285 ? 2 : 3) : (lencode-254))); }</a>
 <a name="409"><span class="lineNum">     409 </span>                :            :     inline unsigned rshift(unsigned a)       { if(!a) return 3*3; else if(a&gt;=16) return (a-16)*3; int r = 12 + 7*(a&lt;8) - a*2; return (r&lt;0 ? -r : r)*3; }</a>
 <a name="410"><span class="lineNum">     410 </span>                :            : #endif</a>
-<a name="411"><span class="lineNum">     411 </span>                :<span class="lineCov">     127124 :     inline unsigned dbase(unsigned distcode) { return (1 + (distcode&gt;=4 ? ((2+distcode%2) &lt;&lt; (distcode/2-1)) : distcode)); }</span></a>
-<a name="412"><span class="lineNum">     412 </span>                :<span class="lineCov">      99049 :     inline unsigned dbits(unsigned distcode) { return distcode&gt;=4 ? distcode/2-1 : 0; }</span></a>
-<a name="413"><span class="lineNum">     413 </span>                :<span class="lineCov">      43486 :     inline unsigned lbits(unsigned lencode)  { return ((lencode&gt;=265 &amp;&amp; lencode&lt;285) ? ((lencode-265)/4+1) : 0); }</span></a>
+<a name="411"><span class="lineNum">     411 </span>                :<span class="lineCov">     129676 :     inline unsigned dbase(unsigned distcode) { return (1 + (distcode&gt;=4 ? ((2+distcode%2) &lt;&lt; (distcode/2-1)) : distcode)); }</span></a>
+<a name="412"><span class="lineNum">     412 </span>                :<span class="lineCov">     102821 :     inline unsigned dbits(unsigned distcode) { return distcode&gt;=4 ? distcode/2-1 : 0; }</span></a>
+<a name="413"><span class="lineNum">     413 </span>                :<span class="lineCov">      44791 :     inline unsigned lbits(unsigned lencode)  { return ((lencode&gt;=265 &amp;&amp; lencode&lt;285) ? ((lencode-265)/4+1) : 0); }</span></a>
 <a name="414"><span class="lineNum">     414 </span>                :            :     //inline unsigned order(unsigned index)    { return index&lt;3 ? (index+16) : ((index%2) ? (1-index/2)&amp;7 : (6+index/2)); }</a>
 <a name="415"><span class="lineNum">     415 </span>                :            : </a>
 <a name="416"><span class="lineNum">     416 </span>                :            :     //                            Cortex-M0+      Cortex-M4       x86_64</a>
@@ -578,15 +578,15 @@
 <a name="505"><span class="lineNum">     505 </span>                :            :     struct OutputHelper</a>
 <a name="506"><span class="lineNum">     506 </span>                :            :     {</a>
 <a name="507"><span class="lineNum">     507 </span>                :            :         template&lt;typename OutputFunctor&gt;</a>
-<a name="508"><span class="lineNum">     508 </span>                :<span class="lineCov">    1347900 :         static inline bool output(OutputFunctor&amp;&amp; output, unsigned char byte)</span></a>
+<a name="508"><span class="lineNum">     508 </span>                :<span class="lineCov">    1280343 :         static inline bool output(OutputFunctor&amp;&amp; output, unsigned char byte)</span></a>
 <a name="509"><span class="lineNum">     509 </span>                :            :         {</a>
-<a name="510"><span class="lineNum">     510 </span>                :<span class="lineCov">    1347900 :             output(byte);</span></a>
+<a name="510"><span class="lineNum">     510 </span>                :<span class="lineCov">    1280343 :             output(byte);</span></a>
 <a name="511"><span class="lineNum">     511 </span>                :            :             return false;</a>
 <a name="512"><span class="lineNum">     512 </span>                :            :         }</a>
 <a name="513"><span class="lineNum">     513 </span>                :            :         template&lt;typename WindowFunctor&gt;</a>
-<a name="514"><span class="lineNum">     514 </span>                :<span class="lineCov">     127124 :         static inline bool outputcopy(WindowFunctor&amp;&amp; outputcopy, std::uint_least16_t length, std::uint_fast32_t offset)</span></a>
+<a name="514"><span class="lineNum">     514 </span>                :<span class="lineCov">     129676 :         static inline bool outputcopy(WindowFunctor&amp;&amp; outputcopy, std::uint_least16_t length, std::uint_fast32_t offset)</span></a>
 <a name="515"><span class="lineNum">     515 </span>                :            :         {</a>
-<a name="516"><span class="lineNum">     516 </span>                :<span class="lineCov">     127124 :             outputcopy(length, offset);</span></a>
+<a name="516"><span class="lineNum">     516 </span>                :<span class="lineCov">     129676 :             outputcopy(length, offset);</span></a>
 <a name="517"><span class="lineNum">     517 </span>                :            :             return false;</a>
 <a name="518"><span class="lineNum">     518 </span>                :            :         }</a>
 <a name="519"><span class="lineNum">     519 </span>                :            :     };</a>
@@ -725,57 +725,57 @@
 <a name="652"><span class="lineNum">     652 </span>                :            :         std::uint_least8_t BitCache = 0, BitCount = 0;</a>
 <a name="653"><span class="lineNum">     653 </span>                :            : </a>
 <a name="654"><span class="lineNum">     654 </span>                :            :         template&lt;bool Abortable, typename InputFunctor&gt;</a>
-<a name="655"><span class="lineNum">     655 </span>                :<span class="lineCov">    2302627 :         std::uint_least64_t GetBits(InputFunctor&amp;&amp; input, unsigned numbits)</span></a>
+<a name="655"><span class="lineNum">     655 </span>                :<span class="lineCov">    2206251 :         std::uint_least64_t GetBits(InputFunctor&amp;&amp; input, unsigned numbits)</span></a>
 <a name="656"><span class="lineNum">     656 </span>                :            :         {</a>
 <a name="657"><span class="lineNum">     657 </span>                :            :             #ifdef DO_DEFDB_DUMPING</a>
 <a name="658"><span class="lineNum">     658 </span>                :            :             bitcounter += numbits;</a>
 <a name="659"><span class="lineNum">     659 </span>                :            :             #endif</a>
-<a name="660"><span class="lineNum">     660 </span>                :<span class="lineCov">    2302627 :             std::uint_fast64_t result = BitCache;</span></a>
-<a name="661"><span class="lineNum">     661 </span>        [<span class="branchCov" title="Branch 0 was taken 2017678 times"> + </span><span class="branchCov" title="Branch 1 was taken 284949 times"> + </span>]:<span class="lineCov">    2302627 :             if(numbits &lt;= BitCount)</span></a>
+<a name="660"><span class="lineNum">     660 </span>                :<span class="lineCov">    2206251 :             std::uint_fast64_t result = BitCache;</span></a>
+<a name="661"><span class="lineNum">     661 </span>        [<span class="branchCov" title="Branch 0 was taken 1968079 times"> + </span><span class="branchCov" title="Branch 1 was taken 238172 times"> + </span>]:<span class="lineCov">    2206251 :             if(numbits &lt;= BitCount)</span></a>
 <a name="662"><span class="lineNum">     662 </span>                :            :             {</a>
-<a name="663"><span class="lineNum">     663 </span>                :<span class="lineCov">    2017678 :                 BitCount -= numbits;</span></a>
-<a name="664"><span class="lineNum">     664 </span>                :<span class="lineCov">    2017678 :                 BitCache &gt;&gt;= numbits;</span></a>
-<a name="665"><span class="lineNum">     665 </span>                :<span class="lineCov">    2017678 :                 result &amp;= ((1u &lt;&lt; numbits)-1); // 0-8</span></a>
-<a name="666"><span class="lineNum">     666 </span>                :<span class="lineCov">    2017678 :                 return result;</span></a>
+<a name="663"><span class="lineNum">     663 </span>                :<span class="lineCov">    1968079 :                 BitCount -= numbits;</span></a>
+<a name="664"><span class="lineNum">     664 </span>                :<span class="lineCov">    1968079 :                 BitCache &gt;&gt;= numbits;</span></a>
+<a name="665"><span class="lineNum">     665 </span>                :<span class="lineCov">    1968079 :                 result &amp;= ((1u &lt;&lt; numbits)-1); // 0-8</span></a>
+<a name="666"><span class="lineNum">     666 </span>                :<span class="lineCov">    1968079 :                 return result;</span></a>
 <a name="667"><span class="lineNum">     667 </span>                :            :             }</a>
-<a name="668"><span class="lineNum">     668 </span>                :<span class="lineCov">      13036 :             for(unsigned acquired = BitCount; ; acquired += 8)</span></a>
+<a name="668"><span class="lineNum">     668 </span>                :<span class="lineCov">      13009 :             for(unsigned acquired = BitCount; ; acquired += 8)</span></a>
 <a name="669"><span class="lineNum">     669 </span>                :            :             {</a>
-<a name="670"><span class="lineNum">     670 </span>                :<span class="lineCov">     297985 :                 unsigned byte = input();</span></a>
-<a name="671"><span class="lineNum">     671 </span>        [<span class="branchCov" title="Branch 0 was taken 404691 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     404691 :                 if(Abortable &amp;&amp; (byte &amp; ~0xFFu))</span></a>
+<a name="670"><span class="lineNum">     670 </span>                :<span class="lineCov">     251181 :                 unsigned byte = input();</span></a>
+<a name="671"><span class="lineNum">     671 </span>        [<span class="branchCov" title="Branch 0 was taken 420917 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     420917 :                 if(Abortable &amp;&amp; (byte &amp; ~0xFFu))</span></a>
 <a name="672"><span class="lineNum">     672 </span>                :            :                 {</a>
 <a name="673"><span class="lineNum">     673 </span>                :            :                     // Note: Throws away bits already eaten from BitCache</a>
 <a name="674"><span class="lineNum">     674 </span>                :            :                     return ~std::uint_least64_t(0); // error</a>
 <a name="675"><span class="lineNum">     675 </span>                :            :                 }</a>
-<a name="676"><span class="lineNum">     676 </span>                :<span class="lineCov">     404691 :                 unsigned eat = numbits-acquired;</span></a>
-<a name="677"><span class="lineNum">     677 </span>                :<span class="lineCov">     404691 :                 byte &amp;= 0xFF;</span></a>
-<a name="678"><span class="lineNum">     678 </span>        [<span class="branchCov" title="Branch 0 was taken 391655 times"> + </span><span class="branchCov" title="Branch 1 was taken 13036 times"> + </span>]:<span class="lineCov">     404691 :                 if(eat &lt;= 8)</span></a>
+<a name="676"><span class="lineNum">     676 </span>                :<span class="lineCov">     420917 :                 unsigned eat = numbits-acquired;</span></a>
+<a name="677"><span class="lineNum">     677 </span>                :<span class="lineCov">     420917 :                 byte &amp;= 0xFF;</span></a>
+<a name="678"><span class="lineNum">     678 </span>        [<span class="branchCov" title="Branch 0 was taken 407908 times"> + </span><span class="branchCov" title="Branch 1 was taken 13009 times"> + </span>]:<span class="lineCov">     420917 :                 if(eat &lt;= 8)</span></a>
 <a name="679"><span class="lineNum">     679 </span>                :            :                 {</a>
-<a name="680"><span class="lineNum">     680 </span>                :<span class="lineCov">     391655 :                     result |= ((std::uint_fast64_t)(byte &amp; ((1u &lt;&lt; eat)-1))) &lt;&lt; acquired;</span></a>
-<a name="681"><span class="lineNum">     681 </span>                :<span class="lineCov">     391655 :                     BitCount =       8-eat;</span></a>
-<a name="682"><span class="lineNum">     682 </span>                :<span class="lineCov">     391655 :                     BitCache = byte &gt;&gt; eat;</span></a>
-<a name="683"><span class="lineNum">     683 </span>                :<span class="lineCov">     391655 :                     return result;</span></a>
+<a name="680"><span class="lineNum">     680 </span>                :<span class="lineCov">     407908 :                     result |= ((std::uint_fast64_t)(byte &amp; ((1u &lt;&lt; eat)-1))) &lt;&lt; acquired;</span></a>
+<a name="681"><span class="lineNum">     681 </span>                :<span class="lineCov">     407908 :                     BitCount =       8-eat;</span></a>
+<a name="682"><span class="lineNum">     682 </span>                :<span class="lineCov">     407908 :                     BitCache = byte &gt;&gt; eat;</span></a>
+<a name="683"><span class="lineNum">     683 </span>                :<span class="lineCov">     407908 :                     return result;</span></a>
 <a name="684"><span class="lineNum">     684 </span>                :            :                 }</a>
-<a name="685"><span class="lineNum">     685 </span>                :<span class="lineCov">      13036 :                 result |= ((std::uint_fast64_t)(byte)) &lt;&lt; acquired;</span></a>
+<a name="685"><span class="lineNum">     685 </span>                :<span class="lineCov">      13009 :                 result |= ((std::uint_fast64_t)(byte)) &lt;&lt; acquired;</span></a>
 <a name="686"><span class="lineNum">     686 </span>                :            :             }</a>
 <a name="687"><span class="lineNum">     687 </span>                :            :         }</a>
 <a name="688"><span class="lineNum">     688 </span>                :            : </a>
 <a name="689"><span class="lineNum">     689 </span>                :            :         template&lt;bool Abortable, typename InputFunctor, unsigned A,unsigned B&gt;</a>
-<a name="690"><span class="lineNum">     690 </span>                :<span class="lineCov">     494288 :         std::uint_least32_t HuffRead(InputFunctor&amp;&amp; input,</span></a>
+<a name="690"><span class="lineNum">     690 </span>                :<span class="lineCov">     511962 :         std::uint_least32_t HuffRead(InputFunctor&amp;&amp; input,</span></a>
 <a name="691"><span class="lineNum">     691 </span>                :            :                                      RandomAccessArray&lt;USE_BITARRAY_FOR_HUFFNODES,A,B&gt;&amp; tree)</a>
 <a name="692"><span class="lineNum">     692 </span>                :            :         {</a>
-<a name="693"><span class="lineNum">     693 </span>                :<span class="lineCov">     494288 :             int sum=0, cur=0, len=0;</span></a>
+<a name="693"><span class="lineNum">     693 </span>                :<span class="lineCov">     511962 :             int sum=0, cur=0, len=0;</span></a>
 <a name="694"><span class="lineNum">     694 </span>                :            :             #ifdef DEFL_DO_HUFF_STATS</a>
 <a name="695"><span class="lineNum">     695 </span>                :            :             static int maxlen = 0;</a>
 <a name="696"><span class="lineNum">     696 </span>                :            :             #endif</a>
 <a name="697"><span class="lineNum">     697 </span>                :            :             // Get more bits while code value is above sum</a>
 <a name="698"><span class="lineNum">     698 </span>                :            :             do {</a>
-<a name="699"><span class="lineNum">     699 </span>                :<span class="lineCov">    2313442 :                 auto p = GetBits&lt;Abortable&gt;(std::forward&lt;InputFunctor&gt;(input), 1);</span></a>
-<a name="700"><span class="lineNum">     700 </span>        [<span class="branchCov" title="Branch 0 was taken 2320134 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">    2320134 :                 if(Abortable &amp;&amp; !~p)</span></a>
+<a name="699"><span class="lineNum">     699 </span>                :<span class="lineCov">    2304057 :                 auto p = GetBits&lt;Abortable&gt;(std::forward&lt;InputFunctor&gt;(input), 1);</span></a>
+<a name="700"><span class="lineNum">     700 </span>        [<span class="branchCov" title="Branch 0 was taken 2304574 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">    2304574 :                 if(Abortable &amp;&amp; !~p)</span></a>
 <a name="701"><span class="lineNum">     701 </span>                :            :                 {</a>
 <a name="702"><span class="lineNum">     702 </span>                :            :                     // Note: Throws away progress already made traversing the tree</a>
 <a name="703"><span class="lineNum">     703 </span>                :            :                     return ~std::uint_least32_t(0); // error flag</a>
 <a name="704"><span class="lineNum">     704 </span>                :            :                 }</a>
-<a name="705"><span class="lineNum">     705 </span>                :<span class="lineCov">    2320134 :                 cur = (unsigned(cur) &lt;&lt; 1) | bool(p);</span></a>
+<a name="705"><span class="lineNum">     705 </span>                :<span class="lineCov">    2304574 :                 cur = (unsigned(cur) &lt;&lt; 1) | bool(p);</span></a>
 <a name="706"><span class="lineNum">     706 </span>                :            :             #ifdef DEFL_DO_HUFF_STATS</a>
 <a name="707"><span class="lineNum">     707 </span>                :            :                 if(len &gt; maxlen)</a>
 <a name="708"><span class="lineNum">     708 </span>                :            :                 {</a>
@@ -783,11 +783,11 @@
 <a name="710"><span class="lineNum">     710 </span>                :            :                     std::fprintf(stderr, &quot;maxlen access: %d (%d)\n&quot;, maxlen, (int)tree.Get(0 + len));</a>
 <a name="711"><span class="lineNum">     711 </span>                :            :                 }</a>
 <a name="712"><span class="lineNum">     712 </span>                :            :             #endif</a>
-<a name="713"><span class="lineNum">     713 </span>                :<span class="lineCov">    2320134 :                 auto v = tree.Get(0 + len++);</span></a>
-<a name="714"><span class="lineNum">     714 </span>                :<span class="lineCov">    2320134 :                 sum += v;</span></a>
-<a name="715"><span class="lineNum">     715 </span>                :<span class="lineCov">    2320134 :                 cur -= v;</span></a>
-<a name="716"><span class="lineNum">     716 </span>        [<span class="branchCov" title="Branch 0 was taken 1819154 times"> + </span><span class="branchCov" title="Branch 1 was taken 500980 times"> + </span>]:<span class="lineCov">    2320134 :             } while(cur &gt;= 0);</span></a>
-<a name="717"><span class="lineNum">     717 </span>                :<span class="lineCov">     500980 :             return tree.Get(15 + sum + cur);</span></a>
+<a name="713"><span class="lineNum">     713 </span>                :<span class="lineCov">    2304574 :                 auto v = tree.Get(0 + len++);</span></a>
+<a name="714"><span class="lineNum">     714 </span>                :<span class="lineCov">    2304574 :                 sum += v;</span></a>
+<a name="715"><span class="lineNum">     715 </span>                :<span class="lineCov">    2304574 :                 cur -= v;</span></a>
+<a name="716"><span class="lineNum">     716 </span>        [<span class="branchCov" title="Branch 0 was taken 1792095 times"> + </span><span class="branchCov" title="Branch 1 was taken 512479 times"> + </span>]:<span class="lineCov">    2304574 :             } while(cur &gt;= 0);</span></a>
+<a name="717"><span class="lineNum">     717 </span>                :<span class="lineCov">     512479 :             return tree.Get(15 + sum + cur);</span></a>
 <a name="718"><span class="lineNum">     718 </span>                :            :         }</a>
 <a name="719"><span class="lineNum">     719 </span>                :            :     };</a>
 <a name="720"><span class="lineNum">     720 </span>                :            : </a>
@@ -816,32 +816,32 @@
 <a name="743"><span class="lineNum">     743 </span>                :            :         //                                total 482.91 bytes</a>
 <a name="744"><span class="lineNum">     744 </span>                :            : </a>
 <a name="745"><span class="lineNum">     745 </span>                :            :         template&lt;bool Abortable, typename InputFunctor, typename BacktrackFunctor&gt;</a>
-<a name="746"><span class="lineNum">     746 </span>                :<span class="lineCov">        747 :         auto DynTreeFunc(InputFunctor&amp;&amp; input, std::uint_fast16_t length, BacktrackFunctor&amp;&amp; /*backtrack*/,</span></a>
+<a name="746"><span class="lineNum">     746 </span>                :<span class="lineCov">        375 :         auto DynTreeFunc(InputFunctor&amp;&amp; input, std::uint_fast16_t length, BacktrackFunctor&amp;&amp; /*backtrack*/,</span></a>
 <a name="747"><span class="lineNum">     747 </span>                :            :                          bool</a>
 <a name="748"><span class="lineNum">     748 </span>                :            :                          #ifdef DO_DEFDB_DUMPING</a>
 <a name="749"><span class="lineNum">     749 </span>                :            :                              dists</a>
 <a name="750"><span class="lineNum">     750 </span>                :            :                          #endif</a>
 <a name="751"><span class="lineNum">     751 </span>                :            :                          )</a>
 <a name="752"><span class="lineNum">     752 </span>                :            :         {</a>
-<a name="753"><span class="lineNum">     753 </span>                :<span class="lineCov">        747 :             Lengths = {}; // clear at least length nibbles; easiest to clear it all</span></a>
-<a name="754"><span class="lineNum">     754 </span>                :<span class="lineCov">        747 :             bool error = false;</span></a>
-<a name="755"><span class="lineNum">     755 </span>                :<span class="lineCov">        747 :             for(std::uint_fast16_t code = 0; ; )</span></a>
+<a name="753"><span class="lineNum">     753 </span>                :<span class="lineCov">        375 :             Lengths = {}; // clear at least length nibbles; easiest to clear it all</span></a>
+<a name="754"><span class="lineNum">     754 </span>                :<span class="lineCov">        375 :             bool error = false;</span></a>
+<a name="755"><span class="lineNum">     755 </span>                :<span class="lineCov">        375 :             for(std::uint_fast16_t code = 0; ; )</span></a>
 <a name="756"><span class="lineNum">     756 </span>                :            :             {</a>
 <a name="757"><span class="lineNum">     757 </span>                :            :                 #ifdef DO_DEFDB_DUMPING</a>
 <a name="758"><span class="lineNum">     758 </span>                :            :                 unsigned bits_before=bitcounter;</a>
 <a name="759"><span class="lineNum">     759 </span>                :            :                 #endif</a>
-<a name="760"><span class="lineNum">     760 </span>        [<span class="branchCov" title="Branch 0 was taken 35761 times"> + </span><span class="branchCov" title="Branch 1 was taken 259 times"> + </span>]:<span class="lineCov">      36020 :                 if(!num)</span></a>
+<a name="760"><span class="lineNum">     760 </span>        [<span class="branchCov" title="Branch 0 was taken 33883 times"> + </span><span class="branchCov" title="Branch 1 was taken 251 times"> + </span>]:<span class="lineCov">      34134 :                 if(!num)</span></a>
 <a name="761"><span class="lineNum">     761 </span>                :            :                 {</a>
-<a name="762"><span class="lineNum">     762 </span>                :<span class="lineCov">      35761 :                     auto p = HuffRead&lt;Abortable&gt;(std::forward&lt;InputFunctor&gt;(input), lltree);</span></a>
-<a name="763"><span class="lineNum">     763 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 36212 times"> + </span>]:<span class="lineCov">      36212 :                     if(Abortable &amp;&amp; !~p) { error = true; goto done; }</span></a>
-<a name="764"><span class="lineNum">     764 </span>                :<span class="lineCov">      36212 :                     std::uint_least8_t what = p; // 0-18</span></a>
+<a name="762"><span class="lineNum">     762 </span>                :<span class="lineCov">      33883 :                     auto p = HuffRead&lt;Abortable&gt;(std::forward&lt;InputFunctor&gt;(input), lltree);</span></a>
+<a name="763"><span class="lineNum">     763 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 34862 times"> + </span>]:<span class="lineCov">      34862 :                     if(Abortable &amp;&amp; !~p) { error = true; goto done; }</span></a>
+<a name="764"><span class="lineNum">     764 </span>                :<span class="lineCov">      34862 :                     std::uint_least8_t what = p; // 0-18</span></a>
 <a name="765"><span class="lineNum">     765 </span>                :            : </a>
-<a name="766"><span class="lineNum">     766 </span>        [<span class="branchCov" title="Branch 0 was taken 33052 times"> + </span><span class="branchCov" title="Branch 1 was taken 3160 times"> + </span>]:<span class="lineCov">      36212 :                     if(!(what &amp; 16))    { lencode = what * 0x11u;           what = 0x01; } // 1 times (what &lt; 16) (use what, set prev)</span></a>
-<a name="767"><span class="lineNum">     767 </span>        [<span class="branchCov" title="Branch 0 was taken 2161 times"> + </span><span class="branchCov" title="Branch 1 was taken 999 times"> + </span>]:<span class="lineCov">       3160 :                     else if(what &lt; 17)  { lencode = (lencode &gt;&gt; 4) * 0x11u; what = 0x23; } // 3..6 (use prev)</span></a>
-<a name="768"><span class="lineNum">     768 </span>        [<span class="branchCov" title="Branch 0 was taken 851 times"> + </span><span class="branchCov" title="Branch 1 was taken 148 times"> + </span>]:<span class="lineCov">        999 :                     else if(what == 17) { lencode = 0;                      what = 0x33; } // 3..10   (use 0, set prev)</span></a>
+<a name="766"><span class="lineNum">     766 </span>        [<span class="branchCov" title="Branch 0 was taken 31703 times"> + </span><span class="branchCov" title="Branch 1 was taken 3159 times"> + </span>]:<span class="lineCov">      34862 :                     if(!(what &amp; 16))    { lencode = what * 0x11u;           what = 0x01; } // 1 times (what &lt; 16) (use what, set prev)</span></a>
+<a name="767"><span class="lineNum">     767 </span>        [<span class="branchCov" title="Branch 0 was taken 2157 times"> + </span><span class="branchCov" title="Branch 1 was taken 1002 times"> + </span>]:<span class="lineCov">       3159 :                     else if(what &lt; 17)  { lencode = (lencode &gt;&gt; 4) * 0x11u; what = 0x23; } // 3..6 (use prev)</span></a>
+<a name="768"><span class="lineNum">     768 </span>        [<span class="branchCov" title="Branch 0 was taken 854 times"> + </span><span class="branchCov" title="Branch 1 was taken 148 times"> + </span>]:<span class="lineCov">       1002 :                     else if(what == 17) { lencode = 0;                      what = 0x33; } // 3..10   (use 0, set prev)</span></a>
 <a name="769"><span class="lineNum">     769 </span>                :<span class="lineCov">        148 :                     else                { lencode = 0;                      what = 0x7B; } // 11..138 (use 0, set prev)</span></a>
 <a name="770"><span class="lineNum">     770 </span>                :            : </a>
-<a name="771"><span class="lineNum">     771 </span>                :<span class="lineCov">      36212 :                     p = GetBits&lt;Abortable&gt;(std::forward&lt;InputFunctor&gt;(input), what &gt;&gt; 4); // 0, 2, 3 or 7 bits</span></a>
+<a name="771"><span class="lineNum">     771 </span>                :<span class="lineCov">      34862 :                     p = GetBits&lt;Abortable&gt;(std::forward&lt;InputFunctor&gt;(input), what &gt;&gt; 4); // 0, 2, 3 or 7 bits</span></a>
 <a name="772"><span class="lineNum">     772 </span>                :            :                     #ifdef DO_DEFDB_DUMPING</a>
 <a name="773"><span class="lineNum">     773 </span>                :            :                     if(what&gt;&gt;4)</a>
 <a name="774"><span class="lineNum">     774 </span>                :            :                     {</a>
@@ -850,8 +850,8 @@
 <a name="777"><span class="lineNum">     777 </span>                :            :                     }</a>
 <a name="778"><span class="lineNum">     778 </span>                :            :                     #endif</a>
 <a name="779"><span class="lineNum">     779 </span>                :            : </a>
-<a name="780"><span class="lineNum">     780 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 35385 times"> + </span>]:<span class="lineCov">      35385 :                     if(Abortable &amp;&amp; !~p) { error = true; goto done; }</span></a>
-<a name="781"><span class="lineNum">     781 </span>                :<span class="lineCov">      35385 :                     num = p + (what &amp; 0xF); // 1..138</span></a>
+<a name="780"><span class="lineNum">     780 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 33878 times"> + </span>]:<span class="lineCov">      33878 :                     if(Abortable &amp;&amp; !~p) { error = true; goto done; }</span></a>
+<a name="781"><span class="lineNum">     781 </span>                :<span class="lineCov">      33878 :                     num = p + (what &amp; 0xF); // 1..138</span></a>
 <a name="782"><span class="lineNum">     782 </span>                :            :                 }</a>
 <a name="783"><span class="lineNum">     783 </span>                :            : </a>
 <a name="784"><span class="lineNum">     784 </span>                :            :                 #ifdef DO_DEFDB_DUMPING</a>
@@ -870,19 +870,19 @@
 <a name="797"><span class="lineNum">     797 </span>                :            :                         fprintf(stderr, &quot;%4s 0x%02X CL (val:%2d)\n&quot;, tmp, (int)code, int(lencode&amp;0xF));</a>
 <a name="798"><span class="lineNum">     798 </span>                :            :                     #endif</a>
 <a name="799"><span class="lineNum">     799 </span>                :            : </a>
-<a name="800"><span class="lineNum">     800 </span>                :<span class="lineCov">      48376 :                     --num;</span></a>
-<a name="801"><span class="lineNum">     801 </span>                :<span class="lineCov">      48376 :                     Lengths.QSet(code++, lencode &amp; 0xF);</span></a>
-<a name="802"><span class="lineNum">     802 </span>        [<span class="branchCov" title="Branch 0 was taken 371 times"> + </span><span class="branchCov" title="Branch 1 was taken 48005 times"> + </span>]:<span class="lineCov">      48376 :                     if(code == length) { goto done; }</span></a>
-<a name="803"><span class="lineNum">     803 </span>        [<span class="branchCov" title="Branch 0 was taken 12732 times"> + </span><span class="branchCov" title="Branch 1 was taken 35273 times"> + </span>]:<span class="lineCov">      48005 :                 } while(num &gt; 0);</span></a>
+<a name="800"><span class="lineNum">     800 </span>                :<span class="lineCov">      46786 :                     --num;</span></a>
+<a name="801"><span class="lineNum">     801 </span>                :<span class="lineCov">      46786 :                     Lengths.QSet(code++, lencode &amp; 0xF);</span></a>
+<a name="802"><span class="lineNum">     802 </span>        [<span class="branchCov" title="Branch 0 was taken 370 times"> + </span><span class="branchCov" title="Branch 1 was taken 46416 times"> + </span>]:<span class="lineCov">      46786 :                     if(code == length) { goto done; }</span></a>
+<a name="803"><span class="lineNum">     803 </span>        [<span class="branchCov" title="Branch 0 was taken 12657 times"> + </span><span class="branchCov" title="Branch 1 was taken 33759 times"> + </span>]:<span class="lineCov">      46416 :                 } while(num &gt; 0);</span></a>
 <a name="804"><span class="lineNum">     804 </span>                :            :             }</a>
-<a name="805"><span class="lineNum">     805 </span>                :<span class="lineCov">        371 :          done:;</span></a>
-<a name="806"><span class="lineNum">     806 </span>                :<span class="lineCov">     224438 :             return [this,error](unsigned index) -&gt; std::conditional_t&lt;Abortable, int, unsigned char&gt;</span></a>
+<a name="805"><span class="lineNum">     805 </span>                :<span class="lineCov">        370 :          done:;</span></a>
+<a name="806"><span class="lineNum">     806 </span>                :<span class="lineCov">     222676 :             return [this,error](unsigned index) -&gt; std::conditional_t&lt;Abortable, int, unsigned char&gt;</span></a>
 <a name="807"><span class="lineNum">     807 </span>                :            :                    {</a>
-<a name="808"><span class="lineNum">     808 </span>  [<span class="branchCov" title="Branch 0 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     112219 :                        if(Abortable &amp;&amp; error) return -1;</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 51340 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 51499 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<a name="809"><span class="lineNum">     809 </span>  [<span class="branchCov" title="Branch 0 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     112219 :                        return Lengths.Get(index);</span></a>
-<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 51340 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 51499 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
-<a name="810"><span class="lineNum">     810 </span>                :<span class="lineCov">        371 :                    };</span></a>
+<a name="808"><span class="lineNum">     808 </span>  [<span class="branchCov" title="Branch 0 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     111338 :                        if(Abortable &amp;&amp; error) return -1;</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 50989 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 50969 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="809"><span class="lineNum">     809 </span>  [<span class="branchCov" title="Branch 0 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 4690 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     111338 :                        return Lengths.Get(index);</span></a>
+<span class="lineNum">         </span>   <span class="branchCov" title="Branch 4 was taken 50989 times"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span><span class="branchCov" title="Branch 6 was taken 50969 times"> + </span><span class="branchNoCov" title="Branch 7 was not taken"> - </span>]
+<a name="810"><span class="lineNum">     810 </span>                :<span class="lineCov">        370 :                    };</span></a>
 <a name="811"><span class="lineNum">     811 </span>                :            :         }</a>
 <a name="812"><span class="lineNum">     812 </span>                :            :     };</a>
 <a name="813"><span class="lineNum">     813 </span>                :            : </a>
@@ -1043,20 +1043,20 @@
 <a name="968"><span class="lineNum">     968 </span>                :            :         } while(0)</a>
 <a name="969"><span class="lineNum">     969 </span>                :            : </a>
 <a name="970"><span class="lineNum">     970 </span>                :            :         // Read stream header</a>
-<a name="971"><span class="lineNum">     971 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :         GetBits(16, std::uint_least16_t header);</span></a>
+<a name="971"><span class="lineNum">     971 </span>        [<span class="branchCov" title="Branch 0 was taken 157 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :         GetBits(16, std::uint_least16_t header);</span></a>
 <a name="972"><span class="lineNum">     972 </span>                :            :         // ^ Read deflate header: method[4] ; winsize[4] ; checksum[8]</a>
-<a name="973"><span class="lineNum">     973 </span>        [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        158 :         if(header == 0x8B1F) // Is it actually a gzip header?</span></a>
+<a name="973"><span class="lineNum">     973 </span>        [<span class="branchCov" title="Branch 0 was taken 157 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        157 :         if(header == 0x8B1F) // Is it actually a gzip header?</span></a>
 <a name="974"><span class="lineNum">     974 </span>                :            :         {</a>
 <a name="975"><span class="lineNum">     975 </span>                :            :             // Get format identifier, flags, MTIME, XFL and OS</a>
-<a name="976"><span class="lineNum">     976 </span>  [<span class="branchCov" title="Branch 0 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        158 :             GetBits(64, header); Fail_If((header &amp; 0xFF) != 8); // Format identifier should be 8</span></a>
-<a name="977"><span class="lineNum">     977 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 158 times"> + </span>]:<span class="lineCov">        158 :             if(header&amp;0x0400) // Skip extra fields as indicated by FEXTRA</span></a>
+<a name="976"><span class="lineNum">     976 </span>  [<span class="branchCov" title="Branch 0 was taken 156 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 156 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        157 :             GetBits(64, header); Fail_If((header &amp; 0xFF) != 8); // Format identifier should be 8</span></a>
+<a name="977"><span class="lineNum">     977 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 156 times"> + </span>]:<span class="lineCov">        156 :             if(header&amp;0x0400) // Skip extra fields as indicated by FEXTRA</span></a>
 <a name="978"><span class="lineNum">     978 </span>  [<span class="branchNoExec" title="Branch 0 was not executed"> # </span><span class="branchNoExec" title="Branch 1 was not executed"> # </span><span class="branchNoExec" title="Branch 2 was not executed"> # </span><span class="branchNoExec" title="Branch 3 was not executed"> # </span>]:<span class="lineNoCov">          0 :                 { GetBits(16, std::uint_fast16_t q); DummyGetBits(8*q); }</span></a>
-<a name="979"><span class="lineNum">     979 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        158 :             if(header&amp;0x0800) for(;;) { GetBits(8, bool q); if(!q) break; } // NAME: Skip filename if FNAME was present</span></a>
+<a name="979"><span class="lineNum">     979 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 156 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        156 :             if(header&amp;0x0800) for(;;) { GetBits(8, bool q); if(!q) break; } // NAME: Skip filename if FNAME was present</span></a>
 <span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
-<a name="980"><span class="lineNum">     980 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        158 :             if(header&amp;0x1000) for(;;) { GetBits(8, bool q); if(!q) break; } // COMMENT: Skip comment if FCOMMENT was present</span></a>
+<a name="980"><span class="lineNum">     980 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 156 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">        156 :             if(header&amp;0x1000) for(;;) { GetBits(8, bool q); if(!q) break; } // COMMENT: Skip comment if FCOMMENT was present</span></a>
 <span class="lineNum">         </span>         <span class="branchNoCov" title="Branch 4 was not taken"> - </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
-<a name="981"><span class="lineNum">     981 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 158 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        158 :             if(header&amp;0x0200) { DummyGetBits(16); }      // HCRC: Skip FCRC if was present</span></a>
-<a name="982"><span class="lineNum">     982 </span>                :<span class="lineCov">        158 :             outputcopy(0, 32768u); // GZIP always uses 32k window</span></a>
+<a name="981"><span class="lineNum">     981 </span>  [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 156 times"> + </span><span class="branchNoCov" title="Branch 2 was not taken"> - </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        156 :             if(header&amp;0x0200) { DummyGetBits(16); }      // HCRC: Skip FCRC if was present</span></a>
+<a name="982"><span class="lineNum">     982 </span>                :<span class="lineCov">        156 :             outputcopy(0, 32768u); // GZIP always uses 32k window</span></a>
 <a name="983"><span class="lineNum">     983 </span>                :            :         }</a>
 <a name="984"><span class="lineNum">     984 </span>                :            :         else // No. Deflate header?</a>
 <a name="985"><span class="lineNum">     985 </span>                :            :         {</a>
@@ -1067,20 +1067,20 @@
 <a name="990"><span class="lineNum">     990 </span>                :            :         // Read compressed blocks</a>
 <a name="991"><span class="lineNum">     991 </span>                :            :         for(;;)</a>
 <a name="992"><span class="lineNum">     992 </span>                :            :         {</a>
-<a name="993"><span class="lineNum">     993 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        186 :             GetBits(3, header);</span></a>
+<a name="993"><span class="lineNum">     993 </span>        [<span class="branchCov" title="Branch 0 was taken 182 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        183 :             GetBits(3, header);</span></a>
 <a name="994"><span class="lineNum">     994 </span>                :            :             //fprintf(stderr, &quot;header=%d\n&quot;, header);</a>
-<a name="995"><span class="lineNum">     995 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        186 :             if(header &amp; 4) // Dynamic block</span></a>
+<a name="995"><span class="lineNum">     995 </span>        [<span class="branchCov" title="Branch 0 was taken 182 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        182 :             if(header &amp; 4) // Dynamic block</span></a>
 <a name="996"><span class="lineNum">     996 </span>                :            :             {</a>
-<a name="997"><span class="lineNum">     997 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        186 :                 Fail_If(header &amp; 2);</span></a>
+<a name="997"><span class="lineNum">     997 </span>        [<span class="branchCov" title="Branch 0 was taken 182 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        182 :                 Fail_If(header &amp; 2);</span></a>
 <a name="998"><span class="lineNum">     998 </span>                :            :                 std::uint_least16_t nlen_ndist_ncode;</a>
-<a name="999"><span class="lineNum">     999 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        186 :                 GetBits(14, nlen_ndist_ncode);</span></a>
+<a name="999"><span class="lineNum">     999 </span>        [<span class="branchCov" title="Branch 0 was taken 184 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        182 :                 GetBits(14, nlen_ndist_ncode);</span></a>
 <a name="1000"><span class="lineNum">    1000 </span>                :            : </a>
 <a name="1001"><span class="lineNum">    1001 </span>                :            :                 #define nlen  (((nlen_ndist_ncode &gt;&gt; 0u) &amp; 0x1Fu) + 257u) // 257..288</a>
 <a name="1002"><span class="lineNum">    1002 </span>                :            :                 #define ndist (((nlen_ndist_ncode &gt;&gt; 5u) &amp; 0x1Fu) + 1u)   // 1..32</a>
 <a name="1003"><span class="lineNum">    1003 </span>                :            : </a>
 <a name="1004"><span class="lineNum">    1004 </span>                :            : </a>
-<a name="1005"><span class="lineNum">    1005 </span>                :<span class="lineCov">        186 :                 std::uint_least8_t ncode = ((nlen_ndist_ncode &gt;&gt; 10u) + 4u); // 4..19</span></a>
-<a name="1006"><span class="lineNum">    1006 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        186 :                 {std::uint_fast64_t lenlens; GetBits(ncode*3, lenlens);      // Max: 19*3 = 57 bits</span></a>
+<a name="1005"><span class="lineNum">    1005 </span>                :<span class="lineCov">        184 :                 std::uint_least8_t ncode = ((nlen_ndist_ncode &gt;&gt; 10u) + 4u); // 4..19</span></a>
+<a name="1006"><span class="lineNum">    1006 </span>        [<span class="branchCov" title="Branch 0 was taken 183 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        184 :                 {std::uint_fast64_t lenlens; GetBits(ncode*3, lenlens);      // Max: 19*3 = 57 bits</span></a>
 <a name="1007"><span class="lineNum">    1007 </span>                :            :                 #ifdef DO_DEFDB_DUMPING</a>
 <a name="1008"><span class="lineNum">    1008 </span>                :            :                 fprintf(stderr, &quot; [5] HLIT%5d (val:%d)\n [5] HDIST%4d (val:%d)\n [4] HCLEN%4d (val:%d)\n&quot;,</a>
 <a name="1009"><span class="lineNum">    1009 </span>                :            :                     nlen,nlen-257, ndist,ndist-1, ncode,ncode-4);</a>
@@ -1095,14 +1095,14 @@
 <a name="1018"><span class="lineNum">    1018 </span>                :            :                         }</a>
 <a name="1019"><span class="lineNum">    1019 </span>                :            :                 #endif</a>
 <a name="1020"><span class="lineNum">    1020 </span>                :            : </a>
-<a name="1021"><span class="lineNum">    1021 </span>  [<span class="branchCov" title="Branch 0 was taken 2308 times"> + </span><span class="branchCov" title="Branch 1 was taken 1226 times"> + </span><span class="branchCov" title="Branch 2 was taken 2308 times"> + </span><span class="branchCov" title="Branch 3 was taken 1226 times"> + </span>]:<span class="lineCov">       7068 :                 auto lltree_fun = [=](unsigned a) -&gt; unsigned char { return (lenlens &gt;&gt; rshift(a)) &amp; 7; };</span></a>
-<a name="1022"><span class="lineNum">    1022 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        186 :                 while(CreateHuffmanTree&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(&quot;Len Lengths&quot;, state.lltree, 19, lltree_fun)) { return -2; }}</span></a>
+<a name="1021"><span class="lineNum">    1021 </span>  [<span class="branchCov" title="Branch 0 was taken 2298 times"> + </span><span class="branchCov" title="Branch 1 was taken 1221 times"> + </span><span class="branchCov" title="Branch 2 was taken 2308 times"> + </span><span class="branchCov" title="Branch 3 was taken 1226 times"> + </span>]:<span class="lineCov">       7053 :                 auto lltree_fun = [=](unsigned a) -&gt; unsigned char { return (lenlens &gt;&gt; rshift(a)) &amp; 7; };</span></a>
+<a name="1022"><span class="lineNum">    1022 </span>        [<span class="branchCov" title="Branch 0 was taken 186 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        183 :                 while(CreateHuffmanTree&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(&quot;Len Lengths&quot;, state.lltree, 19, lltree_fun)) { return -2; }}</span></a>
 <a name="1023"><span class="lineNum">    1023 </span>                :            : </a>
 <a name="1024"><span class="lineNum">    1024 </span>                :<span class="lineCov">        186 :                 {auto ltree_fun = state.template DynTreeFunc&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(std::forward&lt;InputFunctor&gt;(input), nlen, std::forward&lt;BacktrackFunctor&gt;(backtrack), false);</span></a>
-<a name="1025"><span class="lineNum">    1025 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">        186 :                 while(CreateHuffmanTree&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(&quot;Dyn Lengths&quot;, state.ltree, nlen, ltree_fun)) { return -2; }}</span></a>
+<a name="1025"><span class="lineNum">    1025 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">        184 :                 while(CreateHuffmanTree&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(&quot;Dyn Lengths&quot;, state.ltree, nlen, ltree_fun)) { return -2; }}</span></a>
 <a name="1026"><span class="lineNum">    1026 </span>                :            : </a>
 <a name="1027"><span class="lineNum">    1027 </span>                :<span class="lineCov">        186 :                 {auto dtree_fun = state.template DynTreeFunc&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(std::forward&lt;InputFunctor&gt;(input), ndist, std::forward&lt;BacktrackFunctor&gt;(backtrack), true);</span></a>
-<a name="1028"><span class="lineNum">    1028 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">        185 :                 while(CreateHuffmanTree&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(&quot;Dyn Dists&quot;,   state.dtree, ndist, dtree_fun)) { return -2; }}</span></a>
+<a name="1028"><span class="lineNum">    1028 </span>        [<span class="branchNoCov" title="Branch 0 was not taken"> - </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">        186 :                 while(CreateHuffmanTree&lt;bool(Abortable&amp;Flag_InputAbortable)&gt;(&quot;Dyn Dists&quot;,   state.dtree, ndist, dtree_fun)) { return -2; }}</span></a>
 <a name="1029"><span class="lineNum">    1029 </span>                :            : </a>
 <a name="1030"><span class="lineNum">    1030 </span>                :            :                 #undef nlen</a>
 <a name="1031"><span class="lineNum">    1031 </span>                :            :                 #undef ndist</a>
@@ -1138,25 +1138,25 @@
 <a name="1061"><span class="lineNum">    1061 </span>                :            :                 #ifdef DO_DEFDB_DUMPING</a>
 <a name="1062"><span class="lineNum">    1062 </span>                :            :                 unsigned a=bitcounter;</a>
 <a name="1063"><span class="lineNum">    1063 </span>                :            :                 #endif</a>
-<a name="1064"><span class="lineNum">    1064 </span>        [<span class="branchCov" title="Branch 0 was taken 383336 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     383336 :                 HuffRead(state.ltree, std::uint_least16_t lencode); // 0..287</span></a>
-<a name="1065"><span class="lineNum">    1065 </span>        [<span class="branchCov" title="Branch 0 was taken 263807 times"> + </span><span class="branchCov" title="Branch 1 was taken 119529 times"> + </span>]:<span class="lineCov">     383336 :                 if(!(lencode &amp; -256)) // 0..255: literal byte</span></a>
+<a name="1064"><span class="lineNum">    1064 </span>        [<span class="branchCov" title="Branch 0 was taken 397139 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     397139 :                 HuffRead(state.ltree, std::uint_least16_t lencode); // 0..287</span></a>
+<a name="1065"><span class="lineNum">    1065 </span>        [<span class="branchCov" title="Branch 0 was taken 272441 times"> + </span><span class="branchCov" title="Branch 1 was taken 124698 times"> + </span>]:<span class="lineCov">     397139 :                 if(!(lencode &amp; -256)) // 0..255: literal byte</span></a>
 <a name="1066"><span class="lineNum">    1066 </span>                :            :                 {</a>
 <a name="1067"><span class="lineNum">    1067 </span>                :            :                     #ifdef DO_DEFDB_DUMPING</a>
 <a name="1068"><span class="lineNum">    1068 </span>                :            :                     {char tmp[64];sprintf(tmp,&quot;[%d]&quot;,bitcounter-a); fprintf(stderr, &quot;%4s %02X\n&quot;, tmp, lencode);}</a>
 <a name="1069"><span class="lineNum">    1069 </span>                :            :                     #endif</a>
-<a name="1070"><span class="lineNum">    1070 </span>                :<span class="lineCov">     263807 :                     while(OutputHelper&lt;bool(Abortable&amp;Flag_OutputAbortable)&gt;::output(output, lencode)) { return -3; }</span></a>
+<a name="1070"><span class="lineNum">    1070 </span>                :<span class="lineCov">     272441 :                     while(OutputHelper&lt;bool(Abortable&amp;Flag_OutputAbortable)&gt;::output(output, lencode)) { return -3; }</span></a>
 <a name="1071"><span class="lineNum">    1071 </span>                :            :                 }</a>
-<a name="1072"><span class="lineNum">    1072 </span>        [<span class="branchCov" title="Branch 0 was taken 119343 times"> + </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">     119529 :                 else if(!(lencode &amp; 0xFF)) break; // 256=end</span></a>
+<a name="1072"><span class="lineNum">    1072 </span>        [<span class="branchCov" title="Branch 0 was taken 124512 times"> + </span><span class="branchCov" title="Branch 1 was taken 186 times"> + </span>]:<span class="lineCov">     124698 :                 else if(!(lencode &amp; 0xFF)) break; // 256=end</span></a>
 <a name="1073"><span class="lineNum">    1073 </span>                :            :                 else // 257..287: length code for backwards reference</a>
 <a name="1074"><span class="lineNum">    1074 </span>                :            :                 {</a>
-<a name="1075"><span class="lineNum">    1075 </span>  [<span class="branchCov" title="Branch 0 was taken 43486 times"> + </span><span class="branchCov" title="Branch 1 was taken 75857 times"> + </span><span class="branchCov" title="Branch 2 was taken 118426 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     162829 :                     GetBits(lbits(lencode), std::uint_least16_t length); length += lbase(lencode);</span></a>
-<a name="1076"><span class="lineNum">    1076 </span>        [<span class="branchCov" title="Branch 0 was taken 122570 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     118426 :                     {HuffRead(state.dtree, std::uint_least8_t distcode); // Read distance code (0..31)</span></a>
-<a name="1077"><span class="lineNum">    1077 </span>  [<span class="branchCov" title="Branch 0 was taken 99049 times"> + </span><span class="branchCov" title="Branch 1 was taken 23521 times"> + </span><span class="branchCov" title="Branch 2 was taken 127124 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     221619 :                     {GetBits(dbits(distcode), std::uint_least32_t offset); offset += dbase(distcode);</span></a>
-<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 97967 times"> + </span><span class="branchCov" title="Branch 5 was taken 29157 times"> + </span>]
+<a name="1075"><span class="lineNum">    1075 </span>  [<span class="branchCov" title="Branch 0 was taken 44791 times"> + </span><span class="branchCov" title="Branch 1 was taken 79721 times"> + </span><span class="branchCov" title="Branch 2 was taken 129629 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     169303 :                     GetBits(lbits(lencode), std::uint_least16_t length); length += lbase(lencode);</span></a>
+<a name="1076"><span class="lineNum">    1076 </span>        [<span class="branchCov" title="Branch 0 was taken 127948 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     129629 :                     {HuffRead(state.dtree, std::uint_least8_t distcode); // Read distance code (0..31)</span></a>
+<a name="1077"><span class="lineNum">    1077 </span>  [<span class="branchCov" title="Branch 0 was taken 102821 times"> + </span><span class="branchCov" title="Branch 1 was taken 25127 times"> + </span><span class="branchCov" title="Branch 2 was taken 129676 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     230769 :                     {GetBits(dbits(distcode), std::uint_least32_t offset); offset += dbase(distcode);</span></a>
+<span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 100094 times"> + </span><span class="branchCov" title="Branch 5 was taken 29582 times"> + </span>]
 <a name="1078"><span class="lineNum">    1078 </span>                :            :                     #ifdef DO_DEFDB_DUMPING</a>
 <a name="1079"><span class="lineNum">    1079 </span>                :            :                     {char tmp[64];sprintf(tmp,&quot;[%d]&quot;,bitcounter-a); fprintf(stderr, &quot;%4s (%d,%d)\n&quot;, tmp,length,offset);}</a>
 <a name="1080"><span class="lineNum">    1080 </span>                :            :                     #endif</a>
-<a name="1081"><span class="lineNum">    1081 </span>                :<span class="lineCov">     477924 :                     while(OutputHelper&lt;bool(Abortable&amp;Flag_OutputAbortable)&gt;::outputcopy(outputcopy,length,offset)) { return -4; }}}</span></a>
+<a name="1081"><span class="lineNum">    1081 </span>                :<span class="lineCov">     487252 :                     while(OutputHelper&lt;bool(Abortable&amp;Flag_OutputAbortable)&gt;::outputcopy(outputcopy,length,offset)) { return -4; }}}</span></a>
 <a name="1082"><span class="lineNum">    1082 </span>                :            :                 }</a>
 <a name="1083"><span class="lineNum">    1083 </span>                :            :             }</a>
 <a name="1084"><span class="lineNum">    1084 </span>        [<span class="branchCov" title="Branch 0 was taken 28 times"> + </span><span class="branchCov" title="Branch 1 was taken 158 times"> + </span>]:<span class="lineCov">        186 :     skipdef:if(header &amp; 1) break; // last block flag</span></a>
@@ -1281,21 +1281,21 @@
 <a name="1203"><span class="lineNum">    1203 </span>                :            :         {</a>
 <a name="1204"><span class="lineNum">    1204 </span>                :            :             //fprintf(stderr, &quot;output functor\n&quot;);</a>
 <a name="1205"><span class="lineNum">    1205 </span>                :<span class="lineCov">        158 :             DeflDeclWindow</span></a>
-<a name="1206"><span class="lineNum">    1206 </span>                :<span class="lineCov">    1244033 :             auto output = [&amp;](unsigned char l)</span></a>
+<a name="1206"><span class="lineNum">    1206 </span>                :<span class="lineCov">    1165324 :             auto output = [&amp;](unsigned char l)</span></a>
 <a name="1207"><span class="lineNum">    1207 </span>                :            :             {</a>
-<a name="1208"><span class="lineNum">    1208 </span>                :<span class="lineCov">    1243875 :                 window.Data[window.Head++ % MAX_WINDOW_SIZE] = l;</span></a>
-<a name="1209"><span class="lineNum">    1209 </span>                :<span class="lineCov">    1243875 :                 return param1(l);</span></a>
+<a name="1208"><span class="lineNum">    1208 </span>                :<span class="lineCov">    1165166 :                 window.Data[window.Head++ % MAX_WINDOW_SIZE] = l;</span></a>
+<a name="1209"><span class="lineNum">    1209 </span>                :<span class="lineCov">    1165166 :                 return param1(l);</span></a>
 <a name="1210"><span class="lineNum">    1210 </span>                :            :             };</a>
-<a name="1211"><span class="lineNum">    1211 </span>                :<span class="lineCov">    1204858 :             auto outputcopy = [&amp;](std::uint_least16_t length, std::uint_fast32_t offs)</span></a>
+<a name="1211"><span class="lineNum">    1211 </span>                :<span class="lineCov">    1131345 :             auto outputcopy = [&amp;](std::uint_least16_t length, std::uint_fast32_t offs)</span></a>
 <a name="1212"><span class="lineNum">    1212 </span>                :            :             {</a>
 <a name="1213"><span class="lineNum">    1213 </span>                :            :                 /* length=0 means that offs is the size of the window. */</a>
-<a name="1214"><span class="lineNum">    1214 </span>        [<span class="branchCov" title="Branch 0 was taken 1084093 times"> + </span><span class="branchCov" title="Branch 1 was taken 128019 times"> + </span>]:<span class="lineCov">    1212112 :                 for(; length&gt;0; --length)</span></a>
+<a name="1214"><span class="lineNum">    1214 </span>        [<span class="branchCov" title="Branch 0 was taken 1007902 times"> + </span><span class="branchCov" title="Branch 1 was taken 126698 times"> + </span>]:<span class="lineCov">    1134600 :                 for(; length&gt;0; --length)</span></a>
 <a name="1215"><span class="lineNum">    1215 </span>                :            :                 {</a>
-<a name="1216"><span class="lineNum">    1216 </span>                :<span class="lineCov">    1084093 :                     unsigned char byte = window.Data[(window.Head - offs) % MAX_WINDOW_SIZE];</span></a>
-<a name="1217"><span class="lineNum">    1217 </span>                :<span class="lineCov">    1084093 :                     if(OutputHelper&lt;DeflAbortable_OutFun&lt;T1&gt;&gt;::output(output, byte))</span></a>
+<a name="1216"><span class="lineNum">    1216 </span>                :<span class="lineCov">    1007902 :                     unsigned char byte = window.Data[(window.Head - offs) % MAX_WINDOW_SIZE];</span></a>
+<a name="1217"><span class="lineNum">    1217 </span>                :<span class="lineCov">    1007902 :                     if(OutputHelper&lt;DeflAbortable_OutFun&lt;T1&gt;&gt;::output(output, byte))</span></a>
 <a name="1218"><span class="lineNum">    1218 </span>                :            :                         break;</a>
 <a name="1219"><span class="lineNum">    1219 </span>                :            :                 }</a>
-<a name="1220"><span class="lineNum">    1220 </span>                :<span class="lineCov">     128019 :                 return length;</span></a>
+<a name="1220"><span class="lineNum">    1220 </span>                :<span class="lineCov">     126698 :                 return length;</span></a>
 <a name="1221"><span class="lineNum">    1221 </span>                :            :             };</a>
 <a name="1222"><span class="lineNum">    1222 </span>                :            :             return DeflateDispatchFinal</a>
 <a name="1223"><span class="lineNum">    1223 </span>                :            :                 &lt;code | (DeflAbortable_OutFun&lt;T1&gt; ? Flag_OutputAbortable : 0)&gt;</a>

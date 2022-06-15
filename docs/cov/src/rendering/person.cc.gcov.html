@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-06-14 02:02:57</td>
+            <td class="headerValue">2022-06-15 12:05:34</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -73,235 +73,238 @@
 <a name="2"><span class="lineNum">       2 </span>                :            : # include &lt;gtest/gtest.h&gt;</a>
 <a name="3"><span class="lineNum">       3 </span>                :            : # include &lt;set&gt;</a>
 <a name="4"><span class="lineNum">       4 </span>                :            : #endif</a>
-<a name="5"><span class="lineNum">       5 </span>                :            : </a>
-<a name="6"><span class="lineNum">       6 </span>                :            : #include &lt;cstring&gt;</a>
-<a name="7"><span class="lineNum">       7 </span>                :            : #include &quot;clock.hh&quot;</a>
-<a name="8"><span class="lineNum">       8 </span>                :            : #include &quot;color.hh&quot;</a>
-<a name="9"><span class="lineNum">       9 </span>                :            : #include &quot;cell.hh&quot;</a>
-<a name="10"><span class="lineNum">      10 </span>                :            : #include &quot;256color.hh&quot;</a>
-<a name="11"><span class="lineNum">      11 </span>                :            : </a>
-<a name="12"><span class="lineNum">      12 </span>                :            : /** This is the graphics data that gets rendered. It consists of two four-color 16x16 sprites. */</a>
-<a name="13"><span class="lineNum">      13 </span>                :            : static constexpr char persondata[] =</a>
-<a name="14"><span class="lineNum">      14 </span>                :            : &quot;                      #####     &quot;</a>
-<a name="15"><span class="lineNum">      15 </span>                :            : &quot;      ######         #'''''###  &quot;</a>
-<a name="16"><span class="lineNum">      16 </span>                :            : &quot;     #''''''##      #'''''''''# &quot;</a>
-<a name="17"><span class="lineNum">      17 </span>                :            : &quot;    #'''''''''#     ###'.#.###  &quot;</a>
-<a name="18"><span class="lineNum">      18 </span>                :            : &quot;    ###..#.###     #..##.#....# &quot;</a>
-<a name="19"><span class="lineNum">      19 </span>                :            : &quot;   #..##.#....#    #..##..#...# &quot;</a>
-<a name="20"><span class="lineNum">      20 </span>                :            : &quot;   #..##..#...#     ##...#####  &quot;</a>
-<a name="21"><span class="lineNum">      21 </span>                :            : &quot;    ##...#####      ###.....#   &quot;</a>
-<a name="22"><span class="lineNum">      22 </span>                :            : &quot;     ##.....#     ##'''##''###  &quot;</a>
-<a name="23"><span class="lineNum">      23 </span>                :            : &quot;    #''##''#     #..''''##''#'# &quot;</a>
-<a name="24"><span class="lineNum">      24 </span>                :            : &quot;   #''''##''#    #..'''######'.#&quot;</a>
-<a name="25"><span class="lineNum">      25 </span>                :            : &quot;   #''''#####     #..####.##.#.#&quot;</a>
-<a name="26"><span class="lineNum">      26 </span>                :            : &quot;    #...##.##     .#########''# &quot;</a>
-<a name="27"><span class="lineNum">      27 </span>                :            : &quot;    #..'''###     #''######'''# &quot;</a>
-<a name="28"><span class="lineNum">      28 </span>                :            : &quot;     #'''''#      #'''#  #'''#  &quot;</a>
-<a name="29"><span class="lineNum">      29 </span>                :            : &quot;      #####        ###    ###   &quot;;</a>
-<a name="30"><span class="lineNum">      30 </span>                :            : static constexpr unsigned xcoordinates[2] = { 0, 16 };</a>
-<a name="31"><span class="lineNum">      31 </span>                :            : static constexpr unsigned person_width    = 16;</a>
-<a name="32"><span class="lineNum">      32 </span>                :            : static constexpr unsigned data_width      = 32, data_lines = 16;</a>
-<a name="33"><span class="lineNum">      33 </span>                :            : </a>
-<a name="34"><span class="lineNum">      34 </span>                :            : static double walk_speed = 64.0; // pixels per second (64 is normal)</a>
-<a name="35"><span class="lineNum">      35 </span>                :            : static double frame_rate = 6.0;  // (6 is normal)</a>
+<a name="5"><span class="lineNum">       5 </span>                :            : /** @file rendering/person.cc</a>
+<a name="6"><span class="lineNum">       6 </span>                :            :  * @brief Defines PersonTransform(), which renders a person animation on the screen.</a>
+<a name="7"><span class="lineNum">       7 </span>                :            :  */</a>
+<a name="8"><span class="lineNum">       8 </span>                :            : </a>
+<a name="9"><span class="lineNum">       9 </span>                :            : #include &lt;cstring&gt;</a>
+<a name="10"><span class="lineNum">      10 </span>                :            : #include &quot;clock.hh&quot;</a>
+<a name="11"><span class="lineNum">      11 </span>                :            : #include &quot;color.hh&quot;</a>
+<a name="12"><span class="lineNum">      12 </span>                :            : #include &quot;cell.hh&quot;</a>
+<a name="13"><span class="lineNum">      13 </span>                :            : #include &quot;256color.hh&quot;</a>
+<a name="14"><span class="lineNum">      14 </span>                :            : </a>
+<a name="15"><span class="lineNum">      15 </span>                :            : /** This is the graphics data that gets rendered. It consists of two four-color 16x16 sprites. */</a>
+<a name="16"><span class="lineNum">      16 </span>                :            : static constexpr char persondata[] =</a>
+<a name="17"><span class="lineNum">      17 </span>                :            : &quot;                      #####     &quot;</a>
+<a name="18"><span class="lineNum">      18 </span>                :            : &quot;      ######         #'''''###  &quot;</a>
+<a name="19"><span class="lineNum">      19 </span>                :            : &quot;     #''''''##      #'''''''''# &quot;</a>
+<a name="20"><span class="lineNum">      20 </span>                :            : &quot;    #'''''''''#     ###'.#.###  &quot;</a>
+<a name="21"><span class="lineNum">      21 </span>                :            : &quot;    ###..#.###     #..##.#....# &quot;</a>
+<a name="22"><span class="lineNum">      22 </span>                :            : &quot;   #..##.#....#    #..##..#...# &quot;</a>
+<a name="23"><span class="lineNum">      23 </span>                :            : &quot;   #..##..#...#     ##...#####  &quot;</a>
+<a name="24"><span class="lineNum">      24 </span>                :            : &quot;    ##...#####      ###.....#   &quot;</a>
+<a name="25"><span class="lineNum">      25 </span>                :            : &quot;     ##.....#     ##'''##''###  &quot;</a>
+<a name="26"><span class="lineNum">      26 </span>                :            : &quot;    #''##''#     #..''''##''#'# &quot;</a>
+<a name="27"><span class="lineNum">      27 </span>                :            : &quot;   #''''##''#    #..'''######'.#&quot;</a>
+<a name="28"><span class="lineNum">      28 </span>                :            : &quot;   #''''#####     #..####.##.#.#&quot;</a>
+<a name="29"><span class="lineNum">      29 </span>                :            : &quot;    #...##.##     .#########''# &quot;</a>
+<a name="30"><span class="lineNum">      30 </span>                :            : &quot;    #..'''###     #''######'''# &quot;</a>
+<a name="31"><span class="lineNum">      31 </span>                :            : &quot;     #'''''#      #'''#  #'''#  &quot;</a>
+<a name="32"><span class="lineNum">      32 </span>                :            : &quot;      #####        ###    ###   &quot;;</a>
+<a name="33"><span class="lineNum">      33 </span>                :            : static constexpr unsigned xcoordinates[2] = { 0, 16 };</a>
+<a name="34"><span class="lineNum">      34 </span>                :            : static constexpr unsigned person_width    = 16;</a>
+<a name="35"><span class="lineNum">      35 </span>                :            : static constexpr unsigned data_width      = 32, data_lines = 16;</a>
 <a name="36"><span class="lineNum">      36 </span>                :            : </a>
-<a name="37"><span class="lineNum">      37 </span>                :<span class="lineCov">     336485 : static double GetStartTime()</span></a>
-<a name="38"><span class="lineNum">      38 </span>                :            : {</a>
-<a name="39"><span class="lineNum">      39 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 336484 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     336485 :     static double value = GetTime();</span></a>
+<a name="37"><span class="lineNum">      37 </span>                :            : static double walk_speed = 64.0; // pixels per second (64 is normal)</a>
+<a name="38"><span class="lineNum">      38 </span>                :            : static double frame_rate = 6.0;  // (6 is normal)</a>
+<a name="39"><span class="lineNum">      39 </span>                :            : </a>
+<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">     336486 : static double GetStartTime()</span></a>
+<a name="41"><span class="lineNum">      41 </span>                :            : {</a>
+<a name="42"><span class="lineNum">      42 </span>  [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchCov" title="Branch 1 was taken 336485 times"> + </span><span class="branchCov" title="Branch 2 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span> :<span class="lineCov">     336486 :     static double value = GetTime();</span></a>
 <span class="lineNum">         </span>         <span class="branchCov" title="Branch 4 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 5 was not taken"> - </span>]
-<a name="40"><span class="lineNum">      40 </span>                :<span class="lineCov">     336485 :     return value;</span></a>
-<a name="41"><span class="lineNum">      41 </span>                :            : }</a>
-<a name="42"><span class="lineNum">      42 </span>                :            : </a>
-<a name="43"><span class="lineNum">      43 </span>                :            : /** X-coordinate where the Person is */</a>
-<a name="44"><span class="lineNum">      44 </span>                :<span class="lineCov">     313061 : int PersonBaseX(unsigned window_width)</span></a>
-<a name="45"><span class="lineNum">      45 </span>                :            : {</a>
-<a name="46"><span class="lineNum">      46 </span>                :<span class="lineCov">     313061 :     double start = GetStartTime();</span></a>
-<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">     313061 :     double time_elapsed = GetTime() - start;</span></a>
-<a name="48"><span class="lineNum">      48 </span>        [<span class="branchCov" title="Branch 0 was taken 313061 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     313061 :     unsigned walkway_width = window_width + std::max(person_width, window_width/5) + person_width;</span></a>
-<a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">     313061 :     return unsigned(time_elapsed * walk_speed) % walkway_width - person_width;</span></a>
-<a name="50"><span class="lineNum">      50 </span>                :            : }</a>
-<a name="51"><span class="lineNum">      51 </span>                :            : /** Which frame to draw right now */</a>
-<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">      23424 : static int PersonFrame()</span></a>
-<a name="53"><span class="lineNum">      53 </span>                :            : {</a>
-<a name="54"><span class="lineNum">      54 </span>                :<span class="lineCov">      23424 :     double start = GetStartTime();</span></a>
-<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">      23424 :     double time_elapsed = GetTime() - start;</span></a>
-<a name="56"><span class="lineNum">      56 </span>                :<span class="lineCov">      23424 :     return unsigned(time_elapsed * frame_rate) % 2;</span></a>
-<a name="57"><span class="lineNum">      57 </span>                :            : }</a>
-<a name="58"><span class="lineNum">      58 </span>                :            : </a>
-<a name="59"><span class="lineNum">      59 </span>                :            : /** ColorSlideCache implements smooth color slides in text mode. */</a>
-<a name="60"><span class="lineNum">      60 </span>                :            : class ColorSlideCache</a>
-<a name="61"><span class="lineNum">      61 </span>                :            : {</a>
-<a name="62"><span class="lineNum">      62 </span>                :            :     enum { MaxWidth = 3840 };</a>
-<a name="63"><span class="lineNum">      63 </span>                :            :     const unsigned char*  const colors;</a>
-<a name="64"><span class="lineNum">      64 </span>                :            :     const unsigned short* const color_positions;</a>
-<a name="65"><span class="lineNum">      65 </span>                :            :     const unsigned              color_length;</a>
-<a name="66"><span class="lineNum">      66 </span>                :            :     unsigned cached_width;</a>
-<a name="67"><span class="lineNum">      67 </span>                :            :     unsigned short cache_color[MaxWidth];</a>
-<a name="68"><span class="lineNum">      68 </span>                :            :     unsigned char cache_char[MaxWidth];</a>
-<a name="69"><span class="lineNum">      69 </span>                :            : </a>
-<a name="70"><span class="lineNum">      70 </span>                :            : public:</a>
-<a name="71"><span class="lineNum">      71 </span>                :            :     /** Saves the desired color positions and proportions of the slide for latter use. */</a>
-<a name="72"><span class="lineNum">      72 </span>                :            :     ColorSlideCache(const unsigned char* c, const unsigned short* p, unsigned l)</a>
-<a name="73"><span class="lineNum">      73 </span>                :            :         : colors(c), color_positions(p), color_length(l), cached_width(0) {}</a>
-<a name="74"><span class="lineNum">      74 </span>                :            : </a>
-<a name="75"><span class="lineNum">      75 </span>                :            :     /** Configures the slide for a particular rendering width. */</a>
-<a name="76"><span class="lineNum">      76 </span>                :<span class="lineCov">     619584 :     void SetWidth(unsigned w)</span></a>
-<a name="77"><span class="lineNum">      77 </span>                :            :     {</a>
-<a name="78"><span class="lineNum">      78 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 619581 times"> + </span>]:<span class="lineCov">     619584 :         if(w == cached_width) return;</span></a>
-<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">          3 :         cached_width = w;</span></a>
-<a name="80"><span class="lineNum">      80 </span>                :<span class="lineCov">          3 :         unsigned char first=0;</span></a>
-<a name="81"><span class="lineNum">      81 </span>                :<span class="lineCov">          3 :         { std::memset(cache_char, 0, sizeof(cache_char));</span></a>
-<a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">          3 :           std::memset(cache_color, 0, sizeof(cache_color)); }</span></a>
-<a name="83"><span class="lineNum">      83 </span>        [<span class="branchCov" title="Branch 0 was taken 400 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">        403 :         for(unsigned x=0; x&lt;w &amp;&amp; x&lt;MaxWidth; ++x)</span></a>
-<a name="84"><span class="lineNum">      84 </span>                :            :         {</a>
-<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">        400 :             unsigned short cur_position = (((unsigned long)x) &lt;&lt; 16u) / w;</span></a>
-<a name="86"><span class="lineNum">      86 </span>  [<span class="branchCov" title="Branch 0 was taken 471 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchCov" title="Branch 2 was taken 77 times"> + </span><span class="branchCov" title="Branch 3 was taken 394 times"> + </span>]:<span class="lineCov">        477 :             while(first &lt; color_length &amp;&amp; color_positions[first] &lt;= cur_position) ++first;</span></a>
-<a name="87"><span class="lineNum">      87 </span>                :<span class="lineCov">        400 :             unsigned long  next_position=0;</span></a>
-<a name="88"><span class="lineNum">      88 </span>                :<span class="lineCov">        400 :             unsigned char  next_value=0;</span></a>
-<a name="89"><span class="lineNum">      89 </span>        [<span class="branchCov" title="Branch 0 was taken 394 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">        400 :             if(first &lt; color_length)</span></a>
-<a name="90"><span class="lineNum">      90 </span>                :<span class="lineCov">        394 :                 { next_position = color_positions[first]; next_value = colors[first]; }</span></a>
-<a name="91"><span class="lineNum">      91 </span>                :            :             else</a>
-<a name="92"><span class="lineNum">      92 </span>                :<span class="lineCov">          6 :                 { next_position = 10000ul; next_value = colors[color_length-1]; }</span></a>
-<a name="93"><span class="lineNum">      93 </span>                :            : </a>
-<a name="94"><span class="lineNum">      94 </span>                :<span class="lineCov">        400 :             unsigned short prev_position=0;</span></a>
-<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">        400 :             unsigned char  prev_value   =next_value;</span></a>
-<a name="96"><span class="lineNum">      96 </span>        [<span class="branchCov" title="Branch 0 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        400 :             if(first &gt; 0)</span></a>
-<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">        400 :                 { prev_position = color_positions[first-1]; prev_value = colors[first-1]; }</span></a>
-<a name="98"><span class="lineNum">      98 </span>                :            : </a>
-<a name="99"><span class="lineNum">      99 </span>                :<span class="lineCov">        400 :             float position = (cur_position - prev_position) / float(next_position - prev_position );</span></a>
-<a name="100"><span class="lineNum">     100 </span>                :            :             //static const unsigned char chars[4] = { 0x20, 0xB0, 0xB1, 0xB2 };</a>
-<a name="101"><span class="lineNum">     101 </span>                :            :             //unsigned char ch = chars[unsigned(position*4)];</a>
-<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">        400 :             static const unsigned char chars[2] = { 0,1};</span></a>
-<a name="103"><span class="lineNum">     103 </span>                :<span class="lineCov">        400 :             unsigned char ch = chars[unsigned(position*2)];</span></a>
-<a name="104"><span class="lineNum">     104 </span>                :            :             //static const unsigned char chars[2] = { 0x20, 0xDC };</a>
-<a name="105"><span class="lineNum">     105 </span>                :            :             //unsigned char ch = chars[unsigned(position*2)];</a>
-<a name="106"><span class="lineNum">     106 </span>                :            :             //unsigned char ch = 'A';</a>
-<a name="107"><span class="lineNum">     107 </span>                :            :             //if(prev_value == next_value || ch == 0x20) { ch = 0x20; next_value = 0; }</a>
-<a name="108"><span class="lineNum">     108 </span>        [<span class="branchCov" title="Branch 0 was taken 270 times"> + </span><span class="branchCov" title="Branch 1 was taken 130 times"> + </span>]:<span class="lineCov">        400 :             if(prev_value == next_value || ch == 0) { ch = 0; next_value = 0; }</span></a>
-<a name="109"><span class="lineNum">     109 </span>                :<span class="lineCov">        400 :             cache_char[x] = ch;</span></a>
-<a name="110"><span class="lineNum">     110 </span>                :<span class="lineCov">        400 :             cache_color[x] = prev_value | (next_value &lt;&lt; 8u);</span></a>
-<a name="111"><span class="lineNum">     111 </span>                :            :             //cache[x] = 0x80008741ul;</a>
-<a name="112"><span class="lineNum">     112 </span>                :            :         }</a>
-<a name="113"><span class="lineNum">     113 </span>                :            :     }</a>
-<a name="114"><span class="lineNum">     114 </span>                :            :     /** Retrieves the color data for the given position on the slide.</a>
-<a name="115"><span class="lineNum">     115 </span>                :            :      * @param x  Coordinate, must be smaller than the width in SetWidth</a>
-<a name="116"><span class="lineNum">     116 </span>                :            :      * @param c1 Out-param: Background color to render</a>
-<a name="117"><span class="lineNum">     117 </span>                :            :      * @param c2 Out-param: Foreground color to render, if ch is not blank (0)</a>
-<a name="118"><span class="lineNum">     118 </span>                :            :      * @param ch Out-param: Character to render (1 = dither pattern, 0 = black)</a>
-<a name="119"><span class="lineNum">     119 </span>                :            :      */</a>
-<a name="120"><span class="lineNum">     120 </span>                :<span class="lineCov">     619584 :     inline void Get(unsigned x, unsigned char&amp; ch, unsigned char&amp; c1, unsigned char&amp; c2) const</span></a>
-<a name="121"><span class="lineNum">     121 </span>                :            :     {</a>
-<a name="122"><span class="lineNum">     122 </span>                :<span class="lineCov">     619584 :         unsigned short tmp = cache_color[x];</span></a>
-<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">     619584 :         ch = cache_char[x];</span></a>
-<a name="124"><span class="lineNum">     124 </span>                :<span class="lineCov">     619584 :         c1 = tmp;</span></a>
-<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">     619584 :         c2 = tmp &gt;&gt; 8u;</span></a>
-<a name="126"><span class="lineNum">     126 </span>                :            :     }</a>
-<a name="127"><span class="lineNum">     127 </span>                :            : };</a>
-<a name="128"><span class="lineNum">     128 </span>                :            : static const unsigned char  slide1_colors[21] = {6,73,109,248,7,7,7,7,7,248,109,73,6,6,6,36,35,2,2,28,22};</a>
-<a name="129"><span class="lineNum">     129 </span>                :            : static const unsigned short slide1_positions[21] = {0u,1401u,3711u,6302u,7072u,8192u,16384u,24576u,32768u,33889u,34659u,37250u,39560u,40960u,49152u,50903u,53634u,55944u,57344u,59937u,63981u};</a>
-<a name="130"><span class="lineNum">     130 </span>                :            : static const unsigned char  slide2_colors[35] = {248,7,249,250,251,252,188,253,254,255,15,230,229,228,227,11,227,185,186,185,179,143,142,136,100,94,58,239,238,8,236,235,234,233,0};</a>
-<a name="131"><span class="lineNum">     131 </span>                :            : static const unsigned short slide2_positions[35] = {0u,440u,1247u,2126u,3006u,3886u,4839u,5938u,6965u,8064u,9750u,12590u,15573u,18029u,19784u,21100u,24890u,27163u,30262u,35051u,35694u,38054u,40431u,41156u,46212u,46523u,50413u,52303u,53249u,54194u,56294u,58815u,61335u,63856u,64696u};</a>
-<a name="132"><span class="lineNum">     132 </span>                :            : static ColorSlideCache slide1(slide1_colors, slide1_positions, sizeof(slide1_colors));</a>
-<a name="133"><span class="lineNum">     133 </span>                :            : static ColorSlideCache slide2(slide2_colors, slide2_positions, sizeof(slide2_colors));</a>
-<a name="134"><span class="lineNum">     134 </span>                :            : </a>
-<a name="135"><span class="lineNum">     135 </span>                :            : /* Renders person on the screen. */</a>
-<a name="136"><span class="lineNum">     136 </span>                :<span class="lineCov">     619584 : void PersonTransform(unsigned&amp; bgcolor, unsigned&amp; fgcolor,</span></a>
-<a name="137"><span class="lineNum">     137 </span>                :            :                      unsigned width, unsigned x, unsigned y,</a>
-<a name="138"><span class="lineNum">     138 </span>                :            :                      unsigned action_type)</a>
-<a name="139"><span class="lineNum">     139 </span>                :            : {</a>
-<a name="140"><span class="lineNum">     140 </span>                :            :     // Action_type:</a>
-<a name="141"><span class="lineNum">     141 </span>                :            :     //  1 = top of screen (Person, green slide)</a>
-<a name="142"><span class="lineNum">     142 </span>                :            :     //  2 = bottom of screen (Status, yellow slide)</a>
-<a name="143"><span class="lineNum">     143 </span>                :            :     //  0 = anything else</a>
-<a name="144"><span class="lineNum">     144 </span>        [<span class="branchCov" title="Branch 0 was taken 619584 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     619584 :     if(bgcolor != Cell{}.fgcolor)</span></a>
-<a name="145"><span class="lineNum">     145 </span>                :            :     {</a>
-<a name="146"><span class="lineNum">     146 </span>                :            :         // Only transform lines with white (ansi 7) background</a>
-<a name="147"><span class="lineNum">     147 </span>                :<span class="lineCov">     596288 :         return;</span></a>
-<a name="148"><span class="lineNum">     148 </span>                :            :     }</a>
-<a name="149"><span class="lineNum">     149 </span>                :            : </a>
-<a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">    1239168 :     auto GetSlide = [&amp;](ColorSlideCache&amp; slide)</span></a>
-<a name="151"><span class="lineNum">     151 </span>                :            :     {</a>
-<a name="152"><span class="lineNum">     152 </span>                :<span class="lineCov">     619584 :         slide.SetWidth(width);</span></a>
-<a name="153"><span class="lineNum">     153 </span>                :<span class="lineCov">     619584 :         unsigned char ch,c1,c2; slide.Get(x,ch,c1,c2);</span></a>
-<a name="154"><span class="lineNum">     154 </span>                :<span class="lineCov">     619584 :         unsigned result = c1;</span></a>
-<a name="155"><span class="lineNum">     155 </span>        [<span class="branchCov" title="Branch 0 was taken 214896 times"> + </span><span class="branchCov" title="Branch 1 was taken 404688 times"> + </span>]:<span class="lineCov">     619584 :         if(ch)</span></a>
-<a name="156"><span class="lineNum">     156 </span>                :            :         {</a>
-<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">     214896 :             unsigned pos = (x^y)&amp;1;</span></a>
-<a name="158"><span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 0 was taken 107448 times"> + </span><span class="branchCov" title="Branch 1 was taken 107448 times"> + </span>]:<span class="lineCov">     214896 :             result = pos ? c2 : c1;</span></a>
-<a name="159"><span class="lineNum">     159 </span>                :            :         }</a>
-<a name="160"><span class="lineNum">     160 </span>                :<span class="lineCov">     619584 :         return xterm256table[result];</span></a>
-<a name="161"><span class="lineNum">     161 </span>                :<span class="lineCov">     619584 :     };</span></a>
-<a name="162"><span class="lineNum">     162 </span>        [<span class="branchCov" title="Branch 0 was taken 309824 times"> + </span><span class="branchCov" title="Branch 1 was taken 309760 times"> + </span>]:<span class="lineCov">     619584 :     if(action_type &lt;= 1) bgcolor = GetSlide(slide1); // Not bottom of screen</span></a>
-<a name="163"><span class="lineNum">     163 </span>        [<span class="branchCov" title="Branch 0 was taken 309760 times"> + </span><span class="branchCov" title="Branch 1 was taken 309824 times"> + </span>]:<span class="lineCov">     619584 :     if(action_type == 2) bgcolor = GetSlide(slide2); // Is bottom of screen</span></a>
-<a name="164"><span class="lineNum">     164 </span>                :            : </a>
-<a name="165"><span class="lineNum">     165 </span>  [<span class="branchCov" title="Branch 0 was taken 309760 times"> + </span><span class="branchCov" title="Branch 1 was taken 309824 times"> + </span><span class="branchCov" title="Branch 2 was taken 309760 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     619584 :     if(y &gt;= data_lines || action_type != 1) // Stop here if not to render person</span></a>
-<a name="166"><span class="lineNum">     166 </span>                :            :     {</a>
-<a name="167"><span class="lineNum">     167 </span>                :            :         return;</a>
-<a name="168"><span class="lineNum">     168 </span>                :            :     }</a>
-<a name="169"><span class="lineNum">     169 </span>                :            : </a>
-<a name="170"><span class="lineNum">     170 </span>                :            :     //unsigned scrx = x;</a>
-<a name="171"><span class="lineNum">     171 </span>                :<span class="lineCov">     309760 :     unsigned basex = PersonBaseX(width);</span></a>
-<a name="172"><span class="lineNum">     172 </span>                :            : #ifdef CLOCK_BACKWARDS</a>
-<a name="173"><span class="lineNum">     173 </span>                :            :     basex = width - basex;</a>
-<a name="174"><span class="lineNum">     174 </span>                :            : #endif</a>
-<a name="175"><span class="lineNum">     175 </span>                :<span class="lineCov">     309760 :     x -= basex;</span></a>
-<a name="176"><span class="lineNum">     176 </span>                :            :     // Person outside view?</a>
-<a name="177"><span class="lineNum">     177 </span>        [<span class="branchCov" title="Branch 0 was taken 23296 times"> + </span><span class="branchCov" title="Branch 1 was taken 286464 times"> + </span>]:<span class="lineCov">     309760 :     if(x &gt;= person_width)</span></a>
-<a name="178"><span class="lineNum">     178 </span>                :            :     {</a>
-<a name="179"><span class="lineNum">     179 </span>                :            :         return;</a>
-<a name="180"><span class="lineNum">     180 </span>                :            :     }</a>
-<a name="181"><span class="lineNum">     181 </span>                :            : #ifdef CLOCK_BACKWARDS</a>
-<a name="182"><span class="lineNum">     182 </span>                :            :     x = person_width-1-x;</a>
-<a name="183"><span class="lineNum">     183 </span>                :            : #endif</a>
-<a name="184"><span class="lineNum">     184 </span>                :            : </a>
-<a name="185"><span class="lineNum">     185 </span>                :<span class="lineCov">      23296 :     unsigned frame_number = PersonFrame();</span></a>
-<a name="186"><span class="lineNum">     186 </span>                :<span class="lineCov">      23296 :     unsigned frame_start  = xcoordinates[frame_number];</span></a>
-<a name="187"><span class="lineNum">     187 </span>                :<span class="lineCov">      23296 :     char c = persondata[y*data_width + frame_start + x];</span></a>
-<a name="188"><span class="lineNum">     188 </span>  [<span class="branchCov" title="Branch 0 was taken 9204 times"> + </span><span class="branchCov" title="Branch 1 was taken 2997 times"> + </span><span class="branchCov" title="Branch 2 was taken 3675 times"> + </span><span class="branchCov" title="Branch 3 was taken 7420 times"> + </span> :<span class="lineCov">      23296 :     switch(c)</span></a>
+<a name="43"><span class="lineNum">      43 </span>                :<span class="lineCov">     336486 :     return value;</span></a>
+<a name="44"><span class="lineNum">      44 </span>                :            : }</a>
+<a name="45"><span class="lineNum">      45 </span>                :            : </a>
+<a name="46"><span class="lineNum">      46 </span>                :            : /** X-coordinate where the Person is */</a>
+<a name="47"><span class="lineNum">      47 </span>                :<span class="lineCov">     313062 : int PersonBaseX(unsigned window_width)</span></a>
+<a name="48"><span class="lineNum">      48 </span>                :            : {</a>
+<a name="49"><span class="lineNum">      49 </span>                :<span class="lineCov">     313062 :     double start = GetStartTime();</span></a>
+<a name="50"><span class="lineNum">      50 </span>                :<span class="lineCov">     313062 :     double time_elapsed = GetTime() - start;</span></a>
+<a name="51"><span class="lineNum">      51 </span>        [<span class="branchCov" title="Branch 0 was taken 313062 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     313062 :     unsigned walkway_width = window_width + std::max(person_width, window_width/5) + person_width;</span></a>
+<a name="52"><span class="lineNum">      52 </span>                :<span class="lineCov">     313062 :     return unsigned(time_elapsed * walk_speed) % walkway_width - person_width;</span></a>
+<a name="53"><span class="lineNum">      53 </span>                :            : }</a>
+<a name="54"><span class="lineNum">      54 </span>                :            : /** Which frame to draw right now */</a>
+<a name="55"><span class="lineNum">      55 </span>                :<span class="lineCov">      23424 : static int PersonFrame()</span></a>
+<a name="56"><span class="lineNum">      56 </span>                :            : {</a>
+<a name="57"><span class="lineNum">      57 </span>                :<span class="lineCov">      23424 :     double start = GetStartTime();</span></a>
+<a name="58"><span class="lineNum">      58 </span>                :<span class="lineCov">      23424 :     double time_elapsed = GetTime() - start;</span></a>
+<a name="59"><span class="lineNum">      59 </span>                :<span class="lineCov">      23424 :     return unsigned(time_elapsed * frame_rate) % 2;</span></a>
+<a name="60"><span class="lineNum">      60 </span>                :            : }</a>
+<a name="61"><span class="lineNum">      61 </span>                :            : </a>
+<a name="62"><span class="lineNum">      62 </span>                :            : /** ColorSlideCache implements smooth color slides in text mode. */</a>
+<a name="63"><span class="lineNum">      63 </span>                :            : class ColorSlideCache</a>
+<a name="64"><span class="lineNum">      64 </span>                :            : {</a>
+<a name="65"><span class="lineNum">      65 </span>                :            :     enum { MaxWidth = 3840 };</a>
+<a name="66"><span class="lineNum">      66 </span>                :            :     const unsigned char*  const colors;</a>
+<a name="67"><span class="lineNum">      67 </span>                :            :     const unsigned short* const color_positions;</a>
+<a name="68"><span class="lineNum">      68 </span>                :            :     const unsigned              color_length;</a>
+<a name="69"><span class="lineNum">      69 </span>                :            :     unsigned cached_width;</a>
+<a name="70"><span class="lineNum">      70 </span>                :            :     unsigned short cache_color[MaxWidth];</a>
+<a name="71"><span class="lineNum">      71 </span>                :            :     unsigned char cache_char[MaxWidth];</a>
+<a name="72"><span class="lineNum">      72 </span>                :            : </a>
+<a name="73"><span class="lineNum">      73 </span>                :            : public:</a>
+<a name="74"><span class="lineNum">      74 </span>                :            :     /** Saves the desired color positions and proportions of the slide for latter use. */</a>
+<a name="75"><span class="lineNum">      75 </span>                :            :     ColorSlideCache(const unsigned char* c, const unsigned short* p, unsigned l)</a>
+<a name="76"><span class="lineNum">      76 </span>                :            :         : colors(c), color_positions(p), color_length(l), cached_width(0) {}</a>
+<a name="77"><span class="lineNum">      77 </span>                :            : </a>
+<a name="78"><span class="lineNum">      78 </span>                :            :     /** Configures the slide for a particular rendering width. */</a>
+<a name="79"><span class="lineNum">      79 </span>                :<span class="lineCov">     619584 :     void SetWidth(unsigned w)</span></a>
+<a name="80"><span class="lineNum">      80 </span>                :            :     {</a>
+<a name="81"><span class="lineNum">      81 </span>        [<span class="branchCov" title="Branch 0 was taken 3 times"> + </span><span class="branchCov" title="Branch 1 was taken 619581 times"> + </span>]:<span class="lineCov">     619584 :         if(w == cached_width) return;</span></a>
+<a name="82"><span class="lineNum">      82 </span>                :<span class="lineCov">          3 :         cached_width = w;</span></a>
+<a name="83"><span class="lineNum">      83 </span>                :<span class="lineCov">          3 :         unsigned char first=0;</span></a>
+<a name="84"><span class="lineNum">      84 </span>                :<span class="lineCov">          3 :         { std::memset(cache_char, 0, sizeof(cache_char));</span></a>
+<a name="85"><span class="lineNum">      85 </span>                :<span class="lineCov">          3 :           std::memset(cache_color, 0, sizeof(cache_color)); }</span></a>
+<a name="86"><span class="lineNum">      86 </span>        [<span class="branchCov" title="Branch 0 was taken 400 times"> + </span><span class="branchCov" title="Branch 1 was taken 3 times"> + </span>]:<span class="lineCov">        403 :         for(unsigned x=0; x&lt;w &amp;&amp; x&lt;MaxWidth; ++x)</span></a>
+<a name="87"><span class="lineNum">      87 </span>                :            :         {</a>
+<a name="88"><span class="lineNum">      88 </span>                :<span class="lineCov">        400 :             unsigned short cur_position = (((unsigned long)x) &lt;&lt; 16u) / w;</span></a>
+<a name="89"><span class="lineNum">      89 </span>  [<span class="branchCov" title="Branch 0 was taken 471 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span><span class="branchCov" title="Branch 2 was taken 77 times"> + </span><span class="branchCov" title="Branch 3 was taken 394 times"> + </span>]:<span class="lineCov">        477 :             while(first &lt; color_length &amp;&amp; color_positions[first] &lt;= cur_position) ++first;</span></a>
+<a name="90"><span class="lineNum">      90 </span>                :<span class="lineCov">        400 :             unsigned long  next_position=0;</span></a>
+<a name="91"><span class="lineNum">      91 </span>                :<span class="lineCov">        400 :             unsigned char  next_value=0;</span></a>
+<a name="92"><span class="lineNum">      92 </span>        [<span class="branchCov" title="Branch 0 was taken 394 times"> + </span><span class="branchCov" title="Branch 1 was taken 6 times"> + </span>]:<span class="lineCov">        400 :             if(first &lt; color_length)</span></a>
+<a name="93"><span class="lineNum">      93 </span>                :<span class="lineCov">        394 :                 { next_position = color_positions[first]; next_value = colors[first]; }</span></a>
+<a name="94"><span class="lineNum">      94 </span>                :            :             else</a>
+<a name="95"><span class="lineNum">      95 </span>                :<span class="lineCov">          6 :                 { next_position = 10000ul; next_value = colors[color_length-1]; }</span></a>
+<a name="96"><span class="lineNum">      96 </span>                :            : </a>
+<a name="97"><span class="lineNum">      97 </span>                :<span class="lineCov">        400 :             unsigned short prev_position=0;</span></a>
+<a name="98"><span class="lineNum">      98 </span>                :<span class="lineCov">        400 :             unsigned char  prev_value   =next_value;</span></a>
+<a name="99"><span class="lineNum">      99 </span>        [<span class="branchCov" title="Branch 0 was taken 400 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        400 :             if(first &gt; 0)</span></a>
+<a name="100"><span class="lineNum">     100 </span>                :<span class="lineCov">        400 :                 { prev_position = color_positions[first-1]; prev_value = colors[first-1]; }</span></a>
+<a name="101"><span class="lineNum">     101 </span>                :            : </a>
+<a name="102"><span class="lineNum">     102 </span>                :<span class="lineCov">        400 :             float position = (cur_position - prev_position) / float(next_position - prev_position );</span></a>
+<a name="103"><span class="lineNum">     103 </span>                :            :             //static const unsigned char chars[4] = { 0x20, 0xB0, 0xB1, 0xB2 };</a>
+<a name="104"><span class="lineNum">     104 </span>                :            :             //unsigned char ch = chars[unsigned(position*4)];</a>
+<a name="105"><span class="lineNum">     105 </span>                :<span class="lineCov">        400 :             static const unsigned char chars[2] = { 0,1};</span></a>
+<a name="106"><span class="lineNum">     106 </span>                :<span class="lineCov">        400 :             unsigned char ch = chars[unsigned(position*2)];</span></a>
+<a name="107"><span class="lineNum">     107 </span>                :            :             //static const unsigned char chars[2] = { 0x20, 0xDC };</a>
+<a name="108"><span class="lineNum">     108 </span>                :            :             //unsigned char ch = chars[unsigned(position*2)];</a>
+<a name="109"><span class="lineNum">     109 </span>                :            :             //unsigned char ch = 'A';</a>
+<a name="110"><span class="lineNum">     110 </span>                :            :             //if(prev_value == next_value || ch == 0x20) { ch = 0x20; next_value = 0; }</a>
+<a name="111"><span class="lineNum">     111 </span>        [<span class="branchCov" title="Branch 0 was taken 270 times"> + </span><span class="branchCov" title="Branch 1 was taken 130 times"> + </span>]:<span class="lineCov">        400 :             if(prev_value == next_value || ch == 0) { ch = 0; next_value = 0; }</span></a>
+<a name="112"><span class="lineNum">     112 </span>                :<span class="lineCov">        400 :             cache_char[x] = ch;</span></a>
+<a name="113"><span class="lineNum">     113 </span>                :<span class="lineCov">        400 :             cache_color[x] = prev_value | (next_value &lt;&lt; 8u);</span></a>
+<a name="114"><span class="lineNum">     114 </span>                :            :             //cache[x] = 0x80008741ul;</a>
+<a name="115"><span class="lineNum">     115 </span>                :            :         }</a>
+<a name="116"><span class="lineNum">     116 </span>                :            :     }</a>
+<a name="117"><span class="lineNum">     117 </span>                :            :     /** Retrieves the color data for the given position on the slide.</a>
+<a name="118"><span class="lineNum">     118 </span>                :            :      * @param x  Coordinate, must be smaller than the width in SetWidth</a>
+<a name="119"><span class="lineNum">     119 </span>                :            :      * @param c1 Out-param: Background color to render</a>
+<a name="120"><span class="lineNum">     120 </span>                :            :      * @param c2 Out-param: Foreground color to render, if ch is not blank (0)</a>
+<a name="121"><span class="lineNum">     121 </span>                :            :      * @param ch Out-param: Character to render (1 = dither pattern, 0 = black)</a>
+<a name="122"><span class="lineNum">     122 </span>                :            :      */</a>
+<a name="123"><span class="lineNum">     123 </span>                :<span class="lineCov">     619584 :     inline void Get(unsigned x, unsigned char&amp; ch, unsigned char&amp; c1, unsigned char&amp; c2) const</span></a>
+<a name="124"><span class="lineNum">     124 </span>                :            :     {</a>
+<a name="125"><span class="lineNum">     125 </span>                :<span class="lineCov">     619584 :         unsigned short tmp = cache_color[x];</span></a>
+<a name="126"><span class="lineNum">     126 </span>                :<span class="lineCov">     619584 :         ch = cache_char[x];</span></a>
+<a name="127"><span class="lineNum">     127 </span>                :<span class="lineCov">     619584 :         c1 = tmp;</span></a>
+<a name="128"><span class="lineNum">     128 </span>                :<span class="lineCov">     619584 :         c2 = tmp &gt;&gt; 8u;</span></a>
+<a name="129"><span class="lineNum">     129 </span>                :            :     }</a>
+<a name="130"><span class="lineNum">     130 </span>                :            : };</a>
+<a name="131"><span class="lineNum">     131 </span>                :            : static const unsigned char  slide1_colors[21] = {6,73,109,248,7,7,7,7,7,248,109,73,6,6,6,36,35,2,2,28,22};</a>
+<a name="132"><span class="lineNum">     132 </span>                :            : static const unsigned short slide1_positions[21] = {0u,1401u,3711u,6302u,7072u,8192u,16384u,24576u,32768u,33889u,34659u,37250u,39560u,40960u,49152u,50903u,53634u,55944u,57344u,59937u,63981u};</a>
+<a name="133"><span class="lineNum">     133 </span>                :            : static const unsigned char  slide2_colors[35] = {248,7,249,250,251,252,188,253,254,255,15,230,229,228,227,11,227,185,186,185,179,143,142,136,100,94,58,239,238,8,236,235,234,233,0};</a>
+<a name="134"><span class="lineNum">     134 </span>                :            : static const unsigned short slide2_positions[35] = {0u,440u,1247u,2126u,3006u,3886u,4839u,5938u,6965u,8064u,9750u,12590u,15573u,18029u,19784u,21100u,24890u,27163u,30262u,35051u,35694u,38054u,40431u,41156u,46212u,46523u,50413u,52303u,53249u,54194u,56294u,58815u,61335u,63856u,64696u};</a>
+<a name="135"><span class="lineNum">     135 </span>                :            : static ColorSlideCache slide1(slide1_colors, slide1_positions, sizeof(slide1_colors));</a>
+<a name="136"><span class="lineNum">     136 </span>                :            : static ColorSlideCache slide2(slide2_colors, slide2_positions, sizeof(slide2_colors));</a>
+<a name="137"><span class="lineNum">     137 </span>                :            : </a>
+<a name="138"><span class="lineNum">     138 </span>                :            : /* Renders person on the screen. */</a>
+<a name="139"><span class="lineNum">     139 </span>                :<span class="lineCov">     619584 : void PersonTransform(unsigned&amp; bgcolor, unsigned&amp; fgcolor,</span></a>
+<a name="140"><span class="lineNum">     140 </span>                :            :                      unsigned width, unsigned x, unsigned y,</a>
+<a name="141"><span class="lineNum">     141 </span>                :            :                      unsigned action_type)</a>
+<a name="142"><span class="lineNum">     142 </span>                :            : {</a>
+<a name="143"><span class="lineNum">     143 </span>                :            :     // Action_type:</a>
+<a name="144"><span class="lineNum">     144 </span>                :            :     //  1 = top of screen (Person, green slide)</a>
+<a name="145"><span class="lineNum">     145 </span>                :            :     //  2 = bottom of screen (Status, yellow slide)</a>
+<a name="146"><span class="lineNum">     146 </span>                :            :     //  0 = anything else</a>
+<a name="147"><span class="lineNum">     147 </span>        [<span class="branchCov" title="Branch 0 was taken 619584 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">     619584 :     if(bgcolor != Cell{}.fgcolor)</span></a>
+<a name="148"><span class="lineNum">     148 </span>                :            :     {</a>
+<a name="149"><span class="lineNum">     149 </span>                :            :         // Only transform lines with white (ansi 7) background</a>
+<a name="150"><span class="lineNum">     150 </span>                :<span class="lineCov">     596288 :         return;</span></a>
+<a name="151"><span class="lineNum">     151 </span>                :            :     }</a>
+<a name="152"><span class="lineNum">     152 </span>                :            : </a>
+<a name="153"><span class="lineNum">     153 </span>                :<span class="lineCov">    1239168 :     auto GetSlide = [&amp;](ColorSlideCache&amp; slide)</span></a>
+<a name="154"><span class="lineNum">     154 </span>                :            :     {</a>
+<a name="155"><span class="lineNum">     155 </span>                :<span class="lineCov">     619584 :         slide.SetWidth(width);</span></a>
+<a name="156"><span class="lineNum">     156 </span>                :<span class="lineCov">     619584 :         unsigned char ch,c1,c2; slide.Get(x,ch,c1,c2);</span></a>
+<a name="157"><span class="lineNum">     157 </span>                :<span class="lineCov">     619584 :         unsigned result = c1;</span></a>
+<a name="158"><span class="lineNum">     158 </span>        [<span class="branchCov" title="Branch 0 was taken 214896 times"> + </span><span class="branchCov" title="Branch 1 was taken 404688 times"> + </span>]:<span class="lineCov">     619584 :         if(ch)</span></a>
+<a name="159"><span class="lineNum">     159 </span>                :            :         {</a>
+<a name="160"><span class="lineNum">     160 </span>                :<span class="lineCov">     214896 :             unsigned pos = (x^y)&amp;1;</span></a>
+<a name="161"><span class="lineNum">     161 </span>        [<span class="branchCov" title="Branch 0 was taken 107448 times"> + </span><span class="branchCov" title="Branch 1 was taken 107448 times"> + </span>]:<span class="lineCov">     214896 :             result = pos ? c2 : c1;</span></a>
+<a name="162"><span class="lineNum">     162 </span>                :            :         }</a>
+<a name="163"><span class="lineNum">     163 </span>                :<span class="lineCov">     619584 :         return xterm256table[result];</span></a>
+<a name="164"><span class="lineNum">     164 </span>                :<span class="lineCov">     619584 :     };</span></a>
+<a name="165"><span class="lineNum">     165 </span>        [<span class="branchCov" title="Branch 0 was taken 309824 times"> + </span><span class="branchCov" title="Branch 1 was taken 309760 times"> + </span>]:<span class="lineCov">     619584 :     if(action_type &lt;= 1) bgcolor = GetSlide(slide1); // Not bottom of screen</span></a>
+<a name="166"><span class="lineNum">     166 </span>        [<span class="branchCov" title="Branch 0 was taken 309760 times"> + </span><span class="branchCov" title="Branch 1 was taken 309824 times"> + </span>]:<span class="lineCov">     619584 :     if(action_type == 2) bgcolor = GetSlide(slide2); // Is bottom of screen</span></a>
+<a name="167"><span class="lineNum">     167 </span>                :            : </a>
+<a name="168"><span class="lineNum">     168 </span>  [<span class="branchCov" title="Branch 0 was taken 309760 times"> + </span><span class="branchCov" title="Branch 1 was taken 309824 times"> + </span><span class="branchCov" title="Branch 2 was taken 309760 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">     619584 :     if(y &gt;= data_lines || action_type != 1) // Stop here if not to render person</span></a>
+<a name="169"><span class="lineNum">     169 </span>                :            :     {</a>
+<a name="170"><span class="lineNum">     170 </span>                :            :         return;</a>
+<a name="171"><span class="lineNum">     171 </span>                :            :     }</a>
+<a name="172"><span class="lineNum">     172 </span>                :            : </a>
+<a name="173"><span class="lineNum">     173 </span>                :            :     //unsigned scrx = x;</a>
+<a name="174"><span class="lineNum">     174 </span>                :<span class="lineCov">     309760 :     unsigned basex = PersonBaseX(width);</span></a>
+<a name="175"><span class="lineNum">     175 </span>                :            : #ifdef CLOCK_BACKWARDS</a>
+<a name="176"><span class="lineNum">     176 </span>                :            :     basex = width - basex;</a>
+<a name="177"><span class="lineNum">     177 </span>                :            : #endif</a>
+<a name="178"><span class="lineNum">     178 </span>                :<span class="lineCov">     309760 :     x -= basex;</span></a>
+<a name="179"><span class="lineNum">     179 </span>                :            :     // Person outside view?</a>
+<a name="180"><span class="lineNum">     180 </span>        [<span class="branchCov" title="Branch 0 was taken 23296 times"> + </span><span class="branchCov" title="Branch 1 was taken 286464 times"> + </span>]:<span class="lineCov">     309760 :     if(x &gt;= person_width)</span></a>
+<a name="181"><span class="lineNum">     181 </span>                :            :     {</a>
+<a name="182"><span class="lineNum">     182 </span>                :            :         return;</a>
+<a name="183"><span class="lineNum">     183 </span>                :            :     }</a>
+<a name="184"><span class="lineNum">     184 </span>                :            : #ifdef CLOCK_BACKWARDS</a>
+<a name="185"><span class="lineNum">     185 </span>                :            :     x = person_width-1-x;</a>
+<a name="186"><span class="lineNum">     186 </span>                :            : #endif</a>
+<a name="187"><span class="lineNum">     187 </span>                :            : </a>
+<a name="188"><span class="lineNum">     188 </span>                :<span class="lineCov">      23296 :     unsigned frame_number = PersonFrame();</span></a>
+<a name="189"><span class="lineNum">     189 </span>                :<span class="lineCov">      23296 :     unsigned frame_start  = xcoordinates[frame_number];</span></a>
+<a name="190"><span class="lineNum">     190 </span>                :<span class="lineCov">      23296 :     char c = persondata[y*data_width + frame_start + x];</span></a>
+<a name="191"><span class="lineNum">     191 </span>  [<span class="branchCov" title="Branch 0 was taken 9204 times"> + </span><span class="branchCov" title="Branch 1 was taken 2997 times"> + </span><span class="branchCov" title="Branch 2 was taken 3675 times"> + </span><span class="branchCov" title="Branch 3 was taken 7420 times"> + </span> :<span class="lineCov">      23296 :     switch(c)</span></a>
 <span class="lineNum">         </span>            <span class="branchNoCov" title="Branch 4 was not taken"> - </span>]
-<a name="189"><span class="lineNum">     189 </span>                :            :     {</a>
-<a name="190"><span class="lineNum">     190 </span>                :<span class="lineCov">       9204 :         case ' ': //bgcolor=fgcolor = Mix(bgcolor, fgcolor, 15,1,16); break;</span></a>
-<a name="191"><span class="lineNum">     191 </span>                :<span class="lineCov">       9204 :                   fgcolor         = Mix(bgcolor, fgcolor, 1,15,16); break;</span></a>
-<a name="192"><span class="lineNum">     192 </span>                :<span class="lineCov">       2997 :         case '.': bgcolor=fgcolor = Mix(bgcolor, 0x000000, 7,1,8); break;</span></a>
-<a name="193"><span class="lineNum">     193 </span>                :<span class="lineCov">       3675 :         case '\'':bgcolor=fgcolor = Mix(bgcolor, 0x000000, 6,2,8); break;</span></a>
-<a name="194"><span class="lineNum">     194 </span>                :<span class="lineCov">       7420 :         case '#': bgcolor=fgcolor = 0x000000; break;</span></a>
-<a name="195"><span class="lineNum">     195 </span>                :            :     }</a>
-<a name="196"><span class="lineNum">     196 </span>                :            : }</a>
-<a name="197"><span class="lineNum">     197 </span>                :            : </a>
-<a name="198"><span class="lineNum">     198 </span>                :            : #ifdef RUN_TESTS</a>
-<a name="199"><span class="lineNum">     199 </span>                :<span class="lineCov">          3 : TEST(person, x_coordinate_varies)</span></a>
-<a name="200"><span class="lineNum">     200 </span>                :            : {</a>
-<a name="201"><span class="lineNum">     201 </span>                :<span class="lineCov">          1 :     SetTimeFactor(0.);</span></a>
-<a name="202"><span class="lineNum">     202 </span>                :<span class="lineCov">          1 :     std::set&lt;int&gt; coordinates;</span></a>
-<a name="203"><span class="lineNum">     203 </span>                :<span class="lineCov">          1 :     const unsigned width = 640, duration=25, fps=128;</span></a>
-<a name="204"><span class="lineNum">     204 </span>                :            :     // Simulate 25 seconds of time, window width 640, at framerate 128fps.</a>
-<a name="205"><span class="lineNum">     205 </span>                :            :     // We should get every X coordinate covered plus a few outside the screen.</a>
-<a name="206"><span class="lineNum">     206 </span>        [<span class="branchCov" title="Branch 0 was taken 3200 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">       3201 :     for(unsigned frame=0; frame&lt;duration*fps; ++frame)</span></a>
-<a name="207"><span class="lineNum">     207 </span>                :            :     {</a>
-<a name="208"><span class="lineNum">     208 </span>  [<span class="branchCov" title="Branch 0 was taken 3200 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3200 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3200 :         coordinates.insert( PersonBaseX(width) );</span></a>
-<a name="209"><span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 0 was taken 3200 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3200 :         AdvanceTime(1.0 / fps);</span></a>
-<a name="210"><span class="lineNum">     210 </span>                :            :     }</a>
-<a name="211"><span class="lineNum">     211 </span>                :<span class="lineCov">          1 :     EXPECT_GT(coordinates.size(), std::size_t(width));</span></a>
-<a name="212"><span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     if(!coordinates.empty())</span></a>
-<a name="213"><span class="lineNum">     213 </span>                :            :     {</a>
-<a name="214"><span class="lineNum">     214 </span>                :<span class="lineCov">          1 :         EXPECT_LT(*coordinates.begin(), 0);</span></a>
-<a name="215"><span class="lineNum">     215 </span>                :<span class="lineCov">          2 :         EXPECT_GT(*coordinates.rbegin(),  int(width));</span></a>
-<a name="216"><span class="lineNum">     216 </span>                :            :     }</a>
-<a name="217"><span class="lineNum">     217 </span>                :<span class="lineCov">          1 : }</span></a>
-<a name="218"><span class="lineNum">     218 </span>                :<span class="lineCov">          3 : TEST(person, pose_varies)</span></a>
-<a name="219"><span class="lineNum">     219 </span>                :            : {</a>
-<a name="220"><span class="lineNum">     220 </span>                :<span class="lineCov">          1 :     SetTimeFactor(0.);</span></a>
-<a name="221"><span class="lineNum">     221 </span>                :<span class="lineCov">          1 :     std::set&lt;int&gt; frames;</span></a>
-<a name="222"><span class="lineNum">     222 </span>                :            :     // Simulate 4 seconds of time, framerate 32fps.</a>
-<a name="223"><span class="lineNum">     223 </span>                :            :     // We should get both poses of person.</a>
-<a name="224"><span class="lineNum">     224 </span>        [<span class="branchCov" title="Branch 0 was taken 128 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        129 :     for(unsigned frame=0; frame&lt;128; ++frame)</span></a>
-<a name="225"><span class="lineNum">     225 </span>                :            :     {</a>
-<a name="226"><span class="lineNum">     226 </span>  [<span class="branchCov" title="Branch 0 was taken 128 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 128 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        128 :         frames.insert( PersonFrame() );</span></a>
-<a name="227"><span class="lineNum">     227 </span>        [<span class="branchCov" title="Branch 0 was taken 128 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        128 :         AdvanceTime(1.0 / 32.0);</span></a>
-<a name="228"><span class="lineNum">     228 </span>                :            :     }</a>
-<a name="229"><span class="lineNum">     229 </span>                :<span class="lineCov">          2 :     EXPECT_EQ(frames.size(), 2);</span></a>
-<a name="230"><span class="lineNum">     230 </span>                :<span class="lineCov">          1 : }</span></a>
-<a name="231"><span class="lineNum">     231 </span>                :            : #endif</a>
+<a name="192"><span class="lineNum">     192 </span>                :            :     {</a>
+<a name="193"><span class="lineNum">     193 </span>                :<span class="lineCov">       9204 :         case ' ': //bgcolor=fgcolor = Mix(bgcolor, fgcolor, 15,1,16); break;</span></a>
+<a name="194"><span class="lineNum">     194 </span>                :<span class="lineCov">       9204 :                   fgcolor         = Mix(bgcolor, fgcolor, 1,15,16); break;</span></a>
+<a name="195"><span class="lineNum">     195 </span>                :<span class="lineCov">       2997 :         case '.': bgcolor=fgcolor = Mix(bgcolor, 0x000000, 7,1,8); break;</span></a>
+<a name="196"><span class="lineNum">     196 </span>                :<span class="lineCov">       3675 :         case '\'':bgcolor=fgcolor = Mix(bgcolor, 0x000000, 6,2,8); break;</span></a>
+<a name="197"><span class="lineNum">     197 </span>                :<span class="lineCov">       7420 :         case '#': bgcolor=fgcolor = 0x000000; break;</span></a>
+<a name="198"><span class="lineNum">     198 </span>                :            :     }</a>
+<a name="199"><span class="lineNum">     199 </span>                :            : }</a>
+<a name="200"><span class="lineNum">     200 </span>                :            : </a>
+<a name="201"><span class="lineNum">     201 </span>                :            : #ifdef RUN_TESTS</a>
+<a name="202"><span class="lineNum">     202 </span>                :<span class="lineCov">          3 : TEST(person, x_coordinate_varies)</span></a>
+<a name="203"><span class="lineNum">     203 </span>                :            : {</a>
+<a name="204"><span class="lineNum">     204 </span>                :<span class="lineCov">          1 :     SetTimeFactor(0.);</span></a>
+<a name="205"><span class="lineNum">     205 </span>                :<span class="lineCov">          1 :     std::set&lt;int&gt; coordinates;</span></a>
+<a name="206"><span class="lineNum">     206 </span>                :<span class="lineCov">          1 :     const unsigned width = 640, duration=25, fps=128;</span></a>
+<a name="207"><span class="lineNum">     207 </span>                :            :     // Simulate 25 seconds of time, window width 640, at framerate 128fps.</a>
+<a name="208"><span class="lineNum">     208 </span>                :            :     // We should get every X coordinate covered plus a few outside the screen.</a>
+<a name="209"><span class="lineNum">     209 </span>        [<span class="branchCov" title="Branch 0 was taken 3200 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">       3201 :     for(unsigned frame=0; frame&lt;duration*fps; ++frame)</span></a>
+<a name="210"><span class="lineNum">     210 </span>                :            :     {</a>
+<a name="211"><span class="lineNum">     211 </span>  [<span class="branchCov" title="Branch 0 was taken 3200 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 3200 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">       3200 :         coordinates.insert( PersonBaseX(width) );</span></a>
+<a name="212"><span class="lineNum">     212 </span>        [<span class="branchCov" title="Branch 0 was taken 3200 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">       3200 :         AdvanceTime(1.0 / fps);</span></a>
+<a name="213"><span class="lineNum">     213 </span>                :            :     }</a>
+<a name="214"><span class="lineNum">     214 </span>                :<span class="lineCov">          1 :     EXPECT_GT(coordinates.size(), std::size_t(width));</span></a>
+<a name="215"><span class="lineNum">     215 </span>        [<span class="branchCov" title="Branch 0 was taken 1 time"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">          1 :     if(!coordinates.empty())</span></a>
+<a name="216"><span class="lineNum">     216 </span>                :            :     {</a>
+<a name="217"><span class="lineNum">     217 </span>                :<span class="lineCov">          1 :         EXPECT_LT(*coordinates.begin(), 0);</span></a>
+<a name="218"><span class="lineNum">     218 </span>                :<span class="lineCov">          2 :         EXPECT_GT(*coordinates.rbegin(),  int(width));</span></a>
+<a name="219"><span class="lineNum">     219 </span>                :            :     }</a>
+<a name="220"><span class="lineNum">     220 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="221"><span class="lineNum">     221 </span>                :<span class="lineCov">          3 : TEST(person, pose_varies)</span></a>
+<a name="222"><span class="lineNum">     222 </span>                :            : {</a>
+<a name="223"><span class="lineNum">     223 </span>                :<span class="lineCov">          1 :     SetTimeFactor(0.);</span></a>
+<a name="224"><span class="lineNum">     224 </span>                :<span class="lineCov">          1 :     std::set&lt;int&gt; frames;</span></a>
+<a name="225"><span class="lineNum">     225 </span>                :            :     // Simulate 4 seconds of time, framerate 32fps.</a>
+<a name="226"><span class="lineNum">     226 </span>                :            :     // We should get both poses of person.</a>
+<a name="227"><span class="lineNum">     227 </span>        [<span class="branchCov" title="Branch 0 was taken 128 times"> + </span><span class="branchCov" title="Branch 1 was taken 1 time"> + </span>]:<span class="lineCov">        129 :     for(unsigned frame=0; frame&lt;128; ++frame)</span></a>
+<a name="228"><span class="lineNum">     228 </span>                :            :     {</a>
+<a name="229"><span class="lineNum">     229 </span>  [<span class="branchCov" title="Branch 0 was taken 128 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span><span class="branchCov" title="Branch 2 was taken 128 times"> + </span><span class="branchNoCov" title="Branch 3 was not taken"> - </span>]:<span class="lineCov">        128 :         frames.insert( PersonFrame() );</span></a>
+<a name="230"><span class="lineNum">     230 </span>        [<span class="branchCov" title="Branch 0 was taken 128 times"> + </span><span class="branchNoCov" title="Branch 1 was not taken"> - </span>]:<span class="lineCov">        128 :         AdvanceTime(1.0 / 32.0);</span></a>
+<a name="231"><span class="lineNum">     231 </span>                :            :     }</a>
+<a name="232"><span class="lineNum">     232 </span>                :<span class="lineCov">          2 :     EXPECT_EQ(frames.size(), 2u);</span></a>
+<a name="233"><span class="lineNum">     233 </span>                :<span class="lineCov">          1 : }</span></a>
+<a name="234"><span class="lineNum">     234 </span>                :            : #endif</a>
 </pre>
       </td>
     </tr>

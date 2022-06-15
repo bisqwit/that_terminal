@@ -124,10 +124,12 @@ Installation instructions</h1>
 cd that_terminal
 git checkout origin/hy -b hy
 git submodule update --init --recursive # Do not forget this step!
-</pre><p> To compile, type <code>make -j4</code>. To run, type <code>./term</code> after compiling. Note that on the first start, the terminal may be slow to start, because it rebuilds the cache for fonts.</p>
+</pre><p> <b>NOTE</b>: If you use the .tar.gz or .zip from the release archive, it is missing the code for submodules. You have to manually checkout them. This is a known problem with Github. The recommended way is to download sources from the Git repository as instructed above.</p>
+<p>To compile, type <code>make -j4</code>. To run, type <code>./term</code> after compiling. Note that on the first start, the terminal may be slow to start, because it rebuilds the cache for fonts.</p>
+<p><b>NOTE</b>: If <code>make</code> is unable to execute <code>g++</code>, or you get errors with unrecognized option <code>-std=c++20</code>, edit the first line in <code>Makefile</code> and change <code>g++</code> to <code>g++-10</code> or later. This is because your distribution defaults to a too old version of GCC, that is unsupported by <em>that terminal</em>.</p>
 <p>To build a debugging version, do <code>make term_debug</code>. <br  />
  To build a profiling version, do <code>make term_gprof</code>. <br  />
- To run unit+coverage tests, do <code>make test</code>. <br  />
+ To build and run unit+coverage tests, do <code>make test</code> (see <a class="el" href="md_doc_testing.html">testing</a>). <br  />
  To build a manual coverage testing version, do <code>make term_gcov</code>.</p>
 <p><b>NOTE</b>: When compiling, you may get a “__cur could be NULL” warning from the static analyzer of the compiler with reference to a vector&lt;Cell&gt;. This warning is bogus and should be ignored.</p>
 <p>Compilation of modules within <code>rendering/fonts</code> module may take significant time. This is mainly because of the use of <code>std::regex</code>, which slows down compilation significantly.</p>

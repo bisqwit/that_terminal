@@ -94,15 +94,21 @@ Unit tests</h1>
 <li><a href="test-report.txt">test report</a></li>
 </ul>
 <p>Summary: </p><pre class="fragment">[----------] Global test environment tear-down
-[==========] 65 tests from 16 test suites ran. (142382 ms total)
-[  PASSED  ] 65 tests.
+[==========] 66 tests from 16 test suites ran. (142025 ms total)
+[  PASSED  ] 66 tests.
 </pre><p> To redo tests, do <code>make test</code>. The output will be saved to <code>doc/test-report.txt</code>.</p>
+<p>Requirements:</p><ul>
+<li>The <a class="el" href="classForkPTY.html">ForkPTY</a> test requires that a program <code>stat</code> is installed in your system.</li>
+<li>The <a class="el" href="classForkPTY.html">ForkPTY</a> test requires that your shell implements the <code>LINES</code> and <code>COLUMNS</code> environment variables.</li>
+<li>The rendering module tests require that the test program is able to access the font files in <code>share/</code>.</li>
+<li>The <a class="el" href="classUI.html">UI</a> test requires being able to open a X11 window briefly. You can run the program in <code>xvfb</code> if necessary.</li>
+</ul>
 <h1><a class="anchor" id="autotoc_md64"></a>
 Coverage testing</h1>
 <p>Coverage testing is performed using a GCOV.</p>
 <p>There is a coverage-testing binary <code>term_gcov</code> which can be used to test coverage in user controlled situations. Additionally, coverage-testing is performed for the unit-testing binary.</p>
-<p>The testing results can be found here:</p><ul>
-<li><a href="https://bisqwit.github.io/that_terminal/cov/index.html">Test results</a></li>
+<p>The coverage test results can be found here:</p><ul>
+<li><a href="https://bisqwit.github.io/that_terminal/cov/index.html">Coverage test results</a></li>
 </ul>
 <p>To redo tests, do <code>make test</code>. The output will be saved to <code>doc/doxygen/docs/cov/</code>.</p>
 <h1><a class="anchor" id="autotoc_md65"></a>
