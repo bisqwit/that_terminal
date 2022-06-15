@@ -5,7 +5,7 @@ CXXFLAGS=-std=c++20
 GCCVERS=$(shell $(CXX) --version|head -n1|sed 's/.* //;s/\..*//')
 
 OPTIM_BUILD = -fopenmp -Ofast
-OPTIM_DEBUG = -Og -g -fsanitize=address
+OPTIM_DEBUG = -Og -g -fsanitize=address -fopenmp
 OPTIM_GPROF = -Og -g -pg
 OPTIM_GCOV  = -Og -g -fprofile-arcs -ftest-coverage
 OPTIM_TEST  = -Og -g -DRUN_TESTS -Igoogletest/googletest/include -fprofile-arcs -ftest-coverage

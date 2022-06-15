@@ -23,6 +23,9 @@ struct GlyphList
     std::vector<unsigned char> bitmap; ///< Bitmap data.
 
     bool unicode; ///< False if the font encoding is not known; otherwise codepoints are unicode.
+
+    /** Constructor. Made separate because of gcov glitches. */
+    GlyphList();
 };
 
 /** Reads a character encoding table from a PSF.GZ file. */

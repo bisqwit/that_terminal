@@ -615,26 +615,30 @@ GlyphList Read_ASM(std::string_view filename, unsigned width, unsigned height, s
     result.unicode = false;
 
     if(width != 8) return result;
-    static const std::regex dbpat("[ \t]+[dD][bB][ \t]+([^;]+).*", Ropt);
+    static const std::regex dbpat("[ \t]+[dD][bB][ \t]+([^;]+).*\r?\n?", Ropt);
     static const std::regex hexpat("[0-9A-Fa-f]+", Ropt);
 
     unsigned glyph=0, row=0;
     std::ifstream f{ std::string(filename) };
     for(std::string line; std::getline(f,line), f; )
         if(std::regex_match(line, mat, dbpat))
+        {
             for(auto b = mat[1].first, e = mat[1].second; std::regex_search(b,e, mat, hexpat); b = mat[0].second)
             {
-                int val = std::stoi(mat[0], nullptr, 16);
+                int val = std::stoi(std::string(mat[0].first, mat[0].second), nullptr, 16);
                 if(!row)
                     for(auto unichar: BDFtranslateToUnicode(glyph, {}, guess_encoding))
                         result.glyphs.emplace(unichar, result.bitmap.size());
                 result.bitmap.push_back(val);
                 if(++row >= height) { row=0; ++glyph; }
             }
+        }
     return result;
 }
 
-#include <iostream>
+GlyphList::GlyphList()
+{
+}
 
 GlyphList Read_Font(std::filesystem::path filename, unsigned width, unsigned height,
                     bool find, std::string_view guess_encoding)
@@ -646,14 +650,14 @@ GlyphList Read_Font(std::filesystem::path filename, unsigned width, unsigned hei
     }
 
     std::string ext = filename.extension();
-    if(ext == ".inc") return Read_Inc(std::string(filename), width, height, guess_encoding);
-    if(ext == ".asm") return Read_ASM(std::string(filename), width, height, guess_encoding);
-    if(ext == ".bdf") return Read_BDF(std::string(filename), width, height, guess_encoding);
+    if(ext == ".inc"sv) return Read_Inc(std::string(filename), width, height, guess_encoding);
+    if(ext == ".asm"sv) return Read_ASM(std::string(filename), width, height, guess_encoding);
+    if(ext == ".bdf"sv) return Read_BDF(std::string(filename), width, height, guess_encoding);
     return Read_PSFgz(std::string(filename), width, height, guess_encoding);
 }
 
 #ifdef RUN_TESTS
-// Do tests for endian.hh
+// Do tests for endian.hh . Use volatile to avoid inline-switch-case thwarting coverage tests.
 TEST(endian, bswap16) { EXPECT_EQ(BSwap16(0x1234u), 0x3412u); }
 TEST(endian, bswap32) { EXPECT_EQ(BSwap32(0x12345678u), 0x78563412u); }
 TEST(endian, bswap64) { EXPECT_EQ(BSwap64(0x12345678ABCDEF01ull), 0x01EFCDAB78563412ull); }
@@ -689,7 +693,10 @@ TEST(endian, Wn)       { char data[] = " ABC0123";
                        }
 TEST(read_font, coverage)
 {
-    Read_PSFgzEncoding("share/fonts/files/iso01.f08.psf.gz");
-    Read_ASM("860-8x14.asm", 8, 14, "cp860");
+    Read_PSFgzEncoding("share/fonts/files/iso01.f08.psf.gz"sv);
+    Read_BDF("share/fonts/files/share/fonts/files/4x5.bdf"sv, 0,0, "iso10646-1"sv);
+    Read_BDF("share/fonts/files/share/fonts/files/4x5.bdf"sv, 4,0, "ascii"sv);
+    Read_ASM("test/860-8x14.asm"sv, 8, 14, "cp860"sv);        // Give height
+    Read_Font("test/860-8x14.asm"sv, 8, 0, false, "cp860"sv); // Test height guessing
 }
 #endif

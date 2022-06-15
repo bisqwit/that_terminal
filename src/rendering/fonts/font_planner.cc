@@ -476,7 +476,7 @@ static void DeleteCaches()
     }}
 }
 #include <iostream>
-TEST(font_planner, exhaustive_test)
+TEST(font_planner, rebuild_test)
 {
     std::cout << "Running font planner stress test. This will take a lot of time.\n" << std::flush;
     std::cout << "- Deleting cache\n" << std::flush;
@@ -486,8 +486,11 @@ TEST(font_planner, exhaustive_test)
     std::cout << "- Building similarities\n" << std::flush;
     GetSimilarities();
     LoadPreferences();
+}
+TEST(font_planner, parallel_plan)
+{
     std::cout << "- Testing 8x8, 8x12, 8x14, 8x16 parallel planning\n" << std::flush;
-    {FontPlan tmpplan1, tmpplan2, tmpplan3, tmpplan4;
+    FontPlan tmpplan1, tmpplan2, tmpplan3, tmpplan4;
     tmpplan1.Create(8,8,  0x00, 0x400);
     tmpplan2.Create(8,12, 0x00, 0x400);
     tmpplan3.Create(8,14, 0x00, 0x400);
@@ -496,7 +499,9 @@ TEST(font_planner, exhaustive_test)
     tmpplan2.LoadGlyph(0, 1, 8);
     tmpplan3.LoadGlyph(0, 2, 8);
     tmpplan4.LoadGlyph(0, 3, 8);
-    }
+}
+TEST(font_planner, large_plan)
+{
     std::cout << "- Testing 7x7 large plan.\n" << std::flush;
     char32_t first = 0x00;
     char32_t last  = 0x20000;
@@ -506,6 +511,23 @@ TEST(font_planner, exhaustive_test)
     {
         plan.LoadGlyph(c - first, 0, 12); // Force some scaling
     }
-    FontPlannerTick();
+}
+TEST(font_planner, tick10s)
+{
+    std::cout << "- Running FontPlannerTick planner tick for 10 seconds.\n" << std::flush;
+    for(unsigned n=0; n<10*5+1; ++n)
+    {
+        FontPlannerTick();
+        usleep(200000);
+    }
+}
+TEST(font_planner, unload_fonts)
+{
+    std::cout << "- Running FontPlannerTick planner tick for another 50 seconds to trigger a font unload.\n" << std::flush;
+    for(unsigned n=0; n<50*5+2; ++n)
+    {
+        FontPlannerTick();
+        usleep(200000);
+    }
 }
 #endif

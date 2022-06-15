@@ -12,8 +12,8 @@ The test report can be found here:
 Summary:
 
     [----------] Global test environment tear-down
-    [==========] 66 tests from 16 test suites ran. (142025 ms total)
-    [  PASSED  ] 66 tests.
+    [==========] 70 tests from 16 test suites ran. (216020 ms total)
+    [  PASSED  ] 70 tests.
 
 To redo tests, do `make test`. The output will be saved to `doc/test-report.txt`.
 

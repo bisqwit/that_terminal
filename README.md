@@ -69,6 +69,9 @@ To build a manual coverage testing version, do `make term_gcov`.
 __NOTE__: When compiling, you may get a “\__cur could be NULL” warning from
 the static analyzer of the compiler with reference to a vector<Cell>.
 This warning is bogus and should be ignored.
+You may also get warnings about “`#pragma omp`” lines.
+These lines are related to OpenMP,
+which is disabled in all but the production and debugging builds.
 
 Compilation of modules within `rendering/fonts` module may take significant time.
 This is mainly because of the use of `std::regex`, which slows down compilation
